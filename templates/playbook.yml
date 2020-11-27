@@ -1,0 +1,33 @@
+site:
+  title: Commodore Components Hub
+  url: https://hub.syn.tools
+  start_page: hub::index.adoc
+  keys:
+    google_analytics: ''
+content:
+  sources:
+  - url: .                 # The current folder is a git repo
+    branches: HEAD         # "HEAD" uses whichever branch is currently checked out
+    start_path: docs
+    edit_url: 'https://git.vshn.net/vshn/commodore-components-hub/edit/develop/{path}'
+ui:
+  bundle:
+    url: https://github.com/projectsyn/antora-ui-default/releases/download/1.4/ui-bundle.zip
+    snapshot: false
+asciidoc:
+  attributes:
+    page-pagination: ''
+    hide-uri-scheme: ''
+    experimental: ''
+    stem: ''
+    icons: font
+    kroki-server-url: https://vshn-kroki.appuioapp.ch
+    kroki-fetch-diagram: ''
+  extensions:
+  - asciidoctor-kroki
+output:
+  destinations:
+  - provider: fs
+    path: ./_public
+    clean: true
+

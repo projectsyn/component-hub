@@ -1,0 +1,8 @@
+= Commodore Components Hub
+
+Welcome to the Commodore Components Hub!
+
+image::syn.png[]
+
+== Components
+

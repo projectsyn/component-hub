@@ -1,0 +1,9 @@
+= Project Syn Commodore Component Hub Generator
+
+This project uses the GitHub API to generate an Antora website containing the documentation of all Commodore components available.
+
+== How to Use
+
+. https://github.com/settings/tokens[Create an API token] in GitHub
+. Use the `GITHUB_TOKEN=xxx make` command, where `xxx` is the token retrieved in the previous step.
+. You can use `make clean` to get rid of the generated website.
