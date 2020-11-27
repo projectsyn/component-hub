@@ -36,4 +36,4 @@ print(template.read())
 # Output list of components sorted by name
 components_sorted = sorted(components, key=lambda c: c['title'].upper())
 for component in components_sorted:
-    print('xref:%s:ROOT:index.adoc[%s]' % (component['name'], component['title']))
+    print('* xref:%s:ROOT:index.adoc[%s]' % (component['name'], component['title']))
