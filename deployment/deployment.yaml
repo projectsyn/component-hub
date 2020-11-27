@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: vshn-commodore-components-hub
+  labels:
+    app: vshn-commodore-components-hub
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vshn-commodore-components-hub
+    spec:
+      containers:
+        - name: vshn-commodore-components-hub-main
+          image: docker-registry.default.svc:5000/vshn-commodore-components-hub/vshn-commodore-components-hub-main:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: "/index.html"
+              port: 8080
+            periodSeconds: 60
+          livenessProbe:
+            httpGet:
+              path: "/index.html"
+              port: 8080
+            periodSeconds: 60
+            initialDelaySeconds: 5
+          ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+        - name: vshn-commodore-components-hub-search
+          image: docker-registry.default.svc:5000/vshn-commodore-components-hub/vshn-commodore-components-hub-search:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: "/search?q=readinessProbe"
+              port: 3000
+            periodSeconds: 60
+          livenessProbe:
+            httpGet:
+              path: "/search?q=livenessProbe"
+              port: 3000
+            periodSeconds: 60
+            initialDelaySeconds: 5
+          ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP

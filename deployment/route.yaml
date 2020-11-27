@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: vshn-commodore-components-hub
+  labels:
+    app: vshn-commodore-components-hub
+  annotations:
+    kubernetes.io/tls-acme: "true"
+spec:
+  host: commodore-components-hub.appuioapp.ch
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: vshn-commodore-components-hub
