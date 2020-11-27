@@ -29,4 +29,6 @@ shutil.rmtree(images_path)
 shutil.rmtree(pages_path)
 os.makedirs(images_path)
 os.makedirs(pages_path)
+
+# Copy extra files
 shutil.copyfile('assets/syn.png', '%s/syn.png' % images_path)
