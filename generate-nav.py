@@ -12,28 +12,28 @@ def get_antora_yml(repo):
     except GithubException:
         return None
 
-line_template = '''* %s
-xref:%s:ROOT:index.adoc[]
-'''
-
 # Connect to GitHub (read the token from environment)
 token = os.environ['GITHUB_TOKEN']
 g = Github(token)
 
-# Load the Antora navigation template
-navs = []
-
 # Fetch all repositories in GitHub with the "commodore-component" topic
+components = []
 repositories = g.search_repositories(query='topic:commodore-component')
 not_archived_repos = [r for r in repositories if not r.archived]
 for repo in not_archived_repos:
     # Find out the 'docs/antora.yml' file and get its contents
     antora = get_antora_yml(repo)
     if not antora is None:
-        links = line_template % (antora['title'], antora['name'])
-        navs.append(links)
+        components.append({
+            'name': antora['name'],
+            'title': antora['title']
+        })
 
+# Output template
 template = open('templates/nav.adoc', 'r')
 print(template.read())
-for nav in navs:
-    print(nav)
+
+# Output list of components sorted by name
+components_sorted = sorted(components, key=lambda c: c['title'].upper())
+for component in components_sorted:
+    print('xref:%s:ROOT:index.adoc[%s]' % (component['name'], component['title']))
