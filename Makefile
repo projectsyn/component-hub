@@ -1,6 +1,13 @@
+SHELL := /bin/bash
+
 all: hub
 
-commodore-components-hub:
+.venv:
+	python3 -m venv .venv && \
+	source .venv/bin/activate && \
+	pip install -r requirements.txt
+
+commodore-components-hub: .venv
 	python3 create-antora-site.py
 
 .PHONY: hub
@@ -15,4 +22,5 @@ hub: commodore-components-hub
 
 .PHONY: clean
 clean:
-	rm -rf commodore-components-hub
+	rm -rf commodore-components-hub && \
+	rm -rf .venv
