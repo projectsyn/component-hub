@@ -19,7 +19,7 @@ params = {
     'antora_theme': 'syn'
 }
 
-cookiecutter('git@git.vshn.net:vshn/antora-bootstrap',
+cookiecutter('https://github.com/vshn/antora-bootstrap.git',
              no_input=True,
              extra_context=params)
 
