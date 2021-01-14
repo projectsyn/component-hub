@@ -1,5 +1,5 @@
 import yaml
-from github_wrapper import get_repos
+from github_wrapper import get_commodore_component_repos
 from github import GithubException
 
 # Figures out the main branch of the repository (usually "master" or "main")
@@ -22,7 +22,8 @@ def has_antora_yml(repo):
 stream = open('templates/playbook.yml', 'r')
 playbook = yaml.load(stream, Loader=yaml.Loader)
 
-repositories = get_repos()
+# Fetch list of repositories from GitHub
+repositories = get_commodore_component_repos()
 for repo in repositories:
     # Find out the 'docs/antora.yml' file and get its contents
     if has_antora_yml(repo):

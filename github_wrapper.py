@@ -8,7 +8,7 @@ def load_ignore_list():
     return [item.replace('\n', '') for item in lines if not item.startswith('#')]
 
 
-def get_repos():
+def get_commodore_component_repos():
     # Connect to GitHub (read the token from environment)
     token = os.environ['GITHUB_TOKEN']
     g = Github(token)

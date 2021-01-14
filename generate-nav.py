@@ -1,5 +1,5 @@
 import yaml
-from github_wrapper import get_repos
+from github_wrapper import get_commodore_component_repos
 from github import GithubException
 from yaml.loader import Loader
 
@@ -14,7 +14,7 @@ def get_antora_yml(repo):
 
 # Fetch all repositories in GitHub with the "commodore-component" topic
 components = []
-repositories = get_repos()
+repositories = get_commodore_component_repos()
 for repo in repositories:
     # Find out the 'docs/antora.yml' file and get its contents
     antora = get_antora_yml(repo)
@@ -31,4 +31,6 @@ print(template.read())
 # Output list of components sorted by name
 components_sorted = sorted(components, key=lambda c: c['title'].upper())
 for component in components_sorted:
-    print('* xref:%s:ROOT:index.adoc[%s]' % (component['name'], component['title']))
+    name = component['name']
+    title = component['title']
+    print(f'* xref:{name}:ROOT:index.adoc[{title}]')

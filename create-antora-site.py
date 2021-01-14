@@ -1,15 +1,14 @@
-from logging import root
 import os
 import shutil
 from cookiecutter.main import cookiecutter
 
 root_path = 'commodore-components-hub'
-deployment_path = '%s/deployment' % root_path
-ebook_path = '%s/docs/%s.adoc' % (root_path, root_path)
-ebook_folder_path = '%s/docs/ebook' % root_path
-images_path = '%s/docs/modules/ROOT/assets/images' % root_path
-pages_path = '%s/docs/modules/ROOT/pages' % root_path
-gitlab_ci_path = '%s/.gitlab-ci.yml' % root_path
+deployment_path = f'{root_path}/deployment'
+ebook_path = f'{root_path}/docs/{root_path}.adoc'
+ebook_folder_path = f'{root_path}/docs/ebook'
+images_path = f'{root_path}/docs/modules/ROOT/assets/images'
+pages_path = f'{root_path}/docs/modules/ROOT/pages'
+gitlab_ci_path = f'{root_path}/.gitlab-ci.yml'
 
 # Uses Cookiecutter to generate a new Antora documentation site
 params = {
@@ -35,4 +34,4 @@ os.makedirs(images_path)
 os.makedirs(pages_path)
 
 # Copy extra files
-shutil.copyfile('assets/syn.png', '%s/syn.png' % images_path)
+shutil.copyfile('assets/syn.png', f'{images_path}/syn.png')
