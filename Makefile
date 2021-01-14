@@ -22,5 +22,4 @@ hub: commodore-components-hub
 
 .PHONY: clean
 clean:
-	rm -rf commodore-components-hub && \
-	rm -rf .venv
+	rm -rf commodore-components-hub
