@@ -21,7 +21,8 @@ params = {
 
 cookiecutter('https://github.com/vshn/antora-bootstrap.git',
              no_input=True,
-             extra_context=params)
+             extra_context=params,
+             overwrite_if_exists=True)
 
 # Remove extra files
 os.remove(ebook_path)
