@@ -14,7 +14,7 @@ The `Dockerfile` builds an image that performs the build of a full Component Hub
 
 [source]
 --
-$ docker run --user "$(id -u)" --rm --volume "${PWD}":/home/creator/build --env-file environment vshn/commodore-component-hub-builder
+$ docker run --user "$(id -u)" --rm --volume "${PWD}":/home/creator/build --env-file environment vshn/component-hub-builder:1.0
 --
 
 The command above requires an environment file called `environment` in the current `PATH`, containing the value of the GitHub API token as follows:
