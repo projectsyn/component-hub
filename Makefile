@@ -1,25 +1,20 @@
 SHELL := /bin/bash
+out_dir ?= ./build
+project_slug ?= commodore-components-hub
 
 all: hub
 
-.venv:
-	python3 -m venv .venv && \
-	source .venv/bin/activate && \
-	pip install -r requirements.txt
-
-commodore-components-hub: .venv
-	python3 create-antora-site.py
-
 .PHONY: hub
-hub: commodore-components-hub
-	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-nav.py > commodore-components-hub/docs/modules/ROOT/nav.adoc && \
-	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-index.py > commodore-components-hub/docs/modules/ROOT/pages/index.adoc && \
-	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-playbook.py > commodore-components-hub/playbook.yml && \
-	cd commodore-components-hub && \
+hub:
+	python3 create-antora-site.py --path $(out_dir) --slug $(project_slug)
+	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-nav.py > $(out_dir)/$(project_slug)/docs/modules/ROOT/nav.adoc && \
+	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-index.py > $(out_dir)/$(project_slug)/docs/modules/ROOT/pages/index.adoc && \
+	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-playbook.py > $(out_dir)/$(project_slug)/playbook.yml && \
+	cd $(out_dir)/$(project_slug) && \
 	git add . && \
 	git commit -m "First commit" && \
 	make html
 
 .PHONY: clean
 clean:
-	rm -rf commodore-components-hub
+	rm -rf $(out_dir)

@@ -5,7 +5,7 @@ from yaml.loader import Loader
 
 # Loads the list of repository clone URLs to ignore when calling get_commodore_component_repos()
 def load_ignore_list():
-    f = open('reposignore', 'r+')
+    f = open('reposignore.txt', 'r')
     lines = [line for line in f.readlines()]
     f.close()
     return [item.replace('\n', '') for item in lines if not item.startswith('#')]
