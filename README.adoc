@@ -7,3 +7,23 @@ This project uses the GitHub API to generate an Antora website containing the do
 . https://github.com/settings/tokens[Create an API token] in GitHub
 . Use the `GITHUB_TOKEN=xxx make` command, where `xxx` is the token retrieved in the previous step.
 . You can use `make clean` to get rid of the generated website.
+
+== Docker
+
+The `Dockerfile` builds an image that performs the build of a full Component Hub in one operation.
+
+[source]
+--
+$ docker run --user "$(id -u)" --rm --volume "${PWD}":/home/creator/build --env-file environment vshn/commodore-component-hub-builder
+--
+
+The command above requires an environment file called `environment` in the current `PATH`, containing the value of the GitHub API token as follows:
+
+[source]
+--
+GITHUB_TOKEN=abcdef123…
+--
+
+The entry point of the Docker container is the `entrypoint.sh` script, which drives the creation of the website, stopping short of actually calling `make`.
+
+NOTE: The script does not call `make` because the `Makefile` of the generated website uses Docker to build the website. In a multiple step build scenario, this can be handled as a new step. In other cases, just call `make` manually inside the generated project.
