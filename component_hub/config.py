@@ -16,7 +16,13 @@ class Template(Enum):
 
 
 class Config:
-    def __init__(self, github_token, root_path, project_slug, ignorelist: Optional[Path] = None):
+    def __init__(
+        self,
+        github_token: str,
+        root_path: str,
+        project_slug: str,
+        ignorelist: Optional[Path] = None,
+    ):
         self._root_path = root_path
         self._project_slug = project_slug
         self._github = GithubRepoLoader(github_token, ignorelist=ignorelist)
@@ -26,28 +32,28 @@ class Config:
         return self._github
 
     @property
-    def root_path(self):
+    def root_path(self) -> str:
         return self._root_path
 
     @property
-    def project_slug(self):
+    def project_slug(self) -> str:
         return self._project_slug
 
     @property
-    def output_dir(self):
+    def output_dir(self) -> Path:
         return Path(self.root_path) / self.project_slug
 
     @property
-    def module_dir(self):
+    def module_dir(self) -> Path:
         return self.output_dir / "docs" / "modules"
 
-    def output_file(self, template: Template):
+    def output_file(self, template: Template) -> Path:
         return self.module_dir / template.value
 
     @property
-    def template_dir(self):
+    def template_dir(self) -> Path:
         return __install_dir__ / "templates"
 
     @property
-    def antora_playbook_yml(self):
+    def antora_playbook_yml(self) -> Path:
         return self.output_dir / "playbook.yml"
