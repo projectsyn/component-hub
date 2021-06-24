@@ -30,8 +30,12 @@ class Context:
     metavar="GITHUB_TOKEN",
 )
 @click.pass_context
-@click.option("--root", help="Root directory for generated files")
-@click.option("--slug", help="directory name for the generated Antora project")
+@click.option("--root", help="Root directory for generated files", default="build")
+@click.option(
+    "--slug",
+    help="directory name for the generated Antora project",
+    default="component-hub",
+)
 @click.option(
     "--ignore-list",
     help="File listing clone URLs of repositories to ignore",

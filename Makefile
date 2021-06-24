@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 out_dir ?= ./build
-project_slug ?= commodore-components-hub
+project_slug ?= component-hub
 poetry := $(shell command -v poetry 2>/dev/null)
 
 
