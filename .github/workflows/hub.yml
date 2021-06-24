@@ -41,7 +41,7 @@ jobs:
         with:
           name: antora-site-configuration
 
-      - run: make html
+      - run: cd component-hub && make html
       - run: find .
 
   Deploy-Hub:
