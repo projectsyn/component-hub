@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-nodes/references/parameters.html">
+    <link rel="prev" href="../index.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Components Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" target="_blank" href="https://github.com/topics/commodore-component">Commodore
+              Components</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="openshift4-nodes" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenShift 4 Machine Management</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenShift 4 Machine Management</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">cluster-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Components Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">coredns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">Crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eks-addon-manager/index.html">eks-addon-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eks-addon-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">Espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fortune/index.html">fortune</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fortune/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">metallb</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-client-provisioner/index.html">nfs-client-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-client-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 Machine Management</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-version/index.html">OpenShift 4 Version</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-version/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-prometheus-proxy/index.html">openshift-prometheus-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-prometheus-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">openshift4-ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">prometheus-pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rancher-monitoring/index.html">rancher-monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rancher-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../resource-locker/index.html">Resource Locker Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../resource-locker/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../signalilo/index.html">signalilo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../signalilo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-cloudscale/index.html">Terraform OpenShift4 cloudscale.ch</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">traefik</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault-secrets-operator/index.html">vault-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenShift 4 Machine Management</a></li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-nodes/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>openshift4_nodes</code>.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This component relies on deep merge of values from several parameters and hierarchy layers.
+This works pretty straightforward for scalar values and dictionaries.
+Values of arrays will be appended to each other.
+There is no way to override values which were set on a lower precedence location.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_availabilityzones"><a class="anchor" href="#_availabilityzones"></a><code>availabilityZones</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list of strings</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of availability zone names.
+The list will be used when distributing MachineSets across zones (see <a href="#multiAZ">[multiAZ]</a>).
+The first item of this list will also be used to place a MachineSet without an explicit zone defined.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s suggested to define its values higher up the config hierarchy.
+Most probably the one of the cloud region.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_defaultspecs"><a class="anchor" href="#_defaultspecs"></a><code>defaultSpecs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Sensible defaults for a growing number of cloud providers.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default values applied to each <code>machinesets.machine.openshift.io</code> object created by this component.</p>
+</div>
+<div class="paragraph">
+<p>The top level keys are the names of cloud providers as reported by the <code>cloud.provider</code> fact.
+The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_infrastructureid"><a class="anchor" href="#_infrastructureid"></a><code>infrastructureID</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>undefined</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This is the 12 character infrastructure ID given to a cluster by the OpenShift 4 installer.
+Use the following command to retrieve this from the cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/2">Get a clusters infrastructure ID as a fact</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is most likely to be configured on cluster level itself.
+Configuring this higher up in the hierarchy can result in unexpected behavior.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>openshift-machine-api</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace where namespaced objects will be created in.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nodegroups"><a class="anchor" href="#_nodegroups"></a><code>nodeGroups</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>empty</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of node groups to create on the cluster.
+It&#8217;s centered around the MachineSet CRD but also takes care of some additional aspects like zone distribution and auto scaling.</p>
+</div>
+<div class="paragraph">
+<p>The top level key is the name of each set of machines.
+Each set of machines has the values described below.</p>
+</div>
+<div class="sect2">
+<h3 id="_instancetype"><a class="anchor" href="#_instancetype"></a><code>instanceType</code></h3>
+
+</div>
+<div class="sect2">
+<h3 id="_multiaz"><a class="anchor" href="#_multiaz"></a><code>multiAz</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A machine set will be placed in one single availability zone.
+If not specified otherwise, the first entry of <code>availabilityZones</code> will be used.
+When set to true, a MachineSet will be created for each zone listed in <code>availabilityZones</code>.
+The replicas of the generated MachineSets will be calculated.
+The <code>replicas</code> given will be divided by the cont of zones in <code>availabilityZones</code> rounded up.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/3">Effective replica count of multi zone machines can be higher than the requested one</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_replicas"><a class="anchor" href="#_replicas"></a><code>replicas</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>1</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of machines to create.
+When <code>multiAZ</code> is set to <code>true</code>, the number given here will be divided so that each of the created MachineSets will get a fraction of replicas but the total of created machines will match the one requested here.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="#multiAZ">[multiAZ]</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This value can also be set in <a href="#spec">[spec]</a>.
+If done so, the value in <a href="#spec">[spec]</a> will win.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_role"><a class="anchor" href="#_role"></a><code>role</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>worker</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The role of the created Nodes.
+The value will be added as the <code>node-role.kubernetes.io/&lt;role&gt;: ""</code> label to nodes.
+The <code>worker</code> role label will always be added to inherit the base configuration for nodes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In order to add additional labels to the resulting Node object, use <code>spec.template.spec.metadata.labels</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="#defaultSpec">[defaultSpec]</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This gives you the full control over the resulting MachineSet.
+Values given here will be merged with precedence with the defaults configured in <a href="#defaultSpec">[defaultSpec]</a>.
+The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">infrastructureID: c-mist-sg7hn
+
+nodeGroups:
+  infra:
+    instanceType: n1-standard-8
+    multiAz: true
+    replicas: 3
+  worker:
+    instanceType: n1-standard-8
+    replicas: 3
+    spec:
+      deletePolicy: Oldest
+      template:
+        spec:
+          metadata:
+            labels:
+              mylabel: myvalue
+
+availabilityZones:
+- europe-west6-a
+- europe-west6-b
+- europe-west6-c</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>
