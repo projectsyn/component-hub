@@ -1,10 +1,11 @@
 import click
 import os
 import yaml
-from github import Github, GithubException, Repository
+from github import Github, GithubException
+from github.Repository import Repository
 
 from pathlib import Path
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 
 class ComponentRepo:
@@ -28,7 +29,7 @@ class ComponentRepo:
 
     @property
     def main_branch(self) -> str:
-        branches = [b.name for b in self.repo.get_branches().get_page(0)]
+        branches = [b.name for b in self.repo.get_branches()]
         main_branch = "main"
         if "master" in branches:
             main_branch = "master"
@@ -56,7 +57,8 @@ class GithubRepoLoader:
 
     def get_commodore_component_repos(self) -> List[ComponentRepo]:
         """
-        Fetch a list of all repositories in GitHub with the "commodore-component" topic
+        Get active component repos from search results.
+        Filters out repos listed in the ignore-list
         """
 
         repositories = list(

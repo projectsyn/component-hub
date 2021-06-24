@@ -16,9 +16,7 @@ class Template(Enum):
 
 
 class Config:
-    def __init__(
-        self, github_token, root_path, project_slug, ignorelist: Optional[Path] = None
-    ):
+    def __init__(self, github_token, root_path, project_slug, ignorelist: Optional[Path] = None):
         self._root_path = root_path
         self._project_slug = project_slug
         self._github = GithubRepoLoader(github_token, ignorelist=ignorelist)
