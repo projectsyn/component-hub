@@ -41,9 +41,8 @@ jobs:
         with:
           name: antora-site-configuration
 
-      - run: pwd
-      - run: cd /home/runner/work/component-hub/component-hub && make html
       - run: find .
+      - run: make html
 
   Deploy-Hub:
     runs-on: ubuntu-latest
