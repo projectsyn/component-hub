@@ -23,7 +23,7 @@ jobs:
         run: pip install --upgrade --upgrade-strategy eager -r requirements.txt
 
       - name: Generate Antora Site configuration
-        run: mkdir build
+        run: python create-antora-site.py --path "build/" --slug "components-hub"
 
       - name: Upload generated site configuration
         uses: actions/upload-artifact@v2
