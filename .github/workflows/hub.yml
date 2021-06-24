@@ -20,7 +20,7 @@ jobs:
           key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
 
       - name: Install Python Dependencies
-        run: pip install --upgrade --upgrade-strategy eager -r requirements.txt -e .
+        run: pip install --upgrade --upgrade-strategy eager -r requirements.txt
 
       - name: Generate Antora Site configuration
         run: mkdir build
@@ -33,6 +33,7 @@ jobs:
 
   Build-Antora-Site:
     runs-on: ubuntu-latest
+    needs: Generate-Antora-Site
     steps:
       - name: Download Antora site configuration
         uses: actions/download-artifact@v2
@@ -44,5 +45,6 @@ jobs:
 
   Deploy-Hub:
     runs-on: ubuntu-latest
+    needs: Build-Antora-Site
     steps:
       - run: echo "Hallo"
