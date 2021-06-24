@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "component-hub"
+version = "0.1.0"
+description = ""
+authors = ["VSHN AG <info@vshn.ch>"]
+license = "BSD-3-Clause"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+cookiecutter = "^1.7.3"
+PyYAML = "^5.4.1"
+PyGithub = "^1.55"
+click = "^8.0.1"
+importlib-metadata = "^4.5.0"
+python-dotenv = "^0.18.0"
+Jinja2 = "^3.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+mypy = "^0.910"
+types-PyYAML = "^5.4.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+component-hub = 'component_hub.cli:main'
+
+[tool.black]
+line-length = 100

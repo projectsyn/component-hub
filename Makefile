@@ -1,15 +1,22 @@
 SHELL := /bin/bash
 out_dir ?= ./build
-project_slug ?= commodore-components-hub
+project_slug ?= component-hub
+poetry := $(shell command -v poetry 2>/dev/null)
 
-all: hub
+
+.PHONY: all
+all: setup hub
+
+.PHONY: setup
+setup:
+ifndef poetry
+	$(error "Poetry not in path, check installation instructions on https://python-poetry.org/docs/#installation")
+endif
+	poetry install
 
 .PHONY: hub
 hub:
-	python3 create-antora-site.py --path $(out_dir) --slug $(project_slug)
-	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-nav.py > $(out_dir)/$(project_slug)/docs/modules/ROOT/nav.adoc && \
-	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-index.py > $(out_dir)/$(project_slug)/docs/modules/ROOT/pages/index.adoc && \
-	GITHUB_TOKEN=$(GITHUB_TOKEN) python3 generate-playbook.py > $(out_dir)/$(project_slug)/playbook.yml && \
+	poetry run component-hub make && \
 	cd $(out_dir)/$(project_slug) && \
 	git add . && \
 	git commit -m "First commit" && \

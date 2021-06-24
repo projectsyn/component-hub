@@ -9,7 +9,8 @@ content:
   - url: .                 # The current folder is a git repo
     branches: HEAD         # "HEAD" uses whichever branch is currently checked out
     start_path: docs
-    edit_url: 'https://git.vshn.net/vshn/commodore-components-hub/edit/develop/{path}'
+    # TODO: fix
+    edit_url: 'https://github.com/projectsyn/component-hub/edit/master/{path}'
 ui:
   bundle:
     url: https://github.com/projectsyn/antora-ui-default/releases/download/1.4/ui-bundle.zip
