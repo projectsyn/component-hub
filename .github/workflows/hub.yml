@@ -6,7 +6,7 @@ env:
   OUT_DIR: build
 jobs:
   generate:
-    name: Generate Antora Site Config
+    name: Generate Antora Site Config 📦
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,24 +55,23 @@ jobs:
           path: build/
 
   build:
-    name: Build Antora Site
+    name: Build Antora Site 🚚
     runs-on: ubuntu-latest
     needs: generate
     steps:
-      - name: Download Antora site configuration
+      - name: Download Antora Site configuration
         uses: actions/download-artifact@v2
         with:
           name: antora-site-configuration
 
-      - run: cd $PROJECT_SLUG; make html
-
-      - run: pwd; find $PROJECT_SLUG/
+      - name: Generate the Antora Site
+        run: cd $PROJECT_SLUG; make html
 
       - name: Upload Antora site
         uses: actions/upload-artifact@v2
         with:
           name: antora-site
-          path: commodore-components-hub/_public/
+          path: commodore-components-hub
 
   deploy:
     name: Deploy Antora Site 🚀
@@ -88,4 +87,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: .
+          folder: _public
