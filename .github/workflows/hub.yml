@@ -1,0 +1,91 @@
+name: Build and Deploy Hub
+on:
+  - push
+env:
+  PROJECT_SLUG: commodore-components-hub
+  OUT_DIR: build
+jobs:
+  generate:
+    name: Generate Antora Site Config
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Setup Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install Python Dependencies
+        run: pip install --upgrade --upgrade-strategy eager -r requirements.txt
+
+      - name: Generate Antora Site
+        run: python create-antora-site.py --path "$OUT_DIR" --slug "$PROJECT_SLUG"
+
+      - name: Generate Antora Navigation
+        run: python generate-nav.py > "$OUT_DIR"/"$PROJECT_SLUG"/docs/modules/ROOT/nav.adoc
+
+      - name: Generate Antora Index
+        run: python generate-index.py > "$OUT_DIR"/"$PROJECT_SLUG"/docs/modules/ROOT/pages/index.adoc
+
+      - name: Generate Antora Playbook
+        run: python generate-playbook.py > "$OUT_DIR"/"$PROJECT_SLUG"/playbook.yml
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "ahoy@syn.tools" && \
+          git config --global user.name "Hub Action" && \
+          cd "$OUT_DIR"/"$PROJECT_SLUG" && \
+          git add . && \
+          git commit -m "First commit"
+
+      - name: Upload generated site configuration
+        uses: actions/upload-artifact@v2
+        with:
+          name: antora-site-configuration
+          path: build/
+
+  build:
+    name: Build Antora Site
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - name: Download Antora site configuration
+        uses: actions/download-artifact@v2
+        with:
+          name: antora-site-configuration
+
+      - run: cd $PROJECT_SLUG; make html
+
+      - run: pwd; find $PROJECT_SLUG/
+
+      - name: Upload Antora site
+        uses: actions/upload-artifact@v2
+        with:
+          name: antora-site
+          path: commodore-components-hub/_public/
+
+  deploy:
+    name: Deploy Antora Site 🚀
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Antora Site
+        uses: actions/download-artifact@v2
+        with:
+          name: antora-site
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: _public
