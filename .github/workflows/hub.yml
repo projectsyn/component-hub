@@ -5,6 +5,10 @@ jobs:
   Generate-Antora-Site:
     name: Generate Antora site config
     runs-on: ubuntu-latest
+    env:
+      OUT_DIR: build
+      PROJECT_SLUG: commodore-components-hub
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -24,7 +28,16 @@ jobs:
         run: pip install --upgrade --upgrade-strategy eager -r requirements.txt
 
       - name: Generate Antora Site configuration
-        run: python create-antora-site.py --path "build/" --slug "components-hub"
+        run: python create-antora-site.py --path "$OUT_DIR" --slug "$PROJECT_SLUG"
+
+      - name: Generate Antora Navigation
+        run: python generate-nav.py > "$OUT_DIR"/"$PROJECT_SLUG"/docs/modules/ROOT/nav.adoc
+
+      - name: Generate Antora Index
+        run: python generate-index.py > "$OUT_DIR"/"$PROJECT_SLUG"/docs/modules/ROOT/pages/index.adoc
+
+      - name: Generate Antora Playbook
+        run: python generate-playbook.py > "$OUT_DIR"/"$PROJECT_SLUG"/playbook.yml
 
       - name: Upload generated site configuration
         uses: actions/upload-artifact@v2
