@@ -8,8 +8,6 @@ jobs:
   generate:
     name: Generate Antora Site Config
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -66,13 +64,13 @@ jobs:
 
       - run: cd $PROJECT_SLUG; make html
 
-      - run: pwd; find .
+      - run: pwd; find $PROJECT_SLUG/
 
       - name: Upload Antora site
         uses: actions/upload-artifact@v2
         with:
           name: antora-site
-          path: _public
+          path: $PROJECT_SLUG/_public/
 
   deploy:
     name: Deploy Antora Site 🚀
