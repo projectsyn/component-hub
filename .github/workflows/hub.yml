@@ -42,7 +42,7 @@ jobs:
           name: antora-site-configuration
 
       - run: find .
-      - run: make html
+      - run: cd components-hub; make html
 
   Deploy-Hub:
     runs-on: ubuntu-latest
