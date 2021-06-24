@@ -1,7 +1,9 @@
 import click
+import os
 
 from dotenv import load_dotenv
 from importlib_metadata import version
+from pathlib import Path
 
 from component_hub import __git_version__
 from .config import Config, Template
@@ -85,9 +87,25 @@ def playbook(ctx):
 @component_hub.command(short_help="Generate full documentation")
 @click.pass_context
 def make(ctx):
-    ctx.invoke(antora_site)
+    output_dir: Path = ctx.obj.config.output_dir
+    create_site = (
+        output_dir.is_dir() and len(list(output_dir.iterdir())) == 0
+    ) or not output_dir.is_dir()
+    if create_site:
+        if output_dir.exists() and not output_dir.is_dir():
+            click.confirm(
+                f"Remove {output_dir} to create Antora site?",
+                abort=True,
+            )
+            os.unlink(output_dir)
+        click.echo("Setting up Antora site")
+        ctx.invoke(antora_site)
+
+    click.echo("Rendering nav.adoc")
     ctx.invoke(nav)
+    click.echo("Rendering index.adoc")
     ctx.invoke(index)
+    click.echo("Rendering playbook.yml")
     ctx.invoke(playbook)
 
 
