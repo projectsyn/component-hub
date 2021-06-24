@@ -1,13 +1,14 @@
 name: Build and Deploy Hub
 on:
   - push
+env:
+  PROJECT_SLUG: commodore-components-hub
+  OUT_DIR: build
 jobs:
-  Generate-Antora-Site:
-    name: Generate Antora site config
+  generate:
+    name: Generate Antora Site Config
     runs-on: ubuntu-latest
     env:
-      OUT_DIR: build
-      PROJECT_SLUG: commodore-components-hub
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Check out repository code
@@ -45,20 +46,27 @@ jobs:
           name: antora-site-configuration
           path: build/
 
-  Build-Antora-Site:
+  build:
+    name: Build Antora Site
     runs-on: ubuntu-latest
-    needs: Generate-Antora-Site
+    needs: generate
     steps:
       - name: Download Antora site configuration
         uses: actions/download-artifact@v2
         with:
           name: antora-site-configuration
 
-      - run: find .
-      - run: cd components-hub; make html
+      - run: cd $PROJECT_SLUG; make html
 
-  Deploy-Hub:
+      - name: Upload Antora site
+        uses: actions/upload-artifact@v2
+        with:
+          name: antora-site
+          path: $PROJECT_SLUG/_public
+
+  deploy:
+    name: Deploy Antora Site
     runs-on: ubuntu-latest
-    needs: Build-Antora-Site
+    needs: build
     steps:
       - run: echo "Hallo"
