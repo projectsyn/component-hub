@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: antora-site
-          path: $PROJECT_SLUG/_public/
+          path: commodore-components-hub/_public/
 
   deploy:
     name: Deploy Antora Site 🚀
