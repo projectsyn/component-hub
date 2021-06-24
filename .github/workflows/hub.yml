@@ -41,7 +41,12 @@ jobs:
         run: python generate-playbook.py > "$OUT_DIR"/"$PROJECT_SLUG"/playbook.yml
 
       - name: Commit changes
-        run: cd "$OUT_DIR"/"$PROJECT_SLUG" && git add . && git commit -m "First commit"
+        run: |
+          git config --global user.email "ahoy@syn.tools" && \
+          git config --global user.name "Hub Action" && \
+          cd "$OUT_DIR"/"$PROJECT_SLUG" && \
+          git add . && \
+          git commit -m "First commit"
 
       - name: Upload generated site configuration
         uses: actions/upload-artifact@v2
