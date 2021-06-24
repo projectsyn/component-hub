@@ -3,6 +3,7 @@ on:
   - push
 jobs:
   Generate-Antora-Site:
+    name: Generate Antora site config
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -40,8 +41,8 @@ jobs:
         with:
           name: antora-site-configuration
 
-      - run: echo "Hallo"
-      - run: ls ${{ github.workspace }}
+      - run: make html
+      - run: find .
 
   Deploy-Hub:
     runs-on: ubuntu-latest
