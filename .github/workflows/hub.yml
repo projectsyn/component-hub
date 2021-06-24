@@ -19,26 +19,20 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v4
+
       - name: Setup Cache
         uses: actions/cache@v2
         with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
 
       - name: Install Python Dependencies
-        run: pip install --upgrade --upgrade-strategy eager -r requirements.txt
+        run: poetry install
 
       - name: Generate Antora Site
-        run: python create-antora-site.py --path "$OUT_DIR" --slug "$PROJECT_SLUG"
-
-      - name: Generate Antora Navigation
-        run: python generate-nav.py > "$OUT_DIR"/"$PROJECT_SLUG"/docs/modules/ROOT/nav.adoc
-
-      - name: Generate Antora Index
-        run: python generate-index.py > "$OUT_DIR"/"$PROJECT_SLUG"/docs/modules/ROOT/pages/index.adoc
-
-      - name: Generate Antora Playbook
-        run: python generate-playbook.py > "$OUT_DIR"/"$PROJECT_SLUG"/playbook.yml
+        run: poetry run component-hub make
 
       - name: Commit changes
         run: |
