@@ -21,10 +21,7 @@ class Context:
         self.renderer = renderer
 
 
-pass_context = click.make_pass_decorator(Context)
-
-
-@click.group()
+@click.group(context_settings={"help_option_names": ["-h", "--help"]})
 @click.version_option(_version(), prog_name="component-hub")
 @click.option(
     "--github-token",
