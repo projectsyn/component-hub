@@ -7,13 +7,40 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Setup Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install Python Dependencies
+        run: pip install --upgrade --upgrade-strategy eager -r requirements.txt -e .
+
       - name: Generate Antora Site configuration
-        run: echo "Generating the Antora Site configuration"
+        run: mkdir build
+
+      - name: Upload generated site configuration
+        uses: actions/upload-artifact@v2
+        with:
+          name: antora-site-configuration
+          path: build/
 
   Build-Antora-Site:
     runs-on: ubuntu-latest
     steps:
+      - name: Download Antora site configuration
+        uses: actions/download-artifact@v2
+        with:
+          name: antora-site-configuration
+
       - run: echo "Hallo"
+      - run: ls ${{ github.workspace }}
 
   Deploy-Hub:
     runs-on: ubuntu-latest
