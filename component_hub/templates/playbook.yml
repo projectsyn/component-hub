@@ -9,6 +9,7 @@ content:
   - url: .                 # The current folder is a git repo
     branches: HEAD         # "HEAD" uses whichever branch is currently checked out
     start_path: docs
+    # TODO: fix
     edit_url: 'https://git.vshn.net/vshn/commodore-components-hub/edit/develop/{path}'
 ui:
   bundle:
