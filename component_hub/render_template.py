@@ -52,11 +52,18 @@ class Renderer:
             playbook = yaml.safe_load(templatef)
 
         for repo in self.repositories:
+            if repo.repo.organization is not None:
+                ghorg = repo.repo.organization.login
+            elif repo.repo.owner is not None:
+                ghorg = repo.repo.owner.login
+            else:
+                raise ValueError("Repository {repo.repo.name} has neither organization nor owner")
             playbook["content"]["sources"].append(
                 {
                     "branches": repo.main_branch,
                     "start_path": "docs",
                     "url": repo.repo.clone_url,
+                    "edit_url": f"https://github.com/{ghorg}/{repo.repo.name}/edit/{repo.main_branch}/{{path}}",
                 }
             )
 
