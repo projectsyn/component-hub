@@ -59,8 +59,9 @@ class GithubRepoLoader:
         Fetch a list of all repositories in GitHub with the "commodore-component" topic
         """
 
-        # Fetch all repositories in GitHub with the "commodore-component" topic
-        repositories = self._github.search_repositories(query="topic:commodore-component")
+        repositories = list(
+            self._github.search_repositories(query="topic:commodore-component", sort="updated")
+        )
 
         # Filter out archived repositories
         def active(r):
@@ -70,7 +71,4 @@ class GithubRepoLoader:
             return r.clone_url not in self._ignore_list
 
         # Return filtered list of repositories
-        # pass through set because sometimes we get duplicates of repos
-        return list(
-            set([ComponentRepo(r) for r in filter(non_ignored, filter(active, repositories))])
-        )
+        return [ComponentRepo(r) for r in filter(non_ignored, filter(active, repositories))]
