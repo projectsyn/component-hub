@@ -28,7 +28,7 @@ jobs:
       - name: Install Python Dependencies
         run: pip install --upgrade --upgrade-strategy eager -r requirements.txt
 
-      - name: Generate Antora Site configuration
+      - name: Generate Antora Site
         run: python create-antora-site.py --path "$OUT_DIR" --slug "$PROJECT_SLUG"
 
       - name: Generate Antora Navigation
@@ -39,6 +39,9 @@ jobs:
 
       - name: Generate Antora Playbook
         run: python generate-playbook.py > "$OUT_DIR"/"$PROJECT_SLUG"/playbook.yml
+
+      - name: Commit changes
+        run: cd "$OUT_DIR"/"$PROJECT_SLUG" && git add . && git commit -m "First commit"
 
       - name: Upload generated site configuration
         uses: actions/upload-artifact@v2
