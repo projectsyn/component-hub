@@ -197,8 +197,12 @@ class GithubRepoLoader:
         def non_ignored(r):
             return r.clone_url not in self._ignore_list
 
+        def non_profane(r):
+            # drop repo names which are detected as profanities
+            return predict([r.full_name])[0] == 0
+
         # Return filtered list of repositories
         return [
             ComponentRepo(r, self._ignore_topics)
-            for r in filter(non_ignored, filter(active, repositories))
+            for r in filter(non_profane, filter(non_ignored, filter(active, repositories)))
         ]
