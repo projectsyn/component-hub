@@ -92,7 +92,7 @@ class Renderer:
             topics=self._list_topics(),
             components_by_org=components_by_org,
             components_by_topic=components_by_topic,
-            project_syn_orgs=self._project_syn_orgs,
+            component_count=len(self.repositories),
         )
         with open(self._config.output_file(template), "w") as outf:
             outf.write(output)
