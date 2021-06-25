@@ -192,14 +192,29 @@ class GithubRepoLoader:
 
         # Filter out archived repositories
         def active(r):
-            return not r.archived
+            if r.archived:
+                click.echo(f"Skipping archived component {r.full_name}")
+                return False
+
+            return True
 
         def non_ignored(r):
-            return r.clone_url not in self._ignore_list
+            if r.clone_url in self._ignore_list:
+                click.echo(f"Dropping component {r.full_name} on ignore list")
+                return False
+
+            return True
 
         def non_profane(r):
             # drop repo names which are detected as profanities
-            return predict([r.full_name])[0] == 0
+            rp = predict([r.full_name])[0]
+            if rp == 1:
+                click.echo(
+                    "Profanity filter triggered for repo {r.full_name}, dropping component repo"
+                )
+                return False
+
+            return True
 
         # Return filtered list of repositories
         return [
