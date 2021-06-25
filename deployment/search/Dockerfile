@@ -1,6 +1,6 @@
 # ---------- STEP 1 ----------
 # Index the project files
-FROM vshn/antora-indexer-cli:1.6 as indexer
+FROM vshn/antora-indexer-cli:1.8 as indexer
 
 WORKDIR /build
 COPY . /build
