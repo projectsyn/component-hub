@@ -1,10 +1,11 @@
-import yaml
-
-from jinja2 import Environment, PackageLoader
 from typing import List
 
+import yaml
+
+from jinja2 import Environment, PackageLoader, select_autoescape
+
 from .config import Config, Template
-from .github_wrapper import ComponentRepo, GithubRepoLoader
+from .github_wrapper import ComponentRepo
 
 
 class Renderer:
@@ -37,7 +38,10 @@ class Renderer:
         """
         components = [r.antora_yml for r in self.repositories]
 
-        jinja_env = Environment(loader=PackageLoader("component_hub", "templates"))
+        jinja_env = Environment(
+            loader=PackageLoader("component_hub", "templates"),
+            autoescape=select_autoescape(["html"]),
+        )
         tpl = jinja_env.get_template(template.template_file)
         output = tpl.render(components=components)
         with open(self._config.output_file(template), "w") as outf:

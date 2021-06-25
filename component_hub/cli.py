@@ -1,9 +1,9 @@
-import click
 import os
+from pathlib import Path
 
+import click
 from dotenv import load_dotenv
 from importlib_metadata import version
-from pathlib import Path
 
 from component_hub import __git_version__
 from .config import Config, Template
@@ -15,8 +15,10 @@ def _version():
     pyversion = version("component_hub")
     if f"v{pyversion}" != __git_version__:
         return f"{pyversion} (Git version: {__git_version__})"
+    return pyversion
 
 
+# pylint: disable=too-few-public-methods
 class Context:
     def __init__(self, config: Config, renderer: Renderer):
         self.config = config
@@ -55,8 +57,7 @@ def component_hub(ctx, github_token, root, slug, ignore_list):
 
 
 @component_hub.group(short_help="Generate individual part of documentation")
-@click.pass_context
-def generate(ctx):
+def generate():
     pass
 
 
@@ -89,8 +90,8 @@ def playbook(ctx):
 def make(ctx):
     output_dir: Path = ctx.obj.config.output_dir
     create_site = (
-        output_dir.is_dir() and len(list(output_dir.iterdir())) == 0
-    ) or not output_dir.is_dir()
+        len(list(output_dir.iterdir())) == 0 if output_dir.is_dir() else not output_dir.is_dir()
+    )
     if create_site:
         if output_dir.exists() and not output_dir.is_dir():
             click.confirm(

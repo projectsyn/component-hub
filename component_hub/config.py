@@ -12,7 +12,7 @@ class Template(Enum):
 
     @property
     def template_file(self):
-        return f"{self.value.name}.jinja2"
+        return f"{self.value().name}.jinja2"
 
 
 class Config:
