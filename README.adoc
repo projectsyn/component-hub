@@ -10,22 +10,40 @@ This project uses the GitHub API to generate an Antora website containing the do
 . Use the `GITHUB_TOKEN=xxx make` command, where `xxx` is the token retrieved in the previous step.
 . You can use `make clean` to get rid of the generated website.
 
-== Docker
+== Start hacking on the generator
 
-The `Dockerfile` builds an image that performs the build of a full Component Hub in one operation.
+The generator is implemented in Python.
+The project uses [Poetry] to manage the Python virtual environment.
+The project sources environment variables from file `.env` if it exists.
 
+=== Setup
+
+The `Makefile` provides a target to setup the poetry environment.
 [source]
---
-$ docker run --user "$(id -u)" --rm --volume "${PWD}":/home/creator/build --env-file environment vshn/component-hub-builder:1.0
---
+---
+make setup
+---
 
-The command above requires an environment file called `environment` in the current `PATH`, containing the value of the GitHub API token as follows:
+=== Run the generator locally
 
+Simply run `make hub` to generate a local copy of the site in `./build/component-hub/_public`
+
+You can run the individual generation steps in isolation:
+* `poetry run component-hub generate antora-site` generates the Antora site from the https://github.com/vshn/antora-bootstrap[VSHN Antora Cookiecutter template].
+* `poetry run component-hub generate index` generates `docs/modules/ROOT/pages/index.adoc` for the component hub.
+* `poetry run component-hub generate nav` generates `docs/modules/ROOT/nav.adoc` for the component hub.
+* `poetry run component-hub generate playbook` generates `playbook.yml` for the component hub.
+
+
+=== Linting and testing
+
+The `Makefile` provides targets for Python linting and testing.
 [source]
---
-GITHUB_TOKEN=abcdef123…
---
+---
+make lint
+make test
+---
+The lint and test targets expect that the Poetry environment is already initialized.
 
-The entry point of the Docker container is the `entrypoint.sh` script, which drives the creation of the website, stopping short of actually calling `make`.
-
-NOTE: The script does not call `make` because the `Makefile` of the generated website uses Docker to build the website. In a multiple step build scenario, this can be handled as a new step. In other cases, just call `make` manually inside the generated project.
+The tests require a Github token in environment variable `GITHUB_TOKEN.
+The tests source environment variables from file `.env` if it exists.

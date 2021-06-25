@@ -2,4 +2,9 @@
 
 .Components
 
-{% include "component_list.adoc.jinja2" %}
+{% for ghorg in organizations  %}
+* {{ ghorg.display_name }}
+{% for component in components[ghorg.name] %}
+** xref:{{ component.name }}:ROOT:index.adoc[{{ component.title }}]
+{% endfor %}
+{% endfor %}

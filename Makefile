@@ -49,3 +49,7 @@ lint_black:
 	$(RUN_COMMAND) black --check .
 
 lint: lint_flake8 lint_pylint lint_bandit lint_mypy lint_black
+
+.PHONY: test
+test:
+	$(RUN_COMMAND) pytest
