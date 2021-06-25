@@ -1,0 +1,29 @@
+name: Python linting
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs
+  lints:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command:
+          - lint_flake8
+          - lint_pylint
+          - lint_mypy
+          - lint_black
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: Gr1N/setup-poetry@v4
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+      - run: poetry install
+      - name: Run ${{ matrix.command }}
+        run: make ${{ matrix.command }}

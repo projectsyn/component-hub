@@ -19,6 +19,11 @@ Jinja2 = "^3.0.1"
 pytest = "^5.2"
 mypy = "^0.910"
 types-PyYAML = "^5.4.3"
+autopep8 = "^1.5.7"
+pylint = "^2.8.3"
+flake8 = "^3.9.2"
+black = "^21.6b0"
+bandit = "^1.7.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -29,3 +34,20 @@ component-hub = 'component_hub.cli:main'
 
 [tool.black]
 line-length = 100
+
+[flake8]
+exclude = "*.egg*,.git,.tox,venv"
+max-line-length = 120
+
+[tool.pylint.FORMAT]
+max-line-length = 120
+
+[tool.pylint.MASTER]
+output-format = "colorized"
+reports = "no"
+disable = "invalid-name, missing-function-docstring,missing-class-docstring,missing-module-docstring,fixme"
+min-public-methods = 1
+
+[tool.bandit]
+exclude = ".cache,.git,.tox,build,dist,docs,tests"
+targets = "."
