@@ -39,6 +39,13 @@ jobs:
           git config --global user.email "ahoy@syn.tools" && \
           git config --global user.name "Hub Action"
 
+      - name: Retrieve current GitHub API Rate Limits
+        run: |
+          curl \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          https://api.github.com/rate_limit
+
       - name: Generate Antora Site
         run: |
           poetry run component-hub \
