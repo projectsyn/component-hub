@@ -77,11 +77,7 @@ class ComponentRepo:
 
     @property
     def main_branch(self) -> str:
-        branches = [b.name for b in self.repo.get_branches()]
-        main_branch = "main"
-        if "master" in branches:
-            main_branch = "master"
-        return main_branch
+        return self.repo.default_branch
 
     @property
     def has_antora_yml(self) -> bool:
