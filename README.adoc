@@ -30,6 +30,7 @@ make setup
 Simply run `make hub` to generate a local copy of the site in `./build/component-hub/_public`
 
 You can run the individual generation steps in isolation:
+
 * `poetry run component-hub generate antora-site` generates the Antora site from the https://github.com/vshn/antora-bootstrap[VSHN Antora Cookiecutter template].
 * `poetry run component-hub generate index` generates `docs/modules/ROOT/pages/index.adoc` for the component hub.
 * `poetry run component-hub generate nav` generates `docs/modules/ROOT/nav.adoc` for the component hub.
