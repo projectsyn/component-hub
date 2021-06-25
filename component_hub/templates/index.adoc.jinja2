@@ -6,4 +6,18 @@ image::logo_projectsyn.png[]
 
 == Components
 
-{% include "component_list.adoc.jinja2" %}
+{% for ghorg in organizations %}
+=== {{ ghorg.github_url }}[{{ ghorg.display_name }}]
+
+[cols="2,3,2"]
+|===
+|Component |Description |GitHub repository
+
+{% for component in components[ghorg.name] %}
+|xref:{{ component.name }}:ROOT:index.adoc[{{ component.title }}]
+|{{ component.description }}
+|{{ component.github_url }}[{{ component.github_full_name }}]
+
+{% endfor %}
+|===
+{% endfor %}

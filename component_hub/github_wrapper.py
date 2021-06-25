@@ -1,10 +1,59 @@
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import click
 import yaml
 from github import Github, GithubException
 from github.Repository import Repository
+from github.Organization import Organization
+from github.NamedUser import NamedUser
+
+
+class GithubOwner:
+    def __init__(self, owner: Union[Organization, NamedUser]):
+        self._owner = owner
+
+    @property
+    def name(self):
+        return self._owner.login
+
+    @property
+    def is_organization(self):
+        return isinstance(self._owner, Organization)
+
+    @property
+    def is_user(self):
+        return not self.is_organization
+
+    @property
+    def display_name(self):
+        return self._owner.name
+
+    @property
+    def github_url(self):
+        return self._owner.html_url
+
+    def __eq__(self, other):
+        return self._owner.login == other._owner.login
+
+    def __lt__(self, other):
+        """
+        Ordering: Orgs before Users, alphabetical otherwise
+        """
+        if (self.is_organization and other.is_organization) or (self.is_user and other.is_user):
+            return self._owner.login < other._owner.login
+
+        # from here: self and other are not both the same type
+        if self.is_organization:
+            return True
+
+        return False
+
+    def __hash__(self):
+        return hash(self._owner.login)
+
+    def __repr__(self):
+        return f"{self.name}({self.display_name})"
 
 
 class ComponentRepo:
@@ -41,6 +90,54 @@ class ComponentRepo:
     @property
     def antora_yml(self) -> Optional[str]:
         return self._antora_yml
+
+    @property
+    def title(self):
+        if "title" in self._antora_yml:
+            return self._antora_yml["title"]
+        if "name" in self._antora_yml:
+            return self._antora_yml["name"]
+
+        return self.repo.name
+
+    @property
+    def name(self):
+        if "name" in self._antora_yml:
+            return self._antora_yml["name"]
+
+        return self.repo.name
+
+    @property
+    def description(self):
+        if self.repo.description is None:
+            return "--"
+        return self.repo.description
+
+    @property
+    def github_url(self):
+        """
+        :return: Link to repo on GitHub
+        """
+        return self.repo.html_url
+
+    @property
+    def github_full_name(self):
+        """
+        :return: Repo name including org
+        """
+        return self.repo.full_name
+
+    @property
+    def owner(self) -> GithubOwner:
+        """
+        :return: Owner (User or Org) of repo
+        """
+        if self.repo.organization is not None:
+            return GithubOwner(self.repo.organization)
+        if self.repo.owner is not None:
+            return GithubOwner(self.repo.owner)
+
+        raise ValueError(f"Repository {self.repo.name} has neither organization nor owner")
 
 
 class GithubRepoLoader:

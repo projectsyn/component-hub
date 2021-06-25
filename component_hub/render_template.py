@@ -5,7 +5,7 @@ import yaml
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 from .config import Config, Template
-from .github_wrapper import ComponentRepo
+from .github_wrapper import ComponentRepo, GithubOwner
 
 
 class Renderer:
@@ -27,6 +27,22 @@ class Renderer:
                 self._repositories, key=lambda r: r.antora_yml["title"].lower()
             )
 
+    def _list_organizations(self) -> List[GithubOwner]:
+        """
+        List owners of repositories. Sorting prefers organizations over individual users.
+        :return: sorted iterable
+        """
+        organizations = set()
+        for r in self.repositories:
+            organizations.add(r.owner)
+        return sorted(organizations)
+
+    def components_by_org(self):
+        components = {}
+        for r in self.repositories:
+            components.setdefault(r.owner.name, []).append(r)
+        return components
+
     @property
     def repositories(self):
         self._cache_component_repositories()
@@ -36,14 +52,17 @@ class Renderer:
         """
         Render asciidoc template using Jinja2
         """
-        components = [r.antora_yml for r in self.repositories]
+        components = self.components_by_org()
 
         jinja_env = Environment(
             loader=PackageLoader("component_hub", "templates"),
             autoescape=select_autoescape(["html"]),
         )
         tpl = jinja_env.get_template(template.template_file)
-        output = tpl.render(components=components)
+        output = tpl.render(
+            organizations=self._list_organizations(),
+            components=components,
+        )
         with open(self._config.output_file(template), "w") as outf:
             outf.write(output)
 
@@ -56,12 +75,7 @@ class Renderer:
             playbook = yaml.safe_load(templatef)
 
         for repo in self.repositories:
-            if repo.repo.organization is not None:
-                ghorg = repo.repo.organization.login
-            elif repo.repo.owner is not None:
-                ghorg = repo.repo.owner.login
-            else:
-                raise ValueError("Repository {repo.repo.name} has neither organization nor owner")
+            ghorg = repo.owner.name
             playbook["content"]["sources"].append(
                 {
                     "branches": repo.main_branch,
