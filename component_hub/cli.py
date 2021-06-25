@@ -94,7 +94,7 @@ def nav(ctx):
 @generate.command(short_help="Generate documentation Antora playbook")
 @click.pass_context
 def playbook(ctx):
-    ctx.obj.renderer.render_yaml_template("playbook.yml")
+    ctx.obj.renderer.render_antora_playbook()
 
 
 @component_hub.command(short_help="Generate full documentation")

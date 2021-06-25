@@ -24,9 +24,7 @@ class Renderer:
                 # Find out the 'docs/antora.yml' file and get its contents
                 if repo.has_antora_yml:
                     self._repositories.append(repo)
-            self._repositories = sorted(
-                self._repositories, key=lambda r: r.antora_yml["title"].lower()
-            )
+            self._repositories = sorted(self._repositories, key=lambda r: r.title.lower())
 
     def _list_organizations(self) -> List[GithubOwner]:
         """
@@ -97,12 +95,11 @@ class Renderer:
         with open(self._config.output_file(template), "w") as outf:
             outf.write(output)
 
-    def render_yaml_template(self, template: str):
+    def render_antora_playbook(self):
         """
-        Render YAML file based on input YAML `template`
-        :param template: Input YAML file
+        Render antora playbook based template playbook which is part of the package.
         """
-        with open(self._config.template_dir / template) as templatef:
+        with open(self._config.template_dir / "playbook.yml") as templatef:
             playbook = yaml.safe_load(templatef)
 
         for repo in self.repositories:
