@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List, Set
 
 import yaml
 
@@ -9,9 +9,10 @@ from .github_wrapper import ComponentRepo, GithubOwner
 
 
 class Renderer:
-    def __init__(self, config):
+    def __init__(self, config, project_syn_orgs):
         self._config: Config = config
         self._repositories: List[ComponentRepo] = []
+        self._project_syn_orgs: List[str] = project_syn_orgs
 
     def _cache_component_repositories(self, refresh=False):
         """
@@ -37,10 +38,31 @@ class Renderer:
             organizations.add(r.owner)
         return sorted(organizations)
 
-    def components_by_org(self):
-        components = {}
+    def _list_topics(self) -> List[str]:
+        """
+        List all topics of all repositories
+        :return: sorted iterable
+        """
+        topics: Set[str] = set()
+        for r in self.repositories:
+            topics = topics.union(set(r.topics))
+        return sorted(topics)
+
+    def components_by_org(self) -> Dict[str, List[ComponentRepo]]:
+        components: Dict[str, List[ComponentRepo]] = {}
         for r in self.repositories:
             components.setdefault(r.owner.name, []).append(r)
+        return components
+
+    def components_by_topic(self) -> Dict[str, List[ComponentRepo]]:
+        """
+        Organize components by topic
+        :return: dict of topic to list of componentrepos
+        """
+        components: Dict[str, List[ComponentRepo]] = {}
+        for r in self.repositories:
+            for t in r.topics:
+                components.setdefault(t, []).append(r)
         return components
 
     @property
@@ -52,16 +74,25 @@ class Renderer:
         """
         Render asciidoc template using Jinja2
         """
-        components = self.components_by_org()
+        components_by_org = self.components_by_org()
+        components_by_topic = self.components_by_topic()
+        organizations = self._list_organizations()
+        syn_organizations = [o for o in organizations if o.name in self._project_syn_orgs]
+        other_organizations = [o for o in organizations if o.name not in self._project_syn_orgs]
 
         jinja_env = Environment(
             loader=PackageLoader("component_hub", "templates"),
             autoescape=select_autoescape(["html"]),
         )
+
         tpl = jinja_env.get_template(template.template_file)
         output = tpl.render(
-            organizations=self._list_organizations(),
-            components=components,
+            syn_organizations=syn_organizations,
+            other_organizations=other_organizations,
+            topics=self._list_topics(),
+            components_by_org=components_by_org,
+            components_by_topic=components_by_topic,
+            project_syn_orgs=self._project_syn_orgs,
         )
         with open(self._config.output_file(template), "w") as outf:
             outf.write(output)

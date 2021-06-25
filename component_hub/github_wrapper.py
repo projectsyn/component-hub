@@ -57,11 +57,12 @@ class GithubOwner:
 
 
 class ComponentRepo:
-    def __init__(self, r):
+    def __init__(self, r: Repository, ignore_topics: List[str]):
         self._repo: Repository = r
         self._has_antora_yml = False
         self._antora_yml: Optional[str] = None
-        self._topics: Optional[List[str]]
+        self._topics: Optional[List[str]] = None
+        self._ignore_topics = set(ignore_topics)
         self._cache_antora_yml()
 
     @property
@@ -107,7 +108,7 @@ class ComponentRepo:
     @property
     def description(self):
         if self.repo.description is None:
-            return "--"
+            return "—"
         return self.repo.description
 
     @property
@@ -127,10 +128,14 @@ class ComponentRepo:
     @property
     def topics(self):
         """
+        Returns topics of component repo.
+        Removes topics "commodore-component" and "commodore" to reduce visual noise
         :return: topics of repository
         """
         if self._topics is None:
-            self._topics = self.repo.get_topics()
+            topics = set(self.repo.get_topics())
+            topics = topics - self._ignore_topics
+            self._topics = sorted(topics)
         return self._topics
 
     @property
@@ -147,9 +152,15 @@ class ComponentRepo:
 
 
 class GithubRepoLoader:
-    def __init__(self, github_token: str, ignorelist: Optional[Path] = None):
+    def __init__(
+        self,
+        github_token: str,
+        ignore_topics: List[str],
+        ignorelist: Optional[Path] = None,
+    ):
         self._github: Github = Github(github_token)
         self._ignore_list: List[str] = []
+        self._ignore_topics = ignore_topics
         if ignorelist is not None:
             with open(ignorelist) as f:
                 self._ignore_list = [
@@ -174,4 +185,7 @@ class GithubRepoLoader:
             return r.clone_url not in self._ignore_list
 
         # Return filtered list of repositories
-        return [ComponentRepo(r) for r in filter(non_ignored, filter(active, repositories))]
+        return [
+            ComponentRepo(r, self._ignore_topics)
+            for r in filter(non_ignored, filter(active, repositories))
+        ]

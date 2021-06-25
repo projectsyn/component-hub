@@ -43,14 +43,28 @@ class Context:
     help="File listing clone URLs of repositories to ignore",
     default=None,
 )
-def component_hub(ctx, github_token, root, slug, ignore_list):
+@click.option(
+    "--project-syn-orgs",
+    help="List GitHub organizations which are officially supported",
+    default=("appuio", "projectsyn", "vshn"),
+    multiple=True,
+)
+@click.option(
+    "--ignore-topics",
+    help="List of project topics which are not considered for sorting by topic",
+    default=("commodore", "commodore-component", "syn", "projectsyn"),
+    multiple=True,
+)
+# pylint: disable=too-many-arguments
+def component_hub(ctx, github_token, root, slug, ignore_list, project_syn_orgs, ignore_topics):
     cfg = Config(
         github_token=github_token,
         root_path=root,
         project_slug=slug,
         ignorelist=ignore_list,
+        ignore_topics=ignore_topics,
     )
-    r = Renderer(cfg)
+    r = Renderer(cfg, list(project_syn_orgs))
     ctx.obj = Context(cfg, r)
 
 
