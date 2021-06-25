@@ -1,23 +1,39 @@
-= Commodore Components Hub
+= Welcome 👋
 
-Welcome to the Commodore Components Hub!
+****
+You'll find all the {{ component_count }} Components and their documentation on this site.
 
-image::logo_projectsyn.png[]
+This site is part of https://syn.tools/[Project Syn] - a Kubernetes configuration management tooling.
+****
 
-== Components
+[TIP]
+====
+If you're interested writing a Commodore Component, the https://syn.tools/tuto/index.html[Commodore Component Tutorial] is your entrypoint.
 
-{% for ghorg in organizations %}
-=== {{ ghorg.github_url }}[{{ ghorg.display_name }}]
+To get a Component listed here, add the GitHub topic https://github.com/search?q=topic%3Acommodore-component[`commodore-component`] to the repository.
 
-[cols="2,3,2"]
-|===
-|Component |Description |GitHub repository
+The documentation is rebuilt hourly and automatically kept up-to-date with the in-component documentation.
+====
 
-{% for component in components[ghorg.name] %}
-|xref:{{ component.name }}:ROOT:index.adoc[{{ component.title }}]
-|{{ component.description }}
-|{{ component.github_url }}[{{ component.github_full_name }}]
+== Components by Project Syn
 
+{% for ghorg in syn_organizations %}
+{% with %}
+{% set section_url = ghorg.github_url %}
+{% set section_name = ghorg.display_name %}
+{% set components = components_by_org[ghorg.name] %}
+{% set official = True %}
+{% include 'component_table.adoc.jinja2' %}
+{% endwith %}
 {% endfor %}
-|===
+
+== Community-contributed Components
+
+{% for ghorg in other_organizations %}
+{% with %}
+{% set section_url = ghorg.github_url %}
+{% set section_name = ghorg.display_name %}
+{% set components = components_by_org[ghorg.name] %}
+{% include 'component_table.adoc.jinja2' %}
+{% endwith %}
 {% endfor %}

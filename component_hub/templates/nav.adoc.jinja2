@@ -1,10 +1,26 @@
 * xref:index.adoc[Home]
 
-.Components
+.By GitHub Org
 
-{% for ghorg in organizations  %}
+{% for ghorg in syn_organizations %}
+* {{ ghorg.display_name }} ⭐
+{% for component in components_by_org[ghorg.name] %}
+** xref:{{ component.name }}:ROOT:index.adoc[{{ component.title }}]
+{% endfor %}
+{% endfor %}
+{% for ghorg in other_organizations  %}
 * {{ ghorg.display_name }}
-{% for component in components[ghorg.name] %}
+{% for component in components_by_org[ghorg.name] %}
+** xref:{{ component.name }}:ROOT:index.adoc[{{ component.title }}]
+{% endfor %}
+{% endfor %}
+
+
+.By Topic
+
+{% for topic in topics %}
+* {{ topic }}
+{% for component in components_by_topic[topic] %}
 ** xref:{{ component.name }}:ROOT:index.adoc[{{ component.title }}]
 {% endfor %}
 {% endfor %}
