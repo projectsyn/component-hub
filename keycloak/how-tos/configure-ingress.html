@@ -611,7 +611,7 @@ Others may work as well, but you may need to customize some parameters on your o
 <div class="paragraph">
 <p>In re-encryption mode, the traffic is terminated at the NGINX ingress controller, and then re-encrypted when connecting to Keycloak pods.
 By default, this component will use Let&#8217;s Encrypt (cert-manager) so that NGINX terminates with valid certificates.
-The connection to Keycloak is using self-signed certificates since Keycloak does not reload certificates when they have changed in the container.</p>
+The connection to Keycloak is using self-signed certificates since Keycloak doesn&#8217;t reload certificates when they have changed in the container.</p>
 </div>
 <div class="paragraph">
 <p>Re-encryption is the default, so there&#8217;s not much to configure.
@@ -623,7 +623,7 @@ Proceed with <a href="keycloak-tls.html" class="page">Setup a TLS certificate fo
 <h2 id="_encryption_mode_pass_through"><a class="anchor" href="#_encryption_mode_pass_through"></a>Encryption mode: Pass-through</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the pass-through mode, the controller will not terminate the TLS session and instead directly forward the HTTPS traffic to Keycloak.
+<p>In the pass-through mode, the controller won&#8217;t terminate the TLS session and instead directly forward the HTTPS traffic to Keycloak.
 The controller needs to support pass-through mode.</p>
 </div>
 <div class="admonitionblock important">
@@ -635,7 +635,7 @@ The controller needs to support pass-through mode.</p>
 <td class="content">
 <div class="paragraph">
 <p>This mode requires that the NGINX Controller is configured to pass through the TLS traffic.
-This is not enabled by default.
+This isn&#8217;t enabled by default.
 With <a href="https://github.com/projectsyn/component-ingress-nginx">component-ingress-nginx</a>, you can enable it like following:</p>
 </div>
 <div class="listingblock">
@@ -662,7 +662,7 @@ With <a href="https://github.com/projectsyn/component-ingress-nginx">component-i
 <div class="paragraph">
 <p>When using certificates from Let&#8217;s Encrypt (cert-manager), ensure that you regularly restart Keycloak.
 Otherwise, you may end up serving expired certificates!
-The default Keycloak container image does not reload the certificates when they have changed in the mounted filesystem.</p>
+The default Keycloak container image doesn&#8217;t reload the certificates when they have changed in the mounted filesystem.</p>
 </div>
 </td>
 </tr>
