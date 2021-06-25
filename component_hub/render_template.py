@@ -24,9 +24,7 @@ class Renderer:
                 # Find out the 'docs/antora.yml' file and get its contents
                 if repo.has_antora_yml:
                     self._repositories.append(repo)
-            self._repositories = sorted(
-                self._repositories, key=lambda r: r.antora_yml["title"].lower()
-            )
+            self._repositories = sorted(self._repositories, key=lambda r: r.title.lower())
 
     def _list_organizations(self) -> List[GithubOwner]:
         """
