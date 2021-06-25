@@ -41,7 +41,8 @@ jobs:
 
       - name: Retrieve current GitHub API Rate Limits
         run: |
-          curl \
+          date && date "+%s" && \
+          curl -s \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token $GITHUB_TOKEN" \
           https://api.github.com/rate_limit
