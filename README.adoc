@@ -1,5 +1,7 @@
 = Project Syn Commodore Component Hub Generator
 
+image::https://github.com/projectsyn/component-hub/actions/workflows/hub.yml/badge.svg[Build and Deploy Hub,link=https://github.com/projectsyn/component-hub/actions/workflows/hub.yml]
+
 This project uses the GitHub API to generate an Antora website containing the documentation of all Commodore components available.
 
 == How to Use
