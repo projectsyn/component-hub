@@ -1,11 +1,10 @@
+from pathlib import Path
+from typing import List, Optional
+
 import click
-import os
 import yaml
 from github import Github, GithubException
 from github.Repository import Repository
-
-from pathlib import Path
-from typing import Dict, List, Optional
 
 
 class ComponentRepo:
@@ -53,7 +52,6 @@ class GithubRepoLoader:
                 self._ignore_list = [
                     item.strip() for item in f.readlines() if not item.startswith("#")
                 ]
-        pass
 
     def get_commodore_component_repos(self) -> List[ComponentRepo]:
         """

@@ -1,7 +1,8 @@
 import os
 import shutil
-from cookiecutter.main import cookiecutter
 from pathlib import Path
+
+from cookiecutter.main import cookiecutter
 
 from component_hub import __install_dir__
 
