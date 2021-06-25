@@ -12,7 +12,8 @@ class Template(Enum):
 
     @property
     def template_file(self):
-        return f"{self.value().name}.jinja2"
+        # pylint: disable=no-member
+        return f"{self.value.name}.jinja2"
 
 
 class Config:
