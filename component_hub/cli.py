@@ -3,19 +3,17 @@ from pathlib import Path
 
 import click
 from dotenv import load_dotenv
-from importlib_metadata import version
 
-from component_hub import __git_version__
+from component_hub import __git_version__, __version__
 from .config import Config, Template
 from .antora_site import create
 from .render_template import Renderer
 
 
 def _version():
-    pyversion = version("component_hub")
-    if f"v{pyversion}" != __git_version__:
-        return f"{pyversion} (Git version: {__git_version__})"
-    return pyversion
+    if f"v{__version__}" != __git_version__:
+        return f"{__version__} (Git version: {__git_version__})"
+    return __version__
 
 
 # pylint: disable=too-few-public-methods
