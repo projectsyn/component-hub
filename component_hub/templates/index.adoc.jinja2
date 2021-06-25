@@ -37,13 +37,3 @@ The documentation is rebuilt hourly and automatically kept up-to-date with the i
 {% include 'component_table.adoc.jinja2' %}
 {% endwith %}
 {% endfor %}
-
-== Components by Github topics
-
-{% for topic in topics %}
-{% with %}
-{% set section_name = topic %}
-{% set components = components_by_topic[topic] %}
-{% include 'component_table.adoc.jinja2' %}
-{% endwith %}
-{% endfor %}
