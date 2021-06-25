@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/minio/references/parameters.html">
+    <link rel="canonical" href="https://hub.syn.tools/registry-cache/references/parameters.html">
     <link rel="prev" href="../index.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -80,12 +80,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="minio" data-version="master">
+<div class="nav-container" data-component="registry-cache" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">minio</a></h3>
+    <h3 class="title"><a href="../index.html">registry-cache</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -102,7 +102,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">minio</span>
+    <span class="title">registry-cache</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -290,11 +290,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">minio</a>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -434,11 +434,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">registry-cache</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../registry-cache/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -533,11 +533,11 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">minio</a></li>
+    <li><a href="../index.html">registry-cache</a></li>
     <li><a href="parameters.html">Parameters</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-minio/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-registry-cache/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -548,7 +548,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>minio</code>.</p>
+<p>The parent key for all of the following parameters is <code>registry_cache</code>.</p>
 </div>
 </div>
 </div>
@@ -570,15 +570,28 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-minio</code></p>
+<p><code>syn-registry-cache</code></p>
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>The namespace in which to deploy this component.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_admincredentials_secretname"><a class="anchor" href="#_admincredentials_secretname"></a><code>adminCredentials.secretName</code></h2>
+<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fqdn"><a class="anchor" href="#_fqdn"></a><code>fqdn</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -595,15 +608,176 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>admin-credentials-${_instance}</code></p>
+<p><code>dockerhub.vshn.net</code></p>
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>FQDN under which the registry will be served</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_admincredentials_acesskey"><a class="anchor" href="#_admincredentials_acesskey"></a><code>adminCredentials.acessKey</code></h2>
+<h2 id="_expose_type"><a class="anchor" href="#_expose_type"></a><code>expose_type</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>ingress</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<p><code>ingress</code> or <code>route</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to use an <code>Ingress</code> or <code>Route</code> object to expose the registry.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_redis_enabled"><a class="anchor" href="#_redis_enabled"></a><code>redis.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether or not to deploy and use redis as a Blob descriptor cache</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_redis_memory"><a class="anchor" href="#_redis_memory"></a><code>redis.memory</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bytes</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>1G</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Max amount of memory Redis may consume.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_registry_config_storage_s3_bucket_registry_config_storage_s3_regionendpoint"><a class="anchor" href="#_registry_config_storage_s3_bucket_registry_config_storage_s3_regionendpoint"></a><code>registry.config.storage.s3.bucket</code>, <code>registry.config.storage.s3.regionendpoint</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>strings</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+mandatory
+</td>
+<td class="hdlist2">
+<p><strong>yes</strong></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>S3 configuration for the image store</p>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">s3:
+  bucket: example-harbor-instance-data
+  endpoint: https://s3.example.com/</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_registry_config_storage_s3_accesskey_registry_config_storage_s3_secretkey"><a class="anchor" href="#_registry_config_storage_s3_accesskey_registry_config_storage_s3_secretkey"></a><code>registry.config.storage.s3.accesskey</code>, <code>registry.config.storage.s3.secretkey</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>strings</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>S3 credentials for storing image blobs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_http_secret"><a class="anchor" href="#_http_secret"></a><code>http_secret</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -626,87 +800,37 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>A vault reference pointing to the Vault secret containing the access key.
-If the key isn&#8217;t provided as a vault reference, the secret key must be provided in its base64 encoded form.
-It can be generated using the command <code>echo -n '&lt;myAccessKey&gt; | base64</code>.</p>
+<p>HTTP Session secret. Must be set but is only used internally.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_admincredentials_secretkey"><a class="anchor" href="#_admincredentials_secretkey"></a><code>adminCredentials.secretKey</code></h2>
+<h2 id="_vault_secrets"><a class="anchor" href="#_vault_secrets"></a>Vault secrets</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Vault reference</p>
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Adjust to your environment
+key="clusters/kv/${TENANT_ID}/${CLUSTER_ID}/registry-cache"
+
+# Query for existing secrets first
+vault kv get "${key}"
+
+# If there are existing secrets, add your instance secrets:
+vault kv patch "${key}" \
+  http_secret=$(pwgen 32 1) \
+  proxy_username=DOCKER_HUB_USERNAME \
+  proxy_password=DOCKER_HUB_PASSWORD \
+  s3_accesskey=S3_ACCESS_KEY \
+  s3_secretkey=S3_SECRET_KEY
+
+# If there is no pre-existing secret, create new:
+vault kv put "${key}" \
+  http_secret=$(pwgen 32 1) \
+  proxy_username=DOCKER_HUB_USERNAME \
+  proxy_password=DOCKER_HUB_PASSWORD \
+  s3_accesskey=S3_ACCESS_KEY \
+  s3_secretkey=S3_SECRET_KEY</code></pre>
 </div>
-<div class="paragraph">
-<p>A vault reference pointing to the Vault secret containing the access key.
-If the key isn&#8217;t provided as a vault reference, the secret key must be provided in its base64 encoded form.
-It can be generated using the command <code>echo -n '&lt;mySecretKey&gt; | base64</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>hash</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A hash of helm values to set.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_minio"><a class="anchor" href="#_charts_minio"></a><code>charts.minio</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>helm chart version</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>4.1.6</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A specific chart version. See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
 </div>
 </div>
 </div>
@@ -722,7 +846,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/minio/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/registry-cache/references/parameters.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

@@ -127,6 +127,9 @@
 <loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-registry-cache.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-resource-locker.xml</loc>
 </sitemap>
 <sitemap>
