@@ -36,7 +36,7 @@ master:build:
 
 master:deploy:
   stage: deploy
-  image: docker.io/appuio/oc:v3.11
+  image: docker.io/appuio/oc:v4.6
   environment:
     name: production
     url: https://commodore-components-hub.vshn.ch
