@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import List, Optional, Set, Union
 
 import click
 import yaml
@@ -7,6 +7,8 @@ from github import Github, GithubException
 from github.Repository import Repository
 from github.Organization import Organization
 from github.NamedUser import NamedUser
+
+from profanity_check import predict
 
 
 class GithubOwner:
@@ -129,13 +131,24 @@ class ComponentRepo:
     def topics(self):
         """
         Returns topics of component repo.
-        Removes topics "commodore-component" and "commodore" to reduce visual noise
+        Removes topics provided in `self._ignore_topics`
+        Removes topics that profanity-check detects as profanitites.
         :return: topics of repository
         """
         if self._topics is None:
-            topics = set(self.repo.get_topics())
-            topics = topics - self._ignore_topics
-            self._topics = sorted(topics)
+            _topics: Set[str] = set(self.repo.get_topics())
+            topics: List[str] = sorted(_topics - self._ignore_topics)
+            self._topics = []
+            if len(topics) > 0:
+                profanity: List[int] = predict(topics)
+                for t, p in zip(topics, profanity):
+                    if p == 0:
+                        self._topics.append(t)
+                    else:
+                        click.echo(
+                            f"Profanity filter triggered for topic `{t}` on '{self.github_full_name}'"
+                            + ", dropping the topic"
+                        )
         return self._topics
 
     @property
@@ -173,7 +186,7 @@ class GithubRepoLoader:
         Filters out repos listed in the ignore-list
         """
 
-        repositories = list(
+        repositories: List[Repository] = list(
             self._github.search_repositories(query="topic:commodore-component", sort="updated")
         )
 
@@ -184,8 +197,12 @@ class GithubRepoLoader:
         def non_ignored(r):
             return r.clone_url not in self._ignore_list
 
+        def non_profane(r):
+            # drop repo names which are detected as profanities
+            return predict([r.full_name])[0] == 0
+
         # Return filtered list of repositories
         return [
             ComponentRepo(r, self._ignore_topics)
-            for r in filter(non_ignored, filter(active, repositories))
+            for r in filter(non_profane, filter(non_ignored, filter(active, repositories)))
         ]
