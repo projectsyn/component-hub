@@ -61,6 +61,7 @@ class ComponentRepo:
         self._repo: Repository = r
         self._has_antora_yml = False
         self._antora_yml: Optional[str] = None
+        self._topics: Optional[List[str]]
         self._cache_antora_yml()
 
     @property
@@ -122,6 +123,15 @@ class ComponentRepo:
         :return: Repo name including org
         """
         return self.repo.full_name
+
+    @property
+    def topics(self):
+        """
+        :return: topics of repository
+        """
+        if self._topics is None:
+            self._topics = self.repo.get_topics()
+        return self._topics
 
     @property
     def owner(self) -> GithubOwner:
