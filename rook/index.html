@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>openshift4-ingress: A Commodore component to manage OpenShift 4 Ingress Controller :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-ingress/index.html">
+    <title>Rook.io :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook/index.html">
     <link rel="next" href="references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -80,12 +80,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="openshift4-ingress" data-version="master">
+<div class="nav-container" data-component="rook" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">openshift4-ingress</a></h3>
+    <h3 class="title"><a href="index.html">Rook.io</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -102,7 +102,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">openshift4-ingress</span>
+    <span class="title">Rook.io</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -386,11 +386,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="index.html">openshift4-ingress</a>
+    <li class="component">
+      <a class="title" href="../openshift4-ingress/index.html">openshift4-ingress</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="index.html">master</a>
+        <li class="version is-latest">
+          <a href="../openshift4-ingress/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -450,11 +450,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../rook/index.html">Rook.io</a>
+    <li class="component is-current">
+      <a class="title" href="index.html">Rook.io</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../rook/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
         </li>
       </ul>
     </li>
@@ -541,65 +541,23 @@
   <a href="../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">openshift4-ingress</a></li>
+    <li><a href="index.html">Rook.io</a></li>
     <li><a href="index.html">Home</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-ingress/edit/master/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook/edit/master/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">openshift4-ingress: A Commodore component to manage OpenShift 4 Ingress Controller</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Rook.io</h1>
 <div class="paragraph">
-<p>openshift4-ingress: A Commodore component to manage OpenShift 4 Ingress Controller is a Commodore component for Managing the OpenShift 4 <a href="https://docs.openshift.com/container-platform/4.4/networking/configuring_ingress_cluster_traffic/configuring-ingress-cluster-traffic-ingress-controller.html#configuring-ingress-cluster-traffic-ingress-controller">ingress controller</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_wildcard_certificates"><a class="anchor" href="#_wildcard_certificates"></a>Wildcard Certificates</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If no <code>defaultCertificate</code> is specified for an ingress controller, OpenShift 4 will create a cluster signed certificate for that ingress.
-Usually, that certificate isn&#8217;t deemed to be valid by browsers.
-On clouds providing DNS services that allow the use of <a href="https://letsencrypt.org/docs/challenge-types/#dns-01-challenge">dns-01-challenge</a>, a Let&#8217;s Encrypt wildcard certificate is provisioned.</p>
-</div>
-<div class="sect2">
-<h3 id="_supported_dns_services"><a class="anchor" href="#_supported_dns_services"></a>Supported DNS Services</h3>
-<div class="paragraph">
-<p>The following DNS service providers are currently implemented:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>GCP (tested)</p>
-</li>
-<li>
-<p>AWS (untested)</p>
-</li>
-<li>
-<p>Azure (untested)</p>
-</li>
-</ul>
+<p>rook is a Commodore component to manage Rook.io.</p>
 </div>
 <div class="paragraph">
-<p>If your cluster is running on a different cloud provider you must use one of the <a href="https://cert-manager.io/docs/configuration/acme/dns01/#supported-dns01-providers">supported DNS01 providers</a> in order to use Let&#8217;s Encrypt wildcard certificates.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_node_selector"><a class="anchor" href="#_node_selector"></a>Node Selector</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>A node selector is configured to only run the ingress controller pods on infra nodes.
-This helps to configure the load balancer on only a subset of the nodes.</p>
-</div>
-</div>
+<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
 </div>
 <nav class="pagination">
   <span class="next"><a href="references/parameters.html">Parameters</a></span>
@@ -613,7 +571,7 @@ This helps to configure the load balancer on only a subset of the nodes.</p>
 </footer>
 <script src="../_/js/site.js"></script>
 <script src="../_/js/vendor/lunr.js"></script>
-<script src="../_/js/vendor/search.js" id="search-script" data-base-path=".." data-page-path="/openshift4-ingress/index.html"></script>
+<script src="../_/js/vendor/search.js" id="search-script" data-base-path=".." data-page-path="/rook/index.html"></script>
 <script async src="../_/../search-index.js"></script>
 <script async src="../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
