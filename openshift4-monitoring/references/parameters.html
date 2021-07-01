@@ -574,6 +574,47 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="_manifests_version"><a class="anchor" href="#_manifests_version"></a><code>manifests_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>release-4.7</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Select which version of the upstream alerting (and recording) rules should be used by the component.
+This parameter must be changed to match the cluster&#8217;s OCP4 minor version.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Once we&#8217;ve implemented <a href="https://syn.tools/syn/SDDs/0027-dynamic-cluster-facts.html">dynamic cluster facts</a>, this parameter will be automatically set based on the value of the reported cluster version.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_defaultconfig"><a class="anchor" href="#_defaultconfig"></a><code>defaultConfig</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
