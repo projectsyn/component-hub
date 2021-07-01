@@ -133,7 +133,7 @@
 <loc>https://hub.syn.tools/sitemap-resource-locker.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-rook.xml</loc>
+<loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-secret-generator.xml</loc>
