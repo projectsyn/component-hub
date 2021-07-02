@@ -573,17 +573,106 @@
 </aside>
 <article class="doc">
 <h1 class="page">Use Exoscale</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Currently the Terraform module which this component uses for Exoscale only supports provisioning VSHN-managed OCP4 clusters on Exoscale.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="https://kb.vshn.ch/oc4/how-tos/exoscale/install.html">the Exoscale installation how-to</a> for a comprehensive how-to for setting up OCP4 on Exoscale.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The following steps show how to set up Terraform with Exoscale.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component currently assumes that the Git repositories live on a GitLab instance.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_credentials"><a class="anchor" href="#_setup_credentials"></a>Setup credentials</h2>
+<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Set up 3 new API keys in <a href="https://portal.exoscale.com">portal.exoscale.com</a>.
-Two of them are used for the Terraform pipeline.
-The first key should be created with restricted (compute &gt; <code>get*</code>, <code>list*</code>, <code>query*</code>, <code>show*</code> and <code>validate*</code>; DNS &gt; <code>list*</code> and <code>get*</code>) permissions
-The second key can be created as <code>unrestricted</code>.
-The third key needs the following permissions (this key will be deployed onto the LBs for <a href="https://git.vshn.net/appuio-public/ursula">Ursula</a>):</p>
+Two of them are used for the Terraform pipeline.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The first key should be created with restricted permissions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>compute</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>get*</code></p>
+</li>
+<li>
+<p><code>list*</code></p>
+</li>
+<li>
+<p><code>query*</code></p>
+</li>
+<li>
+<p><code>show*</code></p>
+</li>
+<li>
+<p><code>validate*</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>DNS</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list*</code></p>
+</li>
+<li>
+<p><code>get*</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The second key can be created as <code>unrestricted</code>.</p>
+</li>
+<li>
+<p>The third key needs the following permissions (this key will be deployed onto the LBs for <a href="https://github.com/vshn/floaty">Floaty</a>):</p>
 <div class="ulist">
 <ul>
 <li>
@@ -614,12 +703,56 @@ The third key needs the following permissions (this key will be deployed onto th
 </ul>
 </div>
 </li>
+</ol>
+</div>
+</li>
 <li>
-<p>Configure component parameters.</p>
+<p>Create a "Project Access Token" for the hieradata repository.
+The token requires the following permissions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>api</code></p>
+</li>
+<li>
+<p><code>read_repository</code></p>
+</li>
+<li>
+<p><code>write_repository</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The user which is created will be named <code>project_&lt;project-id&gt;_bot</code>, where <code>&lt;project-id&gt;</code> is the project ID of the GitLab project.
+If the project already has access tokens the user will be named <code>project_&lt;project-id&gt;_bot&lt;N&gt;</code> instead, where <code>N</code> is a running counter (<code>1</code> for the second token, etc.)</p>
+</div>
+</li>
+<li>
+<p>Set up a "Servers API" token on <a href="https://control.vshn.net/tokens/_create/servers">control.vshn.net</a>.</p>
+</li>
+<li>
+<p>If there&#8217;s no access token configured on the <a href="https://git.vshn.net/appuio/appuio_hieradata/-/settings/access_tokens">APPUiO hieradata repo</a>, create one.
+Otherwise check <a href="https://vault-prod.syn.vshn.net/ui/vault/secrets/clusters%2Fkv/show/lbaas/hieradata_repo_token">Vault</a> for the token.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_component"><a class="anchor" href="#_setup_component"></a>Setup component</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure component parameters</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_terraform:
   provider: exoscale
+  gitlab_ci:
+    git: <i class="conum" data-value="1"></i><b>(1)</b>
+      username: Max Mustermann
+      email: mm@example.com
   terraform_variables:
     # Required parameters
     rhcos_template: TheTemplateNameForRHCOS
@@ -629,25 +762,42 @@ The third key needs the following permissions (this key will be deployed onto th
       ...
     ssh_key: ssh-ed25519 AA...
     bootstrap_bucket: https://sos-${facts:region}.exo.io/${cluster:name}-bootstrap
+    hieradata_repo_user: project_123_bot <i class="conum" data-value="2"></i><b>(2)</b>
 
     # Optional parameters:
     worker_count: 3
     worker_size: Extra-large</code></pre>
 </div>
 </div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Git author name and email address.
+Used when creating hieradata commits.
+If not specified, the GitLab CI defaults will be used.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The user created for the hieradata project access token.
+Please note that the Terraform module currently only supports the <a href="https://git.vshn.net/appuio/appuio_hieradata">VSHN APPUiO hieradata</a></td>
+</tr>
+</table>
+</div>
 </li>
 <li>
 <p>Compile the cluster catalog</p>
 </li>
 <li>
-<p>Configure GitLab repository</p>
+<p>Configure the cluster catalog GitLab repository CI/CD</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>CI/CD</strong>: Configuration file: <code>manifests/openshift4-terraform/gitlab-ci.yml</code></p>
+<p><span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">General pipelines</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Configuration file</b></span><br>
+<code>manifests/openshift4-terraform/gitlab-ci.yml</code></p>
 </li>
 <li>
-<p><strong>CI/CD</strong>: Variables:</p>
+<p><span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Variables</b></span></p>
 <div class="ulist">
 <ul>
 <li>
@@ -663,10 +813,16 @@ The third key needs the following permissions (this key will be deployed onto th
 <p><code>EXOSCALE_API_KEY_RW</code></p>
 </li>
 <li>
-<p><code>EXOSCALE_URSULA_KEY</code></p>
+<p><code>EXOSCALE_FLOATY_KEY</code></p>
 </li>
 <li>
-<p><code>EXOSCALE_URSULA_SECRET</code></p>
+<p><code>EXOSCALE_FLOATY_SECRET</code></p>
+</li>
+<li>
+<p><code>HIERADATA_REPO_TOKEN</code>&#8201;&#8212;&#8201;the VSHN APPUiO hieradata project access token</p>
+</li>
+<li>
+<p><code>CONTROL_VSHN_NET_TOKEN</code>&#8201;&#8212;&#8201;</p>
 </li>
 </ul>
 </div>
@@ -675,6 +831,8 @@ The third key needs the following permissions (this key will be deployed onto th
 </div>
 </li>
 </ol>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="use-cloudscale.html">Use Cloudscale.ch</a></span>
