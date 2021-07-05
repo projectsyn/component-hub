@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/rook-ceph/references/parameters.html">
-    <link rel="prev" href="../index.html">
+    <link rel="prev" href="../how-tos/configure-ceph.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -92,6 +92,33 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#how-tos/quick-start.adoc">Quick start</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/openshift4.html">Configuring the component for OpenShift 4</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/configure-ceph.html">Configuring and tuning Ceph</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
@@ -542,6 +569,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Rook Ceph</a></li>
+    <li>Technical reference</li>
     <li><a href="parameters.html">Parameters</a></li>
   </ul>
 </nav>
@@ -578,28 +606,804 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-rook-ceph</code></p>
+<p><code>syn-rook-ceph-operator</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The namespace in which the Rook Ceph operator and the CSI drivers are deployed</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_ceph_cluster"><a class="anchor" href="#_ceph_cluster"></a><code>ceph_cluster</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration of the Ceph cluster to deploy.
+See the following sections for individual parameters nested under this key.</p>
+</div>
+<div class="sect2">
+<h3 id="_name"><a class="anchor" href="#_name"></a><code>name</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cluster</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the Ceph cluster object.
+Also used as part of the storageclass and volumesnapshotclass names.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_namespace_2"><a class="anchor" href="#_namespace_2"></a><code>namespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>syn-rook-ceph-${rook_ceph:ceph_cluster:name}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace in which the Ceph cluster is deployed.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component deploys the Ceph cluster in a different namespace than the operator and the CSI drivers.
+However, the component also supports deploying the operator, CSI drivers and Ceph cluster in the same namespace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_node_count"><a class="anchor" href="#_node_count"></a><code>node_count</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>3</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of storage nodes (disks really) that the Ceph cluster should expect.</p>
+</div>
+<div class="paragraph">
+<p>The operator will deploy this many Ceph OSDs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_block_storage_class"><a class="anchor" href="#_block_storage_class"></a><code>block_storage_class</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>localblock</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The storage class to use for the block storage volumes backing the Ceph cluster.
+The storage class <strong>must</strong> support <code>volumeMode=Block</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_block_volume_size"><a class="anchor" href="#_block_volume_size"></a><code>block_volume_size</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p><a href="https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/quantity/#Quantity">K8s Quantity</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>1</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, the component expects that pre-provisioned block storage volumes are used.
+If you deploy the component on a cluster which dynamically provisions volumes for the storage class configured in <code>ceph_cluster.block_storage_class</code>, set this value to the desired size of the disk for a single node of your Ceph cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tune_fast_device_class"><a class="anchor" href="#_tune_fast_device_class"></a><code>tune_fast_device_class</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be set to <code>true</code> to tune the Ceph cluster OSD parameters for SSDs (or better).</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.6/ceph-cluster-crd.html#storage-class-device-sets">the Rook.io Ceph cluster CRD documentation</a> for a more detailed explanation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config_override"><a class="anchor" href="#_config_override"></a><code>config_override</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">osd:
+  bluefs_buffered_io: false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional Ceph configurations which are rendered in <em>ini</em> style format by the component.
+Each key in the dict is translated into a section in the resulting <em>ini</em> style file containing the key&#8217;s value&#8201;&#8212;&#8201;which is expected to be a dict&#8201;&#8212;&#8201;as settings.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component doesn&#8217;t validate the resulting configuration.
+Please be aware that Ceph may fail to start if you provide an invalid configuration file.
+See the <a href="https://docs.ceph.com/en/latest/rados/configuration/ceph-conf/">Ceph documentation</a> for a list of valid configuration sections and options.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The default value is translated into the following <em>ini</em> style file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[osd]
+bluefs_buffered_io = false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The resulting <em>ini</em> style file is written to the ConfigMap <code>rook-config-override</code> in the Ceph cluster namespace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rbd_enabled"><a class="anchor" href="#_rbd_enabled"></a><code>rbd_enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the RBD CSI driver, its associated volumesnapshotclass and any configured <code>CephBlockPool</code> resources and associated storageclasses are provisioned.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CephBlockPool</code> resources are defined and configured in parameter <a href="#_storage_pools_rbd"><code>storage_pools.rbd</code></a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cephfs_enabled"><a class="anchor" href="#_cephfs_enabled"></a><code>cephfs_enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the CephFS CSI driver, its associated volumesnapshotclass and any configured <code>CephFilesystem</code> resources and associated storageclasses are provisioned.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CephFilesystem</code> resources are defined and configured in parameter <a href="#_storage_pools_cephfs"><code>storage_pools.cephfs</code></a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage_pools_rbd"><a class="anchor" href="#_storage_pools_rbd"></a><code>storage_pools.rbd</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>Names of <code>CephBlockPool</code> resources</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>dicts with keys <code>config</code> and <code>storage_class_config</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this parameter <code>CephBlockPool</code> resources are configured.
+The component creates exactly one storageclass and volumesnapshotclass per block pool.</p>
+</div>
+<div class="paragraph">
+<p>By default the parameter holds the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storagepool:
+  config:
+    failureDomain: host
+    replicated:
+      size: 3
+      requireSafeReplicaSize: true
+  storage_class_config:
+    parameters:
+      csi.storage.k8s.io/fstype: ext4
+    allowVolumeExpansion: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration results in</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>CephBlockPool</code> named <code>storagepool</code> which is configured with 3 replicas distributed on different hosts</p>
+</li>
+<li>
+<p>A storageclass which creates PVs on this block pool, uses the <code>ext4</code> filesystem and supports volume expansion</p>
+</li>
+<li>
+<p>A volumesnapshotclass associated with the storageclass</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.6/ceph-pool-crd.html">the Rook.io <code>CephBlockPool</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+</div>
+<div class="paragraph">
+<p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage_pools_cephfs"><a class="anchor" href="#_storage_pools_cephfs"></a><code>storage_pools.cephfs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>Names of <code>CephFilesystem</code> resources</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>dicts with keys <code>data_pools</code>, <code>config</code> and <code>storage_class_config</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this parameter <code>CephFilesystem</code> resources are configured.
+The component creates exactly one storageclass and volumesnapshotclass per CephFS.</p>
+</div>
+<div class="paragraph">
+<p>By default the parameter holds the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">fspool:
+  data_pools:
+    pool0:
+      failureDomain: host
+      replicated:
+        size: 3
+        requireSafeReplicaSize: true
+      parameters:
+        compression_mode: none
+  config:
+    metadataPool:
+      replicated:
+        size: 3
+        requireSafeReplicaSize: true
+    parameters:
+      compression_mode: none
+    # dataPools rendered from data_pools in Jsonnet
+    preserveFilesystemOnDelete: true
+    metadataServer:
+      activeCount: 1
+      activeStandby: true
+      # metadata server placement done in Jsonnet but can be
+      # extended here
+    mirroring:
+      enabled: false
+  storage_class_config:
+    allowVolumeExpansion: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration creates one <code>CephFilesystem</code> resource named <code>fspool</code>.
+This CephFS instance is configured to have 3 replicas both for the metadata pool and its single data pool.</p>
+</div>
+<div class="paragraph">
+<p>The key <code>data_pools</code> is provided to avoid having to manage a list of data pools directly in the hierarchy.
+The values of each key in <code>data_pools</code> are placed in the resulting CephFS resource&#8217;s field <code>.spec.dataPools</code></p>
+</div>
+<div class="paragraph">
+<p>The contents of key <code>config</code> are used as the base value of the resulting resource&#8217;s <code>.spec</code> field.
+Note that data pools given in <code>config</code> in the hierarchy will be overwritten by the pools configured in <code>data_pools</code>.</p>
+</div>
+<div class="paragraph">
+<p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource which is for the CephFS instance.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.6/ceph-filesystem-crd.html">the Rook.io <code>CephFilesystem</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_node_selector"><a class="anchor" href="#_node_selector"></a><code>node_selector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">node-role.kubernetes.io/storage: ''</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The node selector (if applicable) for all the resources managed by the component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tolerations"><a class="anchor" href="#_tolerations"></a><code>tolerations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- key: storagenode
+  operator: Exists</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The tolerations (if applicable) for all the resources managed by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component assumes that nodes on which the deployments should be scheduled may be tainted with <code>storagenode=True:NoSchedule</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows selecting the Docker images to use for Rook.io, Ceph, and Ceph-CSI.
+Each image is specified using keys <code>registry</code>, <code>image</code> and <code>tag</code>.
+This structure allows easily injecting a registry mirror, if required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows selecting the Helm chart version for the <code>rook-ceph</code> operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operator_helm_values"><a class="anchor" href="#_operator_helm_values"></a><code>operator_helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm values to use when rendering the rook-ceph operator Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>A few Helm values are configured based on other component parameters by default:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data in parameter <code>images</code> is used to set the <code>image.repository</code>, <code>image.tag</code>, and <code>csi.cephcsi.image</code> Helm values</p>
+</li>
+<li>
+<p>The value of <code>node_selector</code> is used to set Helm value <code>nodeSelector</code></p>
+</li>
+<li>
+<p>The value of <code>tolerations</code> is used to set Helm value <code>tolerations</code></p>
+</li>
+<li>
+<p>The component ensures that <code>hostpathRequiresPrivileged</code> is enabled on OpenShift 4 regardless of the contents of the Helm value.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.6/helm-operator.html#configuration">the Rook.io docs</a> for a full list of Helm values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_toolbox"><a class="anchor" href="#_toolbox"></a><code>toolbox</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enabled: true
+image: ${rook_ceph:images:rook}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for the Rook-Ceph toolbox deployment.
+This deployment provides an in-cluster shell to observe and administrate the Ceph cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cephclusterspec"><a class="anchor" href="#_cephclusterspec"></a><code>cephClusterSpec</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The default configuration for the <code>CephCluster</code> resource.
+The value of this parameter is used as field <code>.spec</code> of the resulting resource.</p>
+</div>
+<div class="paragraph">
+<p>Selected configurations of the Ceph cluster are inherited from other component parameters.
+If you overwrite those configurations in this parameter, the values provided in the "source" parameters won&#8217;t have an effect.</p>
+</div>
+<div class="sect2">
+<h3 id="_inherited_configurations"><a class="anchor" href="#_inherited_configurations"></a>Inherited configurations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cephVersion.image</code> is constructed from the data in parameter <a href="#_images"><code>images</code></a>.</p>
+</li>
+<li>
+<p><code>placement.all.nodeAffinity</code> is built from parameter <a href="#_node_selector"><code>node_selector</code></a>.
+The component constructs the following value for the configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">requiredDuringSchedulingIgnoredDuringExecution:
+  nodeSelectorTerms:
+    - matchExpressions: <i class="conum" data-value="1"></i><b>(1)</b>
+        - key: NODE_SELECTOR_KEY
+          operator: Exists
+        ...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The component creates an entry in <code>matchExpressions</code> with <code>key</code> equal to the node selector key and <code>operator=Exists</code> for each key in parameter <a href="#_node_selector"><code>node_selector</code></a>.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>placement.all.tolerations</code> is set to the value of parameter <a href="#_tolerations"><code>tolerations</code></a>.</p>
+</li>
+<li>
+<p>The component creates as single entry for <code>storage.storageClassDeviceSets</code> based on values given in parameter <a href="#_ceph_cluster"><code>ceph_cluster</code></a>.
+Users are encouraged to use the parameter <a href="#_ceph_cluster"><code>ceph_cluster</code></a> to configure the Ceph cluster&#8217;s backing storage.</p>
+<div class="paragraph">
+<p>The component expects that the provided storageclass for the backing storage supports <code>volumeMode=Block</code>.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.6/ceph-cluster-crd.html#settings">the Rook.io <code>CephCluster</code> documentation</a> for a full list of configuration parameters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_configurations"><a class="anchor" href="#_example_configurations"></a>Example configurations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_configure_the_component_for_selinux_enabled_cluster_nodes"><a class="anchor" href="#_configure_the_component_for_selinux_enabled_cluster_nodes"></a>Configure the component for SElinux-enabled cluster nodes</h3>
+<div class="paragraph">
+<p>The component automatically configures the operator on OpenShift 4.
+However, on other Kubernetes distributions on nodes which use SElinux, users need to enable <code>hostpathRequiresPrivileged</code> in the operator&#8217;s helm values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  rook_ceph:
+    operator_helm_values:
+      hostpathRequiresPrivileged: true <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The operator needs to be informed that deployments which use <code>hostPath</code> volume mounts need to run with <code>privileged</code> security context.
+This setting is required on any cluster which uses SELinux on the nodes.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="prev"><a href="../how-tos/configure-ceph.html">Configuring and tuning Ceph</a></span>
 </nav>
 </article>
   </div>
