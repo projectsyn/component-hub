@@ -580,11 +580,11 @@
 <h1 class="page">Use HTTP01 solver on OpenShift</h1>
 <div class="paragraph">
 <p>OpenShift mainly uses Route objects to configure the router.
-While it suppports Kubernetes Ingresses as well, they are translated into Routes in the background.
-However, cert-manager supports only Ingresses so we have to somehow "marry" them together.</p>
+While it suppports Kubernetes Ingresses as well, they&#8217;re translated into Routes in the background.
+However, cert-manager supports only Ingresses so we&#8217;ve to somehow "marry" them together.</p>
 </div>
 <div class="paragraph">
-<p>The main problem is that the generated Route for the Let&#8217;s Encrypt challenge resolver is redirecting HTTP traffic to HTTPS, thus Let&#8217;s Encrypt cannot reach the pod.
+<p>The main problem is that the generated Route for the Let&#8217;s Encrypt challenge resolver is redirecting HTTP traffic to HTTPS, thus Let&#8217;s Encrypt can&#8217;t reach the pod.
 In order to make provision Let&#8217;s Encrypt certificates with the HTTP01 solver on OpenShift, you need to configure the solver like below:</p>
 </div>
 <div class="listingblock">
