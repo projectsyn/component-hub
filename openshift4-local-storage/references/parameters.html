@@ -85,7 +85,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">openshift4-local-storage</a></h3>
+    <h3 class="title"><a href="../index.html">OpenShift 4 local-storage</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -102,7 +102,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">openshift4-local-storage</span>
+    <span class="title">OpenShift 4 local-storage</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -322,6 +322,14 @@
         </li>
       </ul>
     </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 local-storage</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
     <li class="component">
       <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Machine Management</a>
       <ul class="versions">
@@ -391,14 +399,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../openshift4-ingress/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">openshift4-local-storage</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -549,7 +549,7 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">openshift4-local-storage</a></li>
+    <li><a href="../index.html">OpenShift 4 local-storage</a></li>
     <li><a href="parameters.html">Parameters</a></li>
   </ul>
 </nav>
@@ -586,23 +586,433 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-openshift4-local-storage</code></p>
+<p><code>openshift-local-storage</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The namespace in which to deploy this component.
+Defaults to the suggested namespace for the RedHat Local Storage operator.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_local_storage_operator_channel"><a class="anchor" href="#_local_storage_operator_channel"></a><code>local_storage_operator.channel</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>"4.7"</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The subscription channel to use when installing the Local Storage Operator using the Operator Lifecycle Manager.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_local_volumes"><a class="anchor" href="#_local_volumes"></a>local_volumes</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>names of <code>LocalVolume</code> resources to create</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>dicts with keys</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>config</code> (mandatory)</p>
+</li>
+<li>
+<p><code>restricted_to</code> (optional)</p>
+</li>
+<li>
+<p><code>storage_class_devices</code> (mandatory)</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component will render a <code>LocalVolume</code> resource for each entry in the dict.</p>
+</div>
+<div class="sect2">
+<h3 id="_key_config"><a class="anchor" href="#_key_config"></a>Key <code>config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p><code>nodeSelector</code>, <code>tolerations</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The value of key <code>config</code> of the entry is used as the base for field <code>.spec</code> of the <code>LocalVolume</code> resource.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component overwrites key <code>.spec.storageClassDevices</code> based on key <a href="#_key_storage_class_devices"><code>storage_class_devices</code></a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See the OpenShift documentation for the Local Storage Operator for possible configurations for</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/latest/storage/persistent_storage/persistent-storage-local.html#local-volume-cr_persistent-storage-local">field <code>nodeSelector</code></a></p>
+</li>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/latest/storage/persistent_storage/persistent-storage-local.html#local-tolerations_persistent-storage-local">field <code>tolerations</code></a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key_storage_class_devices"><a class="anchor" href="#_key_storage_class_devices"></a>Key <code>storage_class_devices</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>used as value for field <code>storageClassName</code> in resulting array elements</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>dicts with keys <code>volumeMode</code>, <code>fsType</code>, <code>devicePaths</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in <code>storage_class_devices</code> is transformed into an array element as shown below.</p>
+</div>
+<div class="paragraph">
+<p>Given the <code>storage_class_devices</code> specification shown on the left, the <code>LocalVolume</code> resource on the right is created by the component.</p>
+</div>
+<table class="tableblock frame-all grid-none stretch">
+<colgroup>
+<col style="width: 42.8571%;">
+<col style="width: 4.7619%;">
+<col style="width: 52.381%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><div class="content"><div class="listingblock">
+<div class="title">Config in hierarchy</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storage_class_devices:
+  localstorage:
+    volumeMode: Block
+    devicePaths:
+      - /dev/vdb</code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><div class="content"><div class="paragraph">
+<p><span style="font-size: 200%">&#8658;</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><div class="content"><div class="listingblock">
+<div class="title">Resulting <code>LocalVolume</code> resource</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion:
+kind: LocalVolume
+metdata:
+  name: ... # omitted
+spec:
+  storageClassDevices:
+    - storageClassName: localstorage
+      volumeMode: Block
+      devicePaths:
+        - /dev/vdb
+  # remaining spec omitted</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Given this <code>LocalVolume</code> resource, the operator creates</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A single <code>StorageClass</code> for each key in <code>storage_class_devices</code></p>
+</li>
+<li>
+<p>PVs making <code>/dev/vdb</code> available.
+One such PV is created per node which is matched by the node selector in <code>.spec.nodeSelector</code> of the <code>LocalVolume</code> object (omitted in the example)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://docs.openshift.com/container-platform/latest/storage/persistent_storage/persistent-storage-local.html#local-volume-cr_persistent-storage-local">the OpenShift documentation</a> for an explanation of the valid fields in values of dict <code>storage_class_devices</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key_restricted_to"><a class="anchor" href="#_key_restricted_to"></a>Key <code>restricted_to</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>namespace labels</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>one of</p>
+<div class="ulist">
+<ul>
+<li>
+<p>empty dict (<code>{}</code>)</p>
+</li>
+<li>
+<p>dict with key <code>values</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If this key is present, the component creates an Espejo <code>SyncConfig</code> to restrict the use of the storage classes created by the <code>LocalVolume</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>This restriction is implemented with <code>ResourceQuota</code> resources which give a quota of 0 PVCs for the storage classes.
+With this <code>ResourceQuota</code> configuration, the resource quota must be configured in all namespaces other than the ones that are allowed to use the storage class.
+Therefore, the component must to invert the given restrictions to correctly restrict usage of the storage class to the specified namespaces.</p>
+</div>
+<div class="paragraph">
+<p>The content of the key is expected to be a dict, with keys in the dict corresponding to labels on namespaces.</p>
+</div>
+<div class="paragraph">
+<p>The values of the dict can be</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Empty dicts (<code>{}</code>).
+In this case, the component constructs the following namespace selector <code>matchExpressions</code> entry:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceSelector:
+  labelSelector:
+    matchExpressions:
+      - key: &lt;KEY&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+        operator: DoesNotExist <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The key in the <code>restricted_to</code> dict is used as value for field <code>key</code> in the match expression</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>ResourceQuota</code> needs to be present in all namespaces which don&#8217;t have the label <code>&lt;KEY&gt;</code>.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Dicts with key <code>values</code>.
+In this case, the component constructs the following namespace selector <code>matchExpressions</code> entry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceSelector:
+  labelSelector:
+    matchExpressions:
+      - key: &lt;KEY&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+        operator: NotIn <i class="conum" data-value="2"></i><b>(2)</b>
+        values: &lt; restricted_to[KEY].values &gt; <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The key in the <code>restricted_to</code> dict is used as value for field <code>key</code> in the match expression</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>ResourceQuota</code> needs to be present in all namespaces which don&#8217;t have the label <code>&lt;KEY&gt;</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The contents of field <code>values</code>.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_configuration"><a class="anchor" href="#_example_configuration"></a>Example configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example configuration shows how to present device <code>/dev/vdb</code> on all nodes with label <code>node-role.kubernetes.io/storage</code> as a PV with <code>volumeMode=Block</code> and storage class <code>localblock-storage</code>.</p>
+</div>
+<div class="paragraph">
+<p>The example restricts the use of the resulting storage class <code>localblock-storage</code> to namespaces labelled with <code>argocd.argoproj.io/instance=rook-ceph</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_local_storage:
+    local_volumes:
+      # Create a `LocalVolume` resource named `storagevolumes`
+      storagevolumes:
+        # Restrict usage of the resulting storage class to namespaces
+        # labelled with `argocd.argoproj.io/instance=rook-ceph`.
+        restricted_to:
+          argocd.argoproj.io/instance:
+            values:
+              - rook-ceph
+        # Present `/dev/vdb` on nodes selected by the node selector
+        # (see below) as PV with `volumeMode=Block` and storage class
+        # `localblock-storage`
+        storage_class_devices:
+          localblock-storage:
+            volumeMode: Block
+            devicePaths:
+              - /dev/vdb
+        config:
+          # Ensure the resulting manager pods can run on nodes tainted
+          # with `storagenode=True:NoSchedule`
+          tolerations:
+            - key: storagenode
+              operator: Exists
+          # Restrict resulting pods to nodes with label
+          # `node-role.kubernetes.io/storage`
+          nodeSelector:
+            nodeSelectorTerms:
+              matchExpressions:
+                - key: node-role.kubernetes.io/storage
+                  operator: Exists</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration for parameter <code>local_volumes</code> results in the following resources to apply to the cluster:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>LocalVolume</code> resource named <code>storagevolumes</code> which configures</p>
+<div class="ulist">
+<ul>
+<li>
+<p>a storage class named <code>localblock-storage</code></p>
+</li>
+<li>
+<p>a PV for <code>/dev/vda5</code> with <code>storageClassName=localblock-storage</code> on each node which has the label <code>node-role.kubernetes.io/storage</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>A <code>SyncConfig</code> resource named <code>openshift4-local-storage-restrict-storagevolumes</code>
+This <code>SyncConfig</code> ensures that the <code>ResourceQuota</code> restricting the PVC count for storage class <code>storagevolumes</code> to 0 is present in namespaces without the label <code>argocd.argoproj.io/instance=rook-ceph</code>.</p>
+</li>
+<li>
+<p>A <code>SyncConfig</code> resource named <code>openshift4-local-storage-restrict-storagevolumes-prune</code>
+This <code>SyncConfig</code> ensures that the <code>ResourceQuota</code> restricting the PVC count for storage class <code>storagevolumes</code> to 0 is removed in namespaces with the label <code>argocd.argoproj.io/instance=rook-ceph</code>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
