@@ -589,75 +589,7 @@ There are some breaking changes in <code>cert-manager</code>.
 More information can be found <a href="https://github.com/jetstack/cert-manager/releases">in changelog on GitHub</a> and in the <a href="https://cert-manager.io/docs/installation/upgrading/">upgrade documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The upgrade is done with the following steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Compile Commodore catalog with <code>component-cert-manager</code> v2.x</p>
-</li>
-<li>
-<p>Fix CRD upgrade</p>
-</li>
-<li>
-<p>Verify cert-manager upgrade</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>commodore</code></p>
-</li>
-<li>
-<p><code>kubectl</code> or <code>oc</code></p>
-</li>
-<li>
-<p><a href="https://github.com/mikefarah/yq"><code>yq</code></a> version 4 (alternatively, any editor works)</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upgrade"><a class="anchor" href="#_upgrade"></a>Upgrade</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Compile and push cluster catalog with <code>component-cert-manager</code> v2.x</p>
-</li>
-<li>
-<p>Fix CRD upgrade</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &lt;&lt;'EOF' &gt; cert-manager-prepare-merge-crds.sh
-#!/bin/sh
-
-set -euo pipefail
-
-for crd in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io; do
-  # Get CRD definition in YAML
-  kubectl get crd "${crd}" -o yaml &gt; "${crd}.yaml"
-  # Remove all metadata properties except `metadata.name`
-  yq -i eval 'del(.status) | del(.metadata) | .metadata.name += "'${crd}'"' "${crd}.yaml"
-  # Apply the CRD again (this shouldn't change anything, except updating the annotation "kubectl.kubernetes.io/last-applied-configuration")
-  # You will also see some warnings in the output mentioning the annotation.
-  # This is expected and actually required.
-  kubectl apply -f "${crd}.yaml"
-done
-EOF
-
-sh cert-manager-prepare-merge-crds.sh</code></pre>
-</div>
-</div>
-</li>
-</ol>
+<p>This upgrade should require no manual steps, but it&#8217;s recommended to verify the upgrade.</p>
 </div>
 </div>
 </div>
@@ -668,20 +600,6 @@ sh cert-manager-prepare-merge-crds.sh</code></pre>
 <ol class="arabic">
 <li>
 <p>Verify successful sync and health status in ArgoCD</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If ArgoCD sync is marked as failed it may be required to trigger another sync.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="admonitionblock important">
 <table>
 <tr>
