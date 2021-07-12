@@ -22,7 +22,7 @@ jobs:
           python-version: 3.9
 
       - name: Install Poetry
-        uses: Gr1N/setup-poetry@v5
+        uses: Gr1N/setup-poetry@v6
 
       - name: Setup Cache
         uses: actions/cache@v2
