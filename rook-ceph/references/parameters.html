@@ -939,6 +939,77 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring_enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the component enables monitoring on the <code>CephCluster</code> resource and sets up Ceph alert rules.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- CephPoolQuotaBytesNearExhaustion
+- CephPoolQuotaBytesCriticallyExhausted</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to disable alerts provided by Rook.io.
+The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component disables the CephPoolQuota alerts, since the default configuration doesn&#8217;t configure any pool quotas.</p>
+</div>
+<div class="paragraph">
+<p>However, if the quota alerts are wanted, they can be re-enabled by removing the alerts from the parameter by providing the following configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ignore_alerts:
+  - ~CephPoolQuotaBytesNearExhaustion
+  - ~CephPoolQuotaBytesCriticallyExhausted</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_storage_pools_rbd"><a class="anchor" href="#_storage_pools_rbd"></a><code>storage_pools.rbd</code></h3>
 <div class="hdlist">
 <table>
