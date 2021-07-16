@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/eks-addon-manager/references/parameters.html">
-    <link rel="prev" href="../how-tos/migrate-to-eks-add-ons.html">
+    <title>Untitled :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/eks-addon-manager/how-tos/migrate-to-eks-add-ons.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -92,11 +93,11 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/migrate-to-eks-add-ons.html">Migrate to Amazon EKS add-ons</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="migrate-to-eks-add-ons.html">Migrate to Amazon EKS add-ons</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -561,252 +562,92 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">eks-addon-manager</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="migrate-to-eks-add-ons.html">Migrate to Amazon EKS add-ons</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-eks-addon-manager/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-eks-addon-manager/edit/master/docs/modules/ROOT/pages/how-tos/migrate-to-eks-add-ons.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
+<div class="sect1">
+<h2 id="_migrate_to_amazon_eks_add_ons"><a class="anchor" href="#_migrate_to_amazon_eks_add_ons"></a>Migrate to Amazon EKS add-ons</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>eks_addon_manager</code>.</p>
+<p>Beginning with Kubernetes version 1.18 Amazon EKS started providing <a href="https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html">add-ons</a> for EKS specific Kubernetes components like <a href="https://docs.aws.amazon.com/eks/latest/userguide/managing-kube-proxy.html">kube-proxy</a>, <a href="https://docs.aws.amazon.com/eks/latest/userguide/managing-coredns.html">coredns</a> or the <a href="https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html">AWS VPC CNI</a>.
+The tight integration into the API and portal does make it easy to use and ensures version upgrade constraints can be detected ahead.
+Hashicorp AWS EKS module provides a resource <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon">aws_eks_addon</a> allowing deploy the add-ons along with the EKS cluster using the Kubernetes server-side apply feature.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock warning">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
 </td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${resource_locker:namespace}</code></p>
+<td class="content">
+Migrating to the Amazon EKS add-ons does require removing the eks-addon-manager component!
 </td>
 </tr>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_remove_the_eks_addon_manager_component"><a class="anchor" href="#_remove_the_eks_addon_manager_component"></a>Remove the eks-addon-manager component</h3>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.
-The ResourceLocker objects managed by this component must exist in the same namespace as the resource-locker-operator.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upstream_registry_region"><a class="anchor" href="#_upstream_registry_region"></a><code>upstream_registry_region</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>us-west-2</code></p>
-</td>
-</tr>
-</table>
+<p>The eks-addon-manager component has the preconfiguration in the ArgoCD application not to prune anything in the case the application is going to be removed.
+This allows it just to remove the component and the applied manifests stay untouched on the cluster, remaining up and running in the last state.</p>
 </div>
 <div class="paragraph">
-<p>Region which is used for the container images in the upstream aws-k8s-cni manifests.</p>
+<p>To remove the component by prefix the application with a <code>~</code>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_image_names_coredns"><a class="anchor" href="#_image_names_coredns"></a><code>image_names.coredns</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>eks/coredns</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Container image name (including path) for CoreDNS in the EKS registry.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_image_names_kube_proxy"><a class="anchor" href="#_image_names_kube_proxy"></a><code>image_names.kube-proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>eks/kube-proxy</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Container image name (including path) for kube-proxy in the EKS registry.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_image_names_aws_node"><a class="anchor" href="#_image_names_aws_node"></a><code>image_names.aws-node</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>amazon-k8s-cni</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Container image name for the AWS VPC CNI</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_versions"><a class="anchor" href="#_versions"></a><code>versions</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-keys
-</td>
-<td class="hdlist2">
-<p>addon names</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-values
-</td>
-<td class="hdlist2">
-<p>Default version of addon for cluster&#8217;s EKS version</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Versions to use for the different addons.
-Keys in the <code>versions</code> dict are the addon names.
-Entries have keys <code>tag</code> (required) and <code>version</code> optional, which default to the corresponding fields for the cluster&#8217;s EKS version in <code>version_map</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_version_map"><a class="anchor" href="#_version_map"></a><code>version_map</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-keys
-</td>
-<td class="hdlist2">
-<p>addon names</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-values
-</td>
-<td class="hdlist2">
-<p>dict mapping EKS version to addon tag and version</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Default addon tags (required) and versions (optional) indexed by EKS version.
-Changes in <code>version_map</code> should only be done in <code>class/defaults.yml</code> of the component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
+  - ~eks-addon-manager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After compiling the catalog, puhsing and refreshing the ArgoCD root application the component has been removed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_migration_specific_to_eks_kubernetes_1_19"><a class="anchor" href="#_migration_specific_to_eks_kubernetes_1_19"></a>Migration specific to EKS Kubernetes 1.19</h3>
+<div class="paragraph">
+<p>By adding the resource <code>aws_eks_addon</code> for <code>kube_proxy</code>, <code>coredns</code> and <code>vpc-cni</code> to the Terraform configuration the add-ons are going to be applied.
+The condition resolving conflicts set to <code>OVERWRITE</code> advises the EKS enforce apply changes in the case of conflicts.
+For the add-ons <code>kube_proxy</code>, <code>coredns</code> the right version was automatically choosen according the running Kubernetes version.
+The <code>vpc-cni</code> has been downgraded from the component version <code>v1.7.10</code> to <code>v1.7.5-eksbuild.1</code> without any visible impact to the workload.
+However since the AWS EKS recommendation is to use the <a href="https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html">newest VPC CNI version</a> for all the supported Kubernetes version override the version in the module does solve it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terraform hljs" data-lang="terraform">resource "aws_eks_addon" "kube_proxy" {
+  cluster_name      = var.cluster_name
+  addon_name        = "kube-proxy"
+  resolve_conflicts = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "coredns" {
+  cluster_name      = var.cluster_name
+  addon_name        = "coredns"
+  resolve_conflicts = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "vpc-cni" {
+  cluster_name      = var.cluster_name
+  addon_name        = "vpc-cni"
+  addon_version     = "v1.8.0-eksbuild.1"
+  resolve_conflicts = "OVERWRITE"
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/migrate-to-eks-add-ons.html">Migrate to Amazon EKS add-ons</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -817,7 +658,7 @@ Changes in <code>version_map</code> should only be done in <code>class/defaults.
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/eks-addon-manager/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/eks-addon-manager/how-tos/migrate-to-eks-add-ons.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
