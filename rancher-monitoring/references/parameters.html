@@ -624,12 +624,13 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">'1.15': a95e9dada46ec6d8e11bd463b45b6e59525dc64e # release-0.3
-'1.16': eeb5ed7b62e45c540756eea76626d76a6ad725fc # release-0.4
-'1.17': eeb5ed7b62e45c540756eea76626d76a6ad725fc # release-0.4
-'1.18': 95ba62c1074c9e11bdb93423742552d5c816dfd1 # release-0.6
-'1.19': c1130442d68bf4bfbd1544711b67c98a28f2a327 # release-0.7
-'1.20': c1130442d68bf4bfbd1544711b67c98a28f2a327 # release-0.7</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">'1.15': release-0.3
+'1.16': release-0.4
+'1.17': release-0.4
+'1.18': release-0.6
+'1.19': release-0.7
+'1.20': release-0.8
+'1.21': release-0.8</code></pre>
 </div>
 </div>
 </td>
@@ -641,25 +642,6 @@ default
 </div>
 <div class="paragraph">
 <p>See the <a href="https://github.com/prometheus-operator/kube-prometheus/blob/master/README.md#kubernetes-compatibility-matrix">kube-prometheus Kubernetes compatibility matrix</a> for updating this map.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>So far, we&#8217;ve used Git commit hashes in the version map.
-The upstream compatibility matrix provides compatibility branches for Kubernetes 1.16+.
-Those branch names could be used as versions in jsonnet-bundler.</p>
-</div>
-<div class="paragraph">
-<p>To ensure minimal changes during the open sourcing process, we keep the old commit hash versions in the map for the initial open-source release.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -708,6 +690,70 @@ That fact can then be used in place of this parameter to select the <code>kube-p
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_federation_target"><a class="anchor" href="#_federation_target"></a><code>federation_target</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${rancher_monitoring:_federation_target_map:${rancher_monitoring:rancher_monitoring_version}}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The service name of the Prometheus instance with which to federate.
+Usually this is the Prometheus instance managed by Rancher.</p>
+</div>
+<div class="paragraph">
+<p>By default, this parameter is set based on the value of parameter <a href="#_rancher_monitoring_version"><code>rancher_monitoring_version</code></a>.
+The default configuration ensures that this parameter is set to the default service name for the Rancher-managed Prometheus instance for Rancher monitoring V1 or V2 depending on the value of <code>rancher_monitoring_version</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rancher_monitoring_version"><a class="anchor" href="#_rancher_monitoring_version"></a><code>rancher_monitoring_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>v1</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the Rancher monitoring stack which is enabled on the cluster.
+Valid values are <code>v1</code> or <code>v2</code>.
+See <a href="https://rancher.com/docs/rancher/v2.5/en/monitoring-alerting/">the Rancher documentation</a> for more details on the differences between the V1 and V2 Rancher monitoring stacks.
+This parameter is used to configure an appropriate default value for the <code>federation_target</code> parameter, if that parameter isn&#8217;t overwritten.</p>
 </div>
 </div>
 </div>
