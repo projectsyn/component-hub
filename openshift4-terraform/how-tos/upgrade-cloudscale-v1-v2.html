@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Use cloudscale.ch :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/use-cloudscale.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="use-exoscale.html">
+    <title>Upgrade cloudscale.ch Terraform module from v1 to v2 :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/upgrade-cloudscale-v1-v2.html">
+    <link rel="prev" href="use-exoscale.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,13 +99,13 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="use-cloudscale.html">Use cloudscale.ch</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="use-exoscale.html">Use Exoscale</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-cloudscale-v1-v2.html">Upgrade cloudscale.ch from v1 to v2</a>
   </li>
 </ul>
@@ -581,121 +581,144 @@
   <ul>
     <li><a href="../index.html">openshift4-terraform</a></li>
     <li>How-to guides</li>
-    <li><a href="use-cloudscale.html">Use cloudscale.ch</a></li>
+    <li><a href="upgrade-cloudscale-v1-v2.html">Upgrade cloudscale.ch from v1 to v2</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/use-cloudscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-cloudscale-v1-v2.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Use cloudscale.ch</h1>
+<h1 class="page">Upgrade cloudscale.ch Terraform module from v1 to v2</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Currently the Terraform module which this component uses for cloudscale.ch only supports provisioning VSHN-managed OCP4 clusters.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-See <a href="https://kb.vshn.ch/oc4/how-tos/cloudscale/install.html">the cloudscale.ch installation how-to</a> for a comprehensive how-to for setting up OCP4 on cloudscale.ch.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p><a href="https://github.com/appuio/terraform-openshift4-cloudscale/releases/tag/v2.0.0">terraform-openshift4-cloudscale v2.0.0</a> introduces Puppet-managed load balancer VMs managed by VSHN.</p>
 </div>
 <div class="paragraph">
-<p>The following steps show how to set up Terraform with cloudscale.ch</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The component currently assumes that the Git repositories live on a GitLab instance.
-</td>
-</tr>
-</table>
+<p>That release includes breaking changes which require manual steps to upgrade existing clusters.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup_credentials"><a class="anchor" href="#_setup_credentials"></a>Setup credentials</h2>
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set up 3 new API keys in <a href="https://control.cloudscale.ch">control.cloudscale.ch</a>.
-Two of them are used for the Terraform pipeline.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>The first key should be created with read-only permissions and will be used for read-only GitLab CI jobs.</p>
-</li>
-<li>
-<p>The second key can be created with read/write permissions and will be used for mutating GitLab CI jobs but also for the initial cluster installation.</p>
-</li>
-<li>
-<p>The third key needs read/write permissions and will be deployed onto the LBs for <a href="https://github.com/vshn/floaty">Floaty</a>):</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Create a "Project Access Token" for the hieradata repository.
-The token requires the following permissions:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>api</code></p>
+<p><code>ssh-keygen</code></p>
 </li>
 <li>
-<p><code>read_repository</code></p>
+<p><code>jq</code></p>
 </li>
 <li>
-<p><code>write_repository</code></p>
+<p><code>vault</code> <a href="https://www.vaultproject.io/docs/commands">Vault CLI</a></p>
+</li>
+<li>
+<p><code>base64</code></p>
+</li>
+<li>
+<p><code>curl</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The user which is created will be named <code>project_&lt;project-id&gt;_bot</code>, where <code>&lt;project-id&gt;</code> is the project ID of the GitLab project.
-If the project already has access tokens the user will be named <code>project_&lt;project-id&gt;_bot&lt;N&gt;</code> instead, where <code>N</code> is a running counter (<code>1</code> for the second token, etc.)</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_environment_variables"><a class="anchor" href="#_setup_environment_variables"></a>Setup environment variables</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Access to API</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For example: https://api.syn.vshn.net
+# IMPORTANT: do NOT add a trailing `/`. Commands below will fail.
+export COMMODORE_API_URL=&lt;lieutenant-api-endpoint&gt;
+export COMMODORE_API_TOKEN=&lt;lieutenant-api-token&gt;
+
+export CLUSTER_ID=&lt;lieutenant-cluster-id&gt; # Looks like: c-&lt;something&gt;
+export TENANT_ID=$(curl -sH "Authorization: Bearer ${COMMODORE_API_TOKEN}" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r .tenant)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_update_credentials"><a class="anchor" href="#_update_credentials"></a>Update credentials</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add an additional cloudscale.ch token for Floaty and configure GitLab repository as described in <a href="use-cloudscale.html" class="page">Use cloudscale.ch</a></p>
+</li>
+<li>
+<p>Connect with Vault</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export VAULT_ADDR=https://vault-prod.syn.vshn.net
+vault login -method=ldap username=&lt;your.name&gt;</code></pre>
+</div>
 </div>
 </li>
 <li>
-<p>Set up a "Servers API" token on <a href="https://control.vshn.net/tokens/_create/servers">control.vshn.net</a>.</p>
-</li>
-<li>
-<p>If there&#8217;s no access token configured on the <a href="https://git.vshn.net/appuio/appuio_hieradata/-/settings/access_tokens">APPUiO hieradata repo</a>, create one.
-Otherwise check <a href="https://vault-prod.syn.vshn.net/ui/vault/secrets/clusters%2Fkv/show/lbaas/hieradata_repo_token">Vault</a> for the token.</p>
+<p>Prepare SSH key</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We generate a unique SSH key pair for the cluster for troubleshooting access to the cluster hosts.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SSH_PRIVATE_KEY="$(pwd)/ssh_$CLUSTER_ID"
+export SSH_PUBLIC_KEY="${SSH_PRIVATE_KEY}.pub"
+
+ssh-keygen -C "vault@$CLUSTER_ID" -t ed25519 -f $SSH_PRIVATE_KEY -N ''
+
+vault kv put clusters/kv/${TENANT_ID}/${CLUSTER_ID}/cloudscale/ssh \
+  private_key=$(cat $SSH_PRIVATE_KEY | base64 --wrap 0)</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup_component"><a class="anchor" href="#_setup_component"></a>Setup component</h2>
+<h2 id="_update_component_parameters"><a class="anchor" href="#_update_component_parameters"></a>Update component parameters</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Configure component parameters.</p>
+<p>Set the <code>ssh_keys</code> parameter</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_terraform:
+  provider: cloudscale
+  terraform_variables:
+    ssh_keys:
+      - ssh-ed25519 AA... <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The SSH public key in <code>$SSH_PUBLIC_KEY</code>.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Set the Git author <em>(Optional)</em></p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_terraform:
@@ -703,20 +726,7 @@ Otherwise check <a href="https://vault-prod.syn.vshn.net/ui/vault/secrets/cluste
   gitlab_ci:
     git: <i class="conum" data-value="1"></i><b>(1)</b>
       username: Max Mustermann
-      email: mm@example.com
-  terraform_variables:
-    # Required parameters
-    base_domain: ${openshift:baseDomain}
-    ignition_ca: |-
-      -----BEGIN CERTIFICATE-----
-      ...
-    ssh_keys:
-      - ssh-ed25519 AA...
-    hieradata_repo_user: project_123_bot <i class="conum" data-value="2"></i><b>(2)</b>
-
-    # Optional parameters:
-    worker_count: 3
-    infra_flavor: plus-24</code></pre>
+      email: mm@example.com</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -727,57 +737,22 @@ Otherwise check <a href="https://vault-prod.syn.vshn.net/ui/vault/secrets/cluste
 Used when creating hieradata commits.
 If not specified, the GitLab CI defaults will be used.</td>
 </tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The user created for the hieradata project access token.
-Please note that the Terraform module currently only supports the <a href="https://git.vshn.net/appuio/appuio_hieradata">VSHN APPUiO hieradata</a></td>
-</tr>
 </table>
 </div>
 </li>
 <li>
+<p>Commit and push the changes</p>
+</li>
+<li>
 <p>Compile the cluster catalog</p>
-</li>
-<li>
-<p>Configure GitLab repository</p>
-<div class="ulist">
-<ul>
-<li>
-<p><span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">General pipelines</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Configuration file</b></span><br>
-<code>manifests/openshift4-terraform/gitlab-ci.yml</code></p>
-</li>
-<li>
-<p><span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Variables</b></span></p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CLOUDSCALE_TOKEN_RO</code></p>
-</li>
-<li>
-<p><code>CLOUDSCALE_TOKEN_RW</code></p>
-</li>
-<li>
-<p><code>CLOUDSCALE_FLOATY_SECRET</code></p>
-</li>
-<li>
-<p><code>HIERADATA_REPO_TOKEN</code>&#8201;&#8212;&#8201;the VSHN APPUiO hieradata project access token</p>
-</li>
-<li>
-<p><code>CONTROL_VSHN_NET_TOKEN</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="use-exoscale.html">Use Exoscale</a></span>
+  <span class="prev"><a href="use-exoscale.html">Use Exoscale</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -788,7 +763,7 @@ Please note that the Terraform module currently only supports the <a href="https
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/use-cloudscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/upgrade-cloudscale-v1-v2.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
