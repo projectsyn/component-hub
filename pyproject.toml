@@ -12,7 +12,7 @@ PyYAML = "^5.4.1"
 PyGithub = "^1.55"
 click = "^8.0.1"
 importlib-metadata = "^4.5.0"
-python-dotenv = "^0.18.0"
+python-dotenv = "^0.19.0"
 Jinja2 = "^3.0.1"
 alt-profanity-check = "^0.24.0"
 
