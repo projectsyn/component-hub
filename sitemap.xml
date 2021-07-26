@@ -171,4 +171,7 @@
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vault-secrets-operator.xml</loc>
 </sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-velero.xml</loc>
+</sitemap>
 </sitemapindex>
