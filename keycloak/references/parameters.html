@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/keycloak/references/parameters.html">
-    <link rel="prev" href="../explanations/default-features.html">
+    <link rel="prev" href="../explanations/backup.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -148,6 +148,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../explanations/default-features.html">Default features</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/backup.html">Backup</a>
   </li>
 </ul>
   </li>
@@ -2123,6 +2126,232 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_k8up_enabled"><a class="anchor" href="#_k8up_enabled"></a><code>k8up.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines whether the K8up database backup is enabled or not.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_keepjobs"><a class="anchor" href="#_k8up_keepjobs"></a><code>k8up.keepjobs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>int</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>3</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines how many backup jobs are kept.
+It&#8217;s useful for debugging to have a few recent completed (or failed) backup jobs available in K8s.
+Keeping a lot of jobs may negatively impact the K8s cluster performance however.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_repo_secretname"><a class="anchor" href="#_k8up_repo_secretname"></a><code>k8up.repo.secretName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>k8up-repo</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the secret containing the password for the K8up restic repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_repo_password"><a class="anchor" href="#_k8up_repo_password"></a><code>k8up.repo.password</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/keycloak/k8up-repo-password}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Vault reference to the K8up restic repository password.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_s3_secretname"><a class="anchor" href="#_k8up_s3_secretname"></a><code>k8up.s3.secretName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>k8up-s3-credentials</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the secret containing the credentials to access the S3 bucket holding the backups.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_s3_bucket"><a class="anchor" href="#_k8up_s3_bucket"></a><code>k8up.s3.bucket</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>k8up-${cluster:name}-syn-keycloak</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the S3 bucket where the backups gets stored.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_s3_accesskey"><a class="anchor" href="#_k8up_s3_accesskey"></a><code>k8up.s3.accessKey</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/keycloak/k8up-s3-accesskey}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>S3 access key to the bucket where the backups gets stored.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8up_s3_secretkey"><a class="anchor" href="#_k8up_s3_secretkey"></a><code>k8up.s3.secretKey</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/keycloak/k8up-s3-secretkey}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>S3 secret key to the bucket where the backups gets stored.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -2152,7 +2381,7 @@ This allows to configure all <a href="https://github.com/codecentric/helm-charts
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../explanations/default-features.html">Default features</a></span>
+  <span class="prev"><a href="../explanations/backup.html">Backup</a></span>
 </nav>
 </article>
   </div>

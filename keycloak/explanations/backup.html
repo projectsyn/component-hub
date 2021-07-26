@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Configure Keycloak ingress :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/configure-ingress.html">
-    <link rel="prev" href="keycloak-tls.html">
-    <link rel="next" href="change-passwords.html">
+    <title>Keycloak Backup :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/explanations/backup.html">
+    <link rel="prev" href="default-features.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -109,37 +109,37 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="use-built-in-db.html">Use built-in database</a>
+    <a class="nav-link" href="../how-tos/use-built-in-db.html">Use built-in database</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="use-external-db.html">Use external database</a>
+    <a class="nav-link" href="../how-tos/use-external-db.html">Use external database</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="multi-instance.html">Deploy multiple instances</a>
+    <a class="nav-link" href="../how-tos/multi-instance.html">Deploy multiple instances</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="db-tls.html">Encrypt database connection</a>
+    <a class="nav-link" href="../how-tos/db-tls.html">Encrypt database connection</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="keycloak-tls.html">Setup a TLS certificate for Keycloak</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="configure-ingress.html">Configure Keycloak ingress</a>
+    <a class="nav-link" href="../how-tos/keycloak-tls.html">Setup a TLS certificate for Keycloak</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="change-passwords.html">Change passwords</a>
+    <a class="nav-link" href="../how-tos/configure-ingress.html">Configure Keycloak ingress</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+    <a class="nav-link" href="../how-tos/change-passwords.html">Change passwords</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
+    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
+    <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="pin-versions.html">Pin versions</a>
+    <a class="nav-link" href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/pin-versions.html">Pin versions</a>
   </li>
 </ul>
   </li>
@@ -148,10 +148,10 @@
     <span class="nav-text">Explanations</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/default-features.html">Default features</a>
+    <a class="nav-link" href="default-features.html">Default features</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/backup.html">Backup</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="backup.html">Backup</a>
   </li>
 </ul>
   </li>
@@ -625,150 +625,100 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">keycloak</a></li>
-    <li>How-to guides</li>
-    <li><a href="configure-ingress.html">Configure Keycloak ingress</a></li>
+    <li>Explanations</li>
+    <li><a href="backup.html">Backup</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/configure-ingress.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/explanations/backup.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Configure Keycloak ingress</h1>
+<h1 class="page">Keycloak Backup</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Incoming network traffic to the Keycloak service is usually routed via an ingress.</p>
+<p>There are two possibilities to backup Keycloak.
+The first approach is to backup the database.
+The component currently supports backups of the database with <a href="https://k8up.io">K8up</a>, if the builtin database is enabled.
+The second way is to export all objects via the Keycloak application.
+This approach is currently not supported by the component, but may be implemented in the future.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_backup"><a class="anchor" href="#_database_backup"></a>Database backup</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Currently, only NGINX ingress controller is supported and tested.
-Others may work as well, but you may need to customize some parameters on your own (or contribute back to the component).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See also the following manual on how to setup the Keycloak encryption:</p>
+<p>Most of the sources are recommending doing a database backup:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/keycloak/keycloak-containers/blob/master/server/README.md">Docker image configuration</a></p>
+<p><a href="https://www.keycloak.org/docs/latest/upgrading/#_prep_migration">Handbook</a></p>
+</li>
+<li>
+<p><a href="https://www.keycloak.org/docs/latest/server_installation/index.html#_backup-cr">Operator</a></p>
+</li>
+<li>
+<p><a href="https://keycloak.discourse.group/t/best-practice-for-backing-up-the-db/4811">Forum</a></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>First, choose where the TLS session to Keycloak is terminated.</p>
+<p>The handbook also mentions that configuration, themes, and scripts require a backup.
+In the case of a container deployment, those parts are attached to the container and so will usually be part of the deployment.
+The component currently doesn&#8217;t backup anything other than the built-in database.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_encryption_mode_re_encrypt"><a class="anchor" href="#_encryption_mode_re_encrypt"></a>Encryption mode: Re-encrypt</h2>
+<h2 id="_export_and_import"><a class="anchor" href="#_export_and_import"></a>Export and import</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In re-encryption mode, the traffic is terminated at the NGINX ingress controller, and then re-encrypted when connecting to Keycloak pods.
-By default, this component will use Let&#8217;s Encrypt (cert-manager) so that NGINX terminates with valid certificates.
-The connection to Keycloak is using self-signed certificates since Keycloak doesn&#8217;t reload certificates when they have changed in the container.</p>
+<p>In theory, using Keycloak&#8217;s export/import functionality would be the preferred way to implement a backup.
+However, the Keycloak documentation documents some downsides to this approach.</p>
 </div>
 <div class="paragraph">
-<p>Re-encryption is the default, so there&#8217;s not much to configure.
-Proceed with <a href="keycloak-tls.html" class="page">Setup a TLS certificate for Keycloak</a>.</p>
+<p>The Keycloak handbook has the following to say regarding import/export:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_encryption_mode_pass_through"><a class="anchor" href="#_encryption_mode_pass_through"></a>Encryption mode: Pass-through</h2>
-<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
 <div class="paragraph">
-<p>In the pass-through mode, the controller won&#8217;t terminate the TLS session and instead directly forward the HTTPS traffic to Keycloak.
-The controller needs to support pass-through mode.</p>
+<p>It&#8217;s important to note that because import and export happens at server startup, no other actions should be taken on the server or the database while this happens.</p>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This mode requires that the NGINX Controller is configured to pass through the TLS traffic.
-This isn&#8217;t enabled by default.
-With <a href="https://github.com/projectsyn/component-ingress-nginx">component-ingress-nginx</a>, you can enable it like following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        extraArgs:
-          enable-ssl-passthrough: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>When using certificates from Let&#8217;s Encrypt (cert-manager), ensure that you regularly restart Keycloak.
-Otherwise, you may end up serving expired certificates!
-The default Keycloak container image doesn&#8217;t reload the certificates when they have changed in the mounted filesystem.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Terminate the TLS session directly in Keycloak</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      termination: passthrough</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If you&#8217;re using CA issued certificates, change the provider:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      provider: vault</code></pre>
+</blockquote>
+<div class="attribution">
+&#8212; Keycloak Handbook, <a href="https://www.keycloak.org/docs/latest/server_admin/#_export_import">Export and Import</a>
 </div>
 </div>
 <div class="paragraph">
-<p>See <a href="keycloak-tls.html" class="page">Setup a TLS certificate for Keycloak</a> for how to store a certificate in vault.</p>
+<p>Reading this quote, it appears that there&#8217;s currently no lock preventing parallel access during the export to guarantee consistent exports.</p>
 </div>
-</li>
-</ol>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Attributes containing secrets or private information will be masked in export file. Export files obtained via Admin Console are thus not appropriate for backups or data transfer between servers. Only boot-time exports are appropriate for that.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Keycloak Handbook, <a href="https://www.keycloak.org/docs/latest/server_admin/#admin-console-export-import">Admin console export/import</a>
+</div>
+</div>
+<div class="paragraph">
+<p>To create an export suitable for backup purposes, we&#8217;d have to create a boot-time export, as other exports don&#8217;t contain the secrets or other private information.
+Therefore we&#8217;d have to stop and restart the Keycloak service to create backups, which is undesirable.</p>
+</div>
+<div class="paragraph">
+<p>Reconsider using this kind of backup in newer versions, once the export functionality might have been improved.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="keycloak-tls.html">Setup a TLS certificate for Keycloak</a></span>
-  <span class="next"><a href="change-passwords.html">Change passwords</a></span>
+  <span class="prev"><a href="default-features.html">Default features</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -779,7 +729,7 @@ The default Keycloak container image doesn&#8217;t reload the certificates when 
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/configure-ingress.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/explanations/backup.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
