@@ -6,7 +6,7 @@
     <title>Upgrade cloudscale.ch Terraform module from v1 to v2 :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/upgrade-cloudscale-v1-v2.html">
     <link rel="prev" href="use-exoscale.html">
-    <link rel="next" href="../references/parameters.html">
+    <link rel="next" href="migrate-from-openshift4-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -107,6 +107,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-cloudscale-v1-v2.html">Upgrade cloudscale.ch from v1 to v2</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a>
   </li>
 </ul>
   </li>
@@ -629,6 +632,9 @@
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>You need to be able to execute the following CLI tools locally:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -638,6 +644,9 @@
 <p><code>jq</code></p>
 </li>
 <li>
+<p><code>yq</code> <a href="https://github.com/mikefarah/yq">yq YAML processor</a> (Version 4 or newer)</p>
+</li>
+<li>
 <p><code>vault</code> <a href="https://www.vaultproject.io/docs/commands">Vault CLI</a></p>
 </li>
 <li>
@@ -645,6 +654,12 @@
 </li>
 <li>
 <p><code>curl</code></p>
+</li>
+<li>
+<p><code>commodore</code></p>
+</li>
+<li>
+<p><code>git</code></p>
 </li>
 </ul>
 </div>
@@ -722,53 +737,70 @@ vault kv put clusters/kv/${TENANT_ID}/${CLUSTER_ID}/cloudscale/ssh \
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>Compile the cluster catalog to create a local working directory</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile "${CLUSTER_ID}"</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Set the <code>ssh_keys</code> parameter</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_terraform:
-  provider: cloudscale
-  terraform_variables:
-    ssh_keys:
-      - ssh-ed25519 AA... <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pubkey=$(cat "${SSH_PUBLIC_KEY}")
+yq eval -i '.parameters.openshift4_terraform.terraform_variables.ssh_keys += [strenv(pubkey)]' \
+  "inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml"</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The SSH public key in <code>$SSH_PUBLIC_KEY</code>.</td>
-</tr>
-</table>
 </div>
 </li>
 <li>
 <p>Set the Git author <em>(Optional)</em></p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_terraform:
-  provider: cloudscale
-  gitlab_ci:
-    git: <i class="conum" data-value="1"></i><b>(1)</b>
-      username: Max Mustermann
-      email: mm@example.com</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GITLAB_CI_USERNAME="Max Mustermann" <i class="conum" data-value="1"></i><b>(1)</b>
+GITLAB_CI_EMAIL="mm@example.com" <i class="conum" data-value="2"></i><b>(2)</b>
+
+yq eval -i '.parameters.openshift4_terraform.gitlab_ci.git = {
+    "username": strenv(GITLAB_CI_USERNAME),
+    "email": strenv(GITLAB_CI_EMAIL),
+  }' \
+  "inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml"</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The Git author name and email address.
-Used when creating hieradata commits.
+<td>The Git author name to use when creating hieradata commits from GitLab CI.
+If not specified, the GitLab CI defaults will be used.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Git author email address to use when creating hieradata commits from GitLab CI.
 If not specified, the GitLab CI defaults will be used.</td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Commit and push the changes</p>
+<p>Commit and push the changes in the tenant repo</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pushd "inventory/classes/${TENANT_ID}"
+git commit -av
+git push origin master
+popd</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Compile the cluster catalog</p>
+<p>Compile and push the cluster catalog</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile "${CLUSTER_ID}" --push -i</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -776,7 +808,7 @@ If not specified, the GitLab CI defaults will be used.</td>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="use-exoscale.html">Use Exoscale</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="next"><a href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></span>
 </nav>
 </article>
   </div>
