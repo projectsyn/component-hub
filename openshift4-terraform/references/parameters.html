@@ -709,6 +709,39 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_gitlab_ci_git"><a class="anchor" href="#_gitlab_ci_git"></a><code>gitlab_ci.git</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Git user information for the CI pipeline.
+If not overridden, the default GitLab CI user information is used for commits made by the CI pipeline.</p>
+</div>
+<div class="paragraph">
+<p>Valid keys for the dict are <code>username</code> and <code>email</code>.
+If present, these keys are configured as <code>GIT_AUTHOR_NAME</code> and <code>GIT_AUTHOR_EMAIL</code> for the CI pipeline respectively.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_images_terraform_image"><a class="anchor" href="#_images_terraform_image"></a><code>images.terraform.image</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -812,13 +845,15 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>master</code></p>
+<p>See <a href="https://github.com/appuio/component-openshift4-terraform/blob/master/class/defaults.yml"><code>class/defaults.yml</code>, key <code>_tf_module_version</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The git revision of the selected Terraform module (see parameter <code>provider</code>)</p>
+<p>The git revision of the selected Terraform module.
+See the documentation for <a href="#_provider">parameter <code>provider</code></a> for supported providers.
+By default, parameter <code>provider</code> is used to look up the version for the Terraform module in internal parameter <code>_tf_module_version</code>.</p>
 </div>
 </div>
 </div>

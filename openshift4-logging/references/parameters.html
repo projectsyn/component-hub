@@ -649,13 +649,19 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>4.5</code></p>
+<p><code>stable</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Channel of the operator subscription to use.</p>
+<p>Channel of the operator subscription to use.
+In OpenShift 4.7 Red Hat introduced an OpenShift version independent logging stack starting with the version 5.0.
+Since version 5.1 there are two channels stable and stable-5.x.
+Choosing the stable channel allows never have to care about the interoperability as the specific OpenShift version delivers the right version via the operator marketplace.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-deploying.html#cluster-logging-deploy-cli_cluster-logging-deploying">OpenShift documentation</a> for details.</p>
 </div>
 </div>
 </div>
