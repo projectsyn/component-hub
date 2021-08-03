@@ -851,6 +851,76 @@ We&#8217;ve not tested or benchmarked Ceph with the <code>mclock</code> schedule
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_configure_ceph_full_ratios"><a class="anchor" href="#_configure_ceph_full_ratios"></a>Configure Ceph full ratios</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ceph has <a href="https://docs.ceph.com/en/latest/rados/configuration/mon-config-ref/#storage-capacity">configuration options</a> to control at which point the cluster starts warning about potential service interruptions due to running out of disk space.</p>
+</div>
+<div class="paragraph">
+<p>The component sets the config options <code>mon_osd_full_ratio=0.85</code>, <code>mon_osd_backfillfull_ratio=0.8</code> and <code>mon_osd_nearfull_ratio=0.75</code> in the Rook <code>config-override</code> configmap.
+With this configuration, the Ceph cluster will go into read-only mode when it&#8217;s utilized to 85% of its capacity.</p>
+</div>
+<div class="paragraph">
+<p>You can tune these options before creating the Ceph cluster by providing the following config.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  rook_ceph:
+    ceph_cluster:
+      config_override:
+        global:
+          mon_osd_full_ratio: '0.9' <i class="conum" data-value="1"></i><b>(1)</b>
+          mon_osd_nearfull_ratio: '0.8' <i class="conum" data-value="2"></i><b>(2)</b>
+          mon_osd_backfillfull_ratio: '0.85' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure the cluster to become read-only (OSD status <code>full</code>) at 90% utilization.
+We give the ratios as strings to avoid the resulting configuration containing values like <code>0.90000000000000002</code> due to floating point rounding issues.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Configure the threshold at which the OSD status becomes <code>nearfull</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configure the threshold at which Ceph won&#8217;t backfill more data to the OSD.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>At runtime, you can adjust the cluster&#8217;s ratios with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin exec -it deploy/rook-ceph-tools -- ceph osd set-full-ratio 0.9 <i class="conum" data-value="1"></i><b>(1)</b>
+kubectl --as=cluster-admin exec -it deploy/rook-ceph-tools -- ceph osd set-nearfull-ratio 0.8 <i class="conum" data-value="2"></i><b>(2)</b>
+kubectl --as=cluster-admin exec -it deploy/rook-ceph-tools -- ceph osd set-backfillfull-ratio 0.85 <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure the cluster to become read-only (OSD status <code>full</code>) at 90% utilization.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Configure the threshold at which the OSD status becomes <code>nearfull</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configure the threshold at which Ceph won&#8217;t backfill more data to the OSD.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="openshift4.html">Configuring the component for OpenShift 4</a></span>
   <span class="next"><a href="add_alert_runbook.html">Adding a new alert runbook</a></span>

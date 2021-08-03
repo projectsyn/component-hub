@@ -988,7 +988,11 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">osd:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">global:
+  mon_osd_full_ratio: '0.85'
+  mon_osd_backfillfull_ratio: '0.8'
+  mon_osd_nearfull_ratio: '0.75'
+osd:
   bluefs_buffered_io: false</code></pre>
 </div>
 </div>
@@ -1016,12 +1020,32 @@ See the <a href="https://docs.ceph.com/en/latest/rados/configuration/ceph-conf/"
 </tr>
 </table>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use strings to represent fractional values in <code>config_override</code>.
+Otherwise, the rendered values in the <em>ini</em> style file may suffer from floating point rounding issues.
+For example, if the fractional value <code>0.8</code> is given as a number in YAML, it would be rendered as <code>0.80000000000000004</code> in the resulting <em>ini</em> style file.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The default value is translated into the following <em>ini</em> style file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[osd]
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[global]
+mon_osd_full_ratio = 0.85
+mon_osd_backfillfull_ratio = 0.8
+mon_osd_nearfull_ratio = 0.75
+[osd]
 bluefs_buffered_io = false</code></pre>
 </div>
 </div>
