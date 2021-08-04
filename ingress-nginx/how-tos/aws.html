@@ -613,7 +613,7 @@
 <div class="paragraph">
 <p>There are several possibilities to setup external access into the EKS cluster on AWS.
 AWS provides three load balancer types.
-[ELB Elastic Load Balancing - Version 1](<a href="https://docs.aws.amazon.com/elasticloadbalancing/index.html" class="bare">docs.aws.amazon.com/elasticloadbalancing/index.html</a>), also known as classic load balancer, is outdated and should not be used for new deployments.
+[ELB Elastic Load Balancing - Version 1](<a href="https://docs.aws.amazon.com/elasticloadbalancing/index.html" class="bare">docs.aws.amazon.com/elasticloadbalancing/index.html</a>), also known as classic load balancer, is outdated and shouldn&#8217;t be used for new deployments.
 The version 2 types [NLB - Network Load Balancer](<a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html" class="bare">docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html</a>) and [ALB - Application Load Balancer](<a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html" class="bare">docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html</a>) are usually used.</p>
 </div>
 <div class="paragraph">
@@ -641,8 +641,8 @@ NLB provides a failure tollerant network package forwarding on layer 4.</p>
 <div class="sect2">
 <h3 id="_alb_application_load_balancer"><a class="anchor" href="#_alb_application_load_balancer"></a>ALB - Application Load Balancer</h3>
 <div class="paragraph">
-<p>While it is technially possible to create the ALB out of the cluster, deploying the ALB with a different method like Terraform, gives full access to all capabilities an ALB can provide.
-In the case the ALB is not created out of the cluster, we just configure the nodePorts for HTTP and HTTPs passing the traffic to the NGINX Ingress Controllers.</p>
+<p>While it&#8217;s technially possible to create the ALB out of the cluster, deploying the ALB with a different method like Terraform, gives full access to all capabilities an ALB can provide.
+In the case the ALB isn&#8217;t created out of the cluster, we just configure the nodePorts for HTTP and HTTPs passing the traffic to the NGINX Ingress Controllers.</p>
 </div>
 <div class="paragraph">
 <p>Using <code>externalTrafficPolicy: Local</code> ensures that only NGINX Ingress Controller pods on the same node are used.
