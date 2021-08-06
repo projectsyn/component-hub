@@ -979,9 +979,11 @@ default
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p><code>global_backup_config.keepjobs</code></p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_global_backup_config_keepjobs"><a class="anchor" href="#_global_backup_config_keepjobs"></a><code>global_backup_config.keepjobs</code></h2>
+<div class="sectionbody">
 <div class="hdlist">
 <table>
 <tr>
@@ -1001,6 +1003,72 @@ default
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Sets the number of old jobs to keep when cleaning up, applies to all job types.</p>
+</div>
+<div class="paragraph">
+<p>Deprecated: Use <code>global_backup_config.successful_jobs_history_limit</code> and <code>global_backup_config.failed_jobs_history_limit</code> instead, they override <code>global_backup_config.keepjobs</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_global_backup_config_successful_jobs_history_limit"><a class="anchor" href="#_global_backup_config_successful_jobs_history_limit"></a><code>global_backup_config.successful_jobs_history_limit</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Sets the number of old, successful jobs to keep when cleaning up, applies to all job types.
+Overrides <code>global_backup_config.keepjobs</code>.
+If neither <code>global_backup_config.keepjobs</code> nor this parameter are set, the <a href="https://k8up.io/k8up/1.2.0/references/config-reference.html">K8up default value</a> for the configuration is used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_global_backup_config_failed_jobs_history_limit"><a class="anchor" href="#_global_backup_config_failed_jobs_history_limit"></a><code>global_backup_config.failed_jobs_history_limit</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Sets the number of old, failed jobs to keep when cleaning up, applies to all job types.
+Overrides <code>global_backup_config.keepjobs</code>.
+If neither <code>global_backup_config.keepjobs</code> nor this parameter are set, the <a href="https://k8up.io/k8up/1.2.0/references/config-reference.html">K8up default value</a> for the configuration is used.</p>
 </div>
 </div>
 </div>
@@ -1290,6 +1358,79 @@ This allows users to make alert expressions configurable without having to copy-
 </div>
 </div>
 <div class="sect1">
+<h2 id="_job_failed_alerts_for"><a class="anchor" href="#_job_failed_alerts_for"></a><code>job_failed_alerts_for</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+valid keys
+</td>
+<td class="hdlist2">
+<p><code>['archive', 'backup', 'check', 'prune', 'restore']</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[See <code>class/defaults.yml</code>|https://github.com/projectsyn/component-backup-k8up/blob/master/class/defaults.yml]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dict which controls the set of JobFailed alert rules to create.
+Valid keys are <code>archive</code>, <code>backup</code>, <code>check</code>, <code>prune</code>, and <code>restore</code>.
+The value for each key is expected to be a dict with keys <code>enabled</code> and <code>overrides</code>.
+The value for key <code>enabled</code> should be a boolean.
+This key controls whether the corresponding alert rule is created.
+The value for key <code>overrides</code> is merged with the object configured in <code>job_failed_alert_template</code>.
+When configuring overrides, Jsonnet merges arrays and objects from the template with their counterparts in <code>overrides</code>.
+This key allows users to customize any alert properties for individual <code>JobFailed</code> alerts.
+The fields are overridden before interpolating <code>%(type)s</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_job_failed_alert_template"><a class="anchor" href="#_job_failed_alert_template"></a><code>job_failed_alert_template</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[See <code>class/defaults.yml</code>|https://github.com/projectsyn/component-backup-k8up/blob/master/class/defaults.yml]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The template for the JobFailed alert rules.
+%(type)s in <code>alert</code> and <code>expr</code> is replaced by the types defined in <code>job_failed_alerts_for</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_monitoring_alerts"><a class="anchor" href="#_monitoring_alerts"></a><code>monitoring_alerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1307,45 +1448,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k8up_last_errors:
-  annotations:
-    message: Last backup for PVC {{ $labels.pvc }} in namespace {{ $labels.instance }} had {{ $value }} errors
-  expr: baas_backup_restic_last_errors{${backup_k8up:alert_rule_filters:namespace}} &gt; 0
-  for: 1m
-  labels:
-    severity: critical
-K8upBackupFailed:
-  annotations:
-    message: Job in {{ $labels.exported_namespace }} of type {{ $labels.jobType }} failed
-  expr: rate(k8up_jobs_failed_counter[1d]) &gt; 0
-  for: 1m
-  labels:
-    severity: critical
-K8upBackupNotRunning:
-  annotations:
-    message: No K8up jobs were run in {{ $labels.exported_namespace }} within the last 24 hours. Check the operator, there might be a deadlock
-  expr: sum(rate(k8up_jobs_total[25h])) == 0 and on(namespace) k8up_schedules_gauge &gt; 0
-  for: 1m
-  labels:
-    severity: critical
-K8upJobStuck:
-  annotations:
-    message: Queued K8up jobs in {{ $labels.exported_namespace }} for the last hour.
-  expr: k8up_jobs_queued_gauge{jobType="backup"} &gt; 0 and on(namespace) k8up_schedules_gauge &gt; 0
-  for: 1h
-  labels:
-    severity: critical
-K8upSlowBackup:
-  annotations:
-    message: Backup job {{ $labels.job_name }} in {{ $labels.namespace }} took {{ $value|humanizeDuration }} to complete
-  expr: (kube_job_status_completion_time{job_name=~"^backupjob-.*$"} - kube_job_status_start_time) &gt; ${backup_k8up:alert_thresholds:k8up_slow_backup_job_duration_seconds}
-  for: 1m
-  labels:
-    severity: warning</code></pre>
-</div>
-</div>
+<p>[See <code>class/defaults.yml</code>|https://github.com/projectsyn/component-backup-k8up/blob/master/class/defaults.yml]</p>
 </td>
 </tr>
 </table>
@@ -1364,15 +1467,17 @@ This structure is chosen to easily adjust individual alert configurations in the
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace
-global_keepjobs: "1"
-global_s3_credentials:
-  accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/access-key}'
-  secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/secret-key}'
-global_s3restore_credentials:
-  accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/restore-access-key}'
-  secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/restore-secret-key}'
-global_restore_s3endpoint: https://s3endpoint.example.com
-global_restore_bucket: example-restore-bucket
+global_backup_config:
+  successful_jobs_history_limit: 1
+  failed_jobs_history_limit: 1
+  s3_credentials:
+    accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/access-key}'
+    secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/secret-key}'
+  s3restore_credentials:
+    accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/restore-access-key}'
+    secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/restore-secret-key}'
+  restore_s3endpoint: https://s3endpoint.example.com
+  restore_bucket: example-restore-bucket
 monitoring_alerts:
   K8upJobStuck:
     annotations:
