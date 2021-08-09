@@ -975,6 +975,45 @@ Allows configuring custom annotations for individual alerts.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_patchrules"><a class="anchor" href="#_patchrules"></a><code>patchRules</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dict</p>
+</dd>
+<dt class="hdlist1">keys</dt>
+<dd>
+<p>potential values of parameter <code>manifests_versions</code></p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p>See <a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on GitHub</a></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The parameter <code>patchRules</code> allows users to customize upstream alerts.
+The component expects that top-level keys in the parameter correspond to values of parameter <code>manifests_versions</code>.
+This enables users to selectively patch upstream alerts for a particular OpenShift 4 version.</p>
+</div>
+<div class="paragraph">
+<p>For each version, the component expects alert names as keys and any alert configuration as values.
+See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting rules documentation</a> for extended documentation on configuring alerting rules.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
+  release-4.7:
+    SystemMemoryExceedsReservation:
+      for: 30m</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1118,7 +1157,7 @@ default
 </div>
 </div>
 <div class="sect3">
-<h4 id="_successfull"><a class="anchor" href="#_successfull"></a><code>successfull</code></h4>
+<h4 id="_successful"><a class="anchor" href="#_successful"></a><code>successful</code></h4>
 <div class="hdlist">
 <table>
 <tr>
