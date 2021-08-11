@@ -166,6 +166,9 @@
 <loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-traefik.xml</loc>
 </sitemap>
 <sitemap>
