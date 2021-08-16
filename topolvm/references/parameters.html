@@ -707,8 +707,8 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ssd:
-  volumegroup: vgssd
-  sparegb: 10
+  volume-group: vgssd
+  spare-gb: 10
   default: false</code></pre>
 </div>
 </div>
@@ -720,7 +720,7 @@ default
 <p>Each key represents a different device class.</p>
 </div>
 <div class="sect2">
-<h3 id="_volumegroup"><a class="anchor" href="#_volumegroup"></a><code>volumegroup</code></h3>
+<h3 id="_volume_group"><a class="anchor" href="#_volume_group"></a><code>volume-group</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -738,7 +738,7 @@ type
 </div>
 </div>
 <div class="sect2">
-<h3 id="_spagegb"><a class="anchor" href="#_spagegb"></a><code>spagegb</code></h3>
+<h3 id="_spare_gb"><a class="anchor" href="#_spare_gb"></a><code>spare-gb</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -781,12 +781,12 @@ type
   topolvm:
     deviceclasses:
       ssd:
-        volumegroup: vgssd
-        sparegb: 1
+        volume-group: vgssd
+        spare-gb: 1
         default: false
       hdd:
-        volumegroup: vghdd
-        sparegb: 5
+        volume-group: vghdd
+        spare-gb: 5
         default: false</code></pre>
 </div>
 </div>
@@ -814,9 +814,8 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ssd-local:
-  class: sdd
+  class: ssd
   fstype: ext4
-  isdefault: false
   volumeexpansion: true</code></pre>
 </div>
 </div>
@@ -938,8 +937,9 @@ default
   topolvm:
     deviceclasses:
       ssd:
-        volumegroup: vgssd
-        sparegb: 10
+        volume-group: vgssd
+        spare-gb: 10
+        default: false
 
     storageclasses:
       ssd-local:
