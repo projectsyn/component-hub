@@ -154,6 +154,9 @@
 <loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-statefulset-resize-controller.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-steward.xml</loc>
 </sitemap>
 <sitemap>
