@@ -729,6 +729,112 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_clusterlogforwarding"><a class="anchor" href="#_clusterlogforwarding"></a><code>clusterLogForwarding</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_clusterlogforwarding_enabled"><a class="anchor" href="#_clusterlogforwarding_enabled"></a><code>clusterLogForwarding.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enables log forwarding for the cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clusterlogforwarding_forwarders"><a class="anchor" href="#_clusterlogforwarding_forwarders"></a><code>clusterLogForwarding.forwarders</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key in this dictionary holds the parameters for an <code>.spec.outputs</code> object.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-external.html">OpenShift docs</a> for available parameters.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clusterlogforwarding_namespaces"><a class="anchor" href="#_clusterlogforwarding_namespaces"></a><code>clusterLogForwarding.namespaces</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Customization for the logging of a specified namespace.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogging:
+  namespaces:
+    my-project: <i class="conum" data-value="1"></i><b>(1)</b>
+      forwarder: splunk-forwarder <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Namespace to configure.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Name of the forwarder defined in <code>clusterLogForwarding.forwarder</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -739,7 +845,19 @@ default
       application:
         maxAge: 15d
     elasticsearch:
-      nodeCount: 5</code></pre>
+      nodeCount: 5
+
+clusterLogForwarding:
+  enabled: true
+  forwarders:
+    splunk-forwarder:
+      secret:
+        name: splunk-forwarder
+      type: fluentdForward
+      url: tls://splunk-forwarder:24224
+  namespaces:
+    my-project:
+      forwarder: splunk-forwarder</code></pre>
 </div>
 </div>
 </div>
