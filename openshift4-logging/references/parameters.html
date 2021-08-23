@@ -813,10 +813,11 @@ default
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogging:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
   namespaces:
     my-project: <i class="conum" data-value="1"></i><b>(1)</b>
-      forwarder: splunk-forwarder <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+      forwarder: splunk-forwarder <i class="conum" data-value="2"></i><b>(2)</b>
+----</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -830,6 +831,60 @@ default
 <td>Name of the forwarder defined in <code>clusterLogForwarding.forwarder</code>.</td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clusterlogforwarding_json"><a class="anchor" href="#_clusterlogforwarding_json"></a><code>clusterLogForwarding.json</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see below</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If <code>json.enabled</code> is set to <code>true</code> the logging stack attempts to parse log messages to the JSON format.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
+  json:
+    enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+    typekey: 'kubernetes.labels.logFormat' <i class="conum" data-value="2"></i><b>(2)</b>
+    typename: 'nologformat' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>By default JSON parsing is disabled.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The value of that field, if present, is used to construct the index name.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>If <code>typekey</code> isn&#8217;t set or its key isn&#8217;t present, the value of this field is used to construct the index name.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-enabling-json-logging.html#cluster-logging-configuration-of-json-log-data-for-default-elasticsearch_cluster-logging-enabling-json-logging">OpenShift docs</a> for a detailed explanation.</p>
 </div>
 </div>
 </div>
@@ -857,7 +912,9 @@ clusterLogForwarding:
       url: tls://splunk-forwarder:24224
   namespaces:
     my-project:
-      forwarder: splunk-forwarder</code></pre>
+      forwarder: splunk-forwarder
+  json:
+    enabled: true</code></pre>
 </div>
 </div>
 </div>
