@@ -669,12 +669,115 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
 </div>
+<div class="paragraph">
+<p>Dictionary containing the container images used by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_manifest_version"><a class="anchor" href="#_manifest_version"></a><code>manifest_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the kyverno manifests to download.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resourcefilters"><a class="anchor" href="#_resourcefilters"></a><code>resourceFilters</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>array</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The admission webhook checks if a policy is applicable on all admission requests.
+The Kubernetes kinds that shouldn&#8217;t be processed.
+<code>resourceFilters</code> must be a sequence of one or more <code>[&lt;Kind&gt;,&lt;Namespace&gt;,&lt;Name&gt;]`</code> entries with <code><strong></code> as a wildcard. Thus, an item <code>[Node,</strong>,*]</code> means that admissions of kind Node in any namespace and with any name will be ignored. Wildcards are also supported in each of these sequences.</p>
+</div>
+<div class="paragraph">
+<p>For example, the sequence <code>[Pod,foo-system,redis*]</code> filters out kind Pod in namespace <code>foo-system</code> having names beginning with <code>redis</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_excludegrouprole"><a class="anchor" href="#_excludegrouprole"></a><code>excludeGroupRole</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>array</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Exclude group roles from a user request.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generatesuccessevents"><a class="anchor" href="#_generatesuccessevents"></a><code>generateSuccessEvents</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>'false'</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Specifies whether (<code>true</code>/<code>false</code>) to generate success events.</p>
 </div>
 </div>
 </div>
