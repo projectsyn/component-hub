@@ -138,6 +138,9 @@
     <a class="nav-link" href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade 4.x to 5.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/openshift-4.html">Install on OpenShift 4</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1112,6 +1115,35 @@ default
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tls_certmanager_apiversion"><a class="anchor" href="#_tls_certmanager_apiversion"></a><code>tls.certmanager.apiVersion</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cert-manager.io/v1</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Cert-Manager v1.x is using <code>cert-manager.io/v1</code> in their CRDs.
+Older cert-manager versions (v0.x) are using <code>cert-manager.io/v1beta1</code> or other.</p>
 </div>
 </div>
 </div>
