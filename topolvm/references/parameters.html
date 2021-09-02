@@ -913,6 +913,24 @@ type
 </div>
 </div>
 <div class="sect2">
+<h3 id="_retainpolicy"><a class="anchor" href="#_retainpolicy"></a><code>retainpolicy</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Optional, can be used to overwrite the default retain policy.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
 <div class="listingblock">
 <div class="content">
@@ -923,6 +941,7 @@ type
         class: ssd
         fstype: ext4
         volumeexpansion: true
+        retainpolicy: Retain
       hdd-local:
         class: hdd
         fstype: ext4
