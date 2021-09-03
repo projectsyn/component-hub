@@ -894,7 +894,7 @@ This is useful if you want to deploy Kyverno policies that generate resources, b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>metadata.name</code> is prefixed with <code>kyverno-user:</code> to avoid name clashes with existing resources.
+The <code>metadata.name</code> is prefixed with <code>kyverno:user:</code> to avoid name clashes with existing resources.
 </td>
 </tr>
 </table>
@@ -931,7 +931,7 @@ example
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">allowManageRoleBindings: <i class="conum" data-value="1"></i><b>(1)</b>
   kind: ClusterRole
-  name: kyverno-user:my-name <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+  name: kyverno:user:my-name <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -951,8 +951,8 @@ example
 </table>
 </div>
 <div class="paragraph">
-<p>Generates additional <code>RoleBinding</code> s in the Kyverno namespace for the Kyverno SystemAccount.
-This is useful if you want to deploy Kyverno policies that generate resources, but the Kyverno ServiceAccount might have insufficient RBAC permissions to do so.</p>
+<p>Generates additional <code>ClusterRoleBinding</code> s in the Kyverno namespace for the Kyverno SystemAccount.
+This is useful if you want to deploy Kyverno policies that generate resources in other namespaces, but the Kyverno ServiceAccount might have insufficient RBAC permissions to do so.</p>
 </div>
 <div class="paragraph">
 <p>See also <code>additionalClusterRoles</code> if the necessary <code>ClusterRole</code> doesn&#8217;t exist.</p>
@@ -964,7 +964,7 @@ This is useful if you want to deploy Kyverno policies that generate resources, b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>metadata.name</code> is prefixed with <code>user:</code> to avoid name clashes with existing resources.
+The <code>metadata.name</code> is prefixed with <code>kyverno:user:</code> to avoid name clashes with existing resources.
 </td>
 </tr>
 </table>
@@ -976,7 +976,7 @@ The <code>metadata.name</code> is prefixed with <code>user:</code> to avoid name
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If you need to reference a <code>ClusterRole</code> defined in <code>additionalClusterRoles</code>, you need to prefix the role name with <code>kyverno-user:</code> as shown in the example.
+If you need to reference a <code>ClusterRole</code> defined in <code>additionalClusterRoles</code>, you need to prefix the role name with <code>kyverno:user:</code> as shown in the example.
 </td>
 </tr>
 </table>
