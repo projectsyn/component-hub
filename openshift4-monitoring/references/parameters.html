@@ -488,7 +488,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../prometheus-pushgateway/index.html">prometheus-pushgateway</a>
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../prometheus-pushgateway/index.html">master</a>
@@ -732,6 +732,118 @@ default
 </div>
 <div class="paragraph">
 <p>A dictionary holding the default configuration which should be applied to all components.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstreamrules_networkplugin"><a class="anchor" href="#_upstreamrules_networkplugin"></a><code>upstreamRules.networkPlugin</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>openshift-sdn</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Choose either <code>openshift-sdn</code> or <code>ovn-kubernetes</code> depending on the installed network plugin.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstreamrules_elasticsearchoperator"><a class="anchor" href="#_upstreamrules_elasticsearchoperator"></a><code>upstreamRules.elasticsearchOperator</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the Elasticsearch Operator prometheus rules should be included or not.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstreamrules_clustersamplesoperator"><a class="anchor" href="#_upstreamrules_clustersamplesoperator"></a><code>upstreamRules.clusterSamplesOperator</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the Cluster Samples Operator prometheus rules should be included or not.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstreamrules_openshiftlogging"><a class="anchor" href="#_upstreamrules_openshiftlogging"></a><code>upstreamRules.openshiftLogging</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the OpenShift Logging Operator prometheus rules should be included or not.</p>
 </div>
 </div>
 </div>
