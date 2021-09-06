@@ -677,12 +677,200 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_reservednamespaces"><a class="anchor" href="#_reservednamespaces"></a><code>reservedNamespaces</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">reservedNamespaces:
+  monitoring: ['monitoring-*', 'test-monitoring-*']
+  logging: logging</code></pre>
 </div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creating and editing namespaces matching any of the entries is disallowed.
+The list must consist of entries like <code>custom: ['custom-<strong>', 'test-custom-</strong>']</code> or <code>custom: 'custom-*'</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bypassnamespacerestrictions_roles"><a class="anchor" href="#_bypassnamespacerestrictions_roles"></a><code>bypassNamespaceRestrictions.roles</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">roles:
+  my-admin: ['my-admin', 'test-admin']
+  special-role: special-role</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>Roles</code> in the same namespace excluded from all namespace policies.
+Must consist of entries like <code>my-admin: ['my-admin', 'test-admin']</code> or <code>my-admin: 'my-admin'</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bypassnamespacerestrictions_clusterroles"><a class="anchor" href="#_bypassnamespacerestrictions_clusterroles"></a><code>bypassNamespaceRestrictions.clusterRoles</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterRoles:
+  my-admin: ['my-admin', 'test-admin']
+  special-role: special-role</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>ClusterRoles</code> excluded from all namespace policies.
+Must consist of entries like <code>my-admin: ['my-admin', 'test-admin']</code> or <code>my-admin: 'my-admin'</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bypassnamespacerestrictions_subjects"><a class="anchor" href="#_bypassnamespacerestrictions_subjects"></a><code>bypassNamespaceRestrictions.subjects</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">subjects:
+  argocd:
+    kind: ServiceAccount
+    name: argocd-application-controller
+    namespace: syn-argocd</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>ServiceAccount</code>, <code>User</code> or <code>Group</code> (chosen by <code>kind:</code>) excluded from all namespace policies.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generateddefaultrolebindinginnewnamespaces_clusterrolename"><a class="anchor" href="#_generateddefaultrolebindinginnewnamespaces_clusterrolename"></a><code>generatedDefaultRoleBindingInNewNamespaces.clusterRoleName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>admin</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>ClusterRole</code> name to which the requesting user account gets a new <code>RoleBinding</code> to.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generateddefaultrolebindinginnewnamespaces_bindingname"><a class="anchor" href="#_generateddefaultrolebindinginnewnamespaces_bindingname"></a><code>generatedDefaultRoleBindingInNewNamespaces.bindingName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>admin</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>metadata.name</code> of the <code>RoleBinding</code> that gets generated in the new <code>Namespace</code> created by the user.
+The role binding is only created upon Namespace creation, it doesn&#8217;t get synchronized.</p>
 </div>
 </div>
 </div>
