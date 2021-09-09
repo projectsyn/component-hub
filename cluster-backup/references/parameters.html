@@ -6,6 +6,7 @@
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/cluster-backup/references/parameters.html">
     <link rel="prev" href="../index.html">
+    <link rel="next" href="ocp4-etcd.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +95,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ocp4-etcd.html">etcd Backup on OSP4</a>
   </li>
 </ul>
   </li>
@@ -864,8 +868,41 @@ tag: latest</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>Object dumper is script that exports all retreivalbe objects from a Kubernetes API and dumps them as a Tar archive.
+<p>Object dumper is script that exports all retrievable objects from a Kubernetes API and dumps them as a Tar archive.
 See <a href="https://github.com/projectsyn/k8s-object-dumper" class="bare">github.com/projectsyn/k8s-object-dumper</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_etcd_backup"><a class="anchor" href="#_etcd_backup"></a><code>etcd_backup</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">registry: docker.io
+image: debian
+tag: bullseye</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The image used to backup etcd.
+Required binaries in the image are <code>chroot</code> and <code>tar</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1035,6 +1072,7 @@ default
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="ocp4-etcd.html">etcd Backup on OSP4</a></span>
 </nav>
 </article>
   </div>
