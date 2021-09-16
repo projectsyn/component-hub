@@ -107,6 +107,14 @@
   </div>
   <ul class="components">
     <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -980,6 +988,124 @@ If you need to reference a <code>ClusterRole</code> defined in <code>additionalC
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_replicas"><a class="anchor" href="#_replicas"></a><code>replicas</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>int</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>3</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of Kyverno replicas.
+Three or more replicas are <a href="https://github.com/kyverno/kyverno/releases/tag/v1.4.0">recommended</a> for high availability.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_poddisruptionbudget"><a class="anchor" href="#_poddisruptionbudget"></a><code>podDisruptionBudget</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{minAvailable: 1}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Limit the number of concurrent disruptions.
+Set <code>{minAvailable: 0}</code> to disable.
+See <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#poddisruptionbudget-v1-policy" class="bare">kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#poddisruptionbudget-v1-policy</a>.
+<code>.spec.selector</code> is injected from the deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nodeselectorrole"><a class="anchor" href="#_nodeselectorrole"></a><code>nodeSelectorRole</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>enum</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p><code>master</code>, <code>infra</code>, <code>null</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>master</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The node role to run Kyverno pods on.
+<code>null</code> equals no selector.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_affinity"><a class="anchor" href="#_affinity"></a><code>affinity</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Affinity configuration for the Kyverno pods.
+See <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#affinity-v1-core" class="bare">kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#affinity-v1-core</a></p>
 </div>
 </div>
 </div>

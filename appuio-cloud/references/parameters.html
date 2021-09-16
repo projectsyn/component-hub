@@ -107,6 +107,14 @@
   </div>
   <ul class="components">
     <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -871,6 +879,297 @@ default
 <div class="paragraph">
 <p>The <code>metadata.name</code> of the <code>RoleBinding</code> that gets generated in the new <code>Namespace</code> created by the user.
 The role binding is only created upon Namespace creation, it doesn&#8217;t get synchronized.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generatedresourcequota"><a class="anchor" href="#_generatedresourcequota"></a><code>generatedResourceQuota</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A key-value map defining multiple <code>ResourceQuota</code>.
+Each entry will generate a <code>ResourceQuota</code> with the key as its name.</p>
+</div>
+<div class="sect2">
+<h3 id="_generatedresourcequotaname_synchronize"><a class="anchor" href="#_generatedresourcequotaname_synchronize"></a><code>generatedResourceQuota[name].synchronize</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the created <code>ResourceQuota</code> is kept in sync.
+If set to <code>false</code> the created <code>ResourceQuota</code> can be modified.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There is a bug in <code>kyverno</code> up until <code>v1.4.2</code>.
+The bug has been fixed, but as of writing this the fix hasn&#8217;t been released.
+The bug will cause the <code>ResourceQuota</code> to be updated if the <code>Namespace</code> or <code>ClusterPolicy</code> changes, even if <code>synchronize</code> has been disabled.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generatedresourcequotaname_hard"><a class="anchor" href="#_generatedresourcequotaname_hard"></a><code>generatedResourceQuota[name].hard</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The desired hard limits for each named resource.
+Consult <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/">the official Kubernetes documentation</a> on how to configure these limits.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generatedresourcequotaname_scopes"><a class="anchor" href="#_generatedresourcequotaname_scopes"></a><code>generatedResourceQuota[name].scopes</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">scopes:
+  - Terminating
+  - BestEffort</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each quota can have an associated set of scopes.
+A quota will only measure usage for a resource if it matches the intersection of enumerated scopes.
+Consult <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/#quota-scopes">the official Kubernetes documentation</a> on how to configure these scopes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generatedresourcequotaname_scopeselector"><a class="anchor" href="#_generatedresourcequotaname_scopeselector"></a><code>generatedResourceQuota[name].scopeSelector</code></h3>
+<div class="paragraph">
+<p>ScopeSelector is also a collection of filters like Scopes that must match each object tracked by a quota.
+Consult <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/#quota-scopes">the official Kubernetes documentation</a> on how to configure this <code>scopeSelector</code>.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>null</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">scopeSelector:
+  matchExpressions:
+    - scopeName: PriorityClass
+      operator: In
+      values:
+        - middle</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generatedlimitrange_name"><a class="anchor" href="#_generatedlimitrange_name"></a><code>generatedLimitRange.name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>organization</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>metadata.name</code> of the <code>LimitRange</code> that gets generated in the new <code>Namespace</code> created by the user.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generatedresourcequota_synchronize"><a class="anchor" href="#_generatedresourcequota_synchronize"></a><code>generatedResourceQuota.synchronize</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the created <code>LimitRange</code> is kept in sync.
+If set to <code>false</code> the created <code>LimitRange</code> can be modified.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There is a bug in <code>kyverno</code> up until <code>v1.4.2</code>.
+The bug has been fixed, but as of writing this the fix hasn&#8217;t been released.
+The bug will cause the <code>LimitRange</code> to be updated if the <code>Namespace</code> or <code>ClusterPolicy</code> changes, even if <code>synchronize</code> has been disabled.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generatedlimitrange_limits"><a class="anchor" href="#_generatedlimitrange_limits"></a><code>generatedLimitRange.limits</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">limits:
+  "Container":
+    max:
+      memory: "4G"
+    min:
+      memory: "4Mi"
+  "PersistentVolumeClaim":
+    max:
+      storage: 2Gi
+    min:
+      storage: 1Gi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A key-value map defining limits for different <code>Types</code>.</p>
+</div>
+<div class="paragraph">
+<p>The example above will reject any PVC smaller than <code>1Gi</code> or larger than <code>2Gi</code>.
+It will also reject any container requesting more than <code>4G</code> of memory or less than <code>4Mi</code>.</p>
+</div>
+<div class="paragraph">
+<p>Consult <a href="https://kubernetes.io/docs/concepts/policy/limit-range/">the official Kubernetes documentation</a> on how to configure these <code>limits</code>.</p>
 </div>
 </div>
 </div>

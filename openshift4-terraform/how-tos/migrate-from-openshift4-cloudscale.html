@@ -132,6 +132,14 @@
   </div>
   <ul class="components">
     <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -751,54 +759,43 @@ That component is deprecated in favor of this component.</p>
 </li>
 <li>
 <p>Update cluster config to use component <code>openshift4-terraform</code></p>
-<div class="paragraph">
-<p># Change to tenant config repo
-pushd "inventory/classes/${TENANT_ID}"</p>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<h1 id="_remove_component_openshift4_cloudscale_and_add_component_openshift4_terraform" class="sect0"><a class="anchor" href="#_remove_component_openshift4_cloudscale_and_add_component_openshift4_terraform"></a>Remove component openshift4-cloudscale and add component openshift4-terraform</h1>
-<div class="paragraph">
-<p>yq eval -i '.applications = (.applications[] |
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Change to tenant config repo
+pushd "inventory/classes/${TENANT_ID}"
+
+# Remove component openshift4-cloudscale and add component openshift4-terraform
+yq eval -i '.applications = (.applications[] |
   select(. != "openshift4-cloudscale") | [[.]][]) + (["openshift4-terraform"])' \
-  "${CLUSTER_ID}.yml"</p>
-</div>
-<h1 id="_move_parameters_from_openshift4_cloudscale_to_openshift4_terraform" class="sect0"><a class="anchor" href="#_move_parameters_from_openshift4_cloudscale_to_openshift4_terraform"></a>Move parameters from openshift4_cloudscale to openshift4_terraform</h1>
-<div class="paragraph">
-<p>yq eval -i '.parameters.openshift4_terraform = .parameters.openshift4_cloudscale |
+  "${CLUSTER_ID}.yml"
+
+# Move parameters from openshift4_cloudscale to openshift4_terraform
+yq eval -i '.parameters.openshift4_terraform = .parameters.openshift4_cloudscale |
   del(.parameters.openshift4_cloudscale) |
   .parameters.openshift4_terraform.terraform_variables =
     .parameters.openshift4_terraform.variables |
-  del(.parameters.openshift4_terraform.variables)' "${CLUSTER_ID}.yml"</p>
+  del(.parameters.openshift4_terraform.variables)' "${CLUSTER_ID}.yml"</code></pre>
 </div>
+</div>
+</li>
+<li>
+<p>Inspect changes and commit them if they&#8217;re ok</p>
+<div class="listingblock">
+<div class="title">Commit changes</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git commit -av
+git push origin master</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Switch back to Commodore working directory</p>
 <div class="listingblock">
 <div class="content">
-<pre>. Inspect changes and commit them if they're ok
-+
-.Commit changes
-[source,bash]</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">popd</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>git commit -av
-git push origin master</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>. Switch back to Commodore working directory
-+
-[source,bash]</pre>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_popd"><a class="anchor" href="#_popd"></a>popd</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Update GitLab CI configuration</p>
 <div class="ulist">
@@ -818,6 +815,7 @@ git push origin master</p>
 </div>
 </li>
 </ol>
+</div>
 </div>
 </div>
 </div>
