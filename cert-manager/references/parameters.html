@@ -904,6 +904,40 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding secrets for DNS01 solvers.
+Each key in the dictionary is used as the name of a secret.
+The value of the key is merged directly into an empty Kubernetes <code>Secret</code> resource.
+By default, secrets are created in the namespace in which cert-manager is deployed.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/">cert-manager documentation</a> for DNS01 solvers which are supported by cert-manager.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -915,7 +949,18 @@ default
         podTemplate:
           metadata:
             labels:
-              app: "solver"</code></pre>
+              app: "solver"
+  dns01:
+    acmeDNS:
+      accountSecretRef:
+        name: acmedns
+          key: acmedns.json
+        host: auth.example.com
+
+secrets:
+  acmedns:
+    stringData:
+      acmedns.json: ?{vaultkv:${cluster:tenant}/${cluster:name}/acmedns}</code></pre>
 </div>
 </div>
 </div>
