@@ -802,7 +802,8 @@ You can get the IP by accessing the cluster on which you&#8217;ve deployed the a
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ export KUBECONFIG=/path/to/target/cluster.kubeconfig
-$ kubectl -n syn-acme-dns-prod get svc acme-dns -ojsonpath='{.status.loadBalancer.ingress[0].ip}'</code></pre>
+$ kubectl -n syn-acme-dns-prod get svc acme-dns \
+    -ojsonpath='{.status.loadBalancer.ingress[0].ip}'</code></pre>
 </div>
 </div></td>
 </tr>
