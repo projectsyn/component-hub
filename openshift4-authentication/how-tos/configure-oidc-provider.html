@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Manage group memberships :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/how-tos/group-memberships.html">
-    <link rel="prev" href="configure-oidc-provider.html">
-    <link rel="next" href="../references/deprecation-notice.html">
+    <title>Configure OIDC provider :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/how-tos/configure-oidc-provider.html">
+    <link rel="prev" href="configure-secrets.html">
+    <link rel="next" href="group-memberships.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -103,10 +103,10 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="configure-secrets.html">Configure secrets</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="configure-oidc-provider.html">Configure OIDC provider</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="group-memberships.html">Manage group memberships</a>
   </li>
 </ul>
@@ -664,125 +664,85 @@
   <ul>
     <li><a href="../index.html">OpenShift 4 Authentication</a></li>
     <li>How-to guides</li>
-    <li><a href="group-memberships.html">Manage group memberships</a></li>
+    <li><a href="configure-oidc-provider.html">Configure OIDC provider</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/how-tos/group-memberships.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/how-tos/configure-oidc-provider.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Manage group memberships</h1>
+<h1 class="page">Configure OIDC provider</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page covers a guide on how to add or remove RBAC users to/from groups.</p>
+<p>This guide shows how to configure an OIDC provider (for example Keycloak).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_user"><a class="anchor" href="#_add_user"></a>Add user</h2>
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step by step guide</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Add a user to a group as an empty object.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-The name of the user is a name of the RBAC user resource, which might not be the one the user is using to log in.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-The name of the group is subject to some naming rules, see <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-label-names">DNS Label Names</a>.
-</td>
-</tr>
-</table>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure a new client in the OIDC provider (with client credentials)</p>
+</li>
+<li>
+<p>Put the client secret in Vault.
+For example at this location: <code>${cluster:tenant}/${cluster:name}/oidc/&lt;name_of_the_provider&gt;/clientSecret</code></p>
+</li>
+<li>
+<p>Configure this component like the following example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   openshift4_authentication:
-    groupMemberships:
-      example-group:
-        users:
-          example-user: {}</code></pre>
+    identityProviders:
+      keycloak-auth:
+        name: my-keycloak
+        type: OpenID
+        mappingMethod: add
+        openID:
+          issuer: https://keycloak.company.tld/auth/realms/company-realm
+          clientID: ${cluster:name}
+          clientSecret:
+            name: company-keycloak <i class="conum" data-value="1"></i><b>(1)</b>
+          claims:
+            preferredUsername:
+              - preferred_username
+            name:
+              - name
+            email:
+              - email
+
+    secrets:
+      company-keycloak: <i class="conum" data-value="1"></i><b>(1)</b>
+        clientSecret: '?{vaultkv:${cluster:tenant}/${cluster:name}/oidc/keycloak-auth/clientSecret}' <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The <code>state</code> property can be specified explicitly, but is <code>present</code> already by default.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">          example-user:
-            state: present</code></pre>
-</div>
-</div>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the secret.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For OpenID connect, the client secret <strong>must</strong> be stored in a key named <code>clientSecret</code> in the secret.</td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_remove_user"><a class="anchor" href="#_remove_user"></a>Remove user</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you have common groups "up" in the hierarchy, but want to remove a specific user from such a group, set the <code>state</code> property to <code>absent</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  openshift4_authentication:
-    groupMemberships:
-      example-group:
-        users:
-          removed-user:
-            state: absent</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_remove_group"><a class="anchor" href="#_remove_group"></a>Remove group</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you have common groups "up" in the hierarchy, but want to avoid such a group being applied to the cluster, set the <code>state</code> property to <code>absent</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  openshift4_authentication:
-    groupMemberships:
-      removed-group:
-        state: absent</code></pre>
-</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="configure-oidc-provider.html">Configure OIDC provider</a></span>
-  <span class="next"><a href="../references/deprecation-notice.html">Deprecated features</a></span>
+  <span class="prev"><a href="configure-secrets.html">Configure secrets</a></span>
+  <span class="next"><a href="group-memberships.html">Manage group memberships</a></span>
 </nav>
 </article>
   </div>
@@ -793,7 +753,7 @@ The name of the group is subject to some naming rules, see <a href="https://kube
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/how-tos/group-memberships.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/how-tos/configure-oidc-provider.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
