@@ -722,6 +722,64 @@ Choosing the stable channel allows never have to care about the interoperability
 </div>
 </div>
 <div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>master</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Release version of the alerting rules.
+Should be adjusted according to the channel: If you specify <code>channel: stable-5.2</code> use <code>alerts: release-5.2</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to disable alerts provided by openshift cluster-logging-operator.
+The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_clusterlogging"><a class="anchor" href="#_clusterlogging"></a><code>clusterLogging</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
