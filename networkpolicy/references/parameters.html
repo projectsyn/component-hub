@@ -712,7 +712,7 @@ default
 <p>A list of labels matching namespaces to allow traffic from.
 Each list item can contain several key value pairs.
 They result in an <code>AND</code> condition.
-Individual list iems will result in an <code>OR</code> condtion.</p>
+Individual list items will result in an <code>OR</code> condition.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -723,8 +723,8 @@ Individual list iems will result in an <code>OR</code> condtion.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, traffic will be allowed if a namespaces has the label <code>my-lable-a=true</code> AND <code>my-label-b=true</code>.
-Trafic will also be allowed if a namespce is labeled <code>my-label-c</code>.</p>
+<p>In the above example, traffic will be allowed if a namespaces has the label <code>my-label-a=true</code> AND <code>my-label-b=true</code>.
+Traffic will also be allowed if a namespace is labeled <code>my-label-c</code>.</p>
 </div>
 </div>
 </div>
@@ -753,7 +753,7 @@ default
 </div>
 <div class="paragraph">
 <p>A list of namespace names where no default NetworkPolicies will be created.
-All namespaces in this list will receive the labels <code>network-policies.syn.tools/no-defaults=true</code> and <code>network-policies.syn.tools/purge-defaults=true</code></p>
+Default NetworkPolicies will be purged for all namespaces in this list.</p>
 </div>
 </div>
 </div>
@@ -762,7 +762,7 @@ All namespaces in this list will receive the labels <code>network-policies.syn.t
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Allow trafic from ingress and monitoring
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Allow traffic from ingress and monitoring
 allowNamespaceLabels:
   - network.openshift.io/policy-group: monitoring
   - network.openshift.io/policy-group: ingress
