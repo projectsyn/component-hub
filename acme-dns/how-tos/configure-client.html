@@ -656,8 +656,94 @@
 </aside>
 <article class="doc">
 <h1 class="page">Configuring a client</h1>
+<div class="sect1">
+<h2 id="_cert_manager"><a class="anchor" href="#_cert_manager"></a>cert-manager</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>If you&#8217;re using the Project Syn component for cert-manager, you can see the component&#8217;s how-to on <a href="#cert-manager:ROOT:how-tos/dns01.adoc" class="page unresolved">Using DNS01 challenges</a>.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, follow the steps below, and see the <a href="https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/">cert-manager</a> documentation for details on how to configure cert-manager to use the acme-dns client credentials.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_clients"><a class="anchor" href="#_other_clients"></a>Other clients</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To manually register and configure an acme-dns client you need to perform the following steps.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Register the client on the acme-dns instance</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">reg_user=acme-dns <i class="conum" data-value="1"></i><b>(1)</b>
+reg_pass=password <i class="conum" data-value="2"></i><b>(2)</b>
+api_url=https://acme-dns-api.example.com <i class="conum" data-value="3"></i><b>(3)</b>
+client_config=$(curl -XPOST -u "${reg_user}:${reg_pass}" "${api_url}/register")</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>HTTP basic authentication username for <code>/register</code> endpoint</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>HTTP basic authentication password for <code>/register</code> endpoint</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>HTTP API URL of the acme-dns instance</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Setup CNAME record on the FQDN for which you want to serve TXT records from the acme-dns instance</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-dns hljs" data-lang="dns">$ORIGIN cluster.example.com <i class="conum" data-value="1"></i><b>(1)</b>
+_acme-challenge.&lt;name&gt; IN CNAME &lt;fulldomain&gt;. <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Replace with the zone of your FQDN.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Replace <code>&lt;name&gt;</code> with the DNS name of your FQDN in the zone.
+Simply use <code>_acme-challenge</code> to serve TXT records for DNS01 challenges for DNS names <code>cluster.example.com</code> and <code>*.cluster.example.com</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Replace <code>&lt;fulldomain&gt;</code> with the output of the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "${client_config}" | jq -r '.fulldomain'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Setup your client to use the credentials from the first step to talk to the acme-dns instance.</p>
+<div class="listingblock">
+<div class="title">Print client credentials</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "${client_config}"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="setup.html">Component setup</a></span>
