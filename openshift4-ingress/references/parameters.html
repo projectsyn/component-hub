@@ -980,8 +980,76 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>secrets</code> is deployed onto the cluster as a Kubernetes Secret with <code>type=kubernetes.io/tls</code>.
+The component has basic validation to ensure the secret contents are a plausible Kubernetes TLS secret.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
+The dictionary values are directly merged into a <code>Secret</code> resource which only has <code>type=kubernetes.io/tls</code> set.
+The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cert_manager_certs"><a class="anchor" href="#_cert_manager_certs"></a><code>cert_manager_certs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>cert_manager_certs</code> is deployed onto the cluster as a cert-manager <code>Certificate</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> and <code>spec.secretName</code> for the resulting <code>Certificate</code> resources.
+The dictionary values are then directly directly merged into the mostly empty <code>Certificate</code> resources.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_managing_a_secret_for_the_wildcard_certificate"><a class="anchor" href="#_managing_a_secret_for_the_wildcard_certificate"></a>Managing a secret for the wildcard certificate</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
@@ -990,13 +1058,60 @@ default
       prod:
         domain: apps.example.com
         defaultCertificate:
+          # Use the secret configured below
           name: prod-wildcard
         namespaceSelector:
           matchLabels:
             environment: prod
     ingressControllerAnnotations:
       prod:
-        ingress.operator.openshift.io/default-enable-http2: true</code></pre>
+        ingress.operator.openshift.io/default-enable-http2: true
+    secrets:
+      prod-wildcard:
+        stringData:
+          tls.key: "?{vaultkv:...}" # reference to private key in Vault
+          tls.crt: "?{vaultkv:...}" # reference to cert in Vault</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_managing_a_cert_manager_wildcard_certificate"><a class="anchor" href="#_managing_a_cert_manager_wildcard_certificate"></a>Managing a cert-manager wildcard certificate</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This requires an issuer which supports DNS01 challenges.
+See the <a href="../../cert-manager/how-tos/dns01.html" class="page">Using DNS01 challenges</a> how-to for component cert-manager to get started with DNS01 challenges.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_ingress:
+    ingressControllers:
+      prod:
+        domain: apps.example.com
+        defaultCertificate:
+          # Use the secret for the certificate below.
+          # By default, the component creates a secret with name
+          # `prod-wildcard-tls` for certificate resource `prod-wildcard`
+          name: prod-wildcard-tls
+    cert_manager_certificates:
+      prod-wildcard-tls:
+        spec:
+          dnsNames:
+            - '*.apps.example.com'
+          issuerRef:
+            name: letsencrypt-production
+            kind: ClusterIssuer</code></pre>
+</div>
 </div>
 </div>
 </div>
