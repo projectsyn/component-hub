@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cert-manager/references/parameters.html">
-    <link rel="prev" href="../how-tos/upgrade-v1-v2.html">
-    <link rel="next" href="../explanations/acme-dns-self-registration.html">
+    <title>Using DNS01 challenges :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/cert-manager/how-tos/dns01.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="http01-ocp.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,14 +99,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-tos</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/dns01.html">Using DNS01 challenges</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="dns01.html">Using DNS01 challenges</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/http01-ocp.html">Use HTTP01 solver on OpenShift</a>
+    <a class="nav-link" href="http01-ocp.html">Use HTTP01 solver on OpenShift</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v1-v2.html">Upgrade from <code>v1.x</code> to <code>v2.x</code></a>
+    <a class="nav-link" href="upgrade-v1-v2.html">Upgrade from <code>v1.x</code> to <code>v2.x</code></a>
   </li>
 </ul>
   </li>
@@ -114,8 +114,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -669,407 +669,168 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">cert-manager</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-tos</li>
+    <li><a href="dns01.html">Using DNS01 challenges</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cert-manager/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cert-manager/edit/master/docs/modules/ROOT/pages/how-tos/dns01.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Using DNS01 challenges</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>cert_manager</code>.</p>
+<p>Usually DNS01 challenges are required for the following scenarios:
+* Issuing Let&#8217;s Encrypt wildcard certificates
+* Issuing certificates for services which have a public DNS name, but aren&#8217;t reachable on the internet</p>
+</div>
+<div class="paragraph">
+<p>This how-to shows you how to configure the <code>letsencrypt-staging</code> and <code>letsencrypt-production</code> cluster issuers managed by the component for DNS01 challenges.</p>
+</div>
+<div class="paragraph">
+<p>This how-to assumes that you have access to an acme-dns instance.
+You can manage your own acme-dns instance with component <a href="../../acme-dns/index.html" class="page">acme-dns</a>.</p>
 </div>
 </div>
+</div>
+<h1 id="_prerequisites" class="sect0"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h1>
+<div class="ulist">
+<ul>
+<li>
+<p>Access to an acme-dns instance</p>
+</li>
+<li>
+<p>A domain for which you can create <code>CNAME</code> records</p>
+</li>
+<li>
+<p>You can compile cluster catalogs locally</p>
+</li>
+</ul>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_setup"><a class="anchor" href="#_setup"></a>Setup</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-cert-manager</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to install cert-manager.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_chartscert_manager"><a class="anchor" href="#_chartscert_manager"></a><code>charts:cert-manager</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>v0.15.1</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The version of the Helm chart to use.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_letsencrypt_email"><a class="anchor" href="#_letsencrypt_email"></a><code>letsencrypt_email</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The email address Let&#8217;s Encrypt will use to contact you.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dns01_recursive_nameservers"><a class="anchor" href="#_dns01_recursive_nameservers"></a><code>dns01-recursive-nameservers</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>1.1.1.1:53</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Recursive nameservers to use for validating DNS01 challenges.
-See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check">cert-manager documentation</a> for more details.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_http_proxy"><a class="anchor" href="#_http_proxy"></a><code>http_proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The value of <code>http_proxy</code> is passed to cert-manager in environment variable <code>HTTP_PROXY</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_https_proxy"><a class="anchor" href="#_https_proxy"></a><code>https_proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The value of <code>https_proxy</code> is passed to cert-manager in environment variable <code>HTTPS_PROXY</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_no_proxy"><a class="anchor" href="#_no_proxy"></a><code>no_proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The value of <code>no_proxy</code> is passed to cert-manager in environment variable <code>NO_PROXY</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_solvers"><a class="anchor" href="#_solvers"></a><code>solvers</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <code>defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the solvers for the default cluster issuers.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://cert-manager.io/docs/configuration/acme/#configuration" class="bare">cert-manager.io/docs/configuration/acme/#configuration</a> for configurable parameters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding secrets for DNS01 solvers.
-Each key in the dictionary is used as the name of a secret.
-The value of the key is merged directly into an empty Kubernetes <code>Secret</code> resource.
-By default, secrets are created in the namespace in which cert-manager is deployed.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/">cert-manager documentation</a> for DNS01 solvers which are supported by cert-manager.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_acme_dns_api"><a class="anchor" href="#_acme_dns_api"></a><code>acme_dns_api</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-keys
-</td>
-<td class="hdlist2">
-<p><code>endpoint</code>, <code>username</code>, <code>password</code>, <code>fqdns</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The component sets up a Job and Cronjob to register and check acme-dns client credentials if key <code>endpoint</code> is present in this parameter.
-For a detailed explanation of how the self-registration works, see the <a href="../explanations/acme-dns-self-registration.html" class="page">acme-dns self-registration</a> documentation.</p>
-</div>
-<div class="paragraph">
-<p>If key <code>endpoint</code> is present, the component expects that the other keys listed above are also present. The keys have the following meaning:</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>endpoint</code></dt>
-<dd>
-<p>The HTTP API endpoint of the acme-dns instance</p>
-</dd>
-<dt class="hdlist1"><code>username</code></dt>
-<dd>
-<p>The HTTP basic authorization username for the acme-dns instance <code>/register</code> endpoint</p>
-</dd>
-<dt class="hdlist1"><code>password</code></dt>
-<dd>
-<p>The HTTP basic authorization password for the acme-dns instance <code>/register</code> endpoint.
-We strongly recommend specifying the password as a Vault secret reference.</p>
-</dd>
-<dt class="hdlist1"><code>fqdns</code></dt>
-<dd>
-<p>A list of FQDNs for which the acme-dns instance can be used to solve DNS01 challenges.
-This list must contain at least one entry.</p>
-</dd>
-</dl>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-See <a href="#how-tos/dns01.acme">Using DNS01 challenges</a> for instructions to setup and use the acme-dns self-registration mechanism.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The entries in <code>fqdns</code> must be exact matches the FQDNs for which DNS01 challenges should be presented.
-The only flexibility is that cert-manager will present a DNS01 challenge for the wildcard FQDN <code>*.example.com</code>, if <code>example.com</code> is listed in <code>fqdns</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure the component to register itself on an acme-dns instance.
+Add the following configuration to your cluster or global configuration.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">solvers:
-  nginx_http01:
-    http01:
-      ingress:
-        podTemplate:
-          metadata:
-            labels:
-              app: "solver"
-  dns01:
-    acmeDNS:
-      accountSecretRef:
-        name: acmedns
-          key: acmedns.json
-        host: auth.example.com
-
-secrets:
-  acmedns:
-    stringData:
-      acmedns.json: ?{vaultkv:${cluster:tenant}/${cluster:name}/acmedns}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  cert_manager:
+    acme_dns_api:
+      endpoint: https://acme-dns-api.example.com <i class="conum" data-value="1"></i><b>(1)</b>
+      username: acme-dns <i class="conum" data-value="2"></i><b>(2)</b>
+      password: ?{vaultkv:${cluster:tenant}/${cluster:name}/cert-manager/acme-dns-password} <i class="conum" data-value="2"></i><b>(2)</b>
+      fqdns: <i class="conum" data-value="3"></i><b>(3)</b>
+        - cluster.example.com</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The HTTP API of the acme-dns instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The HTTP basic auth username and password for the acme-dns instance (optional)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The list of FQDNs that you want to use acme-dns challenges for.
+Note that the entries must match FQDNs for which you want to use acme-dns challenges exactly.
+With this configuration, cert-manager will only present DNS01 challenges for certificates with dnsNames <code>cluster.example.com</code> or <code>*.cluster.example.com</code>.
+In particular, cert-manager won&#8217;t present DNS01 challenges for any subdomains of <code>cluster.example.com</code> with this configuration.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This configuration creates a secret <code>acme-dns-client</code> with the acme-dns client configuration in key <code>acmedns.json</code> in the cert-manager namespace.</p>
+</div>
+</li>
+<li>
+<p>Configure the DNS01 solver</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  cert_manager:
+    solvers:
+      nginx_http01: null <i class="conum" data-value="1"></i><b>(1)</b>
+      dns01:
+        acmeDNS:
+          host: https://acme-dns-api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
+          accountSecretRef: <i class="conum" data-value="3"></i><b>(3)</b>
+            name: acme-dns-client
+            key: acmedns.json</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Disable the default <code>nginx_http01</code> solver</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The HTTP API of the acme-dns instance.
+This should match parameter <code>acme_dns_api.endpoint</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The account secret for the acme-dns instance.
+Use the values shown here to use the client secret which is created by the configuration from the previous step.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Compile and push the cluster catalog to apply your configuration.</p>
+</li>
+<li>
+<p>Setup CNAME records to point acme challenges to acme-dns on your cluster&#8217;s domain after the registration job has completed.</p>
+<div class="listingblock">
+<div class="title">Extract CNAME target from the acme-dns-client secret</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl -n syn-cert-manager get secret acme-dns-client \
+    -ojsonpath='{.data.acmedns\.json} | \
+    base64 -d | \
+    jq -r '[.[]][0].fulldomain'
+9165e46c-7bc8-4b00-aa0d-d40413271434.acme-dns.example.com</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Add the following record to your cluster&#8217;s DNS zone</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-dns hljs" data-lang="dns">$ORIGIN cluster.example.com <i class="conum" data-value="1"></i><b>(1)</b>
+_acme-challenge IN CNAME 9165e46c-7bc8-4b00-aa0d-d40413271434.acme-dns.example.com. <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This snippet assumes that the cluster&#8217;s DNS zone is <code>cluster.example.com</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Replace <code>&lt;UUID&gt;.acme-dns.example.com</code> with the output of the <code>kubectl</code> command.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/upgrade-v1-v2.html">Upgrade from <code>v1.x</code> to <code>v2.x</code></a></span>
-  <span class="next"><a href="../explanations/acme-dns-self-registration.html">acme-dns self-registration</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="http01-ocp.html">Use HTTP01 solver on OpenShift</a></span>
 </nav>
 </article>
   </div>
@@ -1080,7 +841,7 @@ secrets:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cert-manager/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cert-manager/how-tos/dns01.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
