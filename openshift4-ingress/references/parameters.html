@@ -1004,7 +1004,11 @@ default
 </div>
 <div class="paragraph">
 <p>Each entry in parameter <code>secrets</code> is deployed onto the cluster as a Kubernetes Secret with <code>type=kubernetes.io/tls</code>.
-The component has basic validation to ensure the secret contents are a plausible Kubernetes TLS secret.</p>
+Entries with <code>null</code> values are skipped.
+This allows users to remove secrets which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The component has basic validation to ensure the secret contents are a plausible Kubernetes TLS secret.</p>
 </div>
 <div class="paragraph">
 <p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
@@ -1037,7 +1041,9 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Each entry in parameter <code>cert_manager_certs</code> is deployed onto the cluster as a cert-manager <code>Certificate</code> resource.</p>
+<p>Each entry in parameter <code>cert_manager_certs</code> is deployed onto the cluster as a cert-manager <code>Certificate</code> resource.
+Entries with <code>null</code> values are skipped.
+This allows users to remove certificates which were configured higher up in the hierarchy.</p>
 </div>
 <div class="paragraph">
 <p>The dictionary keys are used as <code>metadata.name</code> and <code>spec.secretName</code> for the resulting <code>Certificate</code> resources.
