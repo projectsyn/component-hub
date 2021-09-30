@@ -1762,6 +1762,186 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_extraenv"><a class="anchor" href="#_extraenv"></a><code>extraEnv</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Extra environment variables added to the Keycloak StatefulSet.
+Keys in the dict are used as value for field <code>name</code> in the resulting environment variable configuration.
+Values must be valid Kubernetes environment variable configurations.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    extraEnv:
+      FOO:
+        value: bar</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extravolumes"><a class="anchor" href="#_extravolumes"></a><code>extraVolumes</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Extra volumes added to the Keycloak StatefulSet.
+Keys in the dict are used as value for field <code>name</code> in the resulting volume configuration.
+Values must be valid Kubernetes volume configurations.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    extraVolumes:
+      theme:
+        emptyDir: {}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extravolumemounts"><a class="anchor" href="#_extravolumemounts"></a><code>extraVolumeMounts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Extra volume mounts added to the Keycloak container.
+Keys in the dict are used as value for field <code>name</code> in the resulting volume mount configuration.
+Values must be valid Kubernetes volume mount configurations.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    extraVolumeMounts:
+      theme:
+        readOnly: true
+        mountPath: /opt/jboss/keycloak/themes/vshn</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extrainitcontainers"><a class="anchor" href="#_extrainitcontainers"></a><code>extraInitContainers</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Extra init containers added to the Keycloak StatefulSet.
+Keys in the dict are used as value for field <code>name</code> in the resulting container configuration.
+Values must be valid Kubernetes container configurations.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    extraInitContainers:
+      theme-provider:
+        image: company/keycloak-theme:v1.0.0
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying theme..."
+            cp -R /theme/* /company-theme
+        volumeMounts:
+          - name: theme
+            mountPath: /company-theme</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
