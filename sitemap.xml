@@ -97,6 +97,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift-prometheus-proxy.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
 </sitemap>
 <sitemap>
