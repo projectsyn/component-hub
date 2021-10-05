@@ -821,6 +821,57 @@ servingCerts:
 </div>
 </div>
 <div class="sect1">
+<h2 id="_apiserverannotations"><a class="anchor" href="#_apiserverannotations"></a><code>apiServerAnnotations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional annotations to apply to the <code>APIServer</code> resource on the cluster.
+Users can remove annotations from the resource by setting the annotation value to <code>null</code>.
+The component applies the following annotations by default:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">oauth-apiserver.openshift.io/secure-token-storage: 'true',
+release.openshift.io/create-only: 'true',</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In addition to the annotations listed above, the annotation <code>argocd.argoproj.io/sync-wave='10'</code> is applied to the APIServer resource after the user-provided annotations are applied.
+This is done to ensure that the APIServer resource is configured after all certificate secrets are available in  the cluster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_apiserverspec_2"><a class="anchor" href="#_apiserverspec_2"></a><code>apiServerSpec</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
