@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/group-sync-operator/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../how-tos/configure-keycloak-sync.html">
+    <title>Configure Group Sync with Keycloak :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/group-sync-operator/how-tos/configure-keycloak-sync.html">
+    <link rel="prev" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,11 +92,11 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
-  </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/configure-keycloak-sync.html">Configure Group Sync with Keycloak</a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="configure-keycloak-sync.html">Configure Group Sync with Keycloak</a>
   </li>
 </ul>
   </li>
@@ -650,194 +649,43 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">group-sync-operator</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="configure-keycloak-sync.html">Configure Group Sync with Keycloak</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-group-sync-operator/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-group-sync-operator/edit/master/docs/modules/ROOT/pages/how-tos/configure-keycloak-sync.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Configure Group Sync with Keycloak</h1>
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>group_sync_operator</code>.</p>
+<p>To synchronize groups with Keycloak a user with permissions to query for Keycloak groups must be available.
+The following permissions must be associated to the user:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-group-sync-operator</code></p>
-</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Password must be set (Temporary option unselected) on the Credentials tab</p>
+</li>
+<li>
+<p>On the Role Mappings tab, select master-realm or realm-management next to the Client Roles dropdown and then select query-groups, query-users, and view-users.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>You should then store the username and password in Vault.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">vault kv put -cas=0 clusters/kv/${TENANT_ID}/${CLUSTER_ID}/group-sync-operator/foo/keycloak username=$USERNAME password=$PASSWORD</code></pre>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_subscription"><a class="anchor" href="#_subscription"></a><code>subscription</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>The operator subscription details.
-The <code>group-sync-operator</code> is installed through the OperatorHub.
-This field gives you the option to directly modify the operator subscription specification.</p>
+<p>The following is an example of a configuration that will synchronize all groups in realm <code>foo-public</code>.
+It assumes that the username and password is accessible in Vault at the provided location.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sync"><a class="anchor" href="#_sync"></a><code>sync</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The configuration for group synchronization.
-This is a map of group synchronization schedule configurations, which will each be converted to a <code>GroupSync</code> object.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sync_schedule"><a class="anchor" href="#_sync_schedule"></a><code>sync[].schedule</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A crontab based schedule configuration, for when to synchronize the groups.
-If no schedule is provided, synchronization will only occur when the <code>GroupSync</code> object is reconciled by the platform.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sync_providers"><a class="anchor" href="#_sync_providers"></a><code>sync[].providers</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Provider configuration for the group synchronization.
-Each will be converted to a provider configuration entry in the <code>GroupSync</code> resource.
-Keys in the dict are used as value for field <code>name</code> in the resulting provider configuration.
-Consult the <a href="https://github.com/redhat-cop/group-sync-operator/#providers">official documentation</a> on how to configure your provider.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>For the provider credentials you have the option to create the secret through the <code>secrets</code> key.
-You can directly reference this secret as a <code>credentialsSecret</code> without having to specify the <code>namespace</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Secrets to create in the components namespace.
-The dictionary values are directly merged into the <code>Secret</code> resource and the Keys in the dict are used as the <code>name</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
@@ -847,54 +695,47 @@ The dictionary values are directly merged into the <code>Secret</code> resource 
         schedule: '* * * * *'
         providers:
           keycloak:
-            keycloak: <i class="conum" data-value="1"></i><b>(1)</b>
+            keycloak:
               url: https://id.company.io
               credentialsSecret:
-                name: foo-keycloak <i class="conum" data-value="2"></i><b>(2)</b>
-              loginRealm: foo-public
+                name: foo-keycloak
+              loginRealm: master <i class="conum" data-value="1"></i><b>(1)</b>
               realm: foo-public
-              scope: sub
-      bar:
-        schedule: '* * 2 * *'
-        providers:
-          bar-azure:
-            azure:
-              credentialsSecret:
-                name: bar-azure-credentials
-
+              scope: sub <i class="conum" data-value="2"></i><b>(2)</b>
     secrets:
-      foo-keycloak: <i class="conum" data-value="3"></i><b>(3)</b>
+      foo-keycloak:
         stingData:
-          username: foo
-          password: bar
-      bar-azure-credentials:
-        stingData:
-          AZURE_TENANT_ID: 1a
-          AZURE_CLIENT_ID: foobar
-          AZURE_CLIENT_SECRET: secret</code></pre>
+          username: '?{vaultkv:${cluster:tenant}/${cluster:name}/group-sync-operator/foo/keycloak/username}'
+          password: '?{vaultkv:${cluster:tenant}/${cluster:name}/group-sync-operator/foo/keycloak/password}'</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Configuration according to the <a href="https://github.com/redhat-cop/group-sync-operator/#keycloak">official documentation</a>.</td>
+<td>The <code>loginRealm</code> is the realm where the API user is defined.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>References the secret created at (3)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Creates a secret with name <code>foo-keycloak</code></td>
+<td>Scope for group synchronization.
+<code>sub</code> will also synchronize subgroups while <code>one</code> won&#8217;t.</td>
 </tr>
 </table>
 </div>
-</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It&#8217;s recommended to have the sync user in a separate realm.
+</td>
+</tr>
+</table>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../how-tos/configure-keycloak-sync.html">Configure Group Sync with Keycloak</a></span>
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -905,7 +746,7 @@ The dictionary values are directly merged into the <code>Secret</code> resource 
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/group-sync-operator/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/group-sync-operator/how-tos/configure-keycloak-sync.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
