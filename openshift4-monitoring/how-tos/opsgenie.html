@@ -677,6 +677,46 @@
 <p>This how-to assumes that you&#8217;re already using OpsGenie.
 It additionally assumes that you&#8217;re familiar with managing schedules and escalations.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>For VSHN managed clusters</strong> there is a template in the commodore-defaults repo, so the process can be abbreviated:</p>
+</div>
+<div class="paragraph">
+<p>Ensure the Vault secrets below exist (<code>clusters/kv/&lt;tenant-id&gt;/&lt;cluster-id&gt;/opsgenie/api-key</code> and <code>clusters/kv/&lt;tenant-id&gt;/&lt;cluster-id&gt;/opsgenie/heartbeat-password</code>)</p>
+</div>
+<div class="paragraph">
+<p>Set the Team UUID (usually in the tenant&#8217;s <code>common.yml</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  opsgenie:
+    teamID: &lt;team-uuid&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Include the template in the cluster YAML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_monitoring:
+    alertManagerConfig: ${opsgenie:template}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And that&#8217;s it!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
