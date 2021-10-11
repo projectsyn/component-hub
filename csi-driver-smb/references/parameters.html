@@ -701,7 +701,35 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pvc"><a class="anchor" href="#_pvc"></a><code>pvc</code></h2>
+<h2 id="_defaultmountoptions"><a class="anchor" href="#_defaultmountoptions"></a><code>defaultMountOptions</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>array</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[ 'dir_mode=0777', 'file_mode=0777', 'vers=3.0' ]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Mount options to use by default.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_volumes"><a class="anchor" href="#_volumes"></a><code>volumes</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -724,11 +752,10 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>List of PVs and optionally PVCs to create.
-Each array entry is a hash with the following supported keys:</p>
+<p>List of volumes to create. Each volume supports the following attributes:</p>
 </div>
 <div class="sect2">
-<h3 id="_name"><a class="anchor" href="#_name"></a><code>name</code></h3>
+<h3 id="_name_namespace"><a class="anchor" href="#_name_namespace"></a><code>name</code>, <code>namespace</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -750,11 +777,11 @@ mandatory
 </table>
 </div>
 <div class="paragraph">
-<p>The name of the PV/PVC</p>
+<p>The name and namespace of the Volume</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_share_host"><a class="anchor" href="#_share_host"></a><code>share_host</code></h3>
+<h3 id="_sharehost_sharename"><a class="anchor" href="#_sharehost_sharename"></a><code>shareHost</code>, <code>shareName</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -776,89 +803,11 @@ mandatory
 </table>
 </div>
 <div class="paragraph">
-<p>The SMB host name (FQDN or IP address)</p>
+<p>The SMB host name (FQDN or IP address) and share name to use.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_share_name"><a class="anchor" href="#_share_name"></a><code>share_name</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>true</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the share on the SMB host</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_capacity"><a class="anchor" href="#_capacity"></a><code>capacity</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>true</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Capacity of the PV/PVC. This value isn&#8217;t enforced by k8s.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_namespace_2"><a class="anchor" href="#_namespace_2"></a><code>namespace</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>true</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace to which the PV should be restricted to and if enabled, where the PVC should be created.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_username_ref"><a class="anchor" href="#_username_ref"></a><code>username_ref</code></h3>
+<h3 id="_username_password"><a class="anchor" href="#_username_password"></a><code>username</code>, <code>password</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -884,179 +833,51 @@ mandatory
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>?{vaultkv:${cluster:tenant}/${cluster:name}/csi-driver-smb/&lt;share_name&gt;_username}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">username: '?{vaultkv:${cluster:tenant}/${cluster:name}/smb-&lt;identifier&gt;/username}'
+password: '?{vaultkv:${cluster:tenant}/${cluster:name}/smb-&lt;identifier&gt;/password}'</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_password_ref"><a class="anchor" href="#_password_ref"></a><code>password_ref</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>true</p>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>Vault reference to the password. Usually in the form of:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>?{vaultkv:${cluster:tenant}/${cluster:name}/csi-driver-smb/&lt;share_name&gt;_username}'</code></pre>
-</div>
+<p>Adjust theidentifier to your needs. If multiple volumes in the same namespace share the same credentials, it makes sense to use the namespace, in other cases the volume name or something completely different might be more appropriate.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_pvc"><a class="anchor" href="#_create_pvc"></a>`create_pvc</h3>
+<h3 id="_createclaim"><a class="anchor" href="#_createclaim"></a><code>createClaim</code></h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">type</dt>
 <dd>
-<p>boolean
-default: false
-mandatory: false</p>
+<p>boolean</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>false</code></p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>If a PVC object should also be created and directly bound to the PV. The PVC name will be set to the <code>name</code> parameter.</p>
+<p>Whether or not the PVC object should also be managed. Its name will be set to the <code>name</code> parameter.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_accessmodes"><a class="anchor" href="#_accessmodes"></a><code>accessModes</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[ 'ReadWriteMany' ]</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>false</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The access mode used for the PV/PVC</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_persistentvolumereclaimpolicy"><a class="anchor" href="#_persistentvolumereclaimpolicy"></a><code>persistentVolumeReclaimPolicy</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>null</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>false</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The reclaimPolicy for the PV. If not set defaults to <code>Delete</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_mountoptions"><a class="anchor" href="#_mountoptions"></a><code>mountOptions</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[ 'dir_mode=0777', 'file_mode=0777', 'vers=3.0' ]</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-mandatory
-</td>
-<td class="hdlist2">
-<p>false</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Mount options for the SMB share.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_readonly"><a class="anchor" href="#_readonly"></a><code>readOnly</code></h3>
+<h3 id="_pvpatch_pvcpatch"><a class="anchor" href="#_pvpatch_pvcpatch"></a><code>pvPatch</code>, <code>pvcPatch</code></h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">type</dt>
 <dd>
-<p>bolean</p>
+<p>dict</p>
 </dd>
-<dt class="hdlist1">defaul</dt>
+<dt class="hdlist1">default</dt>
 <dd>
-<p>null</p>
-</dd>
-<dt class="hdlist1">mandatory</dt>
-<dd>
-<p>false</p>
+<p>{}</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>If the PV should be mounted as read-only. If not set defaults to <code>false</code></p>
+<p>Optional patches for the PV or PVC resources that are being created. Patches will be applied according to <a href="https://tools.ietf.org/html/rfc7396">RFC7396</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note that while this could be used to overwrite PV capacity, the change would be purely cosmetic. Volume capacity is determined only by the backing SMB share.</p>
 </div>
 </div>
 </div>
@@ -1066,16 +887,32 @@ mandatory
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace
-pvs:
-  - name: my_share
-    share_host: 'smb_host.example.tld'
-    share_name: 'my_share'
-    capacity: '100Gi'
-    namespace: 'my-test-app'
-    username_ref: '?{vaultkv:${cluster:tenant}/${cluster:name}/csi-driver-smb/my_share_username}'
-    password_ref: '?{vaultkv:${cluster:tenant}/${cluster:name}/csi-driver-smb/my_share_password}'
-    create_pvc: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  csi_driver_smb:
+    namespace: example-namespace
+
+    # Will be merged with defaults from component. Use ~defaultMountOptions to reset
+    defaultMountOptions:
+      - nobrl
+
+    volumes:
+      - name: my_share
+        namespace: my-test-app
+        shareHost: smb_host.example.tld
+        shareName: my_share
+        username: '?{vaultkv:${cluster:tenant}/${cluster:name}/smb-my-test-app/username}'
+        password: '?{vaultkv:${cluster:tenant}/${cluster:name}/smb-my-test-app/password}'
+      - name: overwrite
+        namespace: my-test-app
+        shareHost: smb_host.example.tld
+        shareName: my_share
+        username: '?{vaultkv:${cluster:tenant}/${cluster:name}/smb-my-test-app/username}'
+        password: '?{vaultkv:${cluster:tenant}/${cluster:name}/smb-my-test-app/password}'
+        createClaim: true
+        pvOverrides:
+          spec:
+            capacity:
+              storage: 300Gi</code></pre>
 </div>
 </div>
 </div>
