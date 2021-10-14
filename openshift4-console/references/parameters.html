@@ -673,6 +673,72 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="_openshift_version"><a class="anchor" href="#_openshift_version"></a><code>openshift_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>4.8</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component uses this parameter to select the appropriate recommended way to configure a custom console hostname.</p>
+</div>
+<div class="paragraph">
+<p>On OpenShift 4.7 and older, the values provided for parameters <code>config.route</code> or <code>route</code> are inserted into the <code>console.operator.openshift.io/cluster</code> custom resource.</p>
+</div>
+<div class="paragraph">
+<p>On OpenShift 4.8 and newer, the values provided for the parameters are configured in <code>spec.componentRoutes</code> of the <code>ingress.config.openshift.io/cluster</code> custom resource.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_route"><a class="anchor" href="#_route"></a><code>route</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{"console": {}, "downloads": {}}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the configuration for the console and download routes.</p>
+</div>
+<div class="paragraph">
+<p>The component will look for keys <code>hostname</code> and <code>servingCertKeyPairSecret</code> in the values of keys <code>console</code> and <code>downloads</code>.
+The component expects that the value of <code>servingCertKeyPairSecret</code> is of the form <code>{"name": "&lt;secret_name&gt;"}</code> and refers to a secret in namespace <code>openshift-config</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -702,7 +768,7 @@ default
 <p>See the <a href="https://docs.openshift.com/container-platform/latest/web_console/customizing-the-web-console.html">OpenShift docs</a> for available parameters.</p>
 </div>
 <div class="sect2">
-<h3 id="_managementstate"><a class="anchor" href="#_managementstate"></a><code>managementState</code></h3>
+<h3 id="_config_managementstate"><a class="anchor" href="#_config_managementstate"></a><code>config.managementState</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -728,7 +794,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_route"><a class="anchor" href="#_route"></a><code>route</code></h3>
+<h3 id="_config_route"><a class="anchor" href="#_config_route"></a><code>config.route</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -753,17 +819,62 @@ default
 <p>Create a custom route to access the console.
 If the route is part of the default apps domain, no TLS cert needs to be specified since the default wildcard cert will be used.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This configuration parameter is deprecated starting with OpenShift 4.8, see the <a href="https://docs.openshift.com/container-platform/4.8/web_console/customizing-the-web-console.html#customizing-the-console-route_customizing-web-console">upstream documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>The component provides support to use the new recommended configuration via the <code>ingress.config.openshift.io/cluster</code> object, see the documentation for parameters <a href="#_openshift_version"><code>openshift_version</code></a> and <a href="#_route"><code>route</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>If both this parameter and parameter <code>route</code> are present, parameter <code>route</code> has precedence over this parameter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_example_custom_hostname_in_clusters_app_domain"><a class="anchor" href="#_example_custom_hostname_in_clusters_app_domain"></a>Example: Custom hostname in cluster&#8217;s app domain</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
   route:
-    hostname: console.apps.example.com</code></pre>
+    console:
+      hostname: console.apps.example.com</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_custom_hostname_outside_clusters_app_domain"><a class="anchor" href="#_example_custom_hostname_outside_clusters_app_domain"></a>Example: Custom hostname outside cluster&#8217;s app domain</h3>
+<div class="paragraph">
+<p>In this case we need to specify a custom certificate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  route:
+    console:
+      hostname: console.cluster.example.com
+      servingCertKeyPairSecret:
+        name: console-cluster-example-com-tls <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A secret with keys <code>tls.crt</code> and <code>tls.key</code> with this name must exist in namespace <code>openshift-config</code>.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
