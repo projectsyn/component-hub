@@ -843,6 +843,78 @@ If the route is part of the default apps domain, no TLS cert needs to be specifi
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>secrets</code> is deployed onto the cluster as a Kubernetes Secret with <code>type=kubernetes.io/tls</code>.
+Entries with <code>null</code> values are skipped.
+This allows users to remove secrets which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The component has basic validation to ensure the secret contents are a plausible Kubernetes TLS secret.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
+The dictionary values are directly merged into a <code>Secret</code> resource which only has <code>type=kubernetes.io/tls</code> set.
+The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cert_manager_certs"><a class="anchor" href="#_cert_manager_certs"></a><code>cert_manager_certs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>cert_manager_certs</code> is deployed onto the cluster as a cert-manager <code>Certificate</code> resource.
+Entries with <code>null</code> values are skipped.
+This allows users to remove certificates which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> and <code>spec.secretName</code> for the resulting <code>Certificate</code> resources.
+The dictionary values are then directly directly merged into the mostly empty <code>Certificate</code> resources.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example_custom_hostname_in_clusters_app_domain"><a class="anchor" href="#_example_custom_hostname_in_clusters_app_domain"></a>Example: Custom hostname in cluster&#8217;s app domain</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -865,7 +937,12 @@ If the route is part of the default apps domain, no TLS cert needs to be specifi
     console:
       hostname: console.cluster.example.com
       servingCertKeyPairSecret:
-        name: console-cluster-example-com-tls <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+        name: console-cluster-example-com-tls <i class="conum" data-value="1"></i><b>(1)</b>
+  secrets:
+    console-cluster-example-com-tls:
+      stringData:
+        tls.crt: ?{vaultkv:${cluster:tenant}/${cluster:name}/openshift4-console/certificates/cert} <i class="conum" data-value="2"></i><b>(2)</b>
+        tls.key: ?{vaultkv:${cluster:tenant}/${cluster:name}/openshift4-console/certificates/key} <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -874,7 +951,40 @@ If the route is part of the default apps domain, no TLS cert needs to be specifi
 <td><i class="conum" data-value="1"></i><b>1</b></td>
 <td>A secret with keys <code>tls.crt</code> and <code>tls.key</code> with this name must exist in namespace <code>openshift-config</code>.</td>
 </tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Reference to the console hostname TLS certificate in Vault</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Reference to the console hostname TLS private key in Vault</td>
+</tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_custom_hostname_outside_clusters_app_domain_with_cert_manager_certificate"><a class="anchor" href="#_example_custom_hostname_outside_clusters_app_domain_with_cert_manager_certificate"></a>Example: Custom hostname outside cluster&#8217;s app domain with cert-manager certificate</h3>
+<div class="paragraph">
+<p>This configuration assumes that the DNS record for <code>console.cluster.example.com</code> points to the cluster&#8217;s application LBs, ideally as a CNAME to the cluster&#8217;s application domain.
+This is required so that cert-manager can request the Let&#8217;s Encrypt certificate using a HTTP01 challenge.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  route:
+    console:
+      hostname: console.cluster.example.com
+      servingCertKeyPairSecret:
+        name: console-cluster-example-com-tls <i class="conum" data-value="1"></i><b>(1)</b>
+  cert_manager_certs:
+    console-cluster-example-com-tls:
+      spec:
+        dnsNames:
+          - console.cluster.example.com
+        issuerRef:
+          name: letsencrypt-production
+          kind: ClusterIssuer</code></pre>
+</div>
 </div>
 </div>
 </div>
