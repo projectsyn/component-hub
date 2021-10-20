@@ -776,6 +776,10 @@ The ClusterRole must exist on the cluster.
 The component doesn&#8217;t offer support to deploy an additional ClusterRole.</p>
 </div>
 <div class="paragraph">
+<p>Additionally, the component creates a <code>ClusterRoleBinding</code> to the provided ClusterRole for the statefulset-resize-controller.
+This ensures that the controller can create RoleBindings for the provided ClusterRole.</p>
+</div>
+<div class="paragraph">
 <p>If the parameter is the empty string, no additional ClusterRole is configured for the sync jobs.</p>
 </div>
 <div class="paragraph">
