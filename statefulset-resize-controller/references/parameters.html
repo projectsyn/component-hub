@@ -747,6 +747,42 @@ rsync:
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_sync_cluster_role"><a class="anchor" href="#_sync_cluster_role"></a><code>sync_cluster_role</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>""</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to configure a ClusterRole (by name) which the sync jobs can use.
+The ClusterRole must exist on the cluster.
+The component doesn&#8217;t offer support to deploy an additional ClusterRole.</p>
+</div>
+<div class="paragraph">
+<p>If the parameter is the empty string, no additional ClusterRole is configured for the sync jobs.</p>
+</div>
+<div class="paragraph">
+<p>For example, this parameter can be used to allow the sync jobs to use a non-default PodSecurityPolicy, by specifying a ClusterRole which allows using that PodSecurityPolicy.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
 </nav>
