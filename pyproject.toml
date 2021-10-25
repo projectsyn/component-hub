@@ -19,7 +19,7 @@ alt-profanity-check = "^0.24.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
 mypy = "^0.910"
-types-PyYAML = "^5.4.3"
+types-PyYAML = "^6.0.0"
 autopep8 = "^1.5.7"
 pylint = "^2.8.3"
 flake8 = "^3.9.2"
