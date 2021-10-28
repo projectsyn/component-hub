@@ -774,6 +774,49 @@ Default NetworkPolicies will be purged for all namespaces in this list.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_networkplugin"><a class="anchor" href="#_networkplugin"></a><code>networkPlugin</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>''</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The network plugin installed on the cluster.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This needs to be set when using the Cilium network plugin.
+Otherwise some policies might not be applied correctly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
