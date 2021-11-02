@@ -1893,6 +1893,9 @@ Keys in the dict are used as value for field <code>name</code> in the resulting 
 Values must be valid Kubernetes volume mount configurations.</p>
 </div>
 <div class="paragraph">
+<p>Prefer this over using <code>helm_values.extraVolumeMounts</code> since with the later you&#8217;ll have to make sure you don&#8217;t accidentially break stuff (for example DB TLS and internal TLS are configured via extra volumes).</p>
+</div>
+<div class="paragraph">
 <p>Example:</p>
 </div>
 <div class="listingblock">
@@ -1900,7 +1903,8 @@ Values must be valid Kubernetes volume mount configurations.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   keycloak:
     extraVolumeMounts:
-      theme:
+      theme-vshn:
+        name: theme
         readOnly: true
         mountPath: /opt/jboss/keycloak/themes/vshn</code></pre>
 </div>
@@ -2691,6 +2695,9 @@ default
 <div class="paragraph">
 <p>All helm_values are passed to the helm chart.
 This allows to configure all <a href="https://github.com/codecentric/helm-charts/tree/keycloak-10.3.1/charts/keycloak#configuration">keycloak helm chart values</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note that it&#8217;s your own liability to make sure you don&#8217;t break stuff by overwriting values here!</p>
 </div>
 </div>
 </div>

@@ -759,9 +759,9 @@
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   keycloak:
-    ingress:
-      servicePort: http <i class="conum" data-value="1"></i><b>(1)</b>
     helm_values:
+      ingress:
+        servicePort: http <i class="conum" data-value="1"></i><b>(1)</b>
       podSecurityContext: null
       securityContext: null
       pgchecker:
