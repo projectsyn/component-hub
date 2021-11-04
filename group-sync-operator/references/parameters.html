@@ -717,7 +717,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_subscription"><a class="anchor" href="#_subscription"></a><code>subscription</code></h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -726,15 +726,28 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">operator:
+  registry: quay.io
+  repository: redhat-cop/group-sync-operator
+  tag: v0.0.14</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The operator subscription details.
-The <code>group-sync-operator</code> is installed through the OperatorHub.
-This field gives you the option to directly modify the operator subscription specification.</p>
+<p>Dictionary containing the container images used by this component.</p>
 </div>
 </div>
 </div>
