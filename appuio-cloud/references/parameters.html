@@ -1261,6 +1261,67 @@ Users can remove parameters by setting value <code>null</code>.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_runonceactivedeadlineseconds"><a class="anchor" href="#_runonceactivedeadlineseconds"></a><code>runOnceActiveDeadlineSeconds</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration for the cluster policy which ensures that <code>.spec.activeDeadlineSeconds</code> is set for all "runonce" pods.
+"Runonce" pods are pods which have <code>.spec.restartPolicy</code> set to <code>OnFailure</code> or <code>Never</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_runonceactivedeadlineseconds_defaultactivedeadlineseconds"><a class="anchor" href="#_runonceactivedeadlineseconds_defaultactivedeadlineseconds"></a><code>runOnceActiveDeadlineSeconds.defaultActiveDeadlineSeconds</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>int</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>1800</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter gives the default value for <code>.spec.activeDeadlineSeconds</code> which is added to "runonce" pods which don&#8217;t have the field set already.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runonceactivedeadlineseconds_overrideannotationkey"><a class="anchor" href="#_runonceactivedeadlineseconds_overrideannotationkey"></a><code>runOnceActiveDeadlineSeconds.overrideAnnotationKey</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>appuio.io/active-deadline-seconds-override</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The key of the namespace annotation which users can use to override the global default value for <code>.spec.activeDeadlineSeconds</code>.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
 </nav>
