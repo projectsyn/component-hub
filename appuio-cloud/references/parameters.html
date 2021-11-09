@@ -1007,6 +1007,27 @@ type
 The component doesn&#8217;t validate the contents of this field.
 See the Kubernetes <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/">Resource Quota documentation</a> for supported configurations.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can override these default quotas on a namespace level, by setting an annotation <code>resourcequota.appuio.io/&lt;name&gt;.&lt;resource&gt;</code> on the namespace.</p>
+</div>
+<div class="paragraph">
+<p>For example <code>resourcequota.appuio.io/organization-compute.limits.cpu: "1337"</code> will increase the limit of used vCPUs to <code>1337</code>.</p>
+</div>
+<div class="paragraph">
+<p>For resources containing a forward slash, you will need to substitute it for an underline.
+For example: <code>resourcequota.appuio.io/organization-objects.openshift.io_imagestreams: "40"</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
