@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade component from v2 to v3 :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/backup-k8up/how-tos/upgrade-v2-v3.html">
-    <link rel="prev" href="upgrade-v1-v2.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Multiple Instances Of K8up :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/backup-k8up/how-tos/multi-instances.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="upgrade-v1-v2.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,13 +99,13 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-tos</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="multi-instances.html">Multiple instances of K8up</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-v1-v2.html">Upgrade component from v1 to v2</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-v2-v3.html">Upgrade component from v2 to v3</a>
   </li>
 </ul>
@@ -677,198 +677,76 @@
   <ul>
     <li><a href="../index.html">backup-k8up</a></li>
     <li>How-tos</li>
-    <li><a href="upgrade-v2-v3.html">Upgrade component from v2 to v3</a></li>
+    <li><a href="multi-instances.html">Multiple instances of K8up</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-backup-k8up/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v2-v3.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-backup-k8up/edit/master/docs/modules/ROOT/pages/how-tos/multi-instances.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade component from v2 to v3</h1>
+<h1 class="page">Multiple Instances Of K8up</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>K8up v2.0.0 and also the respective Helm chart v2.0.0 introduced breaking changes that also affect this component.
-The upgrade process of K8up itself is documented here: <a href="https://k8up.io/k8up/2.0/how-tos/upgrade.html" class="bare">k8up.io/k8up/2.0/how-tos/upgrade.html</a>.
-Contrary to the Helm chart, this component already ships the necessary CRDs.</p>
-</div>
-<div class="paragraph">
-<p>With component version 3.0.0, a new parameter <code>majorVersion</code> is introduced (with default value being <code>v2</code>).
-This parameter, together with multi-instantiation, enables you to deploy both K8up v1 and v2 at once.
-With the CRDs having a new domain with K8up v2, it&#8217;s essentially a new operator with no direct upgrade path.
-K8up <code>Backup</code>, <code>Schedule</code> and similar objects will have to be manually migrated from <code>backup.appuio.ch/v1alpha1</code> to <code>k8up.io/v1</code> before K8up v1 can be shut down.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Older Kubernetes versions &lt; 1.16 (for example OpenShift 3.11) aren&#8217;t supported anymore in K8up v2.
-While you can upgrade the component version to v3, configuring the component with <code>majorVersion=v2</code> isn&#8217;t recommended.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>This guide describes how to install multiple instances of K8up on a cluster.
+The idea of having multiple instances is to enable upgrades between major versions over a longer period.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_parameter_changes"><a class="anchor" href="#_parameter_changes"></a>Parameter changes</h2>
+<h2 id="_limitations_of_multiple_instances"><a class="anchor" href="#_limitations_of_multiple_instances"></a>Limitations Of Multiple Instances</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>majorVersion</code> parameter is introduced with default value <code>v2</code>.</p>
+<p>You can&#8217;t deploy multiple instances with the same major version of K8up.</p>
 </li>
 <li>
-<p><code>enabled</code> parameter is <strong>deprecated</strong>.
-This parameter was used as a temporary workaround to disable a component until Commodore could do it natively.</p>
-</li>
-<li>
-<p><code>crd</code> parameter is <strong>deprecated</strong> (is only used for K8up v1).</p>
-</li>
-<li>
-<p><code>monitoring_kube_state_metrics_job_name_label</code> parameter is <strong>deprecated</strong> (is only used for K8up v1).</p>
-</li>
-<li>
-<p><code>images.wrestic</code> parameter is <strong>deprecated</strong> (is only used for K8up v1).</p>
-</li>
-<li>
-<p>Default value of <code>namespace</code> changed from <code>syn-backup</code> to <code>syn-backup-k8up</code>.</p>
-</li>
-<li>
-<p>Default value of <code>charts.k8up</code> changed from <code>1.x</code> to <code>2.x</code>.</p>
-</li>
-<li>
-<p>Default value of <code>images.k8up.registry</code> changed from <code>quay.io</code> to <code>ghcr.io</code>.</p>
-</li>
-<li>
-<p>Default value of <code>images.k8up.repository</code> changed from <code>vshn/wrestic</code> to <code>k8up-io/wrestic</code>.</p>
-</li>
-<li>
-<p>Default value of <code>images.wrestic.registry</code> changed from <code>quay.io</code> to <code>ghcr.io</code>.</p>
-</li>
-<li>
-<p>Default value of <code>images.wrestic.repository</code> changed from <code>vshn/wrestic</code> to <code>k8up-io/wrestic</code>.</p>
-</li>
-<li>
-<p>Default value of <code>images.wrestic.tag</code> changed from <code>v0.3.2</code> to <code>v0.3.3</code>.</p>
-</li>
-<li>
-<p>Default value of <code>monitoring_alerts.k8up_last_errors.expr</code> changed from <code>baas_backup_restic_last_errors[&#8230;&#8203;]</code> to <code>k8up_backup_restic_last_errors[&#8230;&#8203;]</code>.
-If <code>majorVersion=v1</code> then the previous value with <code>baas_backup_restic_last_errors[&#8230;&#8203;]</code> is applied.</p>
+<p>It&#8217;s possible to encounter a name collision when using K8up&#8217;s <code>PreBackupPod</code> when both K8up v1 and v2 backups are configured for the same application.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_library_changes"><a class="anchor" href="#_library_changes"></a>Library changes</h2>
+<h2 id="_component_configuration"><a class="anchor" href="#_component_configuration"></a>Component Configuration</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>If you are importing <code>backup-k8up.libjsonnet</code> in other components to create K8up objects, these objects will automatically be updated to use the K8up v2 CRDs after upgrading the component to v3.x.
-The following functions have been changed to create K8up v2 resources:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>Job</code></p>
-</li>
-<li>
-<p><code>Schedule</code></p>
-</li>
-<li>
-<p><code>PreBackupPod</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_steps_to_run_two_instances_at_once"><a class="anchor" href="#_steps_to_run_two_instances_at_once"></a>Steps to run two instances at once</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The recommended upgrade path is as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Update component version to v3.x.x</p>
-</li>
-<li>
-<p>Configure existing component instance for K8up v1.</p>
 <div class="listingblock">
+<div class="title">Sample configuration</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff"> parameters:
-   backup_k8up:
-+    majorVersion: v1 <i class="conum" data-value="1"></i><b>(1)</b>
-+    namespace: syn-backup <i class="conum" data-value="2"></i><b>(2)</b>
-+    ...</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
+  - backup-k8up as k8up-v1
+  - backup-k8up as k8up-v2
+parameters:
+  k8up_v1:
+    majorVersion: v1 <i class="conum" data-value="1"></i><b>(1)</b>
+    namespace: k8up-v1 <i class="conum" data-value="2"></i><b>(2)</b>
+    helmReleaseName: k8upv1 <i class="conum" data-value="3"></i><b>(3)</b>
+  k8up_v2:
+    majorVersion: v2 <i class="conum" data-value="1"></i><b>(1)</b>
+    namespace: k8up-v2 <i class="conum" data-value="2"></i><b>(2)</b>
+    helmReleaseName: k8upv2 <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Override default value with <code>v1</code></td>
+<td>Choose a different major version of K8up for each instance</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The default for K8up v2 has changed, so keep the original or custom value here</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Compile and push cluster catalog.
-Verify that existing deployment for K8up v1 is upgraded correctly.</p>
-</li>
-<li>
-<p>Add another instance of this component, but with K8up v2.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff"> applications:
-   - backup-k8up
-+  - backup-k8up as k8up-v2 <i class="conum" data-value="1"></i><b>(1)</b>
- parameters:
-   backup_k8up:
-     majorVersion: v1
-     namespace: syn-backup
-    ...
-+  k8up_v2: <i class="conum" data-value="1"></i><b>(1)</b>
-+    majorVersion: v2 <i class="conum" data-value="2"></i><b>(2)</b>
-+    namespace: syn-backup-k8up <i class="conum" data-value="2"></i><b>(2)</b>
-+    helmReleaseName: k8upv2 <i class="conum" data-value="2"></i><b>(2)</b>
-+    ... <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use component instantiation</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>You need to explicitly override these if running both instances at once</td>
+<td>Choose a different namespace for each instance</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Set specific settings to this instance if applicable</td>
+<td>Choose a different Helm release name for each instance</td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Compile and push cluster catalog.
-Verify that existing deployment for K8up v1 is untouched.
-Verify that new deployment for K8up v2 is rolled out.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -876,7 +754,10 @@ Verify that new deployment for K8up v2 is rolled out.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you are confident in the rollout you can also combine the component instantiation in one compilation.
+<div class="paragraph">
+<p>You need to choose a different Helm release names since the component comes with cluster-scoped resources that share the same name.
+The ArgoCD apps will then "fight" against each other when doing syncs.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -888,64 +769,81 @@ If you are confident in the rollout you can also combine the component instantia
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-This will already recreate K8up resources managed in other components that import <code>backup-k8up.libjsonnet</code> with K8up v2 CRDs!
+<div class="paragraph">
+<p>The <code>backup-k8up.libjsonnet</code> library provided by v3 of the component will render K8up resources for K8up v2.
+This causes Syn-managed K8up resources for K8up v1 to be <strong>deleted</strong> and replaced with K8up v2 by ArgoCD.
+In other words: Since objects are recreated you will lose all status and job information of past backups. However the actual Restic backup repositories should continue working.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Once both instances are installed <code>kubectl get backup</code> will return the <code>Backup</code> objects from <code>k8up.io</code> in K8up v2.
+If you would like to list the <code>Backup</code> objects from K8up v1, run <code>kubectl get backup.backup.appuio.ch</code> (or <code>schedule.backup.appuio.ch</code> for <code>Schedules</code>)</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recommendation"><a class="anchor" href="#_recommendation"></a>Recommendation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As outlined in more detail in <a href="upgrade-v2-v3.html" class="page">Upgrade component from v2 to v3</a>, deploying K8up v1 and v2 in parallel provides an upgrade window for users to migrate their backups from K8up v1 to v2.</p>
+</div>
+<div class="paragraph">
+<p>Each application should be either working with K8up v1 or with K8up v2, but not both at the same time.
+For example, avoid upgrading <code>Schedule</code> to K8up v2 while leaving still having a <code>PreBackupPod</code> for K8up v1, otherwise the next scheduled backup will likely fail due to a missing <code>PreBackupPod</code> for K8up v2.</p>
+</div>
+<div class="paragraph">
+<p>An upgrade for an application could look roughly as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the old K8up v1 manifests from the cluster.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Be sure that all child resources like <code>Jobs</code> and pre-backup <code>Deployments</code> are gone before continuing!
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Manually migrate all K8up objects from <code>backup.appuio.ch/v1alpha1</code> to <code>k8up.io/v1</code>.
-See more details in <a href="multi-instances.html" class="page">Multiple Instances Of K8up</a></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_steps_to_run_after_all_objects_are_migrated_to_k8up_v2"><a class="anchor" href="#_steps_to_run_after_all_objects_are_migrated_to_k8up_v2"></a>Steps to run after all objects are migrated to K8up v2</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Remove K8up v2 instance</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff"> applications:
-   - backup-k8up
--  - backup-k8up as k8up-v2
- parameters:
-   backup_k8up: <i class="conum" data-value="1"></i><b>(1)</b>
--    majorVersion: v1
--    namespace: syn-backup
--  k8up_v2:
--    helmReleaseName: k8upv2 <i class="conum" data-value="2"></i><b>(2)</b>
-     ... <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Move custom parameters under <code>k8up_v2</code> to <code>backup_k8up</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Overriding the Helm release name isn&#8217;t necessary anymore</td>
-</tr>
-</table>
-</div>
+<p>Set the <code>apiVersion</code> for each K8up resources (for example <code>Schedule</code>) to <code>k8up.io/v1</code> in the source file (YAML/JSON spec)</p>
 </li>
 <li>
-<p>Compile and push cluster catalog.</p>
+<p>If applicable, update all K8up annotations used in your manifests (prefix changed from <code>k8up.syn.tools</code> to <code>k8up.io</code>)</p>
+</li>
+<li>
+<p>Apply the new manifests</p>
+</li>
+<li>
+<p>Verify that backup still works</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-v1-v2.html">Upgrade component from v1 to v2</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="upgrade-v1-v2.html">Upgrade component from v1 to v2</a></span>
 </nav>
 </article>
   </div>
@@ -956,7 +854,7 @@ See more details in <a href="multi-instances.html" class="page">Multiple Instanc
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/backup-k8up/how-tos/upgrade-v2-v3.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/backup-k8up/how-tos/multi-instances.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
