@@ -750,6 +750,21 @@ chart</a> on a Syn-enabled cluster.</p>
 Keycloak helm chart, but this behavior can be overridden using the
 <code>keycloak.postgres</code> parameters exposed by the component.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This component doesn&#8217;t support Kubernetes versions older than 1.14 anymore.
+This is because it generates <code>Ingress</code> resources with <code>apiVersion: networking.k8s.io/v1</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <nav class="pagination">
   <span class="next"><a href="tutorials/installation.html">Installation</a></span>
 </nav>

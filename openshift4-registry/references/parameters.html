@@ -696,13 +696,14 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>A dictionary holding the <code>.spec</code> for the image registry config.</p>
+<p>A dictionary holding the <code>.spec</code> for the image registry config.
+The component will overwrite <code>config.routes</code> with the processed contents of parameter <a href="#_routes"><code>routes</code></a> if that parameter exists.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="https://docs.openshift.com/container-platform/latest/registry/configuring-registry-operator.html#registry-operator-configuration-resource-overview_configuring-registry-operator">OpenShift docs</a> for available parameters.</p>
 </div>
 <div class="sect2">
-<h3 id="_routes"><a class="anchor" href="#_routes"></a><code>routes</code></h3>
+<h3 id="_config_routes"><a class="anchor" href="#_config_routes"></a><code>config.routes</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -723,14 +724,24 @@ default
 </tr>
 </table>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>To create custom routes for exposing the registry, create an entry in this array (see <a href="#_example">Example</a>).
-The <code>secretName</code> can be used to specify a custom TLS certificate.
-By default it uses the default wildcard certificate of the router.</p>
+<p>Using this parameter is deprecated starting from component version v1.0.0.
+Use parameter <a href="#_routes"><code>openshift4_registry.routes</code></a> to configure custom routes for the registry instead.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_storage"><a class="anchor" href="#_storage"></a><code>storage</code></h3>
+<h3 id="_config_storage"><a class="anchor" href="#_config_storage"></a><code>config.storage</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -758,6 +769,148 @@ default
 <p>It&#8217;s suggested to define this higher up the config hierarchy.
 Most probably the one of the cloud region.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_routes"><a class="anchor" href="#_routes"></a><code>routes</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To create custom routes for exposing the registry, create entries in this dictionary (see <a href="#_example">Example</a>).
+Each value of the dictionary should be another dictionary.
+Keys <code>hostname</code> and <code>secretName</code> can be used to configure the hostname and TLS secret for each entry.</p>
+</div>
+<div class="paragraph">
+<p>Each entry in the dictionary is transformed into an entry in the image registry config <code>.spec.routes</code> array.
+The key of each entry is used as the value for field <code>name</code> of the resulting entry in <code>.spec.routes</code>.
+If key <code>secretName</code> isn&#8217;t provided for an entry, the router&#8217;s default wildcard certificate is used for that route.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preferredregistryroute"><a class="anchor" href="#_preferredregistryroute"></a><code>preferredRegistryRoute</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>~</code> (null)</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to specify which route&#8217;s hostname should be used in the field <code>.status.publicDockerImageRepository</code> of <code>ImageStream</code> resources.
+The parameter should be set to a key which is present in parameter <code>routes</code>.
+If the default value inferred by the cluster should be used, leave the value of this parameter set to <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the value of the parameter doesn&#8217;t match a key in parameter <code>routes</code>, the component will print a warning and ignore the configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>secrets</code> is deployed onto the cluster as a Kubernetes Secret with <code>type=kubernetes.io/tls</code>.
+Entries with <code>null</code> values are skipped.
+This allows users to remove secrets which were configured higher up in the hierarchy.
+All secrets are deployed in namespace <code>openshift-image-registry</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component has basic validation to ensure the secret contents are a plausible Kubernetes TLS secret.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
+The dictionary values are directly merged into a <code>Secret</code> resource which only has <code>type=kubernetes.io/tls</code> set.
+The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cert_manager_certs"><a class="anchor" href="#_cert_manager_certs"></a><code>cert_manager_certs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>cert_manager_certs</code> is deployed onto the cluster as a cert-manager <code>Certificate</code> resource.
+Entries with <code>null</code> values are skipped.
+This allows users to remove certificates which were configured higher up in the hierarchy.
+All <code>Certificate</code> resources are deployed in namespace <code>openshift-image-registry</code>.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> and <code>spec.secretName</code> for the resulting <code>Certificate</code> resources.
+The dictionary values are then directly directly merged into the mostly empty <code>Certificate</code> resources.</p>
 </div>
 </div>
 </div>
@@ -796,7 +949,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_s3credentials"><a class="anchor" href="#_s3credentials"></a>'s3Credentials`</h2>
+<h2 id="_s3credentials"><a class="anchor" href="#_s3credentials"></a><code>s3Credentials</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -884,11 +1037,28 @@ default
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   openshift4_registry:
+    routes: <i class="conum" data-value="1"></i><b>(1)</b>
+      primary-route:
+        hostname: registry.example.com
+        secretName: primary-route-tls
+      secondary-route:
+        hostname: registry.cluster.example.org
+        secretName: secondary-route-tls
+    preferredRegistryRoute: primary-route <i class="conum" data-value="2"></i><b>(2)</b>
+    cert_manager_certs:
+      primary-route-tls: <i class="conum" data-value="3"></i><b>(3)</b>
+        spec:
+          dnsNames:
+            - registry.example.com
+          issuerRef:
+            kind: ClusterIssuer
+            name: letsencrypt-staging
+    secrets:
+      secondary-route-tls: <i class="conum" data-value="4"></i><b>(4)</b>
+        stringData:
+          tls.key: '?{vaultkv:...}'
+          tls.crt: '?{vaultkv:...}'
     config:
-      routes:
-        - name: example-route
-          hostname: registry.example.com
-          secretName: example-route-tls
       storage:
         s3:
           bucket: ${cluster:name}-image-registry
@@ -900,6 +1070,38 @@ default
     pruning:
       schedule: '13 */2 * * *'</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure routes in top-level parameter <code>routes</code>.
+This configuration will result in the following contents for <code>config.routes</code>:
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: primary-route
+  hostname: registry.example.com
+  secretName: primary-route-tls
+- name: secondary-route
+  hostname: registry.cluster.example.org
+  secretName: secondary-route-tls</code></pre>
+</div>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This configuration ensures that <code>ImageStream</code> resources on the cluster will have <code>registry.example.com</code> as hostname in their <code>publicDockerImageRepository</code> value.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configure a cert-manager <code>Certificate</code> resource to generate the TLS secret for route <code>primary-route</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Directly configure a TLS secret for route <code>secondary-route</code>.
+As shown in the example, the TLS key and certificate can be fetched from Vault by using secret references.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
