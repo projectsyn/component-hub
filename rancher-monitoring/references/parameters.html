@@ -918,6 +918,36 @@ For some uses this will be prefixed with <code>prometheus</code>, for example fo
 </div>
 </div>
 <div class="sect1">
+<h2 id="_prometheusnamespaceselector"><a class="anchor" href="#_prometheusnamespaceselector"></a><code>prometheusNamespaceSelector</code></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p>null</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This parameters allows to set a custom namespace selector for fields <code>podMonitorNamespaceSelector</code>, <code>ruleNamespaceSelector</code> and <code>serviceMonitorNamespaceSelector</code>.
+If this parameter isn&#8217;t set it will default to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+matchLabels: {
+  SYNMonitoring: 'main',
+},
+---</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_prometheus"><a class="anchor" href="#_prometheus"></a><code>prometheus</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1289,6 +1319,64 @@ thanos:
     access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/access_key}
     secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/secret_key}
 ---</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rules"><a class="anchor" href="#_rules"></a><code>rules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional Prometheus rules to deploy on the cluster.</p>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in the dictionary is transformed into a <code>PrometheusRule</code> object by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component expects that values are dicts themselves and expects that keys in those dicts are prefixed with <code>record:</code> or <code>alert:</code> to indicate whether the rule is a recording or alerting rule.
+The component will transform the keys into fields in the resulting rule by taking the prefix as the field name and the rest of the key as the field value.
+For example, key <code>"record:sum:some:metric:5m"</code> would be transformed into <code>record: sum:some:metric:5m</code> which should define a recording rule with name <code>sum:some:metric:5m</code>.
+This field is then merged into the provided value which should be a valid rule definition.</p>
+</div>
+<div class="paragraph">
+<p>See the Prometheus docs for supported configurations for <a href="https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/">recording</a> and <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting</a> rules.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+rules:
+  generic-rules:
+    "alert:ContainerOOMKilled":
+      annotations:
+        message: A container ({{$labels.container}}) in pod {{ $labels.namespace }}/{{ $labels.pod }} was OOM killed
+      expr: |
+        kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+      labels:
+        source: https://git.vshn.net/swisscompks/syn-tenant-repo/-/blob/master/common.yml
+        severity: devnull</code></pre>
 </div>
 </div>
 </div>
