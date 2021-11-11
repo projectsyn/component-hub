@@ -1248,6 +1248,52 @@ Otherwise volume utilization alerts will be lost.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_thanos"><a class="anchor" href="#_thanos"></a><code>thanos</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows to configure the object storage for the Prometheus Thanos sidecar containers.
+If this dict doesn&#8217;t have a key <code>type</code>, the Thanos sidecar container won&#8217;t be deployed.
+See the <a href="https://thanos.io/tip/thanos/storage.md">Official documentation</a> for all possible configuration options.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+thanos:
+  type: S3
+  config:
+    bucket: my-bucket
+    endpoint: my-s3.example.com
+    access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/access_key}
+    secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/secret_key}
+---</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1271,6 +1317,14 @@ Otherwise volume utilization alerts will be lost.</p>
         volumeClaimTemplate:
           spec:
             storageClassName: gp2
+      thanos:
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: '1'
+          limits:
+            memory: 4Gi
+            cpu: '2'
 
     alertmanager:
       replicas: 3
@@ -1294,7 +1348,14 @@ Otherwise volume utilization alerts will be lost.</p>
               alertname: '^(KubeDeploymentReplicasMismatch|KubePodCrashLooping)$'
               namespace: '-dev$'
         # Use receiver configured above as default
-        receiver: my-super-receiver</code></pre>
+        receiver: my-super-receiver
+    thanos:
+      type: S3
+      config:
+        bucket: my-bucket
+        endpoint: my-s3.example.com
+        access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/access_key}
+        secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/secret_key}</code></pre>
 </div>
 </div>
 </div>
