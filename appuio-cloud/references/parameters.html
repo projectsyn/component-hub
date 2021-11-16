@@ -1254,6 +1254,108 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_maxnamespacequota"><a class="anchor" href="#_maxnamespacequota"></a><code>maxNamespaceQuota</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>int</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>25</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Set the number of namespaces an organization can create.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It&#8217;s recommended that this quota is applied per zone.
+For example, with a quota of <code>25</code> in Zone A and a quota of <code>10</code> in Zone B, any organization can have 25 namespaces in Zone A, but only 10 namespaces in Zone B.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespacequotaoverrides"><a class="anchor" href="#_namespacequotaoverrides"></a><code>namespaceQuotaOverrides</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Override <code>maxNamespaceQuota</code> for a specific organization.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceQuotaOverrides:
+  exampleCompany: 50 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The organization <code>exampleCompany</code> can now have 50 namespaces</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can also set an override that&#8217;s lower than the default quota.</p>
+</li>
+<li>
+<p>It&#8217;s recommended that this override is applied per zone.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_projecttemplate"><a class="anchor" href="#_projecttemplate"></a><code>projectTemplate</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
