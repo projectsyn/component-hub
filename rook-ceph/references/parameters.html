@@ -1063,6 +1063,40 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_osd_portable"><a class="anchor" href="#_osd_portable"></a><code>osd_portable</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows OSDs to move between nodes during failover (and initial setup).
+This requires a storage class that supports portability (such as the CSI-managed storageclasses on cloudscale.ch).</p>
+</div>
+<div class="paragraph">
+<p>If this is <code>false</code>, OSDs are assigned to a node permanently.
+This is the default configuration for the component.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s recommended to set this parameter to <code>true</code> when deploying the component on CSI-managed PersistentVolumes.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_config_override"><a class="anchor" href="#_config_override"></a><code>config_override</code></h3>
 <div class="hdlist">
 <table>
