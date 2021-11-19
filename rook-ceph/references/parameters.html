@@ -1443,6 +1443,7 @@ The component creates exactly one storageclass and volumesnapshotclass per CephF
         requireSafeReplicaSize: true
       parameters:
         compression_mode: none
+        target_size_ratio: '0.8'
   config:
     metadataPool:
       replicated:
@@ -1450,6 +1451,7 @@ The component creates exactly one storageclass and volumesnapshotclass per CephF
         requireSafeReplicaSize: true
     parameters:
       compression_mode: none
+      target_size_ratio: '0.2'
     # dataPools rendered from data_pools in Jsonnet
     preserveFilesystemOnDelete: true
     metadataServer:
@@ -1472,7 +1474,8 @@ The component creates exactly one storageclass and volumesnapshotclass per CephF
 <ul>
 <li>
 <p>One <code>CephFilesystem</code> resource named <code>fspool</code>.
-This CephFS instance is configured to have 3 replicas both for the metadata pool and its single data pool.</p>
+This CephFS instance is configured to have 3 replicas both for the metadata pool and its single data pool.
+By default, the CephFS instance is configured to assume that metadata will consume roughly 20% and data roughly 80% of the storage cluster.</p>
 </li>
 <li>
 <p>A storage class which creates PVs on the CephFS instance, supports volume expansion and configures PVs to be mounted with <code>-o discard</code>.</p>
@@ -1491,7 +1494,11 @@ The values of each key in <code>data_pools</code> are placed in the resulting Ce
 Note that data pools given in <code>config</code> in the hierarchy will be overwritten by the pools configured in <code>data_pools</code>.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://rook.io/docs/rook/v1.6/ceph-filesystem-crd.html">the Rook.io <code>CephFilesystem</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+<p>The component creates a placement configuration for the metadata server (MDS) pods based on the values of parameters <code>tolerations</code> and <code>node_selector</code>.
+Users can override the default placement configuration by providing their own configuration in key <code>config.metadataServer.placement</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.7/ceph-filesystem-crd.html">the Rook.io <code>CephFilesystem</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
 </div>
 <div class="paragraph">
 <p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource which is for the CephFS instance.</p>
