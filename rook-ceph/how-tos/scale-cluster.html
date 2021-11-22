@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: CephMdsMissingReplicas :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephMdsMissingReplicas.html">
-    <link rel="prev" href="CephOSDSlowOps.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Scale a PVC-based Ceph cluster :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/how-tos/scale-cluster.html">
+    <link rel="prev" href="setup-cluster.html">
+    <link rel="next" href="configure-ceph.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -109,16 +109,16 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/openshift4.html">Configuring the component for OpenShift 4</a>
+    <a class="nav-link" href="openshift4.html">Configuring the component for OpenShift 4</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/setup-cluster.html">Setup a PVC-based Ceph cluster</a>
+    <a class="nav-link" href="setup-cluster.html">Setup a PVC-based Ceph cluster</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="scale-cluster.html">Scale a PVC-based Ceph cluster</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/scale-cluster.html">Scale a PVC-based Ceph cluster</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/configure-ceph.html">Configuring and tuning Ceph</a>
+    <a class="nav-link" href="configure-ceph.html">Configuring and tuning Ceph</a>
   </li>
 </ul>
   </li>
@@ -127,14 +127,14 @@
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/add_alert_runbook.html">Adding a new alert runbook</a>
+    <a class="nav-link" href="add_alert_runbook.html">Adding a new alert runbook</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Rook-Ceph operator</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="RookCephOperatorScaledDown.html">RookCephOperatorScaledDown</a>
+    <a class="nav-link" href="../runbooks/RookCephOperatorScaledDown.html">RookCephOperatorScaledDown</a>
   </li>
 </ul>
   </li>
@@ -143,25 +143,25 @@
     <span class="nav-text">Ceph Cluster</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterErrorState.html">CephClusterErrorState</a>
+    <a class="nav-link" href="../runbooks/CephClusterErrorState.html">CephClusterErrorState</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterWarningState.html">CephClusterWarningState</a>
+    <a class="nav-link" href="../runbooks/CephClusterWarningState.html">CephClusterWarningState</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterNearFull.html">CephClusterNearFull</a>
+    <a class="nav-link" href="../runbooks/CephClusterNearFull.html">CephClusterNearFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterCriticallyFull.html">CephClusterCriticallyFull</a>
+    <a class="nav-link" href="../runbooks/CephClusterCriticallyFull.html">CephClusterCriticallyFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterReadOnly.html">CephClusterReadOnly</a>
+    <a class="nav-link" href="../runbooks/CephClusterReadOnly.html">CephClusterReadOnly</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDataRecoveryTakingTooLong.html">CephDataRecoveryTakingTooLong</a>
+    <a class="nav-link" href="../runbooks/CephDataRecoveryTakingTooLong.html">CephDataRecoveryTakingTooLong</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGRepairTakingTooLong.html">CephPGRepairTakingTooLong</a>
+    <a class="nav-link" href="../runbooks/CephPGRepairTakingTooLong.html">CephPGRepairTakingTooLong</a>
   </li>
 </ul>
   </li>
@@ -170,10 +170,10 @@
     <span class="nav-text">Ceph pools</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesNearExhaustion.html">CephPoolQuotaBytesNearExhaustion</a>
+    <a class="nav-link" href="../runbooks/CephPoolQuotaBytesNearExhaustion.html">CephPoolQuotaBytesNearExhaustion</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesCriticallyExhausted.html">CephPoolQuotaBytesCriticallyExhausted</a>
+    <a class="nav-link" href="../runbooks/CephPoolQuotaBytesCriticallyExhausted.html">CephPoolQuotaBytesCriticallyExhausted</a>
   </li>
 </ul>
   </li>
@@ -182,7 +182,7 @@
     <span class="nav-text">Ceph MGR</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMgrIsAbsent.html">CephMgrIsAbsent</a>
+    <a class="nav-link" href="../runbooks/CephMgrIsAbsent.html">CephMgrIsAbsent</a>
   </li>
 </ul>
   </li>
@@ -191,13 +191,13 @@
     <span class="nav-text">Ceph MON</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonVersionMismatch.html">CephMonVersionMismatch</a>
+    <a class="nav-link" href="../runbooks/CephMonVersionMismatch.html">CephMonVersionMismatch</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonQuorumAtRisk.html">CephMonQuorumAtRisk</a>
+    <a class="nav-link" href="../runbooks/CephMonQuorumAtRisk.html">CephMonQuorumAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonHighNumberOfLeaderChanges.html">CephMonHighNumberOfLeaderChanges</a>
+    <a class="nav-link" href="../runbooks/CephMonHighNumberOfLeaderChanges.html">CephMonHighNumberOfLeaderChanges</a>
   </li>
 </ul>
   </li>
@@ -206,25 +206,25 @@
     <span class="nav-text">Ceph OSD</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDVersionMismatch.html">CephOSDVersionMismatch</a>
+    <a class="nav-link" href="../runbooks/CephOSDVersionMismatch.html">CephOSDVersionMismatch</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+    <a class="nav-link" href="../runbooks/CephOSDNearFull.html">CephOSDNearFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDCriticallyFull.html">CephOSDCriticallyFull</a>
+    <a class="nav-link" href="../runbooks/CephOSDCriticallyFull.html">CephOSDCriticallyFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDFlapping.html">CephOSDFlapping</a>
+    <a class="nav-link" href="../runbooks/CephOSDFlapping.html">CephOSDFlapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskNotResponding.html">CephOSDDiskNotResponding</a>
+    <a class="nav-link" href="../runbooks/CephOSDDiskNotResponding.html">CephOSDDiskNotResponding</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskUnavailable.html">CephOSDDiskUnavailable</a>
+    <a class="nav-link" href="../runbooks/CephOSDDiskUnavailable.html">CephOSDDiskUnavailable</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDSlowOps.html">CephOSDSlowOps</a>
+    <a class="nav-link" href="../runbooks/CephOSDSlowOps.html">CephOSDSlowOps</a>
   </li>
 </ul>
   </li>
@@ -232,8 +232,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">CephFS</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="CephMdsMissingReplicas.html">CephMdsMissingReplicas</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMdsMissingReplicas.html">CephMdsMissingReplicas</a>
   </li>
 </ul>
   </li>
@@ -805,19 +805,18 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Rook Ceph</a></li>
-    <li>Alert runbooks</li>
-    <li>CephFS</li>
-    <li><a href="CephMdsMissingReplicas.html">CephMdsMissingReplicas</a></li>
+    <li>How-to guides</li>
+    <li><a href="scale-cluster.html">Scale a PVC-based Ceph cluster</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephMdsMissingReplicas.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/how-tos/scale-cluster.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: CephMdsMissingReplicas</h1>
+<h1 class="page">Scale a PVC-based Ceph cluster</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -827,177 +826,123 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
-Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
-</div>
+For specific instructions to scale a Ceph cluster running on OpenShift 4 on Exoscale see the VSHN OpenShift 4 Exoscale how-tos to <a href="https://kb.vshn.ch/oc4/how-tos/exoscale/add_storage_node.html">Add a storage node</a> and <a href="https://kb.vshn.ch/oc4/how-tos/exoscale/change_storage_node_size.html">Change storage node size</a>.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>This how-to assumes that you&#8217;ve setup a PVC-based Ceph cluster on an infrastructure which has a CSI driver which supports both <code>volumeMode: Block</code> and support for volume expansion.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
+<h2 id="_preqrequisites"><a class="anchor" href="#_preqrequisites"></a>Preqrequisites</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>A local setup to compile a cluster catalog, see <a href="https://syn.tools/commodore/explanation/running-commodore.html">Running Commodore</a> for details.</p>
+</li>
+<li>
+<p>An access token for the Lieutenant instance on which your cluster is registered.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>This alert fires when a CephFS metadata server (MDS) instance is missing.</p>
+<p>This guide assumes that you&#8217;re familiar with making changes to a Project Syn cluster and compiling the cluster catalog to deploy those changes.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
+<h2 id="_scaling_the_osd_disks_of_a_pvc_based_ceph_cluster"><a class="anchor" href="#_scaling_the_osd_disks_of_a_pvc_based_ceph_cluster"></a>Scaling the OSD disks of a PVC-based Ceph cluster</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_check_cephfs_mds_pods"><a class="anchor" href="#_check_cephfs_mds_pods"></a>Check CephFS MDS pods</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ kubectl -n "${ceph_cluster_ns}" get pods -lapp=rook-ceph-mds</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_check_cephfs_status"><a class="anchor" href="#_check_cephfs_status"></a>Check CephFS status</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs status
-fspool - 0 clients <i class="conum" data-value="1"></i><b>(1)</b>
-======
-RANK      STATE         MDS        ACTIVITY     DNS    INOS   DIRS   CAPS <i class="conum" data-value="2"></i><b>(2)</b>
- 0        active      fspool-a  Reqs:    0 /s  1237    308    307      0  <i class="conum" data-value="2"></i><b>(2)</b>
-0-s   standby-replay  fspool-b  Evts:    0 /s  1601    306    305      0  <i class="conum" data-value="2"></i><b>(2)</b>
-      POOL         TYPE     USED  AVAIL <i class="conum" data-value="3"></i><b>(3)</b>
-fspool-metadata  metadata  55.0M  83.8G <i class="conum" data-value="3"></i><b>(3)</b>
-  fspool-data0     data       0   83.8G <i class="conum" data-value="3"></i><b>(3)</b>
-MDS version: ceph version 16.2.6 (ee28fb57e47e9f88813e24bbf4c14496ca299d31) pacific (stable) <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Name of the filesystem and amount of connected clients</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>List of MDS replicas.
-See the <a href="https://docs.ceph.com/en/latest/cephfs/mds-states/">Ceph documentation on MDS states</a> for more information about the values shown in the <code>STATE</code> column.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Filesystem metadata and data usage and remaining capacity.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Metadata server Ceph version</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>If a Rook-managed Ceph upgrade goes wrong and leaves one of the MDS replicas in <code>CrashLoopBackOff</code> for too long the MDS cluster can go into state <code>failed</code>.
-In that case, you should be able to recover the MDS cluster with the following commands:</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-These commands may make the CephFS filesystem temporarily unavailable.
-</td>
-</tr>
-</table>
+<p>On infrastructures which support volume expansion, scaling the OSD disks of a PVC-based Ceph cluster is very straightforward.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>First, get the filesystem into a state where you can promote one of the MDS replicas to <code>active</code></p>
+<p>Adjust the desired PVC size in the cluster config (in this example we&#8217;re growing the cluster from 3x100Gi OSDs to 3x150Gi OSDs):</p>
 <div class="listingblock">
+<div class="title"><code>c-cluster-id.yml</code> diff</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ cephfs_name=fspool <i class="conum" data-value="1"></i><b>(1)</b>
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs dump <i class="conum" data-value="2"></i><b>(2)</b>
-[ ... truncated ... ]
-Filesystem 'fspool' (1)
-fs_name	fspool
-[ ... truncated ... ]
-max_mds	1 <i class="conum" data-value="2"></i><b>(2)</b>
-in	0
-up	{0=23899}
-[ ... truncated ... ]
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" allow_standby_replay false <i class="conum" data-value="3"></i><b>(3)</b>
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" max_mds 1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">   rook_ceph:
+     ceph_cluster:
+       block_storage_class: ssd
+-      block_volume_size: 100Gi
++      block_volume_size: 150Gi
+       tune_fast_device_class: true
+       rbd_enabled: true
+       cephfs_enabled: false</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Change to the name of the filesystem you want to recover</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Show filesystem status, and make a note of <code>max_mds</code> for your target filesystem.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Disable standby-replay MDS replicas. This allows safely restarting the MDS cluster.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>This is only required if <code>dump</code> showed <code>max_mds &gt; 1</code></td>
-</tr>
-</table>
 </div>
 </li>
 <li>
-<p>Check if one of the MDS replicas got promoted to <code>active</code> by the MONs.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs status</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If not, scale down all but one of the filesystem&#8217;s MDS replicas.
-You may have to temporarily disable the rook-ceph operator to be able to scale down MDS replicas.
-To disable the rook-ceph operator, you need to disable auto sync for the <code>root</code> and <code>rook-ceph</code> apps in ArgoCD and then scale the operator deployment to 0 replicas.</p>
-</div>
+<p>Compile the cluster catalog</p>
 </li>
 <li>
-<p>Once the filesystem is back to state <code>active</code>, enable standby replicas again</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" allow_standby_replay true <i class="conum" data-value="1"></i><b>(1)</b>
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" max_mds &lt;orig_max_mds&gt; <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Enable standby-replay MDS replicas for the filesystem</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>If your filesystem originally had <code>max_mds &gt; 1</code>, reconfigure it to have the original value of <code>max_mds</code>.</td>
-</tr>
-</table>
-</div>
+<p>Wait until ArgoCD has updated the <code>CephCluster</code> resource and Rook has updated the OSD PVCs to match the <code>CephCluster</code> spec and restarted the OSDs.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>See the <a href="https://docs.ceph.com/en/latest/cephfs/upgrading/">Ceph MDS cluster upgrade documentation</a> for the official upgrade instructions for an MDS cluster.</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_scaling_the_osd_count_of_a_pvc_based_ceph_cluster"><a class="anchor" href="#_scaling_the_osd_count_of_a_pvc_based_ceph_cluster"></a>Scaling the OSD count of a PVC-based Ceph cluster</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure you have sufficient compute resources in your cluster to add the desired amount of OSDs.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default, the component configures the resource requests for each OSD as 4 CPU and 5Gi of memory.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Update the cluster configuration to deploy more OSDs</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">   rook_ceph:
+     ceph_cluster:
++      node_count: 4 <i class="conum" data-value="1"></i><b>(1)</b>
+       block_storage_class: ssd
+       block_volume_size: 110Gi
+       osd_portable: true</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Update the OSD count from 3 to 4.
+3 is the default value of the parameter.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Compile the cluster catalog</p>
+</li>
+<li>
+<p>Wait until ArgoCD has updated the <code>CephCluster</code> resource and Rook has deployed the new OSDs.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="CephOSDSlowOps.html">CephOSDSlowOps</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="setup-cluster.html">Setup a PVC-based Ceph cluster</a></span>
+  <span class="next"><a href="configure-ceph.html">Configuring and tuning Ceph</a></span>
 </nav>
 </article>
   </div>
@@ -1008,7 +953,7 @@ $ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephMdsMissingReplicas.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/how-tos/scale-cluster.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
