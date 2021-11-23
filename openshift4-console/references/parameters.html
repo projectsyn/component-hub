@@ -843,6 +843,37 @@ If the route is part of the default apps domain, no TLS cert needs to be specifi
 </div>
 </div>
 <div class="sect1">
+<h2 id="_console_links"><a class="anchor" href="#_console_links"></a><code>console_links</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>console_links</code> is deployed onto the cluster as an <a href="https://docs.openshift.com/container-platform/4.9/web_console/customizing-the-web-console.html#creating-custom-links_customizing-web-console">OpenShift <code>ConsoleLink</code></a>.
+The value of the entry will be used as the <code>ConsoleLink</code> specification.
+Entries with <code>null</code> values are skipped.
+This allows users to remove links which were configured higher up in the hierarchy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -985,6 +1016,51 @@ This is required so that cert-manager can request the Let&#8217;s Encrypt certif
           name: letsencrypt-production
           kind: ClusterIssuer</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_custom_links_in_the_web_console"><a class="anchor" href="#_example_custom_links_in_the_web_console"></a>Example: Custom links in the web console</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  console_links:
+    homepage: <i class="conum" data-value="1"></i><b>(1)</b>
+      href: 'https://www.example.com/'
+      location: ApplicationMenu
+      text: Home
+      applicationMenu:
+        section: Company
+        # image that is 24x24 in size
+        imageURL: https://via.placeholder.com/24
+    user-docs: <i class="conum" data-value="2"></i><b>(2)</b>
+      href: 'https://docs.example.com/'
+      location: HelpMenu
+      text: User Documentation
+    project-link: <i class="conum" data-value="3"></i><b>(3)</b>
+      href: 'https://docs.example.com/organization/'
+      location: HelpMenu
+      text: User Documentation
+      namespaceDashboard:
+        matchExpressions:
+         - key: organization
+           operation: Exists</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Adds a link to an overflow menu at the top of every page</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Adds a link to the help menu at the top of every page</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Adds a link to the the dashboard of every namespace with a label <code>organization</code></td>
+</tr>
+</table>
 </div>
 </div>
 </div>
