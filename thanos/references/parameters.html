@@ -701,6 +701,119 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_cluster_kubernetes_version"><a class="anchor" href="#_cluster_kubernetes_version"></a><code>cluster_kubernetes_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>"1.18"</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes version of the cluster on which the component is deployed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jsonnetfile_parameters"><a class="anchor" href="#_jsonnetfile_parameters"></a><code>jsonnetfile_parameters</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Parameters for rendering the <code>jsonnetfile.jsonnet</code>.
+We pass parameter <code>cluster_kubernetes_version</code> and cluster fact <code>distribution</code> to Jsonnet to enable smart dependency version selection for the <code>kube-thanos</code> and <code>thanos-mixin</code> Jsonnet libraries.</p>
+</div>
+<div class="paragraph">
+<p>This is necessary because we need to ensure that this component and other components (for example <code>rancher-monitoring</code> and <code>openshift4-monitoring</code>) use the same <code>kube-thanos</code> and <code>thanos-mixin</code> library versions.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise we get random changes in the cluster catalog at best and incompatible library versions at worst depending on which dependency version wins when <code>jsonnet-bundler</code> fetches the Jsonnet libraries.</p>
+</div>
+<div class="sect2">
+<h3 id="_jsonnetfile_parameters_thanos_mixin_version"><a class="anchor" href="#_jsonnetfile_parameters_thanos_mixin_version"></a><code>jsonnetfile_parameters.thanos_mixin_version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>''</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is used as the library version for <code>thanos-mixin</code> over the autodetected version based on the cluster&#8217;s Kubernetes version and distribution.</p>
+</div>
+<div class="paragraph">
+<p>Only set this parameter if you really need a specific <code>thanos-mixin</code> version for this component and have read the parameter description for <code>jsonnetfile_parameters</code> carefully.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jsonnetfile_parameters_kube_thanos_version"><a class="anchor" href="#_jsonnetfile_parameters_kube_thanos_version"></a><code>jsonnetfile_parameters.kube_thanos_version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>''</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is used as the library version for <code>kube-thanos</code> over the autodetected version based on the cluster&#8217;s Kubernetes version and distribution.</p>
+</div>
+<div class="paragraph">
+<p>Only set this parameter if you really need a specific <code>kube-thanos</code> version for this component and have read the parameter description for <code>jsonnetfile_parameters</code> carefully.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_dashboards_enabled"><a class="anchor" href="#_dashboards_enabled"></a><code>dashboards.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -801,6 +914,32 @@ See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">a
 <p>Especially the <code>stores</code> list is important as it needs to be populated by the Thanos store API endpoints this Query should use.</p>
 </div>
 <div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the Query component should be deployed.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_servicetype"><a class="anchor" href="#_servicetype"></a><code>serviceType</code></h3>
 <div class="hdlist">
 <table>
@@ -871,7 +1010,7 @@ type
 See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
 </div>
 <div class="sect2">
-<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -919,7 +1058,7 @@ type
 See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
 </div>
 <div class="sect2">
-<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
+<h3 id="_enabled_3"><a class="anchor" href="#_enabled_3"></a><code>enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -967,7 +1106,7 @@ type
 See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
 </div>
 <div class="sect2">
-<h3 id="_enabled_3"><a class="anchor" href="#_enabled_3"></a><code>enabled</code></h3>
+<h3 id="_enabled_4"><a class="anchor" href="#_enabled_4"></a><code>enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
