@@ -729,21 +729,6 @@ type
 <p>dictionary</p>
 </td>
 </tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">operator:
-  registry: quay.io
-  repository: redhat-cop/group-sync-operator
-  tag: v0.0.14</code></pre>
-</div>
-</div>
-</td>
-</tr>
 </table>
 </div>
 <div class="paragraph">
@@ -798,6 +783,34 @@ type
 <div class="paragraph">
 <p>A crontab based schedule configuration, for when to synchronize the groups.
 If no schedule is provided, synchronization will only occur when the <code>GroupSync</code> object is reconciled by the platform.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sync_deletedisappearedgroups"><a class="anchor" href="#_sync_deletedisappearedgroups"></a><code>sync[].deleteDisappearedGroups</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if groups disappeared from the source should be removed. The deletion of groups is provider scoped.</p>
 </div>
 </div>
 </div>
@@ -889,6 +902,7 @@ The dictionary values are directly merged into the <code>Secret</code> resource 
               scope: sub
       bar:
         schedule: '* * 2 * *'
+        deleteDisappearedGroups: true
         providers:
           bar-azure:
             azure:
