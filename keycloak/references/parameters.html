@@ -1003,8 +1003,16 @@ Usualy two for the redundancy during the maintenance.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tls_provider"><a class="anchor" href="#_tls_provider"></a><code>tls.provider</code></h2>
+<h2 id="_tls"><a class="anchor" href="#_tls"></a><code>tls</code></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This key configures encryption of <strong>internal</strong> traffic, meaning from the IngressController to Keycloak itself.</p>
+</div>
+<div class="paragraph">
+<p>For Ingress-specific TLS configuration, see <code>ingress.tls</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_tls_provider"><a class="anchor" href="#_tls_provider"></a><code>tls.provider</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1039,10 +1047,8 @@ default
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_termination"><a class="anchor" href="#_tls_termination"></a><code>tls.termination</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_provider_2"><a class="anchor" href="#_tls_provider_2"></a><code>tls.provider</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1058,29 +1064,30 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>reencrypt</code></p>
+<p><code>secret</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Defines the termination mode:</p>
+<p>Defines how TLS certificates for internal (ingress to pods) traffic are provisioned:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>reencrypt</code> TLS termination happens at the ingress or route, the traffic is re-encrypted.</p>
+<p><code>certmanager</code> for certificates issued via cert-manager.</p>
 </li>
 <li>
-<p><code>passthrough</code> TLS termination happens at Keycloak itself, ingress or route passes the traffic.</p>
+<p><code>vault</code> for certificates stored in Vault.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Also see: <code>ingress.tls.provider</code></p>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_tls_secretname"><a class="anchor" href="#_tls_secretname"></a><code>tls.secretName</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_secretname"><a class="anchor" href="#_tls_secretname"></a><code>tls.secretName</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1102,10 +1109,8 @@ default
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_vault_cert"><a class="anchor" href="#_tls_vault_cert"></a><code>tls.vault.cert</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_vault_cert"><a class="anchor" href="#_tls_vault_cert"></a><code>tls.vault.cert</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1127,10 +1132,8 @@ default
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_vault_cert_2"><a class="anchor" href="#_tls_vault_cert_2"></a><code>tls.vault.cert</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_vault_cert_2"><a class="anchor" href="#_tls_vault_cert_2"></a><code>tls.vault.cert</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1152,10 +1155,8 @@ default
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_certmanager_apiversion"><a class="anchor" href="#_tls_certmanager_apiversion"></a><code>tls.certmanager.apiVersion</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_certmanager_apiversion"><a class="anchor" href="#_tls_certmanager_apiversion"></a><code>tls.certmanager.apiVersion</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1181,10 +1182,8 @@ default
 Older cert-manager versions (v0.x) are using <code>cert-manager.io/v1beta1</code> or other.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_certmanager_issuer_name"><a class="anchor" href="#_tls_certmanager_issuer_name"></a><code>tls.certmanager.issuer.name</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_certmanager_issuer_name"><a class="anchor" href="#_tls_certmanager_issuer_name"></a><code>tls.certmanager.issuer.name</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1210,10 +1209,8 @@ default
 If cert-manager is managed by <a href="https://github.com/projectsyn/component-cert-manager/">component cert-manager</a> with the default configuration, this is one of <code>letsencrypt-production</code> or <code>letsencrypt-staging</code>.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_certmanager_issuer_kind"><a class="anchor" href="#_tls_certmanager_issuer_kind"></a><code>tls.certmanager.issuer.kind</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_certmanager_issuer_kind"><a class="anchor" href="#_tls_certmanager_issuer_kind"></a><code>tls.certmanager.issuer.kind</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1239,10 +1236,8 @@ default
 Can be <code>ClusterIssuer</code> or <code>Issuer</code>.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_tls_certmanager_issuer_group"><a class="anchor" href="#_tls_certmanager_issuer_group"></a><code>tls.certmanager.issuer.group</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tls_certmanager_issuer_group"><a class="anchor" href="#_tls_certmanager_issuer_group"></a><code>tls.certmanager.issuer.group</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1262,6 +1257,7 @@ default
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -1353,18 +1349,6 @@ default
 <div class="paragraph">
 <p>The default annotations can extended with custom annotations as required.</p>
 </div>
-<div class="paragraph">
-<p>An example shows how to allow an automatic ACME based certificate creation via cert-manager:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    ingress:
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production</code></pre>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1397,8 +1381,91 @@ This is only relevant when enabling the network policy with <code>helm_values.ne
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ingress_tls_secretname"><a class="anchor" href="#_ingress_tls_secretname"></a><code>ingress.tls.secretName</code></h2>
+<h2 id="_ingress_tls"><a class="anchor" href="#_ingress_tls"></a><code>ingress.tls</code></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This key configures encryption of <strong>external</strong> traffic, meaning from the client to the ingress controller.</p>
+</div>
+<div class="paragraph">
+<p>For internal TLS configuration, see <code>tls</code> above.</p>
+</div>
+<div class="sect2">
+<h3 id="_ingress_tls_termination"><a class="anchor" href="#_ingress_tls_termination"></a><code>ingress.tls.termination</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>reencrypt</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines the termination mode:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>reencrypt</code> TLS termination happens at the ingress or route, the traffic is re-encrypted.</p>
+</li>
+<li>
+<p><code>passthrough</code> TLS termination happens at Keycloak itself, ingress or route passes the traffic.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ingress_tls_provider"><a class="anchor" href="#_ingress_tls_provider"></a><code>ingress.tls.provider</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>certmanager</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines how TLS certificates for external traffic (Ingress/Route) are provisioned:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>certmanager</code> for certificates issued via cert-manager.</p>
+</li>
+<li>
+<p><code>vault</code> for certificates stored in Vault.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also see: <code>tls.provider</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ingress_tls_secretname"><a class="anchor" href="#_ingress_tls_secretname"></a><code>ingress.tls.secretName</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1423,10 +1490,34 @@ default
 <p>Allows overwriting the default secret name where the ingress controller looks for the certificates.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_ingress_tls_certmanager_issuername"><a class="anchor" href="#_ingress_tls_certmanager_issuername"></a><code>ingress.tls.certmanager.issuerName</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>letsencrypt-production</code></p>
+</td>
+</tr>
+</table>
 </div>
-<div class="sect1">
-<h2 id="_ingress_tls_vault_cert"><a class="anchor" href="#_ingress_tls_vault_cert"></a><code>ingress.tls.vault.cert</code></h2>
-<div class="sectionbody">
+<div class="paragraph">
+<p>Name of the ClusterIssuer to use if <code>certmanager</code> is selected in <code>ingress.tls.provider</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ingress_tls_vault_cert"><a class="anchor" href="#_ingress_tls_vault_cert"></a><code>ingress.tls.vault.cert</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1448,10 +1539,8 @@ default
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_ingress_tls_vault_certkey"><a class="anchor" href="#_ingress_tls_vault_certkey"></a><code>ingress.tls.vault.certKey</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ingress_tls_vault_certkey"><a class="anchor" href="#_ingress_tls_vault_certkey"></a><code>ingress.tls.vault.certKey</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1471,6 +1560,7 @@ default
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>
