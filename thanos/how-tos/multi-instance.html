@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/thanos/references/parameters.html">
-    <link rel="prev" href="../how-tos/multi-instance.html">
+    <title>Deploy Multiple Instances :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/thanos/how-tos/multi-instance.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,8 +99,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/multi-instance.html">Deploy Multiple Instances</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="multi-instance.html">Deploy Multiple Instances</a>
   </li>
 </ul>
   </li>
@@ -107,8 +108,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -669,536 +670,139 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Thanos</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-to</li>
+    <li><a href="multi-instance.html">Deploy Multiple Instances</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-thanos/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-thanos/edit/master/docs/modules/ROOT/pages/how-tos/multi-instance.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Deploy Multiple Instances</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>thanos</code>.</p>
+<p>This guide describes how to install multiple instances of this component.</p>
+</div>
+<div class="paragraph">
+<p>There are generally two different approaches:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deploy multiple instances in separate namespaces.
+This approach is recommended if you have completely isolated setups of Thanos (for example staging and production instances).</p>
+</li>
+<li>
+<p>Deploy multiple instances in the same namespace.
+This approach is recommended when you need to deploy certain Thanos components multiple times, for example one Thanos Store per S3 bucket used by only one Thanos Querier.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_separate_namespaces"><a class="anchor" href="#_separate_namespaces"></a>Separate namespaces</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-thanos</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>Using this approach each instance gets deployed into its own namespace.
+This is a simple as setting the <code>namespace</code> parameter and every deployment or manifest is isolated.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cluster_kubernetes_version"><a class="anchor" href="#_cluster_kubernetes_version"></a><code>cluster_kubernetes_version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>"1.18"</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Kubernetes version of the cluster on which the component is deployed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_jsonnetfile_parameters"><a class="anchor" href="#_jsonnetfile_parameters"></a><code>jsonnetfile_parameters</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Parameters for rendering the <code>jsonnetfile.jsonnet</code>.
-We pass parameter <code>cluster_kubernetes_version</code> and cluster fact <code>distribution</code> to Jsonnet to enable smart dependency version selection for the <code>kube-thanos</code> and <code>thanos-mixin</code> Jsonnet libraries.</p>
-</div>
-<div class="paragraph">
-<p>This is necessary because we need to ensure that this component and other components (for example <code>rancher-monitoring</code> and <code>openshift4-monitoring</code>) use the same <code>kube-thanos</code> and <code>thanos-mixin</code> library versions.</p>
-</div>
-<div class="paragraph">
-<p>Otherwise we get random changes in the cluster catalog at best and incompatible library versions at worst depending on which dependency version wins when <code>jsonnet-bundler</code> fetches the Jsonnet libraries.</p>
-</div>
-<div class="sect2">
-<h3 id="_jsonnetfile_parameters_thanos_mixin_version"><a class="anchor" href="#_jsonnetfile_parameters_thanos_mixin_version"></a><code>jsonnetfile_parameters.thanos_mixin_version</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>''</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter is used as the library version for <code>thanos-mixin</code> over the autodetected version based on the cluster&#8217;s Kubernetes version and distribution.</p>
-</div>
-<div class="paragraph">
-<p>Only set this parameter if you really need a specific <code>thanos-mixin</code> version for this component and have read the parameter description for <code>jsonnetfile_parameters</code> carefully.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_jsonnetfile_parameters_kube_thanos_version"><a class="anchor" href="#_jsonnetfile_parameters_kube_thanos_version"></a><code>jsonnetfile_parameters.kube_thanos_version</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>''</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter is used as the library version for <code>kube-thanos</code> over the autodetected version based on the cluster&#8217;s Kubernetes version and distribution.</p>
-</div>
-<div class="paragraph">
-<p>Only set this parameter if you really need a specific <code>kube-thanos</code> version for this component and have read the parameter description for <code>jsonnetfile_parameters</code> carefully.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dashboards_enabled"><a class="anchor" href="#_dashboards_enabled"></a><code>dashboards.enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the Grafana dashboards should be rendered in a ConfigMap.
-This will increase the compile time drastically when enabled.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dashboards_namespace"><a class="anchor" href="#_dashboards_namespace"></a><code>dashboards.namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-thanos</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to create the Grafana dashboard ConfigMaps.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_commonconfig"><a class="anchor" href="#_commonconfig"></a><code>commonConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Common configuration for all Thanos components.
-See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_query"><a class="anchor" href="#_query"></a><code>query</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/query.md">Query</a> component.
-See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
-</div>
-<div class="paragraph">
-<p>Especially the <code>stores</code> list is important as it needs to be populated by the Thanos store API endpoints this Query should use.</p>
-</div>
-<div class="sect2">
-<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the Query component should be deployed.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_servicetype"><a class="anchor" href="#_servicetype"></a><code>serviceType</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>ClusterIP</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Service type for query service.
-Can be used to expose the Query endpoint externally via <code>LoadBalancer</code> type.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_objectstorageconfig"><a class="anchor" href="#_objectstorageconfig"></a><code>objectStorageConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration for the Thanos <a href="https://thanos.io/tip/thanos/storage.md">Object Storage</a>.
-See <a href="https://thanos.io/tip/thanos/storage.md">Object Storage &amp; Data Format</a> for available options.
-This configuration will be stored in a K8s secret.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_store"><a class="anchor" href="#_store"></a><code>store</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/store.md">Store</a> component.
-See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
-</div>
-<div class="sect2">
-<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the Store component should be deployed.
-It will require an <code>objectStorageConfig</code> if enabled.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_compactor"><a class="anchor" href="#_compactor"></a><code>compactor</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/compact.md">Compactor</a> component.
-See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
-</div>
-<div class="sect2">
-<h3 id="_enabled_3"><a class="anchor" href="#_enabled_3"></a><code>enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the Compactor component should be deployed.
-It will require an <code>objectStorageConfig</code> if enabled.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_bucket"><a class="anchor" href="#_bucket"></a><code>bucket</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration for the Thanos <a href="https://thanos.io/v0.18/components/tools.md/#bucket-web">Bucket Web</a> component.
-See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">all.jsonnet</a> for available options.</p>
-</div>
-<div class="sect2">
-<h3 id="_enabled_4"><a class="anchor" href="#_enabled_4"></a><code>enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the Bucket Web component should be deployed.
-It will require an <code>objectStorageConfig</code> if enabled.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
+<div class="title">Example configuration for separate namespaces</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  thanos:
-    namespace: example-namespace
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
+- thanos as thanos-test
+- thanos as thanos-prod
+
+parameters:
+  thanos_test:
+    namespace: syn-thanos-test
+    ...
+    dashboards:
+      namespace: grafana <i class="conum" data-value="1"></i><b>(1)</b>
+
+  thanos_prod:
+    namespace: syn-thanos-prod
+    ...
+    dashboards:
+      namespace: grafana <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A shared namespace where dashboards get installed, depending on your Grafana setup (if any).
+Otherwise this parameter isn&#8217;t necessary.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_same_namespace"><a class="anchor" href="#_same_namespace"></a>Same namespace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Using this approach each instance is deployed in the same namespace.
+Special care needs to be given in the configuration, otherwise there will be name collisions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example configuration for shared namespace with multiple Stores</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
+  - thanos
+  - thanos as thanos-store-1
+  - thanos as thanos-store-2
+
+parameters:
+  thanos: <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+
+  thanos_store_1:
     commonConfig:
-      version: v0.17.2
-    query:
-      replicas: 3
-    store:
-      enabled: true
-    bucket:
-      enabled: true
+      objectStorageConfig:
+        name: thanos-objectstorage-1 <i class="conum" data-value="2"></i><b>(2)</b>
     objectStorageConfig:
       type: S3
       config:
-        bucket: thanos-metrics
+        bucket: bucket-1
         endpoint: s3.example.com
-        access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/access_key}
-        secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/secret_key}</code></pre>
+        access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/access_key_1}
+        secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/secret_key_1}
+    store:
+      enabled: true
+      name: thanos-store-1 <i class="conum" data-value="2"></i><b>(2)</b>
+    query:
+      enabled: false
+    bucket:
+      enabled: true
+      name: thanos-bucket-1 <i class="conum" data-value="2"></i><b>(2)</b>
+
+  thanos_store_2:
+    ...</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The configuration of the common Thanos setup as required</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The resource name that must be different in each instance to avoid name collisions between instances</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/multi-instance.html">Deploy Multiple Instances</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1209,7 +813,7 @@ type
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/thanos/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/thanos/how-tos/multi-instance.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
