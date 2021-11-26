@@ -771,6 +771,7 @@ parameters:
     ...
 
   thanos_store_1:
+    createNamespace: false <i class="conum" data-value="3"></i><b>(3)</b>
     commonConfig:
       objectStorageConfig:
         name: thanos-objectstorage-1 <i class="conum" data-value="2"></i><b>(2)</b>
@@ -803,6 +804,10 @@ parameters:
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>The resource name that must be different in each instance to avoid name collisions between instances</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>This is required for all but one instance</td>
 </tr>
 </table>
 </div>
