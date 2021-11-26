@@ -882,6 +882,51 @@ This allows users to remove links which were configured higher up in the hierarc
 </div>
 </div>
 <div class="sect1">
+<h2 id="_custom_logo"><a class="anchor" href="#_custom_logo"></a><code>custom_logo</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Add a custom logo to the console.
+Takes a single key with the filename and the value is the base64 encoded logo.
+The logo can be a file in any common image format, including GIF, JPG, PNG, or SVG, and is constrained to a max-height of 60px
+The filename needs to have a filename extension which matches the image format.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For SVG logos the file must <strong>not</strong> be base64 encoded, but inserted directly as a string.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1027,7 +1072,7 @@ This is required so that cert-manager can request the Let&#8217;s Encrypt certif
 </div>
 </div>
 <div class="sect2">
-<h3 id="_example_custom_links_in_the_web_console"><a class="anchor" href="#_example_custom_links_in_the_web_console"></a>Example: Custom links in the web console</h3>
+<h3 id="_example_custom_links_and_logo_in_the_web_console"><a class="anchor" href="#_example_custom_links_and_logo_in_the_web_console"></a>Example: Custom links and logo in the web console</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
@@ -1051,7 +1096,10 @@ This is required so that cert-manager can request the Let&#8217;s Encrypt certif
       namespaceDashboard:
         matchExpressions:
          - key: organization
-           operation: Exists</code></pre>
+           operation: Exists
+  custom_logo:
+    logo.png: |- <i class="conum" data-value="4"></i><b>(4)</b>
+      &lt;base64-encoded_logo&gt;</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1066,7 +1114,11 @@ This is required so that cert-manager can request the Let&#8217;s Encrypt certif
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Adds a link to the the dashboard of every namespace with a label <code>organization</code></td>
+<td>Adds a link to the dashboard of every namespace with a label <code>organization</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Provide a single base64-encoded logo and the key needs to have the correct filename extension</td>
 </tr>
 </table>
 </div>
