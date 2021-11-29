@@ -1166,7 +1166,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>list</p>
+<p>dict</p>
 </td>
 </tr>
 <tr>
@@ -1174,93 +1174,295 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>[]</code></p>
+<p><code>{}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Defines the parameters for an System Upgrade Controller plan.</p>
+<p>This parameter allows users to configure one or more System Upgrade Controller <code>Plan</code> resources.</p>
 </div>
 <div class="paragraph">
-<p><code>name</code>: Name of the selected channel.</p>
+<p>Each entry in the dict corresponds to one <code>Plan</code> resource.
+Dict keys are used as the name of the resulting <code>Plan</code> resource.
+The dict value is expected to be another dict.
+The component supports keys <code>spec</code>, <code>floodgate</code>, <code>label_selectors</code> and <code>tolerations</code> in the value dict.</p>
 </div>
 <div class="paragraph">
-<p><code>concurrency</code>: The amount of jobs can run simultaneously.</p>
+<p>Plans can be removed by setting the value of the dict entry to <code>null</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_plans_p_spec"><a class="anchor" href="#_plans_p_spec"></a><code>plans.&lt;P&gt;.spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeSelector:
+  matchExpressions:
+    &lt;from plans.&lt;P&gt;.label_selectors&gt;
+serviceAccountName: &lt;params.service_account&gt;
+tolerations:
+  &lt;from plans.&lt;P&gt;.tolerations&gt;
+drain:
+  force: true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><code>image</code>: Syn includes the <a href="https://github.com/projectsyn/system-upgrade-controller-package-upgrade">System Upgrade Controller OS Package Upgrade Script</a> which is available as container image on docker hub for <a href="https://hub.docker.com/r/projectsyn/suc-ubuntu-bionic">Ubuntu 18.04 (bionic)</a> and <a href="https://hub.docker.com/r/projectsyn/suc-ubuntu-focal/">Ubuntu 20.04 (focal)</a>.</p>
+<p>This parameter is mandatory.
+A minimal configuration requires fields <code>upgrade.image</code> and <code>upgrade.command</code> to be set.</p>
 </div>
 <div class="paragraph">
-<p><code>command</code>: This parameter specifies the command for the job pods.
-In the case of the System Upgrade Controller OS Package Upgrade Script this is <code>/scripts/run.sh</code>.</p>
+<p>This parameter is merged with  the predefined configuration shown above to form the <code>Plan</code> resource&#8217;s <code>spec</code> field.
+Configurations in the parameter override values in the default.
+Configurations given in other fields in the plan configuration may override values provided in this parameter.
+See the following sections for details.</p>
 </div>
 <div class="paragraph">
-<p><code>push_gateway</code>: A Prometheus push gateway address as DNS name or IP.
-The value of this parameter is appended to any arbitrary arguments given in <code>args</code>.
-Currently, this behavior can&#8217;t be changed.</p>
+<p>The component accepts both string and array values for <code>spec.upgrade.command</code>.
+If a string value is given, it&#8217;s transformed into an array with a single member.</p>
 </div>
 <div class="paragraph">
-<p><code>channel</code>: A System Upgrade Controller compliant channel.
+<p>See the <a href="https://github.com/rancher/system-upgrade-controller#example-plans">System Upgrade Controller documentation</a> for supported configurations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plans_p_floodgate"><a class="anchor" href="#_plans_p_floodgate"></a><code>plans.&lt;P&gt;.floodgate</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+supported keys
+</td>
+<td class="hdlist2">
+<p><code>url</code>, <code>basepath</code>, <code>day</code>, <code>hour</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is required unless either field <code>channel</code> or field <code>version</code> is present in plan parameter <code>spec</code>.
+This parameter can be used to instruct the component to construct a Floodgate-based value for the plan&#8217;s channel.
+If field <code>channel</code> or field <code>version</code> in key <code>plans.&lt;P&gt;.spec</code> is set, configuration provided in this parameter has no effect.</p>
+</div>
+<div class="paragraph">
+<p>The supported keys in this parameter have the following effects:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>url</code></dt>
+<dd>
+<p>The base URL of the Floodgate instance.
+This key is optional.
+If it&#8217;s not present, the value of component parameter <code>floodgate_url</code> is used in the resulting channel value.</p>
+</dd>
+<dt class="hdlist1"><code>basepath</code></dt>
+<dd>
+<p>The base path appended to the Floodgate URL.
+This key is optional.
+If it&#8217;s not present, the component uses <code>window</code> as base path.</p>
+</dd>
+<dt class="hdlist1"><code>day</code></dt>
+<dd>
+<p>The day of the week on which to start the upgrade.
+This should be a number between 0 (Sunday) and 6 (Saturday).</p>
+</dd>
+<dt class="hdlist1"><code>hour</code></dt>
+<dd>
+<p>The hour in the day on which to start the upgrade
+This should be a number between 0 and 23.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/projectsyn/floodgate/blob/master/docs/modules/ROOT/pages/index.adoc">Floodgate documentation</a> for details on how Floodgate works.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plans_p_push_gateway"><a class="anchor" href="#_plans_p_push_gateway"></a><code>plans.&lt;P&gt;.push_gateway</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A Prometheus push gateway address as DNS name or IP.
 This parameter is optional.
-If provided, this plan parameter overrides the Floodgate channel constructed from plan parameters <code>hour</code> and <code>day</code> in combination with component parameter <code>floodgate_url</code>.</p>
+If present, the value of this parameter is appended to any arbitrary arguments given in the plan&#8217;s <code>spec.upgrade.args</code>.
+If you need more complex configuration, please provide any arguments to the upgrade command directly in <code>spec.upgrade.args</code> and omit this parameter</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plans_p_label_selectors"><a class="anchor" href="#_plans_p_label_selectors"></a><code>plans.&lt;P&gt;.label_selectors</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><code>version</code>: The Image Version.
-Providing a value for <code>version</code> will prevent polling/resolution of the <code>channel</code> if specified.</p>
+<p>Specify a label selector according to which nodes to upgrade are selected.
+This parameter is mandatory.
+The System Upgrade Controller will add and manage label <code>plan.upgrade.cattle.io/P</code> for a plan named <code>P</code> to all nodes selected by the label selectors.
+It will set the value of that label to the SHA256 hash of the Docker image used for the upgrade.
+It&#8217;s considered best practice to use that label as the label selector for the plan.</p>
 </div>
 <div class="paragraph">
-<p><code>hour</code>: A Floodgate point in time 0..24 (hour).
-This parameter can be omitted if plan parameter <code>channel</code> is provided.</p>
+<p>The component will transform the provided dict into a list of Kubernetes label selector <code>matchExpressions</code>.
+Each dict entry is transformed into a <code>LabelSelectorRequirement</code>.
+The value of each entry used as the <code>LabelSelectorRequirement</code> and the key of the entry is set as the value for field <code>key</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>day</code>: A Floodgate point in time 0=Sunday, 6=Saturday.
-This parameter can be omitted if plan parameter <code>channel</code> is provided.</p>
+<p>The resulting list of <code>LabelSelectorRequirements</code> is assigned to key <code>spec.nodeSelector.matchExpressions</code> in the  <code>Plan</code> resource.</p>
 </div>
 <div class="paragraph">
-<p><code>label_selectors</code>: A node label to specify a node is patched using a specified channel.</p>
+<p>See the <a href="https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/#LabelSelector">Kubernetes API documentation</a> for supported fields in <code>LabelSelectorRequirement</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plans_p_tolerations"><a class="anchor" href="#_plans_p_tolerations"></a><code>plans.&lt;P&gt;.tolerations</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><code>tolerations</code>: Tolerations for the job pods.
-In example to run the jobs also on control plane nodes a taint is configured for etcd or control plane components.</p>
+<p>Specify Kubernetes tolerations for the upgrade job.
+This parameter is optional.
+If omitted, no tolerations are configured on the plan.</p>
 </div>
 <div class="paragraph">
-<p><code>args</code>: Arbitrary arguments for the job command.
-This field is optional, but must be of type <code>array</code> when specified.</p>
+<p>The component transforms the provided dict into a list of Kubernetes tolerations.
+Each dict entry is transformed into a <code>Toleration</code> by the component.
+The entry&#8217;s value is used as a <code>Toleration</code> and the entry&#8217;s key is set as value for field <code>key</code>.</p>
 </div>
 <div class="paragraph">
-<p>Example:</p>
+<p>The component assigns the resulting list of tolerations to field <code>spec.tolerations</code> in the <code>Plan</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling">Kubernetes API documentation</a> for supported fields in <code>Toleration</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_plan"><a class="anchor" href="#_example_plan"></a>Example Plan</h3>
+<div class="paragraph">
+<p>In this example, we specify a taint for etcd or control plane components so that the upgrade jobs can be scheduled on nodes hosting control plane or etcd components.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>parameters:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   system_upgrade_controller:
     plans:
-      - name: system-upgrade-1
-        concurrency: 1
-        image: docker.io/projectsyn/suc-ubuntu-focal
-        command: /scripts/run.sh
-        args:
-          - some_argument
+      focal: <i class="conum" data-value="1"></i><b>(1)</b>
+        spec: <i class="conum" data-value="2"></i><b>(2)</b>
+          concurrency: 1
+          upgrade:
+            image: docker.io/projectsyn/suc-ubuntu-focal
+            command: /scripts/run.sh
+            args:
+              - some_argument
+          channel: http://192.168.5.42:8091/
         push_gateway: 10.43.209.108:9091
-        channel: http://192.168.5.42:8091/
-        hour: 22 # is not applied if channel is set
-        day: 3 # is not applied if channel is set
+        floodgate:
+          hour: 22 # is not applied if channel is set
+          day: 3 # is not applied if channel is set
         label_selectors:
-          - {key: plan.upgrade.cattle.io/focal, operator: Exists}
+          plan.upgrade.cattle.io/focal: <i class="conum" data-value="1"></i><b>(1)</b>
+            operator: Exists
         tolerations:
-          - key: node-role.kubernetes.io/controlplane
+          node-role.kubernetes.io/controlplane:
             operator: Exists
-          - key: node-role.kubernetes.io/etcd
-            operator: Exists
-      - name: system-upgrade-2
-        channel: something_else
-        label_selectors:
-          - tbd2</code></pre>
+          node-role.kubernetes.io/etcd:
+            operator: Exists</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We recommend to use matching label selector and plan name.
+This minimizes the amount of labels added to nodes by the System Upgrade Controller.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Check the <a href="https://github.com/rancher/system-upgrade-controller#example-plans">official documentation</a> for supported fields in <code>spec</code>.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Check the <a href="https://github.com/rancher/system-upgrade-controller#example-plans">official documentation</a> for more background details.</p>
+<p>This configuration results in the following <code>Plan</code> object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: system-upgrade-focal
+spec:
+  channel: https://floodgate.syn.vshn.net/window/2/7
+  concurrency: 1
+  drain:
+    force: true
+  nodeSelector:
+    matchExpressions:
+      - key: plan.upgrade.cattle.io/system-upgrade-focal
+        operator: Exists
+  serviceAccountName: system-upgrade
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+  upgrade:
+    args:
+      - platform-prometheus-pushgateway.syn-synsights.svc.cluster.local:9091
+    command:
+      - /scripts/run.sh
+    image: docker.io/projectsyn/suc-ubuntu-focal</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
