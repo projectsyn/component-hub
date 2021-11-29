@@ -1397,21 +1397,18 @@ The entry&#8217;s value is used as a <code>Toleration</code> and the entry&#8217
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   system_upgrade_controller:
     plans:
-      focal: <i class="conum" data-value="1"></i><b>(1)</b>
+      system-upgrade-focal: <i class="conum" data-value="1"></i><b>(1)</b>
         spec: <i class="conum" data-value="2"></i><b>(2)</b>
           concurrency: 1
           upgrade:
             image: docker.io/projectsyn/suc-ubuntu-focal
             command: /scripts/run.sh
-            args:
-              - some_argument
-          channel: http://192.168.5.42:8091/
         push_gateway: 10.43.209.108:9091
         floodgate:
-          hour: 22 # is not applied if channel is set
-          day: 3 # is not applied if channel is set
+          hour: 22
+          day: 2
         label_selectors:
-          plan.upgrade.cattle.io/focal: <i class="conum" data-value="1"></i><b>(1)</b>
+          plan.upgrade.cattle.io/system-upgrade-focal: <i class="conum" data-value="1"></i><b>(1)</b>
             operator: Exists
         tolerations:
           node-role.kubernetes.io/controlplane:
@@ -1443,7 +1440,7 @@ kind: Plan
 metadata:
   name: system-upgrade-focal
 spec:
-  channel: https://floodgate.syn.vshn.net/window/2/7
+  channel: https://floodgate.syn.vshn.net/window/2/22
   concurrency: 1
   drain:
     force: true
@@ -1453,11 +1450,13 @@ spec:
         operator: Exists
   serviceAccountName: system-upgrade
   tolerations:
-    - key: node-role.kubernetes.io/master
+    - key: node-role.kubernetes.io/controlplane
+      operator: Exists
+    - key: node-role.kubernetes.io/etcd
       operator: Exists
   upgrade:
     args:
-      - platform-prometheus-pushgateway.syn-synsights.svc.cluster.local:9091
+      - 10.43.209.108:9091
     command:
       - /scripts/run.sh
     image: docker.io/projectsyn/suc-ubuntu-focal</code></pre>
