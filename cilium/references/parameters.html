@@ -678,10 +678,22 @@
 <div class="paragraph">
 <p>The parent key for all of the following parameters is <code>cilium</code>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The namespace is <code>cilium</code> and currently non configurable.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_install_method"><a class="anchor" href="#_install_method"></a><code>install_method</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -698,13 +710,241 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-cilium</code></p>
+<p><code>helm</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<p><code>helm</code>, <code>olm</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The installation method for Cilium.
+<code>olm</code> uses the <a href="https://docs.openshift.com/container-platform/4.9/operators/understanding/olm/olm-understanding-olm.html">Openshift Operator Lifecycle Manager</a>.
+OLM installation is required for OpenShift clusters.
+The Cilium OLM is a thin wrapper around Helm, because of this the Helm values are used for OLM configuration too.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Supported Combinations</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Helm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OLM</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Opensource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⛔️</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release"><a class="anchor" href="#_release"></a><code>release</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>opensource</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<p><code>opensource</code>, <code>enterprise</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Two version of Cilium exist.
+The open-source version and the enterprise version.
+Currently there exists no enterprise version of the OLM installation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_source"><a class="anchor" href="#_charts_cilium_source"></a><code>charts.cilium.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code><a href="https://helm.cilium.io" class="bare">helm.cilium.io</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm repository for the downloaded chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_name"><a class="anchor" href="#_charts_cilium_name"></a><code>charts.cilium.name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>cilium</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the downloaded Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_version"><a class="anchor" href="#_charts_cilium_version"></a><code>charts.cilium.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>1.10.5</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the downloaded Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_version"><a class="anchor" href="#_olm_version"></a><code>olm.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>1.10.4</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the downloaded OLM release.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cilium_helm_values"><a class="anchor" href="#_cilium_helm_values"></a><code>cilium_helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration values of the underlying Cilium helm chart.
+See <a href="https://docs.cilium.io/en/v1.10/helm-reference/">Reference</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows setting additional values for the Cilium enterprise Helm chart.
+Cilium configuration is under the key <code>cilium</code>.</p>
 </div>
 </div>
 </div>
@@ -713,7 +953,15 @@ default
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">release_name: cilium
+
+install_method: helm
+release: opensource
+
+cilium_helm_values:
+  prometheus:
+    serviceMonitor:
+      enabled: false</code></pre>
 </div>
 </div>
 </div>
