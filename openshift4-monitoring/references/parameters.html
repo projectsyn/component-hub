@@ -777,7 +777,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>boolean</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -791,7 +791,9 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Choose either <code>openshift-sdn</code> or <code>ovn-kubernetes</code> depending on the installed network plugin.</p>
+<p>Choose either <code>openshift-sdn</code> or <code>ovn-kubernetes</code> depending on the installed network plugin.
+If a custom network plugin is used, set any other string as the value for this parameter.
+This ensures neither openshift-sdn nor OVN-Kubernetes monitoring rules are deployed.</p>
 </div>
 </div>
 </div>
