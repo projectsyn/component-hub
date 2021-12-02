@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/topolvm/references/parameters.html">
-    <link rel="prev" href="../runbooks/TopoLVMVolumeGroupNearFull.html">
+    <title>Alert rule: TopoLVMVolumeGroupNearFull :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/topolvm/runbooks/TopoLVMVolumeGroupAlmostFull.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="TopoLVMVolumeGroupNearFull.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,11 +99,11 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/TopoLVMVolumeGroupAlmostFull.html">TopoLVMVolumeGroupAlmostFull</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="TopoLVMVolumeGroupAlmostFull.html">TopoLVMVolumeGroupAlmostFull</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/TopoLVMVolumeGroupNearFull.html">TopoLVMVolumeGroupNearFull</a>
+    <a class="nav-link" href="TopoLVMVolumeGroupNearFull.html">TopoLVMVolumeGroupNearFull</a>
   </li>
 </ul>
   </li>
@@ -110,8 +111,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -680,373 +681,99 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">TopoLVM</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>Alert runbooks</li>
+    <li><a href="TopoLVMVolumeGroupAlmostFull.html">TopoLVMVolumeGroupAlmostFull</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-topolvm/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-topolvm/edit/master/docs/modules/ROOT/pages/runbooks/TopoLVMVolumeGroupAlmostFull.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Alert rule: TopoLVMVolumeGroupNearFull</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>topolvm</code>.</p>
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-topolvm</code></p>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>This alert fires when the utilization of a TopoLVM volume group is higher than 95% of its capacity.
+To resolve this alert, unused pv should be deleted or the volume group size must be increased.</p>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>Otherwise, investigate if this node has logical volumes not associated with a persistent volume.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
+<div class="sect2">
+<h3 id="_check_for_lingering_volumes"><a class="anchor" href="#_check_for_lingering_volumes"></a>Check for lingering volumes</h3>
+<div class="paragraph">
+<p>Check if there are <code>logicalvolumes</code> that aren&#8217;t associated with a <code>persistentvolume</code>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">topolvm:
-  registry: quay.io
-  repository: topolvm/topolvm-with-sidecar
-  tag: 0.10.3</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ diff -y &lt;(k get logicalvolumes -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}') &lt;(k get pv -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}')
+                                                                &gt; local-pv-14024b59 <i class="conum" data-value="1"></i><b>(1)</b>
+                                                                &gt; local-pv-23eec265 <i class="conum" data-value="1"></i><b>(1)</b>
+                                                                &gt; local-pv-9ae3e5a  <i class="conum" data-value="1"></i><b>(1)</b>
+  pvc-379faad7-edf7-4cbd-81e0-08d0f2207c36                        pvc-379faad7-edf7-4cbd-81e0-08d0f2207c36
+  pvc-3a4e6c1b-b2c3-4cbe-a2a9-e6418ad8bcef                        pvc-3a4e6c1b-b2c3-4cbe-a2a9-e6418ad8bcef
+  pvc-3fc91fd8-aeff-4adb-8135-327302dbc777                        pvc-3fc91fd8-aeff-4adb-8135-327302dbc777
+                                                                &gt; pvc-05089699-18eb-4959-83ee-f35bd9f2d7e2 <i class="conum" data-value="2"></i><b>(2)</b>
+  pvc-46411d9f-9bac-43fb-8bd5-583c2a7c5703                        pvc-46411d9f-9bac-43fb-8bd5-583c2a7c5703
+  pvc-481d306b-5681-4e59-904b-6956192a4622                        pvc-481d306b-5681-4e59-904b-6956192a4622
+&gt; pvc-d93cd532-2c12-4864-a826-df8a5359daf9  <i class="conum" data-value="3"></i><b>(3)</b>
+  pvc-4c44f64a-287b-4123-abb9-39e76e8eb25e                        pvc-4c44f64a-287b-4123-abb9-39e76e8eb25e
+[ ... remaining output omitted ... ]</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This configuration shouldn&#8217;t be touched and will be updated with future releases of this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deviceclasses"><a class="anchor" href="#_deviceclasses"></a><code>deviceclasses</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>local-pv-*</code> are from the Openshift Local Storage Operator (usually created by rook-ceph cluster)</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ssd:
-  volume-group: vgssd
-  spare-gb: 10
-  default: true</code></pre>
-</div>
-</div>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>PV only listed on the "right" side are from non-TopoLVM storage classes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>PV only listed on the "left" side are logical volumes that aren&#8217;t associated with a persistent volume anymore.</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Each key represents a different device class.</p>
-</div>
-<div class="sect2">
-<h3 id="_volume_group"><a class="anchor" href="#_volume_group"></a><code>volume-group</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Name of the LVM volumegroup to be used by this device class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_spare_gb"><a class="anchor" href="#_spare_gb"></a><code>spare-gb</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>integer</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This amount of space will be reserved on the volumegroup and not allocated or reported as free by TopoLVM.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_default"><a class="anchor" href="#_default"></a><code>default</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the storage class has no special parameter set, this device class will be used. However, one device class must be set as default.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  topolvm:
-    deviceclasses:
-      ssd:
-        volume-group: vgssd
-        spare-gb: 1
-        default: true
-      hdd:
-        volume-group: vghdd
-        spare-gb: 5
-        default: false</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storageclasses"><a class="anchor" href="#_storageclasses"></a><code>storageclasses</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ssd-local:
-  class: ssd
-  fstype: ext4
-  volumeexpansion: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Each key represents a different storage class.</p>
-</div>
-<div class="sect2">
-<h3 id="_class"><a class="anchor" href="#_class"></a><code>class</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Key of the device class used by this storage class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_fstype"><a class="anchor" href="#_fstype"></a><code>fstype</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The filesystem that&#8217;s used with this storage class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_volumeexpansion"><a class="anchor" href="#_volumeexpansion"></a><code>volumeexpansion</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Should volume expansion be allowed with this storage class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_retainpolicy"><a class="anchor" href="#_retainpolicy"></a><code>retainpolicy</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Optional, can be used to overwrite the default retain policy.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  topolvm:
-    storageclasses:
-      ssd-local:
-        class: ssd
-        fstype: ext4
-        volumeexpansion: true
-        retainpolicy: Retain
-      hdd-local:
-        class: hdd
-        fstype: ext4
-        volumeexpansion: true</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <code>class/defaults.yaml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Values passed to Helm. See <a href="https://github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml" class="bare">github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  topolvm:
-    deviceclasses:
-      ssd:
-        volume-group: vgssd
-        spare-gb: 10
-        default: true
-
-    storageclasses:
-      ssd-local:
-        class: ssd
-        fstype: ext4
-        volumeexpansion: true</code></pre>
+<p>Unassociated <code>logicalvolumes</code> &lt;3&gt; might be deleted, best to check with customer first.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../runbooks/TopoLVMVolumeGroupNearFull.html">TopoLVMVolumeGroupNearFull</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="TopoLVMVolumeGroupNearFull.html">TopoLVMVolumeGroupNearFull</a></span>
 </nav>
 </article>
   </div>
@@ -1057,7 +784,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/topolvm/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/topolvm/runbooks/TopoLVMVolumeGroupAlmostFull.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
