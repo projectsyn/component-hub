@@ -750,6 +750,29 @@
 </aside>
 <article class="doc">
 <h1 class="page">Setup a TLS certificate for Keycloak</h1>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Use service serving certificates on OCP4</div>
+<div class="paragraph">
+<p>On OpenShift 4, use the "openshift" TLS provider instead, to get a certificate that works with the OpenShift router, is valid for 2 years and will be autorenewed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    tls:
+      provider: openshift</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>This guide provides an example how to setup a TLS certificate for Keycloak.</p>
 </div>

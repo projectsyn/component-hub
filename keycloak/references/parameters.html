@@ -800,7 +800,7 @@ You can&#8217;t deploy multiple instances into the same namespace.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
+<h2 id="_name"><a class="anchor" href="#_name"></a><code>name</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -902,7 +902,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>${keycloak:release_name}-admin-user</code></p>
+<p><code>${keycloak:name}-admin-user</code></p>
 </td>
 </tr>
 </table>
@@ -1051,6 +1051,9 @@ default
 </li>
 <li>
 <p><code>vault</code> for certificates stored in Vault.</p>
+</li>
+<li>
+<p><code>openshift</code> for <a href="https://docs.openshift.com/container-platform/4.9/security/certificates/service-serving-certificate.html">service serving certificates</a></p>
 </li>
 </ul>
 </div>
@@ -2316,7 +2319,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>${keycloak:release_name}-postgresql</code></p>
+<p><code>${keycloak:name}-postgresql</code></p>
 </td>
 </tr>
 </table>
