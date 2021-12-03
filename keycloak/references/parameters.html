@@ -1045,7 +1045,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Defines how TLS certificates are provisioned:</p>
+<p>Defines how TLS certificates for internal (ingress to pods) traffic are provisioned:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1057,42 +1057,6 @@ default
 </li>
 <li>
 <p><code>openshift</code> for <a href="https://docs.openshift.com/container-platform/4.9/security/certificates/service-serving-certificate.html">service serving certificates</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tls_provider_2"><a class="anchor" href="#_tls_provider_2"></a><code>tls.provider</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>secret</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Defines how TLS certificates for internal (ingress to pods) traffic are provisioned:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>certmanager</code> for certificates issued via cert-manager.</p>
-</li>
-<li>
-<p><code>vault</code> for certificates stored in Vault.</p>
 </li>
 </ul>
 </div>
