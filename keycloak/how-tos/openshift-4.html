@@ -764,28 +764,24 @@
 <h2 id="_parameters_for_keycloak"><a class="anchor" href="#_parameters_for_keycloak"></a>Parameters for Keycloak</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You need to disable some security context fields, as OpenShift sets those automatically.</p>
+<p>You need to disable some security context fields, as OpenShift sets those automatically.
+Also, the sample below configures end-to-end encryption to Keycloak with <a href="https://docs.openshift.com/container-platform/4.9/security/certificates/service-serving-certificate.html">OpenShift service serving certificate</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   keycloak:
+    tls:
+      provider: openshift
+    ingress:
+      tls:
+        termination: reencrypt
     helm_values:
-      ingress:
-        servicePort: http <i class="conum" data-value="1"></i><b>(1)</b>
       podSecurityContext: null
       securityContext: null
       pgchecker:
         securityContext: null</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It&#8217;s not possible to use the <code>reencrypt</code> termination if using Ingress with a self-signed destination certificate.</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
