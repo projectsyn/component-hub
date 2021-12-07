@@ -31,6 +31,9 @@
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-control-api.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-coredns.xml</loc>
 </sitemap>
 <sitemap>
