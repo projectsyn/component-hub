@@ -1037,6 +1037,64 @@ The values can be everything that&#8217;s accepted in the <code>spec</code> fiel
 </div>
 </div>
 <div class="sect1">
+<h2 id="_kubeletconfigs"><a class="anchor" href="#_kubeletconfigs"></a><code>kubeletConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <code>class/defaults.yml</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/KubeletConfig</code>.
+The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>KubeletConfig</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Please refer to the upstream version of the relevant kubelet for the valid values of these fields.
+Invalid values of the kubelet configuration fields may render cluster nodes unusable.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component will fail to comile if the configuration field <code>maxPods</code> is set to a value larger than 110.
+See <a href="https://github.com/kubernetes/kubelet/blob/master/config/v1beta1/types.go">supported configuration fields upstream</a> (choose matching release branch for versioned options)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See also: <a href="https://docs.openshift.com/container-platform/4.9/nodes/nodes/nodes-nodes-managing-max-pods.html">Managing the maximum number of pods per node</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1062,7 +1120,16 @@ nodeGroups:
 availabilityZones:
 - europe-west6-a
 - europe-west6-b
-- europe-west6-c</code></pre>
+- europe-west6-c
+
+kubeletConfigs:
+  workers:
+    machineConfigPoolSelector:
+      matchExpressions:
+        key: pools.operator.machineconfiguration.openshift.io/worker
+        operator: Exists
+    kubeletConfig:
+      maxPods: 100</code></pre>
 </div>
 </div>
 </div>
