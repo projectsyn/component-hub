@@ -19,6 +19,9 @@
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-cert-exporter.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cert-manager.xml</loc>
 </sitemap>
 <sitemap>
