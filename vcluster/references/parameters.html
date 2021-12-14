@@ -702,6 +702,9 @@
 <div class="paragraph">
 <p>The parent key for all of the following parameters is <code>vcluster</code>.</p>
 </div>
+<div class="paragraph">
+<p>This component supports multi-instantiation.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -722,13 +725,376 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-vcluster</code></p>
+<p><code>syn-${_instance}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>The namespace in which to deploy this component.</p>
+</div>
+<div class="paragraph">
+<p>Deploying multiple vclusters in the same namespace isn&#8217;t supported.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_host_service_cidr"><a class="anchor" href="#_host_service_cidr"></a><code>host_service_cidr</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The host cluster&#8217;s service CIDR. Must be set.</p>
+</div>
+<div class="paragraph">
+<p>You can find out a host cluster&#8217;s service CIDR by deploying a service with an invalid ClusterIP (such as 1.1.1.1).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl create svc clusterip check-service-cidr --clusterip=1.1.1.1 --tcp=5678:5678</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The error message shows the host cluster&#8217;s service CIDR:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>The Service "check-service-cidr" is invalid: spec.clusterIPs: Invalid value: []string{"1.1.1.1"}.... The range of valid IPs is 10.96.0.0/12.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the container images used by this component.</p>
+</div>
+<div class="paragraph">
+<p>The <code>kubectl</code> image is used to create OCP routes. The <code>kubectl</code> and <code>jq</code> binaries are required in this image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k3s_additional_args"><a class="anchor" href="#_k3s_additional_args"></a><code>k3s.additional_args</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k3s:
+  additional_args:
+    - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
+    - --kube-apiserver-arg=oidc-client-id=local
+    - --kube-apiserver-arg=oidc-username-claim=email
+    - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional arguments for the k3s cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_syncer_additional_args"><a class="anchor" href="#_syncer_additional_args"></a><code>syncer.additional_args</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional arguments for vcluster syncer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage_persistence"><a class="anchor" href="#_storage_persistence"></a><code>storage.persistence</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Persistence controls whether vcluster resources are persisted between deployments.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage_size"><a class="anchor" href="#_storage_size"></a><code>storage.size</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>5Gi</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The size of the persistent volume claim.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage_class_name"><a class="anchor" href="#_storage_class_name"></a><code>storage.class_name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>StorageClass</code> used for the persistent volume claim.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ingress_host"><a class="anchor" href="#_ingress_host"></a><code>ingress.host</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If set, an ingress with the defined host is created.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ingress_annotations"><a class="anchor" href="#_ingress_annotations"></a><code>ingress.annotations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional annotations for the ingress object.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ingress_labels"><a class="anchor" href="#_ingress_labels"></a><code>ingress.labels</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional labels for the ingress object.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ocp_route_host"><a class="anchor" href="#_ocp_route_host"></a><code>ocp_route.host</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If set, a <code>route.openshift.io/v1.Route</code> with the defined host is created.</p>
+</div>
+<div class="paragraph">
+<p>The route is set with TLS termination set to re-encrypt.</p>
+</div>
+<div class="paragraph">
+<p>The re-encyption breaks the mTLS user authentication.
+A secondary authentication method, like OIDC, should be configured.</p>
 </div>
 </div>
 </div>
@@ -737,7 +1103,17 @@ default
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">host_service_cidr: 172.30.0.0/16
+storage:
+  persistence: false
+ingress:
+  host: testcluster.local
+k3s:
+  additional_args:
+    - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
+    - --kube-apiserver-arg=oidc-client-id=local
+    - --kube-apiserver-arg=oidc-username-claim=email
+    - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
 </div>
 </div>
 </div>
