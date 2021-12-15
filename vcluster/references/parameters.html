@@ -1099,6 +1099,94 @@ A secondary authentication method, like OIDC, should be configured.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_syn_registration_url"><a class="anchor" href="#_syn_registration_url"></a><code>syn.registration_url</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code><a href="https://api.syn.example.com/install/steward.json?token=cHJvamVjdCBzeW4gaXMgbG92ZQo=" class="bare">api.syn.example.com/install/steward.json?token=cHJvamVjdCBzeW4gaXMgbG92ZQo=</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If set, the vcluster is registered with a Project SYN instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_additional_manifests"><a class="anchor" href="#_additional_manifests"></a><code>additional_manifests</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_manifests:
+  cluster-admin:
+    kind: ClusterRoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+      name: oidc-cluster-admin
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    subjects:
+    - kind: Group
+      name: admin</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Manifests that should be applied to the vcluster after startup.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
