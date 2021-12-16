@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Configure Keycloak ingress :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/configure-ingress.html">
-    <link rel="prev" href="keycloak-tls.html">
-    <link rel="next" href="custom-theme.html">
+    <title>Restore Keycloak from a Backup :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/restore.html">
+    <link rel="prev" href="change-passwords.html">
+    <link rel="next" href="upgrade-1.x-to-2.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -123,7 +123,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="keycloak-tls.html">Setup a TLS certificate for Keycloak</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="configure-ingress.html">Configure Keycloak ingress</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -132,7 +132,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="change-passwords.html">Change passwords</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="restore.html">Restore from a Backup</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -769,72 +769,19 @@
   <ul>
     <li><a href="../index.html">keycloak</a></li>
     <li>How-to guides</li>
-    <li><a href="configure-ingress.html">Configure Keycloak ingress</a></li>
+    <li><a href="restore.html">Restore from a Backup</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/configure-ingress.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/restore.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Configure Keycloak ingress</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Restore Keycloak from a Backup</h1>
 <div class="paragraph">
-<p>Incoming network traffic to the Keycloak service is usually routed via an ingress.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Currently, only NGINX ingress controller is supported and tested.
-Others may work as well, but you may need to customize some parameters on your own (or contribute back to the component).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See also the following manual on how to setup the Keycloak encryption:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/keycloak/keycloak-containers/blob/master/server/README.md">Docker image configuration</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>First, choose where the TLS session to Keycloak is terminated.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_encryption_mode_re_encrypt"><a class="anchor" href="#_encryption_mode_re_encrypt"></a>Encryption mode: Re-encrypt</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In re-encryption mode, the traffic is terminated at the NGINX ingress controller, and then re-encrypted when connecting to Keycloak pods.
-By default, this component will use Let&#8217;s Encrypt (cert-manager) so that NGINX terminates with valid certificates.
-The connection to Keycloak is using self-signed certificates since Keycloak doesn&#8217;t reload certificates when they have changed in the container.</p>
-</div>
-<div class="paragraph">
-<p>Re-encryption is the default, so there&#8217;s not much to configure.
-Proceed with <a href="keycloak-tls.html" class="page">Setup a TLS certificate for Keycloak</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_encryption_mode_pass_through"><a class="anchor" href="#_encryption_mode_pass_through"></a>Encryption mode: Pass-through</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the pass-through mode, the controller won&#8217;t terminate the TLS session and instead directly forward the HTTPS traffic to Keycloak.
-The controller needs to support pass-through mode.</p>
+<p>The following steps will guide you through restoring a backup of Keycloak.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -844,74 +791,214 @@ The controller needs to support pass-through mode.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This mode requires that the NGINX Controller is configured to pass through the TLS traffic.
-This isn&#8217;t enabled by default.
-With <a href="https://github.com/projectsyn/component-ingress-nginx">component-ingress-nginx</a>, you can enable it like following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        extraArgs:
-          enable-ssl-passthrough: true</code></pre>
-</div>
+<p>This guide only covers how to restore the built-in database.
+If you use an external database, please consult the documentation of your database provider on how to backup and restore it.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>When using certificates from Let&#8217;s Encrypt (cert-manager), ensure that you regularly restart Keycloak.
-Otherwise, you may end up serving expired certificates!
-The default Keycloak container image doesn&#8217;t reload the certificates when they have changed in the mounted filesystem.</p>
+<p>You can only restore a database that has been backed up.
+Please refer to the <a href="use-built-in-db.html#_enable_backups" class="page">built-in database</a> setup guide on how to enable backups.</p>
 </div>
 </td>
 </tr>
 </table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Requirements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>kubectl</code> With access to the cluster running Keycloak</p>
+</li>
+<li>
+<p><code>base64</code></p>
+</li>
+<li>
+<p><a href="https://restic.net/"><code>restic</code></a></p>
+</li>
+<li>
+<p>(optional) <a href="https://stedolan.github.io/jq/"><code>jq</code></a></p>
+</li>
+<li>
+<p><code>pwgen</code></p>
+</li>
+<li>
+<p><code>vault</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Terminate the TLS session directly in Keycloak</p>
+<p>Configure access to backups</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      termination: passthrough</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># The namspace containing the Keycloak instance. Change if necessary.
+export NAMESPACE=syn-keycloak
+
+export reposecret=$( \
+    kubectl -n $NAMESPACE get schedule backup \
+    -o go-template="{{.spec.backend.repoPasswordSecretRef.name}}" \
+  )
+export s3secret=$( \
+    kubectl -n $NAMESPACE get schedule backup \
+    -o jsonpath="{.spec.backend.s3.accessKeyIDSecretRef.name}" \
+  )
+
+export RESTIC_REPOSITORY=$( \
+    kubectl -n $NAMESPACE get schedule backup \
+    -o go-template="s3:{{.spec.backend.s3.endpoint}}/{{.spec.backend.s3.bucket}}/" \
+  )
+export RESTIC_PASSWORD=$( \
+    kubectl -n $NAMESPACE get secrets $reposecret \
+    -o jsonpath={.data.password} \
+    | base64 -d \
+  )
+export AWS_ACCESS_KEY_ID=$( \
+    kubectl -n $NAMESPACE get secrets $s3secret \
+    -o jsonpath="{.data.username}" \
+    | base64 -d \
+  )
+export AWS_SECRET_ACCESS_KEY=$( \
+    kubectl -n $NAMESPACE get secrets $s3secret \
+    -o jsonpath="{.data.password}" \
+    | base64 -d \
+  )</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>If you&#8217;re using CA issued certificates, change the provider:</p>
+<p>List backups and choose the one to restore</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      provider: vault</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restic snapshots
+
+export SNAPSHOT_ID=XXXXXX # Choose a snapshot id from the list</code></pre>
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>See <a href="keycloak-tls.html" class="page">Setup a TLS certificate for Keycloak</a> for how to store a certificate in vault.</p>
+<p>To choose the last available backup you can simply run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SNAPSHOT_ID=$(restic snapshots --json --latest 1 --path /$NAMESPACE-keycloak-postgresql.sql | jq -r '.[0].id')</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Disable ArgoCD auto sync</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># The ArgoCD app of the Keycloak instance. Change if necessary.
+export ARGO_APP=keycloak
+
+kubectl -n syn patch apps root --type=json \
+  -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
+kubectl -n syn patch apps ${ARGO_APP} --type=json \
+  -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Scale down Keycloak</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE patch statefulset keycloak --type=json \
+  -p '[{"op":"replace", "path":"/spec/replicas", "value": 0}]'
+
+# Wait until statefulset has been scaled down
+kubectl -n $NAMESPACE get statefulset keycloak -w</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Load the backup and restore it</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export POD=keycloak-postgresql-0
+
+restic dump "${SNAPSHOT_ID}" /$NAMESPACE-keycloak-postgresql.sql \
+  | kubectl -n $NAMESPACE exec -i $POD \
+  -- sh -c 'PGPASSWORD="${POSTGRES_PASSWORD}" psql --set ON_ERROR_STOP=on -U "${POSTGRES_USER}" ${POSTGRES_DB}'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Re-enable ArgoCD auto sync and scale up Keycloak</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn patch apps root --type=json \
+  -p '[{
+    "op":"replace",
+    "path":"/spec/syncPolicy",
+    "value": {"automated": {"prune": true, "selfHeal": true}}
+  }]'
+
+# Wait until Keycloak has started sucessfully
+kubectl -n $NAMESPACE get statefulset keycloak -w</code></pre>
+</div>
 </div>
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This guide assumes that you have direct access to the S3 bucket holding the backup.
+If the access is restricted to the Kubernetes cluster, you will need to adapt these steps.
+You could:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Perform the commands in a container running on the cluster</p>
+</li>
+<li>
+<p>Restore the database backup to a PVC and copy it over</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Consult the official <a href="https://k8up.io/k8up/2.1/how-tos/restore.html#_restore_from_s3_to_pvc">K8up documentation</a> on options for restoring backups.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="keycloak-tls.html">Setup a TLS certificate for Keycloak</a></span>
-  <span class="next"><a href="custom-theme.html">Configure custom theme</a></span>
+  <span class="prev"><a href="change-passwords.html">Change passwords</a></span>
+  <span class="next"><a href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a></span>
 </nav>
 </article>
   </div>
@@ -922,7 +1009,7 @@ The default Keycloak container image doesn&#8217;t reload the certificates when 
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/configure-ingress.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/restore.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
