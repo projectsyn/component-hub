@@ -113,6 +113,15 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Alert runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">SYN_ElasticsearchExpectNodeToReachDiskWatermark</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -812,6 +821,201 @@ default
 <div class="paragraph">
 <p>Release version of the alerting rules.
 Should be adjusted according to the channel: If you specify <code>channel: stable-5.2</code> use <code>alerts: release-5.2</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_predict_elasticsearch_storage_alert"><a class="anchor" href="#_predict_elasticsearch_storage_alert"></a><code>predict_elasticsearch_storage_alert</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">predict_elasticsearch_storage_alert:
+  enabled: true
+  lookback_range: 72h
+  predict_hours_from_now: 72
+  threshold: 85
+  for: 6h
+  severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Create an alert <code>SYN_ElasticsearchExpectNodeToReachDiskWatermark</code> if the storage allocated for Elasticsearch is predicted to reach the low storage watermark.</p>
+</div>
+<div class="sect2">
+<h3 id="_predict_elasticsearch_storage_alert_enabled"><a class="anchor" href="#_predict_elasticsearch_storage_alert_enabled"></a><code>predict_elasticsearch_storage_alert.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable or disable this alert.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_predict_elasticsearch_storage_alert_lookback_range"><a class="anchor" href="#_predict_elasticsearch_storage_alert_lookback_range"></a><code>predict_elasticsearch_storage_alert.lookback_range</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>prometheus duration</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>72h</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>How for to look back to calculate the prediction.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_predict_elasticsearch_storage_alert_predict_hours_from_now"><a class="anchor" href="#_predict_elasticsearch_storage_alert_predict_hours_from_now"></a><code>predict_elasticsearch_storage_alert.predict_hours_from_now</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>72</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>How far in the future the prediction is calculated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_predict_elasticsearch_storage_alert_threshold"><a class="anchor" href="#_predict_elasticsearch_storage_alert_threshold"></a><code>predict_elasticsearch_storage_alert.threshold</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>85</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The threshold for the alert.
+Percentage of disk fill.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_predict_elasticsearch_storage_alert_for"><a class="anchor" href="#_predict_elasticsearch_storage_alert_for"></a><code>predict_elasticsearch_storage_alert.for</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>prometheus duration</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>6h</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The alert is firing once the threshold has been reached for this long.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_predict_elasticsearch_storage_alert_severity"><a class="anchor" href="#_predict_elasticsearch_storage_alert_severity"></a><code>predict_elasticsearch_storage_alert.severity</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>warning</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The severity of the fired alert.</p>
+</div>
 </div>
 </div>
 </div>
