@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/argocd/references/parameters.html">
-    <link rel="prev" href="../index.html">
+    <link rel="prev" href="../how-tos/upgrade-v3-v4.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -91,6 +91,15 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-v3-v4.html">Upgrade from <code>v3.x</code> to <code>v4.x</code></a>
   </li>
 </ul>
   </li>
@@ -497,6 +506,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -757,7 +774,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>v1.7.4</code></p>
+<p>see <code>defaults.yml</code></p>
 </td>
 </tr>
 </table>
@@ -829,18 +846,6 @@ type
 </div>
 <div class="paragraph">
 <p>Dictionary containing the container images used by this component.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-For Redis, both <a href="https://hub.docker.com/_/redis"><code>library/redis</code></a> and <a href="https://hub.docker.com/r/bitnami/redis"><code>bitnami/redis</code></a> images are supported.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -948,7 +953,7 @@ Can be used to ensure prometheus-operator picks up the <code>PrometheusRule</cod
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="prev"><a href="../how-tos/upgrade-v3-v4.html">Upgrade from <code>v3.x</code> to <code>v4.x</code></a></span>
 </nav>
 </article>
   </div>

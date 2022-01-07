@@ -491,6 +491,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -871,7 +879,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>{'containers': {'Name': 'tail', 'Path': '/var/log/containers/<strong>.log', 'Parser': 'docker', 'Tag': 'kube.</strong>', 'Mem_Buf_Limit': '5MB', 'Skip_Long_lines': 'On'}, 'systemd': {'Tag': 'host.*', 'Systemd_Filter': '_SYSTEMD_UNIT=kubelet.service', 'Read_From_Tail': 'On'}}</code></p>
+<p><code>{'containers': {'Name': 'tail', 'Path': '/var/log/containers/*.log', 'Parser': 'docker', 'Tag': 'kube.*', 'Mem_Buf_Limit': '5MB', 'Skip_Long_lines': 'On'}, 'systemd': {'Tag': 'host.*', 'Systemd_Filter': '_SYSTEMD_UNIT=kubelet.service', 'Read_From_Tail': 'On'}}</code></p>
 </td>
 </tr>
 </table>

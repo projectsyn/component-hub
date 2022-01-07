@@ -515,6 +515,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -747,20 +755,36 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">This parameter can be used to disable alerts provided by cert-exporter.
-The component supports removing entries in this parameter by providing the entry prefixed with `~`.
-
-== `include_namespaces`
-
-[horizontal]
-type:: list
-default::
-+
-[source,yaml]</code></pre>
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to disable alerts provided by cert-exporter.
+The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_include_namespaces"><a class="anchor" href="#_include_namespaces"></a><code>include_namespaces</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
 </td>
 </tr>
 </table>
@@ -788,11 +812,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- openshift-operator-lifecycle-manager</code></pre>
-</div>
-</div>
+<p>[]</p>
 </td>
 </tr>
 </table>
@@ -820,11 +840,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"></code></pre>
-</div>
-</div>
+<p>[]</p>
 </td>
 </tr>
 </table>
@@ -853,11 +869,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"></code></pre>
-</div>
-</div>
+<p>[]</p>
 </td>
 </tr>
 </table>
@@ -869,6 +881,119 @@ Items can be keys such as <code>my-label</code> or also require a value with the
 </div>
 </div>
 <div class="sect1">
+<h2 id="_watch_dirs"><a class="anchor" href="#_watch_dirs"></a><code>watch_dirs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of directory paths of the host to scan for PEM encoded certificate files to be watched and exported as metrics (one level deep).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_watch_files"><a class="anchor" href="#_watch_files"></a><code>watch_files</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of file paths of the host for PEM encoded certificates to be watched and exported as metrics.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_watch_kubeconf"><a class="anchor" href="#_watch_kubeconf"></a><code>watch_kubeconf</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of Kubeconf file paths of the host to scan for embedded certificates to export metrics about.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_daemonsets"><a class="anchor" href="#_daemonsets"></a><code>daemonsets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>map</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure the host-path exporter to watch certificates stored on the node itself.
+See the example below on how to enable a daemon set and read the <a href="https://github.com/enix/helm-charts/tree/master/charts/x509-certificate-exporter#-using-the-chart">documentation of the helm chart</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -876,7 +1001,20 @@ Items can be keys such as <code>my-label</code> or also require a value with the
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ignore_alerts:
   - X509ExporterReadErrors
 include_namespaces:
-  - openshift-ingress</code></pre>
+  - openshift-ingress
+watch_dirs:
+  - /etc/kubernetes/ssl
+daemonsets:
+  master:
+    nodeSelector:
+      node-role.kubernetes.io/master: ""
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+  worker:
+    nodeSelector:
+      node-role.kubernetes.io/worker: ""</code></pre>
 </div>
 </div>
 </div>
