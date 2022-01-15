@@ -55,6 +55,9 @@
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-external-dns.xml</loc>
 </sitemap>
 <sitemap>
@@ -91,7 +94,16 @@
 <loc>https://hub.syn.tools/sitemap-metallb.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-metrics-server.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-minio.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-networkpolicy.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-nfs-subdir-external-provisioner.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift-prometheus-proxy.xml</loc>
@@ -146,6 +158,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-podsecuritypolicy.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-prom-label-proxy.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
