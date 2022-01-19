@@ -738,7 +738,7 @@ On such a cluster, even though the proxy service is accessible from all namespac
 <h2 id="_rbac_rules_for_client_service_accounts"><a class="anchor" href="#_rbac_rules_for_client_service_accounts"></a>RBAC rules for client service accounts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default, clients cannot access Prometheus through the proxy, as the proxy checks whether client tokens have been granted access.</p>
+<p>By default, clients can&#8217;t access Prometheus through the proxy, as the proxy checks whether client tokens have been granted access.</p>
 </div>
 <div class="paragraph">
 <p>Client service accounts are granted access to the proxy by the component if they&#8217;re listed in <code>parameters.openshift_prometheus_proxy.access.service_account_refs</code>:</p>
