@@ -978,7 +978,20 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>If set, an ingress with the defined host is created.</p>
+<p>If set, an ingress with the defined host is created.
+The ingress is created with TLS spec for the same host.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It&#8217;s assumed that <code>cert-manager</code> is running on the cluster to provision Let&#8217;s Encrypt certificates.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1000,7 +1013,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>{}</code></p>
+<p><code>{cert-manager.io/cluster-issuer: letsencrypt-production}</code></p>
 </td>
 </tr>
 <tr>
