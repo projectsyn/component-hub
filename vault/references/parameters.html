@@ -987,6 +987,150 @@ limits:
 </div>
 </div>
 <div class="sect1">
+<h2 id="_x_forwarded_for"><a class="anchor" href="#_x_forwarded_for"></a><code>x_forwarded_for</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure how Vault uses the information in the <code>X-Forwarded-For</code> header in client connections.</p>
+</div>
+<div class="sect2">
+<h3 id="_authorized_addrs"><a class="anchor" href="#_authorized_addrs"></a><code>authorized_addrs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>127.0.0.1/32</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to specify the list of source IP CIDRs for which an <code>X-Forwarded-For</code> header will be trusted.
+Since Vault doesn&#8217;t accept the empty string as a valid option, we set the parameter to only trust <code>X-Forwarded-For</code> headers from <code>127.0.0.1/32</code> by default.</p>
+</div>
+<div class="paragraph">
+<p>To avoid issues with parameter interpolation, multiple entries should be specified as a comma-separated list.</p>
+</div>
+<div class="paragraph">
+<p>If you want to use functionality in Vault which requires the real source IP of requests, you should set this parameter to a CIDR which includes the IPs of your ingress controller.</p>
+</div>
+<div class="paragraph">
+<p>Also see the <a href="https://www.vaultproject.io/docs/configuration/listener/tcp#x_forwarded_for_authorized_addrs">Vault documentation</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hop_skips"><a class="anchor" href="#_hop_skips"></a><code>hop_skips</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>"0"</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of entries in the <code>X-Forwarded-For</code> header to skip.
+You may have to set this parameter, if you&#8217;re deploying this component on a cluster which is behind multiple HTTP load balancers.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://www.vaultproject.io/docs/configuration/listener/tcp#x_forwarded_for_hop_skips">Vault documentation</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reject_not_authorized"><a class="anchor" href="#_reject_not_authorized"></a><code>reject_not_authorized</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>"false"</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, if there&#8217;s an <code>X-Forwarded-For</code> header in a connection from an address which isn&#8217;t in <code>x_forwarded_for_authorized_addrs</code>, the header will be ignored and the client address is used as-is.</p>
+</div>
+<div class="paragraph">
+<p>If this is set to <code>true</code>, such client connections are rejected instead.</p>
+</div>
+<div class="paragraph">
+<p>We default this parameter to <code>false</code> to provide an usable setup out of the box.
+If you expect that all valid client connections will have an <code>X-Forwarded-For</code> header, we strongly recommend setting it to <code>true</code> if you configure <code>x_forwarded_for_authorized_addrs</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reject_not_present"><a class="anchor" href="#_reject_not_present"></a><code>reject_not_present</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>"false"</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, if there is no <code>X-Forwarded-For</code> header in a connection from an address which isn&#8217;t in <code>x_forwarded_For_authorized_addrs</code> or if the header is empty, the client address will be used as-is.</p>
+</div>
+<div class="paragraph">
+<p>If this parameter is set to <code>true</code>, such client connections are rejected instead.</p>
+</div>
+<div class="paragraph">
+<p>We default this parameter to <code>false</code> to provide an usable setup out of the box.
+If you expect that all valid client connections will have an <code>X-Forwarded-For</code> header, we strongly recommend setting it to <code>true</code> if you configure <code>x_forwarded_for_authorized_addrs</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
