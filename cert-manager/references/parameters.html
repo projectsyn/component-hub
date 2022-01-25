@@ -839,6 +839,9 @@ default
 <p>Recursive nameservers to use for validating DNS01 challenges.
 See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check">cert-manager documentation</a> for more details.</p>
 </div>
+<div class="paragraph">
+<p>This parameter is injected into parameter <code>helm_values</code> as an extra argument to cert-manager (<code>helm_values.extraArgs</code>).</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -866,6 +869,9 @@ default
 </div>
 <div class="paragraph">
 <p>The value of <code>http_proxy</code> is passed to cert-manager in environment variable <code>HTTP_PROXY</code>.</p>
+</div>
+<div class="paragraph">
+<p>This parameter is injected into parameter <code>helm_values</code> in field <code>extraEnv</code>.</p>
 </div>
 </div>
 </div>
@@ -895,6 +901,9 @@ default
 <div class="paragraph">
 <p>The value of <code>https_proxy</code> is passed to cert-manager in environment variable <code>HTTPS_PROXY</code>.</p>
 </div>
+<div class="paragraph">
+<p>This parameter is injected into parameter <code>helm_values</code> in field <code>extraEnv</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -922,6 +931,9 @@ default
 </div>
 <div class="paragraph">
 <p>The value of <code>no_proxy</code> is passed to cert-manager in environment variable <code>NO_PROXY</code>.</p>
+</div>
+<div class="paragraph">
+<p>This parameter is injected into parameter <code>helm_values</code> in field <code>extraEnv</code>.</p>
 </div>
 </div>
 </div>
@@ -1079,6 +1091,37 @@ The only flexibility is that cert-manager will present a DNS01 challenge for the
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+value
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cert-manager/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm values which the component uses to render the cert-manager Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/jetstack/cert-manager/blob/v1.5.4/deploy/charts/cert-manager/values.yaml">the cert-manager Helm chart</a> for all possible configurations.</p>
 </div>
 </div>
 </div>
