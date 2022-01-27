@@ -939,12 +939,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">controller: {}
-csi_driver: {}</code></pre>
-</div>
-</div>
+<p><a href="https://github.com/projectsyn/component-csi-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
@@ -953,25 +948,10 @@ csi_driver: {}</code></pre>
 <p>Resource requests and limits to apply to individual CSI driver containers.</p>
 </div>
 <div class="paragraph">
-<p>By default, each container is configured with the following requests and limits:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
-  requests:
-    cpu: 20m
-    memory: 32Mi
-  limits:
-    cpu: 100m
-    memory: 128Mi</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>The component looks for keys matching the individual container names for the controller StatefulSet and CSI driver daemonset in the keys <code>controller</code> and <code>csi_driver</code> of this parameter respectively.</p>
 </div>
 <div class="paragraph">
-<p>The value of such a key&#8201;&#8212;&#8201;if found&#8201;&#8212;&#8201;is merged with the default resource requests and limits which are defined in the component.
-The value is expected to be a value which is valid as a container&#8217;s <code>resources</code> field.</p>
+<p>The value of such a key&#8201;&#8212;&#8201;if found&#8201;&#8212;&#8201;is used as the container&#8217;s <code>resources</code> field.</p>
 </div>
 <div class="paragraph">
 <p>The component supports removing requests or limits by setting the corresponding fields to <code>null</code>.</p>
