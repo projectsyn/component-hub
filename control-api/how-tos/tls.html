@@ -744,7 +744,7 @@ This ensures encrypted and trusted communication between the Kubernetes API serv
 lifetime=3650
 # Adjust servicename if the namespace differs
 servicename=apiserver.appuio-control-api.svc
-openssl req -x509 -newkey rsa:4096 -nodes -keyout apiserver.key -out apiserver.crt -days ${lifetime} -subj '/CN=${servicename}' -addext 'subjectAltName = DNS:${servicename}'</code></pre>
+openssl req -x509 -newkey rsa:4096 -nodes -keyout apiserver.key -out apiserver.crt -days ${lifetime} -subj "/CN=$servicename" -addext "subjectAltName = DNS:$servicename"</code></pre>
 </div>
 </div>
 </li>
@@ -756,7 +756,7 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout apiserver.key -out apiserver.c
 parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
 
 # Use the 'patch' subcommand to add to existing secret
-vault kv patch "${parent}/${instance}" apiserver-cert=@apiserver.crt</code></pre>
+vault kv patch "${parent}/${instance}" apiserver-key=@apiserver.key</code></pre>
 </div>
 </div>
 </li>
