@@ -1055,6 +1055,10 @@ This allows users to remove secrets which were configured higher up in the hiera
 The dictionary values are directly merged into a <code>Secret</code> resource which only has <code>type=kubernetes.io/tls</code> set.
 The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
 </div>
+<div class="paragraph">
+<p>The OpenShift authentication operator generates a secret which contains the certificate and secret key of the ingress default certificate in a single field.
+To ensure that the concatenated data is always valid, the component appends a trailing newline to each field of the provided secret.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
