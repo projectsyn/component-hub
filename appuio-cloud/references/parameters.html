@@ -1567,6 +1567,58 @@ default
 <p>The key of the namespace annotation which users can use to override the global default value for <code>.spec.activeDeadlineSeconds</code>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_runonceactivedeadlineseconds_podmatchexpressions"><a class="anchor" href="#_runonceactivedeadlineseconds_podmatchexpressions"></a><code>runOnceActiveDeadlineSeconds.podMatchExpressions</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">podMatchExpressions:
+  # Don't set activeDeadlineSeconds for pods which have
+  # label `acme.cert-manager.io/http01-solver`
+  acme.cert-manager.io/http01-solver:
+    operator: DoesNotExist</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The entries of the dict are expected to be of form <code>labelKey: &lt;partial matchExpression&gt;</code>.
+Each entry is transformed to a Kubernetes <code>matchExpression</code> entry by taking the key as value for field <code>key</code> of the resulting match expression.</p>
+</div>
+<div class="paragraph">
+<p>See the <code>matchExpressions</code> section in the <a href="https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/#LabelSelector">Kubernetes LabelSelector</a> documentation for supported fields in a <code>matchExpressions</code> element.</p>
+</div>
+<div class="paragraph">
+<p>The field <code>activeDeadlineSeconds</code> will only be set for pods which match the provided expressions.</p>
+</div>
+<div class="paragraph">
+<p>Generally, we recommend adjusting the value for <code>activeDeadlineSeconds</code> by annotating namespaces as documented above or by setting <code>activeDeadlineSeconds</code> in the Pod spec, but in some cases it may be necessary to exclude pods from the policy.</p>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">
