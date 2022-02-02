@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/vcluster/references/parameters.html">
-    <link rel="prev" href="../tutorials/installation-openshift.html">
+    <title>Install vcluster on OpenShift :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/vcluster/tutorials/installation-openshift.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,8 +99,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/installation-openshift.html">Installation On OpenShift</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="installation-openshift.html">Installation On OpenShift</a>
   </li>
 </ul>
   </li>
@@ -107,8 +108,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical Reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -693,310 +694,109 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">vcluster</a></li>
-    <li>Technical Reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>Tutorials</li>
+    <li><a href="installation-openshift.html">Installation On OpenShift</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vcluster/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vcluster/edit/master/docs/modules/ROOT/pages/tutorials/installation-openshift.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Install vcluster on OpenShift</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>vcluster</code>.</p>
+<p>This page guides through the installation process of vcluster on OpenShift and sets up authentication with OIDC using Keycloak.</p>
 </div>
 <div class="paragraph">
-<p>This component supports multi-instantiation.</p>
+<p>At the end of this tutorial we will have:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a vcluster instance running on OpenShift</p>
+</li>
+<li>
+<p>vcluster&#8217;s Kubernetes API exposed with an Ingress</p>
+</li>
+<li>
+<p>Let&#8217;s Encrypt certificates provisioned by <code>cert-manager</code></p>
+</li>
+<li>
+<p>OIDC authentication</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-${_instance}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
-</div>
-<div class="paragraph">
-<p>Deploying multiple vclusters in the same namespace isn&#8217;t supported.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Understanding how to configure and compile cluster catalogs</p>
+</li>
+<li>
+<p>Admin access to existing Keycloak instances</p>
+</li>
+<li>
+<p><code>kubectl</code></p>
+</li>
+<li>
+<p><code>base64</code></p>
+</li>
+<li>
+<p><code>jq</code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_host_service_cidr"><a class="anchor" href="#_host_service_cidr"></a><code>host_service_cidr</code></h2>
+<h2 id="_deploy_vcluster_and_ingress"><a class="anchor" href="#_deploy_vcluster_and_ingress"></a>Deploy vcluster and Ingress</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The host cluster&#8217;s service CIDR. Must be set.</p>
-</div>
-<div class="paragraph">
-<p>You can find out a host cluster&#8217;s service CIDR by deploying a service with an invalid ClusterIP (such as 1.1.1.1).</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure catalog</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl create svc clusterip check-service-cidr --clusterip=1.1.1.1 --tcp=5678:5678</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  vcluster:
+    host_service_cidr: 172.30.0.0/16 <i class="conum" data-value="1"></i><b>(1)</b>
+    k3s:
+      additional_args:
+        - --kube-apiserver-arg=oidc-issuer-url=https://keycloak.example.com/auth/realms/realm <i class="conum" data-value="2"></i><b>(2)</b>
+        - --kube-apiserver-arg=oidc-client-id=client-id <i class="conum" data-value="3"></i><b>(3)</b>
+        - --kube-apiserver-arg=oidc-username-claim=preferred_username
+        - --kube-apiserver-arg=oidc-groups-claim=groups
+    ingress:
+      host: vcluster.example.com</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The error message shows the host cluster&#8217;s service CIDR:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>The Service "check-service-cidr" is invalid: spec.clusterIPs: Invalid value: []string{"1.1.1.1"}.... The range of valid IPs is 10.96.0.0/12.</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The host service CIDR (see <a href="../references/parameters.html#_host_service_cidr" class="page">host_service_cidr in parameters</a>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Keycloak URL and realm</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The client ID in Keycloak</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
-</div>
-<div class="paragraph">
-<p>The <code>kubectl</code> image is used to create OCP routes. The <code>kubectl</code> and <code>jq</code> binaries are required in this image.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_k3s_additional_args"><a class="anchor" href="#_k3s_additional_args"></a><code>k3s.additional_args</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k3s:
-  additional_args:
-    - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
-    - --kube-apiserver-arg=oidc-client-id=local
-    - --kube-apiserver-arg=oidc-username-claim=email
-    - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional arguments for the k3s cluster.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_syncer_additional_args"><a class="anchor" href="#_syncer_additional_args"></a><code>syncer.additional_args</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional arguments for vcluster syncer.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storage_persistence"><a class="anchor" href="#_storage_persistence"></a><code>storage.persistence</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Persistence controls whether vcluster resources are persisted between deployments.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storage_size"><a class="anchor" href="#_storage_size"></a><code>storage.size</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>5Gi</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The size of the persistent volume claim.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storage_class_name"><a class="anchor" href="#_storage_class_name"></a><code>storage.class_name</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>StorageClass</code> used for the persistent volume claim.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ingress_host"><a class="anchor" href="#_ingress_host"></a><code>ingress.host</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If set, an ingress with the defined host is created.
-The ingress is created with TLS spec for the same host.</p>
-</div>
+</li>
+<li>
+<p>Compile and push cluster catalog</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1004,231 +804,122 @@ The ingress is created with TLS spec for the same host.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-It&#8217;s assumed that <code>cert-manager</code> is running on the cluster to provision Let&#8217;s Encrypt certificates.
+<div class="paragraph">
+<p>This will create 2 OpenShift Route objects; one for the Ingress and one for the Let&#8217;s Encrypt HTTP01 verification.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ingress_annotations"><a class="anchor" href="#_ingress_annotations"></a><code>ingress.annotations</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+</li>
+<li>
+<p>Create DNS record for custom Ingress host and point to the cluster&#8217;s Router.</p>
+</li>
+<li>
+<p>Wait until Let&#8217;s Encrypt has provisioned a valid certificate and only 1 Route exists for the same Ingress.</p>
+<div class="admonitionblock tip">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
 </td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{cert-manager.io/cluster-issuer: letsencrypt-production}</code></p>
+<td class="content">
+<div class="paragraph">
+<p>You can inspect the certificate provisioning with <code>kubecl get certificate,order</code>.</p>
+</div>
 </td>
 </tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
+</table>
+</div>
+</li>
+<li>
+<p>Get CA certificate from Secret.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ingress:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INSTANCE_NAME=vcluster <i class="conum" data-value="1"></i><b>(1)</b>
+NS=syn-${INSTANCE_NAME} <i class="conum" data-value="2"></i><b>(2)</b>
+CA_CERT=$(kubectl -n ${NS} get secret vc-${INSTANCE_NAME}-kubeconfig -o jsonpath='{.data.certificate-authority}' | base64 --decode)</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The instance name</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The target namespace in which vcluster is being installed</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Patch generated Route.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This step is necessary so that the OpenShift Router trusts the generated CA certificate of the vcluster.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Additional annotations for the ingress object.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ingress_labels"><a class="anchor" href="#_ingress_labels"></a><code>ingress.labels</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional labels for the ingress object.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ocp_route_host"><a class="anchor" href="#_ocp_route_host"></a><code>ocp_route.host</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If set, a <code>route.openshift.io/v1.Route</code> with the defined host is created.</p>
-</div>
-<div class="paragraph">
-<p>The route is set with TLS termination set to re-encrypt.</p>
-</div>
-<div class="paragraph">
-<p>The re-encyption breaks the mTLS user authentication.
-A secondary authentication method, like OIDC, should be configured.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_syn_registration_url"><a class="anchor" href="#_syn_registration_url"></a><code>syn.registration_url</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<p><code><a href="https://api.syn.example.com/install/steward.json?token=cHJvamVjdCBzeW4gaXMgbG92ZQo=" class="bare">api.syn.example.com/install/steward.json?token=cHJvamVjdCBzeW4gaXMgbG92ZQo=</a></code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If set, the vcluster is registered with a Project SYN instance.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_additional_manifests"><a class="anchor" href="#_additional_manifests"></a><code>additional_manifests</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_manifests:
-  cluster-admin:
-    kind: ClusterRoleBinding
-    apiVersion: rbac.authorization.k8s.io/v1
-    metadata:
-      name: oidc-cluster-admin
-    roleRef:
-      apiGroup: rbac.authorization.k8s.io
-      kind: ClusterRole
-      name: cluster-admin
-    subjects:
-    - kind: Group
-      name: admin</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">route_name=$(kubectl -n ${NS} get route -o json | jq -r '.items[].metadata | select(.ownerReferences != null) | select(.ownerReferences[].name=="'${INSTANCE_NAME}'") | .name')
+patch_cert="$(echo ${CA_CERT} | sed 's/$/\\n/' | tr -d '\n')"
+patch_file=$(mktemp)
+echo -E '{"spec":{"tls":{"destinationCACertificate":"'$(echo -E ${patch_cert})'"}}}' &gt; ${patch_file}
+kubectl -n ${NS} patch route ${route_name} --patch-file ${patch_file}
+rm ${patch_file}</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Manifests that should be applied to the vcluster after startup.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_configure_keycloak"><a class="anchor" href="#_configure_keycloak"></a>Configure Keycloak</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add Role to client</p>
+<div class="paragraph">
+<p>In the client settings, select the "Roles" tab.
+Click "Add Role" button and enter the role name "Admin" with a description and hit save.</p>
+</div>
+</li>
+<li>
+<p>Configure Mapper to include Roles in <code>groups</code> token</p>
+<div class="paragraph">
+<p>In the client settings, select the "Mappers" tab.
+Click "Create" button and configure the following settings before saving:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">host_service_cidr: 172.30.0.0/16
-storage:
-  persistence: false
-ingress:
-  host: testcluster.local
-k3s:
-  additional_args:
-    - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
-    - --kube-apiserver-arg=oidc-client-id=local
-    - --kube-apiserver-arg=oidc-username-claim=email
-    - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Name = groups
+Mapper Type = User Client Role
+Client ID = &lt;the-client-id&gt;
+Token Claim Name = "groups"
+Claim JSON Type = String</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../tutorials/installation-openshift.html">Installation On OpenShift</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1239,7 +930,7 @@ k3s:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vcluster/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vcluster/tutorials/installation-openshift.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
