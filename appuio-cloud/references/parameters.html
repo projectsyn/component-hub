@@ -6,6 +6,7 @@
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-cloud/references/parameters.html">
     <link rel="prev" href="../index.html">
+    <link rel="next" href="policies/index.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +95,42 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="policies/index.html">Policies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/02_disallow_reserved_namespaces.html">Policy: <code>disallow-reserved-namespaces</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/02_organization_namespaces.html">Policy: <code>organization-namespaces</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/02_organization_projects.html">Policy: <code>organization-projects</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/02_organization_sa_namespaces.html">Policy: <code>organization-sa-namespaces</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/02_validate_namespace_metadata.html">Policy: <code>validate-namespace-metadata</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/03_projectrequest.html">Policy: <code>organization-in-projectrequests</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/10_generate_default_rolebinding_in_ns.html">Policy: <code>default-rolebinding-in-ns</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/11_generate_quota_limit_range_in_ns.html">Policy: <code>quota-and-limit-range-in-ns</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/12_namespace_quota_per_zone.html">Policy: <code>check-namespace-quota</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="policies/30_set_runonce_activedeadlineseconds.html">Policy: <code>set-runonce-activedeadlineseconds</code></a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -1096,6 +1133,14 @@ type
 <p>dict</p>
 </td>
 </tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-appuio-cloud/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
 </table>
 </div>
 <div class="paragraph">
@@ -1128,8 +1173,25 @@ For example: <code>resourcequota.appuio.io/organization-objects.openshift.io_ima
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generatedlimitrange_name"><a class="anchor" href="#_generatedlimitrange_name"></a><code>generatedLimitRange.name</code></h2>
+<h2 id="_generatedlimitrange"><a class="anchor" href="#_generatedlimitrange"></a><code>generatedLimitRange</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter defines a <code>LimitRange</code> object.</p>
+</div>
+<div class="sect2">
+<h3 id="_generatedlimitrange_name"><a class="anchor" href="#_generatedlimitrange_name"></a><code>generatedLimitRange.name</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1154,10 +1216,8 @@ default
 <p>The <code>metadata.name</code> of the <code>LimitRange</code> that gets generated in the new <code>Namespace</code> created by the user.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_generatedresourcequota_synchronize"><a class="anchor" href="#_generatedresourcequota_synchronize"></a><code>generatedResourceQuota.synchronize</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_generatedlimitrange_synchronize"><a class="anchor" href="#_generatedlimitrange_synchronize"></a><code>generatedLimitRange.synchronize</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1199,10 +1259,8 @@ The bug will cause the <code>LimitRange</code> to be updated if the <code>Namesp
 </table>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_generatedlimitrange_limits"><a class="anchor" href="#_generatedlimitrange_limits"></a><code>generatedLimitRange.limits</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_generatedlimitrange_limits"><a class="anchor" href="#_generatedlimitrange_limits"></a><code>generatedLimitRange.limits</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1246,6 +1304,7 @@ It will also reject any container requesting more than <code>4G</code> of memory
 </div>
 <div class="paragraph">
 <p>Consult <a href="https://kubernetes.io/docs/concepts/policy/limit-range/">the official Kubernetes documentation</a> on how to configure these <code>limits</code>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1623,6 +1682,7 @@ Each entry is transformed to a Kubernetes <code>matchExpression</code> entry by 
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="policies/index.html">Policies</a></span>
 </nav>
 </article>
   </div>
