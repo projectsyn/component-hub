@@ -722,7 +722,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-cloud-portal</code></p>
+<p><code>appuio-cloud-portal</code></p>
 </td>
 </tr>
 </table>
@@ -733,11 +733,154 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cloud-portal</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name under which the helm chart is deployed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_chart_source"><a class="anchor" href="#_chart_source"></a><code>chart.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://charts.appuio.ch" class="bare">charts.appuio.ch</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm repository for the downloaded chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_chart_name"><a class="anchor" href="#_chart_name"></a><code>chart.name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cloud-portal</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the downloaded Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_chart_version"><a class="anchor" href="#_chart_version"></a><code>chart.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>0.2.1</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the downloaded Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows setting additional values for the Cloud Portal Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cloud_portal:
+  helm_values:
+    replicaCount: 2
+    route:
+      enabled: true
+      host: portal.appuio.example
+    portal:
+      config:
+        issuer: https://portal.appuio.example/auth/realms/appuio-cloud
+        clientId: appuio-control-api
+      env:
+        APPUIO_API: https://portal.appuio.example/</code></pre>
 </div>
 </div>
 </div>
