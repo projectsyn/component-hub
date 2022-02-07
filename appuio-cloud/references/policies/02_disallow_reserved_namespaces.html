@@ -800,7 +800,9 @@ Implementation
 </ul>
 </div>
 <div class="paragraph">
-<p>If the namespace matches a disallowed pattern and the requester doesn&#8217;t have a cluster role which allows them to bypass the policy, the request is denied.</p>
+<p>If the namespace matches a disallowed pattern and the requester doesn&#8217;t have a cluster role which allows them to bypass the policy, the request is denied.
+The policy is applied for requests to create <code>Namespace</code> and <code>ProjectRequest</code> resources.
+This ensures that unprivileged users can&#8217;t use disallowed patterns regardless of whether they use <code>oc new-project</code>, <code>kubectl create ns</code> or the OpenShift web console.</p>
 </div>
 <div class="paragraph">
 <p>The list of reserved namespace patterns is configured with <a href="../parameters.html#_reservednamespaces" class="page">component parameter <code>reservedNamespaces</code></a>.</p>
@@ -833,6 +835,13 @@ metadata:
 
       If the namespace matches a disallowed pattern and the requester doesn''t have
       a cluster role which allows them to bypass the policy, the request is denied.
+
+      The policy is applied for requests to create `Namespace` and `ProjectRequest`
+      resources.
+
+      This ensures that unprivileged users can''t use disallowed patterns regardless
+      of whether they use `oc new-project`, `kubectl create ns` or the OpenShift web
+      console.
 
 
       The list of reserved namespace patterns is configured with xref:references/parameters#_reservednamespaces[component
@@ -885,6 +894,7 @@ spec:
           - resources:
               kinds:
                 - Namespace
+                - ProjectRequest
               names:
                 - appuio-*
                 - cilium*
