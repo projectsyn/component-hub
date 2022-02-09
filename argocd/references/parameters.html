@@ -870,6 +870,57 @@ type
 </div>
 </div>
 <div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the resource requests and limits for the different
+components. Keys correspond to different pods/containers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>application_controller</code></p>
+</li>
+<li>
+<p><code>redis</code></p>
+</li>
+<li>
+<p><code>repo_server</code></p>
+</li>
+<li>
+<p><code>repo_server_vault_agent</code> - for the <code>vault_agent</code> container in the <code>repo-server</code> pod</p>
+</li>
+<li>
+<p><code>server</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Users can remove configured requests and limits by setting any keys or subkeys in the dictionary to <code>null</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
