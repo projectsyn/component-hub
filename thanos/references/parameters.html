@@ -1046,6 +1046,77 @@ Can be used to expose the Query endpoint externally via <code>LoadBalancer</code
 </div>
 </div>
 <div class="sect1">
+<h2 id="_query_alerts_enabled"><a class="anchor" href="#_query_alerts_enabled"></a><code>query_alerts.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"*": true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/query.md">Query</a> alerts.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-query">here</a>.
+From Kubernetes version <code>v1.22</code> (OCP <code>v4.9</code>) alerts include upstream runbooks.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": true</code> allows enabling all alerts.
+<code>AlertName: true</code> enables a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_query_alerts_patches"><a class="anchor" href="#_query_alerts_patches"></a><code>query_alerts.patches</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows patching upstream <a href="https://thanos.io/tip/components/query.md">Query</a> in the hierarchy.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-query">here</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": {}</code> allows patching all alerts.
+<code>AlertName: {}</code> patches a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_queryrbacproxy"><a class="anchor" href="#_queryrbacproxy"></a><code>queryRbacProxy</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1278,6 +1349,77 @@ It will require an <code>objectStorageConfig</code> if enabled.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_store_alerts_enabled"><a class="anchor" href="#_store_alerts_enabled"></a><code>store_alerts.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"*": true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/store.md">Store</a> alerts.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-store">here</a>.
+From Kubernetes version <code>v1.22</code> (OCP <code>v4.9</code>) alerts include upstream runbooks.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": true</code> allows enabling all alerts.
+<code>AlertName: true</code> enables a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_store_alerts_patches"><a class="anchor" href="#_store_alerts_patches"></a><code>store_alerts.patches</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows patching upstream <a href="https://thanos.io/tip/components/store.md">Store</a> in the hierarchy.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-store">here</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": {}</code> allows patching all alerts.
+<code>AlertName: {}</code> patches a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_compactor"><a class="anchor" href="#_compactor"></a><code>compactor</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1322,6 +1464,77 @@ default
 <p>If the Compactor component should be deployed.
 It will require an <code>objectStorageConfig</code> if enabled.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compactor_alerts_enabled"><a class="anchor" href="#_compactor_alerts_enabled"></a><code>compactor_alerts.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"*": true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/compact.md">Compactor</a> alerts.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-compact">here</a>.
+From Kubernetes version <code>v1.22</code> (OCP <code>v4.9</code>) alerts include upstream runbooks.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": true</code> allows enabling all alerts.
+<code>AlertName: true</code> enables a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compactor_alerts_patches"><a class="anchor" href="#_compactor_alerts_patches"></a><code>compactor_alerts.patches</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows patching upstream <a href="https://thanos.io/tip/components/compact.md">Compactor</a> in the hierarchy.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-compact">here</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": {}</code> allows patching all alerts.
+<code>AlertName: {}</code> patches a single alert.</p>
 </div>
 </div>
 </div>
@@ -1398,6 +1611,77 @@ See <a href="https://github.com/thanos-io/kube-thanos/blob/master/all.jsonnet">a
 <p>If the Receiver component should be deployed.
 It will require an <code>objectStorageConfig</code> if enabled.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_receive_alerts_enabled"><a class="anchor" href="#_receive_alerts_enabled"></a><code>receive_alerts.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"*": true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Thanos <a href="https://thanos.io/tip/components/receive.md/">Receiver</a> alerts.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-receive">here</a>.
+From Kubernetes version <code>v1.22</code> (OCP <code>v4.9</code>) alerts include upstream runbooks.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": true</code> allows enabling all alerts.
+<code>AlertName: true</code> enables a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_receive_alerts_patches"><a class="anchor" href="#_receive_alerts_patches"></a><code>receive_alerts.patches</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows patching upstream <a href="https://thanos.io/tip/components/receive.md/">Receiver</a> in the hierarchy.
+Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#thanos-receive">here</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>"*": {}</code> allows patching all alerts.
+<code>AlertName: {}</code> patches a single alert.</p>
 </div>
 </div>
 </div>
