@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Deploy Multiple Instances :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/thanos/how-tos/multi-instance.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Alert rule: ThanosNoStoreBlocksLoaded :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/thanos/runbooks/ThanosNoStoreBlocksLoaded.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,8 +97,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="multi-instance.html">Deploy Multiple Instances</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/multi-instance.html">Deploy Multiple Instances</a>
   </li>
 </ul>
   </li>
@@ -711,145 +709,130 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Thanos</a></li>
-    <li>How-to</li>
-    <li><a href="multi-instance.html">Deploy Multiple Instances</a></li>
+    <li><a href="ThanosNoStoreBlocksLoaded.html">Alert rule: ThanosNoStoreBlocksLoaded</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-thanos/edit/master/docs/modules/ROOT/pages/how-tos/multi-instance.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-thanos/edit/master/docs/modules/ROOT/pages/runbooks/ThanosNoStoreBlocksLoaded.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Deploy Multiple Instances</h1>
+<h1 class="page">Alert rule: ThanosNoStoreBlocksLoaded</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>This guide describes how to install multiple instances of this component.</p>
-</div>
-<div class="paragraph">
-<p>There are generally two different approaches:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Deploy multiple instances in separate namespaces.
-This approach is recommended if you have completely isolated setups of Thanos (for example staging and production instances).</p>
-</li>
-<li>
-<p>Deploy multiple instances in the same namespace.
-This approach is recommended when you need to deploy certain Thanos components multiple times, for example one Thanos Store per S3 bucket used by only one Thanos Querier.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_separate_namespaces"><a class="anchor" href="#_separate_namespaces"></a>Separate namespaces</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Using this approach each instance gets deployed into its own namespace.
-This is a simple as setting the <code>namespace</code> parameter and every deployment or manifest is isolated.</p>
-</div>
-<div class="listingblock">
-<div class="title">Example configuration for separate namespaces</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
-- thanos as thanos-test
-- thanos as thanos-prod
-
-parameters:
-  thanos_test:
-    namespace: syn-thanos-test
-    ...
-    dashboards:
-      namespace: grafana <i class="conum" data-value="1"></i><b>(1)</b>
-
-  thanos_prod:
-    namespace: syn-thanos-prod
-    ...
-    dashboards:
-      namespace: grafana <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>A shared namespace where dashboards get installed, depending on your Grafana setup (if any).
-Otherwise this parameter isn&#8217;t necessary.</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
+</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_same_namespace"><a class="anchor" href="#_same_namespace"></a>Same namespace</h2>
+<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Using this approach each instance is deployed in the same namespace.
-Special care needs to be given in the configuration, otherwise there will be name collisions.</p>
-</div>
-<div class="listingblock">
-<div class="title">Example configuration for shared namespace with multiple Stores</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
-  - thanos
-  - thanos as thanos-store-1
-  - thanos as thanos-store-2
-
-parameters:
-  thanos: <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-
-  thanos_store_1:
-    createNamespace: false <i class="conum" data-value="3"></i><b>(3)</b>
-    commonConfig:
-      objectStorageConfig:
-        name: thanos-objectstorage-1 <i class="conum" data-value="2"></i><b>(2)</b>
-    objectStorageConfig:
-      type: S3
-      config:
-        bucket: bucket-1
-        endpoint: s3.example.com
-        access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/access_key_1}
-        secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/secret_key_1}
-    store:
-      enabled: true
-      name: thanos-store-1 <i class="conum" data-value="2"></i><b>(2)</b>
-    query:
-      enabled: false
-    bucket:
-      enabled: true
-      name: thanos-bucket-1 <i class="conum" data-value="2"></i><b>(2)</b>
-
-  thanos_store_2:
-    ...</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The configuration of the common Thanos setup as required</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The resource name that must be different in each instance to avoid name collisions between instances</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>This is required for all but one instance</td>
-</tr>
-</table>
+<p>During the last 3 hours, no Thanos Store block has been loaded.
+This can indicate possible data loss.</p>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
-</nav>
+<div class="sect1">
+<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Check logs, configuration for Thanos compact, store and receive components for possible cause(s).</p>
+</li>
+<li>
+<p>Check Thanos compact Statefulset</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the logs of Thanos compact pods for any errors.</p>
+</li>
+<li>
+<p>Check for valid configuration as per <a href="https://thanos.io/tip/components/compact.md/" class="bare">thanos.io/tip/components/compact.md/</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Object Store configuration (--objstore.config)</p>
+</li>
+<li>
+<p>Downsampling configuration (--retention.resolution-*)</p>
+</li>
+<li>
+<p>Currently Thanos compact works as expected if the retention.resolution-raw, retention.resolution-5m and retention.resolution-1h are set for the same duration.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Also check guidelines for these downsampling Thanos compact command line args at: <a href="https://thanos.io/tip/components/compact.md/" class="bare">thanos.io/tip/components/compact.md/</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>--retention.resolution-5m needs more than 40 hours</p>
+</li>
+<li>
+<p>--retention.resolution-1h needs to be more than 10 days</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Check Thanos store statefulset</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the logs of Thanos store pods for any errors related to blocks loading from Object store.</p>
+</li>
+<li>
+<p>Check for valid Object store configuration (--objstore.config) as per <a href="https://thanos.io/tip/components/store.md/" class="bare">thanos.io/tip/components/store.md/</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Check Thanos receive Statefulset</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the logs of Thanos receive pods for any errors related to blocks uploaded to Object store.</p>
+</li>
+<li>
+<p>Check for valid Object store configuration (--objstore.config) as per <a href="https://thanos.io/tip/components/receive.md/" class="bare">thanos.io/tip/components/receive.md/</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adapted_from"><a class="anchor" href="#_adapted_from"></a>Adapted from</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/rhobs/configuration/blob/70aa0baf3d5c7a5a1a3d2e5b2828b32220944b61/docs/sop/observatorium.md?plain=1#L1466" class="bare">github.com/rhobs/configuration/blob/70aa0baf3d5c7a5a1a3d2e5b2828b32220944b61/docs/sop/observatorium.md?plain=1#L1466</a></p>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
@@ -859,7 +842,7 @@ parameters:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/thanos/how-tos/multi-instance.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/thanos/runbooks/ThanosNoStoreBlocksLoaded.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

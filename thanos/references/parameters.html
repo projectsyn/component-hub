@@ -105,6 +105,15 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Alert runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text">xref:runbooks/ThanosNoStoreBlocksLoaded.adoc</span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
@@ -1117,6 +1126,85 @@ Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#tha
 </div>
 </div>
 <div class="sect1">
+<h2 id="_query_alerts_custom"><a class="anchor" href="#_query_alerts_custom"></a><code>query_alerts.custom</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ThanosDidSomething:
+  enabled: false
+  rule:
+    annotations:
+      description: Thanos did something.
+      message: Thanos did something.
+      runbook: https://hub.syn.tools/thanos/runbooks/ThanosDidSomething.html
+    expr: |
+      thanos_doing_something &gt; 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows setting custom rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_custom_enabled"><a class="anchor" href="#_custom_enabled"></a><code>.custom.*.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if the custom rule is enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_rule"><a class="anchor" href="#_custom_rule"></a><code>.custom.*.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The rule defintion.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_queryrbacproxy"><a class="anchor" href="#_queryrbacproxy"></a><code>queryRbacProxy</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1420,6 +1508,85 @@ Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#tha
 </div>
 </div>
 <div class="sect1">
+<h2 id="_store_alerts_custom"><a class="anchor" href="#_store_alerts_custom"></a><code>store_alerts.custom</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ThanosDidSomething:
+  enabled: false
+  rule:
+    annotations:
+      description: Thanos did something.
+      message: Thanos did something.
+      runbook: https://hub.syn.tools/thanos/runbooks/ThanosDidSomething.html
+    expr: |
+      thanos_doing_something &gt; 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows setting custom rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_custom_enabled_2"><a class="anchor" href="#_custom_enabled_2"></a><code>.custom.*.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if the custom rule is enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_rule_2"><a class="anchor" href="#_custom_rule_2"></a><code>.custom.*.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The rule defintion.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_compactor"><a class="anchor" href="#_compactor"></a><code>compactor</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1535,6 +1702,85 @@ Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#tha
 <div class="paragraph">
 <p><code>"*": {}</code> allows patching all alerts.
 <code>AlertName: {}</code> patches a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compactor_alerts_custom"><a class="anchor" href="#_compactor_alerts_custom"></a><code>compactor_alerts.custom</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ThanosDidSomething:
+  enabled: false
+  rule:
+    annotations:
+      description: Thanos did something.
+      message: Thanos did something.
+      runbook: https://hub.syn.tools/thanos/runbooks/ThanosDidSomething.html
+    expr: |
+      thanos_doing_something &gt; 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows setting custom rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_custom_enabled_3"><a class="anchor" href="#_custom_enabled_3"></a><code>.custom.*.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if the custom rule is enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_rule_3"><a class="anchor" href="#_custom_rule_3"></a><code>.custom.*.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The rule defintion.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1682,6 +1928,85 @@ Available alerts can be found <a href="https://monitoring.mixins.dev/thanos/#tha
 <div class="paragraph">
 <p><code>"*": {}</code> allows patching all alerts.
 <code>AlertName: {}</code> patches a single alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_receive_alerts_custom"><a class="anchor" href="#_receive_alerts_custom"></a><code>receive_alerts.custom</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ThanosDidSomething:
+  enabled: false
+  rule:
+    annotations:
+      description: Thanos did something.
+      message: Thanos did something.
+      runbook: https://hub.syn.tools/thanos/runbooks/ThanosDidSomething.html
+    expr: |
+      thanos_doing_something &gt; 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows setting custom rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_custom_enabled_4"><a class="anchor" href="#_custom_enabled_4"></a><code>.custom.*.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if the custom rule is enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_rule_4"><a class="anchor" href="#_custom_rule_4"></a><code>.custom.*.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The rule defintion.</p>
+</div>
 </div>
 </div>
 </div>
