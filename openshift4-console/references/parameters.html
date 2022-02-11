@@ -1020,6 +1020,14 @@ This allows users to remove certificates which were configured higher up in the 
 <p>The dictionary keys are used as <code>metadata.name</code> and <code>spec.secretName</code> for the resulting <code>Certificate</code> resources.
 The dictionary values are then directly directly merged into the mostly empty <code>Certificate</code> resources.</p>
 </div>
+<div class="paragraph">
+<p>OpenShift won&#8217;t admit the route for the HTTP01 solver pod unless the <code>Certificate</code> resources are deployed in the same namespace as the web console.
+This behavior is caused by a security feature in the OpenShift ingress controller operator to not allow malicious actors to abuse hostnames which are already in use in other namespaces.</p>
+</div>
+<div class="paragraph">
+<p>However, since OpenShift requires that custom TLS secrets for the OpenShift console are stored in namespace <code>openshift-config</code>, we deploy a Kyverno policy to clone the TLS secret created by cert-manager into namespace <code>openshift-config</code> for each <code>Certificate</code> resource.
+Because of that, the component requires that Kyverno is installed on the cluster via the <a href="https://hub.syn.tools/kyverno/">Commodore component <code>kyverno</code></a>, when <code>Certificate</code> resources are configured in the hierarchy.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
