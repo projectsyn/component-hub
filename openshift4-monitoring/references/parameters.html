@@ -935,7 +935,6 @@ default
       resources:
         requests:
           storage: 50Gi
-prometheusUserWorkload: ${openshift4_monitoring:configs:prometheusK8s}
 alertmanagerMain:
   volumeClaimTemplate:
     spec:
@@ -949,7 +948,7 @@ alertmanagerMain:
 </table>
 </div>
 <div class="paragraph">
-<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/cluster_monitoring/configuring-the-monitoring-stack.html#configurable-monitoring-components_configuring-monitoring">monitoring components</a>.</p>
+<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">monitoring components</a>.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="https://docs.openshift.com/container-platform/latest/monitoring/cluster_monitoring/configuring-the-monitoring-stack.html">OpenShift docs</a> for available parameters.</p>
@@ -974,16 +973,8 @@ alertmanagerMain:
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator User Workload</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperatorUserWorkload</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusK8s</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus User Workload</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusUserWorkload</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Alertmanager</p></td>
@@ -1012,6 +1003,65 @@ alertmanagerMain:
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Querier</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>thanosQuerier</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configsuserworkload"><a class="anchor" href="#_configsuserworkload"></a><code>configsUserWorkload</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheusOperator: {}
+prometheus: ${openshift4_monitoring:configs:prometheusK8s}
+thanosRuler: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">user workload monitoring components</a>.</p>
+</div>
+<div class="paragraph">
+<p>This table shows the monitoring components you can configure and the keys used to specify the components:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheus</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Ruler</p></td>
