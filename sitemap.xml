@@ -49,9 +49,6 @@
 <loc>https://hub.syn.tools/sitemap-csi-cloudscale.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
@@ -178,9 +175,6 @@
 <loc>https://hub.syn.tools/sitemap-secret-generator.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-statefulset-resize-controller.xml</loc>
 </sitemap>
 <sitemap>
@@ -197,9 +191,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-traefik.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vault.xml</loc>
