@@ -10,6 +10,9 @@
 <loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
 </sitemap>
 <sitemap>
