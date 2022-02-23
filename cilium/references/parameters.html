@@ -841,7 +841,7 @@ type
 </tr>
 <tr>
 <td class="hdlist1">
-example
+default
 </td>
 <td class="hdlist2">
 <p><code><a href="https://helm.cilium.io" class="bare">helm.cilium.io</a></code></p>
@@ -850,35 +850,7 @@ example
 </table>
 </div>
 <div class="paragraph">
-<p>The Helm repository for the downloaded chart.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_cilium_name"><a class="anchor" href="#_charts_cilium_name"></a><code>charts.cilium.name</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<p><code>cilium</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the downloaded Helm chart.</p>
+<p>The Helm repository from which to download the <code>cilium</code> Helm chart.</p>
 </div>
 </div>
 </div>
@@ -897,16 +869,72 @@ type
 </tr>
 <tr>
 <td class="hdlist1">
-example
+default
 </td>
 <td class="hdlist2">
-<p><code>1.10.5</code></p>
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The version of the downloaded Helm chart.</p>
+<p>The version to use for the <code>cilium</code> Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_enterprise_source"><a class="anchor" href="#_charts_cilium_enterprise_source"></a><code>charts.cilium-enterprise.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://helm.isovalent.com" class="bare">helm.isovalent.com</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm repository from which to download the <code>cilium-enterprise</code> Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_enterprise_version"><a class="anchor" href="#_charts_cilium_enterprise_version"></a><code>charts.cilium-enterprise.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version to use for the <code>cilium-enterprise</code> Helm chart.</p>
 </div>
 </div>
 </div>
