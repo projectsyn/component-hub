@@ -145,6 +145,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-registry.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-s3-forwarder.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-scheduling.xml</loc>
 </sitemap>
 <sitemap>
