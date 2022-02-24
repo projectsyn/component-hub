@@ -826,7 +826,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://docs.openshift.com/container-platform/4.8/rest_api/config_apis/apiserver-config-openshift-io-v1.html">APIServer config</a> specification.
+<p>The <a href="https://docs.openshift.com/container-platform/latest/rest_api/config_apis/apiserver-config-openshift-io-v1.html">APIServer config</a> specification.
 The dictionary values are directly merged into the <code>spec</code> of the <code>APIServer</code> resource.</p>
 </div>
 <div class="admonitionblock important">
@@ -932,44 +932,6 @@ This is done to ensure that the APIServer resource is configured after all certi
 </td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_apiserverspec_2"><a class="anchor" href="#_apiserverspec_2"></a><code>apiServerSpec</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">audit:
-  profile: Default</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to configure the cluster&#8217;s <code>APIServer</code> resource.
-The value of the parameter is used as value for field <code>spec</code> of the APIServer resource.
-The key <code>servingCerts.namedCertificates</code> is overwritten by the contents of parameter <code>servingCerts</code>.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/4.8/rest_api/config_apis/apiserver-config-openshift-io-v1.html">OpenShift API Reference docs</a> for all supported fields.</p>
 </div>
 </div>
 </div>
