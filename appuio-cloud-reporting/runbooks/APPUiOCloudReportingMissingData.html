@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../runbooks/APPUiOCloudReportingMissingData.html">
+    <title>Alert rule: APPUiOCloudReportingMissingData :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudReportingMissingData.html">
+    <link rel="prev" href="../references/parameters.html">
+    <link rel="next" href="APPUiOCloudInvoiceGenerationFailed.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,8 +93,8 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -102,14 +102,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudInvoiceGenerationFailed.html">APPUiOCloudInvoiceGenerationFailed</a>
+    <a class="nav-link" href="APPUiOCloudInvoiceGenerationFailed.html">APPUiOCloudInvoiceGenerationFailed</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudReportingDatabaseBackfillingFailed.html">APPUiOCloudReportingDatabaseBackfillingFailed</a>
+    <a class="nav-link" href="APPUiOCloudReportingDatabaseBackfillingFailed.html">APPUiOCloudReportingDatabaseBackfillingFailed</a>
   </li>
 </ul>
   </li>
@@ -718,323 +718,20 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appuio-cloud-reporting</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>Alert runbooks</li>
+    <li><a href="APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-appuio-cloud-reporting/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-appuio-cloud-reporting/edit/master/docs/modules/ROOT/pages/runbooks/APPUiOCloudReportingMissingData.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Alert rule: APPUiOCloudReportingMissingData</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appuio_cloud_reporting</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appuio-cloud-reporting</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/appuio/component-appuio-cloud-reporting/blob/master/class/defaults.yml">See `class/defaults.yml</a>.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
-</div>
-<div class="sect2">
-<h3 id="_images_reporting"><a class="anchor" href="#_images_reporting"></a><code>images.reporting</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The image used for managing data in the reporting database.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_images_erp_adapter"><a class="anchor" href="#_images_erp_adapter"></a><code>images.erp_adapter</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The image used for creating invoices and syncing target fields.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_schedules"><a class="anchor" href="#_schedules"></a><code>schedules</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">backfill: '15 * * * *'
-check_missing: '30 8-14 * * *'
-invoice: '0 10 1 * *'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary managing the schedules of the periodic jobs.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_database"><a class="anchor" href="#_database"></a><code>database</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">host: null
-port: 5432
-name: appuio-cloud-reporting
-username: appuio-cloud-reporting
-password: null
-parameters: ''</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary managing the connection to the reporting database.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_prometheus_url"><a class="anchor" href="#_prometheus_url"></a><code>prometheus.url</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>URL used to connect with the Prometheus/Thanos Instance.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_erp_adapter_url"><a class="anchor" href="#_erp_adapter_url"></a><code>erp_adapter.url</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>URL used to connect with the ERP Instance.
-For Odoo the URL must be in the format of <code><a href="https://user:pass@host">:port</a>/db-name</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_backfill_queries"><a class="anchor" href="#_backfill_queries"></a><code>backfill.queries</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">appuio_cloud_memory: true
-appuio_cloud_loadbalancer: true
-appuio_cloud_persistent_storage: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Queries to use when backfilling metrics data.
-<code>true</code> enables the query, every other value disables the query.
-Every query is run in its own CronJob.</p>
-</div>
-<div class="paragraph">
-<p>Check the reporting database for possible queries.
-Currently known queries are <code>appuio_cloud_memory</code>, <code>appuio_cloud_loadbalancer</code>, and <code>appuio_cloud_persistent_storage</code></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_network_policies_target_namespaces"><a class="anchor" href="#_network_policies_target_namespaces"></a><code>network_policies.target_namespaces</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">appuio-reporting-database: true
-appuio-thanos: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Injects a network policy into the target namespace given by the key, allowing communication to the namespace.</p>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1042,7 +739,10 @@ appuio-thanos: true</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This is a workaround and the parameter will disappear once we&#8217;ve a more native way to manage network policies with Project Syn.
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -1050,103 +750,69 @@ This is a workaround and the parameter will disappear once we&#8217;ve a more na
 </div>
 </div>
 <div class="sect1">
-<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
+<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>APPUiO Cloud Reporting is missing data to link either categories, tenants or products to their representation in the ERP.
+The next invoice run is likely to fail.</p>
 </div>
 <div class="paragraph">
-<p>The component creates Prometheus and Alertmanager objects if enabled.</p>
+<p>Deleting the failed job will clear this alert.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_monitoring_alerts"><a class="anchor" href="#_monitoring_alerts"></a><code>monitoring.alerts</code></h2>
+<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
+<div class="ulist">
+<ul>
+<li>
+<p>Check job logs.</p>
+</li>
+<li>
+<p>Check for missing migrations:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">APPUiOCloudReportingDidSomething:
-  enabled: false
-  rule:
-    annotations:
-      description: APPUiOCloudReporting did something.
-      message: APPUiOCloudReporting did something.
-      runbook: https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudReportingDidSomething.html
-    expr: |
-      appuio_cloud_reporting_doing_something &gt; 1
-    for: 10m
-    labels:
-      severity: warning</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAMESPACE=appuio-cloud-reporting
+FAILED_JOB=job/XXXXXX-XXXXXX
+
+oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+  --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
+  appuio-cloud-reporting migrate --show-pending
+
+# If pending migrations are shown
+oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+  --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
+  appuio-cloud-reporting migrate
+oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+  --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
+  appuio-cloud-reporting migrate --seed</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
-</div>
+</li>
+<li>
+<p>Missing fields are reported in the output of the job.</p>
 <div class="paragraph">
-<p>Alerts monitoring the cloud reporting cron jobs.</p>
+<p>It&#8217;s possible to re-run the job to get the output:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">schedules:
-  invoice: '0 12 1 * *'
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAMESPACE=appuio-cloud-reporting
+FAILED_JOB=job/XXXXXX-XXXXXX
 
-database:
-  host: reporting-database.appuio.cloud
-  port: 5432
-  name: reporting-database
-  username: reporting-user
-  password: ?{vaultkv:${cluster:tenant}/${cluster:name}/appuio-cloud-reporting/reporting-database-password}
-
-erp_adapter:
-  url: ?{vaultkv:${cluster:tenant}/${cluster:name}/appuio-cloud-reporting/erp-url}
-
-prometheus:
-  url: http://thanos-query.appuio-thanos.svc:9090</code></pre>
+oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+  --keep-init-containers=false -- \
+  appuio-cloud-reporting check_missing</code></pre>
 </div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../runbooks/APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a></span>
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="next"><a href="APPUiOCloudInvoiceGenerationFailed.html">APPUiOCloudInvoiceGenerationFailed</a></span>
 </nav>
 </article>
   </div>
@@ -1157,7 +823,7 @@ prometheus:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appuio-cloud-reporting/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appuio-cloud-reporting/runbooks/APPUiOCloudReportingMissingData.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
