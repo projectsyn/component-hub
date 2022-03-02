@@ -999,7 +999,7 @@ See more details in <a href="multi-instances.html" class="page">Multiple Instanc
 <p>Delete the K8up v1 CRDs</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for crd in archives.backup.appuio.ch backups.backup.appuio.ch checks.backup.appuio.ch prebackuppods.backup.appuio.ch prunes.backup.appuio.ch restores.backup.appuio.ch schedules.backup.appuio.ch; do
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for crd in archives.backup.appuio.ch backups.backup.appuio.ch checks.backup.appuio.ch effectiveschedules.backup.appuio.ch prebackuppods.backup.appuio.ch prunes.backup.appuio.ch restores.backup.appuio.ch schedules.backup.appuio.ch snapshots.backup.appuio.ch; do
   kubectl delete crd "${crd}"
 done</code></pre>
 </div>
