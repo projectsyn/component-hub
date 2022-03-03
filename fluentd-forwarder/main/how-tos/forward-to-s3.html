@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Howto forward to S3 Bucket :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/fluentd-forwarder/main/how-tos/forward-to-s3.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="#how-tos/forward-to-splunk.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -92,6 +94,24 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Howtos</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="forward-to-s3.html">Forward to S3 Bucket</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#how-tos/forward-to-splunk.adoc">Forward to Splunk Server</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
@@ -710,7 +730,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Fluentd Forwarder</a></li>
-    <li><a href="forward-to-s3.html">Howto forward to S3 Bucket</a></li>
+    <li>Howtos</li>
+    <li><a href="forward-to-s3.html">Forward to S3 Bucket</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/projectsyn/component-fluentd-forwarder/edit/main/docs/modules/ROOT/pages/how-tos/forward-to-s3.adoc">Edit this Page</a></div>
@@ -721,74 +742,97 @@
 </aside>
 <article class="doc">
 <h1 class="page">Howto forward to S3 Bucket</h1>
+<div class="sect1">
+<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The configuration of the component is very versatile and depends on how you intend to use it.
+You could hardcode the s3 bucket and endpoint directly in the <code>config</code> section, but using environment variables allows you to easily adapt to multi cluster setups.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
-  - fluentd-forwarder as fluentd-forwarder-customer-a
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">env:
+  s3_bucket: &lt;NAME_OF_S3_BUCKET&gt;
+  s3_endpoint: &lt;URL_TO_S3_STORAGE&gt;
 
-parameters:
-  fluentd-forwarder-customer-a:
-    env:
-      log_level: info
-      s3_bucket: &lt;NAME_OF_S3_BUCKET&gt;
-      s3_endpoint: &lt;URL_TO_S3_STORAGE&gt;
-      s3_interval: 5m
-      output_format: '%Y-%m-%d_%H%M'
-
-    secrets:
-      shared_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/sharedkey}'
-      s3_accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/s3_accesskey}'
-      s3_secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/s3_secretkey}'
-
-    config_vars:
-      match_tmpl: |
-        @type s3
-        &lt;format&gt;
-          @type json
-        &lt;/format&gt;
-        aws_key_id "#{ENV['S3_ACCESSKEY']}"
-        aws_sec_key "#{ENV['S3_SECRETKEY']}"
-        s3_bucket "#{ENV['S3_BUCKET']}"
-        s3_endpoint "#{ENV['S3_ENDPOINT']}"
-        time_slice_format "#{ENV['OUTPUT_FORMAT']}"
-        &lt;buffer time&gt;
-          @type memory
-          compress text
-          chunk_limit_size 256m
-          timekey "#{ENV['S3_INTERVAL']}"
-          timekey_wait 1m
-          timekey_use_utc true
-        &lt;/buffer&gt;
-
-    config: |
-      &lt;system&gt;
-        log_level "#{ENV['LOG_LEVEL']}"
-      &lt;/system&gt;
-      &lt;source&gt;
-        @type forward
-        port 24224
-        null
-        &lt;security&gt;
-          shared_key "#{ENV['SHARED_KEY']}"
-          self_hostname "#{ENV['HOSTNAME']}"
-        &lt;/security&gt;
-      &lt;/source&gt;
-
-      &lt;match kubernetes.**&gt;
-        @type rewrite_tag_filter
-        &lt;rule&gt;
-          key \$['kubernetes']['namespace_name']
-          pattern ^(.+)$
-          tag kube.$1
-        &lt;/rule&gt;
-      &lt;/match&gt;
-
-      &lt;match kube.my_namespace&gt;
-        %(match_tmpl)s
-        path my_namespace/
-      &lt;/match&gt;</code></pre>
+secrets:
+  shared_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/sharedkey}'
+  s3_accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/s3_accesskey}'
+  s3_secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/s3_secretkey}'</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Using <code>config_vars</code> helps reducing recurring configuration values, for example if you want to filter different namespaces.
+In this example each namespace will be stored in a different directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config: |
+  &lt;system&gt;
+    log_level info
+  &lt;/system&gt;
+  &lt;source&gt;
+    @type forward
+    port 24224
+    null
+    &lt;security&gt;
+      shared_key "#{ENV['SHARED_KEY']}"
+      self_hostname "#{ENV['HOSTNAME']}"
+    &lt;/security&gt;
+  &lt;/source&gt;
+
+  &lt;match kubernetes.**&gt;
+    @type rewrite_tag_filter
+    &lt;rule&gt;
+      key \$['kubernetes']['namespace_name']
+      pattern ^(.+)$
+      tag kube.$1
+    &lt;/rule&gt;
+  &lt;/match&gt;
+
+  &lt;match kube.my_namespace&gt;
+    %(match_tmpl)s
+    path my_namespace/
+  &lt;/match&gt;
+
+  &lt;match kube.my_other_namespace&gt;
+    %(match_tmpl)s
+    path my_namespace/
+  &lt;/match&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The repetitive part of the <code>&lt;match&gt;</code> configuration can be exported using <code>config_vars</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config_vars:
+  match_tmpl: |
+    @type s3
+    &lt;format&gt;
+      @type json
+    &lt;/format&gt;
+    aws_key_id "#{ENV['S3_ACCESSKEY']}"
+    aws_sec_key "#{ENV['S3_SECRETKEY']}"
+    s3_bucket "#{ENV['S3_BUCKET']}"
+    s3_endpoint "#{ENV['S3_ENDPOINT']}"
+    time_slice_format %Y-%m-%d_%H%M
+    &lt;buffer time&gt;
+      @type memory
+      compress text
+      chunk_limit_size 256m
+      timekey 5m
+      timekey_wait 1m
+      timekey_use_utc true
+    &lt;/buffer&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="#how-tos/forward-to-splunk.adoc">Forward to Splunk Server</a></span>
+</nav>
 </article>
   </div>
 </main>
