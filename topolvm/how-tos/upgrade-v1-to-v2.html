@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/topolvm/references/parameters.html">
-    <link rel="prev" href="../runbooks/TopoLVMVolumeGroupNearFull.html">
+    <title>Upgrade from v1 to v2 :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/topolvm/how-tos/upgrade-v1-to-v2.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -110,8 +109,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -728,271 +727,66 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">TopoLVM</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="upgrade-v1-to-v2.html">Upgrade from v1 to v2</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-topolvm/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-topolvm/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v1-to-v2.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Upgrade from v1 to v2</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>topolvm</code>.</p>
+<p>With the recent update of Kapitan, Helm 3 charts can be used. Therefor the need for the custom lvmd daemonset is gone.
+Therefor a minor change in the <code>deviceclasses</code> parameter is necessary.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_update_component_parameters"><a class="anchor" href="#_update_component_parameters"></a>Update component parameters</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-topolvm</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>Change <code>deviceclasses</code> from <code>dictionary</code> to <code>array</code>:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deviceclasses"><a class="anchor" href="#_deviceclasses"></a><code>deviceclasses</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[]</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See <a href="https://github.com/topolvm/topolvm/blob/main/docs/lvmd.md">LVMD Documentation</a>.</p>
-</div>
-<div class="sect2">
-<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parameters:
+  topolvm:
+    deviceclasses:
+      ssd: <i class="conum" data-value="1"></i><b>(1)</b>
+        volume-group: vgssd
+        default: true
+        spare-gb: 10</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Change this line to <code>- name: ssd</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example for v2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parameters:
   topolvm:
     deviceclasses:
       - name: ssd
         volume-group: vgssd
-        spare-gb: 1
         default: true
-      - name: hdd
-        volume-group: vghdd
-        spare-gb: 5
-        default: false</code></pre>
+        spare-gb: 10</code></pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_storageclasses"><a class="anchor" href="#_storageclasses"></a><code>storageclasses</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Each key represents a different storage class.</p>
-</div>
-<div class="sect2">
-<h3 id="_class"><a class="anchor" href="#_class"></a><code>class</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Key of the device class used by this storage class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_fstype"><a class="anchor" href="#_fstype"></a><code>fstype</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The filesystem that&#8217;s used with this storage class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_volumeexpansion"><a class="anchor" href="#_volumeexpansion"></a><code>volumeexpansion</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Should volume expansion be allowed with this storage class.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_retainpolicy"><a class="anchor" href="#_retainpolicy"></a><code>retainpolicy</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Optional, can be used to overwrite the default retain policy.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  topolvm:
-    storageclasses:
-      ssd-local:
-        class: ssd
-        fstype: ext4
-        volumeexpansion: true
-        retainpolicy: Retain
-      hdd-local:
-        class: hdd
-        fstype: ext4
-        volumeexpansion: true</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <code>class/defaults.yaml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Values passed to Helm. See <a href="https://github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml" class="bare">github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  topolvm:
-    deviceclasses:
-      - name: ssd
-        volume-group: vgssd
-        spare-gb: 10
-        default: true
-
-    storageclasses:
-      ssd-local:
-        class: ssd
-        fstype: ext4
-        volumeexpansion: true</code></pre>
-</div>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../runbooks/TopoLVMVolumeGroupNearFull.html">TopoLVMVolumeGroupNearFull</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1002,7 +796,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/topolvm/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/topolvm/how-tos/upgrade-v1-to-v2.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
