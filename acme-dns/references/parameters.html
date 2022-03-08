@@ -791,6 +791,50 @@ The component requires that each instance is configured with a separate namespac
 </div>
 </div>
 <div class="sect1">
+<h2 id="_namespacelabels"><a class="anchor" href="#_namespacelabels"></a><code>namespaceLabels</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional labels to add to the namespace.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component doesn&#8217;t validate the elements of this object.
+Users must ensure that all entries in the object are valid Kubernetes label key-value pairs.
+Kubernetes only supports labels where both the key and value are strings.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
