@@ -916,13 +916,38 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code><a href="https://helm.isovalent.com" class="bare">helm.isovalent.com</a></code></p>
+<p><code>&lt;CILIUM-ENTERPRISE-CHART-REPO-URL&gt;</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The Helm repository from which to download the <code>cilium-enterprise</code> Helm chart.</p>
+<p>The chart repository URL of the <code>cilium-enterprise</code> Helm chart.
+Users must provide the chart repository URL themselves in their Project Syn global or tenant configuration.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The component default is an invalid string (<code>&lt;CILIUM-ENTERPRISE-CHART-REPO-URL&gt;</code>) instead of <code>~</code> to make the Kapitan error message somewhat useful when the user hasn&#8217;t reconfigured the chart repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  cilium:
+    charts:
+      cilium-enterprise:
+        source: https://cilium-ee-charts.example.org</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1019,13 +1044,17 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>Allows setting additional values for the Cilium enterprise Helm chart.
-Cilium configuration is under the key <code>cilium</code>.</p>
+<p>The final merged Helm values provided to Helm when rendering the chart.
+This parameter is configured dynamically to match the expected structure for Helm chart parameters for the opensource and enterprise charts.</p>
+</div>
+<div class="paragraph">
+<p>When the enterprise chart is used, the actual Cilium configuration is nested under key <code>cilium</code> in the Helm values and additional top-level keys exist to configure the Cilium Enterprise components.
+Users should prefer to configure Cilium itself through parameter <code>cilium_helm_values</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
