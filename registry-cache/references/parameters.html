@@ -887,6 +887,49 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_registry_pullsecretname"><a class="anchor" href="#_registry_pullsecretname"></a><code>registry.pullSecretName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>~</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of an image pull secret to use, if not null.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We currently don&#8217;t support generating an image pull secret from the component, as we don&#8217;t have a way to generate the required contents from Vault secrets.
+Instead, we provide this parameter so that users can tell the component to configure the deployment with an externally-managed image pull secret.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_registry_config_storage_s3_bucket_registry_config_storage_s3_regionendpoint"><a class="anchor" href="#_registry_config_storage_s3_bucket_registry_config_storage_s3_regionendpoint"></a><code>registry.config.storage.s3.bucket</code>, <code>registry.config.storage.s3.regionendpoint</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
