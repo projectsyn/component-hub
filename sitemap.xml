@@ -4,13 +4,7 @@
 <loc>https://hub.syn.tools/sitemap-acme-dns.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-adhoc-configurations.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
@@ -32,9 +26,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cloud-portal.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-cluster-autoscaler.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
@@ -176,9 +167,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-registry-cache.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-resource-locker.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
