@@ -1302,6 +1302,63 @@ See the <a href="../how-tos/setup-githost.html" class="page">setup githost</a> h
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_auth_delegation"><a class="anchor" href="#_auth_delegation"></a><code>auth_delegation</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of subjects that will be allowed to review cluster tokens.
+The component will create a ClusterRoleBinding that assigns the <code>system:auth-delegator</code> ClusterRole to the given subjects.</p>
+</div>
+<div class="paragraph">
+<p>This can be used to enable one or more subjects to authenticate to an externally running vault instance.
+The example below will allow any service account in the <code>lieutenant</code> namespace to authenticate to vault.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth_delegation:
+  lieutenant-sa:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:serviceaccounts
+    namespace: lieutenant</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Any listed subject will be able to create <code>SubjectAccessReviews</code>, which means they will be able to deduce all RBAC rules on the cluster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
   <span class="next"><a href="../how-tos/setup-githost.html">GitLab Setup</a></span>

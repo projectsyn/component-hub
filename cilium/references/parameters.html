@@ -798,7 +798,7 @@ The Cilium OLM is a thin wrapper around Helm, because of this the Helm values ar
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">⛔️</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
 </tr>
 </tbody>
 </table>
@@ -837,8 +837,7 @@ possible values
 </div>
 <div class="paragraph">
 <p>Two version of Cilium exist.
-The open-source version and the enterprise version.
-Currently there exists no enterprise version of the OLM installation.</p>
+The open-source version and the enterprise version.</p>
 </div>
 </div>
 </div>
@@ -980,6 +979,75 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_olm_source"><a class="anchor" href="#_olm_source"></a><code>olm.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">opensource: https://github.com/cilium/cilium-olm/archive/master.tar.gz
+enterprise: &lt;CILIUM-ENTERPRISE-OLM-MANIFESTS-TARGZ-URL&gt;</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The source for the OLM manifests.
+The component selects the <code>opensource</code> or <code>enterprise</code> field based on the value of component parameter <code>release</code>.
+The component doesn&#8217;t provide the URL of the Cilium Enterprise OLM manifests <code>.tar.gz</code> archive.
+Users must provide the URL themselves in their Project Syn configuration hierarchy.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The component default is an invalid string (<code>&lt;CILIUM-ENTERPRISE-OLM-MANIFESTS-TARGZ-URL&gt;</code>) instead of <code>~</code> to make the Kapitan error message somewhat useful when the user hasn&#8217;t reconfigured the chart repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  cilium:
+    olm:
+      source:
+        enterprise: https://cilium-ee.example.com/downloads/v${cilium:olm:version}/cilium-ee-${cilium:olm:full_version}.tar.gz <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The example configuration uses Reclass references to construct URL parts containing the desired version.
+The component explicitly provides separate parameters for the OLM minor version and patchlevel.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_olm_version"><a class="anchor" href="#_olm_version"></a><code>olm.version</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -997,13 +1065,86 @@ type
 example
 </td>
 <td class="hdlist2">
-<p><code>1.10.4</code></p>
+<p><code>1.10</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The version of the downloaded OLM release.</p>
+<p>The minor version of the OLM release to download.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_patchlevel"><a class="anchor" href="#_olm_patchlevel"></a><code>olm.patchlevel</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>4</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The patch level of the OLM release to download.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_full_version"><a class="anchor" href="#_olm_full_version"></a><code>olm.full_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${cilium:olm:version}.${cilium:olm:patchlevel}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The complete version of the OLM release to download.
+By default, the component constructs the value for this parameter from parameters <code>version</code> and <code>patchlevel</code>.</p>
 </div>
 </div>
 </div>
@@ -1054,7 +1195,7 @@ Users should prefer to configure Cilium itself through parameter <code>cilium_he
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
+<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
