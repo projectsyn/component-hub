@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/references/parameters.html">
-    <link rel="prev" href="../how-tos/logformat.html">
+    <title>Untitled :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/cluster-default-ingress-class.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,16 +98,16 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+    <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/aws.html">AWS - Amazon Web Services Load Balancers</a>
+    <a class="nav-link" href="aws.html">AWS - Amazon Web Services Load Balancers</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/logformat.html">NGINX upstream log format as JSON</a>
+    <a class="nav-link" href="logformat.html">NGINX upstream log format as JSON</a>
   </li>
 </ul>
   </li>
@@ -116,8 +115,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -732,127 +731,38 @@
 <button class="nav-toggle"></button>
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="../index.html">ingress-nginx</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
-  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/cluster-default-ingress-class.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
+<div class="sect1">
+<h2 id="_cluster_default_ingressclass"><a class="anchor" href="#_cluster_default_ingressclass"></a>Cluster Default IngressClass</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>ingress_nginx</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-ingress-nginx</code></p>
-</td>
-</tr>
-</table>
+<p>The Ingress NGINX Controller v1.x requires the use of an <code>IngressClass</code>.</p>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>With the upgrade the component is automatically deploying an <code>IngressClass</code> called <code>nginx</code> for the controller:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+  name: nginx
+spec:
+  controller: k8s.io/ingress-nginx</code></pre>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>ingress-nginx</code></p>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>The name ingress-nginx is deployed.
-Usually there is just one deployment and therefore no change is required.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_ingress_nginx"><a class="anchor" href="#_charts_ingress_nginx"></a><code>charts.ingress-nginx</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>4.0.17</code></p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>All helm_values are passed to the helm chart.
-This allows to configure all <a href="https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml">ingress-nginx helm chart values</a>.</p>
+<p>To set this <code>IngressClass</code> as cluster default <code>IngressClass</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -860,15 +770,12 @@ This allows to configure all <a href="https://github.com/kubernetes/ingress-ngin
   ingress_nginx:
     helm_values:
       controller:
-        config:
-          hsts: 'false'</code></pre>
+        ingressClassResource:
+          default: true</code></pre>
 </div>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="../how-tos/logformat.html">NGINX upstream log format as JSON</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -878,7 +785,7 @@ This allows to configure all <a href="https://github.com/kubernetes/ingress-ngin
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/cluster-default-ingress-class.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

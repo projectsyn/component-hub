@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/references/parameters.html">
-    <link rel="prev" href="../how-tos/logformat.html">
+    <title>Upgrade from 1.x to 2.x :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-1.x-to-2.x.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="#cluster-default-ingress-class.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,17 +99,17 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/aws.html">AWS - Amazon Web Services Load Balancers</a>
+    <a class="nav-link" href="aws.html">AWS - Amazon Web Services Load Balancers</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/logformat.html">NGINX upstream log format as JSON</a>
+    <a class="nav-link" href="logformat.html">NGINX upstream log format as JSON</a>
   </li>
 </ul>
   </li>
@@ -116,8 +117,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -734,140 +735,213 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">ingress-nginx</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-to guides</li>
+    <li><a href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-1.x-to-2.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Upgrade from 1.x to 2.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>ingress_nginx</code>.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version 1.x to 2.x.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock warning">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
 </td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-ingress-nginx</code></p>
-</td>
-</tr>
-</table>
+<td class="content">
+<div class="paragraph">
+<p>Version 2.x does use Ingress NGINX Controller &gt;1.0.</p>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>Before upgrading to version 2.x, please ensure that your Kubernetes cluster is running the version <a href="https://github.com/kubernetes/ingress-nginx#support-versions-table">1.19 or later</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Requirements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>commodore</code></p>
+</li>
+<li>
+<p><code>kubectl</code></p>
+</li>
+<li>
+<p><code>shell</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>ingress-nginx</code></p>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The component version 1.x did use Ingress NGINX Controller v0.x and component version 2.x is now using Ingress NGINX Controller v1.x.</p>
 </div>
 <div class="paragraph">
-<p>The name ingress-nginx is deployed.
-Usually there is just one deployment and therefore no change is required.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_ingress_nginx"><a class="anchor" href="#_charts_ingress_nginx"></a><code>charts.ingress-nginx</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>4.0.17</code></p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
+<p>The Ingress NGINX Controller v1.x now requires the use of an <code>IngressClass</code>.</p>
 </div>
 <div class="paragraph">
-<p>All helm_values are passed to the helm chart.
-This allows to configure all <a href="https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml">ingress-nginx helm chart values</a>.</p>
+<p>With the upgrade the component is automatically deploying an <code>IngressClass</code> called <code>nginx</code> for the controller:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+  name: nginx
+spec:
+  controller: k8s.io/ingress-nginx</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the Ingress NGINX Controller should be the default IngressController, please add this to the configuration:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   ingress_nginx:
     helm_values:
       controller:
-        config:
-          hsts: 'false'</code></pre>
+        ingressClassResource:
+          default: true</code></pre>
 </div>
+</div>
+</li>
+<li>
+<p>If not all Ingress resources have a <code>.spec.ingressClassName</code> configured, you must set <code>watchIngressWithoutClass: true</code> to still watch for such objects:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  ingress_nginx:
+    helm_values:
+      controller:
+        watchIngressWithoutClass: true</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_post_upgrade"><a class="anchor" href="#_post_upgrade"></a>Post upgrade</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since NGINX Controller v1.0 the <code>.spec.ingressClassName</code> field should be set in the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource">Ingress resource</a>.
+If the <code>.spec.ingressClassName</code> is omitted, a default Ingress class should be defined.
+If no customisation is done, the <code>IngressClass</code> is named <code>nginx</code>.</p>
+</div>
+<div class="paragraph">
+<p>ArgoCD does ignore <code>.spec.ingressClassName</code> if not set in the original manifest.</p>
+</div>
+<div class="paragraph">
+<p>For more information read the NGINX Ingress Controller documentation on the topic <a href="https://kubernetes.github.io/ingress-nginx/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do">I have only one ingress controller in my cluster. What should I do?</a>.</p>
+</div>
+<div class="paragraph">
+<p>Existing Ingress objects don&#8217;t get the default IngressClass.
+They need to be recreated or patched.</p>
+</div>
+<div class="paragraph">
+<p>Patch one Ingress resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl patch ingress &lt;ingressname&gt; --patch '{"spec": {"ingressClassName": "nginx"}}' --namespace &lt;namespace&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Patch all Ingress resources on a cluster (BE CAREFUL WITH IT, IF YOU HAVE MULTIPLE INGRESS CONTROLLERS!):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Show all Ingress resources that will be patched:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for ns in $(kubectl get ns -o jsonpath={.items[*].metadata.name}); do \
+  for ing in $(kubectl get ingress -n $ns -o jsonpath={.items[*].metadata.name}); do \
+    echo $ns/$ing; \
+  done; \
+done</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Patch all Ingress resouces on a cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for ns in $(kubectl get ns -o jsonpath={.items[*].metadata.name}); do \
+  for ing in $(kubectl get ingress -n $ns -o jsonpath={.items[*].metadata.name}); do \
+    echo Patching ingress $ns/$ing; \
+    kubectl patch ingress $ing -n $ns --patch '{"spec": {"ingressClassName": "nginx"}}'; \
+  done; \
+done</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Any <code>kubernetes.io/ingress.class</code> annotation on Ingress resources can be removed. See the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation">Kubernetes documentation</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Check which Ingress resources do have a defined IngressClass:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl get ing -A
+NAMESPACE               NAME                        CLASS   HOSTS
+ingress1                ingress1                    nginx   host.example.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once all Ingress resouces have been patched for <code>ingressClassName</code> the parameter <code>.controller.watchIngressWithoutClass: true</code> will no longer be required and can be removed from the configuration.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/logformat.html">NGINX upstream log format as JSON</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a></span>
 </nav>
 </article>
   </div>
@@ -878,7 +952,7 @@ This allows to configure all <a href="https://github.com/kubernetes/ingress-ngin
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-1.x-to-2.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
