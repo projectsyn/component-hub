@@ -751,6 +751,34 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-control-api/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the container images used by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_apiserver_apiservice"><a class="anchor" href="#_apiserver_apiservice"></a><code>apiserver.apiservice</code></h2>
 <div class="sectionbody">
 <div class="dlist">
@@ -911,6 +939,182 @@ default
 </div>
 <div class="paragraph">
 <p>The name of the OpenID Connect role to allow administrator impersonation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_idp_adapter_enabled"><a class="anchor" href="#_idp_adapter_enabled"></a><code>idp_adapter.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if the IDP Adapter should be deployed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_idp_adapter_args"><a class="anchor" href="#_idp_adapter_args"></a><code>idp_adapter.args</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Arguments that should be passed to the IDP Adapter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_idp_adapter_env"><a class="anchor" href="#_idp_adapter_env"></a><code>idp_adapter.env</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">idp_adapter:
+  env:
+    KEYCLOAK_PASSWORD:
+      secretKeyRef:
+        name: keycloak-user
+        key: password
+    DEBUG: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment that should be passed to the IDP Adapter.
+If a dict is given <code>valueFrom:</code> is assumed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_idp_adapter_resources"><a class="anchor" href="#_idp_adapter_resources"></a><code>idp_adapter.resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-control-api/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Resource requests and limits to apply to the IDP Adapter container.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
+  keycloak-user:
+    stringData:
+      username: keycloak-user
+      password: keycloak-password</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A key-value map defining multiple <code>Secret</code> for referencing in <code>secrets</code>.
+Each entry will generate a <code>Secret</code> with the key as its name.</p>
 </div>
 </div>
 </div>
