@@ -169,6 +169,9 @@
 <loc>https://hub.syn.tools/sitemap-prom-label-proxy.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
 </sitemap>
 <sitemap>
@@ -203,6 +206,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-vault.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
