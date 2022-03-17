@@ -64,6 +64,9 @@
 <loc>https://hub.syn.tools/sitemap-external-dns.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-fluentbit.xml</loc>
 </sitemap>
 <sitemap>
