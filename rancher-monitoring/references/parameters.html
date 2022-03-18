@@ -1165,7 +1165,8 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">interval: 10s
-scrape_timeout: 10s</code></pre>
+scrape_timeout: 10s
+extra_metric_relabel_configs: []</code></pre>
 </div>
 </div>
 </td>
@@ -1177,6 +1178,9 @@ scrape_timeout: 10s</code></pre>
 </div>
 <div class="paragraph">
 <p>Users should ensure that the <code>scrape_timeout</code> is lower than the <code>interval</code>, as there&#8217;s no validation logic in the component.</p>
+</div>
+<div class="paragraph">
+<p><code>extra_metric_relabel_configs</code> allwos appending additional relabel configs to the federation job.</p>
 </div>
 </div>
 </div>
