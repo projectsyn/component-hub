@@ -856,6 +856,23 @@ default
 <p>Annotations to add to the Floodgate ingress object.
 Individual annotations can be removed by setting their value to <code>null</code>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Removing the <code>cert-manager.io/cluster-issuer</code> annotation may break the Ingress unless a TLS certificate is provided through other means.</p>
+</div>
+<div class="paragraph">
+<p>The component currently expects that the TLS key and certificate for the Ingress are available in secret <code>&lt;hostname&gt;-tls</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_hostname"><a class="anchor" href="#_hostname"></a><code>hostname</code></h3>
