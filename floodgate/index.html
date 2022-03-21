@@ -714,7 +714,20 @@
 <article class="doc">
 <h1 class="page">floodgate</h1>
 <div class="paragraph">
-<p>floodgate is a Commodore component to manage floodgate.</p>
+<p><code>floodgate</code> is a Commodore component to manage <a href="https://github.com/projectsyn/floodgate">Floodgate</a>.</p>
+</div>
+<div class="paragraph">
+<p>Floodgate provides URLs suitable to use as <a href="https://github.com/rancher/system-upgrade-controller">System Upgrade Controller</a> channels for upgrade plans which use a container image which is tagged with its build date.</p>
+</div>
+<div class="paragraph">
+<p>Floodgate was originally implemented to allow configuring channels with predefined maintenance windows for plans which use the Project Syn <a href="https://github.com/projectsyn/system-upgrade-controller-package-upgrade">System Upgrade Controller package upgrade</a> container image.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/projectsyn/floodgate/blob/master/docs/modules/ROOT/pages/index.adoc">Floodgate documentation</a> for more details on Floodgate.</p>
+</div>
+<div class="paragraph">
+<p>The Project Syn component <a href="https://github.com/projectsyn/component-system-upgrade-controller">system-upgrade-controller</a> has support for configuring upgrade plans which use a Floodgate instance.
+See the component&#8217;s reference docs for details on <a href="#system-upgrade-controller:references/parameters.adoc#_plans_p_floodgate" class="page unresolved">how to configure plans which use Floodgate</a>.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>

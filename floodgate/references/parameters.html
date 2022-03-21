@@ -749,11 +749,212 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_namespacelabels"><a class="anchor" href="#_namespacelabels"></a><code>namespaceLabels</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional labels to add to the namespace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_imagebuildday"><a class="anchor" href="#_imagebuildday"></a><code>imageBuildDay</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>Monday</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+allowed values
+</td>
+<td class="hdlist2">
+<p><code>Monday</code>, <code>Tuesday</code>, <code>Wednesday</code>, <code>Thursday</code>, <code>Friday</code> <code>Saturday</code>, <code>Sunday</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure Floodgate to specify on which day of the week the upgrade plan container image is built.</p>
+</div>
+<div class="paragraph">
+<p>The component expects the parameter to be a day of the week, with capitalized first letter, see the list provided in "allowed values" above.
+Since Floodgate itself expects the day of the week as a number, the component translates the provided image build day to <code>"0"</code> - <code>"6"</code>, where <code>"0"</code> is Sunday.
+The component uses the final value as value for environment variable <code>FG_IMAGE_DAY</code> for the Floodgate container.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/projectsyn/floodgate/blob/master/docs/modules/ROOT/pages/index.adoc">Floodgate documentation</a> for details on how Floodgate works.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ingress"><a class="anchor" href="#_ingress"></a><code>ingress</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration for the Floodgate Ingress object.</p>
+</div>
+<div class="sect2">
+<h3 id="_annotations"><a class="anchor" href="#_annotations"></a><code>annotations</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cert-manager.io/cluster-issuer: letsencrypt-production</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Annotations to add to the Floodgate ingress object.
+Individual annotations can be removed by setting their value to <code>null</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hostname"><a class="anchor" href="#_hostname"></a><code>hostname</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>floodgate.example.com</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The hostname to configure on the Ingress object.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-floodgate/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resource requests and limits for the Floodgate container.
+Individual requests or limits can be removed by setting the fields to <code>null</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images_floodgate"><a class="anchor" href="#_images_floodgate"></a><code>images.floodgate</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-floodgate/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The container image to use for Floodgate.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  floodgate:
+    namespace: acmecorp-floodgate-prod
+    namespaceLabels:
+      organization: acmecorp
+    ingress:
+      hostname: floodgate.acmecorp.example.com
+    imageBuildDay: Tuesday</code></pre>
 </div>
 </div>
 </div>
