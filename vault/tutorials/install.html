@@ -969,6 +969,124 @@ This means in practice you will want to put the production vault in a separate n
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_oidc_integration"><a class="anchor" href="#_oidc_integration"></a>OIDC Integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vault has the option to authenticate users through OIDC.
+This guide describes the manual setup of the Vault OIDC integration for a Vault instance which is associated with a Lieutenant instance.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It should also be possible to configure OIDC integration through the component.
+However, this requires a client secret which should be stored in Vault.
+We don&#8217;t recommend configuring OIDC through the component when integrating Vault with Lieutenant as this will introduce a dependency for Vault on itself making setup and disaster recovery more difficult.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_configure_oidc_provider"><a class="anchor" href="#_configure_oidc_provider"></a>Configure OIDC Provider</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This guide assumes that the OIDC provider is a Keycloak instance, but other OIDC providers should also work.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We first need to create an OIDC client for Vault.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the appropriate realm, create a OIDC client with:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Access Type: Confidential
+Redirect URLs:
+  - https://${VAULT_URL}/ui/vault/auth/oidc/oidc/callback"
+  - https://${VAULT_URL}/oidc/callback"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a role <code>syn-root</code> under the <code>Roles</code> tab in the OIDC client</p>
+</li>
+<li>
+<p>Under the <code>Mappers</code> tab add a <code>User Client Role</code> mapper.
+Choose the created OIDC client as the <code>Client ID</code> and set the <code>Token Claim Name</code> to <code>groups</code>.</p>
+</li>
+<li>
+<p>Open the Keycloak group or user that should get access to Vault and add them to the <code>syn-root</code> role of the created OIDC client.</p>
+</li>
+<li>
+<p>Copy client secret of the created OIDC client located in the <code>Credentials</code> tab of the client.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_vault"><a class="anchor" href="#_configure_vault"></a>Configure Vault</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a new OIDC Authenication Method in the Vault UI under the Access tab with the following configuration</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>List method when unauthenticated: true
+OIDC discovery URI: https://${KEYCLOAK_URL}/auth/realms/${REALM}
+Default role: default
+OIDC client ID: ${CLIENT_ID}
+OIDC client Secret: ${CLIENT_SECRET}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point you should be able to login to Vault using OIDC, but after the login you shouldn&#8217;t be able to access anything but the <code>cubbyhole</code>.</p>
+</div>
+</li>
+<li>
+<p>Open a CLI connection to Vault, you can do this by clicking on the CLI icon in the UI, and enter</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>vault write auth/oidc/role/default \
+      allowed_redirect_uris="https://${VAULT_URL}/ui/vault/auth/oidc/oidc/callback" \
+      allowed_redirect_uris="https://${VAULT_URL}/oidc/callback" \
+      user_claim="sub" \
+      policies="default" \
+      groups_claim="groups"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Under the Access tab in the Vault UI create a new group called <code>syn-root</code>.
+The group should be of <code>Type: external</code> and add the <code>syn-root</code> policy to it (or any other policy you would like the OIDC users to have).</p>
+</li>
+<li>
+<p>Open the newly created group and add an alias with name <code>syn-root</code> and OIDC as the <code>Auth Backend</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When logging in with an OIDC user you should now be able to see the <code>cluster/kv</code> secret engine.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
   <span class="next"><a href="../references/parameters.html">Parameters</a></span>
