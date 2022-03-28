@@ -767,7 +767,7 @@ This ensures encrypted and trusted communication between the Kubernetes API serv
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Adjust the lifetime as necessary
 lifetime=3650
 # Adjust servicename if the namespace differs
-servicename=apiserver.appuio-control-api.svc
+servicename=control-api-apiserver.appuio-control-api.svc
 openssl req -x509 -newkey rsa:4096 -nodes -keyout apiserver.key -out apiserver.crt -days ${lifetime} -subj "/CN=$servicename" -addext "subjectAltName = DNS:$servicename"</code></pre>
 </div>
 </div>
