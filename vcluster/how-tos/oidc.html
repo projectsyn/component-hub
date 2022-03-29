@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Install vcluster on OpenShift :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/vcluster/tutorials/installation-openshift.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../how-tos/oidc.html">
+    <title>Configure OIDC :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/vcluster/how-tos/oidc.html">
+    <link rel="prev" href="../tutorials/installation-openshift.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,11 +99,11 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="installation-openshift.html">Installation On OpenShift</a>
-  </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/oidc.html">Setup OIDC Integration</a>
+    <a class="nav-link" href="../tutorials/installation-openshift.html">Installation On OpenShift</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="oidc.html">Setup OIDC Integration</a>
   </li>
 </ul>
   </li>
@@ -722,94 +722,210 @@
   <ul>
     <li><a href="../index.html">vcluster</a></li>
     <li>How-to guides</li>
-    <li><a href="installation-openshift.html">Installation On OpenShift</a></li>
+    <li><a href="oidc.html">Setup OIDC Integration</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vcluster/edit/master/docs/modules/ROOT/pages/tutorials/installation-openshift.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vcluster/edit/master/docs/modules/ROOT/pages/how-tos/oidc.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Install vcluster on OpenShift</h1>
+<h1 class="page">Configure OIDC</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page guides through the installation process of vcluster on OpenShift and sets up authentication with OIDC using Keycloak.</p>
+<p>There is the option to authenticate to vcluster using OpenID Connect.
+This guide assumes that you have setup a vcluster using this component and you have access to an OIDC provider.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_idp"><a class="anchor" href="#_configure_idp"></a>Configure IDP</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This how-to explains how to configure Keycloak, but other OIDC providers should work similarly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open Keycloak and create an OIDC client as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Client ID: YOUR_CLIENT_ID
+Redirect URIs:
+  http://localhost:8000
+  http://localhost:18000
+Access Type: public</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add Role to client</p>
+<div class="paragraph">
+<p>In the client settings, select the "Roles" tab.
+Click "Add Role" button and enter the role name "admin" with a description and hit save.</p>
 </div>
 <div class="paragraph">
-<p>At the end of this tutorial we will have:</p>
+<p>You should assign this role to every user that needs admin access to the vcluster.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>a vcluster instance running on OpenShift</p>
 </li>
 <li>
-<p>vcluster&#8217;s Kubernetes API exposed with an Ingress</p>
-</li>
-<li>
-<p>Let&#8217;s Encrypt certificates provisioned by <code>cert-manager</code></p>
-</li>
-<li>
-<p>OIDC authentication</p>
-</li>
-</ul>
+<p>Configure Mapper to include Roles in <code>groups</code> token</p>
+<div class="paragraph">
+<p>In the client settings, select the "Mappers" tab.
+Click "Create" button and configure the following settings before saving:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Name = groups
+Mapper Type = User Client Role
+Client ID = YOUR_CLIENT_ID
+Token Claim Name = "groups"
+Claim JSON Type = String</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Understanding how to configure and compile cluster catalogs</p>
 </li>
-<li>
-<p>Admin access to existing Keycloak instances</p>
-</li>
-<li>
-<p><code>kubectl</code></p>
-</li>
-<li>
-<p><code>base64</code></p>
-</li>
-<li>
-<p><code>jq</code></p>
-</li>
-</ul>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploy_vcluster_and_ingress"><a class="anchor" href="#_deploy_vcluster_and_ingress"></a>Deploy vcluster and Ingress</h2>
+<h2 id="_configure_vcluster"><a class="anchor" href="#_configure_vcluster"></a>Configure vcluster</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Configure catalog</p>
+<p>Add OIDC config to catalog</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   vcluster:
-    host_service_cidr: 172.30.0.0/16 <i class="conum" data-value="1"></i><b>(1)</b>
     k3s:
       additional_args:
-        - --kube-apiserver-arg=oidc-issuer-url=https://keycloak.example.com/auth/realms/realm <i class="conum" data-value="2"></i><b>(2)</b>
-        - --kube-apiserver-arg=oidc-client-id=client-id <i class="conum" data-value="3"></i><b>(3)</b>
+        - --kube-apiserver-arg=oidc-issuer-url=https://keycloak.example.com/auth/realms/realm <i class="conum" data-value="1"></i><b>(1)</b>
+        - --kube-apiserver-arg=oidc-client-id=$YOUR_CLIENT_ID <i class="conum" data-value="2"></i><b>(2)</b>
         - --kube-apiserver-arg=oidc-username-claim=preferred_username
         - --kube-apiserver-arg=oidc-groups-claim=groups
-    ingress:
-      host: vcluster.example.com</code></pre>
+    additional_manifests: <i class="conum" data-value="3"></i><b>(3)</b>
+      cluster-admin:
+        kind: ClusterRoleBinding
+        apiVersion: rbac.authorization.k8s.io/v1
+        metadata:
+          name: oidc-cluster-admin
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: cluster-admin
+        subjects:
+          - kind: Group
+            name: admin</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The host service CIDR (see <a href="../references/parameters.html#_host_service_cidr" class="page">host_service_cidr in parameters</a>)</td>
+<td>The Keycloak URL and realm</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The client ID in Keycloak</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Assign cluster-admin to the role created in the OIDC client</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optional_setup_kubelogin"><a class="anchor" href="#_optional_setup_kubelogin"></a>(Optional) Setup kubelogin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can now authenticate to the vcluster Kubernetes API by using <a href="https://github.com/int128/kubelogin">kubelogin</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install kubelogin</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Homebrew (macOS and Linux)
+brew install int128/kubelogin/kubelogin
+
+# Krew (macOS, Linux, Windows and ARM)
+kubectl krew install oidc-login <i class="conum" data-value="1"></i><b>(1)</b>
+
+# Chocolatey (Windows)
+choco install kubelogin</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Assumes that you have installed <a href="https://github.com/kubernetes-sigs/krew">krew</a></td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Add a kubeconfig</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+clusters:
+- cluster:
+    server: https://api.example.com/ <i class="conum" data-value="1"></i><b>(1)</b>
+  name: vcluster
+contexts:
+- context:
+    cluster: vcluster
+    namespace: default
+    user: oidc-user
+  name: Default
+current-context: Default
+kind: Config
+preferences: {}
+users:
+- name: oidc-user
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - oidc-login
+      - get-token
+      - --oidc-issuer-url=https://keycloak.example.com/auth/realms/realm <i class="conum" data-value="2"></i><b>(2)</b>
+      - --oidc-client-id=$YOUR_CLIENT_ID <i class="conum" data-value="3"></i><b>(3)</b>
+      - --oidc-extra-scope=email offline_access profile openid
+      command: kubectl
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ingress of the vcluster</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -823,89 +939,14 @@
 </div>
 </li>
 <li>
-<p>Compile and push cluster catalog</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This will create 2 OpenShift Route objects; one for the Ingress and one for the Let&#8217;s Encrypt HTTP01 verification.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Create DNS record for custom Ingress host and point to the cluster&#8217;s Router.</p>
-</li>
-<li>
-<p>Wait until Let&#8217;s Encrypt has provisioned a valid certificate and only 1 Route exists for the same Ingress.</p>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can inspect the certificate provisioning with <code>kubecl get certificate,order</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Get CA certificate from Secret.</p>
+<p>Make sure you can access the vcluster</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INSTANCE_NAME=vcluster <i class="conum" data-value="1"></i><b>(1)</b>
-NS=syn-${INSTANCE_NAME} <i class="conum" data-value="2"></i><b>(2)</b>
-CA_CERT=$(kubectl -n ${NS} get secret vc-${INSTANCE_NAME}-kubeconfig -o jsonpath='{.data.certificate-authority}' | base64 --decode)</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">KUBECOFIG=&lt;your-new-kubeconfig&gt; kubectl get ns</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The instance name</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The target namespace in which vcluster is being installed</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Patch generated Route.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>This step is necessary so that the OpenShift Router trusts the generated CA certificate of the vcluster.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">route_name=$(kubectl -n ${NS} get route -o json | jq -r '.items[].metadata | select(.ownerReferences != null) | select(.ownerReferences[].name=="'${INSTANCE_NAME}'") | .name')
-patch_cert="$(echo ${CA_CERT} | sed 's/$/\\n/' | tr -d '\n')"
-patch_file=$(mktemp)
-echo -E '{"spec":{"tls":{"destinationCACertificate":"'$(echo -E ${patch_cert})'"}}}' &gt; ${patch_file}
-kubectl -n ${NS} patch route ${route_name} --patch-file ${patch_file}
-rm ${patch_file}</code></pre>
-</div>
+<p>A browser window should open where you can authenticate yourself</p>
 </div>
 </li>
 </ol>
@@ -913,40 +954,20 @@ rm ${patch_file}</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configure_keycloak"><a class="anchor" href="#_configure_keycloak"></a>Configure Keycloak</h2>
+<h2 id="_links"><a class="anchor" href="#_links"></a>Links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add Role to client</p>
-<div class="paragraph">
-<p>In the client settings, select the "Roles" tab.
-Click "Add Role" button and enter the role name "Admin" with a description and hit save.</p>
-</div>
-</li>
-<li>
-<p>Configure Mapper to include Roles in <code>groups</code> token</p>
-<div class="paragraph">
-<p>In the client settings, select the "Mappers" tab.
-Click "Create" button and configure the following settings before saving:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Name = groups
-Mapper Type = User Client Role
-Client ID = &lt;the-client-id&gt;
-Token Claim Name = "groups"
-Claim JSON Type = String</code></pre>
-</div>
-</div>
+<p><a href="https://github.com/int128/kubelogin/blob/master/docs/setup.md">Kubelogin setup guide</a></p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../how-tos/oidc.html">Setup OIDC Integration</a></span>
+  <span class="prev"><a href="../tutorials/installation-openshift.html">Installation On OpenShift</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -957,7 +978,7 @@ Claim JSON Type = String</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vcluster/tutorials/installation-openshift.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vcluster/how-tos/oidc.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
