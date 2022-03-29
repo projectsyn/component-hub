@@ -787,6 +787,34 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_apiserver_extraargs"><a class="anchor" href="#_apiserver_extraargs"></a><code>apiserver.extraArgs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of extra command line arguments for the control-api API server deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_apiserver_apiservice"><a class="anchor" href="#_apiserver_apiservice"></a><code>apiserver.apiservice</code></h2>
 <div class="sectionbody">
 <div class="dlist">
@@ -947,6 +975,62 @@ default
 </div>
 <div class="paragraph">
 <p>The name of the OpenID Connect role to allow administrator impersonation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_username_prefix"><a class="anchor" href="#_username_prefix"></a><code>username_prefix</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>appuio#</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The prefix used for OIDC users in the Kubernetes API server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controller_extraargs"><a class="anchor" href="#_controller_extraargs"></a><code>controller.extraArgs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of extra command line arguments for the control-api controller deployment.</p>
 </div>
 </div>
 </div>
