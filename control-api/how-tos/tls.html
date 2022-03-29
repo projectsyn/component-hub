@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Setup a TLS certificate for the Control-API :: Commodore Components Hub</title>
+    <title>Setup TLS certificates for the Control-API :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/control-api/how-tos/tls.html">
     <link rel="prev" href="../index.html">
     <link rel="next" href="../references/parameters.html">
@@ -94,7 +94,7 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="tls.html">Setup TLS Certificate</a>
+    <a class="nav-link" href="tls.html">Setup TLS Certificates</a>
   </li>
 </ul>
   </li>
@@ -712,7 +712,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">APPUiO Control API</a></li>
-    <li><a href="tls.html">Setup TLS Certificate</a></li>
+    <li><a href="tls.html">Setup TLS Certificates</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/appuio/component-control-api/edit/master/docs/modules/ROOT/pages/how-tos/tls.adoc">Edit this Page</a></div>
@@ -722,9 +722,9 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Setup a TLS certificate for the Control-API</h1>
+<h1 class="page">Setup TLS certificates for the Control-API</h1>
 <div class="paragraph">
-<p>This guide provides an example how to setup a TLS certificate for the Control-API.
+<p>This guide provides an example how to setup TLS certificates for the Control-API API server and admission webhook server.
 This ensures encrypted and trusted communication between the Kubernetes API server and the aggregate API server provided by the Control-API.</p>
 </div>
 <div class="exampleblock">
@@ -766,30 +766,40 @@ This ensures encrypted and trusted communication between the Kubernetes API serv
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Adjust the lifetime as necessary
 lifetime=3650
-# Adjust servicename if the namespace differs
+# Adjust API server servicename if the namespace differs
 servicename=control-api-apiserver.appuio-control-api.svc
-openssl req -x509 -newkey rsa:4096 -nodes -keyout apiserver.key -out apiserver.crt -days ${lifetime} -subj "/CN=$servicename" -addext "subjectAltName = DNS:$servicename"</code></pre>
+openssl req -x509 -newkey rsa:4096 -nodes -keyout apiserver.key -out apiserver.crt -days ${lifetime} -subj "/CN=$servicename" -addext "subjectAltName = DNS:$servicename"
+
+# Adjust admission webhook servicename if the namespace differs
+servicename=webhook-service.appuio-control-api.svc
+openssl req -x509 -newkey rsa:4096 -nodes -keyout webhook.key -out webhook.crt -days ${lifetime} -subj "/CN=$servicename" -addext "subjectAltName = DNS:$servicename"</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Store key in Vault</p>
+<p>Store keys in Vault</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">instance=control-api
 parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
 
 # Use the 'patch' subcommand to add to existing secret
-vault kv patch "${parent}/${instance}" apiserver-key=@apiserver.key</code></pre>
+vault kv patch "${parent}/${instance}" apiserver-key=@apiserver.key
+vault kv patch "${parent}/${instance}" webhook-key=@webhook.key</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add certificate to cluster config</p>
+<p>Add certificates to cluster config</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">apicert=$(cat apiserver.crt)
-yq eval -i ".parameter.control_api.apiserver.tls.serverCert = \"${apicert}\"" \
+yq eval -i ".parameters.control_api.apiserver.tls.serverCert = \"${apicert}\"" \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
+webhookcert=$(cat webhook.crt)
+yq eval -i ".parameters.control_api.controller.webhookTls.certificate = \"${webhookcert}\"" \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
+yq eval -i '.parameters.control_api.controller.webhookTls.caCertificate = "${control_api:controller:webhookTls:certificate}"' \
   inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml</code></pre>
 </div>
 </div>
@@ -800,7 +810,7 @@ yq eval -i ".parameter.control_api.apiserver.tls.serverCert = \"${apicert}\"" \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd inventory/classes/${TENANT_ID}
 git add ${CLUSTER_ID}.yml
-git commit -m "Configure Control API APIService certificate"
+git commit -m "Configure Control API APIService and admission webhook certificates"
 git push origin master
 popd</code></pre>
 </div>
@@ -810,7 +820,7 @@ popd</code></pre>
 <p>Remove temporary files</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm apiserver.{key,crt}</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm apiserver.{key,crt} webhook.{key,crt}</code></pre>
 </div>
 </div>
 </li>

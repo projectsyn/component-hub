@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/control-api/references/parameters.html">
-    <link rel="prev" href="../how-tos/tls.html">
+    <title>Lieutenant Integration :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/vault/how-tos/lieutenant.html">
+    <link rel="prev" href="../tutorials/install.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,12 +81,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="control-api" data-version="master">
+<div class="nav-container" data-component="vault" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">APPUiO Control API</a></h3>
+    <h3 class="title"><a href="../index.html">vault</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -93,16 +94,13 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/tls.html">Setup TLS Certificates</a>
+    <a class="nav-link" href="../tutorials/install.html">Installation</a>
   </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Technical Reference</span>
-<ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="lieutenant.html">Lieutenant Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -111,7 +109,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">APPUiO Control API</span>
+    <span class="title">vault</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -131,11 +129,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">APPUiO Control API</a>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -675,11 +673,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../vault/index.html">vault</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">vault</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../vault/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -710,627 +708,180 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">APPUiO Control API</a></li>
-    <li>Technical Reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">vault</a></li>
+    <li><a href="lieutenant.html">Lieutenant Integration</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-control-api/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vault/edit/master/docs/modules/ROOT/pages/how-tos/lieutenant.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Lieutenant Integration</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>control_api</code>.</p>
+<p>Vault can be used by Project Syn to store secrets for Syn-managed clusters.
+To do so, Lieutenant needs to be able to access Vault</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appuio-control-api</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/appuio/component-control-api/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_apiserver_extraargs"><a class="anchor" href="#_apiserver_extraargs"></a><code>apiserver.extraArgs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list(string)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A list of extra command line arguments for the control-api API server deployment.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_apiserver_apiservice"><a class="anchor" href="#_apiserver_apiservice"></a><code>apiserver.apiservice</code></h2>
-<div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>dict</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>This key is applied directly as an <code>APIService</code> object.
-The <code>APIService</code> object instructs the Kubernetes API server to delegate requests to the aggregate API server.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_apiserver_tls"><a class="anchor" href="#_apiserver_tls"></a><code>apiserver.tls</code></h2>
+<h2 id="_authenticate_lieutenant"><a class="anchor" href="#_authenticate_lieutenant"></a>Authenticate Lieutenant</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This key configures encryption of internal traffic from the Kubernetes API server to the aggregate API sever.</p>
+<p>Lieutenant needs to be able to authenticate itself to Vault.
+For that we add an authentication method for the Kubernetes cluster Lieutenant is running on.</p>
 </div>
 <div class="paragraph">
-<p>You have the option to provide a custom TLS key and certificate.</p>
+<p>We need to configure this authentication method slightly differently depending on whether Vault is running on the same Kubernetes cluster or not.</p>
 </div>
-<div class="sect2">
-<h3 id="_apiserver_tls_certsecretname"><a class="anchor" href="#_apiserver_tls_certsecretname"></a><code>apiserver.tls.certSecretName</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>control-api-tls</code></p>
-</dd>
-</dl>
-</div>
+<div class="sect3">
+<h4 id="_vault_on_the_same_kubernetes_cluster"><a class="anchor" href="#_vault_on_the_same_kubernetes_cluster"></a>Vault on the same Kubernetes cluster</h4>
 <div class="paragraph">
-<p>If this field is set to <code>null</code>, the aggregate API server will generate its own certificates.
-In that case the connection is still encrypted, but you need to disable TLS verification by setting <code>insecureSkipTLSVerify</code> to <code>true</code> in the APIService.</p>
+<p>If Vault runs on the same Kubernetes cluster as Lieutenant, the authentication method configuration is very simple.
+Simply add the following to your component configuration.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_apiserver_tls_servercert"><a class="anchor" href="#_apiserver_tls_servercert"></a><code>apiserver.tls.serverCert</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p>""</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_apiserver_tls_serverkey"><a class="anchor" href="#_apiserver_tls_serverkey"></a><code>apiserver.tls.serverKey</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p>"?{vaultkv:${customer:name}/${cluster:name}/${_instance}/apiserver-key}"</p>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_zones"><a class="anchor" href="#_zones"></a><code>zones</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This key deploys static APPUiO Zone definitions.
-Each subkey of <code>zones</code> results in the resource&#8217;s <code>metadata.name</code> and contains an object that&#8217;s an <code>appuio.io/v1/Zone</code> spec verbatim.</p>
-</div>
-<div class="exampleblock">
-<div class="title">Example 1. Zone configuration</div>
-<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  control_api:
-    zones:
-      example-zone-1:
-        data:
-          displayName: Example Zone 1
-          features:
-            kubernetesVersion: ${dynamic_facts:kubernetesVersion:major}.${dynamic_facts:kubernetesVersion:minor}
-            sdnPlugin: OVN-Kubernetes
-          urls:
-            console: https://console.example.zone
-            kubernetesAPI: https://api.example.zone:6443
-          cname: cname.example.zone
-          defaultAppDomain: apps.example.zone
-          gatewayIPs:
-          - 100.100.100.100
-          cloudProvider:
-            name: example
-            zones:
-              - zone1
-            region: region1</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
+  auth:
+    - type: kubernetes</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cluster_admin_impersonation_oidc_administrator_role"><a class="anchor" href="#_cluster_admin_impersonation_oidc_administrator_role"></a><code>cluster_admin_impersonation.oidc_administrator_role</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>admin</code></p>
-</td>
-</tr>
-</table>
-</div>
+<div class="sect3">
+<h4 id="_external_vault"><a class="anchor" href="#_external_vault"></a>External Vault</h4>
 <div class="paragraph">
-<p>The name of the OpenID Connect role to allow administrator impersonation.</p>
+<p>If Vault runs in a different Kubernetes cluster, we need to add a few extra configuration options.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_username_prefix"><a class="anchor" href="#_username_prefix"></a><code>username_prefix</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appuio#</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The prefix used for OIDC users in the Kubernetes API server.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_controller_extraargs"><a class="anchor" href="#_controller_extraargs"></a><code>controller.extraArgs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list(string)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A list of extra command line arguments for the control-api controller deployment.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_controller_webhooktls"><a class="anchor" href="#_controller_webhooktls"></a><code>controller.webhookTls</code></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This key configures encryption of traffic to the controller&#8217;s admission webhook server.
-The Kubernetes API server only communicates with admission webhooks over HTTPS.
-Therefore, the component requires that both <code>controller.webhookTls.certificate</code> and <code>controller.webhookTls.key</code> are configured.</p>
-</div>
-<div class="sect2">
-<h3 id="_controller_webhooktls_certsecretname"><a class="anchor" href="#_controller_webhooktls_certsecretname"></a><code>controller.webhookTls.certSecretName</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>webhook-service-tls</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the secret containing the TLS certificate and key for the controller&#8217;s webhook server.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_controller_webhooktls_cacertificate"><a class="anchor" href="#_controller_webhooktls_cacertificate"></a><code>controller.webhookTls.caCertificate</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>""</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The CA certificate used to sign the webhook service certificate.
-If left empty, the component assumes that the provided certificate can be verified using the cluster&#8217;s default CA bundle.</p>
-</div>
-<div class="paragraph">
-<p>If you deploy a self-signed certificate, set this parameter to <code>${control_api:controller:webhookTls:certificate}</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_controller_webhooktls_certificate"><a class="anchor" href="#_controller_webhooktls_certificate"></a><code>controller.webhookTls.certificate</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>""</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The certificate to use for the controller&#8217;s admission webhook server.
-Users must provide this parameter, since Kubernetes doesn&#8217;t support admission webhooks which aren&#8217;t secured with TLS.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_controller_webhooktls_key"><a class="anchor" href="#_controller_webhooktls_key"></a><code>controller.webhookTls.key</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/webhook-key}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The private key to use for the controller&#8217;s admission webhook server.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_idp_adapter_enabled"><a class="anchor" href="#_idp_adapter_enabled"></a><code>idp_adapter.enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Controls if the IDP Adapter should be deployed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_idp_adapter_args"><a class="anchor" href="#_idp_adapter_args"></a><code>idp_adapter.args</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Arguments that should be passed to the IDP Adapter.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_idp_adapter_env"><a class="anchor" href="#_idp_adapter_env"></a><code>idp_adapter.env</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">idp_adapter:
-  env:
-    KEYCLOAK_PASSWORD:
-      secretKeyRef:
-        name: keycloak-user
-        key: password
-    DEBUG: "true"</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
+  auth:
+    - type: kubernetes
+      path: lieutenant <i class="conum" data-value="1"></i><b>(1)</b>
+      config:
+        kubernetes_host: https://api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
+        disable_local_ca_jwt: true
+        disable_iss_validation: true
+        kubernetes_ca_cert: | <i class="conum" data-value="3"></i><b>(3)</b>
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----</code></pre>
 </div>
 </div>
-</td>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We recommend to change the authentication method mount path as the default <code>kubernetes</code> path should be reserved for the local cluster</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This is the API URL of the Kubernetes cluster running Lieutenant</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The CA of the Kubernetes API certificate.
+This is also necessary if the certificate is publicly trusted, due to a limitation of Vault.</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Additional environment that should be passed to the IDP Adapter.
-If a dict is given <code>valueFrom:</code> is assumed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_idp_adapter_resources"><a class="anchor" href="#_idp_adapter_resources"></a><code>idp_adapter.resources</code></h2>
+<h2 id="_manage_access_policies"><a class="anchor" href="#_manage_access_policies"></a>Manage Access Policies</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/appuio/component-control-api/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Resource requests and limits to apply to the IDP Adapter container.</p>
+<p>After enabling the authentication method for Lieutenant, we need to add roles and policies authorizing Lieutenant and the Syn-managed clusters to access Vault.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
-  keycloak-user:
-    stringData:
-      username: keycloak-user
-      password: keycloak-password</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
+  auth:
+    - type: kubernetes
+      ...
+      roles:
+        - name: syn-cluster <i class="conum" data-value="1"></i><b>(1)</b>
+          bound_service_account_names: "*"
+          bound_service_account_namespaces: lieutenant-prod
+          policies: syn-cluster
+          ttl: 1h
+        - name: lieutenant-operator <i class="conum" data-value="2"></i><b>(2)</b>
+          bound_service_account_names: lieutenant-operator
+          bound_service_account_namespaces: lieutenant-prod
+          policies: lieutenant-operator
+          ttl: 1h
+
+  policies:
+    - name: syn-cluster <i class="conum" data-value="1"></i><b>(1)</b>
+      rules: |
+        path "clusters/kv/data/+/{{identity.entity.aliases.auth_kubernetes_5b636428.metadata.service_account_name}}/*" {
+          capabilities = ["read"]
+        }
+    - name: lieutenant-operator <i class="conum" data-value="2"></i><b>(2)</b>
+      rules: |
+        path "clusters/kv/data/*" {
+          capabilities = ["read", "create", "update", "delete"]
+        }
+        path "clusters/kv/metadata/*" {
+          capabilities = ["read", "create", "update", "delete", "list"]
+        }
+        path "clusters/kv/delete/*" {
+          capabilities = ["update"]
+        }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>syn-cluster</code> policy allows each cluster to reveal its own secrets.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>lieutenant-operator</code> policy allows the <code>lieutenant-operator</code> to read and write all secrets.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If service accounts or namespaces differ in your deployment, you will need to update the snippet above.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The policy <code>syn-cluster</code> allows ArgoCD to read the secrets of its cluster.
+The templating entry <code>auth_kubernetes_5b636428</code> is a name generated by Vault after enabling the authentication method.
+Because the hash in this segment of the templating entry isn&#8217;t known in advance, the policy needs to be added in a second deployment after enabling the authentication method.
+The actual value of the segment needs to be fetched from the Vault instance after deploying the authentication method.</p>
+</div>
+<div class="paragraph">
+<p>The entry is the <em>Accessor</em> name of the Kubernetes authentication method.
+If can either be fetched from the UI on the <em>Access</em> tab or from the CLI with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vault auth list -detailed</code></pre>
 </div>
 </div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>A key-value map defining multiple <code>Secret</code> for referencing in <code>secrets</code>.
-Each entry will generate a <code>Secret</code> with the key as its name.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/tls.html">Setup TLS Certificates</a></span>
+  <span class="prev"><a href="../tutorials/install.html">Installation</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1341,7 +892,7 @@ Each entry will generate a <code>Secret</code> with the key as its name.</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/control-api/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vault/how-tos/lieutenant.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
