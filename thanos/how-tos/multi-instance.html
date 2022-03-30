@@ -834,6 +834,9 @@ parameters:
     store:
       enabled: true
       name: thanos-store-1 <i class="conum" data-value="2"></i><b>(2)</b>
+    store_alerts:
+      enabled:
+        "*": false <i class="conum" data-value="4"></i><b>(4)</b>
     query:
       enabled: false
     bucket:
@@ -857,6 +860,11 @@ parameters:
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>This is required for all but one instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Disable provisioning of <code>thanos-store</code> alerts for the instance.
+This should be set for all but one instance of <code>thanos-store</code> sharing the namespace.</td>
 </tr>
 </table>
 </div>
