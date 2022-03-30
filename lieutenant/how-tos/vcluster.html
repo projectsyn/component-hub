@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connection to GitLab :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/lieutenant/how-tos/setup-githost.html">
-    <link rel="prev" href="../references/parameters.html">
-    <link rel="next" href="vcluster.html">
+    <title>Lieutenant in vcluster :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/lieutenant/how-tos/vcluster.html">
+    <link rel="prev" href="setup-githost.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -96,10 +95,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="setup-githost.html">GitLab Setup</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="vcluster.html">Lieutenant in vcluster</a>
   </li>
 </ul>
@@ -709,87 +708,184 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Lieutenant</a></li>
-    <li><a href="setup-githost.html">GitLab Setup</a></li>
+    <li><a href="vcluster.html">Lieutenant in vcluster</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-lieutenant/edit/master/docs/modules/ROOT/pages/how-tos/setup-githost.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-lieutenant/edit/master/docs/modules/ROOT/pages/how-tos/vcluster.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connection to GitLab</h1>
+<h1 class="page">Lieutenant in vcluster</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Lieutenant Operator needs to be able to connect to the GitLab API to create repositories for tenants and clusters.
-The following steps need to be performed before deploying Lieutenant.</p>
+<p>Vcluster is a virtual Kubernetes Cluster that runs in a single namespace on a host Kubernetes cluster.
+Installing Lieutenant in a vcluster can be useful as it allows you to run multiple versions of Lieutenant, with different CRD versions on the same host cluster.</p>
+</div>
+<div class="paragraph">
+<p>The following steps need to be performed to deploy Lieutenant in a vcluster.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_get_gitlab_token"><a class="anchor" href="#_get_gitlab_token"></a>Get GitLab Token</h2>
+<h2 id="_deploy_vcluster_and_enable_syn"><a class="anchor" href="#_deploy_vcluster_and_enable_syn"></a>Deploy vcluster and enable Syn</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>First we need a vcluster instance we can deploy Lieutenant to.
+Follow the setup guide in the <a href="https://hub.syn.tools/vcluster/index.html">component-vcluster documentation</a> and be sure to enable Syn on the newly created virtual cluster.</p>
+</div>
+<div class="paragraph">
+<p>After that you should be able to deploy to a vcluster and the vcluster component configuration should look similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>applications:
+  - vcluster as lieutenant-prod
+parameters:
+  lieutenant_prod:
+    host_service_cidr: 172.30.0.0/16
+    namespace: lieutenant-prod
+    ingress:
+      host: lieutenant-prod.cluster.example.com
+    syn:
+      registration_url: https://api.syn.example.com/install/steward.json?token=XRaRSHafWa28afE72F2aCY==</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_attach_external_vault"><a class="anchor" href="#_attach_external_vault"></a>Attach external Vault</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Classical deployments of Lieutenant assume that Vault is running on the same cluster.
+When deploying Lieutenant in a vcluster this isn&#8217;t ideal.
+We will want to configure a connection to an externally running Vault.</p>
+</div>
+<div class="paragraph">
+<p>For that we need to do two things</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Visit the GitLab instance you&#8217;d like to use.</p>
+<p>Setup Vault to authenticate users against an external Kubernetes cluster.
+To do that follow the Vault guide on <a href="https://hub.syn.tools/vault/how-tos/lieutenant.html#_external_vault">connecting to an external Lieutenant instance</a>.</p>
 </li>
 <li>
-<p>Login with the user that has the permissions necessary to write to the group you want to store your Project Syn repositories.</p>
-</li>
-<li>
-<p>Visit <code>https://yourgitlab/profile/personal_access_tokens</code> and create a token with <code>api</code>, <code>read_repository</code>, and <code>write_repository</code> scope.</p>
+<p>Configure connection to Vault and enable authentication delegation for service accounts</p>
+<div class="listingblock">
+<div class="content">
+<pre>parameters:
+  lieutenant:
+    api:
+      ingress:
+        host: api-prod.syn.example.com
+    operator:
+      vault:
+        addr: https://vault.example.com
+        auth_path: lieutenant <i class="conum" data-value="1"></i><b>(1)</b>
+        path: clusters/kv
+    auth_delegation:
+      lieutenant-sa: <i class="conum" data-value="2"></i><b>(2)</b>
+        apiGroup: rbac.authorization.k8s.io
+        kind: Group
+        name: system:serviceaccounts
+        namespace: lieutenant</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The mount path for the configured external Kubernetes Vault authentication method</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This is needed so that Lieutenant service accounts, such as the ones for the managed clusters, can access Vault</td>
+</tr>
+</table>
+</div>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_token_to_vault"><a class="anchor" href="#_add_token_to_vault"></a>Add Token to Vault</h2>
+<h2 id="_setup_connection_to_gitlab"><a class="anchor" href="#_setup_connection_to_gitlab"></a>Setup connection to GitLab</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The generated token now needs to be stored inside the secret key manager.</p>
+<p>The Lieutenant Operator needs to be able to connect to the GitLab API to create repositories for tenants and clusters.
+Follow the <a href="setup-githost.html" class="page">Connecting to GitLab</a> guide.
+Afterwards the component configuration should look similar to the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">vault kv put -cas=0 clusters/kv/${TENANT_ID}/${CLUSTER_ID}/lieutenant/githosts/your-gitlab token=${TOKEN}</code></pre>
+<pre>parameters:
+  lieutenant:
+    api:
+      ingress:
+        host: api-prod.syn.example.com
+    operator:
+      vault:
+        addr: https://vault.example.com
+        auth_path: lieutenant
+        path: clusters/kv
+    auth_delegation:
+      lieutenant-sa:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Group
+        name: system:serviceaccounts
+        namespace: lieutenant
+    githosts:
+      your-gitlab:
+        endpoint: https://git.yourdomain.net/
+        token: '?{vaultkv:${cluster:tenant}/${cluster:name}/lieutenant/githosts/your-gitlab/token}'
+        host_keys: |
+          git.yourdomain.net ssh-rsa AAAAB3Nz...
+          git.yourdomain.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9EkPcVdsz/oVTI2VJkBlq8Mv/dg3rhcbgzAEKyiwUG</pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reference_token_in_configuration"><a class="anchor" href="#_reference_token_in_configuration"></a>Reference Token in Configuration</h2>
+<h2 id="_optional_enable_oidc"><a class="anchor" href="#_optional_enable_oidc"></a>(Optional) Enable OIDC</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the token added to Vault it can now be referenced by the GitHost configuration.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">githosts:
-  your-gitlab:
-    endpoint: https://git.yourdomain.net/
-    token: '?{vaultkv:${cluster:tenant}/${cluster:name}/lieutenant/githosts/your-gitlab/token}'
-    host_keys: |
-      git.yourdomain.net ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnE1dMkh+3uHWck+cTvQqeNUW0lj1uVcIC9JX2Tg6gmkKCYA73+o+I7vo4g6nPtSOAfITvYdHJLzwE9GwlSFsXHMR9q0ErWl2wC+w6FawLMz9//5XqiBi2qq/8WnWp3ecY16jDoGRW4eymT+USFHKJVi696XBy3WE/0BBapPZ58WPqkKN6A27qkIK6FehI80f+zN4ZqikdwWuCFs35fsimcmLnWqWPm8zbOkgCiB+ov4O/xmRNHwJWCk/qzU6X/M9YtMXzAa5mjwDvcHSAizFD3a3Fv68G1VsmRZ0THLrRKM/WOxrWNZoimSNgyjTzoCwiKeckvL5+hpNcNSW+eBPt
-      git.yourdomain.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9EkPcVdsz/oVTI2VJkBlq8Mv/dg3rhcbgzAEKyiwUG</code></pre>
-</div>
+<p>As a last step we can connect the created vcluster to an OIDC provider.
+This not only allows us to authenticate to the vcluster Kubernetes API using OIDC, but also enables doing so for the Lieutenant API.
+After enabling this, we can authenticate ourselves to Lieutenant using <code>commodore login</code> (requires Commodore &gt;= 0.15.0).</p>
 </div>
 <div class="paragraph">
-<p>The <code>host_keys</code> need to contain the SSH public keys of your GitLab server.
-You can get these easily with:</p>
+<p>See the guide on how to <a href="https://hub.syn.tools/vcluster/how-tos/oidc.html">configure OIDC for vcluster</a>.
+After that the vcluster component configuration should look similarly to the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">ssh-keyscan git.yourdomain.net</code></pre>
+<pre>applications:
+  - vcluster as lieutenant-prod
+parameters:
+  lieutenant_prod:
+    host_service_cidr: 172.30.0.0/16
+    namespace: lieutenant-prod
+    ingress:
+      host: lieutenant-prod.cluster.example.com
+    k3s:
+      additional_args:
+        - --kube-apiserver-arg=oidc-issuer-url=https://id.example.com/auth/realms/main
+        - --kube-apiserver-arg=oidc-client-id=lieutenant
+        - --kube-apiserver-arg=oidc-username-claim=preferred_username
+        - --kube-apiserver-arg=oidc-username-prefix=syn#
+        - --kube-apiserver-arg=oidc-groups-claim=groups
+    syn:
+      registration_url: https://api.syn.example.com/install/steward.json?token=XRaRSHafWa28afE72F2aCY==</pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
-  <span class="next"><a href="vcluster.html">Lieutenant in vcluster</a></span>
+  <span class="prev"><a href="setup-githost.html">GitLab Setup</a></span>
 </nav>
 </article>
   </div>
@@ -800,7 +896,7 @@ You can get these easily with:</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/lieutenant/how-tos/setup-githost.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/lieutenant/how-tos/vcluster.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
