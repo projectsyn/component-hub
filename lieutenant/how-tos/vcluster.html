@@ -882,6 +882,40 @@ parameters:
       registration_url: https://api.syn.example.com/install/steward.json?token=XRaRSHafWa28afE72F2aCY==</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_commodore_configuration_auto_discovery"><a class="anchor" href="#_commodore_configuration_auto_discovery"></a>Commodore configuration auto discovery</h3>
+<div class="paragraph">
+<p>Commodore has the feature to discover the OIDC configuration from the Lieutenant API.
+That way Commodore user don&#8217;t need to know the URL of the IDP or the OIDC client ID.</p>
+</div>
+<div class="paragraph">
+<p>To use this feature you need to pass this information to the Lieutenant API</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>parameters:
+  lieutenant:
+    api:
+      ingress:
+        host: api-prod.syn.example.com
+        env:
+          OIDC_CLIENT_ID: lieutenant <i class="conum" data-value="1"></i><b>(1)</b>
+          OIDC_DISCOVERY_URL=https://id.example.com/auth/realms/main/.well-known/openid-configuration <i class="conum" data-value="2"></i><b>(2)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The same client ID used for vcluster</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The OIDC discovery endpoint of the IDP</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">

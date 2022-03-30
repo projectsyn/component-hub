@@ -1071,6 +1071,52 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_api_env"><a class="anchor" href="#_api_env"></a><code>api.env</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">env:
+  OIDC_DISCOVERY_URL:
+    secretKeyRef:
+      name: oidc-config
+      key: discovery
+  OIDC_CLIENT_ID: lieutenant</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment that should be passed to the Lieutenant API.
+If a dict is given <code>valueFrom:</code> is assumed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_api_ingress_host"><a class="anchor" href="#_api_ingress_host"></a><code>api.ingress.host</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
