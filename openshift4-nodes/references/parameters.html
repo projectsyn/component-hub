@@ -798,7 +798,7 @@ default
 <p>A dictionary holding the default values applied to each <code>machinesets.machine.openshift.io</code> object created by this component.</p>
 </div>
 <div class="paragraph">
-<p>The top level keys are the names of cloud providers as reported by the <code>cloud.provider</code> fact.
+<p>The top level keys are the names of cloud providers as reported by the cluster fact <code>${facts:cloud}</code>.
 The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
 </div>
 </div>
