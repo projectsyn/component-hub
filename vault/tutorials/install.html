@@ -955,8 +955,9 @@ We don&#8217;t recommend configuring OIDC through the component when integrating
 <div class="content">
 <pre class="highlightjs highlight"><code>Access Type: Confidential
 Redirect URLs:
-  - https://${VAULT_URL}/ui/vault/auth/oidc/oidc/callback"
-  - https://${VAULT_URL}/oidc/callback"</code></pre>
+  - https://${VAULT_URL}/ui/vault/auth/oidc/oidc/callback
+  - https://${VAULT_URL}/oidc/callback
+  - http://localhost:8250/oidc/callback</code></pre>
 </div>
 </div>
 </li>
@@ -991,9 +992,6 @@ OIDC client ID: ${CLIENT_ID}
 OIDC client Secret: ${CLIENT_SECRET}</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>At this point you should be able to login to Vault using OIDC, but after the login you shouldn&#8217;t be able to access anything but the <code>cubbyhole</code>.</p>
-</div>
 </li>
 <li>
 <p>Open a CLI connection to Vault, you can do this by clicking on the CLI icon in the UI, and enter</p>
@@ -1002,10 +1000,14 @@ OIDC client Secret: ${CLIENT_SECRET}</code></pre>
 <pre class="highlightjs highlight"><code>vault write auth/oidc/role/default \
       allowed_redirect_uris="https://${VAULT_URL}/ui/vault/auth/oidc/oidc/callback" \
       allowed_redirect_uris="https://${VAULT_URL}/oidc/callback" \
+      allowed_redirect_uris="http://localhost:8250/oidc/callback" \
       user_claim="sub" \
       policies="default" \
       groups_claim="groups"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>At this point you should be able to login to Vault using OIDC, but after the login you shouldn&#8217;t be able to access anything but the <code>cubbyhole</code>.</p>
 </div>
 </li>
 <li>
