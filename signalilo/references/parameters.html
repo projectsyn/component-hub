@@ -766,7 +766,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/signalilo/alertmanager_token}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/signalilo/alertmanager_token}</code></p>
 </td>
 </tr>
 </table>
@@ -874,7 +874,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/signalilo/icinga_password}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/signalilo/icinga_password}</code></p>
 </td>
 </tr>
 </table>
