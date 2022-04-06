@@ -756,7 +756,7 @@ Users should switch to the secret references mechanism, as documented in <a href
       &lt;name_of_the_provider&gt;:
         type: LDAP
         ldap:
--         bindPassword: "?{vaultkv:${customer:name}/${cluster:name}/ldap-auth/bindPassword}"
+-         bindPassword: "?{vaultkv:${cluster:tenant}/${cluster:name}/ldap-auth/bindPassword}"
 +         bindPassword:
 +           name: ldap-bind <i class="conum" data-value="1"></i><b>(1)</b>
 +   secrets:
