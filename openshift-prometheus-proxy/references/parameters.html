@@ -788,7 +788,7 @@ default
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">OPENSHIFT_PROMETHEUS_PROXY_UPSTREAM: https://prometheus-k8s.openshift-monitoring.svc:9091
 OPENSHIFT_PROMETHEUS_PROXY_TLS_VERIFY: "service"
 OPENSHIFT_PROMETHEUS_PROXY_HOSTNAME: openshift-prometheus-proxy.example.com
-OPENSHIFT_PROMETHEUS_PROXY_SESSION_SECRET: ?{vaultkv:${customer:name}/${cluster:name}/openshift-prometheus-proxy/session-secret}</code></pre>
+OPENSHIFT_PROMETHEUS_PROXY_SESSION_SECRET: ?{vaultkv:${cluster:tenant}/${cluster:name}/openshift-prometheus-proxy/session-secret}</code></pre>
 </div>
 </div>
 </td>

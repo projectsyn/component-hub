@@ -829,7 +829,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>'?{vaultkv:${customer:name}/${cluster:name}/cluster-backup/s3_access_key}'</code></p>
+<p><code>'?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/s3_access_key}'</code></p>
 </td>
 </tr>
 </table>
@@ -882,7 +882,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/cluster-backup/s3_secret_key}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/s3_secret_key}</code></p>
 </td>
 </tr>
 </table>
@@ -1023,7 +1023,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/cluster-backup/password}'</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/password}'</code></p>
 </td>
 </tr>
 </table>
