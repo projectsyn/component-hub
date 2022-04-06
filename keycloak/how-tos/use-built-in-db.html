@@ -937,8 +937,8 @@ Just add a reference to the credentials in Vault to the K8up S3 configuration an
   k8up:
     enabled: true
     s3:
-      accesskey: '?{vaultkv:${customer:name}/${cluster:name}/global-backup/access-key}'
-      secretkey: '?{vaultkv:${customer:name}/${cluster:name}/global-backup/secret-key}'</code></pre>
+      accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/access-key}'
+      secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/global-backup/secret-key}'</code></pre>
 </div>
 </div>
 </td>

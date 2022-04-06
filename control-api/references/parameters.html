@@ -884,7 +884,7 @@ In that case the connection is still encrypted, but you need to disable TLS veri
 </dd>
 <dt class="hdlist1">default</dt>
 <dd>
-<p>"?{vaultkv:${customer:name}/${cluster:name}/${_instance}/apiserver-key}"</p>
+<p>"?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/apiserver-key}"</p>
 </dd>
 </dl>
 </div>
@@ -1142,7 +1142,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/webhook-key}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/webhook-key}</code></p>
 </td>
 </tr>
 </table>

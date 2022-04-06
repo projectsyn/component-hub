@@ -1191,7 +1191,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/keycloak-cert}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/keycloak-cert}</code></p>
 </td>
 </tr>
 </table>
@@ -1214,7 +1214,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/keycloak-cert-key}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/keycloak-cert-key}</code></p>
 </td>
 </tr>
 </table>
@@ -1598,7 +1598,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/ingress-cert}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/ingress-cert}</code></p>
 </td>
 </tr>
 </table>
@@ -1621,7 +1621,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/ingress-cert-key}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/ingress-cert-key}</code></p>
 </td>
 </tr>
 </table>
@@ -2326,7 +2326,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/db-password}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/db-password}</code></p>
 </td>
 </tr>
 </table>
@@ -2559,7 +2559,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/server-cert}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/server-cert}</code></p>
 </td>
 </tr>
 </table>
@@ -2587,7 +2587,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/${_instance}/server-cert-key}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/server-cert-key}</code></p>
 </td>
 </tr>
 </table>

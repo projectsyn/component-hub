@@ -1258,7 +1258,7 @@ This configuration may directly contain secret references (see example below) as
     config:
       url: ldaps://ldap.todo.com:636
       binddn: "uid=vault-service,ou=Users,dc=todo,dc=com"
-      bindpass: ?{vaultkv:${customer:name}/${cluster:name}/vault/ldap/password}
+      bindpass: ?{vaultkv:${cluster:tenant}/${cluster:name}/vault/ldap/password}
       userattr: uid
       userdn: "ou=vault,ou=Service Access,ou=Views,dc=todo,dc=com"
       groupdn: "ou=Groups,dc=todo,dc=com"
@@ -1369,7 +1369,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${customer:name}/${cluster:name}/vault/backup/password}</code></p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/vault/backup/password}</code></p>
 </td>
 </tr>
 </table>
@@ -1400,8 +1400,8 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">name: '${_instance}-backup'
-accesskey: '?{vaultkv:${customer:name}/${cluster:name}/vault/${_instance}/backup/s3_access_key}'
-secretkey: '?{vaultkv:${customer:name}/${cluster:name}/vault/${_instance}/backup/s3_secret_key}'</code></pre>
+accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/vault/${_instance}/backup/s3_access_key}'
+secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/vault/${_instance}/backup/s3_secret_key}'</code></pre>
 </div>
 </div>
 </td>
