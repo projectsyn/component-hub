@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-cloud/references/parameters.html">
-    <link rel="prev" href="../index.html">
+    <link rel="prev" href="../how-tos/tls.html">
     <link rel="next" href="policies/index.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -92,6 +92,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/tls.html">Setup Webook Certificate</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -798,6 +801,230 @@ default
 </div>
 <div class="paragraph">
 <p>The namespace in which to deploy this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-appuio-cloud/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows selecting the Docker images to us.
+Each image is specified using keys <code>registry</code>, <code>repository</code> and <code>tag</code>.
+This structure allows easily injecting a registry mirror, if required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_replicas"><a class="anchor" href="#_agent_replicas"></a><code>agent.replicas</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>int</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>3</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>With how many replicas the APPUiO Cloud Agent should run.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_resourceratio_memorypercore"><a class="anchor" href="#_agent_resourceratio_memorypercore"></a><code>agent.resourceRatio.memoryPerCore</code></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>4Gi</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The "fair-use" limit of memory to CPU request.
+That means, if a namespace requests less than <code>4Gi</code> of memory per requested CPU core, the APPUiO Cloud Agent will warn the user that they exceed the "fair-use" limit and will potentially generate additional costs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_webhook_tls"><a class="anchor" href="#_agent_webhook_tls"></a><code>agent.webhook.tls</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This key configures encryption of traffic to the controller&#8217;s admission webhook server.
+The Kubernetes API server only communicates with admission webhooks over HTTPS.
+Therefore, the component requires that both <code>agent.webhook.tls.certificate</code> and <code>agent.webhook.tls.key</code> are configured.</p>
+</div>
+<div class="sect2">
+<h3 id="_agent_webhook_tls_certsecretname"><a class="anchor" href="#_agent_webhook_tls_certsecretname"></a><code>agent.webhook.tls.certSecretName</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>webhook-service-tls</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the secret containing the TLS certificate and key for the agent&#8217;s webhook server.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_webhook_tls_cacertificate"><a class="anchor" href="#_agent_webhook_tls_cacertificate"></a><code>agent.webhook.tls.caCertificate</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>""</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The CA certificate used to sign the webhook service certificate.
+If left empty, the component assumes that the provided certificate can be verified using the cluster&#8217;s default CA bundle.</p>
+</div>
+<div class="paragraph">
+<p>If you deploy a self-signed certificate, set this parameter to <code>${appuio_cloud:agent:webhook:tls:certificate}</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_webhook_tls_certificate"><a class="anchor" href="#_agent_webhook_tls_certificate"></a><code>agent.webhook.tls.certificate</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>""</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The certificate to use for the agent&#8217;s admission webhook server.
+Users must provide this parameter, since Kubernetes doesn&#8217;t support admission webhooks which aren&#8217;t secured with TLS.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_webhook_tls_key"><a class="anchor" href="#_agent_webhook_tls_key"></a><code>agent.webhook.tls.key</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/${_instance}/webhook-key}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The private key to use for the agent&#8217;s admission webhook server.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_webhook_namespaceselector"><a class="anchor" href="#_agent_webhook_namespaceselector"></a><code>agent.webhook.namespaceSelector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>NamespaceSelector that&#8217;s applied to every webhook installed by the APPUiO Cloud Agent
+The namespaceSelector decides whether to run the webhook on a request for a namespaced resource (or a Namespace object), based on whether the namespace&#8217;s labels match the selector.
+If the object itself is a namespace, the matching is performed on object.metadata.labels.
+If the object is a cluster scoped resource other than a Namespace, namespaceSelector has no effect.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector">upstream documentation</a> on these selectors.</p>
 </div>
 </div>
 </div>
@@ -1721,7 +1948,7 @@ Each entry is transformed to a Kubernetes <code>matchExpression</code> entry by 
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="prev"><a href="../how-tos/tls.html">Setup Webook Certificate</a></span>
   <span class="next"><a href="policies/index.html">Policies</a></span>
 </nav>
 </article>
