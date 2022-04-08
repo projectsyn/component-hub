@@ -16,9 +16,6 @@
 <loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-azuredisk-csi-driver.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
@@ -59,9 +56,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-external-dns.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
@@ -215,8 +209,5 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-velero.xml</loc>
 </sitemap>
 </sitemapindex>
