@@ -1206,8 +1206,7 @@ For some log aggregation systems you may need to deploy a separate log forwarder
         - my-namespace
       forwarders: <i class="conum" data-value="3"></i><b>(3)</b>
         - splunk-forwarder
-      json: true <i class="conum" data-value="4"></i><b>(4)</b>
-----</code></pre>
+      json: true <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1266,8 +1265,127 @@ For some log aggregation systems you may need to deploy a separate log forwarder
   application_logs:
     forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
       - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b>
-----</code></pre>
+    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Enable json logging for all applications.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clusterlogforwarding_infrastructure_logs"><a class="anchor" href="#_clusterlogforwarding_infrastructure_logs"></a><code>clusterLogForwarding.infrastructure_logs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
+  infrastructure_logs:
+    enabled: true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Customization for the logging of <code>openshift*</code>, <code>kube*</code>, or <code>default</code> projects.</p>
+</div>
+<div class="paragraph">
+<p>Enabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
+For some log aggregation systems you may need to deploy a separate log forwarder.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
+  infrastructure_logs:
+    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
+      - splunk-forwarder
+    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Enable json logging for all applications.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clusterlogforwarding_audit_logs"><a class="anchor" href="#_clusterlogforwarding_audit_logs"></a><code>clusterLogForwarding.audit_logs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
+  audit_logs:
+    enabled: false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Customization for the logging of <a href="https://docs.openshift.com/container-platform/latest/security/audit-log-policy-config.html">audit logs</a>.</p>
+</div>
+<div class="paragraph">
+<p>Disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
+For some log aggregation systems you may need to deploy a separate log forwarder.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
+  audit_logs:
+    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
+      - splunk-forwarder
+    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
