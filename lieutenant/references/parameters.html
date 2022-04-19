@@ -1404,6 +1404,39 @@ The example below will allow any service account in the <code>lieutenant</code> 
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_tenant_template"><a class="anchor" href="#_tenant_template"></a><code>tenant_template</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>null</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy a <code>TenantTemplate</code> object called <code>default</code>.
+If the parameter is <code>null</code>, the <code>TenantTemplate</code> object won&#8217;t be created.
+The contents of the parameter are used for field <code>spec</code> of the object without any processing or validation.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/projectsyn/lieutenant-operator/blob/f3882ea62de99fba23eeff2119283a9bb5060319/api/v1alpha1/tenant_types.go#L11-L35"><code>TenantSpec</code></a> for supported fields.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
   <span class="next"><a href="../how-tos/setup-githost.html">GitLab Setup</a></span>

@@ -1291,51 +1291,6 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- CephPoolQuotaBytesNearExhaustion
-- CephPoolQuotaBytesCriticallyExhausted</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter can be used to disable alerts provided by Rook.io.
-The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
-</div>
-<div class="paragraph">
-<p>By default, the component disables the CephPoolQuota alerts, since the default configuration doesn&#8217;t configure any pool quotas.</p>
-</div>
-<div class="paragraph">
-<p>However, if the quota alerts are wanted, they can be re-enabled by removing the alerts from the parameter by providing the following configuration.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ignore_alerts:
-  - ~CephPoolQuotaBytesNearExhaustion
-  - ~CephPoolQuotaBytesCriticallyExhausted</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_storage_pools_rbd"><a class="anchor" href="#_storage_pools_rbd"></a><code>storage_pools.rbd</code></h3>
 <div class="hdlist">
 <table>
@@ -1544,6 +1499,118 @@ Providing a key with value <code>false</code> or <code>null</code> will result i
 </div>
 <div class="paragraph">
 <p>See the <a href="https://docs.ceph.com/en/latest/man/8/mount.ceph/#advanced"><code>mount.ceph</code> documentation</a> for all possible CephFS mount options.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configurations related to alerts.</p>
+</div>
+<div class="sect2">
+<h3 id="_ignorenames"><a class="anchor" href="#_ignorenames"></a><code>ignoreNames</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- CephPoolQuotaBytesNearExhaustion
+- CephPoolQuotaBytesCriticallyExhausted</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to disable alerts provided by Rook.io.
+The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component disables the CephPoolQuota alerts, since the default configuration doesn&#8217;t configure any pool quotas.</p>
+</div>
+<div class="paragraph">
+<p>However, if the quota alerts are wanted, they can be re-enabled by removing the alerts from the parameter by providing the following configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ignore_alerts:
+  - ~CephPoolQuotaBytesNearExhaustion
+  - ~CephPoolQuotaBytesCriticallyExhausted</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To allow transitioning to the new config structure, the component currently still respects ignored alerts in <code>ceph_cluster.ignore_alerts</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_patchrules"><a class="anchor" href="#_patchrules"></a><code>patchRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephClusterWarningState:
+  for: 15m
+CephOSDDiskNotResponding:
+  for: 5m</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to patch alerts provided by Rook.io.
+The keys in the parameter correspond to the field <code>alertname</code> of the alert to patch.
+The component expects valid partial Prometheus alert rule objects as values.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The provided values aren&#8217;t validated, they&#8217;re applied to the corresponding upstream alert as-is.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
