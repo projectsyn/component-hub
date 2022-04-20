@@ -754,6 +754,54 @@ Generally, it shouldn&#8217;t be necessary to override this parameter.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_namespaceannotations"><a class="anchor" href="#_namespaceannotations"></a><code>namespaceAnnotations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift.io/node-selector: node-role.kubernetes.io/infra=</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Annotations to be applied to the created namespace.
+Annotations can be removed in the hierarchy by setting the value to <code>null</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Except for dropping null-valued entries, the component doesn&#8217;t validate the provided annotations.
+It&#8217;s the user&#8217;s responsibility to ensure that only valid annotations (both key and value must be strings) are provided.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_defaultinstallplanapproval"><a class="anchor" href="#_defaultinstallplanapproval"></a><code>defaultInstallPlanApproval</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
