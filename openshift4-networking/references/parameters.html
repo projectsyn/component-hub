@@ -705,7 +705,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_defaultnodeselector"><a class="anchor" href="#_defaultnodeselector"></a><code>defaultNodeSelector</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -714,7 +714,7 @@
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>dictionary</p>
 </td>
 </tr>
 <tr>
@@ -722,23 +722,82 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-openshift4-networking</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">node-role.kubernetes.io/infra: ''</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>Node selector for the non-DaemonSet OpenShift networking workloads.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_patches"><a class="anchor" href="#_patches"></a><code>patches</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-networking/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines the patches to apply to the OpenShift networking components.
+Patches can be removed in the hierarchy by setting the value to <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>The schema is defined as follows:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ip-reconciler: <i class="conum" data-value="1"></i><b>(1)</b>
+  target: <i class="conum" data-value="2"></i><b>(2)</b>
+    kind: CronJob
+    apiVersion: batch/v1
+    name: ip-reconciler
+    namespace: openshift-multus
+  patch: <i class="conum" data-value="3"></i><b>(3)</b>
+    spec:
+      jobTemplate:
+        spec:
+          template:
+            spec:
+              nodeSelector: ${openshift4_networking:defaultNodeSelector}</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name in hierarchy</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Object the patch is applied to. Consists of kind, apiVersion, name, and optionally namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Patch to apply</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
