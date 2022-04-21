@@ -1494,7 +1494,7 @@ Note that data pools given in <code>config</code> in the hierarchy will be overw
 Users can override the default placement configuration by providing their own configuration in key <code>config.metadataServer.placement</code>.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://rook.io/docs/rook/v1.7/ceph-filesystem-crd.html">the Rook.io <code>CephFilesystem</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+<p>See <a href="https://rook.io/docs/rook/v1.8/ceph-filesystem-crd.html">the Rook.io <code>CephFilesystem</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
 </div>
 <div class="paragraph">
 <p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource which is for the CephFS instance.</p>
@@ -1718,6 +1718,20 @@ default
 <p>This parameter allows selecting the Docker images to use for Rook.io, Ceph, and Ceph-CSI.
 Each image is specified using keys <code>registry</code>, <code>image</code> and <code>tag</code>.
 This structure allows easily injecting a registry mirror, if required.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>rook-ceph</code> container image versions older than <code>v1.8.0</code> aren&#8217;t supported.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
