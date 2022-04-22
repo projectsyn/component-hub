@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Using DNS01 challenges :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cert-manager/how-tos/dns01.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="http01-ocp.html">
+    <title>Upgrade component-cert-manager from v2.x to v3.x :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/cert-manager/how-tos/upgrade-v2-v3.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,7 +97,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-tos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="dns01.html">Using DNS01 challenges</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -720,181 +718,120 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">cert-manager</a></li>
-    <li>How-tos</li>
-    <li><a href="dns01.html">Using DNS01 challenges</a></li>
+    <li><a href="upgrade-v2-v3.html">Upgrade <code>component-cert-manager</code> from <code>v2.x</code> to <code>v3.x</code></a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cert-manager/edit/master/docs/modules/ROOT/pages/how-tos/dns01.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cert-manager/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v2-v3.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Using DNS01 challenges</h1>
+<h1 class="page">Upgrade <code>component-cert-manager</code> from <code>v2.x</code> to <code>v3.x</code></h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Usually DNS01 challenges are required for the following scenarios:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Issuing Let&#8217;s Encrypt wildcard certificates</p>
-</li>
-<li>
-<p>Issuing certificates for services which have a public DNS name, but aren&#8217;t reachable on the internet</p>
-</li>
-</ul>
+<p>Version 2.x upgrades the underlying <code>cert-manager</code> Helm chart from <code>v1.5.x</code> to <code>v1.8.x</code>.
+With this release old API versions (<code>v1alpha2</code>, <code>v1alpha3</code>, and <code>v1beta1</code>) will no longer be served by the API.</p>
 </div>
 <div class="paragraph">
-<p>This how-to shows you how to configure the <code>letsencrypt-staging</code> and <code>letsencrypt-production</code> cluster issuers managed by the component for DNS01 challenges.</p>
-</div>
-<div class="paragraph">
-<p>This how-to assumes that you have access to an acme-dns instance.
-You can manage your own acme-dns instance with component <a href="../../acme-dns/index.html" class="page">acme-dns</a>.</p>
+<p>This upgrade should require no manual steps, but older software and definitions might still use the older API versions.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_check_for_usage_of_old_api_versions"><a class="anchor" href="#_check_for_usage_of_old_api_versions"></a>Check for usage of old API versions</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Access to an acme-dns instance</p>
-</li>
-<li>
-<p>A domain for which you can create <code>CNAME</code> records</p>
-</li>
-<li>
-<p>You can compile cluster catalogs locally</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>To check if old API versions are still in use, run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as=cluster-admin get apirequestcount -ojson | jq '
+    .items[] |
+        select(
+            (.metadata.name | in({
+              "certificaterequests.v1beta1.cert-manager.io":null,
+              "certificates.v1beta1.cert-manager.io":null,
+              "challenges.v1beta1.acme.cert-manager.io":null,
+              "clusterissuers.v1beta1.cert-manager.io":null,
+              "issuers.v1beta1.cert-manager.io":null,
+              "orders.v1beta1.acme.cert-manager.io":null,
+
+              "certificaterequests.v1alpha2.cert-manager.io":null,
+              "certificates.v1alpha2.cert-manager.io":null,
+              "challenges.v1alpha2.acme.cert-manager.io":null,
+              "clusterissuers.v1alpha2.cert-manager.io":null,
+              "issuers.v1alpha2.cert-manager.io":null,
+              "orders.v1alpha2.acme.cert-manager.io":null,
+
+              "certificaterequests.v1alpha3.cert-manager.io":null,
+              "certificates.v1alpha3.cert-manager.io":null,
+              "challenges.v1alpha3.acme.cert-manager.io":null,
+              "clusterissuers.v1alpha3.cert-manager.io":null,
+              "issuers.v1alpha3.cert-manager.io":null,
+              "orders.v1alpha3.acme.cert-manager.io":null,
+            }))
+          and
+            .status.requestCount &gt; 0
+        ) |
+        {
+            resource: .metadata.name,
+            requests: (
+                reduce .status.last24h[] as $hour ({"requests": 0}; .requests += (
+                    reduce $hour.byNode[]? as $node ({"requests": 0}; .requests += (
+                        reduce $node.byUser[]? as $user ({"requests": 0}; .requests += (
+                            reduce $user.byVerb[]? as $verb (0; . + (
+                                if $verb.verb == "watch" or $verb.verb == "list" or $verb.verb == "get" then <i class="conum" data-value="1"></i><b>(1)</b>
+                                    0
+                                else
+                                    $verb.requestCount
+                                end
+                            ))
+                        ))
+                    ).requests)
+                ).requests)
+            ).requests
+        }
+'</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>watch</code>, <code>get</code> and <code>list</code> verbs aren&#8217;t counted, requests for these endpoints usually comes from auto discovery.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup"><a class="anchor" href="#_setup"></a>Setup</h2>
+<h2 id="_convert_crds_to_v1"><a class="anchor" href="#_convert_crds_to_v1"></a>Convert CRDs to <code>v1</code></h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Configure the component to register itself on an acme-dns instance.
-Add the following configuration to your cluster or global configuration.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  cert_manager:
-    acme_dns_api:
-      endpoint: https://acme-dns-api.example.com <i class="conum" data-value="1"></i><b>(1)</b>
-      username: acme-dns <i class="conum" data-value="2"></i><b>(2)</b>
-      password: ?{vaultkv:${cluster:tenant}/${cluster:name}/cert-manager/acme-dns-password} <i class="conum" data-value="2"></i><b>(2)</b>
-      fqdns: <i class="conum" data-value="3"></i><b>(3)</b>
-        - cluster.example.com</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The HTTP API of the acme-dns instance</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The HTTP basic auth username and password for the acme-dns instance (optional)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The list of FQDNs that you want to use acme-dns challenges for.
-Note that the entries must match FQDNs for which you want to use acme-dns challenges exactly.
-With this configuration, cert-manager will only present DNS01 challenges for certificates with dnsNames <code>cluster.example.com</code> or <code>*.cluster.example.com</code>.
-In particular, cert-manager won&#8217;t present DNS01 challenges for any subdomains of <code>cluster.example.com</code> with this configuration.</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>This configuration creates a secret <code>acme-dns-client</code> with the acme-dns client configuration in key <code>acmedns.json</code> in the cert-manager namespace.</p>
+<p><code>cmctl</code> has a <a href="https://cert-manager.io/docs/usage/cmctl/#convert">convert command</a> that can be used to convert CRDs to <code>v1</code></p>
 </div>
-</li>
-<li>
-<p>Configure the DNS01 solver</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  cert_manager:
-    solvers:
-      nginx_http01: null <i class="conum" data-value="1"></i><b>(1)</b>
-      dns01:
-        acmeDNS:
-          host: https://acme-dns-api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
-          accountSecretRef: <i class="conum" data-value="3"></i><b>(3)</b>
-            name: acme-dns-client
-            key: acmedns.json</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cmctl convert -f cert.yaml</code></pre>
 </div>
 </div>
-<div class="colist arabic">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Disable the default <code>nginx_http01</code> solver</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The HTTP API of the acme-dns instance.
-This should match parameter <code>acme_dns_api.endpoint</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The account secret for the acme-dns instance.
-Use the values shown here to use the client secret which is created by the configuration from the previous step.</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There is also a Docker image available at <a href="https://quay.io/repository/jetstack/cert-manager-ctl" class="bare">quay.io/repository/jetstack/cert-manager-ctl</a>
+</td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Compile and push the cluster catalog to apply your configuration.</p>
-</li>
-<li>
-<p>Setup CNAME records to point acme challenges to acme-dns on your cluster&#8217;s domain after the registration job has completed.</p>
-<div class="listingblock">
-<div class="title">Extract CNAME target from the acme-dns-client secret</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl -n syn-cert-manager get secret acme-dns-client \
-    -ojsonpath='{.data.acmedns\.json}' | \
-    base64 -d | \
-    jq -r '[.[]][0].fulldomain'
-9165e46c-7bc8-4b00-aa0d-d40413271434.acme-dns.example.com</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Add the following record to your cluster&#8217;s DNS zone</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-dns hljs" data-lang="dns">$ORIGIN cluster.example.com <i class="conum" data-value="1"></i><b>(1)</b>
-_acme-challenge IN CNAME 9165e46c-7bc8-4b00-aa0d-d40413271434.acme-dns.example.com. <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>This snippet assumes that the cluster&#8217;s DNS zone is <code>cluster.example.com</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Replace <code>&lt;UUID&gt;.acme-dns.example.com</code> with the output of the <code>kubectl</code> command.</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="http01-ocp.html">Use HTTP01 solver on OpenShift</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -904,7 +841,7 @@ _acme-challenge IN CNAME 9165e46c-7bc8-4b00-aa0d-d40413271434.acme-dns.example.c
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cert-manager/how-tos/dns01.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cert-manager/how-tos/upgrade-v2-v3.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
