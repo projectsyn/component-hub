@@ -735,14 +735,32 @@ The component allows to configure identity providers, templates to customize the
 The values will be written to a secret which then gets referenced in the OAuth CRD.</p>
 </div>
 <div class="paragraph">
-<p>As of now, the parameter <code>openshift4_authentication.identityProviders</code> requires at least one provider config of type LDAP.
-The value of parameter <code>openshift4_authentication.identityProviders</code> must be a dictionary.
-However, the keys of the dictionary are only present to allow customizing the configuration of an identity provider later in the hierarchy.
-The keys themselves aren&#8217;t reflected anywhere in the generated configuration.
-Each value in the dictionary must be a valid identityProvider configuration for OpenShift 4.
-Additional provider configs can be of other types.
-The documentation requires to configure the LDAP bind password as a secret, and the CA certificate as a config map, the component accepts their literal value.
-Secrets and config maps will be created and referenced as needed only for LDAP provider configs.</p>
+<p>The value of parameter <code>openshift4_authentication.identityProviders</code> must be a dictionary.
+The keys of the dictionary are only present to allow customizing the configuration of an identity provider later in the hierarchy.
+The keys themselves aren&#8217;t reflected anywhere in the generated configuration.</p>
+</div>
+<div class="paragraph">
+<p>Each value in the dictionary must be a valid identityProvider configuration for OpenShift 4.
+The component supports any type of provider config which is supported by Openshift 4.</p>
+</div>
+<div class="paragraph">
+<p>When configuring an LDAP identity provider which is secured with a certificate issued by a CA which is part of the system CA bundle, the LDAP server CA doesn&#8217;t need to be specified explicitly.
+Otherwise, the CA can be provided as a literal string in field <code>ca</code> of the LDAP identity provider config.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, the component only supports configuring a custom CA certificate for LDAP identity providers.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users should use the component&#8217;s <a href="how-tos/configure-secrets.html" class="page">secret configuration mechanism</a> to deploy secrets contiaining identity provider credentials.</p>
 </div>
 </div>
 </div>
