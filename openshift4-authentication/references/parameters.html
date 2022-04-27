@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Deprecated features :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/references/deprecation-notice.html">
-    <link rel="prev" href="parameters.html">
+    <title>Parameters :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/references/parameters.html">
+    <link rel="prev" href="../how-tos/group-memberships.html">
+    <link rel="next" href="deprecation-notice.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -114,10 +115,10 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">References</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="deprecation-notice.html">Deprecated features</a>
   </li>
 </ul>
@@ -714,60 +715,404 @@
   <ul>
     <li><a href="../index.html">OpenShift 4 Authentication</a></li>
     <li>References</li>
-    <li><a href="deprecation-notice.html">Deprecated features</a></li>
+    <li><a href="parameters.html">Parameters</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/references/deprecation-notice.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Deprecated features</h1>
-<div class="sect1">
-<h2 id="_v2_3_0"><a class="anchor" href="#_v2_3_0"></a>v2.3.0</h2>
+<h1 class="page">Parameters</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Directly providing a Vault secret reference as a string in <code>openshift4_authentication.identityProviders.*.ldap.bindPassword</code> is <strong>deprecated</strong>.
-Users should switch to the secret references mechanism, as documented in <a href="../how-tos/configure-secrets.html" class="page">configuring secrets for identity providers</a> how-to, as the legacy syntax will be removed in a future release.</p>
-</div>
-<div class="paragraph">
-<p>See below for an example diff showing how to restructure an LDAP identity provider configuration from the legacy syntax to secret references.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">parameters:
-  openshift4_authentication:
-    identityProviders:
-      &lt;name_of_the_provider&gt;:
-        type: LDAP
-        ldap:
--         bindPassword: "?{vaultkv:${cluster:tenant}/${cluster:name}/ldap-auth/bindPassword}"
-+         bindPassword:
-+           name: ldap-bind <i class="conum" data-value="1"></i><b>(1)</b>
-+   secrets:
-+     ldap-bind: <i class="conum" data-value="1"></i><b>(1)</b>
-+       bindPassword: '?{vaultkv:${cluster:tenant}/${cluster:name}/ldap-auth/bindPassword}' <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<p>The parent key for all of the following parameters is <code>openshift4_authentication</code>.</p>
 </div>
 </div>
-<div class="colist arabic">
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Name of the secret containing the LDAP bind password.
-The name needs to be identical in both locations.</td>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The bind password <strong>must</strong> be stored in key <code>bindPassword</code> in the secret.</td>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>openshift-config</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace in which to create manifests.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component may not work correctly if this parameter is changed.
+</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_sudogroupname"><a class="anchor" href="#_sudogroupname"></a><code>sudoGroupName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>sudoers</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The OpenShift group name for which the component configures RBAC to allow members to impersonate the cluster administrator.
+See <a href="../index.html#_cluster_admin_sudo" class="page">Cluster Admin Sudo</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adminusername"><a class="anchor" href="#_adminusername"></a><code>adminUserName</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cluster-admin</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The username used for cluster administrator impersonation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_identityproviders"><a class="anchor" href="#_identityproviders"></a><code>identityProviders</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This key allows users to configure arbitrary OpenShift identity providers.
+Please see the <a href="https://docs.openshift.com/container-platform/latest/authentication/understanding-identity-provider.html#supported-identity-providers">upstream documentation</a> for supported configurations.</p>
+</div>
+<div class="paragraph">
+<p>The component processes the contents of the dict into a list of <code>identityProvider</code> entries for the OpenShift 4 <code>OAuth</code> object.
+The dict keys are only present to allow users to modify existing entries in the hierarchy.
+They don&#8217;t appear in the generated manifests.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate the provided configurations.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, the component only supports configuring a custom CA certificate for LDAP identity providers.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component accepts custom CA certificate bundles for LDAP providers in key <code>ca</code> of an LDAP identity provider config.
+If a CA certificate bundle is provided like that, the component will generate a ConfigMap containing the CA certificate bundle, and will update the identity provider config to reference that ConfigMap.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users should use the component&#8217;s <a href="../how-tos/configure-secrets.html" class="page">secret configuration mechanism</a> to deploy secrets containing identity provider credentials.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_templates"><a class="anchor" href="#_templates"></a><code>templates</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">err: ''
+login: ''
+providerSelection: ''</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure templates for the OpenShift authentication error, login, and provider selection pages.
+The component expects keys <code>err</code>, <code>login</code> and <code>providerSelection</code> in this parameter.
+The contents of those keys are used verbatim as the corresponding templates.</p>
+</div>
+<div class="paragraph">
+<p>If any templates are configured, the component will create a single Secret called <code>oauth-templates</code>.
+The component writes each configured template to the secret in the keys documented in the upstream documentation on <a href="https://docs.openshift.com/container-platform/latest/web_console/customizing-the-web-console.html#customizing-the-login-page_customizing-web-console">customizing the login page</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We use key <code>err</code> instead of <code>error</code> because <code>error</code> is a keyword in Jsonnet.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_token"><a class="anchor" href="#_token"></a><code>token</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">timeoutSeconds: ~
+maxAgeSeconds: ~</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to customize the OAuth access token expiration.</p>
+</div>
+<div class="paragraph">
+<p>Key <code>timeoutSeconds</code> can be set to configure the desired value for the token&#8217;s inactivity timeout.
+See the upstream documentation on <a href="https://docs.openshift.com/container-platform/4.9/authentication/configuring-internal-oauth.html#oauth-token-inactivity-timeout_configuring-internal-oauth">configuring token inactivity timeout for the internal OAuth server</a> for more details.</p>
+</div>
+<div class="paragraph">
+<p>Key <code>maxAgeSeconds</code> can be set to configure the desired value for the token&#8217;s maximum life time.
+See the upstream documentation on <a href="https://docs.openshift.com/container-platform/latest/authentication/configuring-internal-oauth.html#oauth-configuring-internal-oauth_configuring-internal-oauth">configuring the internal OAuth server&#8217;s token duration</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ldapsync"><a class="anchor" href="#_ldapsync"></a><code>ldapSync</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">schedule: '%d * * * *'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows configuring the LDAP sync CronJob schedule.
+The schedule defined here will be applied for LDAP identity providers which don&#8217;t configure their own custom schedule.</p>
+</div>
+<div class="paragraph">
+<p>The component will apply the logic documented in the Project Syn Jsonnet best practices on <a href="https://syn.tools/syn/explanations/jsonnet.html#_randomize_cron_schedules">randomizing cron schedules</a> to avoid generating load spikes on an LDAP server.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component may break if you specify a schedule which doesn&#8217;t contain exactly one <code>%d</code> format specifier.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure arbitrary secrets.
+The contents of the parameter are transformed into <code>Secret</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>See the how-to on <a href="../how-tos/configure-secrets.html" class="page">configuring secrets</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_groupmemberships"><a class="anchor" href="#_groupmemberships"></a><code>groupMemberships</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure arbitrary OpenShift groups and group memberships.</p>
+</div>
+<div class="paragraph">
+<p>See the how-to on <a href="../how-tos/group-memberships.html" class="page">managing group memberships</a> for more details.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="parameters.html">Parameters</a></span>
+  <span class="prev"><a href="../how-tos/group-memberships.html">Manage group memberships</a></span>
+  <span class="next"><a href="deprecation-notice.html">Deprecated features</a></span>
 </nav>
 </article>
   </div>
@@ -778,7 +1123,7 @@ The name needs to be identical in both locations.</td>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/references/deprecation-notice.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/references/parameters.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
