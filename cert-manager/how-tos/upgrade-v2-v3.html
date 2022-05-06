@@ -739,12 +739,54 @@
 With this release old API versions (<code>v1alpha2</code>, <code>v1alpha3</code>, and <code>v1beta1</code>) will no longer be served by the API.</p>
 </div>
 <div class="paragraph">
-<p>This upgrade should require no manual steps, but older software and definitions might still use the older API versions.</p>
+<p>This upgrade may require manual steps and older software and definitions might still use the older API versions.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_check_for_usage_of_old_api_versions"><a class="anchor" href="#_check_for_usage_of_old_api_versions"></a>Check for usage of old API versions</h2>
+<h2 id="_cmctl"><a class="anchor" href="#_cmctl"></a><code>cmctl</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>cmctl</code> offers various helpers to simplify cert-manager upgrades.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There is also a Docker image available at <a href="https://quay.io/repository/jetstack/cert-manager-ctl" class="bare">quay.io/repository/jetstack/cert-manager-ctl</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_existing_objects_to_v1"><a class="anchor" href="#_upgrade_existing_objects_to_v1"></a>Upgrade existing objects to <code>v1</code></h3>
+<div class="paragraph">
+<p>To upgrade existing resources to <code>v1</code>, run the following command <strong>before</strong> upgrading cert-manager:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cmctl upgrade migrate-api-version --as=cluster-admin</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_convert_manifests_to_v1"><a class="anchor" href="#_convert_manifests_to_v1"></a>Convert manifests to <code>v1</code></h3>
+<div class="paragraph">
+<p>In order to upgrade manifest files in your repositories, <code>cmctl</code> also has a <a href="https://cert-manager.io/docs/usage/cmctl/#convert">convert command</a> that can be used to convert local manifest files to <code>v1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cmctl convert -f cert.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_for_usage_of_old_api_versions_on_openshift"><a class="anchor" href="#_check_for_usage_of_old_api_versions_on_openshift"></a>Check for usage of old API versions on OpenShift</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To check if old API versions are still in use, run the following command:</p>
@@ -805,31 +847,6 @@ With this release old API versions (<code>v1alpha2</code>, <code>v1alpha3</code>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
 <td>The <code>watch</code>, <code>get</code> and <code>list</code> verbs aren&#8217;t counted, requests for these endpoints usually comes from auto discovery.</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_convert_crds_to_v1"><a class="anchor" href="#_convert_crds_to_v1"></a>Convert CRDs to <code>v1</code></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>cmctl</code> has a <a href="https://cert-manager.io/docs/usage/cmctl/#convert">convert command</a> that can be used to convert CRDs to <code>v1</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cmctl convert -f cert.yaml</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-There is also a Docker image available at <a href="https://quay.io/repository/jetstack/cert-manager-ctl" class="bare">quay.io/repository/jetstack/cert-manager-ctl</a>
-</td>
 </tr>
 </table>
 </div>
