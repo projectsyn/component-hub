@@ -699,6 +699,24 @@
 <div class="paragraph">
 <p>The component provides the Jsonnet library <code>resource-locker.libjsonnet</code>, which other components can use to provide configurations for the operator.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component library generates unique names for the Kubernetes resources required to apply a patch.
+The resource names are generated to be unique, even if multiple components try to patch the same target object.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the component library adds labels and annotations containing human-readable information about the resource to patch and the component managing the patch.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>A brief usage example which creates a configuration for the operator which enforces the presence of a resource quota object in namespace <code>default</code>:</p>
 </div>
