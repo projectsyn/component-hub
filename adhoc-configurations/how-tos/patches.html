@@ -553,6 +553,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -775,7 +783,11 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The patch to apply</td>
+<td>The patch to apply.
+The component can automatically inject <code>id: patch&lt;N&gt;</code> into each patch in the template.
+This allows existing patches to continue working when component <code>resource-locker</code> is upgraded to v2.x.
+Note that the component doesn&#8217;t preserve user-provided values for field <code>id</code>.
+Further, the component doesn&#8217;t remove field <code>id</code> from the provided patches when component <code>resource-locker</code> v1.x is deployed on the cluster.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>

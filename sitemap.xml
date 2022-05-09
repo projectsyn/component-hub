@@ -163,6 +163,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-version.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-podsecuritypolicy.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-prom-label-proxy.xml</loc>
 </sitemap>
 <sitemap>
