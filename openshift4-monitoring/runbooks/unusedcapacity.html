@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../how-tos/opsgenie.html">
+    <title>Alert Group: syn-UnusedCapacity :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/runbooks/unusedcapacity.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,8 +91,8 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -124,16 +122,16 @@
     <span class="nav-text">Runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/podcapacity.html">Pod Capacity Alert</a>
+    <a class="nav-link" href="podcapacity.html">Pod Capacity Alert</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/resourcerequests.html">Resource Requests Alert</a>
+    <a class="nav-link" href="resourcerequests.html">Resource Requests Alert</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/memorycapacity.html">Memory Capacity Alert</a>
+    <a class="nav-link" href="memorycapacity.html">Memory Capacity Alert</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/cpucapacity.html">CPU Capacity Alert</a>
+    <a class="nav-link" href="cpucapacity.html">CPU Capacity Alert</a>
   </li>
 </ul>
   </li>
@@ -726,892 +724,97 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OpenShift4 Monitoring</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="unusedcapacity.html">Alert Group: syn-UnusedCapacity</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/runbooks/unusedcapacity.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Alert Group: syn-UnusedCapacity</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>openshift4_monitoring</code>.</p>
+<p>We provide an alert rule which fires if a cluster has multiple unused nodes.
+When this alert fires, the cluster can be scaled down to optimize costs.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_manifests_version"><a class="anchor" href="#_manifests_version"></a><code>manifests_version</code></h2>
+<h2 id="SYN_ClusterHasUnusedNodes"><a class="anchor" href="#SYN_ClusterHasUnusedNodes"></a>Alert Rule: SYN_ClusterHasUnusedNodes</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>release-4.9</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Select which version of the upstream alerting (and recording) rules should be used by the component.
-This parameter must be changed to match the cluster&#8217;s OCP4 minor version.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Once we&#8217;ve implemented <a href="https://syn.tools/syn/SDDs/0027-dynamic-cluster-facts.html">dynamic cluster facts</a>, this parameter will be automatically set based on the value of the reported cluster version.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_defaultconfig"><a class="anchor" href="#_defaultconfig"></a><code>defaultConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeSelector:
-  node-role.kubernetes.io/infra: ''</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the default configuration which should be applied to all components.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upstreamrules_networkplugin"><a class="anchor" href="#_upstreamrules_networkplugin"></a><code>upstreamRules.networkPlugin</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>openshift-sdn</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Choose either <code>openshift-sdn</code> or <code>ovn-kubernetes</code> depending on the installed network plugin.
-If a custom network plugin is used, set any other string as the value for this parameter.
-This ensures neither openshift-sdn nor OVN-Kubernetes monitoring rules are deployed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upstreamrules_elasticsearchoperator"><a class="anchor" href="#_upstreamrules_elasticsearchoperator"></a><code>upstreamRules.elasticsearchOperator</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether the Elasticsearch Operator prometheus rules should be included or not.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upstreamrules_clustersamplesoperator"><a class="anchor" href="#_upstreamrules_clustersamplesoperator"></a><code>upstreamRules.clusterSamplesOperator</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether the Cluster Samples Operator prometheus rules should be included or not.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enableuserworkload"><a class="anchor" href="#_enableuserworkload"></a><code>enableUserWorkload</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>false</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A parameter to enable <a href="https://docs.openshift.com/container-platform/4.9/monitoring/enabling-monitoring-for-user-defined-projects.html">monitoring for user-defined projects</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configs"><a class="anchor" href="#_configs"></a><code>configs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheusK8s:
-  externalLabels:
-    cluster_id: ${cluster:name}
-    tenant_id: ${cluster:tenant}
-  retention: 8d
-  volumeClaimTemplate:
-    spec:
-      resources:
-        requests:
-          storage: 50Gi
-alertmanagerMain:
-  volumeClaimTemplate:
-    spec:
-      resources:
-        requests:
-          storage: 2Gi</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">monitoring components</a>.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/monitoring/cluster_monitoring/configuring-the-monitoring-stack.html">OpenShift docs</a> for available parameters.</p>
-</div>
-<div class="paragraph">
-<p>This table shows the monitoring components you can configure and the keys used to specify the components:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Component</th>
-<th class="tableblock halign-left valign-top">Key</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusK8s</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Alertmanager</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerMain</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">kube-state-metrics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kubeStateMetrics</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">openshift-state-metrics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshiftStateMetrics</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Grafana</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grafana</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Telemeter Client</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemeterClient</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>k8sPrometheusAdapter</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Querier</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thanosQuerier</code></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configsuserworkload"><a class="anchor" href="#_configsuserworkload"></a><code>configsUserWorkload</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheusOperator: {}
-prometheus: ${openshift4_monitoring:configs:prometheusK8s}
-thanosRuler: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">user workload monitoring components</a>.</p>
-</div>
-<div class="paragraph">
-<p>This table shows the monitoring components you can configure and the keys used to specify the components:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Component</th>
-<th class="tableblock halign-left valign-top">Key</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheus</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Ruler</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thanosRuler</code></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_alertmanagerconfig"><a class="anchor" href="#_alertmanagerconfig"></a><code>alertManagerConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">route:
-  group_wait: 0s
-  group_interval: 5s
-  repeat_interval: 10m
-inhibit_rules:
-  # Don't send warning or info if a critical is already firing
-  - target_match_re:
-      severity: warning|info
-    source_match:
-      severity: critical
-    equal:
-      - namespace
-      - alertname
-  # Don't send info if a warning is already firing
-  - target_match_re:
-      severity: info
-    source_match:
-      severity: warning
-    equal:
-      - namespace
-      - alertname</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the configuration for the AlertManager.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/monitoring/cluster_monitoring/configuring-the-monitoring-stack.html#configuring-alertmanager">OpenShift docs</a> for available parameters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration parameters related to influence the resulting alert rules.</p>
-</div>
 <div class="sect2">
-<h3 id="_ignorenames"><a class="anchor" href="#_ignorenames"></a><code>ignoreNames</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-</table>
-</div>
+<h3 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
 <div class="paragraph">
-<p>List of <a href="https://github.com/prometheus-operator/kube-prometheus">kube-prometheus</a> alert rule names to be dropped.</p>
+<p>This alert indicates that the cluster utilization is low enough that nodes can be removed safely.
+The alert fires if <strong>pod count</strong>, <strong>CPU requests</strong>, <strong>CPU usage</strong>, <strong>memory requests</strong>, and <strong>memory usage</strong> are are all low enough that a node can be removed without impacting cluster stability in case of a node failure.
+By default, the alert will fire when the equivalent of at least four nodes has been unused for each metric for eight hours.
+Both the threshold of four unused nodes, and the duration of eight hours can be tuned through the component parameters.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_customannotations"><a class="anchor" href="#_customannotations"></a><code>customAnnotations</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
+<h3 id="_investigate"><a class="anchor" href="#_investigate"></a><span class="icon"><i class="fa fa-search"></i></span> Investigate</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify the alert</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify remaining capacity is high.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl top nodes | grep -E "NAME|worker"
+kubectl describe node -lnode-role.kubernetes.io/app | grep "Allocatable:|Allocated resources:" -A 8
+kubectl describe node -lnode-role.kubernetes.io/app | grep "Non-terminated Pods:"</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Maps alert names to sets of custom annotations.
-Allows configuring custom annotations for individual alerts.</p>
+<p>If the allocated resources reported by Kubernetes don&#8217;t indicate low utilization on the nodes, there might be a bug in the alert rule.
+If that&#8217;s the case, please disable this alert and open an issue for this component.</p>
+</div>
+</li>
+<li>
+<p>Check if there is a sudden drop in resource requests that indicate that this might be temporary.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Either remove worker nodes or resize existing worker nodes according to the install <a href="https://kb.vshn.ch/oc4/index.html">instructions for your cloud</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
+<div class="paragraph">
+<p>If this alert isn&#8217;t actionable, noisy, or was raised too early you might want to tune it.</p>
 </div>
 <div class="paragraph">
-<p>Example:</p>
+<p>Through the component parameters you have the option modify the number of reserved nodes.
+Additionally, you can change for how long the alert needs to be firing until you are alerted, or disable it completely.
+In the example below will adapt the rule to only alert after two days and change the number of reserved nodes to 5.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">customAnnotations:
-  Watchdog:
-    runbook_url: https://www.google.com/?q=Watchdog</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_patchrules"><a class="anchor" href="#_patchrules"></a><code>patchRules</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>dict</p>
-</dd>
-<dt class="hdlist1">keys</dt>
-<dd>
-<p>potential values of parameter <code>manifests_versions</code></p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p>See <a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on GitHub</a></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The parameter <code>patchRules</code> allows users to customize upstream alerts.
-The component expects that top-level keys in the parameter correspond to values of parameter <code>manifests_versions</code>.
-This enables users to selectively patch upstream alerts for a particular OpenShift 4 version.</p>
-</div>
-<div class="paragraph">
-<p>For each version, the component expects alert names as keys and any alert configuration as values.
-See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting rules documentation</a> for extended documentation on configuring alerting rules.</p>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
-  release-4.9:
-    SystemMemoryExceedsReservation:
-      for: 30m</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_silence"><a class="anchor" href="#_silence"></a><code>silence</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Parameters to configure the silence CronJob.</p>
-</div>
-<div class="sect2">
-<h3 id="_schedule"><a class="anchor" href="#_schedule"></a><code>schedule</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>'0 */4 * * *'</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Schedule of the CronJob in cron syntax.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_serviceaccountname"><a class="anchor" href="#_serviceaccountname"></a><code>serviceAccountName</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>prometheus-k8s</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Name of the service account used when running the silence job.
-The service account must have permission to access the Alertmanager service through its oAuth proxy.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_servingcertscabundlename"><a class="anchor" href="#_servingcertscabundlename"></a><code>servingCertsCABundleName</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>serving-certs-ca-bundle</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Name of the config map containing the CA bundle of the Alertmanager service.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_jobhistorylimit"><a class="anchor" href="#_jobhistorylimit"></a><code>jobHistoryLimit</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Parameters to configure the numbers of silence job objects to keep.</p>
-</div>
-<div class="sect3">
-<h4 id="_failed"><a class="anchor" href="#_failed"></a><code>failed</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>3</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Number of failed jobs to keep.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_successful"><a class="anchor" href="#_successful"></a><code>successful</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>3</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Number of successful jobs to keep.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_capacityalerts"><a class="anchor" href="#_capacityalerts"></a><code>capacityAlerts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to enable and configure alerts for capacity management.
-The capacity alerts are disabled by default and can be enabled by setting the key <code>capacityAlerts.enabled</code> to <code>true</code>.
-Predictive alerts are disabled by default and can be enabled, as exampled by <code>ExpectClusterCpuUsageHigh.enabled</code> to <code>true</code>.</p>
-</div>
-<div class="paragraph">
-<p>The dictionary will be transformed into a <code>PrometheusRule</code> object by the component.</p>
-</div>
-<div class="paragraph">
-<p>The component provides 10 alerts that are grouped in four groups.
-You can disable or modify each of these alert rules individually.
-The fields in these rules will be added to the final <code>PrometheusRule</code>, with the exception of <code>expr</code>.
-The <code>expr</code> field contains fields which can be used to tune the default alert rule.
-Alternatively the default rule can be completely overwritten by setting the <code>expr.raw</code> field (see example below).
-See <a href="../explanations/resource_management.html" class="page">Resource Management</a> for an explanation for every alert rule.</p>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
-capacityAlerts:
-  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
   groups:
-    PodCapacity:
-      rules:
-        TooManyPods:
-          annotations:
-            message: 'The number of pods is too damn high' <i class="conum" data-value="2"></i><b>(2)</b>
-          for: 3h <i class="conum" data-value="3"></i><b>(3)</b>
-        ExpectTooManyPods:
-          expr: <i class="conum" data-value="4"></i><b>(4)</b>
-            range: '2d'
-            predict: '5*24*60*60'</code></pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>    ResourceRequests:
-      rules:
-        TooMuchMemoryRequested:
-          enabled: true
-          expr:
-            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="5"></i><b>(5)</b>
-    CpuCapacity:
-      rules:
-        ClusterCpuUsageHigh:
-          enabled: false <i class="conum" data-value="6"></i><b>(6)</b>
-        ExpectClusterCpuUsageHigh:
-          enabled: false <i class="conum" data-value="6"></i><b>(6)</b>
     UnusedCapacity:
       rules:
         ClusterHasUnusedNodes:
-          enabled: false <i class="conum" data-value="7"></i><b>(7)</b>
----
-&lt;1&gt; Enables capacity alerts
-&lt;2&gt; Changes the alert message for the pod capacity alert
-&lt;3&gt; Only alerts for pod capacity if it fires for 3 hours
-&lt;4&gt; Change the pod count prediction to look at the last two days and predict the value in five days
-&lt;5&gt; Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB
-&lt;6&gt; Disables both CPU capacity alert rules
-&lt;7&gt; Disables alert if the cluster has unused nodes.</pre>
+          enabled: true
+          for: 2d
+          expr:
+            reserved: 5</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_rules"><a class="anchor" href="#_rules"></a><code>rules</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
 </div>
-<div class="paragraph">
-<p>This parameter allows users to configure additional Prometheus rules to deploy on the cluster.</p>
-</div>
-<div class="paragraph">
-<p>Each key-value pair in the dictionary is transformed into a <code>PrometheusRule</code> object by the component.</p>
-</div>
-<div class="paragraph">
-<p>The component expects that values are dicts themselves and expects that keys in those dicts are prefixed with <code>record:</code> or <code>alert:</code> to indicate whether the rule is a recording or alerting rule.
-The component will transform the keys into fields in the resulting rule by taking the prefix as the field name and the rest of the key as the field value.
-For example, key <code>"record:sum:some:metric:5m"</code> would be transformed into <code>record: sum:some:metric:5m</code> which should define a recording rule with name <code>sum:some:metric:5m</code>.
-This field is then merged into the provided value which should be a valid rule definition.</p>
-</div>
-<div class="paragraph">
-<p>See the Prometheus docs for supported configurations for <a href="https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/">recording</a> and <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting</a> rules.</p>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
-rules:
-  generic-rules:
-    "alert:ContainerOOMKilled":
-      annotations:
-        message: A container ({{$labels.container}}) in pod {{ $labels.namespace }}/{{ $labels.pod }} was OOM killed
-      expr: |
-        kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
-      labels:
-        source: https://git.vshn.net/swisscompks/syn-tenant-repo/-/blob/master/common.yml
-        severity: devnull
----</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">defaultConfig:
-  nodeSelector:
-    node-role.kubernetes.io/infra: ''
-configs:
-  prometheusK8s:
-    volumeClaimTemplate:
-      spec:
-        resources:
-          requests:
-            storage: 100Gi
-alerts:
-  ignoreNames:
-    - KubeAPIErrorsHigh
-    - KubeClientErrors</code></pre>
-</div>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../how-tos/opsgenie.html">OpsGenie integration</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1621,7 +824,7 @@ alerts:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/runbooks/unusedcapacity.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
