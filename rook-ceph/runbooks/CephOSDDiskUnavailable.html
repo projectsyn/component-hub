@@ -880,7 +880,42 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <div class="sect1">
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><a href="https://rook.github.io/docs/rook/v1.7/ceph-osd-mgmt.html#remove-an-osd">Official documentation</a></p>
+</div>
+<div class="paragraph">
+<p>Check if the osd is still shown in <code>osd tree</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ceph osd tree
+ID   CLASS  WEIGHT   TYPE NAME                     STATUS  REWEIGHT  PRI-AFF
+ -1         1.95319  root default
+ -5               0      host cluster-data-0zqs7m
+ -7         0.48830      host cluster-data-18cmn4
+  1    hdd  0.48830          osd.1                     up   1.00000  1.00000
+ -3         0.48830      host cluster-data-2twz6w
+  2    hdd  0.48830          osd.2                     up   1.00000  1.00000
+ -9         0.48830      host cluster-data-3wxznf
+  3    hdd  0.48830          osd.3                     up   1.00000  1.00000
+-11         0.48830      host cluster-data-4z5nv6
+  4    hdd  0.48830          osd.4                     up   1.00000  1.00000</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the output above <code>cluster-data-0zqs7m</code> is still shown.</p>
+</div>
+<div class="paragraph">
+<p>You can check the crush map and find that <code>cluster-data-0zqs7m</code> is also reported.</p>
+</div>
+<div class="paragraph">
+<p>Delete it from the crush map.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ceph osd crush remove cluster-data-0zqs7m</pre>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">
