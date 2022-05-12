@@ -7,6 +7,9 @@
 <loc>https://hub.syn.tools/sitemap-adhoc-configurations.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-appcat-service-postgresql.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
 </sitemap>
 <sitemap>
