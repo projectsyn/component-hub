@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat-service-postgresql/references/parameters.html">
-    <link rel="prev" href="../tutorials/installation.html">
+    <title>Tutorial: Installation :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat-service-postgresql/tutorials/installation.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,8 +99,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/installation.html">Installation</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="installation.html">Installation</a>
   </li>
 </ul>
   </li>
@@ -107,8 +108,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -709,112 +710,84 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat-service-postgresql</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>Tutorials</li>
+    <li><a href="installation.html">Installation</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-appcat-service-postgresql/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-appcat-service-postgresql/edit/master/docs/modules/ROOT/pages/tutorials/installation.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Tutorial: Installation</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat_service_postgresql</code>.</p>
+<p>This tutorial will guide you through the required steps to install AppCat Service PostgreSQL.
+The component performs the Operator installation via its <a href="https://github.com/vshn/appcat-service-postgresql/tree/master/charts/provider-postgresql">Helm Chart</a>.
+The Crossplane Helm provider is a necessary dependency for the service to work.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install <a href="https://github.com/projectsyn/component-crossplane">component-crossplane</a> with the following configuration (version &gt;= <code>v2.0.0</code>):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  crossplane:
+    providers:
+      helm: <i class="conum" data-value="1"></i><b>(1)</b>
+        package: crossplane/provider-helm:v0.10.0 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Let Crossplane manage <code>provider-helm</code> CRDs and controller</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appcat-service-postgresql</code></p>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Crossplane package image and version for <code>provider-helm</code></td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+</li>
+<li>
+<p>Configure <code>component-appcat-service-postgresql</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  appcat_service_postgresql:
+    #helm_values: {} <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <code>class/defaults.yml</code></p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Custom Helm values that differ from the defaults.</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The default AppCat Service PostgreSQL Helm chart version to use.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <code>class/defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Values passed to Helm.
-See <a href="https://github.com/vshn/appcat-service-postgresql/tree/master/charts/provider-postgresql">chart README</a> for a list of possible parameters.</p>
+</li>
+<li>
+<p>Compile and push cluster catalog</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../tutorials/installation.html">Installation</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -825,7 +798,7 @@ See <a href="https://github.com/vshn/appcat-service-postgresql/tree/master/chart
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat-service-postgresql/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat-service-postgresql/tutorials/installation.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
