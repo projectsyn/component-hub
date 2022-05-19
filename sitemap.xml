@@ -202,6 +202,9 @@
 <loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-syn-kube-prometheus.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-system-upgrade-controller.xml</loc>
 </sitemap>
 <sitemap>
