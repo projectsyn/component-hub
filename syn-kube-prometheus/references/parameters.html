@@ -861,6 +861,77 @@ The prometheus-operator deployed by this component will only reconcile resources
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
+  my-secret:
+    stringData:
+      foo: bar
+      long: |
+        A long
+        multiline secret
+  object-storage:
+    metadata:
+      namespace: foo-ns
+    stringData:
+      thanos:
+        type: S3
+        config:
+          bucket: thanos
+          endpoint: s3.example.com
+          access_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/s3_access_key}'
+          secret_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/s3_secret_key}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>secrets</code> parameter can be used to create a list of arbitrary secrets.
+The key is used as the name of the secret and the value is transformed into <code>Secret</code> resources.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When specifying an object as value for a key in <code>stringData</code>, the component will render the object as JSON and add it as a string.
+This can be very helpful if you need so specify JSON or YAML configuration through a secret, for example for Thanos object-storage configuration.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_addons"><a class="anchor" href="#_addons"></a><code>addons</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
