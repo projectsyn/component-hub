@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/csi-cloudscale/references/parameters.html">
-    <link rel="prev" href="../how-tos/upgrade-2.x-to-3.x.html">
+    <title>Upgrade from v1.x to v2.x :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/crossplane/how-tos/upgrade-1.1.1-1.7.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,38 +79,20 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="csi-cloudscale" data-version="master">
+<div class="nav-container" data-component="crossplane" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">csi-cloudscale</a></h3>
+    <h3 class="title"><a href="../index.html">crossplane</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">How-to guides</span>
-<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Technical reference</span>
-<ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -120,7 +101,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">csi-cloudscale</span>
+    <span class="title">crossplane</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -252,11 +233,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../crossplane/index.html">crossplane</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">crossplane</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../crossplane/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -268,11 +249,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">csi-cloudscale</a>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -719,266 +700,32 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">csi-cloudscale</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">crossplane</a></li>
+    <li><a href="upgrade-1.1.1-1.7.x.html">Upgrade from v1.x to v2.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-csi-cloudscale/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-crossplane/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-1.1.1-1.7.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Upgrade from v1.x to v2.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>csi_cloudscale</code>.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version v1.x to v2.x</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-csi-cloudscale</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The namespace in which to install the driver.
-Unless <code>kube-system</code> is chosen, the component will take ownership of the namespace.
-In K8s prior to 1.17, the driver won&#8217;t run in namespaces other than <code>kube-system</code>.
-This is because the priority class <code>system-cluster-critical</code> is only available to pods in namespace <code>kube-system</code>.
-See <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default">the Kubernetes priority class consumption</a> documentation for instructions on how to allow the driver to run in a namespace other than <code>kube-system</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>v3.2.0</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Version of the driver to install.
-See <a href="https://github.com/cloudscale-ch/csi-cloudscale/releases">available versions</a>.
-See <a href="https://github.com/cloudscale-ch/csi-cloudscale#kubernetes-compatibility">Kubernetes compatibility</a> to choose the right version for your cluster.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Switch to enable or disable the component. See <a href="https://github.com/projectsyn/commodore/issues/71">this issue</a> for further details.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_api_token"><a class="anchor" href="#_api_token"></a><code>api_token</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Vault reference</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Cloudscale API token to be used by the CSI driver.
-This should be a reference to a secret in Vault instead of the plaintext token.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_fs_type"><a class="anchor" href="#_fs_type"></a><code>fs_type</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>ext4</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The filesystem type used in the storage classes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_driver_daemonset_tolerations"><a class="anchor" href="#_driver_daemonset_tolerations"></a><code>driver_daemonset_tolerations</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Tolerations that should be applied to the CSI node driver daemonset.
-The component will transform entries in the dictionary to valid Kubernetes <code>tolerations</code> entries.
-The component will reuse the key in the dictionary as value for field <code>key</code> in the <code>tolerations</code> entry.</p>
-</div>
-<div class="sect2">
-<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
-<div class="paragraph">
-<p>Allow the CSI node driver daemonset to be scheduled on nodes which have a <code>storagenode</code> taint.</p>
-</div>
-<div class="listingblock">
-<div class="title">cluster-id.yaml</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  csi_cloudscale:
-    driver_daemonset_tolerations:
-      storagenode:
-        operator: Exists</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Resulting configuration in the node driver DaemonSet</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># ... remaining object omitted ...
-spec:
-  template:
-    spec:
-      # ... remaining spec omitted ...
-      tolerations:
-        - key: storagenode
-          operator: Exists</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-csi-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Resource requests and limits to apply to individual CSI driver containers.</p>
-</div>
-<div class="paragraph">
-<p>The component looks for keys matching the individual container names for the controller StatefulSet and CSI driver daemonset in the keys <code>controller</code> and <code>csi_driver</code> of this parameter respectively.</p>
-</div>
-<div class="paragraph">
-<p>The value of such a key&#8201;&#8212;&#8201;if found&#8201;&#8212;&#8201;is used as the container&#8217;s <code>resources</code> field.</p>
-</div>
-<div class="paragraph">
-<p>The component supports removing requests or limits by setting the corresponding fields to <code>null</code>.</p>
+<p>Component version v2.0.0 installs Crossplane version 1.7.1.
+Since Crossplane Version 1.3, all CRDs are being managed by the Crossplane Operator and no longer by the Helm Chart.
+An automated PreSync Hook during migration will ensure that CRDs aren&#8217;t deleted.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -987,40 +734,20 @@ default
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>The component doesn&#8217;t validate provided requests and limits.
-It&#8217;s the user&#8217;s responsibility to provide values which result in a valid container spec.</p>
+<div class="literalblock">
+<div class="content">
+<pre>All CRDs are expected to use api version _v1_ (stored version) while on component version _1.1.1_ with exception to Locks and ControllerConfig.
+The Lock object is no longer managed by the HelmChart in Crossplane 1.7 therefore it will be ignored during migration by ArgoCD.
+ControllerConfig CRD hasn't received any updates.
+====</pre>
+</div>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
-<div class="paragraph">
-<p>This example increases the memory limit for the <code>csi-cloudscale-plugin</code> container for both the controller and the csi_driver to <code>256Mi</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  csi_cloudscale:
-    resources:
-      controller:
-        csi-cloudscale-plugin:
-          limits:
-            memory: 256Mi
-      csi_driver:
-        csi-cloudscale-plugin:
-          limits:
-            memory: 256Mi</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1030,7 +757,7 @@ It&#8217;s the user&#8217;s responsibility to provide values which result in a v
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/csi-cloudscale/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/crossplane/how-tos/upgrade-1.1.1-1.7.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
