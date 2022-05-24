@@ -839,12 +839,12 @@ vault login -method=ldap username=&lt;your.name&gt;</code></pre>
 <p>Configure Terraform secrets</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLOUDSCALE_TOKEN=$(vault kv get -format=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLOUDSCALE_API_TOKEN=$(vault kv get -format=json \
   clusters/kv/${TENANT_ID}/${CLUSTER_ID}/cloudscale \
   | jq -r '.data.data.token')
 
 cat &lt;&lt;EOF &gt; ./terraform.env
-CLOUDSCALE_TOKEN
+CLOUDSCALE_API_TOKEN
 EOF</code></pre>
 </div>
 </div>
