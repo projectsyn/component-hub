@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/prometheus/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="addon-oauth2-proxy.html">
+    <title>Deploying Prometheus instances :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/prometheus/how-tos/prometheus.html">
+    <link rel="prev" href="../references/addon-oauth2-proxy.html">
+    <link rel="next" href="setup-keycloak.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,8 +93,8 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -103,7 +103,7 @@
     <span class="nav-text">Addons</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="addon-oauth2-proxy.html">OAuth2 Proxy</a>
+    <a class="nav-link" href="../references/addon-oauth2-proxy.html">OAuth2 Proxy</a>
   </li>
 </ul>
   </li>
@@ -111,11 +111,11 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/prometheus.html">Deploy Prometheus</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="prometheus.html">Deploy Prometheus</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/setup-keycloak.html">Setup with Keycloak</a>
+    <a class="nav-link" href="setup-keycloak.html">Setup with Keycloak</a>
   </li>
 </ul>
   </li>
@@ -724,782 +724,224 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">prometheus</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-Tos</li>
+    <li><a href="prometheus.html">Deploy Prometheus</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/how-tos/prometheus.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Deploying Prometheus instances</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>prometheus</code>.</p>
+<p>This component uses <a href="https://github.com/prometheus-operator/kube-prometheus">kube-prometheus</a> to deploy the <a href="https://github.com/prometheus-operator/prometheus-operator">Prometheus Operator</a>.
+It uses the Operator to deploy Prometheus and related components.
+Out of the box the component will only deploy the Prometheus Operator and its CRDs.</p>
 </div>
 <div class="paragraph">
-<p>A shared instance of the following kube-prometheus component can be configured:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>prometheus_operator</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Multiple instances of the following components can be configured:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>prometheus</p>
-</li>
-<li>
-<p>alertmanager</p>
-</li>
-<li>
-<p>grafana</p>
-</li>
-<li>
-<p>node_exporter</p>
-</li>
-<li>
-<p>blackbox_exporter</p>
-</li>
-<li>
-<p>kubernetes_control_plane</p>
-</li>
-<li>
-<p>prometheus_adapter</p>
-</li>
-<li>
-<p>kube_state_metrics</p>
-</li>
-</ul>
+<p>This how-to will walk you through deploying and configuring one or more Prometheus instances using the Prometheus Operator and this component.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
+<h2 id="_single_prometheus_deployment"><a class="anchor" href="#_single_prometheus_deployment"></a>Single Prometheus Deployment</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>1.21</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubernetes_version: '${dynamic_facts:kubernetesVersion:major}.${dynamic_facts:kubernetesVersion:minor}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The Kubernetes version of the cluster is used to consume the corresponding kube-prometheus version.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_registries"><a class="anchor" href="#_registries"></a><code>registries</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-prometheus/blob/master/class/defaults.yml">See class/defaults.yml</a></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">registries:
-  docker.io: 'docker-io.proxy.com'
-  quay.io: 'quay-io.proxy.com'
-  k8s.gcr.io: 'k8s-gcr-io.proxy.com'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary of registries to use for the Prometheus components.
-Allows to map upstream images to a custom registry.
-Useful for air gapped clusters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-prometheus/blob/master/class/defaults.yml">See class/defaults.yml</a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary of images used by this component.
-Doesn&#8217;t include the <code>kube-prometheus</code> upstream images.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespaces"><a class="anchor" href="#_namespaces"></a><code>namespaces</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaces:
-  my-stack:
-    labels:
-      stack: my-stack
-    annotations:
-      description: Used to monitor my stack.</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>namespaces</code> parameter can be used to create a list of namespaces for the Prometheus stacks to be deployed.
-The key is used as the name of the namespace and the value is used as the namespace metadata.
-Namespaces can be removed from the hierarchy by setting the value to <code>null</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The prometheus-operator deployed by this component will only reconcile resources in these namespaces.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-</td>
-</tr>
-</table>
+<p>The following configuration will deploy a Prometheus Operator into the default namespace <code>syn-prometheus-operator</code> and a Prometheus instance into the namespace <code>monitoring-infra</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
-  my-secret:
-    stringData:
-      foo: bar
-      long: |
-        A long
-        multiline secret
-  object-storage:
-    metadata:
-      namespace: foo-ns
-    stringData:
-      thanos:
-        type: S3
-        config:
-          bucket: thanos
-          endpoint: s3.example.com
-          access_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/s3_access_key}'
-          secret_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/s3_secret_key}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>secrets</code> parameter can be used to create a list of arbitrary secrets.
-The key is used as the name of the secret and the value is transformed into <code>Secret</code> resources.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When specifying an object as value for a key in <code>stringData</code>, the component will render the object as JSON and add it as a string.
-This can be very helpful if you need so specify JSON or YAML configuration through a secret, for example for Thanos object-storage configuration.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_addons"><a class="anchor" href="#_addons"></a><code>addons</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">addons:
-  - remove-securitycontext
-  - podsecuritypolicies</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A list of addons to configure the Prometheus stack.
-Upstream addons can be found in the <a href="https://github.com/prometheus-operator/kube-prometheus/tree/main/jsonnet/kube-prometheus/addons"><code>addons</code> folder</a> of the <code>kube-prometheus</code> project.
-Addons provided by this component can be found in the <a href="https://github.com/projectsyn/component-prometheus/tree/master/component/addons"><code>component/addons</code> folder</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_base"><a class="anchor" href="#_base"></a><code>base</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  namespace: syn-prometheus
-prometheus:
-  enabled: false
-  config: {}
-  overrides: {}
-alertmanager:
-  enabled: false
-  config: {}
-  overrides: {}
-grafana:
-  enabled: false
-  config: {}
-  overrides: {}
-node_exporter:
-  enabled: false
-  config: {}
-  overrides: {}
-blackbox_exporter:
-  enabled: false
-  config: {}
-  overrides: {}
-kubernetes_control_plane:
-  enabled: false
-  config: {}
-  overrides: {}
-prometheus_adapter:
-  enabled: false
-  config: {}
-  overrides: {}
-kube_state_metrics:
-  enabled: false
-  config: {}
-  overrides: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The base configuration shared by all instances.
-Can be overridden by the instance-specific configuration.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_instances"><a class="anchor" href="#_instances"></a><code>instances</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">infra:
-  common:
-    namespace: monitoring-infra
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   prometheus:
-    enabled: true
-    config:
-      scrape_interval: 15s
-      scrape_timeout: 10s
-      evaluation_interval: 15s
-  node_exporter:
-    enabled: true</code></pre>
+    namespaces:
+      monitoring-infra: {} <i class="conum" data-value="1"></i><b>(1)</b>
+    instances:
+      infra:
+        common:
+          namespace: monitoring-infra
+        prometheus:
+          enabled: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Creates a new namespace called <code>monitoring-infra</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Deploys a Prometheus instance in the new namespace</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_configuration_and_overrides"><a class="anchor" href="#_configuration_and_overrides"></a>Configuration and Overrides</h3>
+<div class="paragraph">
+<p>You can further configure this instance through the <code>config</code> and <code>overrides</code> keys.</p>
+</div>
+<div class="paragraph">
+<p>The <code>config</code> key allows you to set the <code>values</code> map of the <code>kube-prometheus</code> library.
+This allows you to do most of the configuration, such as setting the number of replicas or enabling the Thanos sidecar.
+The available <code>config</code> parameters and their defaults can be found in the <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/components/prometheus.libsonnet">kube-prometheus library</a>.
+The easiest way to find the allowed parameters is to look at the local <code>defaults</code> variable.</p>
+</div>
+<div class="paragraph">
+<p>If updating the <code>kube-prometheus</code> library arguments through the <code>config</code> key isn&#8217;t enough, you also have the option to override any of the generated manifest using the <code>overrides</code> key.
+The provided object will be merged with the output of the <code>kube-prometheus</code> library.
+You can again look at the <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/components/prometheus.libsonnet">kube-prometheus library</a>, to see what&#8217;s generated and how it can be patched.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Overriding manifests can lead to invalid configurations in other components.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Instances contains the configuration for each instance of the stack that should be deployed.
-<code>base</code> is used as the default values for the instance.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  prometheus:
+    namespaces:
+      monitoring-infra: {}
+    instances:
+      infra:
+        common:
+          namespace: monitoring-infra
+        prometheus:
+          enabled: true
+          config:
+            replicas: 1 <i class="conum" data-value="1"></i><b>(1)</b>
+          overrides:
+            clusterRole: <i class="conum" data-value="2"></i><b>(2)</b>
+              rules:
+              - apiGroups: ['']
+                resources: ['pods']
+                verbs: ['get']</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Deploy Prometheus with only a single replica</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Give the Prometheus instance special privileges to get all pods</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Every deployable component can be configured in its corresponding key.</p>
+<p>INFO: This approach of <code>config</code> and <code>overrides</code> is used in the same way for all components, not just for Prometheus instances.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_base_component_instances_component"><a class="anchor" href="#_base_component_instances_component"></a><code>base.COMPONENT</code>, <code>instances.*.COMPONENT</code></h2>
+<h2 id="_multiple_prometheus_deployments"><a class="anchor" href="#_multiple_prometheus_deployments"></a>Multiple Prometheus Deployments</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
-  enabled: false
-  config: {}
-  overrides: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
-  enabled: true
-  config:
-    scrape_interval: 15s
-  overrides: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>This component isn&#8217;t multi-instance capable.
+That means it isn&#8217;t possible to instantiate this component.
+This feature was left out as it&#8217;s rarely advisable to deploy multiple Prometheus operators on the same cluster.</p>
 </div>
 <div class="paragraph">
-<p>Every component can be configured with the following keys:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>enabled</code>: Whether the component should be deployed.</p>
-</li>
-<li>
-<p><code>config</code>: The configuration for how the component should be rendered.
-Warning: Configuring one component can have side effects on other components.</p>
-</li>
-<li>
-<p><code>overrides</code>: The configuration overrides for the component.
-Warning: The overrides are applied after the manifests are rendered.
-This means configuration side effects don&#8217;t apply and the configuration can contain invalid values.</p>
-</li>
-</ul>
+<p>It&#8217;s however still possible to deploy multiple Prometheus instances through this component.
+The component will deploy a single Prometheus operator and one Prometheus instance for each entry in <code>instances</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>config</code> parameters can be found in the corresponding kube-prometheus library <a href="https://github.com/prometheus-operator/kube-prometheus/tree/main/jsonnet/kube-prometheus/components">here</a>.
-The easiest way to find the allowed parameters is to look at the local <code>defaults</code> variable.
-See the kube state metrics defaults as an example: <a href="https://github.com/prometheus-operator/kube-prometheus/blob/aeb50f066eadf9831c53cdf9228e09dd4e9d28b2/jsonnet/kube-prometheus/components/kube-state-metrics.libsonnet#L7-L48">kube-prometheus/components/kube-state-metrics.libsonnet</a></p>
+<p>For example the following configuration will deploy an additional Prometheus instance called <code>apps</code> in namespace <code>monitoring-apps</code>.
+It also has a single replica but no additional cluster permissions.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="common"><a class="anchor" href="#common"></a><code>base.common</code>, <code>instances.common</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  images:
-    alertmanager: 'my.quaymirror.tld/prometheus/alertmanager:v${kube_prometheus.common.versions.alertmanager}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Common parameters to be passed down to all components.
-The supported fields can be found <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/main.libsonnet">here</a> under the <code>values.common</code> key.
-At the time of writing this dict supported the following fields:</p>
-</div>
-<div class="sect2">
-<h3 id="_common_namespace"><a class="anchor" href="#_common_namespace"></a><code>common.namespace</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-prometheus</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  namespace: my-monitoring-stack</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The default namespace for all components.</p>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  prometheus:
+    namespaces:
+      monitoring-infra: {}
+      monitoring-apps: {}
+    instances:
+      infra:
+        common:
+          namespace: monitoring-infra
+        prometheus:
+          enabled: true
+          config:
+            replicas: 1
+          overrides:
+            clusterRole:
+              rules:
+              - apiGroups: ['']
+                resources: ['pods']
+                verbs: ['get']
+      apps:
+        common:
+          namespace: monitoring-apps
+        prometheus:
+          enabled: true
+          config:
+            replicas: 1</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_common_platform"><a class="anchor" href="#_common_platform"></a><code>common.platform</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
+<h3 id="_base_configuration"><a class="anchor" href="#_base_configuration"></a>Base Configuration</h3>
+<div class="paragraph">
+<p>With this approach we can deploy an arbitrary number of Prometheus instances, but configuring them can become tedious.
+Most of the time all Prometheus instances on a cluster share a common configuration base.</p>
+</div>
+<div class="paragraph">
+<p>For this we can use the <code>base</code> key.
+The base configuration is shared by all instances.
+It can be overridden by the instance-specific configuration.</p>
+</div>
+<div class="paragraph">
+<p>With this we can for example simplify the previous configuration by moving enabling Prometheus and setting the number of replicas to the base configuration.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  platform: aws</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  prometheus:
+    namespaces:
+      monitoring-infra: {}
+      monitoring-apps: {}
+    base:
+      prometheus:
+        enabled: true
+        config:
+          replicas: 1
+    instances:
+      infra:
+        common:
+          namespace: monitoring-infra
+        prometheus:
+          overrides:
+            clusterRole:
+              rules:
+              - apiGroups: ['']
+                resources: ['pods']
+                verbs: ['get']
+      apps:
+        common:
+          namespace: monitoring-apps</code></pre>
 </div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Using a predefined mixin for a given platform.
-A list of supported platforms can be found here: <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/docs/customizations/platform-specific.md" class="bare">github.com/prometheus-operator/kube-prometheus/blob/main/docs/customizations/platform-specific.md</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_rulelabels"><a class="anchor" href="#_common_rulelabels"></a><code>common.ruleLabels</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{
-  role: 'alert-rules',
-  prometheus: $.values.prometheus.name
-}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Default alert rule labels for all components.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_versions"><a class="anchor" href="#_common_versions"></a><code>common.versions</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/versions.json" class="bare">github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/versions.json</a></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  versions:
-    grafana: 8.0.2
-    prometheus: 2.20.3</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The default version to be used for the various components.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_images"><a class="anchor" href="#_common_images"></a><code>common.images</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/main.libsonnet" class="bare">github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/main.libsonnet</a></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  images:
-    grafana: 'my.quaymirror.tld/grafana/grafana:${kube_prometheus.common.versions.grafana}'
-    prometheus: 'my.quaymirror.tld/prometheus/prometheus:${kube_prometheus.common.versions.prometheus}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The default image to be used for the various components.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="addon-oauth2-proxy.html">OAuth2 Proxy</a></span>
+  <span class="prev"><a href="../references/addon-oauth2-proxy.html">OAuth2 Proxy</a></span>
+  <span class="next"><a href="setup-keycloak.html">Setup with Keycloak</a></span>
 </nav>
 </article>
   </div>
@@ -1510,7 +952,7 @@ example
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/how-tos/prometheus.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
