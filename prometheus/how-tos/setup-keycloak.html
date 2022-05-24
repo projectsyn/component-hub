@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/prometheus/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="addon-oauth2-proxy.html">
+    <title>Setup Prometheus with Keycloak :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/prometheus/how-tos/setup-keycloak.html">
+    <link rel="prev" href="../references/addon-oauth2-proxy.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,8 +92,8 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -103,7 +102,7 @@
     <span class="nav-text">Addons</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="addon-oauth2-proxy.html">OAuth2 Proxy</a>
+    <a class="nav-link" href="../references/addon-oauth2-proxy.html">OAuth2 Proxy</a>
   </li>
 </ul>
   </li>
@@ -111,8 +110,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/setup-keycloak.html">Setup with Keycloak</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="setup-keycloak.html">Setup with Keycloak</a>
   </li>
 </ul>
   </li>
@@ -721,783 +720,281 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">prometheus</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-Tos</li>
+    <li><a href="setup-keycloak.html">Setup with Keycloak</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/how-tos/setup-keycloak.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Setup Prometheus with Keycloak</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>prometheus</code>.</p>
+<p>This how-to will help you to setup Prometheus with Keycloak authentication.</p>
 </div>
-<div class="paragraph">
-<p>A shared instance of the following kube-prometheus component can be configured:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>prometheus_operator</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Multiple instances of the following components can be configured:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>prometheus</p>
+<p>A running Keycloak instance</p>
 </li>
 <li>
-<p>alertmanager</p>
+<p>A cluster with an ingress controller and this component installed</p>
 </li>
 <li>
-<p>grafana</p>
-</li>
-<li>
-<p>node_exporter</p>
-</li>
-<li>
-<p>blackbox_exporter</p>
-</li>
-<li>
-<p>kubernetes_control_plane</p>
-</li>
-<li>
-<p>prometheus_adapter</p>
-</li>
-<li>
-<p>kube_state_metrics</p>
+<p>A working Let&#8217;s Encrypt setup</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
+<h2 id="_setup"><a class="anchor" href="#_setup"></a>Setup</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to the Keycloak instances admin console</p>
+</li>
+<li>
+<p>Create a new client using <code>openid-connect</code> protocol</p>
+</li>
+<li>
+<p>Configure the client with the following values</p>
 <div class="hdlist">
 <table>
 <tr>
 <td class="hdlist1">
-type
+Access Type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>confidential</p>
 </td>
 </tr>
 <tr>
 <td class="hdlist1">
-default
+Valid Redirect URIs
 </td>
 <td class="hdlist2">
-<p><code>1.21</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubernetes_version: '${dynamic_facts:kubernetesVersion:major}.${dynamic_facts:kubernetesVersion:minor}'</code></pre>
-</div>
-</div>
+<p><a href="https://prometheus.example.com/oauth2/callback" class="bare">prometheus.example.com/oauth2/callback</a></p>
 </td>
 </tr>
 </table>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>The Kubernetes version of the cluster is used to consume the corresponding kube-prometheus version.</p>
+<p>NOTE:
+If using Alertmanager, you also need to add the following redirect uri: <a href="https://alertmanager.example.com/oauth2/callback" class="bare">alertmanager.example.com/oauth2/callback</a>.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure the audience claim</p>
+<div class="paragraph">
+<p>Navigate to the <code>Mappers</code> tab.
+Create a new mapper with the following values:</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_registries"><a class="anchor" href="#_registries"></a><code>registries</code></h2>
-<div class="sectionbody">
 <div class="hdlist">
 <table>
 <tr>
 <td class="hdlist1">
-type
+Name
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>static audience</p>
 </td>
 </tr>
 <tr>
 <td class="hdlist1">
-default
+Mapper Type
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-prometheus/blob/master/class/defaults.yml">See class/defaults.yml</a></p>
+<p>Audience</p>
 </td>
 </tr>
 <tr>
 <td class="hdlist1">
-example
+Included Client Audience
 </td>
 <td class="hdlist2">
+<p>CLIENT_NAME (from the previous step)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Included Custom Audience
+</td>
+<td class="hdlist2">
+<p>CLIENT_NAME (from the previous step)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Add to ID token
+</td>
+<td class="hdlist2">
+<p>off</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Add to access token
+</td>
+<td class="hdlist2">
+<p>on</p>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Copy the client secret</p>
+<div class="paragraph">
+<p>Navigate to the <code>Credentials</code> tab.
+Copy the value from the <em>Secret</em> field.</p>
+</div>
+</li>
+<li>
+<p>Add the proxy configuration to your cluster&#8217;s Prometheus configuration</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">registries:
-  docker.io: 'docker-io.proxy.com'
-  quay.io: 'quay-io.proxy.com'
-  k8s.gcr.io: 'k8s-gcr-io.proxy.com'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary of registries to use for the Prometheus components.
-Allows to map upstream images to a custom registry.
-Useful for air gapped clusters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-prometheus/blob/master/class/defaults.yml">See class/defaults.yml</a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary of images used by this component.
-Doesn&#8217;t include the <code>kube-prometheus</code> upstream images.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespaces"><a class="anchor" href="#_namespaces"></a><code>namespaces</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaces:
-  my-stack:
-    labels:
-      stack: my-stack
-    annotations:
-      description: Used to monitor my stack.</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>namespaces</code> parameter can be used to create a list of namespaces for the Prometheus stacks to be deployed.
-The key is used as the name of the namespace and the value is used as the namespace metadata.
-Namespaces can be removed from the hierarchy by setting the value to <code>null</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The prometheus-operator deployed by this component will only reconcile resources in these namespaces.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
-  my-secret:
-    stringData:
-      foo: bar
-      long: |
-        A long
-        multiline secret
-  object-storage:
-    metadata:
-      namespace: foo-ns
-    stringData:
-      thanos:
-        type: S3
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
+  addons:
+    - oauth2-proxy
+
+  secrets:
+    oauth2-proxy:
+      metadata:
+        namespace: syn-example-prometheus <i class="conum" data-value="1"></i><b>(1)</b>
+      stringData:
+        cookieSecret: '?{vaultkv:${cluster:tenant}/${cluster:name}/syn-example-prometheus/oauth2_cookie_secret}' <i class="conum" data-value="2"></i><b>(2)</b>
+        clientSecret: '?{vaultkv:${cluster:tenant}/${cluster:name}/syn-example-prometheus/oauth2_client_secret}' <i class="conum" data-value="3"></i><b>(3)</b>
+
+  instances:
+    example: <i class="conum" data-value="4"></i><b>(4)</b>
+      common:
+        namespace: syn-example-prometheus <i class="conum" data-value="1"></i><b>(1)</b>
+      prometheus:
+        enabled: true
         config:
-          bucket: thanos
-          endpoint: s3.example.com
-          access_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/s3_access_key}'
-          secret_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/s3_secret_key}'</code></pre>
+          _oauth2Proxy: &amp;oauth2ProxyConfig
+            ingress:
+              host: prometheus.example.com <i class="conum" data-value="5"></i><b>(5)</b>
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-production <i class="conum" data-value="6"></i><b>(6)</b>
+            proxyEnv:
+              OAUTH2_PROXY_COOKIE_SECRET:
+                secretKeyRef:
+                  name: oauth2-proxy
+                  key: cookieSecret
+              OAUTH2_PROXY_CLIENT_SECRET:
+                secretKeyRef:
+                  name: oauth2-proxy
+                  key: clientSecret
+            proxyArgs: <i class="conum" data-value="7"></i><b>(7)</b>
+              "provider": keycloak-oidc
+              "provider-display-name": "Example Account"
+              "client-id": "syn-prometheus-infra" <i class="conum" data-value="8"></i><b>(8)</b>
+              "email-domain": vshn.net <i class="conum" data-value="9"></i><b>(9)</b>
+              "oidc-issuer-url": https://keycloak.example.com/auth/realms/REALM <i class="conum" data-value="10"></i><b>(10)</b>
+
+      alertmanager: <i class="conum" data-value="11"></i><b>(11)</b>
+        enabled: true
+        config:
+          _oauth2Proxy:
+            &lt;&lt;: *oauth2ProxyConfig <i class="conum" data-value="12"></i><b>(12)</b>
+            ingress:
+              host: alertmanager.example.com
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-production</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The <code>secrets</code> parameter can be used to create a list of arbitrary secrets.
-The key is used as the name of the secret and the value is transformed into <code>Secret</code> resources.</p>
-</div>
-<div class="admonitionblock note">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When specifying an object as value for a key in <code>stringData</code>, the component will render the object as JSON and add it as a string.
-This can be very helpful if you need so specify JSON or YAML configuration through a secret, for example for Thanos object-storage configuration.
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The namespace where the Prometheus instance is deployed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The cookie secret is used to encrypt the cookie.
+Must be 16 or 32 bytes long.
+Can be generated with <code>dd if=/dev/urandom bs=1 count=32 | base64</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The client secret copied from the Keycloak admin console in an earlier step.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The name of the Prometheus instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The hostname where the proxy should be exposed.
+Has to match the hostname of the <em>Valid Redirect URIs</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Used to generate the certificate by cert-manager.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Check the <a href="https://oauth2-proxy.github.io/oauth2-proxy/docs/">Oauth2 Proxy docs</a> for all possible configuration options.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>The client id of the client created in the previous step.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Optional email domain to restrict the users to.
+Can be set to <code>*</code> to allow all domains.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>The URL of the Keycloak instance.
+Replace <code>REALM</code> with the realm name.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Optional Alertmanager configuration if using Alertmanager.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>References a copy of the <code>_oauth2Proxy</code> configuration.</td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_addons"><a class="anchor" href="#_addons"></a><code>addons</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">addons:
-  - remove-securitycontext
-  - nodeexporter-remove-mountpropagation
-  - podsecuritypolicies</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A list of addons to configure the Prometheus stack.
-Upstream addons can be found in the <a href="https://github.com/prometheus-operator/kube-prometheus/tree/main/jsonnet/kube-prometheus/addons"><code>addons</code> folder</a> of the <code>kube-prometheus</code> project.
-Addons provided by this component can be found in the <a href="https://github.com/projectsyn/component-prometheus/tree/master/component/addons"><code>component/addons</code> folder</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_base"><a class="anchor" href="#_base"></a><code>base</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  namespace: syn-prometheus
-prometheus:
-  enabled: false
-  config: {}
-  overrides: {}
-alertmanager:
-  enabled: false
-  config: {}
-  overrides: {}
-grafana:
-  enabled: false
-  config: {}
-  overrides: {}
-node_exporter:
-  enabled: false
-  config: {}
-  overrides: {}
-blackbox_exporter:
-  enabled: false
-  config: {}
-  overrides: {}
-kubernetes_control_plane:
-  enabled: false
-  config: {}
-  overrides: {}
-prometheus_adapter:
-  enabled: false
-  config: {}
-  overrides: {}
-kube_state_metrics:
-  enabled: false
-  config: {}
-  overrides: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The base configuration shared by all instances.
-Can be overridden by the instance-specific configuration.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_instances"><a class="anchor" href="#_instances"></a><code>instances</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">infra:
-  common:
-    namespace: monitoring-infra
-  prometheus:
-    enabled: true
-    config:
-      scrape_interval: 15s
-      scrape_timeout: 10s
-      evaluation_interval: 15s
-  node_exporter:
-    enabled: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Instances contains the configuration for each instance of the stack that should be deployed.
-<code>base</code> is used as the default values for the instance.</p>
-</div>
-<div class="paragraph">
-<p>Every deployable component can be configured in its corresponding key.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_base_component_instances_component"><a class="anchor" href="#_base_component_instances_component"></a><code>base.COMPONENT</code>, <code>instances.*.COMPONENT</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
-  enabled: false
-  config: {}
-  overrides: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
-  enabled: true
-  config:
-    scrape_interval: 15s
-  overrides: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Every component can be configured with the following keys:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>enabled</code>: Whether the component should be deployed.</p>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p>NOTE:
+<code>allowed-group</code> or <code>allowed-role</code> can be used to further restrict the access to prometheus.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><code>config</code>: The configuration for how the component should be rendered.
-Warning: Configuring one component can have side effects on other components.</p>
+<p>Commit the changes and compile the catalog.</p>
 </li>
-<li>
-<p><code>overrides</code>: The configuration overrides for the component.
-Warning: The overrides are applied after the manifests are rendered.
-This means configuration side effects don&#8217;t apply and the configuration can contain invalid values.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>config</code> parameters can be found in the corresponding kube-prometheus library <a href="https://github.com/prometheus-operator/kube-prometheus/tree/main/jsonnet/kube-prometheus/components">here</a>.
-The easiest way to find the allowed parameters is to look at the local <code>defaults</code> variable.
-See the kube state metrics defaults as an example: <a href="https://github.com/prometheus-operator/kube-prometheus/blob/aeb50f066eadf9831c53cdf9228e09dd4e9d28b2/jsonnet/kube-prometheus/components/kube-state-metrics.libsonnet#L7-L48">kube-prometheus/components/kube-state-metrics.libsonnet</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="common"><a class="anchor" href="#common"></a><code>base.common</code>, <code>instances.common</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  images:
-    alertmanager: 'my.quaymirror.tld/prometheus/alertmanager:v${kube_prometheus.common.versions.alertmanager}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Common parameters to be passed down to all components.
-The supported fields can be found <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/main.libsonnet">here</a> under the <code>values.common</code> key.
-At the time of writing this dict supported the following fields:</p>
-</div>
-<div class="sect2">
-<h3 id="_common_namespace"><a class="anchor" href="#_common_namespace"></a><code>common.namespace</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-prometheus</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  namespace: my-monitoring-stack</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The default namespace for all components.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_platform"><a class="anchor" href="#_common_platform"></a><code>common.platform</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  platform: aws</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Using a predefined mixin for a given platform.
-A list of supported platforms can be found here: <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/docs/customizations/platform-specific.md" class="bare">github.com/prometheus-operator/kube-prometheus/blob/main/docs/customizations/platform-specific.md</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_rulelabels"><a class="anchor" href="#_common_rulelabels"></a><code>common.ruleLabels</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{
-  role: 'alert-rules',
-  prometheus: $.values.prometheus.name
-}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Default alert rule labels for all components.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_versions"><a class="anchor" href="#_common_versions"></a><code>common.versions</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/versions.json" class="bare">github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/versions.json</a></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  versions:
-    grafana: 8.0.2
-    prometheus: 2.20.3</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The default version to be used for the various components.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_images"><a class="anchor" href="#_common_images"></a><code>common.images</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/main.libsonnet" class="bare">github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/main.libsonnet</a></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">common:
-  images:
-    grafana: 'my.quaymirror.tld/grafana/grafana:${kube_prometheus.common.versions.grafana}'
-    prometheus: 'my.quaymirror.tld/prometheus/prometheus:${kube_prometheus.common.versions.prometheus}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The default image to be used for the various components.</p>
-</div>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="addon-oauth2-proxy.html">OAuth2 Proxy</a></span>
+  <span class="prev"><a href="../references/addon-oauth2-proxy.html">OAuth2 Proxy</a></span>
 </nav>
 </article>
   </div>
@@ -1508,7 +1005,7 @@ example
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/how-tos/setup-keycloak.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
