@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from 3.x to 4.x :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-3.x-to-4.x.html">
-    <link rel="prev" href="upgrade-2.x-to-3.x.html">
-    <link rel="next" href="upgrade-4.x-to-5.x.html">
+    <title>Upgrade from v7 to v8 :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-7.x-to-8.x.html">
+    <link rel="prev" href="upgrade-6.x-to-7.x.html">
+    <link rel="next" href="openshift-4.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -141,7 +141,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -153,7 +153,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -791,232 +791,24 @@
   <ul>
     <li><a href="../index.html">keycloak</a></li>
     <li>How-to guides</li>
-    <li><a href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></li>
+    <li><a href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-3.x-to-4.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-7.x-to-8.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from 3.x to 4.x</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Upgrade from v7 to v8</h1>
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version 3.x to 4.x.</p>
-</div>
-<div class="paragraph">
-<p>The major changes affect the ingress feature and configuration.
-This component now features re-encrypted ingress by default.
-That means traffic between the ingress controller and Keycloak is now encrypted.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Decide where you want to terminate user traffic.
-You can either terminate the TLS session at the ingress controller and re-encrypt traffic to Keycloak.
-Or you can pass-through the TLS traffic directly to Keycloak, provided the ingress controller supports TLS pass-through.</p>
-</li>
-<li>
-<p>Decide how you aim to provision and rotate TLS certificates.
-The cert-manager operator provides easy Let&#8217;s Encrypt certificate provisioning by default.
-You can also provision your own CA issued certificate.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The sections below explain more.</p>
-</div>
-<div class="sect2">
-<h3 id="_changed_parameters"><a class="anchor" href="#_changed_parameters"></a>Changed parameters</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><code>ingress.secretName</code> has moved to <code>ingress.tls.secretName</code>.</p>
-</li>
-<li>
-<p><code>ingress.enabled</code> changed to <code>true</code> by default.</p>
-</li>
-<li>
-<p><code>ingress.annotations</code> received several annotations depending on <code>tls.provider</code> and <code>tls.termination</code>.</p>
-</li>
-<li>
-<p><code>helm_values.extraVolumes</code> and <code>helm_values.extraVolumeMounts</code> got an additional volume/mount from the <code>tls.secretName</code> secret.</p>
-</li>
-<li>
-<p><code>helm_values.ingress.servicePort</code> changed to <code>https</code> by default.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You might need to update your configuration if you&#8217;ve configured some of them.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_re_encrypted_tls_with_lets_encrypt"><a class="anchor" href="#_re_encrypted_tls_with_lets_encrypt"></a>Re-encrypted TLS with Let&#8217;s Encrypt</h3>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>User traffic &gt; Ingress controller (LE certificate) &gt; Re-encrypt with self-signed certificate &gt; Keycloak</p>
-</div>
-</blockquote>
-</div>
-<div class="paragraph">
-<p>This mode is the default in v4.x.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Generate new long-running self-signed certificate and <a href="keycloak-tls.html" class="page">store in Vault</a>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_re_encrypted_tls_with_ca_issued_certificate"><a class="anchor" href="#_re_encrypted_tls_with_ca_issued_certificate"></a>Re-encrypted TLS with CA issued certificate</h3>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>User traffic &gt; Ingress controller (own certificate) &gt; Re-encrypt with self-signed certificate &gt; Keycloak</p>
-</div>
-</blockquote>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set the provider</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      provider: vault</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Generate new long-running self-signed certificate and <a href="keycloak-tls.html" class="page">store in Vault</a>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_pass_through_tls_with_lets_encrypt"><a class="anchor" href="#_pass_through_tls_with_lets_encrypt"></a>Pass-through TLS with Let&#8217;s Encrypt</h3>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>User traffic &gt; Ingress controller (pass-through) &gt; Keycloak (with LE certificate)</p>
-</div>
-</blockquote>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This mode requires an ingress controller that supports SSL/TLS pass-through.
-See <a href="configure-ingress.html" class="page">Configure Ingress</a> for an example with component-ingress-nginx.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set the termination</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      termination: passthrough</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You need to restart Keycloak every time Let&#8217;s Encrypt updates the certificate.
-Keycloak doesn&#8217;t reload the certificate from the mounted secret.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_pass_through_tls_with_ca_issued_certificate"><a class="anchor" href="#_pass_through_tls_with_ca_issued_certificate"></a>Pass-through TLS with CA issued certificate</h3>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>User traffic &gt; Ingress controller (pass-through) &gt; Keycloak (with own certificate)</p>
-</div>
-</blockquote>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This mode requires an ingress controller that supports SSL/TLS pass-through.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set the termination and provider</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      termination: passthrough
-      provider: vault</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p><a href="keycloak-tls.html" class="page">Store your certificate in Vault</a>.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
+<p>There are no special steps required to upgrade from v7 to v8.
+However, note that this version upgrades Keycloak from v16 to v17, so once Keycloak executed the DB migrations, a downgrade won&#8217;t be possible.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></span>
-  <span class="next"><a href="upgrade-4.x-to-5.x.html">Upgrade 4.x to 5.x</a></span>
+  <span class="prev"><a href="upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a></span>
+  <span class="next"><a href="openshift-4.html">Install on OpenShift 4</a></span>
 </nav>
 </article>
   </div>
@@ -1027,7 +819,7 @@ This mode requires an ingress controller that supports SSL/TLS pass-through.
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-3.x-to-4.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-7.x-to-8.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
