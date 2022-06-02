@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/references/parameters.html">
-    <link rel="prev" href="../how-tos/logformat.html">
+    <title>Upgrade from v2 to v3 :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/topolvm/how-tos/upgrade-v2-to-v3.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,12 +79,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="ingress-nginx" data-version="master">
+<div class="nav-container" data-component="topolvm" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">ingress-nginx</a></h3>
+    <h3 class="title"><a href="../index.html">TopoLVM</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -96,22 +95,22 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">How-to guides</span>
+    <span class="nav-text">How-tos</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+    <a class="nav-link" href="upgrade-v1-to-v2.html">Upgrade v1 to v2</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Alert runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/TopoLVMVolumeGroupAlmostFull.html">TopoLVMVolumeGroupAlmostFull</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/aws.html">AWS - Amazon Web Services Load Balancers</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/logformat.html">NGINX upstream log format as JSON</a>
+    <a class="nav-link" href="../runbooks/TopoLVMVolumeGroupNearFull.html">TopoLVMVolumeGroupNearFull</a>
   </li>
 </ul>
   </li>
@@ -119,8 +118,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -129,7 +128,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">ingress-nginx</span>
+    <span class="title">TopoLVM</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -341,11 +340,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">ingress-nginx</a>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -693,11 +692,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../topolvm/index.html">TopoLVM</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">TopoLVM</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../topolvm/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -728,170 +727,53 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">ingress-nginx</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">TopoLVM</a></li>
+    <li><a href="upgrade-v2-to-v3.html">Upgrade from v2 to v3</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-topolvm/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v2-to-v3.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Upgrade from v2 to v3</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>ingress_nginx</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-ingress-nginx</code></p>
-</td>
-</tr>
-</table>
+<p>TopoLVM images &gt; 0.11 are no longer available on quay.io, you may need to change firewall rules to get the images from ghcr.io.</p>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The labels have changed of the deployments and daemon sets, plus the anti-affinity rules for the TopoLVM controller. Therefor you need to delete the existing deployments and daemonsets.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
+<h2 id="_delete_deployments_daemonsets_after_upgrade"><a class="anchor" href="#_delete_deployments_daemonsets_after_upgrade"></a>Delete Deployments / Daemonsets after Upgrade</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>ingress-nginx</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The name ingress-nginx is deployed.
-Usually there is just one deployment and therefore no change is required.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The kubernetes version to be used.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_ingress_nginx"><a class="anchor" href="#_charts_ingress_nginx"></a><code>charts.ingress-nginx</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>4.1.3</code></p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>All helm_values are passed to the helm chart.
-This allows to configure all <a href="https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml">ingress-nginx helm chart values</a>.</p>
+<p>Delete Deployments:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        config:
-          hsts: 'false'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export topolvm_ns=syn-topolvm <i class="conum" data-value="1"></i><b>(1)</b>
+
+kubectl -n ${topolvm_ns} delete deploy topolvm-controller
+kubectl -n ${topolvm_ns} delete ds topolvm-lvmd-0
+kubectl -n ${topolvm_ns} delete ds topolvm-node</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Change this if not using component defaults.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../how-tos/logformat.html">NGINX upstream log format as JSON</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -901,7 +783,7 @@ This allows to configure all <a href="https://github.com/kubernetes/ingress-ngin
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/topolvm/how-tos/upgrade-v2-to-v3.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

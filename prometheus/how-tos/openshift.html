@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/references/parameters.html">
-    <link rel="prev" href="../how-tos/logformat.html">
+    <title>Using this Component on OpenShift :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/prometheus/how-tos/openshift.html">
+    <link rel="prev" href="prometheus.html">
+    <link rel="next" href="setup-keycloak.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,47 +81,44 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="ingress-nginx" data-version="master">
+<div class="nav-container" data-component="prometheus" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">ingress-nginx</a></h3>
+    <h3 class="title"><a href="../index.html">prometheus</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">How-to guides</span>
-<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/aws.html">AWS - Amazon Web Services Load Balancers</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/logformat.html">NGINX upstream log format as JSON</a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Technical reference</span>
+    <span class="nav-text">Addons</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/addon-oauth2-proxy.html">OAuth2 Proxy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prometheus.html">Deploy Prometheus</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="setup-keycloak.html">Setup with Keycloak</a>
   </li>
 </ul>
   </li>
@@ -129,7 +127,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">ingress-nginx</span>
+    <span class="title">prometheus</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -341,11 +339,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">ingress-nginx</a>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -581,11 +579,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../prometheus/index.html">prometheus</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">prometheus</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../prometheus/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -728,169 +726,81 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">ingress-nginx</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">prometheus</a></li>
+    <li>How-Tos</li>
+    <li><a href="openshift.html">OpenShift</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/how-tos/openshift.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Using this Component on OpenShift</h1>
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>ingress_nginx</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-ingress-nginx</code></p>
-</td>
-</tr>
-</table>
+<p>You can use this component on OpenShift.
+However there are a few things to consider to do so.</p>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>ingress-nginx</code></p>
-</td>
-</tr>
-</table>
+<p>First and foremost, OpenShift4 comes with it&#8217;s own Prometheus Operator.
+This means that the Prometheus Operator CRDs are already present.
+You need to first make sure that the installed CRDs are compatible with the operator version you are about to install and disable CRD installation in this component.</p>
 </div>
 <div class="paragraph">
-<p>The name ingress-nginx is deployed.
-Usually there is just one deployment and therefore no change is required.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
+<p>Next you need to enable the <code>openshift4</code> addon.
+It comes with changes to multiple components which are necessary to properly run on OpenShift4.</p>
 </div>
 <div class="paragraph">
-<p>The kubernetes version to be used.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_ingress_nginx"><a class="anchor" href="#_charts_ingress_nginx"></a><code>charts.ingress-nginx</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>4.1.3</code></p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>All helm_values are passed to the helm chart.
-This allows to configure all <a href="https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml">ingress-nginx helm chart values</a>.</p>
+<p>Finally if you deploy your own node exporter, you will need to remove the default node selector from the namespace in which it will be deployed.
+Otherwise it won&#8217;t be schedulable on master or infrastructure nodes.</p>
 </div>
 <div class="listingblock">
+<div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        config:
-          hsts: 'false'</code></pre>
+  prometheus:
+    kubernetes_version: '1.22'
+    instances:
+      default-instance:
+        common:
+          namespace: default-instance
+        prometheus:
+          enabled: true
+        nodeExporter:
+          enabled: true
+    addons:
+      - openshift4 <i class="conum" data-value="1"></i><b>(1)</b>
+
+    namespaces:
+      default-instance:
+        annotations:
+          openshift.io/node-selector: "" <i class="conum" data-value="2"></i><b>(2)</b>
+
+    prometheusOperator:
+      installCRDs: false <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
-</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable the <code>openshift4</code> addon</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Remove the default node selector</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Don&#8217;t install CRDs</td>
+</tr>
+</table>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/logformat.html">NGINX upstream log format as JSON</a></span>
+  <span class="prev"><a href="prometheus.html">Deploy Prometheus</a></span>
+  <span class="next"><a href="setup-keycloak.html">Setup with Keycloak</a></span>
 </nav>
 </article>
   </div>
@@ -901,7 +811,7 @@ This allows to configure all <a href="https://github.com/kubernetes/ingress-ngin
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/how-tos/openshift.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
