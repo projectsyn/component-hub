@@ -753,7 +753,7 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <div class="sectionbody">
 <div class="paragraph">
 <p>APPUiO Cloud Reporting failed while trying to backfill Prometheus metering data to the reporting database.
-Totals might be too low in the next invoice run.</p>
+This might leave gaps in the reported data and totals will be too low in the next invoice run.</p>
 </div>
 <div class="paragraph">
 <p>Deleting the failed job will clear this alert.</p>
@@ -793,6 +793,83 @@ oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
 <p>Check Prometheus/Thanos connectivity and logs.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+After fixing the underlying issue, you need to backfill all gaps in the reporting database.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_backfill_gaps_in_reporting_database"><a class="anchor" href="#_backfill_gaps_in_reporting_database"></a><span class="icon"><i class="fa fa-terminal"></i></span> Backfill gaps in reporting database</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This runbook expects <code>jq</code> to be installed.</p>
+</div>
+<div class="paragraph">
+<p>On macOS it expects the <code>date</code> command from GNU coreutils to be installed as <code>gdate</code> (<code>brew install coreutils</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find failed jobs</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CRONJOB_NAME=&lt;name of the cronjob that has failing jobs&gt;
+
+query_name=$(kubectl get cronjobs $CRONJOB_NAME "-o=jsonpath={.metadata.annotations['query-name']}")
+echo $query_name
+
+failed_timestamps=$(kubectl get jobs --selector=cron-job-name=$CRONJOB_NAME -ojson \
+  | jq -r '[.items[] | select((.status.conditions[] | select( .type == "Failed" ) | length ) &gt;  0)]
+            | .[].metadata.creationTimestamp')
+echo $failed_timestamps</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Review query name and failed timestamps</p>
+</li>
+<li>
+<p>Re-run the queries to backfill the gaps</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">job_template=$(kubectl get jobs --selector=cron-job-name=$CRONJOB_NAME -ojson \
+  | jq -r '.items | first | .metadata.name')
+
+date_bin=date
+if [[ "$OSTYPE" == "darwin"* ]]; then date_bin=gdate; fi
+
+echo $failed_timestamps \
+  | xargs -I @ gdate --date @ +"%Y-%m-%dT%H:00:00Z" \
+  | xargs -n1 oc --as=cluster-admin debug job/$job_template -- appuio-cloud-reporting report --query-name=$query_name --begin</code></pre>
+</div>
 </div>
 </div>
 </div>
