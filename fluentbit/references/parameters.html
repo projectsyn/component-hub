@@ -1316,6 +1316,38 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see <code>defaults.yml</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>All helm_values are passed to the helm chart.
+This allows to configure all <a href="https://github.com/fluent/helm-charts/blob/main/charts/fluentd/values.yaml">fluentbit helm chart values</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note that it&#8217;s your own liability to make sure you don&#8217;t break stuff by overwriting values here!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
