@@ -790,34 +790,6 @@ default
 <div class="paragraph">
 <p>The Kubernetes distribution of the cluster.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_git_tag"><a class="anchor" href="#_git_tag"></a><code>git_tag</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <code>defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Git tag of Argo CD to deploy.</p>
-</div>
 <div class="sect2">
 <h3 id="_resync_seconds"><a class="anchor" href="#_resync_seconds"></a><code>resync_seconds</code></h3>
 <div class="hdlist">
@@ -882,6 +854,18 @@ type
 </div>
 <div class="paragraph">
 <p>Dictionary containing the container images used by this component.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The tag for the ArgoCD image is used to download the corresponding deployment manifests.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
