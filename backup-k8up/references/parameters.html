@@ -1516,6 +1516,10 @@ default
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>For most Kubernetes distributions, the component sets label <code>SYNMonitoring=main</code> on the namespace in which K8up is deployed.
+On OpenShift 4, the component sets label <code>openshift.io/cluster-monitoring=true</code> on the namespace instead, so that the K8up <code>ServiceMonitor</code> and <code>PrometheusRule</code> objects are picked up by the OpenShift 4 cluster monitoring stack.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
