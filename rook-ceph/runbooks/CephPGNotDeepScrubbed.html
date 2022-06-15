@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: CephDataRecoveryTakingTooLong :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephDataRecoveryTakingTooLong.html">
-    <link rel="prev" href="CephClusterReadOnly.html">
-    <link rel="next" href="CephPGRepairTakingTooLong.html">
+    <title>Alert rule: CephPGNotDeepScrubbed :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephPGNotDeepScrubbed.html">
+    <link rel="prev" href="CephPGImbalance.html">
+    <link rel="next" href="CephPGNotScrubbed.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -143,25 +143,61 @@
     <span class="nav-text">Ceph Cluster</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterErrorState.html">CephClusterErrorState</a>
+    <a class="nav-link" href="CephDaemonCrash.html">CephDaemonCrash</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterWarningState.html">CephClusterWarningState</a>
+    <a class="nav-link" href="CephHealthError.html">CephHealthError</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterNearFull.html">CephClusterNearFull</a>
+    <a class="nav-link" href="CephHealthWarning.html">CephHealthWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterCriticallyFull.html">CephClusterCriticallyFull</a>
+    <a class="nav-link" href="CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterReadOnly.html">CephClusterReadOnly</a>
+    <a class="nav-link" href="CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeNetworkPacketErrors.html">CephNodeNetworkPacketErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGImbalance.html">CephPGImbalance</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="CephDataRecoveryTakingTooLong.html">CephDataRecoveryTakingTooLong</a>
+    <a class="nav-link" href="CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGRepairTakingTooLong.html">CephPGRepairTakingTooLong</a>
+    <a class="nav-link" href="CephPGNotScrubbed.html">CephPGNotScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGUnavilableBlockingIO.html">CephPGUnavilableBlockingIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsHighPerOSD.html">CephPGsHighPerOSD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsInactive.html">CephPGsInactive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsUnclean.html">CephPGsUnclean</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephSlowOps.html">CephSlowOps</a>
   </li>
 </ul>
   </li>
@@ -170,10 +206,34 @@
     <span class="nav-text">Ceph pools</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesNearExhaustion.html">CephPoolQuotaBytesNearExhaustion</a>
+    <a class="nav-link" href="CephPoolBackfillFull.html">CephPoolBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesCriticallyExhausted.html">CephPoolQuotaBytesCriticallyExhausted</a>
+    <a class="nav-link" href="CephPoolFull.html">CephPoolFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPoolNearFull.html">CephPoolNearFull</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph MDS</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemFailureNoStandby.html">CephFilesystemFailureNoStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemInsufficientStandby.html">CephFilesystemInsufficientStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemMDSRanksLow.html">CephFilesystemMDSRanksLow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemOffline.html">CephFilesystemOffline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemReadOnly.html">CephFilesystemReadOnly</a>
   </li>
 </ul>
   </li>
@@ -182,7 +242,10 @@
     <span class="nav-text">Ceph MGR</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMgrIsAbsent.html">CephMgrIsAbsent</a>
+    <a class="nav-link" href="CephMgrModuleCrash.html">CephMgrModuleCrash</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephMgrPrometheusModuleInactive.html">CephMgrPrometheusModuleInactive</a>
   </li>
 </ul>
   </li>
@@ -191,13 +254,16 @@
     <span class="nav-text">Ceph MON</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonVersionMismatch.html">CephMonVersionMismatch</a>
+    <a class="nav-link" href="CephMonDiskspaceCritical.html">CephMonDiskspaceCritical</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonQuorumAtRisk.html">CephMonQuorumAtRisk</a>
+    <a class="nav-link" href="CephMonDiskspaceLow.html">CephMonDiskspaceLow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonHighNumberOfLeaderChanges.html">CephMonHighNumberOfLeaderChanges</a>
+    <a class="nav-link" href="CephMonDown.html">CephMonDown</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a>
   </li>
 </ul>
   </li>
@@ -206,25 +272,43 @@
     <span class="nav-text">Ceph OSD</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDVersionMismatch.html">CephOSDVersionMismatch</a>
+    <a class="nav-link" href="CephOSDBackfillFull.html">CephOSDBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+    <a class="nav-link" href="CephOSDDown.html">CephOSDDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDCriticallyFull.html">CephOSDCriticallyFull</a>
+    <a class="nav-link" href="CephOSDDownHigh.html">CephOSDDownHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephOSDFlapping.html">CephOSDFlapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskNotResponding.html">CephOSDDiskNotResponding</a>
+    <a class="nav-link" href="CephOSDFull.html">CephOSDFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskUnavailable.html">CephOSDDiskUnavailable</a>
+    <a class="nav-link" href="CephOSDHostDown.html">CephOSDHostDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDSlowOps.html">CephOSDSlowOps</a>
+    <a class="nav-link" href="CephOSDInternalDiskSizeMismatch.html">CephOSDInternalDiskSizeMismatch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDReadErrors.html">CephOSDReadErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTimeoutsClusterNetwork.html">CephOSDTimeoutsClusterNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTimeoutsPublicNetwork.html">CephOSDTimeoutsPublicNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTooManyRepairs.html">CephOSDTooManyRepairs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephObjectMissing.html">CephObjectMissing</a>
   </li>
 </ul>
   </li>
@@ -233,7 +317,25 @@
     <span class="nav-text">CephFS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMdsMissingReplicas.html">CephMdsMissingReplicas</a>
+    <a class="nav-link" href="CephFilesystemDamaged.html">CephFilesystemDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemDegraded.html">CephFilesystemDegraded</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph devices</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailurePredicted.html">CephDeviceFailurePredicted</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailurePredictionTooHigh.html">CephDeviceFailurePredictionTooHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a>
   </li>
 </ul>
   </li>
@@ -855,17 +957,17 @@
     <li><a href="../index.html">Rook Ceph</a></li>
     <li>Alert runbooks</li>
     <li>Ceph Cluster</li>
-    <li><a href="CephDataRecoveryTakingTooLong.html">CephDataRecoveryTakingTooLong</a></li>
+    <li><a href="CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephDataRecoveryTakingTooLong.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephPGNotDeepScrubbed.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: CephDataRecoveryTakingTooLong</h1>
+<h1 class="page">Alert rule: CephPGNotDeepScrubbed</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -889,8 +991,10 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This alert is triggered when one or more degraded Ceph placement groups (PGs) take longer than two hours to recover.
-PGs may degrade when an OSD is down for a while, for example when a storage node is rebooted.</p>
+<p>One or more PGs haven&#8217;t been deep scrubbed recently.
+Deep scrub is a data integrity feature, protecting against bit-rot.
+It compares the contents of objects and their replicas for inconsistency.
+When PGs miss their deep scrub window, it may indicate that the window is too small or PGs weren&#8217;t in a 'clean' state during the deep-scrub window.</p>
 </div>
 </div>
 </div>
@@ -898,49 +1002,28 @@ PGs may degrade when an OSD is down for a while, for example when a storage node
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_find_degraded_pgs"><a class="anchor" href="#_find_degraded_pgs"></a>Find degraded PGs</h3>
+<h3 id="_initiate_a_deep_scrub"><a class="anchor" href="#_initiate_a_deep_scrub"></a>Initiate a deep scrub</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">ceph_cluster_ns=syn-rook-ceph-cluster
-kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph pg dump_stuck</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
+$ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph health detail
+$ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph pg deep-scrub &lt;PG_ID_FROM_ALERT&gt;</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_trigger_a_repeer_of_degraded_pgs"><a class="anchor" href="#_trigger_a_repeer_of_degraded_pgs"></a>Trigger a repeer of degraded PGs</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstream_documentation"><a class="anchor" href="#_upstream_documentation"></a><span class="icon"><i class="fa fa-book"></i></span> Upstream documentation</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>During initial testing and benchmarking, we&#8217;ve found that sometimes triggering a repeer of PGs in state <code>degraded+undersized</code> can unstick the recovery process.
-You can use the shell snippet below to trigger a repeer for all <code>degraded+undersized</code> PGs.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">ceph_cluster_ns=syn-rook-ceph-cluster
-for pgid in $(kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools \
-              -- ceph pg dump_stuck undersized -f json | sed 's/}ok/}/' | \
-              jq -r '.stuck_pg_stats[] | .pgid')
-do
-    kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph pg repeer "${pgid}"
-done</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_check_ceph_status"><a class="anchor" href="#_check_ceph_status"></a>Check Ceph status</h3>
-<div class="paragraph">
-<p>The following command should show a line starting with <code>recovery:</code> under <code>io:</code> if Ceph is making progress recovering the degraded PGs.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">ceph_cluster_ns=syn-rook-ceph-cluster
-kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph status</code></pre>
-</div>
-</div>
+<p><a href="https://docs.ceph.com/en/latest/rados/operations/health-checks#pg-not-deep-scrubbed" class="bare">docs.ceph.com/en/latest/rados/operations/health-checks#pg-not-deep-scrubbed</a></p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="CephClusterReadOnly.html">CephClusterReadOnly</a></span>
-  <span class="next"><a href="CephPGRepairTakingTooLong.html">CephPGRepairTakingTooLong</a></span>
+  <span class="prev"><a href="CephPGImbalance.html">CephPGImbalance</a></span>
+  <span class="next"><a href="CephPGNotScrubbed.html">CephPGNotScrubbed</a></span>
 </nav>
 </article>
   </div>
@@ -951,7 +1034,7 @@ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph status</co
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephDataRecoveryTakingTooLong.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephPGNotDeepScrubbed.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

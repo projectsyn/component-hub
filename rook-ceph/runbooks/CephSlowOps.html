@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: CephMdsMissingReplicas :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephMdsMissingReplicas.html">
-    <link rel="prev" href="CephOSDSlowOps.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Alert rule: CephSlowOps :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephSlowOps.html">
+    <link rel="prev" href="CephPGsUnclean.html">
+    <link rel="next" href="CephPoolBackfillFull.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -143,25 +143,61 @@
     <span class="nav-text">Ceph Cluster</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterErrorState.html">CephClusterErrorState</a>
+    <a class="nav-link" href="CephDaemonCrash.html">CephDaemonCrash</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterWarningState.html">CephClusterWarningState</a>
+    <a class="nav-link" href="CephHealthError.html">CephHealthError</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterNearFull.html">CephClusterNearFull</a>
+    <a class="nav-link" href="CephHealthWarning.html">CephHealthWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterCriticallyFull.html">CephClusterCriticallyFull</a>
+    <a class="nav-link" href="CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterReadOnly.html">CephClusterReadOnly</a>
+    <a class="nav-link" href="CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDataRecoveryTakingTooLong.html">CephDataRecoveryTakingTooLong</a>
+    <a class="nav-link" href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGRepairTakingTooLong.html">CephPGRepairTakingTooLong</a>
+    <a class="nav-link" href="CephNodeNetworkPacketErrors.html">CephNodeNetworkPacketErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGImbalance.html">CephPGImbalance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGNotScrubbed.html">CephPGNotScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGUnavilableBlockingIO.html">CephPGUnavilableBlockingIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsHighPerOSD.html">CephPGsHighPerOSD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsInactive.html">CephPGsInactive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsUnclean.html">CephPGsUnclean</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="CephSlowOps.html">CephSlowOps</a>
   </li>
 </ul>
   </li>
@@ -170,10 +206,34 @@
     <span class="nav-text">Ceph pools</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesNearExhaustion.html">CephPoolQuotaBytesNearExhaustion</a>
+    <a class="nav-link" href="CephPoolBackfillFull.html">CephPoolBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesCriticallyExhausted.html">CephPoolQuotaBytesCriticallyExhausted</a>
+    <a class="nav-link" href="CephPoolFull.html">CephPoolFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPoolNearFull.html">CephPoolNearFull</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph MDS</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemFailureNoStandby.html">CephFilesystemFailureNoStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemInsufficientStandby.html">CephFilesystemInsufficientStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemMDSRanksLow.html">CephFilesystemMDSRanksLow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemOffline.html">CephFilesystemOffline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemReadOnly.html">CephFilesystemReadOnly</a>
   </li>
 </ul>
   </li>
@@ -182,7 +242,10 @@
     <span class="nav-text">Ceph MGR</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMgrIsAbsent.html">CephMgrIsAbsent</a>
+    <a class="nav-link" href="CephMgrModuleCrash.html">CephMgrModuleCrash</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephMgrPrometheusModuleInactive.html">CephMgrPrometheusModuleInactive</a>
   </li>
 </ul>
   </li>
@@ -191,13 +254,16 @@
     <span class="nav-text">Ceph MON</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonVersionMismatch.html">CephMonVersionMismatch</a>
+    <a class="nav-link" href="CephMonDiskspaceCritical.html">CephMonDiskspaceCritical</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonQuorumAtRisk.html">CephMonQuorumAtRisk</a>
+    <a class="nav-link" href="CephMonDiskspaceLow.html">CephMonDiskspaceLow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonHighNumberOfLeaderChanges.html">CephMonHighNumberOfLeaderChanges</a>
+    <a class="nav-link" href="CephMonDown.html">CephMonDown</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a>
   </li>
 </ul>
   </li>
@@ -206,25 +272,43 @@
     <span class="nav-text">Ceph OSD</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDVersionMismatch.html">CephOSDVersionMismatch</a>
+    <a class="nav-link" href="CephOSDBackfillFull.html">CephOSDBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+    <a class="nav-link" href="CephOSDDown.html">CephOSDDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDCriticallyFull.html">CephOSDCriticallyFull</a>
+    <a class="nav-link" href="CephOSDDownHigh.html">CephOSDDownHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephOSDFlapping.html">CephOSDFlapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskNotResponding.html">CephOSDDiskNotResponding</a>
+    <a class="nav-link" href="CephOSDFull.html">CephOSDFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskUnavailable.html">CephOSDDiskUnavailable</a>
+    <a class="nav-link" href="CephOSDHostDown.html">CephOSDHostDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDSlowOps.html">CephOSDSlowOps</a>
+    <a class="nav-link" href="CephOSDInternalDiskSizeMismatch.html">CephOSDInternalDiskSizeMismatch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDReadErrors.html">CephOSDReadErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTimeoutsClusterNetwork.html">CephOSDTimeoutsClusterNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTimeoutsPublicNetwork.html">CephOSDTimeoutsPublicNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTooManyRepairs.html">CephOSDTooManyRepairs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephObjectMissing.html">CephObjectMissing</a>
   </li>
 </ul>
   </li>
@@ -232,8 +316,26 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">CephFS</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="CephMdsMissingReplicas.html">CephMdsMissingReplicas</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemDamaged.html">CephFilesystemDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemDegraded.html">CephFilesystemDegraded</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph devices</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailurePredicted.html">CephDeviceFailurePredicted</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailurePredictionTooHigh.html">CephDeviceFailurePredictionTooHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a>
   </li>
 </ul>
   </li>
@@ -854,18 +956,18 @@
   <ul>
     <li><a href="../index.html">Rook Ceph</a></li>
     <li>Alert runbooks</li>
-    <li>CephFS</li>
-    <li><a href="CephMdsMissingReplicas.html">CephMdsMissingReplicas</a></li>
+    <li>Ceph Cluster</li>
+    <li><a href="CephSlowOps.html">CephSlowOps</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephMdsMissingReplicas.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephSlowOps.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: CephMdsMissingReplicas</h1>
+<h1 class="page">Alert rule: CephSlowOps</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -889,7 +991,12 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This alert fires when a CephFS metadata server (MDS) instance is missing.</p>
+<p>This alert fires if some Ceph OSD requests take too long to process.
+Slow OSD requests may be the cause of PVCs taking a long time to become bound to a PV.</p>
+</div>
+<div class="paragraph">
+<p>Most likely, slow requests will be caused by heavy load on the Ceph cluster.
+See the <a href="https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-osd/#blocked-requests-or-slow-requests">Ceph documentation</a> for a more detailed explanation of possible causes of slow requests.</p>
 </div>
 </div>
 </div>
@@ -897,155 +1004,83 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_check_cephfs_mds_pods"><a class="anchor" href="#_check_cephfs_mds_pods"></a>Check CephFS MDS pods</h3>
+<h3 id="_check_ceph_status"><a class="anchor" href="#_check_ceph_status"></a>Check Ceph status</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ kubectl -n "${ceph_cluster_ns}" get pods -lapp=rook-ceph-mds</code></pre>
+$ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph status
+  cluster:
+    id:     92716509-0f84-4739-8d04-541d2e7c3e66
+    health: HEALTH_WARN <i class="conum" data-value="1"></i><b>(1)</b>
+            [ ... detailed information ... ] <i class="conum" data-value="2"></i><b>(2)</b>
+            [ ... detailed information ... ] <i class="conum" data-value="2"></i><b>(2)</b>
+            [ ... detailed information ... ] <i class="conum" data-value="2"></i><b>(2)</b>
+
+[ ... remaining output omitted ... ]</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>General cluster health status</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>One or more lines of information giving details why the cluster state is degraded.
+Only available if the cluster health isn&#8217;t <code>HEALTH_OK</code>.</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_check_cephfs_status"><a class="anchor" href="#_check_cephfs_status"></a>Check CephFS status</h3>
+<h3 id="_check_osd_slow_op_log"><a class="anchor" href="#_check_osd_slow_op_log"></a>Check OSD slow op log</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs status
-fspool - 0 clients <i class="conum" data-value="1"></i><b>(1)</b>
-======
-RANK      STATE         MDS        ACTIVITY     DNS    INOS   DIRS   CAPS <i class="conum" data-value="2"></i><b>(2)</b>
- 0        active      fspool-a  Reqs:    0 /s  1237    308    307      0  <i class="conum" data-value="2"></i><b>(2)</b>
-0-s   standby-replay  fspool-b  Evts:    0 /s  1601    306    305      0  <i class="conum" data-value="2"></i><b>(2)</b>
-      POOL         TYPE     USED  AVAIL <i class="conum" data-value="3"></i><b>(3)</b>
-fspool-metadata  metadata  55.0M  83.8G <i class="conum" data-value="3"></i><b>(3)</b>
-  fspool-data0     data       0   83.8G <i class="conum" data-value="3"></i><b>(3)</b>
-MDS version: ceph version 16.2.6 (ee28fb57e47e9f88813e24bbf4c14496ca299d31) pacific (stable) <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+$ osd_id=0 <i class="conum" data-value="1"></i><b>(1)</b>
+$ kubectl -n "${ceph_cluster_ns}" exec -it -c osd deploy/rook-ceph-osd-${osd_id} -- \
+      bash -c "unset CEPH_ARGS; ceph daemon osd.${osd_id} dump_blocked_ops" <i class="conum" data-value="2"></i><b>(2)</b>
+$ kubectl -n "${ceph_cluster_ns}" exec -it -c osd deploy/rook-ceph-osd-${osd_id} -- \
+      bash -c "unset CEPH_ARGS; ceph daemon osd.${osd_id} dump_historic_slow_ops" <i class="conum" data-value="3"></i><b>(3)</b>
+$ kubectl -n "${ceph_cluster_ns}" exec -it -c osd deploy/rook-ceph-osd-${osd_id} -- \
+      bash -c "unset CEPH_ARGS; ceph daemon osd.${osd_id} ops" <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Name of the filesystem and amount of connected clients</td>
+<td>Set variable <code>osd_id</code> to the ID (0,1,2,&#8230;&#8203;) of the OSD which has been reported as having slow ops.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>List of MDS replicas.
-See the <a href="https://docs.ceph.com/en/latest/cephfs/mds-states/">Ceph documentation on MDS states</a> for more information about the values shown in the <code>STATE</code> column.</td>
+<td>Show currently blocked ops on OSD</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Filesystem metadata and data usage and remaining capacity.</td>
+<td>Show recent slow ops for OSD</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Metadata server Ceph version</td>
+<td>Show all ops in flight on OSD</td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstream_documentation"><a class="anchor" href="#_upstream_documentation"></a><span class="icon"><i class="fa fa-book"></i></span> Upstream documentation</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>If a Rook-managed Ceph upgrade goes wrong and leaves one of the MDS replicas in <code>CrashLoopBackOff</code> for too long the MDS cluster can go into state <code>failed</code>.
-In that case, you should be able to recover the MDS cluster with the following commands:</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-These commands may make the CephFS filesystem temporarily unavailable.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>First, get the filesystem into a state where you can promote one of the MDS replicas to <code>active</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ cephfs_name=fspool <i class="conum" data-value="1"></i><b>(1)</b>
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs dump <i class="conum" data-value="2"></i><b>(2)</b>
-[ ... truncated ... ]
-Filesystem 'fspool' (1)
-fs_name	fspool
-[ ... truncated ... ]
-max_mds	1 <i class="conum" data-value="2"></i><b>(2)</b>
-in	0
-up	{0=23899}
-[ ... truncated ... ]
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" allow_standby_replay false <i class="conum" data-value="3"></i><b>(3)</b>
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" max_mds 1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Change to the name of the filesystem you want to recover</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Show filesystem status, and make a note of <code>max_mds</code> for your target filesystem.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Disable standby-replay MDS replicas. This allows safely restarting the MDS cluster.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>This is only required if <code>dump</code> showed <code>max_mds &gt; 1</code></td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Check if one of the MDS replicas got promoted to <code>active</code> by the MONs.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs status</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If not, scale down all but one of the filesystem&#8217;s MDS replicas.
-You may have to temporarily disable the rook-ceph operator to be able to scale down MDS replicas.
-To disable the rook-ceph operator, you need to disable auto sync for the <code>root</code> and <code>rook-ceph</code> apps in ArgoCD and then scale the operator deployment to 0 replicas.</p>
-</div>
-</li>
-<li>
-<p>Once the filesystem is back to state <code>active</code>, enable standby replicas again</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" allow_standby_replay true <i class="conum" data-value="1"></i><b>(1)</b>
-$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set "${cephfs_name}" max_mds &lt;orig_max_mds&gt; <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Enable standby-replay MDS replicas for the filesystem</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>If your filesystem originally had <code>max_mds &gt; 1</code>, reconfigure it to have the original value of <code>max_mds</code>.</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.ceph.com/en/latest/cephfs/upgrading/">Ceph MDS cluster upgrade documentation</a> for the official upgrade instructions for an MDS cluster.</p>
-</div>
+<p><a href="https://docs.ceph.com/en/latest/rados/operations/health-checks#slow-ops" class="bare">docs.ceph.com/en/latest/rados/operations/health-checks#slow-ops</a></p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="CephOSDSlowOps.html">CephOSDSlowOps</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="CephPGsUnclean.html">CephPGsUnclean</a></span>
+  <span class="next"><a href="CephPoolBackfillFull.html">CephPoolBackfillFull</a></span>
 </nav>
 </article>
   </div>
@@ -1056,7 +1091,7 @@ $ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph fs set
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephMdsMissingReplicas.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephSlowOps.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

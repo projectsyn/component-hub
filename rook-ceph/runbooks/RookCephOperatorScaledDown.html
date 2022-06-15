@@ -6,7 +6,7 @@
     <title>Alert rule: RookCephOperatorScaledDown :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/RookCephOperatorScaledDown.html">
     <link rel="prev" href="../how-tos/add_alert_runbook.html">
-    <link rel="next" href="CephClusterErrorState.html">
+    <link rel="next" href="CephDaemonCrash.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -143,25 +143,61 @@
     <span class="nav-text">Ceph Cluster</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterErrorState.html">CephClusterErrorState</a>
+    <a class="nav-link" href="CephDaemonCrash.html">CephDaemonCrash</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterWarningState.html">CephClusterWarningState</a>
+    <a class="nav-link" href="CephHealthError.html">CephHealthError</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterNearFull.html">CephClusterNearFull</a>
+    <a class="nav-link" href="CephHealthWarning.html">CephHealthWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterCriticallyFull.html">CephClusterCriticallyFull</a>
+    <a class="nav-link" href="CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephClusterReadOnly.html">CephClusterReadOnly</a>
+    <a class="nav-link" href="CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDataRecoveryTakingTooLong.html">CephDataRecoveryTakingTooLong</a>
+    <a class="nav-link" href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGRepairTakingTooLong.html">CephPGRepairTakingTooLong</a>
+    <a class="nav-link" href="CephNodeNetworkPacketErrors.html">CephNodeNetworkPacketErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGImbalance.html">CephPGImbalance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGNotScrubbed.html">CephPGNotScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGUnavilableBlockingIO.html">CephPGUnavilableBlockingIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsHighPerOSD.html">CephPGsHighPerOSD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsInactive.html">CephPGsInactive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPGsUnclean.html">CephPGsUnclean</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephSlowOps.html">CephSlowOps</a>
   </li>
 </ul>
   </li>
@@ -170,10 +206,34 @@
     <span class="nav-text">Ceph pools</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesNearExhaustion.html">CephPoolQuotaBytesNearExhaustion</a>
+    <a class="nav-link" href="CephPoolBackfillFull.html">CephPoolBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolQuotaBytesCriticallyExhausted.html">CephPoolQuotaBytesCriticallyExhausted</a>
+    <a class="nav-link" href="CephPoolFull.html">CephPoolFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephPoolNearFull.html">CephPoolNearFull</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph MDS</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemFailureNoStandby.html">CephFilesystemFailureNoStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemInsufficientStandby.html">CephFilesystemInsufficientStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemMDSRanksLow.html">CephFilesystemMDSRanksLow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemOffline.html">CephFilesystemOffline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemReadOnly.html">CephFilesystemReadOnly</a>
   </li>
 </ul>
   </li>
@@ -182,7 +242,10 @@
     <span class="nav-text">Ceph MGR</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMgrIsAbsent.html">CephMgrIsAbsent</a>
+    <a class="nav-link" href="CephMgrModuleCrash.html">CephMgrModuleCrash</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephMgrPrometheusModuleInactive.html">CephMgrPrometheusModuleInactive</a>
   </li>
 </ul>
   </li>
@@ -191,13 +254,16 @@
     <span class="nav-text">Ceph MON</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonVersionMismatch.html">CephMonVersionMismatch</a>
+    <a class="nav-link" href="CephMonDiskspaceCritical.html">CephMonDiskspaceCritical</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonQuorumAtRisk.html">CephMonQuorumAtRisk</a>
+    <a class="nav-link" href="CephMonDiskspaceLow.html">CephMonDiskspaceLow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonHighNumberOfLeaderChanges.html">CephMonHighNumberOfLeaderChanges</a>
+    <a class="nav-link" href="CephMonDown.html">CephMonDown</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a>
   </li>
 </ul>
   </li>
@@ -206,25 +272,43 @@
     <span class="nav-text">Ceph OSD</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDVersionMismatch.html">CephOSDVersionMismatch</a>
+    <a class="nav-link" href="CephOSDBackfillFull.html">CephOSDBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+    <a class="nav-link" href="CephOSDDown.html">CephOSDDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDCriticallyFull.html">CephOSDCriticallyFull</a>
+    <a class="nav-link" href="CephOSDDownHigh.html">CephOSDDownHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephOSDFlapping.html">CephOSDFlapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskNotResponding.html">CephOSDDiskNotResponding</a>
+    <a class="nav-link" href="CephOSDFull.html">CephOSDFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDiskUnavailable.html">CephOSDDiskUnavailable</a>
+    <a class="nav-link" href="CephOSDHostDown.html">CephOSDHostDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDSlowOps.html">CephOSDSlowOps</a>
+    <a class="nav-link" href="CephOSDInternalDiskSizeMismatch.html">CephOSDInternalDiskSizeMismatch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDReadErrors.html">CephOSDReadErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTimeoutsClusterNetwork.html">CephOSDTimeoutsClusterNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTimeoutsPublicNetwork.html">CephOSDTimeoutsPublicNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephOSDTooManyRepairs.html">CephOSDTooManyRepairs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephObjectMissing.html">CephObjectMissing</a>
   </li>
 </ul>
   </li>
@@ -233,7 +317,25 @@
     <span class="nav-text">CephFS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMdsMissingReplicas.html">CephMdsMissingReplicas</a>
+    <a class="nav-link" href="CephFilesystemDamaged.html">CephFilesystemDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephFilesystemDegraded.html">CephFilesystemDegraded</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph devices</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailurePredicted.html">CephDeviceFailurePredicted</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailurePredictionTooHigh.html">CephDeviceFailurePredictionTooHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a>
   </li>
 </ul>
   </li>
@@ -923,7 +1025,7 @@ The operator deployment manifests can be found in <code>manifests/rook-ceph/01_r
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/add_alert_runbook.html">Adding a new alert runbook</a></span>
-  <span class="next"><a href="CephClusterErrorState.html">CephClusterErrorState</a></span>
+  <span class="next"><a href="CephDaemonCrash.html">CephDaemonCrash</a></span>
 </nav>
 </article>
   </div>
