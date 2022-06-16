@@ -1220,6 +1220,68 @@ See <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">myregistry:
+  type: kubernetes.io/dockerconfigjson
+  stringData:
+    .dockerconfigjson: "?{vaultkv:t-my-tenant/c-my-cluster/kyverno/image_pullsecret}"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy arbitrary secrets.
+Each entry is transformed into a Secret resource.
+The key is used as the name of the resulting resource.
+The provided value is merged with an empty Secret resource.
+The component doesn&#8217;t validate the provided secret configurations.</p>
+</div>
+<div class="paragraph">
+<p>Users can remove secrets configured higher-up in the hierarchy by setting the corresponding value to <code>null</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Always use <code>stringData</code> when using Vault references in secret configurations.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../runbooks/KyvernoAverageAdmissionLatencyHigh.html">KyvernoAverageAdmissionLatencyHigh</a></span>
 </nav>
