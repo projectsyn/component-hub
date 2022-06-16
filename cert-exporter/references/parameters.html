@@ -786,8 +786,25 @@ type
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h2>
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration parameters related to influencing the resulting alert rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_ignorenames"><a class="anchor" href="#_ignorenames"></a><code>ignoreNames</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -803,7 +820,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>[]</p>
+<p><code>[]</code></p>
 </td>
 </tr>
 </table>
@@ -811,6 +828,55 @@ default
 <div class="paragraph">
 <p>This parameter can be used to disable alerts provided by cert-exporter.
 The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_patchrules"><a class="anchor" href="#_patchrules"></a><code>patchRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to patch upstream alert.
+The keys in the parameter correspond to the field <code>alertname</code> of the alert to patch.
+The component expects valid partial Prometheus alert rule objects as values.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The provided values aren&#8217;t validated, they&#8217;re applied to the corresponding upstream alert as-is.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
+  SYN_CertificateExpiration:
+    expr: '((x509_cert_not_after{secret_namespace=~"(syn|vshn).*"} - time()) / 86400) &lt; 14'</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

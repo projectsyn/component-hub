@@ -836,6 +836,155 @@ Can be used to ensure prometheus-operator picks up the <code>PrometheusRule</cod
 </div>
 </div>
 <div class="sect1">
+<h2 id="_serviceaccounts"><a class="anchor" href="#_serviceaccounts"></a><code>serviceAccounts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">provider-helm: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy arbitrary service accounts.
+Each entry is transformed into a ServiceAccount resource.
+The key is used as the name of the resulting resource.
+The provided value is merged with an empty ServiceAccount resource.
+The component doesn&#8217;t validate the provided service account configuration.</p>
+</div>
+<div class="paragraph">
+<p>A ServiceAccount name which matches a Provider name will generate a ControllerConfig resource for that provider.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clusterroles"><a class="anchor" href="#_clusterroles"></a><code>clusterRoles</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"cluster-role-name":
+  rules:
+    - verbs:
+        - '*'
+      apiGroups:
+        - k8up.io
+      resources:
+        - schedules</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy arbitrary cluster roles.
+Each entry is transformed into a ClusterRole resource.
+The key is used as the name of the resulting resource.
+The provided value is merged with an empty ClusterRole resource.
+The component doesn&#8217;t validate the provided cluster role configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clusterrolebindings"><a class="anchor" href="#_clusterrolebindings"></a><code>clusterRoleBindings</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"cluster-role-binding-name":
+  roleRef:
+    kind: ClusterRole
+    name: cluster-role-name
+  subjects:
+    - kind: ServiceAccount
+      name: any-sa
+      namespace: any-namespace</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy arbitrary cluster role bindings.
+Each entry is transformed into a ClusterRoleBinding resource.
+The key is used as the name of the resulting resource.
+The provided value is merged with an empty ClusterRoleBinding resource.
+The component doesn&#8217;t validate the provided cluster role binding configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
