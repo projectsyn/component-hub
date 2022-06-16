@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Installing on OpenShift 4 :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/openshift-4.html">
-    <link rel="prev" href="upgrade-7.x-to-8.x.html">
+    <link rel="prev" href="upgrade-8.x-to-9.x.html">
     <link rel="next" href="pin-versions.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -156,6 +156,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="openshift-4.html">Install on OpenShift 4</a>
   </li>
@@ -173,6 +176,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../explanations/backup.html">Backup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/migration-to-quarkus.html">Migration to Quarkus</a>
   </li>
 </ul>
   </li>
@@ -825,10 +831,17 @@ Also, the sample below configures end-to-end encryption to Keycloak with <a href
     ingress:
       tls:
         termination: reencrypt
+    extraVolumes:
+      data:
+        emptyDir: {}
+    extraVolumeMounts:
+      # Required as the OpenShift user can not create the data directory in the keycloak directory UID 1000/GID 0
+      data:
+        mountPath: /opt/keycloak/data
     helm_values:
       podSecurityContext: null
       securityContext: null
-      pgchecker:
+      dbchecker:
         securityContext: null</code></pre>
 </div>
 </div>
@@ -844,13 +857,14 @@ Also, the sample below configures end-to-end encryption to Keycloak with <a href
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   keycloak:
-    helm_values:
-      postgresql:
+    postgresql_helm_values:
+      securityContext:
+        enabled: false
+      containerSecurityContext:
+        enabled: false
+      volumePermissions:
         securityContext:
-          enabled: false
-        volumePermissions:
-          securityContext:
-            runAsUser: auto
+          runAsUser: auto
           shmVolume:
             chmod:
               enabled: false</code></pre>
@@ -859,7 +873,7 @@ Also, the sample below configures end-to-end encryption to Keycloak with <a href
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a></span>
+  <span class="prev"><a href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a></span>
   <span class="next"><a href="pin-versions.html">Pin versions</a></span>
 </nav>
 </article>

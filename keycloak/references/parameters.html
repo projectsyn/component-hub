@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/keycloak/references/parameters.html">
-    <link rel="prev" href="../explanations/backup.html">
+    <link rel="prev" href="../explanations/migration-to-quarkus.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -156,6 +156,9 @@
     <a class="nav-link" href="../how-tos/upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/openshift-4.html">Install on OpenShift 4</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -172,6 +175,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../explanations/backup.html">Backup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/migration-to-quarkus.html">Migration to Quarkus</a>
   </li>
 </ul>
   </li>
@@ -924,7 +930,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_charts_keycloak"><a class="anchor" href="#_charts_keycloak"></a><code>charts.keycloak</code></h2>
+<h2 id="_charts_keycloakx"><a class="anchor" href="#_charts_keycloakx"></a><code>charts.keycloakx</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -941,7 +947,35 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>18.1.1</code></p>
+<p><code>1.3.2</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A specific chart version. See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_postgresql"><a class="anchor" href="#_charts_postgresql"></a><code>charts.postgresql</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>helm chart version</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>10.16.2</code></p>
 </td>
 </tr>
 </table>
@@ -977,6 +1011,47 @@ default
 <div class="paragraph">
 <p>Defines the FQDN the keycloak ingress or route object is configured.
 FQDN should be overwritten on the cluster level.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hostnamestrict"><a class="anchor" href="#_hostnamestrict"></a><code>hostnameStrict</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>see description</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Disables dynamically resolving the hostname from request headers.</p>
+</div>
+<div class="paragraph">
+<p>Default depending on the ingress termination mode:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>reencrypt</code> Is <code>false</code> because the internal TLS certificate isn&#8217;t equal to the Keycloak FQDN.</p>
+</li>
+<li>
+<p><code>passthrough</code> Is <code>true</code> because the certificate is equal to the Keycloak FQDN.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1495,6 +1570,9 @@ default
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>This changes the mode of the ingress annotations and the <a href="https://www.keycloak.org/server/reverseproxy#_proxy_modes">Keycloak proxy mode</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_ingress_tls_provider"><a class="anchor" href="#_ingress_tls_provider"></a><code>ingress.tls.provider</code></h3>
@@ -1914,30 +1992,6 @@ default
 <div class="paragraph">
 <p>The extraJavaOpts can add instance specific configurations to Keycloak.</p>
 </div>
-<div class="paragraph">
-<p>Example to add a truststore configuration:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    extraJavaOpts: &gt;-
-      -Djavax.net.ssl.trustStore=/opt/jboss/keycloak/standalone/configuration/test/truststore.jks
-      -Djavax.net.ssl.trustStorePassword=trustStorePass
-      -Djavax.net.ssl.trustStoreType=jks</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example to increase the log level:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    extraJavaOpts: &gt;-
-      -Djavax.net.debug=all</code></pre>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -2066,7 +2120,7 @@ Values must be valid Kubernetes volume mount configurations.</p>
       theme-vshn:
         name: theme
         readOnly: true
-        mountPath: /opt/jboss/keycloak/themes/vshn</code></pre>
+        mountPath: /opt/keycloak/themes/vshn</code></pre>
 </div>
 </div>
 </div>
@@ -2149,31 +2203,6 @@ default
 </div>
 <div class="paragraph">
 <p>Enable ServiceMonitor, PrometheusRule, and all Keycloak statistics on the metrics endpoint by default.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_statistics"><a class="anchor" href="#_monitoring_statistics"></a><code>monitoring.statistics</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>all</code></p>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -2862,7 +2891,7 @@ This allows to configure all <a href="https://github.com/codecentric/helm-charts
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../explanations/backup.html">Backup</a></span>
+  <span class="prev"><a href="../explanations/migration-to-quarkus.html">Migration to Quarkus</a></span>
 </nav>
 </article>
   </div>
