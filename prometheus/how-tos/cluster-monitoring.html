@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Setup Prometheus with Keycloak :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/prometheus/how-tos/setup-keycloak.html">
-    <link rel="prev" href="openshift.html">
-    <link rel="next" href="cluster-monitoring.html">
+    <title>Monitor other Commodore Components :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/prometheus/how-tos/cluster-monitoring.html">
+    <link rel="prev" href="setup-keycloak.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -117,10 +116,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="openshift.html">OpenShift</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="setup-keycloak.html">Setup with Keycloak</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="cluster-monitoring.html">Monitor other Commodore Components</a>
   </li>
 </ul>
@@ -731,281 +730,148 @@
   <ul>
     <li><a href="../index.html">prometheus</a></li>
     <li>How-Tos</li>
-    <li><a href="setup-keycloak.html">Setup with Keycloak</a></li>
+    <li><a href="cluster-monitoring.html">Monitor other Commodore Components</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/how-tos/setup-keycloak.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/how-tos/cluster-monitoring.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Setup Prometheus with Keycloak</h1>
+<h1 class="page">Monitor other Commodore Components</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This how-to will help you to setup Prometheus with Keycloak authentication.</p>
+<p>The Component Prometheus provides the option to deploy Prometheus and monitor core Kubernetes services.
+However it also supports picking up metrics and alerts from other workloads deployed by other components through the <code>custer-monitoring</code> addon and some convenient jsonnet functions.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_enabling_cluster_monitoring"><a class="anchor" href="#_enabling_cluster_monitoring"></a>Enabling <code>cluster-monitoring</code></h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>A running Keycloak instance</p>
-</li>
-<li>
-<p>A cluster with an ingress controller and this component installed</p>
-</li>
-<li>
-<p>A working Let&#8217;s Encrypt setup</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_setup"><a class="anchor" href="#_setup"></a>Setup</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Login to the Keycloak instances admin console</p>
-</li>
-<li>
-<p>Create a new client using <code>openid-connect</code> protocol</p>
-</li>
-<li>
-<p>Configure the client with the following values</p>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-Access Type
-</td>
-<td class="hdlist2">
-<p>confidential</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Valid Redirect URIs
-</td>
-<td class="hdlist2">
-<p><a href="https://prometheus.example.com/oauth2/callback" class="bare">prometheus.example.com/oauth2/callback</a></p>
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
+<div class="paragraph">
+<p>To enable monitoring other components we simply need to add the <code>cluster-monitoring</code> addon.</p>
 </div>
 <div class="paragraph">
-<p>NOTE:
-If using Alertmanager, you also need to add the following redirect uri: <a href="https://alertmanager.example.com/oauth2/callback" class="bare">alertmanager.example.com/oauth2/callback</a>.</p>
+<p>This sets namespace slectors on every Prometheus instance that will result in them picking up all <code>ServiceMonitors</code>, <code>PodMonitors</code>, <code>Probes</code>, and <code>PrometheusRules</code> in namespaces with the label <code>monitoring.syn.tools/&lt;instance&gt;</code>.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Configure the audience claim</p>
 <div class="paragraph">
-<p>Navigate to the <code>Mappers</code> tab.
-Create a new mapper with the following values:</p>
+<p>The example blow will make the Prometheus instance <code>default-instance</code> pick up all namespaces with a label <code>monitoring.syn.tools/default-instance: "true"</code>.</p>
 </div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-Name
-</td>
-<td class="hdlist2">
-<p>static audience</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Mapper Type
-</td>
-<td class="hdlist2">
-<p>Audience</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Included Client Audience
-</td>
-<td class="hdlist2">
-<p>CLIENT_NAME (from the previous step)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Included Custom Audience
-</td>
-<td class="hdlist2">
-<p>CLIENT_NAME (from the previous step)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Add to ID token
-</td>
-<td class="hdlist2">
-<p>off</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Add to access token
-</td>
-<td class="hdlist2">
-<p>on</p>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Copy the client secret</p>
-<div class="paragraph">
-<p>Navigate to the <code>Credentials</code> tab.
-Copy the value from the <em>Secret</em> field.</p>
-</div>
-</li>
-<li>
-<p>Add the proxy configuration to your cluster&#8217;s Prometheus configuration</p>
 <div class="listingblock">
+<div class="title">Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
-  addons:
-    - oauth2-proxy
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  prometheus:
+    kubernetes_version: '1.22'
 
-  secrets:
-    oauth2-proxy:
-      metadata:
-        namespace: syn-example-prometheus <i class="conum" data-value="1"></i><b>(1)</b>
-      stringData:
-        cookieSecret: '?{vaultkv:${cluster:tenant}/${cluster:name}/syn-example-prometheus/oauth2_cookie_secret}' <i class="conum" data-value="2"></i><b>(2)</b>
-        clientSecret: '?{vaultkv:${cluster:tenant}/${cluster:name}/syn-example-prometheus/oauth2_client_secret}' <i class="conum" data-value="3"></i><b>(3)</b>
+    defaultInstance: 'default-instance' <i class="conum" data-value="1"></i><b>(1)</b>
+    instances:
+      default-instance:
+        common:
+          namespace: default-instance
+        prometheus:
+          enabled: true
+        nodeExporter:
+          enabled: true
+    addons:
+      - cluster-monitoring <i class="conum" data-value="2"></i><b>(2)</b>
 
-  instances:
-    example: <i class="conum" data-value="4"></i><b>(4)</b>
-      common:
-        namespace: syn-example-prometheus <i class="conum" data-value="1"></i><b>(1)</b>
-      prometheus:
-        enabled: true
-        config:
-          _oauth2Proxy: &amp;oauth2ProxyConfig
-            ingress:
-              host: prometheus.example.com <i class="conum" data-value="5"></i><b>(5)</b>
-              annotations:
-                cert-manager.io/cluster-issuer: letsencrypt-production <i class="conum" data-value="6"></i><b>(6)</b>
-            proxyEnv:
-              OAUTH2_PROXY_COOKIE_SECRET:
-                secretKeyRef:
-                  name: oauth2-proxy
-                  key: cookieSecret
-              OAUTH2_PROXY_CLIENT_SECRET:
-                secretKeyRef:
-                  name: oauth2-proxy
-                  key: clientSecret
-            proxyArgs: <i class="conum" data-value="7"></i><b>(7)</b>
-              "provider": keycloak-oidc
-              "provider-display-name": "Example Account"
-              "client-id": "syn-prometheus-infra" <i class="conum" data-value="8"></i><b>(8)</b>
-              "email-domain": vshn.net <i class="conum" data-value="9"></i><b>(9)</b>
-              "oidc-issuer-url": https://keycloak.example.com/auth/realms/REALM <i class="conum" data-value="10"></i><b>(10)</b>
-
-      alertmanager: <i class="conum" data-value="11"></i><b>(11)</b>
-        enabled: true
-        config:
-          _oauth2Proxy:
-            &lt;&lt;: *oauth2ProxyConfig <i class="conum" data-value="12"></i><b>(12)</b>
-            ingress:
-              host: alertmanager.example.com
-              annotations:
-                cert-manager.io/cluster-issuer: letsencrypt-production</code></pre>
+    namespaces:
+      default-instance: {}</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The namespace where the Prometheus instance is deployed.</td>
+<td>The <code>defaultInstance</code> will be used by all components that don&#8217;t explicitly request a specific instance</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The cookie secret is used to encrypt the cookie.
-Must be 16 or 32 bytes long.
-Can be generated with <code>dd if=/dev/urandom bs=1 count=32 | base64</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The client secret copied from the Keycloak admin console in an earlier step.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The name of the Prometheus instance.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>The hostname where the proxy should be exposed.
-Has to match the hostname of the <em>Valid Redirect URIs</em>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Used to generate the certificate by cert-manager.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Check the <a href="https://oauth2-proxy.github.io/oauth2-proxy/docs/">Oauth2 Proxy docs</a> for all possible configuration options.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>The client id of the client created in the previous step.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>Optional email domain to restrict the users to.
-Can be set to <code>*</code> to allow all domains.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
-<td>The URL of the Keycloak instance.
-Replace <code>REALM</code> with the realm name.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="11"></i><b>11</b></td>
-<td>Optional Alertmanager configuration if using Alertmanager.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="12"></i><b>12</b></td>
-<td>References a copy of the <code>_oauth2Proxy</code> configuration.</td>
+<td>Enabling the <code>cluster-monitoring</code> addon</td>
 </tr>
 </table>
 </div>
-</li>
-</ol>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advertise_metrics_from_a_component"><a class="anchor" href="#_advertise_metrics_from_a_component"></a>Advertise Metrics from a Component</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When writing a component we can advertise metrics and rules to Prometheus by creating <code>ServiceMonitors</code> or <code>PrometheusRules</code> and correctly labeling the namespace of the component.
+To do this, the component-prometheus provides helper functions as the library <code>lib/prometheus.libsonnet</code>.</p>
 </div>
 <div class="paragraph">
-<p>NOTE:
-<code>allowed-group</code> or <code>allowed-role</code> can be used to further restrict the access to prometheus.</p>
+<p>The component namespace can easily be annotated by using the <code>RegisterNamespace</code> function.
+This function takes a namespace and returns the provided namespace with additional necessary labels for Prometheus to pick it up.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Commit the changes and compile the catalog.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>The function <code>NetworkPolicy</code> returns a network policy that allows ingress traffic from the Prometheus namespace.
+This means when writing a component you don&#8217;t need to know where Prometheus is deployed.</p>
+</div>
+<div class="paragraph">
+<p>We also provide helper functions to create <code>ServiceMonitors</code>, <code>PodMonitors</code>, <code>Probes</code>, and <code>PrometheusRules</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">  local prometheus = import 'lib/prometheus.libsonnet';
+
+  ...
+
+  local namespace = kube.Namespace(params.namespace)
+  {
+    '00_namespace': prometheus.RegisterNamespace(namespace),<i class="conum" data-value="1"></i><b>(1)</b>
+    '01_networkpolicy': prometheus.NetworkPolicy(){ <i class="conum" data-value="2"></i><b>(2)</b>
+      metadata+: {
+        namespace: params.namespace,
+      },
+    },
+    '10_servicemonitor': prometheus.ServiceMonitor('foo'){ <i class="conum" data-value="3"></i><b>(3)</b>
+      ...
+    },
+  }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Add a label so the default instance will pick up the namespace</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Depending on the cluster distribution you will need to add a NetworkPolicy.
+Without it Prometheus won&#8217;t be able to scape the targets.
+The <code>NetworkPolicy</code> functions will provide a correctly configured NetworkPolicy to allow ingress traffic from the Prometheus instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Create a ServiceMonitor called 'foo' that&#8217;s guaranteed to be picked up by Prometheus.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Don&#8217;t create a NetworkPolicy for permissive clusters without default NetworkPolicies.
+Doing so will drop any traffic not originating from Prometheus.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="openshift.html">OpenShift</a></span>
-  <span class="next"><a href="cluster-monitoring.html">Monitor other Commodore Components</a></span>
+  <span class="prev"><a href="setup-keycloak.html">Setup with Keycloak</a></span>
 </nav>
 </article>
   </div>
@@ -1016,7 +882,7 @@ Replace <code>REALM</code> with the realm name.</td>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/how-tos/setup-keycloak.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/how-tos/cluster-monitoring.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
