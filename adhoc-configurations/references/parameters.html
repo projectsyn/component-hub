@@ -744,6 +744,40 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="_argocd_ignore_differences"><a class="anchor" href="#_argocd_ignore_differences"></a><code>argocd_ignore_differences</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure ArgoCD to ignore certain differences for resources managed by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component ignores the object keys, and uses the non-null values as entries for <code>.spec.ignoreDifferences</code> of the ArgoCD application resource.</p>
+</div>
+<div class="paragraph">
+<p>See the [ArgoCD documentation]<a href="https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/#application-level-configuration" class="bare">argo-cd.readthedocs.io/en/stable/user-guide/diffing/#application-level-configuration</a> for all available features of ArgoCD&#8217;s diffing customization.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_manifests_path"><a class="anchor" href="#_manifests_path"></a><code>manifests_path</code></h2>
 <div class="sectionbody">
 <div class="hdlist">

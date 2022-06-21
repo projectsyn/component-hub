@@ -985,6 +985,56 @@ The component doesn&#8217;t validate the provided cluster role binding configura
 </div>
 </div>
 <div class="sect1">
+<h2 id="_controllerconfigs"><a class="anchor" href="#_controllerconfigs"></a><code>controllerConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"controller-config-name":
+  spec:
+    serviceAccountName: my-service
+    image: docker.io/repo/image.latest</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy arbitrary controller configs.
+Each entry is transformed into a ControllerConfig resource.
+The key is used as the name of the resulting resource.
+The provided value is merged with an empty ControllerConfig resource.
+The component doesn&#8217;t validate the provided ControllerConfig spec.</p>
+</div>
+<div class="paragraph">
+<p>If a key in <code>controllerConfigs</code> matches a key in <code>parameters.crossplane.serviceAccounts</code>, then the ControllerConfig&#8217;s <code>spec.serviceAccountName</code> is overwritten and set equal to the matching key of <code>parameters.crossplane.serviceAccounts</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
