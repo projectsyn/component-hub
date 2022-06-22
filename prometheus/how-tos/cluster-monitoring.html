@@ -756,10 +756,17 @@ However it also supports picking up metrics and alerts from other workloads depl
 <p>To enable monitoring other components we simply need to add the <code>cluster-monitoring</code> addon.</p>
 </div>
 <div class="paragraph">
-<p>This sets namespace slectors on every Prometheus instance that will result in them picking up all <code>ServiceMonitors</code>, <code>PodMonitors</code>, <code>Probes</code>, and <code>PrometheusRules</code> in namespaces with the label <code>monitoring.syn.tools/&lt;instance&gt;</code>.</p>
+<p>This sets namespace selectors on every Prometheus instance that will result in them picking up all <code>ServiceMonitors</code>, <code>PodMonitors</code>, and <code>Probes</code> in namespaces with the label <code>monitoring.syn.tools/&lt;instance&gt;</code>.</p>
 </div>
 <div class="paragraph">
-<p>The example blow will make the Prometheus instance <code>default-instance</code> pick up all namespaces with a label <code>monitoring.syn.tools/default-instance: "true"</code>.</p>
+<p><code>PrometheusRules</code> are only picked up if they&#8217;re in a labeled namespace AND the rule is labeled with <code>monitoring.syn.tools/enabled: "true"</code>.
+This should ensure that rules are added consciously and prevent a massive import of upstream alerts that aren&#8217;t actionable or don&#8217;t meet our standards.</p>
+</div>
+<div class="paragraph">
+<p>You also have the option to disable <code>ServiceMonitors</code>, <code>PodMonitors</code>, or <code>Probes</code> by labeling them with <code>monitoring.syn.tools/enabled: "false"</code>.</p>
+</div>
+<div class="paragraph">
+<p>The example below will make the Prometheus instance <code>default-instance</code> pick up all namespaces with a label <code>monitoring.syn.tools/default-instance: "true"</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Example</div>
@@ -806,7 +813,7 @@ However it also supports picking up metrics and alerts from other workloads depl
 To do this, the component-prometheus provides helper functions as the library <code>lib/prometheus.libsonnet</code>.</p>
 </div>
 <div class="paragraph">
-<p>The component namespace can easily be annotated by using the <code>RegisterNamespace</code> function.
+<p>The component namespace can easily be labeled by using the <code>RegisterNamespace</code> function.
 This function takes a namespace and returns the provided namespace with additional necessary labels for Prometheus to pick it up.</p>
 </div>
 <div class="paragraph">
@@ -815,6 +822,10 @@ This means when writing a component you don&#8217;t need to know where Prometheu
 </div>
 <div class="paragraph">
 <p>We also provide helper functions to create <code>ServiceMonitors</code>, <code>PodMonitors</code>, <code>Probes</code>, and <code>PrometheusRules</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>PrometheusRule</code> helper function already ensures that the necessary <code>enabled</code> label is set.
+If you need to enable an existing <code>PrometheusRule</code> you can use the <code>Enable()</code> helper functions to set the label.</p>
 </div>
 <div class="listingblock">
 <div class="title">Example</div>
@@ -834,6 +845,7 @@ This means when writing a component you don&#8217;t need to know where Prometheu
     '10_servicemonitor': prometheus.ServiceMonitor('foo'){ <i class="conum" data-value="3"></i><b>(3)</b>
       ...
     },
+    '10_alert': prometheus.Enable(upstreamAlert), <i class="conum" data-value="4"></i><b>(4)</b>
   }</code></pre>
 </div>
 </div>
@@ -852,6 +864,10 @@ The <code>NetworkPolicy</code> functions will provide a correctly configured Net
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Create a ServiceMonitor called 'foo' that&#8217;s guaranteed to be picked up by Prometheus.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Assuming there is an existing <code>upstreamAlert</code> rule you can enable it using the <code>Enable</code> helper function.</td>
 </tr>
 </table>
 </div>
