@@ -67,6 +67,9 @@
 <loc>https://hub.syn.tools/sitemap-fluentbit.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-fluentd-forwarder.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
 </sitemap>
 <sitemap>
@@ -136,7 +139,13 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-monitoring.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-networking.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-nodes.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-operators.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-registry.xml</loc>
@@ -148,6 +157,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-scheduling.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-splunk-forwarder.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-terraform.xml</loc>
 </sitemap>
 <sitemap>
@@ -155,6 +167,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-podsecuritypolicy.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-prom-label-proxy.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-prometheus.xml</loc>
