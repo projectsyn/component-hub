@@ -259,7 +259,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../espejo/index.html">Espejo</a>
+      <a class="title" href="../../espejo/index.html">espejo</a>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../espejo/index.html">master</a>
@@ -766,8 +766,8 @@ type
 <div class="paragraph">
 <p>The configuration for fluent-bit itself.
 Any fluent-bit options can be provided verbatim under the available sections.
-Currently sections <code>[SERVICE]</code>, <code>[INPUT]</code>, <code>[OUTPUT]</code>, <code>[FILTER]</code>, and <code>[PARSER]</code>  are supported.
-The respective keys are <code>service</code>, <code>inputs</code>, <code>outputs</code>, <code>filters</code>, and <code>parsers</code>.</p>
+Currently sections <code>[SERVICE]</code>, <code>[INPUT]</code>, <code>[OUTPUT]</code>, <code>[FILTER]</code>, <code>[PARSER]</code> and <code>[MULTILINE_PARSER]</code> are supported.
+The respective keys are <code>service</code>, <code>inputs</code>, <code>outputs</code>, <code>filters</code>, <code>parsers</code> and <code>multiline_parsers</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -866,6 +866,11 @@ See <a href="https://docs.fluentbit.io/manual/administration/configuring-fluent-
 </div>
 <div class="paragraph">
 <p>The contents of this key will be reproduced verbatim (including capitalization of keys and values) in the fluent-bit configuration file in section <code>[SERVICE]</code>.</p>
+</div>
+<div class="paragraph">
+<p>The contents of <code>Parsers_File</code> in this key will be deduplicated, preserving the order of entries in the key.
+Additionally, the component will ensure that <code>parsers.conf</code> is always configured as the first <code>Parsers_File</code>.
+The component will always add parsers defined in <code>config.parsers</code> as the last <code>Parsers_File</code> entry.</p>
 </div>
 </div>
 </div>
@@ -997,6 +1002,44 @@ Each key of <code>config.parsers</code> should contain a dict holding the config
 <div class="paragraph">
 <p>If the dict for a section doesn&#8217;t have a key <code>Name</code>, the key for the section will be used as the plugin name for the section.
 This allows avoiding repetition, when it&#8217;s unnecessary, while still supporting having multiple parsers using the same plugin.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_config_multiline_parsers"><a class="anchor" href="#_config_multiline_parsers"></a><code>config.multiline_parsers</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure fluent-bit multiline parsers.
+The component doesn&#8217;t configure any custom multiline parsers.</p>
+</div>
+<div class="paragraph">
+<p><code>config.multiline_parsers</code> should have one key per <code>[MULTILINE_PARSER]</code> section that will be rendered into the fluent-bit ConfigMap in <code>custom_parsers.conf</code>.
+If <code>config.multiline_parsers</code> contains at least one entry, the component will add line <code>Parsers_File custom_parsers.conf</code> to the main fluent-bit config file.
+Each key of <code>config.multiline_parsers</code> should contain a dict holding the configuration values for the section which will be reproduced verbatim (including capitalization of keys and values).</p>
+</div>
+<div class="paragraph">
+<p>If the dict for a section doesn&#8217;t have a key <code>Name</code>, the key for the section will be used as the plugin name for the section.
+This allows avoiding repetition, when it&#8217;s unnecessary, while still supporting having multiple multiline parsers using the same plugin.</p>
 </div>
 </div>
 </div>
