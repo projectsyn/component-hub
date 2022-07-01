@@ -1035,6 +1035,68 @@ The component doesn&#8217;t validate the provided ControllerConfig spec.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_providerconfigs"><a class="anchor" href="#_providerconfigs"></a><code>providerConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"provider-name-two": <i class="conum" data-value="1"></i><b>(1)</b>
+  apiVersion: helm.crossplane.io/v1beta1 <i class="conum" data-value="2"></i><b>(2)</b>
+  spec: <i class="conum" data-value="3"></i><b>(3)</b>
+    credentials:
+      source: InjectedIdentity</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The key is used as the name of the resulting resource.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Setting <code>apiVersion</code> defines in which the API group the ProviderConfig belongs to.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The provided spec is merged with an empty ProviderConfig resource.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy arbitrary provider configs.
+Each entry is transformed into a ProviderConfig resource.
+The component doesn&#8217;t validate the provided ProviderConfig spec.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
