@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Commodore Components Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/logformat.html">
-    <link rel="prev" href="aws.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Upgrade from 3.x to 4.x :: Commodore Components Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-3.x-to-4.x.html">
+    <link rel="prev" href="upgrade-2.x-to-3.x.html">
+    <link rel="next" href="#cluster-default-ingress-class.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -105,7 +105,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -114,7 +114,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="aws.html">AWS - Amazon Web Services Load Balancers</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="logformat.html">NGINX upstream log format as JSON</a>
   </li>
 </ul>
@@ -734,61 +734,66 @@
   <ul>
     <li><a href="../index.html">ingress-nginx</a></li>
     <li>How-to guides</li>
-    <li><a href="logformat.html">NGINX upstream log format as JSON</a></li>
+    <li><a href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/logformat.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-3.x-to-4.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<div class="sect1">
-<h2 id="_nginx_upstream_log_format_as_json"><a class="anchor" href="#_nginx_upstream_log_format_as_json"></a>NGINX upstream log format as JSON</h2>
+<h1 class="page">Upgrade from 3.x to 4.x</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default the upstream log is defined as a regular human readable string.
-To switch to a JSON based format you might use this example:</p>
+<p>This guide describes the steps to perform an upgrade of the component from version 3.x to 4.x.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        config:
-          log-format-upstream: &gt;-
-            {
-            "time": "$time_iso8601",
-            "remote_addr": "$proxy_protocol_addr",
-            "x-forward-for": "$proxy_add_x_forwarded_for",
-            "req_id": "$req_id",
-            "remote_user": "$remote_user",
-            "bytes_sent": $bytes_sent,
-            "request_time": $request_time,
-            "status": "$status",
-            "host": "$host",
-            "request_proto": "$server_protocol",
-            "request_uri": "$uri",
-            "request_query": "$args",
-            "request_length": $request_length,
-            "request_time": $request_time,
-            "request_method": "$request_method",
-            "http_referer": "$http_referer",
-            "http_user_agent": "$http_user_agent",
-            "namespace": "$namespace",
-            "ingress_name": "$ingress_name",
-            "service_name": "$service_name",
-            "service_port": "$service_port"
-            }</code></pre>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component version 4.x uses the image registry source of <code>registry.k8s.io</code> instead of <code>k8s.gcr.io</code>.
+There are no other changes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have restricted the external cluster communication, please change and verify the ability to pull from <code>registry.k8s.io</code>.
+Allowance on <code>k8s.gcr.io</code> can be removed depending on other components pulling from there.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why"><a class="anchor" href="#_why"></a>Why</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>k8s.gcr.io</code> is deprecated in favor of <code>registry.k8s.io</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://groups.google.com/a/kubernetes.io/g/dev/c/DYZYNQ_A6_c?pli=1">Please drive traffic to registry.k8s.io (instead of k8s.gcr.io)</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-release/3000-artifact-distribution">KEP 3000: Image Promotion and Distribution Policy</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kubernetes/pull/109938">Move from k8s.gcr.io to registry.k8s.io #109938</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="aws.html">AWS - Amazon Web Services Load Balancers</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></span>
+  <span class="next"><a href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a></span>
 </nav>
 </article>
   </div>
@@ -799,7 +804,7 @@ To switch to a JSON based format you might use this example:</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/logformat.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-3.x-to-4.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
