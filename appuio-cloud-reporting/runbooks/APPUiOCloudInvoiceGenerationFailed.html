@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: APPUiOCloudReportingDatabaseBackfillingFailed :: Commodore Components Hub</title>
+    <title>Alert rule: APPUiOCloudInvoiceGenerationFailed :: Commodore Components Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudInvoiceGenerationFailed.html">
     <link rel="prev" href="APPUiOCloudReportingMissingData.html">
     <link rel="next" href="APPUiOCloudReportingDatabaseBackfillingFailed.html">
@@ -729,7 +729,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: APPUiOCloudReportingDatabaseBackfillingFailed</h1>
+<h1 class="page">Alert rule: APPUiOCloudInvoiceGenerationFailed</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -753,50 +753,118 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>APPUiO Cloud Reporting failed while trying to generate Invoices.
-Invoices might be incomplete or missing.</p>
+<p>APPUiO Cloud Reporting failed while trying to generate invoices.
+Invoices might be incomplete or missing.
+Remove any obstacles and rerun the job.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Deleting the failed job will clear this alert.</p>
+<p>The job isn&#8217;t idempotent.
+Rerunning the job, can leave duplicates which need to be cleaned up.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify source of failure</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Check job logs.</p>
+<p>Check for missing data indicated by the alert rule <a href="APPUiOCloudReportingMissingData.html" class="page">APPUiOCloudReportingMissingData</a>.</p>
 </li>
 <li>
-<p>Check for missing migrations:</p>
+<p>Check logs for other issues.
+Look out for connectivity issues (for example between the job and the ERP).</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAMESPACE=appuio-cloud-reporting
-FAILED_JOB=job/XXXXXX-XXXXXX
-
-oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
-  --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
-  appuio-cloud-reporting migrate --show-pending
-
-# If pending migrations are shown
-oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
-  --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
-  appuio-cloud-reporting migrate
-oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
-  --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
-  appuio-cloud-reporting migrate --seed</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n appuio-cloud-reporting logs $(kubectl -n appuio-cloud-reporting get job -l cron-job-name=generate-invoices --field-selector status.successful=0 -o name | tail -n1)</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Check if there is missing data, see <a href="APPUiOCloudReportingMissingData.html" class="page">APPUiOCloudReportingMissingData</a>.</p>
-</li>
-<li>
-<p>Check ERP connectivity and logs.</p>
 </li>
 </ul>
+</div>
+</li>
+<li>
+<p>Remove any obstacles</p>
+<div class="paragraph">
+<p>Use the findings from the previous step to remove any obstacles causing the job to fail again.</p>
+</div>
+</li>
+<li>
+<p>Rerun job</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">name="generate-invoices-manual-$($(command -v gdate || command -v date) +%s)"
+kubectl --as cluster-admin -n appuio-cloud-reporting create job --from=cronjob/generate-invoices "${name}"
+kubectl -n appuio-cloud-reporting logs "job/${name}"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check ERP for duplicates</p>
+<div class="paragraph">
+<p>In the ERP, search for the generated invoices.
+Remove all duplicates.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Invoices with status Draft can be removed without issues.
+For other states, check with finance.
+They might redo some modifications.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use the advanced search to search "APPUiO Cloud &lt;month&gt; &lt;year&gt;" in the field <code>Reference/Description</code>.
+Then sort by <code>Customer</code>.
+This makes spotting duplicates easier.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Clean up</p>
+<div class="paragraph">
+<p>Remove all failed check-missing jobs to clear the alert.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n appuio-cloud-reporting delete $(kubectl -n appuio-cloud-reporting get job -l cron-job-name=generate-invoices --field-selector status.successful=0 -o name)</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
