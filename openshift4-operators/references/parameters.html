@@ -173,10 +173,26 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -209,6 +225,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -281,6 +305,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
         </li>
       </ul>
     </li>
@@ -517,10 +549,26 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -864,6 +912,84 @@ default
 <p>The component defaults to <code>certified-operators</code> for instance <code>openshift-operators</code>.
 This source provides community-maintained operators which are certified by RedHat.
 Alternatively, you can use <code>community-operators</code> for other community-maintained operators.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring"><a class="anchor" href="#_monitoring"></a><code>monitoring</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This parameter allows users to enable the component&#8217;s monitoring configuration.
+Currently the component has support for deploying custom <code>ServiceMonitors</code> on clusters which use component <code>prometheus</code> to manage a custom monitoring stack.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The monitoring configuration is instance independent. It must not be changed between instances of this component.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy monitoring configurations.
+If this parameter is set to <code>true</code>, the component will check whether component <code>prometheus</code> is present on the cluster.
+If the component is missing, no configurations will be deployed regardless of the value of this parameter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instance"><a class="anchor" href="#_instance"></a><code>instance</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to indicate which custom Prometheus instance should pick up the configurations managed by the component.</p>
+</div>
+<div class="paragraph">
+<p>If the parameter is set to the empty string, the default instance configured for component <code>prometheus</code> will be used.</p>
+</div>
 </div>
 </div>
 </div>
