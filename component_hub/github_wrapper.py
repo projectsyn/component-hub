@@ -130,7 +130,7 @@ class Repo:
     @property
     def topics(self):
         """
-        Returns topics of component repo.
+        Returns topics of repo.
         Removes topics provided in `self._ignore_topics`
         Removes topics that profanity-check detects as profanitites.
         :return: topics of repository
@@ -180,27 +180,28 @@ class GithubRepoLoader:
                     item.strip() for item in f.readlines() if not item.startswith("#")
                 ]
 
-    def get_commodore_component_repos(self) -> List[Repo]:
+    def get_commodore_repos(self, query: str) -> List[Repo]:
+
         """
-        Get active component repos from search results.
+        Get active repos from search results.
         Filters out repos listed in the ignore-list
         """
 
         repositories: List[Repository] = list(
-            self._github.search_repositories(query="topic:commodore-component", sort="updated")
+            self._github.search_repositories(query=query, sort="updated")
         )
 
         # Filter out archived repositories
         def active(r):
             if r.archived:
-                click.echo(f"Skipping archived component {r.full_name}")
+                click.echo(f"Skipping archived repository {r.full_name}")
                 return False
 
             return True
 
         def non_ignored(r):
             if r.clone_url in self._ignore_list:
-                click.echo(f"Dropping component {r.full_name} on ignore list")
+                click.echo(f"Dropping repository {r.full_name} on ignore list")
                 return False
 
             return True
@@ -209,9 +210,7 @@ class GithubRepoLoader:
             # drop repo names which are detected as profanities
             rp = predict([r.full_name])[0]
             if rp == 1:
-                click.echo(
-                    "Profanity filter triggered for repo {r.full_name}, dropping component repo"
-                )
+                click.echo("Profanity filter triggered for repo {r.full_name}, dropping repository")
                 return False
 
             return True
@@ -221,3 +220,9 @@ class GithubRepoLoader:
             Repo(r, self._ignore_topics)
             for r in filter(non_profane, filter(non_ignored, filter(active, repositories)))
         ]
+
+    def get_commodore_component_repos(self) -> List[Repo]:
+        return self.get_commodore_repos("topic:commodore-component")
+
+    def get_commodore_package_repos(self) -> List[Repo]:
+        return self.get_commodore_repos("topic:commodore-package")

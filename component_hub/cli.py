@@ -52,7 +52,7 @@ class Context:
 @click.option(
     "--ignore-topics",
     help="List of project topics which are not considered for sorting by topic",
-    default=("commodore", "commodore-component", "syn", "projectsyn"),
+    default=("commodore", "commodore-component", "commodore-package", "syn", "projectsyn"),
     multiple=True,
 )
 # pylint: disable=too-many-arguments

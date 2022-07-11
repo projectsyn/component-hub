@@ -27,6 +27,19 @@ The documentation is rebuilt hourly and automatically kept up-to-date with the i
 {% endwith %}
 {% endfor %}
 
+== Packages by Project Syn
+
+
+{% for ghorg in syn_organizations %}
+{% with %}
+{% set section_url = ghorg.github_url %}
+{% set section_name = ghorg.display_name %}
+{% set components = packages_by_org[ghorg.name] %}
+{% set official = True %}
+{% include 'component_table.adoc.jinja2' %}
+{% endwith %}
+{% endfor %}
+
 == Community-contributed Components
 
 {% for ghorg in other_organizations %}
@@ -37,3 +50,5 @@ The documentation is rebuilt hourly and automatically kept up-to-date with the i
 {% include 'component_table.adoc.jinja2' %}
 {% endwith %}
 {% endfor %}
+
+

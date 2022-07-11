@@ -8,24 +8,38 @@ from .config import Config, Template
 from .github_wrapper import Repo, GithubOwner
 
 
+def _filter_antora_repos(repositories: List[Repo]):
+    res: List[Repo] = []
+    for repo in repositories:
+        # Find out the 'docs/antora.yml' file and get its contents
+        if repo.has_antora_yml:
+            res.append(repo)
+    return sorted(res, key=lambda r: r.title.lower())
+
+
 class Renderer:
     def __init__(self, config, project_syn_orgs):
         self._config: Config = config
         self._component_repositories: List[Repo] = []
+        self._package_repositories: List[Repo] = []
         self._project_syn_orgs: List[str] = project_syn_orgs
 
     def _cache_component_repositories(self, refresh=False):
         """
         Fetch and cache list of component repositories from GitHub
         """
-        if len(self._component_repositories) == 0 or refresh:
-            repositories = self._config.github.get_commodore_component_repos()
-            for repo in repositories:
-                # Find out the 'docs/antora.yml' file and get its contents
-                if repo.has_antora_yml:
-                    self._component_repositories.append(repo)
-            self._component_repositories = sorted(
-                self._component_repositories, key=lambda r: r.title.lower()
+        if len(self._package_repositories) == 0 or refresh:
+            self._component_repositories = _filter_antora_repos(
+                self._config.github.get_commodore_component_repos()
+            )
+
+    def _cache_package_repositories(self, refresh=False):
+        """
+        Fetch and cache list of package repositories from GitHub
+        """
+        if len(self._package_repositories) == 0 or refresh:
+            self._package_repositories = _filter_antora_repos(
+                self._config.github.get_commodore_package_repos()
             )
 
     def _list_organizations(self) -> List[GithubOwner]:
@@ -34,7 +48,7 @@ class Renderer:
         :return: sorted iterable
         """
         organizations = set()
-        for r in self.component_repositories:
+        for r in self.component_repositories + self.package_repositories:
             organizations.add(r.owner)
         return sorted(organizations)
 
@@ -44,7 +58,7 @@ class Renderer:
         :return: sorted iterable
         """
         topics: Set[str] = set()
-        for r in self.component_repositories:
+        for r in self.component_repositories + self.package_repositories:
             topics = topics.union(set(r.topics))
         return sorted(topics)
 
@@ -53,6 +67,12 @@ class Renderer:
         for r in self.component_repositories:
             components.setdefault(r.owner.name, []).append(r)
         return components
+
+    def packages_by_org(self) -> Dict[str, List[Repo]]:
+        packages: Dict[str, List[Repo]] = {}
+        for r in self.package_repositories:
+            packages.setdefault(r.owner.name, []).append(r)
+        return packages
 
     def components_by_topic(self) -> Dict[str, List[Repo]]:
         """
@@ -65,18 +85,37 @@ class Renderer:
                 components.setdefault(t, []).append(r)
         return components
 
+    def packages_by_topic(self) -> Dict[str, List[Repo]]:
+        """
+        Organize packages by topic
+        :return: dict of topic to list of packagerepos
+        """
+        packages: Dict[str, List[Repo]] = {}
+        for r in self.package_repositories:
+            for t in r.topics:
+                packages.setdefault(t, []).append(r)
+        return packages
+
     @property
     def component_repositories(self):
         self._cache_component_repositories()
         return self._component_repositories
+
+    @property
+    def package_repositories(self):
+        self._cache_package_repositories()
+        return self._package_repositories
 
     def render_adoc_template(self, template: Template):
         """
         Render asciidoc template using Jinja2
         """
         components_by_org = self.components_by_org()
+        packages_by_org = self.packages_by_org()
         components_by_topic = self.components_by_topic()
+        packages_by_topic = self.packages_by_topic()
         organizations = self._list_organizations()
+
         syn_organizations = [o for o in organizations if o.name in self._project_syn_orgs]
         other_organizations = [o for o in organizations if o.name not in self._project_syn_orgs]
 
@@ -90,6 +129,9 @@ class Renderer:
             syn_organizations=syn_organizations,
             other_organizations=other_organizations,
             topics=self._list_topics(),
+            packages_by_org=packages_by_org,
+            packages_by_topic=packages_by_topic,
+            package_count=len(self.package_repositories),
             components_by_org=components_by_org,
             components_by_topic=components_by_topic,
             component_count=len(self.component_repositories),
@@ -104,7 +146,7 @@ class Renderer:
         with open(self._config.template_dir / "playbook.yml") as templatef:
             playbook = yaml.safe_load(templatef)
 
-        for repo in self.component_repositories:
+        for repo in self.component_repositories + self.package_repositories:
             ghorg = repo.owner.name
             playbook["content"]["sources"].append(
                 {
