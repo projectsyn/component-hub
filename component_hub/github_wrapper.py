@@ -58,7 +58,7 @@ class GithubOwner:
         return f"{self.name}({self.display_name})"
 
 
-class ComponentRepo:
+class Repo:
     def __init__(self, r: Repository, ignore_topics: List[str]):
         self._repo: Repository = r
         self._has_antora_yml = False
@@ -77,7 +77,7 @@ class ComponentRepo:
             self._antora_yml = yaml.safe_load(contents)
             self._has_antora_yml = True
         except GithubException:
-            click.echo(f"No antora.yml found for component {self.repo.name}")
+            click.echo(f"No antora.yml found for {self.repo.name}")
 
     @property
     def main_branch(self) -> str:
@@ -180,7 +180,7 @@ class GithubRepoLoader:
                     item.strip() for item in f.readlines() if not item.startswith("#")
                 ]
 
-    def get_commodore_component_repos(self) -> List[ComponentRepo]:
+    def get_commodore_component_repos(self) -> List[Repo]:
         """
         Get active component repos from search results.
         Filters out repos listed in the ignore-list
@@ -218,6 +218,6 @@ class GithubRepoLoader:
 
         # Return filtered list of repositories
         return [
-            ComponentRepo(r, self._ignore_topics)
+            Repo(r, self._ignore_topics)
             for r in filter(non_profane, filter(non_ignored, filter(active, repositories)))
         ]

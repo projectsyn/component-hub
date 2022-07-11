@@ -5,26 +5,28 @@ import yaml
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 from .config import Config, Template
-from .github_wrapper import ComponentRepo, GithubOwner
+from .github_wrapper import Repo, GithubOwner
 
 
 class Renderer:
     def __init__(self, config, project_syn_orgs):
         self._config: Config = config
-        self._repositories: List[ComponentRepo] = []
+        self._component_repositories: List[Repo] = []
         self._project_syn_orgs: List[str] = project_syn_orgs
 
     def _cache_component_repositories(self, refresh=False):
         """
-        Fetch and cache list of repositories from GitHub
+        Fetch and cache list of component repositories from GitHub
         """
-        if len(self._repositories) == 0 or refresh:
+        if len(self._component_repositories) == 0 or refresh:
             repositories = self._config.github.get_commodore_component_repos()
             for repo in repositories:
                 # Find out the 'docs/antora.yml' file and get its contents
                 if repo.has_antora_yml:
-                    self._repositories.append(repo)
-            self._repositories = sorted(self._repositories, key=lambda r: r.title.lower())
+                    self._component_repositories.append(repo)
+            self._component_repositories = sorted(
+                self._component_repositories, key=lambda r: r.title.lower()
+            )
 
     def _list_organizations(self) -> List[GithubOwner]:
         """
@@ -32,7 +34,7 @@ class Renderer:
         :return: sorted iterable
         """
         organizations = set()
-        for r in self.repositories:
+        for r in self.component_repositories:
             organizations.add(r.owner)
         return sorted(organizations)
 
@@ -42,31 +44,31 @@ class Renderer:
         :return: sorted iterable
         """
         topics: Set[str] = set()
-        for r in self.repositories:
+        for r in self.component_repositories:
             topics = topics.union(set(r.topics))
         return sorted(topics)
 
-    def components_by_org(self) -> Dict[str, List[ComponentRepo]]:
-        components: Dict[str, List[ComponentRepo]] = {}
-        for r in self.repositories:
+    def components_by_org(self) -> Dict[str, List[Repo]]:
+        components: Dict[str, List[Repo]] = {}
+        for r in self.component_repositories:
             components.setdefault(r.owner.name, []).append(r)
         return components
 
-    def components_by_topic(self) -> Dict[str, List[ComponentRepo]]:
+    def components_by_topic(self) -> Dict[str, List[Repo]]:
         """
         Organize components by topic
         :return: dict of topic to list of componentrepos
         """
-        components: Dict[str, List[ComponentRepo]] = {}
-        for r in self.repositories:
+        components: Dict[str, List[Repo]] = {}
+        for r in self.component_repositories:
             for t in r.topics:
                 components.setdefault(t, []).append(r)
         return components
 
     @property
-    def repositories(self):
+    def component_repositories(self):
         self._cache_component_repositories()
-        return self._repositories
+        return self._component_repositories
 
     def render_adoc_template(self, template: Template):
         """
@@ -90,7 +92,7 @@ class Renderer:
             topics=self._list_topics(),
             components_by_org=components_by_org,
             components_by_topic=components_by_topic,
-            component_count=len(self.repositories),
+            component_count=len(self.component_repositories),
         )
         with open(self._config.output_file(template), "w") as outf:
             outf.write(output)
@@ -102,7 +104,7 @@ class Renderer:
         with open(self._config.template_dir / "playbook.yml") as templatef:
             playbook = yaml.safe_load(templatef)
 
-        for repo in self.repositories:
+        for repo in self.component_repositories:
             ghorg = repo.owner.name
             playbook["content"]["sources"].append(
                 {
