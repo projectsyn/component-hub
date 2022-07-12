@@ -1,0 +1,23 @@
+{% if repos|length > 0 %}
+{% if section_url %}
+=== {{ section_url }}[{{ section_name }}]{% if official %} ⭐{% endif %}
+{% else %}
+=== {{ section_name }}
+{% endif %}
+
+[cols="2,3",options="header",stripes=even]
+|===
+|{{ repo_type }}
+|Description
+
+{% for repo in repos %}
+|
+xref:{{ repo.name }}:ROOT:index.adoc[{{ repo.title }}] +
+_{{ repo.github_url }}[[GitHub ⇗\]]_
+|
+{{ repo.description }}{% if repo.topics|length > 0 %} +
+{% for t in repo.topics %}`{{ t }}` {% endfor %}{% endif %}
+
+{% endfor %}
+|===
+{% endif %}

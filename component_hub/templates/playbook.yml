@@ -1,5 +1,5 @@
 site:
-  title: Commodore Components Hub
+  title: Commodore Hub
   url: https://hub.syn.tools
   start_page: hub::index.adoc
   keys:
