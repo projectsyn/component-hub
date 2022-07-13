@@ -810,7 +810,9 @@
         - --kube-apiserver-arg=oidc-username-claim=preferred_username
         - --kube-apiserver-arg=oidc-groups-claim=groups
     ingress:
-      host: vcluster.example.com</code></pre>
+      host: vcluster.example.com
+      annotations:
+        route.openshift.io/termination: reencrypt <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -826,6 +828,10 @@
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>The client ID in Keycloak</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Needed to communicate with the encrypted vcluster endpoint</td>
 </tr>
 </table>
 </div>
