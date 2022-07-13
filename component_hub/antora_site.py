@@ -12,7 +12,7 @@ def create(root_path, project_slug):
     docs_path = root / "docs"
     # Uses Cookiecutter to generate a new Antora documentation site
     params = {
-        "project_title": "Commodore Components Hub",
+        "project_title": "Commodore Hub",
         "project_slug": project_slug,
         "project_url": "https://hub.syn.tools",
         "antora_prefix": "hub",
