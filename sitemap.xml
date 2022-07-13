@@ -166,6 +166,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-version.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-package-monitoring.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-podsecuritypolicy.xml</loc>
 </sitemap>
 <sitemap>
