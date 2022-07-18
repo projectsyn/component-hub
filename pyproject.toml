@@ -7,7 +7,7 @@ license = "BSD-3-Clause"
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"
-cookiecutter = "^1.7.3"
+cookiecutter = "^2.0.0"
 PyYAML = "^5.4.1"
 PyGithub = "^1.55"
 click = "^8.0.1"
