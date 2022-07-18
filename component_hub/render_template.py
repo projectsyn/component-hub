@@ -1,6 +1,7 @@
 from typing import Dict, List, Set
 
 import yaml
+import click
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
@@ -24,23 +25,41 @@ class Renderer:
         self._package_repositories: List[Repo] = []
         self._project_syn_orgs: List[str] = project_syn_orgs
 
-    def _cache_component_repositories(self, refresh=False):
+        self._cached: bool = False
+
+    def _deduplicate_repositories(self):
+        uniq: dict[str, Repo] = {}
+        for r in self._component_repositories + self._package_repositories:
+            if r.name not in uniq or (
+                r.owner.name in self._project_syn_orgs
+                and uniq[r.name].owner.name not in self._project_syn_orgs
+            ):
+                uniq[r.name] = r
+
+        def keep(r: Repo):
+            if uniq[r.name] != r:
+                click.echo(
+                    f"Dropping {r.github_full_name} in favour of {uniq[r.name].github_full_name}"
+                )
+                return False
+            return True
+
+        self._component_repositories = list(filter(keep, self._component_repositories))
+        self._package_repositories = list(filter(keep, self._package_repositories))
+
+    def _cache_repositories(self, refresh=False):
         """
         Fetch and cache list of component repositories from GitHub
         """
-        if len(self._package_repositories) == 0 or refresh:
+        if not self._cached or refresh:
+            self._cached = True
             self._component_repositories = _filter_antora_repos(
                 self._config.github.get_commodore_component_repos()
             )
-
-    def _cache_package_repositories(self, refresh=False):
-        """
-        Fetch and cache list of package repositories from GitHub
-        """
-        if len(self._package_repositories) == 0 or refresh:
             self._package_repositories = _filter_antora_repos(
                 self._config.github.get_commodore_package_repos()
             )
+            self._deduplicate_repositories()
 
     def _list_organizations(self) -> List[GithubOwner]:
         """
@@ -98,12 +117,12 @@ class Renderer:
 
     @property
     def component_repositories(self):
-        self._cache_component_repositories()
+        self._cache_repositories()
         return self._component_repositories
 
     @property
     def package_repositories(self):
-        self._cache_package_repositories()
+        self._cache_repositories()
         return self._package_repositories
 
     def render_adoc_template(self, template: Template):
