@@ -1016,10 +1016,32 @@ kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c keycloak-postgresql 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>Disable the automated sync policy for the keycloak instance</p>
+</li>
+<li>
+<p>Scale down the existing keycloak to prevent the Wildfly based instance writing to the same database:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn-keycloak scale statefulset keycloak --replicas=0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the ingress object to prevent duplicate hostname issues seen on the OpenShift router:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn-keycloak delete ingress keycloak</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Apply the parameter changes.</p>
 </li>
 <li>
 <p>Compile and push the cluster catalog.</p>
+</li>
+<li>
+<p>Enable the automated sync policy for the keycloak instance</p>
 </li>
 <li>
 <p>Verify that ArgoCD can sync all resources.</p>
