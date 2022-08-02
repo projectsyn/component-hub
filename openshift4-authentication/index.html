@@ -823,7 +823,7 @@ In this scenario, if the LDAP sync cronjob is scheduled on the master nodes, we 
 <p>RBAC rules are set up in order to allow a sudo like method to gain cluster-admin privileges.</p>
 </div>
 <div class="paragraph">
-<p>By default only <code>cluster-read</code> and <code>impersonate</code> permissions are granted to the group defined in <code>openshift4_authentication.sudoGroupName</code>.
+<p>By default only <code>cluster-read</code> and <code>impersonate</code> permissions are granted to the groups defined in <code>openshift4_authentication.sudoGroups</code>.
 Using <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation">user impersonation</a>, permissions can be escalated to full <code>cluster-admin</code>:</p>
 </div>
 <div class="listingblock">

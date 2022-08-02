@@ -823,7 +823,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>sudoers</code></p>
+<p><code>null</code></p>
 </td>
 </tr>
 </table>
@@ -831,6 +831,63 @@ default
 <div class="paragraph">
 <p>The OpenShift group name for which the component configures RBAC to allow members to impersonate the cluster administrator.
 See <a href="../index.html#_cluster_admin_sudo" class="page">Cluster Admin Sudo</a> for more details.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This parameter is deprecated and will be removed in a future release.
+Use <code>sudoGroups</code> instead.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sudogroups"><a class="anchor" href="#_sudogroups"></a><code>sudoGroups</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The OpenShift group names for which the component configures RBAC to allow members to impersonate the cluster administrator.
+See <a href="../index.html#_cluster_admin_sudo" class="page">Cluster Admin Sudo</a> for more details.</p>
+</div>
+<div class="paragraph">
+<p>Groups can be removed from the hierarchy by prefixing them with a <code>~</code> character.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">sudoGroups:
+- ~sudoers
+- admins</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
