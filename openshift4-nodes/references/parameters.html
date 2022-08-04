@@ -785,6 +785,20 @@ The first item of this list will also be used to place a MachineSet without an e
 <p>It&#8217;s suggested to define its values higher up the config hierarchy.
 Most probably the one of the cloud region.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is currently only supported on GCP.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -944,7 +958,40 @@ Each set of machines has the values described below.</p>
 </div>
 <div class="sect2">
 <h3 id="_instancetype"><a class="anchor" href="#_instancetype"></a><code>instanceType</code></h3>
-
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>null</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is currently only supported on GCP.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_multiaz"><a class="anchor" href="#_multiaz"></a><code>multiAz</code></h3>
@@ -977,6 +1024,20 @@ The <code>replicas</code> given will be divided by the cont of zones in <code>av
 </div>
 <div class="paragraph">
 <p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/3">Effective replica count of multi zone machines can be higher than the requested one</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is currently only supported on GCP.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
