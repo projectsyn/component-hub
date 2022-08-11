@@ -928,6 +928,60 @@ The value of this parameter will be used as the default value for <code>.spec.gl
 </div>
 </div>
 <div class="sect1">
+<h2 id="_operator_env"><a class="anchor" href="#_operator_env"></a><code>operator.env</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">env:
+  LIEUTENANT_CREATE_SERVICEACCOUNT_TOKEN_SECRET: true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment variables that should be passed to the Lieutenant operator.
+If a dict is given as the value, the component will render it as <code>valueFrom:</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Environment variables configured in this parameter have precedence over environment variables generated from other component parameters.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_operator_vault_enabled"><a class="anchor" href="#_operator_vault_enabled"></a><code>operator.vault.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
