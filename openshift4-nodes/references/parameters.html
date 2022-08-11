@@ -818,6 +818,35 @@ Most probably the one of the cloud region.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_containerruntimeconfigs"><a class="anchor" href="#_containerruntimeconfigs"></a><code>containerRuntimeConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/ContainerRuntimeConfig</code>.
+The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>ContainerRuntimeConfig</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_defaultspecs"><a class="anchor" href="#_defaultspecs"></a><code>defaultSpecs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1332,6 +1361,14 @@ availabilityZones:
 - europe-west6-b
 - europe-west6-c
 
+containerRuntimeConfigs:
+  workers:
+    machineConfigPoolSelector:
+      matchExpressions:
+        - key: pools.operator.machineconfiguration.openshift.io/worker
+          operator: Exists
+    containerRuntimeConfig:
+      pidsLimit: 2048
 kubeletConfigs:
   workers:
     machineConfigPoolSelector:
@@ -1339,7 +1376,8 @@ kubeletConfigs:
         - key: pools.operator.machineconfiguration.openshift.io/worker
           operator: Exists
     kubeletConfig:
-      maxPods: 100</code></pre>
+      maxPods: 100
+      podPidsLimit: 2048</code></pre>
 </div>
 </div>
 </div>
