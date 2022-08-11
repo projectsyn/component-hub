@@ -770,13 +770,187 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-openshift4-slos</code></p>
+<p><code>appuio-openshift4-slos</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The default namespace for ArgoCD to fall back to.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The images to use for this component.</p>
+</div>
+<div class="paragraph">
+<p>This component current doesn&#8217;t deploy any active components.
+The only manifests produced are `PrometheusRule`s.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images_sloth"><a class="anchor" href="#_images_sloth"></a><code>images.sloth</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows Renovate to create version upgrade PRs.
+The Sloth version can be overridden by the <code>tag</code> parameter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_specs"><a class="anchor" href="#_specs"></a><code>specs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The SLO definition that are passed to Sloth.
+The key is used as the name of the resulting PrometheusRule.
+It must be a valid Kubernetes name.</p>
+</div>
+<div class="sect2">
+<h3 id="_specs_name_metadata"><a class="anchor" href="#_specs_name_metadata"></a><code>specs.NAME.metadata</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">metadata:
+  namespace: my-important-service
+  labels:
+    prometheus: apps</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The metadata applied to the PrometheusRule manifest.
+The name is derived from the name of the parent dictionary.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_specs_name_sloth_input"><a class="anchor" href="#_specs_name_sloth_input"></a><code>specs.NAME.sloth_input</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">sloth_input:
+  version: "prometheus/v1"
+  service: "myservice"
+  labels:
+    owner: "myteam"
+    repo: "myorg/myservice"
+    tier: "2"
+  _slos:
+    # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
+    requests-availability:
+      objective: 99.9
+      description: "Common SLO based on availability for HTTP request responses."
+      sli:
+        events:
+          error_query: sum(rate(http_request_duration_seconds_count{job="myservice",code=~"(5..|429)"}[{{.window}}]))
+          total_query: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
+      alerting:
+        name: MyServiceHighErrorRate
+        labels:
+          category: "availability"
+        annotations:
+          # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
+          summary: "High error rate on 'myservice' requests responses"
+        page_alert:
+          labels:
+            severity: pageteam
+            routing_key: myteam
+        ticket_alert:
+          labels:
+            severity: "slack"
+            slack_channel: "#alerts-myteam"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The input for sloth to generate the <code>PrometheusRule.spec</code>.
+See <a href="https://sloth.dev/introduction/">Sloth introduction</a> for more information.</p>
+</div>
+<div class="paragraph">
+<p>The <code>slos</code> can be passed as either an array or as a dictionary with the key <code>_slos</code>.
+This is done to allow easier modification of the SLOs from the Project Syn hierarchy.</p>
+</div>
 </div>
 </div>
 </div>
@@ -785,7 +959,44 @@ default
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: appuio-openshift4-slos
+specs:
+  getting-started:
+    metadata:
+      namespace: my-important-service
+      labels:
+        prometheus: apps
+    sloth_input:
+      version: "prometheus/v1"
+      service: "myservice"
+      labels:
+        owner: "myteam"
+        repo: "myorg/myservice"
+        tier: "2"
+      _slos:
+        # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
+        requests-availability:
+          objective: 99.9
+          description: "Common SLO based on availability for HTTP request responses."
+          sli:
+            events:
+              error_query: sum(rate(http_request_duration_seconds_count{job="myservice",code=~"(5..|429)"}[{{.window}}]))
+              total_query: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
+          alerting:
+            name: MyServiceHighErrorRate
+            labels:
+              category: "availability"
+            annotations:
+              # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
+              summary: "High error rate on 'myservice' requests responses"
+            page_alert:
+              labels:
+                severity: pageteam
+                routing_key: myteam
+            ticket_alert:
+              labels:
+                severity: "slack"
+                slack_channel: "#alerts-myteam"</code></pre>
 </div>
 </div>
 </div>
