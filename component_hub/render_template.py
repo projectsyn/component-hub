@@ -155,14 +155,14 @@ class Renderer:
             components_by_topic=components_by_topic,
             component_count=len(self.component_repositories),
         )
-        with open(self._config.output_file(template), "w") as outf:
+        with open(self._config.output_file(template), "w", encoding="utf-8") as outf:
             outf.write(output)
 
     def render_antora_playbook(self):
         """
         Render antora playbook based template playbook which is part of the package.
         """
-        with open(self._config.template_dir / "playbook.yml") as templatef:
+        with open(self._config.template_dir / "playbook.yml", encoding="utf-8") as templatef:
             playbook = yaml.safe_load(templatef)
 
         for repo in self.component_repositories + self.package_repositories:
@@ -176,5 +176,5 @@ class Renderer:
                 }
             )
 
-        with open(self._config.antora_playbook_yml, "w") as outf:
+        with open(self._config.antora_playbook_yml, "w", encoding="utf-8") as outf:
             yaml.safe_dump(playbook, outf)

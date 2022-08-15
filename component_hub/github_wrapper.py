@@ -175,7 +175,7 @@ class GithubRepoLoader:
         self._ignore_list: List[str] = []
         self._ignore_topics = ignore_topics
         if ignorelist is not None:
-            with open(ignorelist) as f:
+            with open(ignorelist, encoding="utf-8") as f:
                 self._ignore_list = [
                     item.strip() for item in f.readlines() if not item.startswith("#")
                 ]
