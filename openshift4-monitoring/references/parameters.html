@@ -981,66 +981,6 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_thanosobjectstorage"><a class="anchor" href="#_thanosobjectstorage"></a><code>thanosObjectStorage</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Example config for an S3 bucket hosted at s3.example.com
-type: s3
-config:
-  bucket: the-bucket-name
-  # For S3 the endpoint is expected to be given including the region if applicable.
-  endpoint: objects.eu-central-1.example.com
-  access_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/s3_access_key}
-  secret_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/thanos/s3_secret_key}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to configure Thanos object storage details.
-See <a href="https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/thanos.md#configuring-thanos-object-storage">the upstream Prometheus operator documentation</a> for details.</p>
-</div>
-<div class="paragraph">
-<p>If this parameter isn&#8217;t empty, the component will render its contents to key <code>thanos.yaml</code> in secret <code>thanos-objstore-config</code> in the monitoring namespace.
-Additionally, if a object storage config is provided, the component will inject the following config in the cluster monitoring configuration:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">thanos:
-  objectStorageConfig:
-    key: thanos.yaml
-    name: thanos-objstore-config</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_configs"><a class="anchor" href="#_configs"></a><code>configs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">

@@ -906,37 +906,39 @@ example
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">sloth_input:
-  version: "prometheus/v1"
-  service: "myservice"
-  labels:
-    owner: "myteam"
-    repo: "myorg/myservice"
-    tier: "2"
-  _slos:
-    # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
-    requests-availability:
-      objective: 99.9
-      description: "Common SLO based on availability for HTTP request responses."
-      sli:
-        events:
-          error_query: sum(rate(http_request_duration_seconds_count{job="myservice",code=~"(5..|429)"}[{{.window}}]))
-          total_query: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
-      alerting:
-        name: MyServiceHighErrorRate
-        labels:
-          category: "availability"
-        annotations:
-          # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
-          summary: "High error rate on 'myservice' requests responses"
-        page_alert:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">appuio-ch-http-get-availability:
+  sloth_input:
+    version: "prometheus/v1"
+    service: "appuio-ch"
+    labels:
+      owner: "myteam"
+    _slos:
+      # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
+      appuio-ch-http-get-availability:
+        objective: 99.9
+        description: "SLO based on availability for blackbox HTTP GET request."
+        sli:
+          raw:
+            error_ratio_query: |
+              1 - (
+                  sum_over_time(probe_success{instance="https://www.appuio.ch/"}[{{.window}}])
+                /
+                  count_over_time(up{instance="https://www.appuio.ch/"}[{{.window}}])
+              )
+        alerting:
+          name: AppuioChHttpGetErrorRatio
           labels:
-            severity: pageteam
-            routing_key: myteam
-        ticket_alert:
-          labels:
-            severity: "slack"
-            slack_channel: "#alerts-myteam"</code></pre>
+            category: "availability"
+          annotations:
+            # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
+            summary: "High error rate on 'appuio.ch' responses"
+          page_alert:
+            labels:
+              severity: warning
+          ticket_alert:
+            labels:
+              severity: warning
+              routing_key: myteam</code></pre>
 </div>
 </div>
 </td>
@@ -955,48 +957,260 @@ This is done to allow easier modification of the SLOs from the Project Syn hiera
 </div>
 </div>
 <div class="sect1">
+<h2 id="_blackbox_exporter"><a class="anchor" href="#_blackbox_exporter"></a><code>blackbox_exporter</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>blackbox_exporter</code> allows setting up a optional Blackbox exporter.</p>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_enabled"><a class="anchor" href="#_blackbox_exporter_enabled"></a><code>blackbox_exporter.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls whether the Blackbox exporter is deployed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_name"><a class="anchor" href="#_blackbox_exporter_name"></a><code>blackbox_exporter.name</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>prometheus-blackbox-exporter</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the Blackbox exporter deployment.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_namespace"><a class="anchor" href="#_blackbox_exporter_namespace"></a><code>blackbox_exporter.namespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${openshift4_slos:namespace}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace of the Blackbox exporter deployment.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_deployment_resources"><a class="anchor" href="#_blackbox_exporter_deployment_resources"></a><code>blackbox_exporter.deployment.resources</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see <a href="https://github.com/appuio/component-openshift4-slos/blob/master/class/defaults.yml">class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resources to use for the Blackbox exporter deployment.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_config"><a class="anchor" href="#_blackbox_exporter_config"></a><code>blackbox_exporter.config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see <a href="https://github.com/appuio/component-openshift4-slos/blob/master/class/defaults.yml">class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The blackbox exporter configuration. See <a href="https://github.com/prometheus/blackbox_exporter#configuration">Configuration</a> for more information.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_probes"><a class="anchor" href="#_blackbox_exporter_probes"></a><code>blackbox_exporter.probes</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">probes:
+  http-appuio-ch:
+    spec:
+      jobName: get-http-appuio-ch
+      interval: 15s
+      module: http_2xx
+      targets:
+        staticConfig:
+          static:
+            - https://www.appuio.ch/</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <a href="https://docs.openshift.com/container-platform/4.10/rest_api/monitoring_apis/probe-monitoring-coreos-com-v1.html">Probe</a> definitions that are deployed in the cluster and picked up by the blackbox exporter managed by the component.
+The key is used as the name of the resulting Probe.
+It must be a valid Kubernetes name.</p>
+</div>
+<div class="paragraph">
+<p>The <code>.spec.prober</code> part is automatically filled from the Blackbox exporter configuration and can omitted.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: appuio-openshift4-slos
+
 specs:
-  getting-started:
-    metadata:
-      namespace: my-important-service
-      labels:
-        prometheus: apps
+  appuio-ch-http-get-availability:
     sloth_input:
       version: "prometheus/v1"
-      service: "myservice"
+      service: "appuio-ch"
       labels:
         owner: "myteam"
-        repo: "myorg/myservice"
-        tier: "2"
       _slos:
         # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
-        requests-availability:
+        appuio-ch-http-get-availability:
           objective: 99.9
-          description: "Common SLO based on availability for HTTP request responses."
+          description: "SLO based on availability for blackbox HTTP GET request."
           sli:
-            events:
-              error_query: sum(rate(http_request_duration_seconds_count{job="myservice",code=~"(5..|429)"}[{{.window}}]))
-              total_query: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
+            raw:
+              error_ratio_query: |
+                1 - (
+                    sum_over_time(probe_success{instance="https://www.appuio.ch/"}[{{.window}}])
+                  /
+                    count_over_time(up{instance="https://www.appuio.ch/"}[{{.window}}])
+                )
           alerting:
-            name: MyServiceHighErrorRate
+            name: AppuioChHttpGetErrorRatio
             labels:
               category: "availability"
             annotations:
               # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
-              summary: "High error rate on 'myservice' requests responses"
+              summary: "High error rate on 'appuio.ch' responses"
             page_alert:
               labels:
-                severity: pageteam
-                routing_key: myteam
+                severity: warning
             ticket_alert:
               labels:
-                severity: "slack"
-                slack_channel: "#alerts-myteam"</code></pre>
+                severity: warning
+                routing_key: myteam
+
+blackbox_exporter:
+  probes:
+    http-appuio-ch:
+      spec:
+        jobName: get-http-appuio-ch
+        interval: 15s
+        module: http_2xx
+        targets:
+          staticConfig:
+            static:
+              - https://www.appuio.ch/</code></pre>
 </div>
 </div>
 </div>
