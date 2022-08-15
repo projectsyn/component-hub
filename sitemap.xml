@@ -103,6 +103,9 @@
 <loc>https://hub.syn.tools/sitemap-metallb.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-metrics-server.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-minio.xml</loc>
 </sitemap>
 <sitemap>
@@ -196,6 +199,9 @@
 <loc>https://hub.syn.tools/sitemap-resource-locker.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-secret-generator.xml</loc>
 </sitemap>
 <sitemap>
@@ -212,6 +218,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-system-upgrade-controller.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
