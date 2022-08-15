@@ -751,38 +751,25 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>cloudscale_metrics_collector</code>.</p>
+<p>Because this component depends on the component <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html">appuio-cloud-reporting</a>, some parameters are taken from that component and are not individually configurable in this component.
+In particular:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_namespace">namespace</a></p>
+</li>
+<li>
+<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database">database</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following list includes only parameters of this component.
+The parent key for all of them is <code>cloudscale_metrics_collector</code>.</p>
 </div>
 <div class="paragraph">
 <p>See <a href="../how-tos/installation.html" class="page">Installation</a> for a full example.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appuio-cloud-reporting</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
 </div>
 </div>
 </div>
@@ -804,7 +791,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/appuio/cloudscale-metrics-collector/blob/master/component/class/defaults.yml">See `class/defaults.yml</a>.</p>
+<p><a href="https://github.com/vshn/cloudscale-metrics-collector/blob/master/component/class/defaults.yml">See `class/defaults.yml</a>.</p>
 </td>
 </tr>
 </table>
