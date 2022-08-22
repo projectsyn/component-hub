@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://hub.syn.tools/appcat/index.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appcat/references/component-parameters.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appcat/references/composite-objectstorage.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appcat/references/composition/objectstorage/cloudscale.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appcat/references/provider-cloudscale.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appcat/references/provider-kubernetes.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appcat/tutorials/install-cloudscale.html</loc>
+<lastmod>2022-08-22T09:19:52.221Z</lastmod>
+</url>
+</urlset>
