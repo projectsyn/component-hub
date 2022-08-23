@@ -863,7 +863,7 @@ vault login -method=oidc</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}/appcat/objectstorage/provider-cloudscale"
-vault kv patch "${parent}" token=&lt;the-cloudscale-token&gt;</code></pre>
+vault kv put "${parent}" token=&lt;the-cloudscale-token&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -882,17 +882,16 @@ vault kv patch "${parent}" token=&lt;the-cloudscale-token&gt;</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">classes:
   - appcat.provider.cloudscale <i class="conum" data-value="1"></i><b>(1)</b>
-  - appcat.composite.objectstorage <i class="conum" data-value="2"></i><b>(2)</b>
-  - appcat.composition.objectstorage.cloudscale <i class="conum" data-value="3"></i><b>(3)</b>
-applications: <i class="conum" data-value="4"></i><b>(4)</b>
-  - pkg.appcat.provider.cloudscale
-  - pkg.appcat.composite.objectstorage
-  - pkg.appcat.composition.objectstorage.cloudscale
+  - appcat.provider.kubernetes <i class="conum" data-value="2"></i><b>(2)</b>
+  - appcat.composite.objectstorage <i class="conum" data-value="3"></i><b>(3)</b>
+  - appcat.composition.objectstorage.cloudscale <i class="conum" data-value="4"></i><b>(4)</b>
+applications: <i class="conum" data-value="5"></i><b>(5)</b>
+  - pkg.appcat
 
 parameters:
   packages:
     appcat:
-      version: master <i class="conum" data-value="5"></i><b>(5)</b>
+      version: master <i class="conum" data-value="6"></i><b>(6)</b>
       url: {page-origin-url}
       path: packages</code></pre>
 </div>
@@ -905,19 +904,23 @@ parameters:
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The XRD is configured in this package.</td>
+<td>The config for the provider-kubernetes is required as a dependency.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The composition is configured in this package.</td>
+<td>The XRD is configured in this package.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The composition is configured in this package.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
 <td>We need to enable the packages as part of the applications.
 This gives us access to the provided classes.</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>The version of the package (applies to all appcat packages!).</td>
 </tr>
 </table>
