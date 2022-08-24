@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>pkg.appcat.composite.objectstorage :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/composite-objectstorage.html">
-    <link rel="prev" href="provider-kubernetes.html">
-    <link rel="next" href="composition/objectstorage/cloudscale.html">
+    <title>pkg.appcat.provider.exoscale :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-exoscale.html">
+    <link rel="prev" href="provider-cloudscale.html">
+    <link rel="next" href="provider-kubernetes.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -117,13 +117,13 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="provider-cloudscale.html">Parameters For provider.cloudscale</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="provider-exoscale.html">Parameters For provider.exoscale</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="provider-kubernetes.html">Parameters For provider.kubernetes</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="composite-objectstorage.html">Parameters For composite.objectstorage</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -786,26 +786,26 @@
   <ul>
     <li><a href="../index.html">appcat</a></li>
     <li>Technical reference</li>
-    <li><a href="composite-objectstorage.html">Parameters For composite.objectstorage</a></li>
+    <li><a href="provider-exoscale.html">Parameters For provider.exoscale</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/composite-objectstorage.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-exoscale.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">pkg.appcat.composite.objectstorage</h1>
+<h1 class="page">pkg.appcat.provider.exoscale</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>pkg.appcat.composite.objectstorage</code>.</p>
+<p>The parent key for all of the following parameters is <code>pkg.appcat.provider.exoscale</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_defaultcompositionref"><a class="anchor" href="#_defaultcompositionref"></a><code>defaultCompositionRef</code></h2>
+<h2 id="_imagesprovider_exoscale"><a class="anchor" href="#_imagesprovider_exoscale"></a><code>images:provider-exoscale</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -814,7 +814,7 @@
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>dict</p>
 </td>
 </tr>
 <tr>
@@ -822,19 +822,19 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>${facts:cloud}.objectbuckets.appcat.vshn.io</code></p>
+<p>see <code>packages/provider/exoscale.yml</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The default composition to use when a user creates a Claim of the composite resource.</p>
+<p>The package image repository for <a href="https://github.com/vshn/provider-exoscale">provider-exoscale</a>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-kubernetes.html">Parameters For provider.kubernetes</a></span>
-  <span class="next"><a href="composition/objectstorage/cloudscale.html">Parameters For composition.objectstorage.cloudscale</a></span>
+  <span class="prev"><a href="provider-cloudscale.html">Parameters For provider.cloudscale</a></span>
+  <span class="next"><a href="provider-kubernetes.html">Parameters For provider.kubernetes</a></span>
 </nav>
 </article>
   </div>
@@ -845,7 +845,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/composite-objectstorage.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/provider-exoscale.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

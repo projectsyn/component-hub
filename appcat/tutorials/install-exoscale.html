@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>pkg.appcat.composite.objectstorage :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/composite-objectstorage.html">
-    <link rel="prev" href="provider-kubernetes.html">
-    <link rel="next" href="composition/objectstorage/cloudscale.html">
+    <title>Install Exoscale Stack :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/tutorials/install-exoscale.html">
+    <link rel="prev" href="install-cloudscale.html">
+    <link rel="next" href="../references/component-parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,10 +100,10 @@
     <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a>
+    <a class="nav-link" href="install-cloudscale.html">Install Cloudscale Stack</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/install-exoscale.html">Install Exoscale Stack</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="install-exoscale.html">Install Exoscale Stack</a>
   </li>
 </ul>
   </li>
@@ -112,29 +112,29 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Component Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Component Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="provider-cloudscale.html">Parameters For provider.cloudscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Parameters For provider.cloudscale</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="provider-exoscale.html">Parameters For provider.exoscale</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Parameters For provider.exoscale</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="provider-kubernetes.html">Parameters For provider.kubernetes</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Parameters For provider.kubernetes</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="composite-objectstorage.html">Parameters For composite.objectstorage</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/composite-objectstorage.html">Parameters For composite.objectstorage</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Compositions</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/cloudscale.html">Parameters For composition.objectstorage.cloudscale</a>
+    <a class="nav-link" href="../references/composition/objectstorage/cloudscale.html">Parameters For composition.objectstorage.cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/exoscale.html">Parameters For composition.objectstorage.exoscale</a>
+    <a class="nav-link" href="../references/composition/objectstorage/exoscale.html">Parameters For composition.objectstorage.exoscale</a>
   </li>
 </ul>
   </li>
@@ -785,56 +785,166 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li>Technical reference</li>
-    <li><a href="composite-objectstorage.html">Parameters For composite.objectstorage</a></li>
+    <li>Tutorials</li>
+    <li><a href="install-exoscale.html">Install Exoscale Stack</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/composite-objectstorage.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/tutorials/install-exoscale.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">pkg.appcat.composite.objectstorage</h1>
+<h1 class="page">Install Exoscale Stack</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>pkg.appcat.composite.objectstorage</code>.</p>
+<p>This tutorial will guide you through the installation process of installing the following parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A Crossplane provider to manage exoscale.com resources.</p>
+</li>
+<li>
+<p>A Crossplane composite (XRD) which serves as the user&#8217;s "interface" (API) for ordering S3 buckets.</p>
+</li>
+<li>
+<p>A Crossplane composition that "implements" an XRD using the exoscale.com provider.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_defaultcompositionref"><a class="anchor" href="#_defaultcompositionref"></a><code>defaultCompositionRef</code></h2>
+<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="ulist">
+<ul>
+<li>
+<p><code>commodore</code></p>
+</li>
+<li>
+<p><code>vault</code></p>
+</li>
+<li>
+<p>A Syn-enabled cluster with ArgoCD</p>
+</li>
+<li>
+<p>Vault instance to store credentials</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preparation"><a class="anchor" href="#_preparation"></a>Preparation</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Prepare some variables</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=&lt;the-cluster-id&gt;
+export TENANT_ID=&lt;the-tenant-id&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Login to Vault.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export VAULT_ADDR=https://vault-prod.syn.vshn.net
+vault login -method=oidc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an Organization on Exoscale Portal.</p>
+</li>
+<li>
+<p>Create a new IAM key within the new project, give it a memorable name like <code>appcat-objects-${CLUSTER_ID}</code> and give it restricted access with only <code>sos</code> service.</p>
+</li>
+<li>
+<p>Save the token in Vault.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}/appcat/objectstorage/provider-exoscale"
+vault kv put "${parent}" access-key=&lt;the-exoscale-access-key&gt; secret-key=&lt;the-exoscale-secret-key&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure cluster catalog.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">classes:
+  - appcat.provider.exoscale <i class="conum" data-value="1"></i><b>(1)</b>
+  - appcat.provider.kubernetes <i class="conum" data-value="2"></i><b>(2)</b>
+  - appcat.composite.objectstorage <i class="conum" data-value="3"></i><b>(3)</b>
+  - appcat.composition.objectstorage.exoscale <i class="conum" data-value="4"></i><b>(4)</b>
+applications: <i class="conum" data-value="5"></i><b>(5)</b>
+  - pkg.appcat
+
+parameters:
+  packages:
+    appcat:
+      version: master <i class="conum" data-value="6"></i><b>(6)</b>
+      url: {page-origin-url}
+      path: packages</code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The config for the operator (provider) that talks to exoscale.com API.</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${facts:cloud}.objectbuckets.appcat.vshn.io</code></p>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The config for the provider-kubernetes is required as a dependency.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The XRD is configured in this package.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The composition is configured in this package.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>We need to enable the packages as part of the applications.
+This gives us access to the provided classes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>The version of the package (applies to all appcat packages!).</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The default composition to use when a user creates a Claim of the composite resource.</p>
+</li>
+<li>
+<p>Compile and push cluster catalog</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-kubernetes.html">Parameters For provider.kubernetes</a></span>
-  <span class="next"><a href="composition/objectstorage/cloudscale.html">Parameters For composition.objectstorage.cloudscale</a></span>
+  <span class="prev"><a href="install-cloudscale.html">Install Cloudscale Stack</a></span>
+  <span class="next"><a href="../references/component-parameters.html">Component Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -845,7 +955,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/composite-objectstorage.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/tutorials/install-exoscale.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
