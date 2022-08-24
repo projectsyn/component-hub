@@ -893,7 +893,11 @@ parameters:
     appcat:
       version: master <i class="conum" data-value="6"></i><b>(6)</b>
       url: {page-origin-url}
-      path: packages</code></pre>
+      path: packages
+  crossplane:
+    helmValues:
+      rbacManager:
+        managementPolicy: Basic <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -922,6 +926,10 @@ This gives us access to the provided classes.</td>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>The version of the package (applies to all appcat packages!).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Ensure that RBAC management policy is set to <code>Basic</code> only.</td>
 </tr>
 </table>
 </div>
