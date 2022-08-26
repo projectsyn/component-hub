@@ -76,6 +76,9 @@
 <loc>https://hub.syn.tools/sitemap-fluentd-forwarder.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-go-bootstrap.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
 </sitemap>
 <sitemap>
