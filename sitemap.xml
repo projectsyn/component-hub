@@ -67,6 +67,9 @@
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-exoscale-metrics-collector.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
 </sitemap>
 <sitemap>
@@ -74,9 +77,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-fluentd-forwarder.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-go-bootstrap.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
