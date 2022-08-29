@@ -1390,6 +1390,112 @@ It must be a valid Kubernetes name.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_scheduler_canary_controller"><a class="anchor" href="#_scheduler_canary_controller"></a><code>scheduler_canary_controller</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>scheduler_canary_controller</code> allows setting up the canary controller to test workload schedulability.
+The manifests are rendered using Kustomize.</p>
+</div>
+<div class="sect2">
+<h3 id="_scheduler_canary_controller_enabled"><a class="anchor" href="#_scheduler_canary_controller_enabled"></a><code>scheduler_canary_controller.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls whether the controller is deployed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scheduler_canary_controller_manifests_version"><a class="anchor" href="#_scheduler_canary_controller_manifests_version"></a><code>scheduler_canary_controller.manifests_version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${openshift4_slos:images:canary_scheduler_controller:tag}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Git reference to the canary controller manifests.
+The default is the tag of the canary controller image.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scheduler_canary_controller_kustomize_input"><a class="anchor" href="#_scheduler_canary_controller_kustomize_input"></a><code>scheduler_canary_controller.kustomize_input</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kustomize_input:
+  namespace: ${openshift4_slos:namespace}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The input passed to the Kustomize renderer.
+See <a href="https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/">The Kustomization File</a> for all available options.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
