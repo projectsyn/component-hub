@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../runbooks/storage.html">
+    <title>Workload Schedulability SLOs :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/runbooks/workload-schedulability.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,18 +91,18 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">SLO Runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/storage.html">Storage SLOs</a>
+    <a class="nav-link" href="storage.html">Storage SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/ingress.html">Ingress SLOs</a>
+    <a class="nav-link" href="ingress.html">Ingress SLOs</a>
   </li>
 </ul>
   </li>
@@ -763,157 +761,107 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">openshift4-slos</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="workload-schedulability.html">Workload Schedulability SLOs</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/runbooks/workload-schedulability.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Workload Schedulability SLOs</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>openshift4_slos</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
 </td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appuio-openshift4-slos</code></p>
+<td class="content">
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The default namespace for ArgoCD to fall back to.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<h2 id="canary"><a class="anchor" href="#canary"></a>Workload Canary</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
+<div class="sect2">
+<h3 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
+<div class="paragraph">
+<p>This SLO measures the percentage of pods timed out during a complete lifecycle, measured while waiting for a canary pods.
+In the current implementation the image for the pod is pulled from the built-in OpenShift registry.</p>
 </div>
 <div class="paragraph">
-<p>The images to use for this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images_sloth"><a class="anchor" href="#_images_sloth"></a><code>images.sloth</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
+<p>The error rate is a general indicator of cluster and workload health.</p>
 </div>
 <div class="paragraph">
-<p>Sloth isn&#8217;t actually deployed to the cluster, but used to render <code>PrometheusRules</code>.</p>
+<p>There are two types of alerts that fire if we expect to miss the configured objective.</p>
 </div>
-<div class="paragraph">
-<p>The entry in <code>images</code> allows Renovate to create version upgrade PRs.
-The Sloth version can be overridden by the <code>tag</code> parameter.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A ticket alert means that the error rate is slightly higher than the objective.
+If we don&#8217;t intervene at some point after receiving this alert, we can expect to miss the objective.
+However no immediate, urgent action is necessary.
+A ticket alert should have a label <code>severity: warning</code>.</p>
+</li>
+<li>
+<p>A page alert means that the error rate is significantly higher than the objective.
+Immediate action is necessary to not miss the objective.
+A page alert should have a label <code>severity: critical</code> and should page on-call.</p>
+</li>
+</ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_slos"><a class="anchor" href="#_slos"></a><code>slos</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The configuration option of all default SLOs for the APPUiO Managed OpenShift product.</p>
 </div>
 <div class="sect2">
-<h3 id="_slos_storage_csi_operations"><a class="anchor" href="#_slos_storage_csi_operations"></a><code>slos.storage.csi-operations</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
+<h3 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
+<div class="paragraph">
+<p>Unschedulable workloads often indicate resource exhaustion on a cluster but can have many root causes.
+Since the canary pod uses an image from the built-in OpenShift registry, the alert can be triggered by a misbehaving image registry.</p>
+</div>
+<div class="paragraph">
+<p>First check the <code>Events:</code> section of the <code>kubectl describe</code> output.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">csi-operations:
-  enabled: true
-  objective: 99.5
-  _sli:
-    volume_plugin: "kubernetes.io/csi.+"
-    operation_name: ".+"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl describe pods -A -l "scheduler-canary-controller.appuio.io/instance"</code></pre>
 </div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>The configuration for the csi-operations SLO.</p>
+<p>The output should contain events why the pod isn&#8217;t schedulable:</p>
 </div>
-<div class="paragraph">
-<p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  46s (x1 over 56s)  default-scheduler  0/12 nodes are available: 3 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 3 node(s) had taint {storagenode: True}, that the pod didn't tolerate, 6 Insufficient cpu, 6 Insufficient memory.
+
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  12s (x1 over 15s)  default-scheduler  0/12 nodes are available: 3 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 3 node(s) had taint {storagenode: True}, that the pod didn't tolerate, 6 Too many pods.
+
+Events:
+  Type     Reason          Age   From               Message
+  ----     ------          ----  ----               -------
+  Warning  Failed          13s   kubelet            Failed to pull image "invalid:image": rpc error: code = Unknown desc = reading manifest image in docker.io/library/invalid: errors:
+denied: requested access to the resource is denied
+unauthorized: authentication required
+  Warning  Failed   13s               kubelet  Error: ErrImagePull
+  Normal   BackOff  12s               kubelet  Back-off pulling image "invalid:image"
+  Warning  Failed   12s               kubelet  Error: ImagePullBackOff
+  Normal   Pulling  0s (x2 over 15s)  kubelet  Pulling image "invalid:image"</code></pre>
 </div>
-<div class="paragraph">
-<p>You can configure which volume plugins or storage operations are considered for the SLO by setting <code>_sli.volume_plugin</code>  or <code>_sli.operation_name</code> respectively.
-The fields can contain an arbitrary <a href="https://prometheus.io/docs/prometheus/latest/querying/basics/#instant-vector-selectors">PromQL regex label matcher</a>.</p>
-</div>
-<div class="paragraph">
-<p>Any additional field is added directly to the <code>slo</code> input for sloth.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -922,65 +870,112 @@ The fields can contain an arbitrary <a href="https://prometheus.io/docs/promethe
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Look at <a href="../runbooks/storage.html#csi-operations" class="page">the runbook</a> for an explanation of this SLO.
+We don&#8217;t have a lot of experience with this alert yet.
+If you had to debug this alert, please consider adding any insight, tips, or code snippets you gained to this runbook.
 </td>
 </tr>
 </table>
+</div>
+<div class="sect3">
+<h4 id="_resource_exhaustion"><a class="anchor" href="#_resource_exhaustion"></a>Resource Exhaustion</h4>
+<div class="paragraph">
+<p>Allocatable resources can be checked with the <code>kubectl describe nodes</code> output.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin describe nodes -l node-role.kubernetes.io/app=
+[...]
+Allocatable:
+  cpu:                3500m
+  ephemeral-storage:  123201474766
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             15258372Ki
+  pods:               110
+[...]
+Non-terminated Pods:                      (38 in total)
+[...]
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                2644m (75%)   5420m (154%)
+  memory             5914Mi (39%)  14076Mi (94%)
+  ephemeral-storage  100Ki (0%)    0 (0%)
+  hugepages-1Gi      0 (0%)        0 (0%)
+  hugepages-2Mi      0 (0%)        0 (0%)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_imagepullbackoff"><a class="anchor" href="#_imagepullbackoff"></a><code>ImagePullBackOff</code></h4>
+<div class="paragraph">
+<p>The canary pod uses an image from the OpenShift registry.
+If the registry is unavailable, the pod will fail to start.</p>
+</div>
+<div class="paragraph">
+<p>Check the <code>Status:</code> section of the <code>kubectl describe</code> output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n appuio-openshift4-slos describe imagestream canary</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check if pods are crashing for the image registry:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n openshift-image-registry get pods</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the logs for the operator and the registry:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n openshift-image-registry logs deployments/cluster-image-registry-operator
+
+kubectl -n openshift-image-registry logs deployments/image-registry --all-containers</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_slos_workload_schedulability_canary"><a class="anchor" href="#_slos_workload_schedulability_canary"></a><code>slos.workload-schedulability.canary</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
+<h3 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
+<div class="paragraph">
+<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you may want to tune the SLO.</p>
+</div>
+<div class="paragraph">
+<p>You have the option tune the SLO through the component parameters.
+You can modify the objective, disable the page or ticket alert, or completely disable the SLO.</p>
+</div>
+<div class="paragraph">
+<p>The example below will set the SLO set the objective to 99.25%, adjust the time until a pod is seen as timed out, and disable the page alert.
+This means this SLO won&#8217;t alert on-call anymore.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">workload-schedulability:
-  canary:
-    enabled: true
-    objective: 99.75
-    _sli:
-      podStartInterval: 1m
-      overallPodTimeout: 3m</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">slos:
+  workload-schedulability:
+    canary:
+      objective: 99.25
+      alerting:
+        page_alert:
+          enabled: false
+      _sli:
+        overallPodTimeout: 5m</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The configuration for the canary based workload schedulability SLO.</p>
-</div>
-<div class="paragraph">
-<p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
-</div>
-<div class="paragraph">
-<p>You can configure the interval canary pods are created (<code>podStartInterval</code>) and the timeout until a pod is seen as stuck (<code>overallPodTimeout</code>).
-Both parameters are in <a href="https://pkg.go.dev/time#ParseDuration">Go duration format</a> (for example <code>1m30s</code>).</p>
-</div>
-<div class="paragraph">
-<p>Any additional field is added directly to the <code>slo</code> input for sloth.</p>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Look at <a href="../runbooks/workload-schedulability.html#canary" class="page">the runbook</a> for an explanation of this SLO.
+Disabling the SLO or changing the objective will also impact the SLO dashboard and SLA reporting.
+Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
 </td>
 </tr>
 </table>
@@ -988,632 +983,6 @@ Look at <a href="../runbooks/workload-schedulability.html#canary" class="page">t
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_alerting"><a class="anchor" href="#_alerting"></a><code>alerting</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Common alerting configuration for all deployed SLOs.</p>
-</div>
-<div class="sect2">
-<h3 id="_alerting_labels"><a class="anchor" href="#_alerting_labels"></a><code>alerting.labels</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">labels:
-  syn: "true"
-  syn_component: "openshift4-slos"</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Labels that are added to all Prometheus alerts generated by this component.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_alerting_page_labels"><a class="anchor" href="#_alerting_page_labels"></a><code>alerting.page_labels</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">page_labels:
-  severity: critical</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Labels that are added to all <code>page</code> Prometheus alerts generated by this component.
-<code>page_alerts</code> are alerts are critical alerts for a high burn rate that require immediate attention.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_alerting_ticket_labels"><a class="anchor" href="#_alerting_ticket_labels"></a><code>alerting.ticket_labels</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ticket_labels:
-  severity: warning</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Labels that are added to all <code>ticket</code> Prometheus alerts generated by this component.
-<code>ticket_alerts</code> are alerts are alerts for an elevated burn rate that might require attention, but aren&#8217;t urgent.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_specs"><a class="anchor" href="#_specs"></a><code>specs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The SLO definition that are passed to Sloth.
-The key is used as the name of the resulting PrometheusRule.
-It must be a valid Kubernetes name.</p>
-</div>
-<div class="sect2">
-<h3 id="_specs_name_metadata"><a class="anchor" href="#_specs_name_metadata"></a><code>specs.NAME.metadata</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">metadata:
-  namespace: my-important-service
-  labels:
-    prometheus: apps</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The metadata applied to the PrometheusRule manifest.
-The name is derived from the name of the parent dictionary.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_specs_name_sloth_input"><a class="anchor" href="#_specs_name_sloth_input"></a><code>specs.NAME.sloth_input</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">appuio-ch-http-get-availability:
-  sloth_input:
-    version: "prometheus/v1"
-    service: "appuio-ch"
-    labels:
-      owner: "myteam"
-    _slos:
-      # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
-      appuio-ch-http-get-availability:
-        enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
-        objective: 99.9
-        description: "SLO based on availability for blackbox HTTP GET request."
-        sli:
-          raw:
-            error_ratio_query: |
-              1 - (
-                  sum_over_time(probe_success{instance="https://www.appuio.ch/"}[{{.window}}])
-                /
-                  count_over_time(up{instance="https://www.appuio.ch/"}[{{.window}}])
-              )
-        alerting:
-          name: AppuioChHttpGetErrorRatio
-          labels:
-            category: "availability"
-          annotations:
-            # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
-            summary: "High error rate on 'appuio.ch' responses"
-          page_alert:
-            labels:
-              severity: warning
-          ticket_alert:
-            labels:
-              severity: warning
-              routing_key: myteam</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>enabled</code> is an optional field that allows users to disable certain SLOs through the hierarchy.
-The field will default to <code>true</code> if omitted.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The input for sloth to generate the <code>PrometheusRule.spec</code>.
-See <a href="https://sloth.dev/introduction/">Sloth introduction</a> for more information.</p>
-</div>
-<div class="paragraph">
-<p>The <code>slos</code> can be passed as either an array or as a dictionary with the key <code>_slos</code>.
-This is done to allow easier modification of the SLOs from the Project Syn hierarchy.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_blackbox_exporter"><a class="anchor" href="#_blackbox_exporter"></a><code>blackbox_exporter</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>blackbox_exporter</code> allows setting up a optional Blackbox exporter.</p>
-</div>
-<div class="sect2">
-<h3 id="_blackbox_exporter_enabled"><a class="anchor" href="#_blackbox_exporter_enabled"></a><code>blackbox_exporter.enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Controls whether the Blackbox exporter is deployed.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_blackbox_exporter_name"><a class="anchor" href="#_blackbox_exporter_name"></a><code>blackbox_exporter.name</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>prometheus-blackbox-exporter</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the Blackbox exporter deployment.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_blackbox_exporter_namespace"><a class="anchor" href="#_blackbox_exporter_namespace"></a><code>blackbox_exporter.namespace</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${openshift4_slos:namespace}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace of the Blackbox exporter deployment.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_blackbox_exporter_deployment_resources"><a class="anchor" href="#_blackbox_exporter_deployment_resources"></a><code>blackbox_exporter.deployment.resources</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <a href="https://github.com/appuio/component-openshift4-slos/blob/master/class/defaults.yml">class/defaults.yml</a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The resources to use for the Blackbox exporter deployment.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_blackbox_exporter_config"><a class="anchor" href="#_blackbox_exporter_config"></a><code>blackbox_exporter.config</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <a href="https://github.com/appuio/component-openshift4-slos/blob/master/class/defaults.yml">class/defaults.yml</a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The blackbox exporter configuration. See <a href="https://github.com/prometheus/blackbox_exporter#configuration">Configuration</a> for more information.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_blackbox_exporter_probes"><a class="anchor" href="#_blackbox_exporter_probes"></a><code>blackbox_exporter.probes</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">probes:
-  http-appuio-ch:
-    spec:
-      jobName: get-http-appuio-ch
-      interval: 15s
-      module: http_2xx
-      targets:
-        staticConfig:
-          static:
-            - https://www.appuio.ch/</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <a href="https://docs.openshift.com/container-platform/4.10/rest_api/monitoring_apis/probe-monitoring-coreos-com-v1.html">Probe</a> definitions that are deployed in the cluster and picked up by the blackbox exporter managed by the component.
-The key is used as the name of the resulting Probe.
-It must be a valid Kubernetes name.</p>
-</div>
-<div class="paragraph">
-<p>The <code>.spec.prober</code> part is automatically filled from the Blackbox exporter configuration and can omitted.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_scheduler_canary_controller"><a class="anchor" href="#_scheduler_canary_controller"></a><code>scheduler_canary_controller</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>scheduler_canary_controller</code> allows setting up the canary controller to test workload schedulability.
-The manifests are rendered using Kustomize.</p>
-</div>
-<div class="sect2">
-<h3 id="_scheduler_canary_controller_enabled"><a class="anchor" href="#_scheduler_canary_controller_enabled"></a><code>scheduler_canary_controller.enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Controls whether the controller is deployed.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_scheduler_canary_controller_manifests_version"><a class="anchor" href="#_scheduler_canary_controller_manifests_version"></a><code>scheduler_canary_controller.manifests_version</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${openshift4_slos:images:canary_scheduler_controller:tag}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Git reference to the canary controller manifests.
-The default is the tag of the canary controller image.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_scheduler_canary_controller_kustomize_input"><a class="anchor" href="#_scheduler_canary_controller_kustomize_input"></a><code>scheduler_canary_controller.kustomize_input</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kustomize_input:
-  namespace: ${openshift4_slos:namespace}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The input passed to the Kustomize renderer.
-See <a href="https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/">The Kustomization File</a> for all available options.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: appuio-openshift4-slos
-
-specs:
-  appuio-ch-http-get-availability:
-    sloth_input:
-      version: "prometheus/v1"
-      service: "appuio-ch"
-      labels:
-        owner: "myteam"
-      _slos:
-        # We allow failing (5xx and 429) 1 request every 1000 requests (99.9%).
-        appuio-ch-http-get-availability:
-          objective: 99.9
-          description: "SLO based on availability for blackbox HTTP GET request."
-          sli:
-            raw:
-              error_ratio_query: |
-                1 - (
-                    sum_over_time(probe_success{instance="https://www.appuio.ch/"}[{{.window}}])
-                  /
-                    count_over_time(up{instance="https://www.appuio.ch/"}[{{.window}}])
-                )
-          alerting:
-            name: AppuioChHttpGetErrorRatio
-            labels:
-              category: "availability"
-            annotations:
-              # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
-              summary: "High error rate on 'appuio.ch' responses"
-            page_alert:
-              labels:
-                severity: warning
-            ticket_alert:
-              labels:
-                severity: warning
-                routing_key: myteam
-
-blackbox_exporter:
-  probes:
-    http-appuio-ch:
-      spec:
-        jobName: get-http-appuio-ch
-        interval: 15s
-        module: http_2xx
-        targets:
-          staticConfig:
-            static:
-              - https://www.appuio.ch/</code></pre>
-</div>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../runbooks/storage.html">Storage SLOs</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1623,7 +992,7 @@ blackbox_exporter:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/runbooks/workload-schedulability.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
