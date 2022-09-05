@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Workload Schedulability SLOs :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/runbooks/workload-schedulability.html">
-    <link rel="prev" href="kubernetes_api.html">
-    <link rel="next" href="storage.html">
+    <title>Kubernetes API SLOs :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/runbooks/kubernetes_api.html">
+    <link rel="prev" href="ingress.html">
+    <link rel="next" href="workload-schedulability.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -103,10 +103,10 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="ingress.html">Ingress SLOs</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="kubernetes_api.html">Kubernetes API SLOs</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="workload-schedulability.html">Workload SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -770,17 +770,17 @@
   <ul>
     <li><a href="../index.html">openshift4-slos</a></li>
     <li>SLO Runbooks</li>
-    <li><a href="workload-schedulability.html">Workload SLOs</a></li>
+    <li><a href="kubernetes_api.html">Kubernetes API SLOs</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/runbooks/workload-schedulability.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/runbooks/kubernetes_api.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Workload Schedulability SLOs</h1>
+<h1 class="page">Kubernetes API SLOs</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -801,16 +801,13 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 </div>
 </div>
 <div class="sect1">
-<h2 id="canary"><a class="anchor" href="#canary"></a>Workload Canary</h2>
+<h2 id="requests"><a class="anchor" href="#requests"></a>API Requests</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
 <div class="paragraph">
-<p>This SLO measures the percentage of pods timed out during a complete lifecycle, measured while waiting for a canary pods.
-In the current implementation the image for the pod is pulled from the built-in OpenShift registry.</p>
-</div>
-<div class="paragraph">
-<p>The error rate is a general indicator of cluster and workload health.</p>
+<p>This SLO measures the percentage of valid, well structured Kubernetes API requets that fail.
+The error rate is a general indicator of the health of the API server, but might not show you the root cause of the issue.</p>
 </div>
 <div class="paragraph">
 <p>There are two types of alerts that fire if we expect to miss the configured objective.</p>
@@ -834,43 +831,66 @@ A page alert should have a label <code>severity: critical</code> and should page
 <div class="sect2">
 <h3 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
 <div class="paragraph">
-<p>Unschedulable workloads often indicate resource exhaustion on a cluster but can have many root causes.
-Since the canary pod uses an image from the built-in OpenShift registry, the alert can be triggered by a misbehaving image registry.</p>
+<p>A high Kubernetes API server error rate can have multiple root causes.
+First check if you are generally able to connect the cluter&#8217;s API through <code>kubectl</code>.
+If you can&#8217;t, you most likely also received a <code>KubeApiServerFailure</code> and it makes sense to also look at its runbook even if the alert didn&#8217;t trigger.</p>
 </div>
 <div class="paragraph">
-<p>First check the <code>Events:</code> section of the <code>kubectl describe</code> output.</p>
+<p>If you can still access the API server, look at the pods running in namespace <code>openshift-kube-apiserver</code>.
+Check if any of the API server pods seem to be crashing and check their logs.
+Also check etcd running in namespace <code>openshift-etcd</code> and see if any pods are crashing or logging errors.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you have issues with viewing logs through <code>kubectl</code>, but the cluster generally still works, you might be able to look at the logs in elasticsearch.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The API server logs can be fairly noisy, to help you narrow down the issue, you can connect to the Prometheus on the cluster and run the following query:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl describe pods -A -l "scheduler-canary-controller.appuio.io/instance"</code></pre>
+<pre class="highlightjs highlight"><code class="language-promql hljs" data-lang="promql">sum (rate(apiserver_request_total{code=~"(5..|429)"}[10m])) by (verb, resource, code)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output should contain events why the pod isn&#8217;t schedulable:</p>
+<p>This should return one or more time series.
+With these you should be able to narrow down the issue:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>Events:
-  Type     Reason            Age                From               Message
-  ----     ------            ----               ----               -------
-  Warning  FailedScheduling  46s (x1 over 56s)  default-scheduler  0/12 nodes are available: 3 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 3 node(s) had taint {storagenode: True}, that the pod didn't tolerate, 6 Insufficient cpu, 6 Insufficient memory.
-
-Events:
-  Type     Reason            Age                From               Message
-  ----     ------            ----               ----               -------
-  Warning  FailedScheduling  12s (x1 over 15s)  default-scheduler  0/12 nodes are available: 3 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 3 node(s) had taint {storagenode: True}, that the pod didn't tolerate, 6 Too many pods.
-
-Events:
-  Type     Reason          Age   From               Message
-  ----     ------          ----  ----               -------
-  Warning  Failed          13s   kubelet            Failed to pull image "invalid:image": rpc error: code = Unknown desc = reading manifest image in docker.io/library/invalid: errors:
-denied: requested access to the resource is denied
-unauthorized: authentication required
-  Warning  Failed   13s               kubelet  Error: ErrImagePull
-  Normal   BackOff  12s               kubelet  Back-off pulling image "invalid:image"
-  Warning  Failed   12s               kubelet  Error: ImagePullBackOff
-  Normal   Pulling  0s (x2 over 15s)  kubelet  Pulling image "invalid:image"</code></pre>
+<div class="ulist">
+<ul>
+<li>
+<p>If all, or most, timeseries have the code <code>429</code> this most likely means the API server is overloaded.
+In that case, double-check if one or more master nodes have a high load.
+If so either investigate what generates the high load or increase master nodes size.</p>
+</li>
+<li>
+<p>If you have a large amount of <code>504</code> errors, an upstream service is misbehaving.
+Check etcd or the OpenShift API server in namespace <code>openshift-apiserver</code>.</p>
+</li>
+<li>
+<p>If you see other codes than the generic <code>500</code>, check online what this error code means.</p>
+</li>
+<li>
+<p>Check which verbs are effected.
+For example, if all writes fail, this might indicate a degraded etcd cluster.</p>
+</li>
+<li>
+<p>Check what resources are effected.
+For example, if only OpenShift resources are effected, there is most likely an issue with the OpenShift API server and not the Kubernetes API server.</p>
+</li>
+</ul>
 </div>
+<div class="paragraph">
+<p>This should give you a starting point to investigate the root cause.
+You should also check if there are other, related firing alerts.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -885,70 +905,6 @@ If you had to debug this alert, please consider adding any insight, tips, or cod
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_resource_exhaustion"><a class="anchor" href="#_resource_exhaustion"></a>Resource Exhaustion</h4>
-<div class="paragraph">
-<p>Allocatable resources can be checked with the <code>kubectl describe nodes</code> output.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin describe nodes -l node-role.kubernetes.io/app=
-[...]
-Allocatable:
-  cpu:                3500m
-  ephemeral-storage:  123201474766
-  hugepages-1Gi:      0
-  hugepages-2Mi:      0
-  memory:             15258372Ki
-  pods:               110
-[...]
-Non-terminated Pods:                      (38 in total)
-[...]
-Allocated resources:
-  (Total limits may be over 100 percent, i.e., overcommitted.)
-  Resource           Requests      Limits
-  --------           --------      ------
-  cpu                2644m (75%)   5420m (154%)
-  memory             5914Mi (39%)  14076Mi (94%)
-  ephemeral-storage  100Ki (0%)    0 (0%)
-  hugepages-1Gi      0 (0%)        0 (0%)
-  hugepages-2Mi      0 (0%)        0 (0%)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_imagepullbackoff"><a class="anchor" href="#_imagepullbackoff"></a><code>ImagePullBackOff</code></h4>
-<div class="paragraph">
-<p>The canary pod uses an image from the OpenShift registry.
-If the registry is unavailable, the pod will fail to start.</p>
-</div>
-<div class="paragraph">
-<p>Check the <code>Status:</code> section of the <code>kubectl describe</code> output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n appuio-openshift4-slos describe imagestream canary</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Check if pods are crashing for the image registry:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n openshift-image-registry get pods</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Check the logs for the operator and the registry:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n openshift-image-registry logs deployments/cluster-image-registry-operator
-
-kubectl -n openshift-image-registry logs deployments/image-registry --all-containers</code></pre>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
@@ -960,20 +916,18 @@ kubectl -n openshift-image-registry logs deployments/image-registry --all-contai
 You can modify the objective, disable the page or ticket alert, or completely disable the SLO.</p>
 </div>
 <div class="paragraph">
-<p>The example below will set the SLO set the objective to 99.25%, adjust the time until a pod is seen as timed out, and disable the page alert.
+<p>The example below will set the SLO set the objective to 99.25% and disable the page alert.
 This means this SLO won&#8217;t alert on-call anymore.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">slos:
-  workload-schedulability:
-    canary:
+  kubernetes_api:
+    requests:
       objective: 99.25
       alerting:
         page_alert:
-          enabled: false
-      _sli:
-        overallPodTimeout: 5m</code></pre>
+          enabled: false</code></pre>
 </div>
 </div>
 <div class="admonitionblock warning">
@@ -992,9 +946,183 @@ Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="canary"><a class="anchor" href="#canary"></a>API Uptime</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_2"><a class="anchor" href="#_overview_2"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
+<div class="paragraph">
+<p>This SLI measures the up-time of the Kubernetes API by probing the <code>/heathz</code> endpoint.
+If this SLI results in an alert, it means the Kubernetes API server is unable to handle requests or clients are simply unable to reach it.</p>
+</div>
+<div class="paragraph">
+<p>There are two types of alerts that fire if we expect to miss the configured objective.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A ticket alert means that the error rate is slightly higher than the objective.
+If we don&#8217;t intervene at some point after receiving this alert, we can expect to miss the objective.
+However no immediate, urgent action is necessary.
+A ticket alert should have a label <code>severity: warning</code>.</p>
+</li>
+<li>
+<p>A page alert means that the error rate is significantly higher than the objective.
+Immediate action is necessary to not miss the objective.
+A page alert should have a label <code>severity: critical</code> and should page on-call.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps_for_debugging_2"><a class="anchor" href="#_steps_for_debugging_2"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
+<div class="paragraph">
+<p>First try to access the Kubernetes API through <code>kubectl</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the API server is degraded, you might not be able to authenticate to OpenShift through the web console, but the API still might mostly work.
+Get the admin kubeconfig from the password manager and try to connect directly.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If <code>kubectl</code> access still seems to work, try to check what error the probe is returning, by forwarding the blackbox exporter UI:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl -n appuio-openshift4-slos port-forward svc/prometheus-blackbox-exporter 9115</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll probably also want to follow the <code>KubeApiServerHighErrorRate</code> runbook.</p>
+</div>
+<div class="paragraph">
+<p>If you can&#8217;t reach the Kubernetes API at all, fist check through the cloud provider portal if the master nodes are running.
+If they&#8217;re running, but the Kubernetes API is still not reachable, try to connect to one of them using SSH.
+You&#8217;ll need the SSH key stored in vault and use one of the LB VMs as a jumphost.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># For example: https://api.syn.vshn.net
+# IMPORTANT: do NOT add a trailing `/`. Commands below will fail.
+export COMMODORE_API_URL=&lt;lieutenant-api-endpoint&gt;
+
+# Set Project Syn cluster and tenant ID
+export CLUSTER_ID=&lt;lieutenant-cluster-id&gt; # Looks like: c-&lt;something&gt;
+export TENANT_ID=$(curl -sH "Authorization: Bearer $(commodore fetch-token)" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r .tenant)
+
+# Login to vault
+export VAULT_ADDR=https://vault-prod.syn.vshn.net
+vault login -method=oidc
+
+# Fetch SSH key
+vault kv get -format=json clusters/kv/${TENANT_ID}/${CLUSTER_ID}/cloudscale/ssh \
+  | jq -r '.data.data.private_key' | base64 --decode &gt; ssh_key
+chmod 400 ssh_key
+
+# Connect to master node
+MASTER_NODE=etcd-0
+LB_HOST=$(grep -E "^Host.*${CLUSTER_ID}" ~/.ssh/sshop_config | head -1 | awk '{print $2}')
+ssh -J "${LB_HOST}" -i ssh_key "core@${MASTER_NODE}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the logs in <code>/var/log/etcd</code>, <code>/var/log/kube-apiserver</code>, and <code>/var/log/containers</code>.
+Also see if any systemd service has crashed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We don&#8217;t have a lot of experience with this alert yet.
+If you had to debug this alert, please consider adding any insight, tips, or code snippets you gained to this runbook.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tune_2"><a class="anchor" href="#_tune_2"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
+<div class="paragraph">
+<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you may want to tune the SLO.</p>
+</div>
+<div class="paragraph">
+<p>You have the option tune the SLO through the component parameters.
+You can modify the objective, disable the page or ticket alert, or completely disable the SLO.</p>
+</div>
+<div class="paragraph">
+<p>The example below will set the SLO set the objective to 99.25% and disable the page alert.
+This means this SLO won&#8217;t alert on-call anymore.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">slos:
+  kubernetes_api:
+    canary:
+      objective: 99.9
+      _sli:
+        timeout: 10s
+        interval: 30s
+      alerting:
+        page_alert:
+          enabled: false</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Disabling the SLO or changing the objective will also impact the SLO dashboard and SLA reporting.
+Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you adjust the objective please be aware how this will impact alerting.</p>
+</div>
+<div class="paragraph">
+<p>With the default SLO of <code>99.9%</code> and probe interval of <code>10s</code>, if 6 probes fail in an hour we will emit a page alert.</p>
+</div>
+<div class="paragraph">
+<p>If you adjust the objective, this number will change and increasing the SLO or decreasing probe interval might result in unactionable alerts.
+You can calculate the number of failed probes \(f\), given SLO \(slo\) as percentage beteween 0 and 100 and the probe interval in seconds \(int\).</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f = \dfrac{5164}{int} \left( 1-\dfrac{slo}{100} \right)\]
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="kubernetes_api.html">Kubernetes API SLOs</a></span>
-  <span class="next"><a href="storage.html">Storage SLOs</a></span>
+  <span class="prev"><a href="ingress.html">Ingress SLOs</a></span>
+  <span class="next"><a href="workload-schedulability.html">Workload SLOs</a></span>
 </nav>
 </article>
   </div>
@@ -1005,7 +1133,7 @@ Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/runbooks/workload-schedulability.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/runbooks/kubernetes_api.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

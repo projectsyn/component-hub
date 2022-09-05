@@ -6,7 +6,7 @@
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/references/parameters.html">
     <link rel="prev" href="../index.html">
-    <link rel="next" href="../runbooks/storage.html">
+    <link rel="next" href="../runbooks/ingress.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -101,13 +101,16 @@
     <span class="nav-text">SLO Runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/storage.html">Storage SLOs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../runbooks/ingress.html">Ingress SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/kubernetes_api.html">Kubernetes API SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../runbooks/workload-schedulability.html">Workload SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/storage.html">Storage SLOs</a>
   </li>
 </ul>
   </li>
@@ -932,6 +935,120 @@ Look at <a href="../runbooks/storage.html#csi-operations" class="page">the runbo
 </div>
 </div>
 <div class="sect2">
+<h3 id="_slos_kubernetes_api_requests"><a class="anchor" href="#_slos_kubernetes_api_requests"></a><code>slos.kubernetes_api.requests</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">requests:
+  enabled: true
+  objective: 99.9
+  _sli:
+    apiserver: "kube-apiserver"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for the kubernetes API requests SLO.</p>
+</div>
+<div class="paragraph">
+<p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
+</div>
+<div class="paragraph">
+<p>You can configure which API servers are actually considered for the SLO by setting <code>_sli.apiserver</code>.
+By default the SLO only consideres the Kubernetes API server and not the OpenShift API server.
+The field can contain an arbitrary <a href="https://prometheus.io/docs/prometheus/latest/querying/basics/#instant-vector-selectors">PromQL regex label matcher</a>.</p>
+</div>
+<div class="paragraph">
+<p>Any additional field is added directly to the <code>slo</code> input for sloth.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Look at <a href="../runbooks/kubernetes_api.html#requests" class="page">the runbook</a> for an explanation of this SLO.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_slos_kubernetes_api_canary"><a class="anchor" href="#_slos_kubernetes_api_canary"></a><code>slos.kubernetes_api.canary</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">canary:
+  enabled: true
+  objective: 99.9
+  _sli:
+    interval: 10s
+    timeout: 5s</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for the kubernetes API canary SLO.</p>
+</div>
+<div class="paragraph">
+<p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
+</div>
+<div class="paragraph">
+<p>You can configure the probe interval and timeout by setting <code>_sli.interval</code> and <code>_sli.probe</code> respectively.
+Both parameters are in <a href="https://pkg.go.dev/time#ParseDuration">Go duration format</a> (for example <code>1m30s</code>).</p>
+</div>
+<div class="paragraph">
+<p>Any additional field is added directly to the <code>slo</code> input for sloth.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Look at <a href="../runbooks/kubernetes_api.html#canary" class="page">the runbook</a> for an explanation of this SLO.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_slos_workload_schedulability_canary"><a class="anchor" href="#_slos_workload_schedulability_canary"></a><code>slos.workload-schedulability.canary</code></h3>
 <div class="hdlist">
 <table>
@@ -1615,7 +1732,7 @@ blackbox_exporter:
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../runbooks/storage.html">Storage SLOs</a></span>
+  <span class="next"><a href="../runbooks/ingress.html">Ingress SLOs</a></span>
 </nav>
 </article>
   </div>
