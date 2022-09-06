@@ -833,7 +833,7 @@ A page alert should have a label <code>severity: critical</code> and should page
 <div class="paragraph">
 <p>A high Kubernetes API server error rate can have multiple root causes.
 First check if you are generally able to connect the cluter&#8217;s API through <code>kubectl</code>.
-If you can&#8217;t, you most likely also received a <code>KubeApiServerFailure</code> and it makes sense to also look at its runbook even if the alert didn&#8217;t trigger.</p>
+If you can&#8217;t, you most likely also received a <code>SLO_KubeApiServerFailure</code> and it makes sense to also look at its runbook even if the alert didn&#8217;t trigger.</p>
 </div>
 <div class="paragraph">
 <p>If you can still access the API server, look at the pods running in namespace <code>openshift-kube-apiserver</code>.
@@ -1001,7 +1001,7 @@ Get the admin kubeconfig from the password manager and try to connect directly.
 </div>
 </div>
 <div class="paragraph">
-<p>You&#8217;ll probably also want to follow the <code>KubeApiServerHighErrorRate</code> runbook.</p>
+<p>You&#8217;ll probably also want to follow the <code>SLO_KubeApiServerHighErrorRate</code> runbook.</p>
 </div>
 <div class="paragraph">
 <p>If you can&#8217;t reach the Kubernetes API at all, fist check through the cloud provider portal if the master nodes are running.
