@@ -1042,9 +1042,9 @@ kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c keycloak-postgresql 
       volumePermissions:
         securityContext:
           runAsUser: auto
-          shmVolume:
-            chmod:
-              enabled: false</code></pre>
+      shmVolume:
+        chmod:
+          enabled: false</code></pre>
 </div>
 </div>
 </li>
