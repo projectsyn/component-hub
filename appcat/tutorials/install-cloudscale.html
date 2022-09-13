@@ -115,26 +115,44 @@
     <a class="nav-link" href="../references/component-parameters.html">Component Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/provider-cloudscale.html">Parameters For provider.cloudscale</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Provider Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-cloudscale.html">provider.cloudscale</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/provider-exoscale.html">Parameters For provider.exoscale</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-exoscale.html">provider.exoscale</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/provider-kubernetes.html">Parameters For provider.kubernetes</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-kubernetes.html">provider.kubernetes</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/composite-objectstorage.html">Parameters For composite.objectstorage</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Compositions</span>
+    <span class="nav-text">XRD Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/objectstorage/cloudscale.html">Parameters For composition.objectstorage.cloudscale</a>
+    <a class="nav-link" href="../references/composite/common.html">Common Parameters</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/objectstorage/exoscale.html">Parameters For composition.objectstorage.exoscale</a>
+    <a class="nav-link" href="../references/composite/objectstorage.html">composite.objectstorage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Composition Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/composition/objectstorage/common.html">Common Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/composition/objectstorage/cloudscale.html">composition.objectstorage.cloudscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/composition/objectstorage/exoscale.html">composition.objectstorage.exoscale</a>
   </li>
 </ul>
   </li>
@@ -900,8 +918,8 @@ applications: <i class="conum" data-value="5"></i><b>(5)</b>
 parameters:
   packages:
     appcat:
-      version: master <i class="conum" data-value="6"></i><b>(6)</b>
       url: {page-origin-url}
+      version: master <i class="conum" data-value="6"></i><b>(6)</b>
       path: packages
   crossplane:
     helmValues:

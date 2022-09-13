@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>pkg.appcat.composition.objectstorage.cloudscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/composition/objectstorage/cloudscale.html">
-    <link rel="prev" href="common.html">
-    <link rel="next" href="exoscale.html">
+    <title>pkg.appcat.composition.objectstorage :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/composition/objectstorage/common.html">
+    <link rel="prev" href="../../composite/objectstorage.html">
+    <link rel="next" href="cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -145,10 +145,10 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Composition Parameters</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="common.html">Common Parameters</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="cloudscale.html">composition.objectstorage.cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -805,26 +805,29 @@
     <li><a href="../../../index.html">appcat</a></li>
     <li>Technical reference</li>
     <li>Composition Parameters</li>
-    <li><a href="cloudscale.html">composition.objectstorage.cloudscale</a></li>
+    <li><a href="common.html">Common Parameters</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/composition/objectstorage/cloudscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/composition/objectstorage/common.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">pkg.appcat.composition.objectstorage.cloudscale</h1>
+<h1 class="page">pkg.appcat.composition.objectstorage</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>pkg.appcat.composition.objectstorage.cloudscale</code>.</p>
+<p>The parent key for all of the following parameters is <code>pkg.appcat.composition.objectstorage</code>.</p>
+</div>
+<div class="paragraph">
+<p>Parameters under this parent key apply to all compositions of <code>pkg.appcat.composition.objectstorage.*</code> services.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secretnamespacesobjectsusers"><a class="anchor" href="#_secretnamespacesobjectsusers"></a><code>secretNamespaces:objectsusers</code></h2>
+<h2 id="_components"><a class="anchor" href="#_components"></a><code>components</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -841,65 +844,44 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>provider-cloudscale-secrets-objectsusers</code></p>
+<p>see <a href="https://github.com/vshn/component-appcat/blob/master/packages/composition/objectstorage/common.yml" class="bare">github.com/vshn/component-appcat/blob/master/packages/composition/objectstorage/common.yml</a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace where the provider-cloudscale stores intermediate credential <code>Secrets</code> for <code>ObjectUser</code> resources.
-The idea is to have them in their own namespace so that they don&#8217;t clutter any other namespace.
-In the composition the <code>Secrets</code> are being used for creating S3 Buckets on cloudscale.ch in <code>Bucket</code> resources.</p>
+<p>The components used by all <code>composition.objectstorage</code> packages.
+It follows the exact same structure as the root <code>parameters:components</code> key.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_bucketdeletionpolicy"><a class="anchor" href="#_bucketdeletionpolicy"></a><code>bucketDeletionPolicy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
 </td>
-<td class="hdlist2">
-<p>enum</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-values
-</td>
-<td class="hdlist2">
-<p><code>[DeleteAll, DeleteIfEmpty]</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>DeleteAll</code></p>
+<td class="content">
+<div class="paragraph">
+<p>The components are referenced this way as intermediate parameters so that they can be overridden by the hierarchy.
+This allows to easily set the component version to match the package version, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  pkg.appcat.composition.objectstorage:
+    components:
+      appcat:
+        version: ${packages:appcat:version}</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>The behavior what to do with the bucket and its data when the user deletes the claim.</p>
-</div>
-<div class="paragraph">
-<p>With <code>DeleteIfEmpty</code>, the bucket can only be deleted if all objects within are deleted as well (empty bucket).
-If there are objects, the <code>Bucket</code> resource won&#8217;t be removed until the bucket is emptied.</p>
-</div>
-<div class="paragraph">
-<p>With <code>DeleteAll</code>, all objects in the bucket are recursively deleted.
-Once all objects are deleted the bucket (and the <code>Bucket</code> resource) are removed.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="common.html">Common Parameters</a></span>
-  <span class="next"><a href="exoscale.html">composition.objectstorage.exoscale</a></span>
+  <span class="prev"><a href="../../composite/objectstorage.html">composite.objectstorage</a></span>
+  <span class="next"><a href="cloudscale.html">composition.objectstorage.cloudscale</a></span>
 </nav>
 </article>
   </div>
@@ -910,7 +892,7 @@ Once all objects are deleted the bucket (and the <code>Bucket</code> resource) a
 </footer>
 <script src="../../../../_/js/site.js"></script>
 <script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="../../../../_/js/vendor/search.js" id="search-script" data-base-path="../../../.." data-page-path="/appcat/references/composition/objectstorage/cloudscale.html"></script>
+<script src="../../../../_/js/vendor/search.js" id="search-script" data-base-path="../../../.." data-page-path="/appcat/references/composition/objectstorage/common.html"></script>
 <script async src="../../../../_/../search-index.js"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
