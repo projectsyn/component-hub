@@ -107,6 +107,9 @@
     <a class="nav-link" href="../runbooks/kubernetes_api.html">Kubernetes API SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/network.html">Network SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../runbooks/workload-schedulability.html">Workload SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1106,6 +1109,55 @@ Look at <a href="../runbooks/workload-schedulability.html#canary" class="page">t
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_slos_network_canary"><a class="anchor" href="#_slos_network_canary"></a><code>slos.network.canary</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">network:
+  canary:
+    enabled: true
+    objective: 99.95</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for the canary based network SLO, measuring packet loss between nodes.</p>
+</div>
+<div class="paragraph">
+<p>The SLO can be disabled by setting <code>enabled</code> to false.
+Any additional field is added directly to the <code>slo</code> input for sloth.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Look at <a href="../runbooks/network.html#canary" class="page">the runbook</a> for an explanation of this SLO.
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1669,6 +1721,185 @@ default
 <div class="paragraph">
 <p>The input passed to the Kustomize renderer.
 See <a href="https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/">The Kustomization File</a> for all available options.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_canary"><a class="anchor" href="#_network_canary"></a><code>network_canary</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>network_canary</code> allows configuring the network canary used for measuring packet loss for network SLO.</p>
+</div>
+<div class="sect2">
+<h3 id="_network_canary_enabled"><a class="anchor" href="#_network_canary_enabled"></a><code>network_canary.enabled</code>:</h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${openshift4_slos:slos:network:canary:enabled}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the canary should be deployed.
+By default the component will deploy the canary if and only if the network canary SLO is enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_canary_namespace"><a class="anchor" href="#_network_canary_namespace"></a><code>network_canary.namespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>appuio-network-canary</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In which namespace the network canary should be deployed.</p>
+</div>
+<div class="paragraph">
+<p>INFO: This needs to differ from the default SLO namespace so that we can choose different node selectors for the canary.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_canary_nodeselector"><a class="anchor" href="#_network_canary_nodeselector"></a><code>network_canary.nodeselector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>node-role.kubernetes.io/worker=</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On which nodes the canary should be deployed on.
+By default the network canary will run on all worker nodes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_canary_resources"><a class="anchor" href="#_network_canary_resources"></a><code>network_canary.resources</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
+  limits:
+    memory: 40Mi
+  requests:
+    cpu: 1m
+    memory: 20Mi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resource requests and limits for the network canary.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_canary_tolerations"><a class="anchor" href="#_network_canary_tolerations"></a><code>network_canary.tolerations</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">tolerations:
+  infrastructure:
+    effect: NoSchedule
+    key: node-role.kubernetes.io/infra
+    operator: Exists
+  storage:
+    key: 'storagenode'
+    operator: 'Exists'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The tolerations for the network canary daemonset.
+The values of the dictionary will be passed as is to the manifest.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">upstream documentation on taints and tolerations</a>.</p>
 </div>
 </div>
 </div>
