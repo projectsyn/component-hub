@@ -881,6 +881,57 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
+  grafana-admin-user:
+    stringData:
+      admin-user: admin
+      admin-password: password
+
+helm_values:
+  admin:
+    existingSecret: grafana-admin-user</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding secrets for use with Grafana.
+Each key in the dictionary is used as the name of a secret.
+The value of the key is merged directly into an empty Kubernetes <code>Secret</code> resource.
+By default, secrets are created in the namespace in which Grafana is deployed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_dashboards"><a class="anchor" href="#_dashboards"></a><code>dashboards</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
