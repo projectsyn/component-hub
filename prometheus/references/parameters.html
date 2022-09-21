@@ -1178,6 +1178,10 @@ prometheusAdapter:
 kubeStateMetrics:
   enabled: false
   config: {}
+  overrides: {}
+kubePrometheus:
+  enabled: false
+  config: {}
   overrides: {}</code></pre>
 </div>
 </div>
@@ -1188,6 +1192,9 @@ kubeStateMetrics:
 <div class="paragraph">
 <p>The base configuration shared by all instances.
 Can be overridden by the instance-specific configuration.</p>
+</div>
+<div class="paragraph">
+<p>General rules and alerts are grouped in the <code>kubePrometheus</code> component.</p>
 </div>
 </div>
 </div>
