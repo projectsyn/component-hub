@@ -1364,6 +1364,52 @@ type
 <div class="paragraph">
 <p>Parameters to configure the silence CronJob.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_silence_silences"><a class="anchor" href="#_silence_silences"></a><code>silence.silences</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"Silence non syn alerts":
+  matchers:
+    - name: alertname
+      value: ".+"
+      isRegex: true
+    - name: syn
+      value: ""
+      isRegex: false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Contains the list of silences to be applied.
+The key is used as the comment of the silence and the value is a dictionary which is passed to Alertmanager.</p>
+</div>
+<div class="paragraph">
+<p>Silences removed from the hierarchy stay active in Alertmanager for up to a year until they expire.</p>
+</div>
+<div class="paragraph">
+<p>Silences all non-SYN alerts by default.</p>
+</div>
 <div class="sect2">
 <h3 id="_schedule"><a class="anchor" href="#_schedule"></a><code>schedule</code></h3>
 <div class="hdlist">
