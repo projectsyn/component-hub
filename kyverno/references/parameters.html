@@ -836,6 +836,65 @@ type
 </div>
 </div>
 <div class="sect1">
+<h2 id="_clusterpolicies"><a class="anchor" href="#_clusterpolicies"></a><code>clusterpolicies</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterpolicies:
+  restrict-registries:  <i class="conum" data-value="1"></i><b>(1)</b>
+    metadata:
+      annotations:
+        policies.kyverno.io/title: Example Policy
+        policies.kyverno.io/subject: Pod
+      spec:
+        validationFailureAction: enforce
+        background: true
+        rules:
+          - ...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Key will be used as the default value for <code>metadata.name</code></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing <code>ClusterPolicy.kyverno.io/v1</code> objects to be managed.
+Previously defined policies can be removed by setting <code>policy-name: null</code> in the dictionary.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
