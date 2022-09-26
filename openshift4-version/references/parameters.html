@@ -797,8 +797,14 @@ Minor: '8'</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>This parameter is used to conditionally add configurations in the <code>ClusterVersion</code> object.
-The component currently uses this parameter to set the default value for field <code>capabilities.baselineCapabilitySet</code>, which was introduced in OpenShift 4.11, to <code>v4.11</code>.</p>
+<p>This parameter is used to conditionally add configurations in the <code>ClusterVersion</code> object.</p>
+</div>
+<div class="paragraph">
+<p>The component currently uses this parameter to set default values for
+* field <code>capabilities.baselineCapabilitySet</code>, which was introduced in OpenShift 4.11.
+The component defaults this field to <code>v4.11</code>.
+* field <code>channel</code>.
+The component sets this field to <code>stable-&lt;Major&gt;.&lt;Minor&gt;</code>, where <code>&lt;Major&gt;</code> and <code>&lt;Minor&gt;</code> are replaced with the values of fields <code>Major</code> and <code>Minor</code> of this parameter.</p>
 </div>
 </div>
 </div>
@@ -822,8 +828,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">channel: stable-4.8
-upstream: https://api.openshift.com/api/upgrades_info/v1/graph</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upstream: https://api.openshift.com/api/upgrades_info/v1/graph</code></pre>
 </div>
 </div>
 </td>
