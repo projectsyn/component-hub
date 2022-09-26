@@ -920,6 +920,83 @@ Please see the <a href="../how-tos/enable-chroot.html" class="page">chroot how-t
 </div>
 </div>
 <div class="sect1">
+<h2 id="_pod_security_admission"><a class="anchor" href="#_pod_security_admission"></a><code>pod_security_admission</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">pod_security_admission:
+  enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+  enforce: privileged <i class="conum" data-value="2"></i><b>(2)</b>
+  audit: privileged <i class="conum" data-value="3"></i><b>(3)</b>
+  warn: privileged <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Whether to set any Pod Security Admission labels</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Which Pod Security Standard to enforce in the created namespace</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Which Pod Security Standard to audit in the created namespace</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Which Pod Security Standard to warn on in the created namespace</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Pod Security Admission configuration.</p>
+</div>
+<div class="paragraph">
+<p>Pod Security Admission can be enabled or disabled and the standard to use for enforce, warn, and audit can be configured.
+You can remove any of the labels by setting the respective field to an empty string or <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>Please consult the <a href="https://kubernetes.io/docs/concepts/security/pod-security-admission/">upstream documentation</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We default to enforce the <code>privileged</code> standard.
+As of writing this the helm chart sets <code>allowPrivilegeEscalation: true</code>, which is only allowed for privileged workloads.
+However, this is most likely not needed and if the upstream chart changes this default should be reevaluated.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_charts_ingress_nginx"><a class="anchor" href="#_charts_ingress_nginx"></a><code>charts.ingress-nginx</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
