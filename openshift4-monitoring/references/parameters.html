@@ -1024,6 +1024,8 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheusK8s:
+  remoteWrite: []
+  _remoteWrite: {}
   externalLabels:
     cluster_id: ${cluster:name}
     tenant_id: ${cluster:tenant}
@@ -1104,6 +1106,63 @@ alertmanagerMain:
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_configs_prometheusk8s_remotewrite"><a class="anchor" href="#_configs_prometheusk8s_remotewrite"></a><code>configs.prometheusK8s._remoteWrite</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">_remoteWrite:
+  example:
+    url: https://prometheus.example.com/api/v1/write
+    headers:
+      "X-Scope-OrgID": example
+    writeRelabelConfigs:
+      - sourceLabels: ['syn']
+        regex: '.+'
+        action: keep
+    basicAuth:
+      username:
+        name: remote-write
+        key: username
+      password:
+        name: remote-write
+        key: password</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the remote write configurations for the Prometheus component.
+The key is the name of the configuration, the value is the content of the configuration.</p>
+</div>
+<div class="paragraph">
+<p>The remote write configuration will be appended to the <code>configs.prometheusK8s.remoteWrite</code> parameter for backwards compatibility.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
