@@ -142,9 +142,6 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-local-storage.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-logging.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-monitoring.xml</loc>
 </sitemap>
 <sitemap>
