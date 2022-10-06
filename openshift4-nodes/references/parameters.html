@@ -834,35 +834,6 @@ Most probably the one of the cloud region.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_containerruntimeconfigs"><a class="anchor" href="#_containerruntimeconfigs"></a><code>containerRuntimeConfigs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/ContainerRuntimeConfig</code>.
-The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>ContainerRuntimeConfig</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_defaultspecs"><a class="anchor" href="#_defaultspecs"></a><code>defaultSpecs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1241,6 +1212,240 @@ default
 Values given here will be merged with precedence with the defaults configured in <a href="#defaultSpec">[defaultSpec]</a>.
 The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machineconfigpools"><a class="anchor" href="#_machineconfigpools"></a><code>machineConfigPools</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of machine config pools to create on the cluster.
+The resulting <code>MachineConfigPool</code> object will have the key prefixed with <code>x-</code> as the name and the value is merged into the resource.</p>
+</div>
+<div class="paragraph">
+<p>Apart from the machine config pool, this dictionary can manage related resources through the following fields, that won&#8217;t be added to the <code>MachineConfigPool</code> object.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>kubelet</strong> field can contain the spec of a <code>KubeletConfig</code> resource.
+The machine config pool key will be used as the name and the <code>machineConfigPoolSelector</code> will be set automatically.</p>
+</li>
+<li>
+<p>The <strong>containerRuntime</strong> field can contain the spec of a <code>ContainerRuntimeConfig</code> resource.
+The machine config pool key will be used as the name and the <code>machineConfigPoolSelector</code> will be set automatically.</p>
+</li>
+<li>
+<p>The <strong>machineConfigs</strong> accepts a key-value dict where the values are the <code>spec</code> of <code>MachineConfig</code> resources.
+The resulting <code>MachineConfig</code> objects will have the keys, prefixed with <code>99x-</code> and the machine config pool key, as the name and the values are used as the <code>spec</code>.
+The objects will automatically be labeled so that the machine config pool will pick up the config.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default the component creates <code>app</code>, <code>infra</code>, and <code>storage</code> machine config pools, each of which extends the <code>worker</code> pool.
+Config pools can be removed by setting their dictionary value to <code>null</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    master:
+      kubelet:
+        kubeletConfig:
+          maxPods: 60
+    app:
+      spec:
+        maxUnvailable: 3
+      kubelet: <i class="conum" data-value="1"></i><b>(1)</b>
+        kubeletConfig:
+          maxPods: 1337
+      containerRuntime: <i class="conum" data-value="2"></i><b>(2)</b>
+        containerRuntimeConfig:
+          pidsLimit: 1337
+      machineConfigs:
+        testfile: <i class="conum" data-value="3"></i><b>(3)</b>
+          config:
+            ignition:
+              version: 3.2.0
+            storage:
+              files:
+              - contents:
+                  source: data:,custom
+                filesystem: root
+                mode: 0644
+                path: /etc/customtest
+        testfile2: <i class="conum" data-value="4"></i><b>(4)</b>
+          config:
+            ignition:
+              version: 3.2.0
+            storage:
+              files:
+              - contents:
+                  source: data:,custom
+                filesystem: root
+                mode: 0644
+                path: /etc/customtest2</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Results in a <code>KubeletConfig</code> object called <code>app</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Results in a <code>ContainerRuntimeConfig</code> object called <code>app</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Results in a <code>MachineConfig</code> object called <code>99x-app-testfile</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Results in a <code>MachineConfig</code> object called <code>99x-app-testfile2</code></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Machine config pool names are prefixed with <code>x-</code> as in some cases configurations are applied ordered by their name and we want the config for <code>x-app</code> to be applied after the default worker config of the <code>worker</code> pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component doesn&#8217;t manage machine config pools <code>master</code> and <code>worker</code> as these are maintained directly by OpenShift.
+Any changes to these machine config pools will be ignored.</p>
+</div>
+<div class="paragraph">
+<p>You can however manage related resources for these pools through the extra fields <code>kubelet</code>, <code>containerRuntime</code>, and <code>machineConfigs</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machineconfigs"><a class="anchor" href="#_machineconfigs"></a><code>machineConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/MachineConfig</code>.
+The resulting <code>MachineConfig</code> objects will have the keys, prefixed with <code>99x-</code>, as the name and the values are merged into the resource.</p>
+</div>
+<div class="paragraph">
+<p>Reference the <a href="https://docs.openshift.com/container-platform/4.11/post_installation_configuration/machine-configuration-tasks.html">upstream documentation</a> on how to use machine config objects.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs:
+  worker-ssh:
+    metadata:
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec:
+      config:
+        ignition:
+          version: 3.2.0
+        passwd:
+          users:
+            - name: core
+              sshAuthorizedKeys:
+                - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9BWBmqreqpn7cF9klFEeLrg/NWk3UAyvx7gj/cVFQn</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Keep in mind that machine config objects are evaluated in order of their name.
+This is also the reason why the machine config names are prefixed with <code>99x-</code> so that they&#8217;re evaluated after the default OpenShift machine configuration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_containerruntimeconfigs"><a class="anchor" href="#_containerruntimeconfigs"></a><code>containerRuntimeConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/ContainerRuntimeConfig</code>.
+The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>ContainerRuntimeConfig</code>.</p>
 </div>
 </div>
 </div>
