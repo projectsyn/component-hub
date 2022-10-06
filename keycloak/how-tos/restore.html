@@ -1005,11 +1005,11 @@ kubectl -n syn patch apps ${ARGO_APP} --type=json \
 <p>Scale down Keycloak</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE patch statefulset keycloak --type=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE patch statefulset keycloakx --type=json \
   -p '[{"op":"replace", "path":"/spec/replicas", "value": 0}]'
 
 # Wait until statefulset has been scaled down
-kubectl -n $NAMESPACE get statefulset keycloak -w</code></pre>
+kubectl -n $NAMESPACE get statefulset keycloakx -w</code></pre>
 </div>
 </div>
 </li>
@@ -1037,7 +1037,7 @@ restic dump "${SNAPSHOT_ID}" /$NAMESPACE-keycloak-postgresql.sql \
   }]'
 
 # Wait until Keycloak has started sucessfully
-kubectl -n $NAMESPACE get statefulset keycloak -w</code></pre>
+kubectl -n $NAMESPACE get statefulset keycloakx -w</code></pre>
 </div>
 </div>
 </li>
