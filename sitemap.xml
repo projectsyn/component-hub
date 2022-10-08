@@ -19,6 +19,9 @@
 <loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
@@ -124,6 +127,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-console.xml</loc>
 </sitemap>
 <sitemap>
@@ -187,6 +193,9 @@
 <loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>
 </sitemap>
 <sitemap>
@@ -206,6 +215,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-statefulset-resize-controller.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-steward.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
