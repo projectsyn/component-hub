@@ -115,6 +115,9 @@
     <a class="nav-link" href="upgrade-exoscale-v3-v4.html">Upgrade Exoscale clusters from component version v3 to v4</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="upgrade-exoscale-v4-v5.html">Upgrade Exoscale clusters from component version v4 to v5</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a>
   </li>
 </ul>
@@ -842,8 +845,8 @@ The component currently assumes that the Git repositories live on a GitLab insta
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Set up 3 new API keys in <a href="https://portal.exoscale.com">portal.exoscale.com</a>.
-Two of them are used for the Terraform pipeline.</p>
+<p>Set up 2 new API keys in <a href="https://portal.exoscale.com">portal.exoscale.com</a>.
+They&#8217;re used for the Terraform pipeline.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -890,38 +893,6 @@ Two of them are used for the Terraform pipeline.</p>
 </li>
 <li>
 <p>The second key can be created as <code>unrestricted</code>.</p>
-</li>
-<li>
-<p>The third key needs the following permissions (this key will be deployed onto the LBs for <a href="https://github.com/vshn/floaty">Floaty</a>):</p>
-<div class="ulist">
-<ul>
-<li>
-<p>compute:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>addIpToNic</code></p>
-</li>
-<li>
-<p><code>listNics</code></p>
-</li>
-<li>
-<p><code>listResourceDetails</code></p>
-</li>
-<li>
-<p><code>listVirtualMachines</code></p>
-</li>
-<li>
-<p><code>queryAsyncJobResult</code></p>
-</li>
-<li>
-<p><code>removeIpFromNic</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 </li>
 </ol>
 </div>
@@ -1031,12 +1002,6 @@ Please note that the Terraform module currently only supports the <a href="https
 </li>
 <li>
 <p><code>EXOSCALE_API_KEY_RW</code></p>
-</li>
-<li>
-<p><code>EXOSCALE_FLOATY_KEY</code></p>
-</li>
-<li>
-<p><code>EXOSCALE_FLOATY_SECRET</code></p>
 </li>
 <li>
 <p><code>HIERADATA_REPO_TOKEN</code>&#8201;&#8212;&#8201;the VSHN APPUiO hieradata project access token</p>
