@@ -795,6 +795,29 @@
 <p>openshift4-terraform is a Commodore component to manage openshift4-terraform.</p>
 </div>
 <div class="paragraph">
+<p>The component currently supports cloud providers <a href="https://www.cloudscale.ch">cloudscale.ch</a> and <a href="https://www.exoscale.com">Exoscale</a>.</p>
+</div>
+<div class="paragraph">
+<p>The component allows users to drive the <code>terraform-openshift4-cloudscale</code> and <code>terraform-openshift4-exoscale</code> Terraform modules through the Project Syn hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The component contains logic which verifies the provided combination of Terraform version, Terraform module version and cloud provider.
+Configurations which result an unsupported combination will cause a compilation error.</p>
+</div>
+<div class="paragraph">
+<p>The component currently supports</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Terraform&#160;&lt;&#160;1.3.0 with module versions&#160;&lt;&#160;v4.0.0 for cloudscale.ch or module versions&#160;&lt;&#160;v3.0.0 for Exoscale or</p>
+</li>
+<li>
+<p>Terraform&#160;&gt;=&#160;1.3.0 with module versions&#160;&gt;=&#160;v4.0.0 for cloudscale.ch or module versions&#160;&gt;=&#160;v3.0.0 for Exoscale</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
 </div>
 <nav class="pagination">
