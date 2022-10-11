@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-nodes/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../explanations/machine-config-pool.html">
+    <title>Managing Machine Config Pools :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-nodes/explanations/machine-config-pool.html">
+    <link rel="prev" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,15 +92,15 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Explanations</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../explanations/machine-config-pool.html">Machine Config Pools</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="machine-config-pool.html">Machine Config Pools</a>
   </li>
 </ul>
   </li>
@@ -760,589 +759,318 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OpenShift 4 Nodes</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>Explanations</li>
+    <li><a href="machine-config-pool.html">Machine Config Pools</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-nodes/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-nodes/edit/master/docs/modules/ROOT/pages/explanations/machine-config-pool.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Managing Machine Config Pools</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>openshift4_nodes</code>.</p>
+<p>This component allows you to manage machine config pools and all related configuration, including <code>MachineConfigs</code>, <code>KubeletConfigs</code>, and <code>ContainerRuntimeConfigs</code>.
+If you wan to get a better understanding of machine config pools, please read the <a href="https://docs.openshift.com/container-platform/latest/post_installation_configuration/machine-configuration-tasks.html">upstream documentation</a> or <a href="https://www.redhat.com/en/blog/openshift-container-platform-4-how-does-machine-config-pool-work">this blog post from RedHat</a>.</p>
 </div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>This component relies on deep merge of values from several parameters and hierarchy layers.
-This works pretty straightforward for scalar values and dictionaries.
-Values of arrays will be appended to each other.
-There is no way to override values which were set on a lower precedence location.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>On this page we&#8217;ll provide some explanations and examples which demonstrate how to configure existing machine config pools and how to add new machine config pools.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_availabilityzones"><a class="anchor" href="#_availabilityzones"></a><code>availabilityZones</code></h2>
+<h2 id="_default_machine_config_pools"><a class="anchor" href="#_default_machine_config_pools"></a>Default Machine Config Pools</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list of strings</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[]</p>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>On a default APPUiO OpenShift 4 cluster there are five machine config pools.</p>
 </div>
 <div class="paragraph">
-<p>List of availability zone names.
-The list will be used when distributing MachineSets across zones (see <a href="#multiAZ">[multiAZ]</a>).
-The first item of this list will also be used to place a MachineSet without an explicit zone defined.</p>
-</div>
-<div class="paragraph">
-<p>It&#8217;s suggested to define its values higher up the config hierarchy.
-Most probably the one of the cloud region.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This is currently only supported on GCP.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_defaultspecs"><a class="anchor" href="#_defaultspecs"></a><code>defaultSpecs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Sensible defaults for a growing number of cloud providers.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the default values applied to each <code>machinesets.machine.openshift.io</code> object created by this component.</p>
-</div>
-<div class="paragraph">
-<p>The top level keys are the names of cloud providers as reported by the cluster fact <code>${facts:cloud}</code>.
-The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_infrastructureid"><a class="anchor" href="#_infrastructureid"></a><code>infrastructureID</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>undefined</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This is the 12 character infrastructure ID given to a cluster by the OpenShift 4 installer.
-Use the following command to retrieve this from the cluster:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/2">Get a clusters infrastructure ID as a fact</a>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This is most likely to be configured on cluster level itself.
-Configuring this higher up in the hierarchy can result in unexpected behavior.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_machine_api_namespace"><a class="anchor" href="#_machine_api_namespace"></a><code>machine_api_namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>openshift-machine-api</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace where machine-api related objects should be created.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Namespaced resources without an explicit <code>.metadata.namespace</code> field will be deployed in this namespace as well.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_nodegroups"><a class="anchor" href="#_nodegroups"></a><code>nodeGroups</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>empty</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary of node groups to create on the cluster.
-It&#8217;s centered around the MachineSet CRD but also takes care of some additional aspects like zone distribution and auto scaling.</p>
-</div>
-<div class="paragraph">
-<p>The top level key is the name of each set of machines.
-Each set of machines has the values described below.</p>
-</div>
-<div class="sect2">
-<h3 id="_annotations"><a class="anchor" href="#_annotations"></a><code>annotations</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The annotations to add to the MachineSet.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_instancetype"><a class="anchor" href="#_instancetype"></a><code>instanceType</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>null</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This is currently only supported on GCP.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_multiaz"><a class="anchor" href="#_multiaz"></a><code>multiAz</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>false</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A machine set will be placed in one single availability zone.
-If not specified otherwise, the first entry of <code>availabilityZones</code> will be used.
-When set to true, a MachineSet will be created for each zone listed in <code>availabilityZones</code>.
-The replicas of the generated MachineSets will be calculated.
-The <code>replicas</code> given will be divided by the cont of zones in <code>availabilityZones</code> rounded up.</p>
-</div>
-<div class="paragraph">
-<p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/3">Effective replica count of multi zone machines can be higher than the requested one</a></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This is currently only supported on GCP.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_replicas"><a class="anchor" href="#_replicas"></a><code>replicas</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>1</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The number of machines to create.
-When <code>multiAZ</code> is set to <code>true</code>, the number given here will be divided so that each of the created MachineSets will get a fraction of replicas but the total of created machines will match the one requested here.</p>
-</div>
-<div class="paragraph">
-<p>See also <a href="#multiAZ">[multiAZ]</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This value can also be set in <a href="#spec">[spec]</a>.
-If done so, the value in <a href="#spec">[spec]</a> will win.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_role"><a class="anchor" href="#_role"></a><code>role</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>worker</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The role of the created Nodes.
-The value will be added as the <code>node-role.kubernetes.io/&lt;role&gt;: ""</code> label to nodes.
-The <code>worker</code> role label will always be added to inherit the base configuration for nodes.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>In order to add additional labels to the resulting Node object, use <code>spec.template.spec.metadata.labels</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="#defaultSpec">[defaultSpec]</a>.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This gives you the full control over the resulting MachineSet.
-Values given here will be merged with precedence with the defaults configured in <a href="#defaultSpec">[defaultSpec]</a>.
-The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_machineconfigpools"><a class="anchor" href="#_machineconfigpools"></a><code>machineConfigPools</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary of machine config pools to create on the cluster.
-The resulting <code>MachineConfigPool</code> object will have the key prefixed with <code>x-</code> as the name and the value is merged into the resource.</p>
-</div>
-<div class="paragraph">
-<p>Apart from the machine config pool, this dictionary can manage related resources through the following fields, that won&#8217;t be added to the <code>MachineConfigPool</code> object.</p>
+<p>There are two that are always present and managed by OpenShift directly.
+These can&#8217;t be removed or modified through the component.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The <strong>kubelet</strong> field can contain the spec of a <code>KubeletConfig</code> resource.
-The machine config pool key will be used as the name and the <code>machineConfigPoolSelector</code> will be set automatically.</p>
+<p>The <strong>master</strong> pool contains all master nodes.</p>
 </li>
 <li>
-<p>The <strong>containerRuntime</strong> field can contain the spec of a <code>ContainerRuntimeConfig</code> resource.
-The machine config pool key will be used as the name and the <code>machineConfigPoolSelector</code> will be set automatically.</p>
-</li>
-<li>
-<p>The <strong>machineConfigs</strong> accepts a key-value dict where the values are the <code>spec</code> of <code>MachineConfig</code> resources.
-The resulting <code>MachineConfig</code> objects will have the keys, prefixed with <code>99x-</code> and the machine config pool key, as the name and the values are used as the <code>spec</code>.
-The objects will automatically be labeled so that the machine config pool will pick up the config.</p>
+<p>The <strong>worker</strong> pool contains all other nodes.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>By default the component creates <code>app</code>, <code>infra</code>, and <code>storage</code> machine config pools, each of which extends the <code>worker</code> pool.
-Config pools can be removed by setting their dictionary value to <code>null</code>.</p>
+<p>On an APPUiO OpenShift 4 cluster the <strong>worker</strong> pool is further split into different sub-pools</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>app</strong> pool contains the actual <em>worker</em> nodes that are used to run the users applications.</p>
+</li>
+<li>
+<p>The <strong>infra</strong> pool contains the infra nodes that run OpenShift 4 workloads, such as Prometheus or Elasticsearch,</p>
+</li>
+<li>
+<p>The <strong>storage</strong> pool contains the Ceph cluster deployed by component rook ceph.
+These nodes aren&#8217;t always present, but the pool always exists.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Being a sub-pool of the worker pool means it will inherit all configuration of the worker pool, but it will still count as a separate pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_machine_config_pools"><a class="anchor" href="#_configuring_machine_config_pools"></a>Configuring Machine Config Pools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component allows you to configure machine config pools and their related resources through the <code>machineConfigPools</code> parameter.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/machineconfigpool-machineconfiguration-openshift-io-v1.html"><code>MachineConfigPool</code> resource</a> itself can be managed through the <code>spec</code> parameter.
+The component provides sane defaults for machine config and node selectors, which you generally shouldn&#8217;t need to change.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This can&#8217;t be changed for the <em>master</em> or <em>worker</em> pool.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>There is one <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/kubeletconfig-machineconfiguration-openshift-io-v1.html"><code>KubeletConfig</code> resource</a> per machine config pool that can be managed through the <code>kubelet</code> parameter.
+The parameter contains the complete spec of the <code>KubeletConfig</code>.
+The <code>machineConfigPoolSelector</code> is set by the component and doesn&#8217;t need to be modified.</p>
+</li>
+<li>
+<p>There is also one <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/containerruntimeconfig-machineconfiguration-openshift-io-v1.html"><code>ContainerRuntimeConfig</code> resource</a> per machine config pool that can be managed through the <code>containerRuntime</code> parameter.
+The parameter contains the complete spec of the <code>ContainerRuntimeConfig</code>.
+The <code>machineConfigPoolSelector</code> is again set by the component and doesn&#8217;t need to be modified.</p>
+</li>
+<li>
+<p>An arbitrary number of <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/machineconfig-machineconfiguration-openshift-io-v1.html"><code>MachineConfig</code> resources</a> can be managed through the <code>machineConfigs</code> parameter.
+The component handles selectors and labels so that these machine configs are assigned to the corresponding pool.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Changes that impact a nodes configuration, such as modifying kubelet config or container runtime config, will restart all nodes in the machine config pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Below you can see a few example configurations that should illustrate how you can manage existing machine config pools.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_modifying_app_pool"><a class="anchor" href="#_example_modifying_app_pool"></a>Example: Modifying App Pool</h3>
+<div class="paragraph">
+<p>Let&#8217;s assume that we&#8217;re running a large cluster with more than 10 large app nodes.
+Although there are enough resources available, we run into the pod limit and we&#8217;d need to add another node.
+At the same time maintenance is starting to take a long time, as each node is restarted sequentially.
+We decided to do two changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Increase the maximum number of pods per node to <code>200</code></p>
+</li>
+<li>
+<p>Allow OpenShift to restart two app nodes in parallel during upgrades</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This allow us to better utilize the available resources and reduces the maintenance time.
+We can achieve this with the following configuration.</p>
 </div>
 <div class="listingblock">
-<div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
-    master:
-      kubelet:
-        kubeletConfig:
-          maxPods: 60
     app:
       spec:
-        maxUnvailable: 3
-      kubelet: <i class="conum" data-value="1"></i><b>(1)</b>
+        maxUnvailable: 2 <i class="conum" data-value="1"></i><b>(1)</b>
+      kubelet:
         kubeletConfig:
-          maxPods: 1337
-      containerRuntime: <i class="conum" data-value="2"></i><b>(2)</b>
-        containerRuntimeConfig:
-          pidsLimit: 1337
-      machineConfigs:
-        testfile: <i class="conum" data-value="3"></i><b>(3)</b>
-          config:
-            ignition:
-              version: 3.2.0
-            storage:
-              files:
-              - contents:
-                  source: data:,custom
-                filesystem: root
-                mode: 0644
-                path: /etc/customtest
-        testfile2: <i class="conum" data-value="4"></i><b>(4)</b>
-          config:
-            ignition:
-              version: 3.2.0
-            storage:
-              files:
-              - contents:
-                  source: data:,custom
-                filesystem: root
-                mode: 0644
-                path: /etc/customtest2</code></pre>
+          maxPods: 200 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Results in a <code>KubeletConfig</code> object called <code>app</code></td>
+<td>Allows OpenShift to reboot two app nodes at the same time</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Results in a <code>ContainerRuntimeConfig</code> object called <code>app</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Results in a <code>MachineConfig</code> object called <code>99x-app-testfile</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Results in a <code>MachineConfig</code> object called <code>99x-app-testfile2</code></td>
+<td>Schedules up to <code>200</code> pods per node</td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock note">
+</div>
+<div class="sect2">
+<h3 id="_example_configuring_master_nodes"><a class="anchor" href="#_example_configuring_master_nodes"></a>Example: Configuring Master Nodes</h3>
+<div class="paragraph">
+<p>The <strong>master</strong> and <strong>worker</strong> pools are managed by OpenShift and come with default configuration.
+This component doesn&#8217;t directly manage these <code>MachineConfigPool</code> resources, but we can still add additional machine configs.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say we want to configure chrony on the master nodes to use our own NTP server.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First encode the chrony configuration as base64</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cat &lt;&lt; EOF | base64
+    pool ntp.example.com iburst <i class="conum" data-value="1"></i><b>(1)</b>
+    driftfile /var/lib/chrony/drift
+    makestep 1.0 3
+    rtcsync
+    logdir /var/log/chrony
+EOF</code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Machine config pool names are prefixed with <code>x-</code> as in some cases configurations are applied ordered by their name and we want the config for <code>x-app</code> to be applied after the default worker config of the <code>worker</code> pool.</p>
-</div>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify any valid, reachable time source, such as the one provided by your DHCP server</td>
 </tr>
 </table>
+</div>
+</li>
+<li>
+<p>Then add this to all master nodes using the following configuration</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    master:
+      machineConfigs:
+        chrony:
+          config:
+            ignition:
+              version: 3.2.0
+            storage:
+              files:
+              - contents: <i class="conum" data-value="1"></i><b>(1)</b>
+                  source: data:text/plain;charset=utf-8;base64,ICAgIHBvb2wgbnRwLmV4YW1wbGUuY29tIGlidXJzdCA8MT4KICAgIGRyaWZ0ZmlsZSAvdmFyL2xpYi9jaHJvbnkvZHJpZnQKICAgIG1ha2VzdGVwIDEuMCAzCiAgICBydGNzeW5jCiAgICBsb2dkaXIgL3Zhci9sb2cvY2hyb255Cg==
+                mode: 420
+                overwrite: true
+                path: /etc/chrony.conf</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Base64 encoded chrony configuration</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_new_machine_config_pools"><a class="anchor" href="#_adding_new_machine_config_pools"></a>Adding new Machine Config Pools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This component allows you to add an arbitrary number of machine config pools.
+All custom machine config pools will be sub-pools of the <em>worker</em> machine config pool.
+Therefore, they&#8217;ll all inherit all configuration of the <em>worker</em> pool.</p>
+</div>
+<div class="paragraph">
+<p>Currently the component doesn&#8217;t provide support for adding and labeling the nodes themselves.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_add_gpu_nodes"><a class="anchor" href="#_example_add_gpu_nodes"></a>Example: Add GPU Nodes</h3>
+<div class="paragraph">
+<p>We want to add special nodes that have access to to a GPU.
+We handle these nodes in a different machine config pool, as we anticipate that they&#8217;ll need different configuration.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let&#8217;s say we added two new worker nodes with GPUs.
+We currently need to manually label these two nodes to give them the correct role.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get nodes
+..
+gpu-32ac    Ready    worker       1h   v1.23.5+8471591
+gpu-e226    Ready    worker       1h   v1.23.5+8471591</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl label node gpu-32ac node-role.kubernetes.io/gpu=""
+kubectl label node gpu-e226 node-role.kubernetes.io/gpu=""</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get nodes
+..
+gpu-32ac    Ready    gpu,worker   1h   v1.23.5+8471591
+gpu-e226    Ready    gpu,worker   1h   v1.23.5+8471591</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>With the nodes labeled we can add another machine config pool with the following configuration</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    gpu: {}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After a few minutes you should see that the machine config pool has adopted the two nodes</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get machineconfigpools.machineconfiguration.openshift.io
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+...
+x-gpu    rendered-x-gpu-9b16524c1512d9327f940e736f322ef1    True      False      False      2              2                   2                     0                      20m</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -1352,66 +1080,15 @@ Config pools can be removed by setting their dictionary value to <code>null</cod
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The component doesn&#8217;t manage machine config pools <code>master</code> and <code>worker</code> as these are maintained directly by OpenShift.
-Any changes to these machine config pools will be ignored.</p>
+<p>A node can only belong to the worker pool and up to <strong>one</strong> other pool.
+Sub-pools for master nodes or adding a node to more than one sub-pool isn&#8217;t supported.</p>
 </div>
 <div class="paragraph">
-<p>You can however manage related resources for these pools through the extra fields <code>kubelet</code>, <code>containerRuntime</code>, and <code>machineConfigs</code>.</p>
+<p>If you add a node to more than one sub-pool it&#8217;ll be removed from all pools and won&#8217;t be managed by OpenShift.</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_machineconfigs"><a class="anchor" href="#_machineconfigs"></a><code>machineConfigs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/MachineConfig</code>.
-The resulting <code>MachineConfig</code> objects will have the keys, prefixed with <code>99x-</code>, as the name and the values are merged into the resource.</p>
-</div>
-<div class="paragraph">
-<p>Reference the <a href="https://docs.openshift.com/container-platform/4.11/post_installation_configuration/machine-configuration-tasks.html">upstream documentation</a> on how to use machine config objects.</p>
-</div>
-<div class="listingblock">
-<div class="title">Example</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs:
-  worker-ssh:
-    metadata:
-      labels:
-        machineconfiguration.openshift.io/role: worker
-    spec:
-      config:
-        ignition:
-          version: 3.2.0
-        passwd:
-          users:
-            - name: core
-              sshAuthorizedKeys:
-                - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9BWBmqreqpn7cF9klFEeLrg/NWk3UAyvx7gj/cVFQn</code></pre>
-</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1421,294 +1098,22 @@ The resulting <code>MachineConfig</code> objects will have the keys, prefixed wi
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Keep in mind that machine config objects are evaluated in order of their name.
-This is also the reason why the machine config names are prefixed with <code>99x-</code> so that they&#8217;re evaluated after the default OpenShift machine configuration.</p>
+<p>You have the option to remove added machine config pools or even remove the three default pools <em>app</em>, <em>infra</em>, and <em>storage</em>.
+However, before doing so you need to make sure that <strong>no node is assigned</strong> to the to-be removed machine config pool.</p>
+</div>
+<div class="paragraph">
+<p>You can do this by removing the associated label or by modifying the node selector of the machine config pool before removing the pool.
+If you don&#8217;t do this, OpenShift will be confused and the nodes won&#8217;t be assigned to any machine config pool.</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_containerruntimeconfigs"><a class="anchor" href="#_containerruntimeconfigs"></a><code>containerRuntimeConfigs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/ContainerRuntimeConfig</code>.
-The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>ContainerRuntimeConfig</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_kubeletconfigs"><a class="anchor" href="#_kubeletconfigs"></a><code>kubeletConfigs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <code>class/defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/KubeletConfig</code>.
-The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>KubeletConfig</code>.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Please refer to the upstream version of the relevant kubelet for the valid values of these fields.
-Invalid values of the kubelet configuration fields may render cluster nodes unusable.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-The component will print a warning if the configuration field <code>maxPods</code> is set to a value larger than 110.
-See <a href="https://github.com/kubernetes/kubelet/blob/master/config/v1beta1/types.go">supported configuration fields upstream</a> (choose matching release branch for versioned options)
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See also: <a href="https://docs.openshift.com/container-platform/4.9/nodes/nodes/nodes-nodes-managing-max-pods.html">Managing the maximum number of pods per node</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_debugnamespace"><a class="anchor" href="#_debugnamespace"></a><code>debugNamespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-debug-nodes</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace to create for <code>oc debug node/&lt;nodename&gt;</code>.
-This namespace is annotated to ensure that debug pods can be scheduled on any nodes.</p>
-</div>
-<div class="paragraph">
-<p>Use <code>oc debug node/&lt;nodename&gt; --to syn-debug-nodes</code> to create the debug pods in the namespace.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This component will take ownership of the namespace specified here.
-Please make sure you don&#8217;t specify a namespace which is already managed by other means.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">infrastructureID: c-mist-sg7hn
-
-nodeGroups:
-  infra:
-    instanceType: n1-standard-8
-    multiAz: true
-    replicas: 3
-  worker:
-    instanceType: n1-standard-8
-    replicas: 3
-    spec:
-      deletePolicy: Oldest
-      template:
-        spec:
-          metadata:
-            labels:
-              mylabel: myvalue
-
-availabilityZones:
-- europe-west6-a
-- europe-west6-b
-- europe-west6-c
-
-containerRuntimeConfigs:
-  workers:
-    machineConfigPoolSelector:
-      matchExpressions:
-        - key: pools.operator.machineconfiguration.openshift.io/worker
-          operator: Exists
-    containerRuntimeConfig:
-      pidsLimit: 2048
-kubeletConfigs:
-  workers:
-    machineConfigPoolSelector:
-      matchExpressions:
-        - key: pools.operator.machineconfiguration.openshift.io/worker
-          operator: Exists
-    kubeletConfig:
-      maxPods: 100
-      podPidsLimit: 2048</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring"><a class="anchor" href="#_monitoring"></a><code>monitoring</code></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This parameter allows users to enable the component&#8217;s monitoring configuration.
-Currently the component has support for deploying custom <code>ServiceMonitors</code> on clusters which use component <code>prometheus</code> to manage a custom monitoring stack.</p>
-</div>
-<div class="sect2">
-<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether to deploy monitoring configurations.
-If this parameter is set to <code>true</code>, the component will check whether component <code>prometheus</code> is present on the cluster.
-If the component is missing, no configurations will be deployed regardless of the value of this parameter.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_instance"><a class="anchor" href="#_instance"></a><code>instance</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter can be used to indicate which custom Prometheus instance should pick up the configurations managed by the component.</p>
-</div>
-<div class="paragraph">
-<p>If the parameter is set to <code>null</code>, the default instance configured for component <code>prometheus</code> will be used.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enableservicemonitors"><a class="anchor" href="#_enableservicemonitors"></a><code>enableServiceMonitors</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/appuio/component-openshift4-nodes/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary with the names of service monitors as keys and booleans as the value.
-Can be used to selectively enable or disable service monitors.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../explanations/machine-config-pool.html">Machine Config Pools</a></span>
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1719,7 +1124,7 @@ Can be used to selectively enable or disable service monitors.</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-nodes/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-nodes/explanations/machine-config-pool.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
