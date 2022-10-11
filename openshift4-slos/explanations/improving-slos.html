@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Storage SLOs :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/runbooks/storage.html">
-    <link rel="prev" href="workload-schedulability.html">
-    <link rel="next" href="../explanations/improving-slos.html">
+    <title>Improving SLOs :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/explanations/improving-slos.html">
+    <link rel="prev" href="../runbooks/storage.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -101,24 +100,24 @@
     <span class="nav-text">SLO Runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="ingress.html">Ingress SLOs</a>
+    <a class="nav-link" href="../runbooks/ingress.html">Ingress SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes_api.html">Kubernetes API SLOs</a>
+    <a class="nav-link" href="../runbooks/kubernetes_api.html">Kubernetes API SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="network.html">Network SLOs</a>
+    <a class="nav-link" href="../runbooks/network.html">Network SLOs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="workload-schedulability.html">Workload SLOs</a>
+    <a class="nav-link" href="../runbooks/workload-schedulability.html">Workload SLOs</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="storage.html">Storage SLOs</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/storage.html">Storage SLOs</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/improving-slos.html">Improving SLOs</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="improving-slos.html">Improving SLOs</a>
   </li>
 </ul>
   </li>
@@ -775,20 +774,30 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">openshift4-slos</a></li>
-    <li>SLO Runbooks</li>
-    <li><a href="storage.html">Storage SLOs</a></li>
+    <li><a href="improving-slos.html">Improving SLOs</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/runbooks/storage.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/explanations/improving-slos.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Storage SLOs</h1>
+<h1 class="page">Improving SLOs</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="quoteblock abstract">
+<blockquote>
+This page provides high-level ideas on how the SLOs managed by this component can be improved over time.
+Providing detailed step-by-step instructions is a non-goal of this page.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>This component provides a number of SLOs, which may need to be improved or tuned for various reasons.
+Clusters may have special SLAs, which can&#8217;t be met with the default SLO configuration.
+Depending on the specific circumstances, SLOs managed by this component may generate non-actionable alerts.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -797,8 +806,8 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
-Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+<p>Global modifications of the SLOs must be evaluated carefully.
+Changes to this component require a mandatory review before they can be merged.</p>
 </div>
 </td>
 </tr>
@@ -807,133 +816,46 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 </div>
 </div>
 <div class="sect1">
-<h2 id="csi-operations"><a class="anchor" href="#csi-operations"></a>Storage Operations</h2>
+<h2 id="_special_sla"><a class="anchor" href="#_special_sla"></a>Special SLA</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
 <div class="paragraph">
-<p>This SLO measures the percentage of failed storage operations, reported by kubelets and the controller-manager.
-The error rate is a general indicator of the health of the storage provider, but might not show you the root cause of the issue.</p>
-</div>
-<div class="paragraph">
-<p>There are two types of alerts that fire if we expect to miss the configured objective.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A ticket alert means that the error rate is slightly higher than the objective.
-If we don&#8217;t intervene at some point after receiving this alert, we can expect to miss the objective.
-However no immediate, urgent action is necessary.
-A ticket alert should have a label <code>severity: warning</code>.</p>
-</li>
-<li>
-<p>A page alert means that the error rate is significantly higher than the objective.
-Immediate action is necessary to not miss the objective.
-A page alert should have a label <code>severity: critical</code> and should page on-call.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
-<div class="paragraph">
-<p>A high storage operations error rate can have many root causes.
-To narrow down the issue we first need to find out which operations and which providers are effected.</p>
+<p>In case of special SLAs, the relevant SLO configurations should be updated to have an objective which satisfies the SLA.
+Ideally, the objective configured for the SLO should be higher than the objective documented in the SLA.
+Having a SLO which is stricter than the SLA reduces the number of SLA violations, because engineers are notified about issues after the SLO objective is violated.
+By notifying engineers early, the issue may get resolved before the SLA objective gets violated.</p>
 </div>
 <div class="paragraph">
-<p>Connect to the Prometheus on the cluster and run the following query:</p>
+<p>See section "<span class="icon"><i class="fa fa-wrench"></i></span> Tune" in the runbook of an SLO for detailed instructions on how to tune the configuration for that SLO.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-promql hljs" data-lang="promql">sum(rate(storage_operation_duration_seconds_count{volume_plugin=~"kubernetes.io/csi.+", status="fail-unknown"}[5m])) by (job, operation_name, volume_plugin, node)</code></pre>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_noisy_slo"><a class="anchor" href="#_noisy_slo"></a>Noisy SLO</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SLOs managed by this component may generate a lot of alerts.
+If those alerts aren&#8217;t actionable, you should determine how you can adjust the SLO to not generate these alerts.
+Generally, you may want to adjust the scope of the Prometheus queries used by the SLO to omit the components which cause the non-actionable alerts.</p>
 </div>
 <div class="paragraph">
-<p>This should return one or more time series.
-With these you should be able to narrow down the issue:</p>
+<p>See section "<span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging" in the runbook of an SLO for detailed information about how to investigate alerts for that SLO.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>If all time series have the same <code>volume_plugin</code> label the issue is most likely caused by that provider.
-Look at the logs of that csi provider to investigate further.</p>
-</li>
-<li>
-<p>If they have the same <code>node</code> label it might be an issue with one specific node.</p>
-</li>
-<li>
-<p>If all have the same <code>operation_name</code> label then there is an issue with this specific operation.
-For <code>volume_attach</code> and <code>volume_detach</code> check if the controller-manager logs anything useful.
-For all other operations the kubelet might log more information.</p>
-</li>
-<li>
-<p>If all time series have the same <code>job</code> label it might be an issue with the kubelet or the controller-manager, look at the respective logs.</p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_cases"><a class="anchor" href="#_other_cases"></a>Other cases</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Generally, reading the SLO runbook should provide a good starting point to understand an SLO.</p>
 </div>
 <div class="paragraph">
-<p>This should give you a starting point to investigate the root cause.
-You should also check if there are other, related firing alerts and create/delete a test PVC to properly assess the impact of this alert.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-We don&#8217;t have a lot of experience with this alert yet.
-If you had to debug this alert, please consider adding any insight, tips, or code snippets you gained to this runbook.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
-<div class="paragraph">
-<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you may want to tune the SLO.</p>
-</div>
-<div class="paragraph">
-<p>You have the option tune the SLO through the component parameters.
-You can modify the objective, disable the page or ticket alert, restrict the SLO to certain storage operations or volume plugins, or completely disable the SLO.</p>
-</div>
-<div class="paragraph">
-<p>The example below will set the SLO set the objective to 99.25%, disable the page alert, and only consider the Syn-managed CephFS storage provider.
-This means this SLO won&#8217;t alert on-call anymore and won&#8217;t alert if there are issues with CSI plugins other than the Syn-managed CephFS CSI plugin.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">slos:
-  storage:
-    csi-operations:
-      objective: 99.25
-      _sli:
-        volume_plugin: "kubernetes.io/csi:syn-rook-ceph-operator.cephfs.csi.ceph.com"
-      alerting:
-        page_alert:
-          enabled: false</code></pre>
-</div>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Disabling the SLO or changing the objective will also impact the SLO dashboard and SLA reporting.
-Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
-</td>
-</tr>
-</table>
-</div>
+<p>Ideally, the SLO runbooks should be improved and adjusted as necessary, if there are new findings after handling an SLO alert.
+This doesn&#8217;t need to happen while the SLO alert is active, but should be done shortly after, so that the small details which otherwise are forgotten are documented for future alert.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="workload-schedulability.html">Workload SLOs</a></span>
-  <span class="next"><a href="../explanations/improving-slos.html">Improving SLOs</a></span>
+  <span class="prev"><a href="../runbooks/storage.html">Storage SLOs</a></span>
 </nav>
 </article>
   </div>
@@ -944,7 +866,7 @@ Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/runbooks/storage.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/explanations/improving-slos.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
