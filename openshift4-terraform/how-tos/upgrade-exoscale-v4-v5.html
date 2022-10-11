@@ -884,9 +884,38 @@ vault login -method=ldap username=&lt;your.name&gt;</code></pre>
 </div>
 </div>
 </li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_update_cluster_configuration"><a class="anchor" href="#_update_cluster_configuration"></a>Update cluster configuration</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Verify that your cluster uses component <code>openshift4-terraform</code> v5.
 If that&#8217;s not the case, update the component version to v5.x before compiling the cluster catalog.</p>
+</li>
+<li>
+<p>Update cluster configuration to use new Exoscale compute instance type identifiers.</p>
+<div class="paragraph">
+<p>The new Exoscale <code>compute_instance</code> Terraform resource uses different identifiers to specify instance types.
+We&#8217;ve modified the Terraform module to use different variable names for the instance types in the new version.
+If you haven&#8217;t customized instance types for your cluster, you can skip this step.</p>
+</div>
+<div class="paragraph">
+<p>Update your cluster configuration to replace the following parameters:
+* <code>infra_size</code> &#8594; <code>infra_type</code>
+* <code>storage_size</code> &#8594; <code>storage_type</code>
+* <code>worker_size</code> &#8594; <code>worker_type</code>
+* <code>additional_worker_groups[<strong>].size</code> &#8594; <code>additional_worker_groups[</strong>].type</code></p>
+</div>
+<div class="paragraph">
+<p>+
+The new resource uses identifiers of form <code>&lt;family&gt;.&lt;size&gt;</code>, for example <code>Extra-large</code> is now <code>standard.extra-large</code>.
+See <code>exo compute instance-type list</code> for the list of all types.</p>
+</div>
 </li>
 <li>
 <p>Compile the cluster catalog to create a local working directory</p>
