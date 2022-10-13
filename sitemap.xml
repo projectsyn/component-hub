@@ -40,6 +40,9 @@
 <loc>https://hub.syn.tools/sitemap-cloudscale-metrics-collector.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-cluster-autoscaler.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
 </sitemap>
 <sitemap>
