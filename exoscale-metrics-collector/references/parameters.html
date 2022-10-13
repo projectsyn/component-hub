@@ -749,6 +749,14 @@
         </li>
       </ul>
     </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </div>
     </div>
@@ -854,7 +862,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_exoscale_stringdata_api_key"><a class="anchor" href="#_secrets_exoscale_stringdata_api_key"></a><code>secrets.exoscale.stringData.api_key</code></h2>
+<h2 id="_secrets_credentials_stringdata_exoscale_api_key"><a class="anchor" href="#_secrets_credentials_stringdata_exoscale_api_key"></a><code>secrets.credentials.stringData.EXOSCALE_API_KEY</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -886,7 +894,7 @@ You need to select the correct account (token is limited to one account), choose
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_exoscale_stringdata_api_secret"><a class="anchor" href="#_secrets_exoscale_stringdata_api_secret"></a><code>secrets.exoscale.stringData.api_secret</code></h2>
+<h2 id="_secrets_credentials_stringdata_exoscale_api_secret"><a class="anchor" href="#_secrets_credentials_stringdata_exoscale_api_secret"></a><code>secrets.credentials.stringData.EXOSCALE_API_SECRET</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -913,7 +921,66 @@ default
 </div>
 <div class="paragraph">
 <p>Second part of the Exoscale API credentials.
-See api_key for instructions.</p>
+See EXOSCALE_API_KEY for instructions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets_credentials_stringdata_k8s_server_url"><a class="anchor" href="#_secrets_credentials_stringdata_k8s_server_url"></a><code>secrets.credentials.stringData.K8S_SERVER_URL</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes server URL.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets_credentials_stringdata_k8s_token"><a class="anchor" href="#_secrets_credentials_stringdata_k8s_token"></a><code>secrets.credentials.stringData.K8S_TOKEN</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The token to connect to a Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>buckets.exoscale.crossplane.io</code> managed resource.</p>
 </div>
 </div>
 </div>

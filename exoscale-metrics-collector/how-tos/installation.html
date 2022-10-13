@@ -750,6 +750,14 @@
         </li>
       </ul>
     </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </div>
     </div>
@@ -778,7 +786,18 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>This component requires <a href="https://github.com/appuio/component-appuio-cloud-reporting">component-appuio-cloud-reporting</a> and is installed into the same namespace.
-This is required for this component to be able to access the billing database and its connection secrets.</p>
+This is required for this component to be able to access the billing database and its connection secrets.
+It also requires an Exoscale IAMKey and a Kubernetes/OpenShift Service Account token in the target cluster to get <code>buckets.exoscale.crossplane.io</code> resources.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sources"><a class="anchor" href="#_sources"></a>Sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The data is matched from k8s cluster and Exoscale organization.
+The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and <code>buckets.exoscale.crossplane.io</code> resources.
+The Access Key (IAM Key) from an Exoscale organization is required to have read access across all SOS buckets.</p>
 </div>
 </div>
 </div>
@@ -792,12 +811,7 @@ This is required for this component to be able to access the billing database an
 
 parameters:
   exoscale_metrics_collector:
-    namespace: 'appuio-cloud-reporting'
-    secrets:
-      exoscale:
-        stringData:
-          api_key: "?{vaultkv:${cluster:tenant}/${cluster:name}/exoscale-metrics-collector/api_key}"
-          api_secret: "?{vaultkv:${cluster:tenant}/${cluster:name}/exoscale-metrics-collector/api_secret}"</code></pre>
+    schedule: '10 10,16,20 * * *'</code></pre>
 </div>
 </div>
 <div class="paragraph">

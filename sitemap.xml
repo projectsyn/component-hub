@@ -240,4 +240,7 @@
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
 </sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-vertical-pod-autoscaler.xml</loc>
+</sitemap>
 </sitemapindex>
