@@ -797,6 +797,27 @@ The resource names are generated to be unique, even if multiple components try t
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component library will grant a manager ServiceAccount <code>cluster-admin</code>-like permissions when the target resource is a <code>ClusterRoleBinding</code>.
+This is necessary, because Kubernetes doesn&#8217;t allow principals to modify <code>ClusterRoleBindings</code> which are more privileged than the principal and we can&#8217;t reliably identify any potential permissions that the ServiceAccount must have in order to be able to modify the managed <code>ClusterRoleBinding</code>.</p>
+</div>
+<div class="paragraph">
+<p>For the same reason, the library will grant a manager ServiceAccount <code>admin</code>-like permissions in the target resource&#8217;s namespace if the resource is a <code>RoleBinding</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component doesn&#8217;t actually grant the ServiceAccount the <code>cluster-admin</code> or <code>admin</code> cluster roles, but instead creates a <code>ClusterRole</code> or <code>Role</code> with a single rule <code>{"apiGroups": ["*"], "resources": ["*"], "verbs": ["*"]}</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>A brief usage example which creates a configuration for the operator which enforces the presence of a resource quota object in namespace <code>default</code>:</p>
 </div>
