@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>pkg.appcat.composition.dbaas.exoscale.postgres :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/composition/dbaas/exoscale/postgres.html">
-    <link rel="prev" href="common.html">
+    <title>pkg.appcat.composite.dbaas.exoscale.postgres :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/composite/dbaas/exoscale/postgres.html">
+    <link rel="prev" href="../../objectstorage.html">
+    <link rel="next" href="../../../composition/objectstorage/common.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -133,13 +134,13 @@
     <span class="nav-text">XRD Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../../composite/common.html">Common Parameters</a>
+    <a class="nav-link" href="../../common.html">Common Parameters</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../../composite/objectstorage.html">composite.objectstorage</a>
+    <a class="nav-link" href="../../objectstorage.html">composite.objectstorage</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../../composite/dbaas/exoscale/postgres.html">composite.dbaas.exoscale.postgres</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="postgres.html">composite.dbaas.exoscale.postgres</a>
   </li>
 </ul>
   </li>
@@ -148,19 +149,19 @@
     <span class="nav-text">Composition Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../objectstorage/common.html">Common Parameters</a>
+    <a class="nav-link" href="../../../composition/objectstorage/common.html">Common Parameters</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../objectstorage/cloudscale.html">composition.objectstorage.cloudscale</a>
+    <a class="nav-link" href="../../../composition/objectstorage/cloudscale.html">composition.objectstorage.cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../objectstorage/exoscale.html">composition.objectstorage.exoscale</a>
+    <a class="nav-link" href="../../../composition/objectstorage/exoscale.html">composition.objectstorage.exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="common.html">Common Parameters</a>
+    <a class="nav-link" href="../../../composition/dbaas/exoscale/common.html">Common Parameters</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="postgres.html">composition.dbaas.exoscale.postgres</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../composition/dbaas/exoscale/postgres.html">composition.dbaas.exoscale.postgres</a>
   </li>
 </ul>
   </li>
@@ -836,57 +837,24 @@
   <ul>
     <li><a href="../../../../index.html">appcat</a></li>
     <li>Technical reference</li>
-    <li>Composition Parameters</li>
-    <li><a href="postgres.html">composition.dbaas.exoscale.postgres</a></li>
+    <li>XRD Parameters</li>
+    <li><a href="postgres.html">composite.dbaas.exoscale.postgres</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/composition/dbaas/exoscale/postgres.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/composite/dbaas/exoscale/postgres.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">pkg.appcat.composition.dbaas.exoscale.postgres</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">pkg.appcat.composite.dbaas.exoscale.postgres</h1>
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>pkg.appcat.composition.dbaas.exoscale.postgres</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secretnamespacespostgres"><a class="anchor" href="#_secretnamespacespostgres"></a><code>secretNamespaces:postgres</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>provider-exoscale-secrets-postgres</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace where the provider-exoscale stores intermediate credential <code>Secrets</code> for <code>PostgreSQL</code> resources.
-The idea is to have them in their own namespace so that they don&#8217;t clutter any other namespace.
-In the composition the <code>Secrets</code> are being used for accessing postgres databases on exoscale.com.</p>
-</div>
-</div>
+<p>The parent key for all of the following parameters is`pkg.appcat.composite.dbaas.exoscale.postgres`.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="common.html">Common Parameters</a></span>
+  <span class="prev"><a href="../../objectstorage.html">composite.objectstorage</a></span>
+  <span class="next"><a href="../../../composition/objectstorage/common.html">Common Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -897,7 +865,7 @@ In the composition the <code>Secrets</code> are being used for accessing postgre
 </footer>
 <script src="../../../../../_/js/site.js"></script>
 <script src="../../../../../_/js/vendor/lunr.js"></script>
-<script src="../../../../../_/js/vendor/search.js" id="search-script" data-base-path="../../../../.." data-page-path="/appcat/references/composition/dbaas/exoscale/postgres.html"></script>
+<script src="../../../../../_/js/vendor/search.js" id="search-script" data-base-path="../../../../.." data-page-path="/appcat/references/composite/dbaas/exoscale/postgres.html"></script>
 <script async src="../../../../../_/../search-index.js"></script>
 <script async src="../../../../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
