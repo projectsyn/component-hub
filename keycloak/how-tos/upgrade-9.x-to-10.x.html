@@ -896,6 +896,18 @@
 <li>
 <p><code>postgresql_helm_values</code> authentication parameters have been moved to <code>postgresql_helm_values.auth</code> reflecting the <a href="https://docs.bitnami.com/kubernetes/infrastructure/postgresql/administration/upgrade/#to-1100">Helm chart upgrade</a> to 11.</p>
 </li>
+<li>
+<p><code>postgresql_helm_values.securityContext.enabled</code> changed to <code>postgresql_helm_values.primary.securityContext.enabled</code>.</p>
+</li>
+<li>
+<p><code>postgresql_helm_values.containerSecurityContext.enabled</code> changed to <code>postgresql_helm_values.primary.containerSecurityContext.enabled</code>.</p>
+</li>
+<li>
+<p><code>postgresql_helm_values.volumePermissions.securityContext.runAsUser</code> has no direct equivalent and therefore the volume permissions setup has to be disabled entirely by setting <code>postgresql_helm_values.volumePermissions.enabled</code> to <code>false</code>.</p>
+</li>
+<li>
+<p><code>postgresql_helm_values.shmVolume.chmod.enabled</code> has no direct equivalent and therefore the shared volume setup has to be disabled entirely by setting <code>postgresql_helm_values.shmVolume.enabled</code> to <code>false</code>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
