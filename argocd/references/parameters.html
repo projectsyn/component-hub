@@ -934,6 +934,74 @@ The tag for the ArgoCD image is used to download the corresponding deployment ma
 </div>
 </div>
 <div class="sect1">
+<h2 id="_log_level"><a class="anchor" href="#_log_level"></a><code>log_level</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: info</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter exposes the log level for the ArgoCD components.
+By default, all components are configured with the log level given in key <code>default</code>.
+The log level can be customized for individual components by providing the desired level in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_log_format"><a class="anchor" href="#_log_format"></a><code>log_format</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: `text`</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter exposes the log format for the ArgoCD components.
+By default, all components are configured to use the log format given for key <code>default</code>.
+The log format can be customized for individual components by providing the desired log format in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
