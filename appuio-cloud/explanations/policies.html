@@ -125,9 +125,6 @@
     <a class="nav-link" href="../references/policies/03_projectrequest.html">Policy: <code>organization-in-projectrequests</code></a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/10_generate_default_rolebinding_in_ns.html">Policy: <code>default-rolebinding-in-ns</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../references/policies/11_generate_quota_limit_range_in_ns.html">Policy: <code>quota-and-limit-range-in-ns</code></a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -846,13 +843,13 @@ This documentation explains how the different policies interact to implement the
 <div class="sectionbody">
 <div class="paragraph">
 <p>The overall desired architecture for namespace ownership on APPUiO Cloud is documented in the <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/namespace-ownership.html">APPUiO Cloud for System Engineers</a> documentation.
-This component implements the architecture described there with Kyverno policies.</p>
+This component implements the architecture described there with Kyverno policies and the <a href="https://github.com/appuio/appuio-cloud-agent">APPUiO Cloud Agent</a>.</p>
 </div>
 <div class="paragraph">
-<p>This article explains how the different Kyverno policies managed by the component implement namespace ownership and other adjacent policies.</p>
+<p>This article explains how the different policies managed by the component implement namespace ownership and other adjacent policies.</p>
 </div>
 <div class="paragraph">
-<p>Looking at the quality requirements for APPUiO cloud, there&#8217;s three main points which need to be covered by the implementation:</p>
+<p>Looking at the quality requirements for APPUiO cloud, there are three main points which need to be covered by the implementation:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -879,7 +876,7 @@ This component implements the architecture described there with Kyverno policies
 <p>Users should be able to <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/create-ns-with-serviceaccount.html">use ServiceAccount tokens to create namespaces</a> belonging to the same organization to which the ServiceAccount belongs.</p>
 </li>
 <li>
-<p>Users should be able modify selected annotations and labels on namespaces belonging to their organizations.
+<p>Users should be able to modify selected annotations and labels on namespaces belonging to their organizations.
 For example, this is required to allow users to <a href="https://docs.appuio.cloud/user/explanation/organizations-and-rbac.html#_transfer_projects">reassign namespaces to a different organization</a>.</p>
 </li>
 <li>
@@ -890,7 +887,7 @@ For example, this is required to allow users to <a href="https://docs.appuio.clo
 <div class="sect2">
 <h3 id="_request_flow_and_policy_execution"><a class="anchor" href="#_request_flow_and_policy_execution"></a>Request flow and policy execution</h3>
 <div class="paragraph">
-<p>The diagram shows how the Kyverno policies interact with a request to create a <code>Namespace</code>, <code>Project</code> or <code>ProjectRequest</code>.</p>
+<p>The diagram shows how the policies interact with a request to create a <code>Namespace</code>, <code>Project</code> or <code>ProjectRequest</code>.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -912,7 +909,7 @@ Some policies, such as <code>validate-namespace-metadata</code> are also execute
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../_images/diag-a64c4d037864ddc6b5da1c4e0466230e42405d7a.svg" alt="namespace-policies">
+<img src="../_images/diag-429812d52fa42e9232ee5dbf621214161760aaa3.svg" alt="namespace-policies">
 </div>
 </div>
 <div class="colist arabic">
@@ -1004,24 +1001,19 @@ This policy is executed when namespaces are created or updated.
 </table>
 </div>
 </dd>
-<dt class="hdlist1"><a href="../references/policies/10_generate_default_rolebinding_in_ns.html" class="page"><code>default-rolebinding-in-ns</code> (labeled <code>ORG_RBAC</code>)</a></dt>
+<dt class="hdlist1"><code>default-rolebinding-in-ns (labeled ORG_RBAC)</code></dt>
 <dd>
-<p>This policy is applied to any namespace which is created with an organization label.
-It grants role <code>admin</code> to the organization to which the new namespace belongs.</p>
+<p>The <a href="https://github.com/appuio/appuio-cloud-agent/blob/master/controllers/org_rbac_controller.go">Organization RBAC Controller</a> of the APPUiO Cloud Agent makes sure that by default organizations are granted all the permissions necessary to manager their own namespaces.</p>
 <div class="paragraph">
-<p>This fulfils the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-organization-rbac.html">namespaces are owned by organizations</a>.</p>
+<p>It does so by creating <code>RoleBindings</code> in every organization namespace that grant configured <code>ClusterRoles</code>.
+Most importantly, it grants role <code>admin</code> to the organization to which the new namespace belongs.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-For namespaces created through OpenShift projects, the policy mutates the <code>RoleBinding</code> which is created by OpenShift to grant the organization role <code>admin</code>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>The controller will only make sure that the <code>RoleBindings</code> exist and won&#8217;t modify existing <code>RoleBindings</code>.
+This allows organizations to further restrict access for their members.</p>
+</div>
+<div class="paragraph">
+<p>This fulfills the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-organization-rbac.html">namespaces are owned by organizations</a>.</p>
 </div>
 </dd>
 <dt class="hdlist1"><a href="../references/policies/11_generate_quota_limit_range_in_ns.html" class="page"><code>quota-and-limit-range-in-ns</code> (labeled <code>RES_QUOT</code>)</a></dt>
