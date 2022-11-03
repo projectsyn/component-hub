@@ -1100,18 +1100,25 @@ See <a href="https://docs.ceph.com/en/latest/rados/configuration/ceph-conf/">Cep
 <p>To configure a Ceph option which isn&#8217;t exposed by the operator, you can provide raw Ceph configuration entries in parameter <a href="../references/parameters.html#_config_override" class="page"><code>ceph_cluster.config_override</code></a>.</p>
 </div>
 <div class="paragraph">
-<p>For example, to change the OSD operations queue (<code>op_queue</code>) scheduler to the new <code>mclock_scheduler</code>, you can provide the following config.</p>
+<p>For example, to change the OSD operations queue (<code>op_queue</code>) scheduler to <code>wpq</code> for a Ceph v17 cluster, you can provide the following config.</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This configuration is only an example.
-We&#8217;ve not tested or benchmarked Ceph with the <code>mclock</code> scheduler.</p>
+<p>Ceph v17 has switched to <code>mclock_scheduler</code> by default.
+We&#8217;ve benchmarked both the <code>wpq</code> and <code>mclock_scheduler</code> for Ceph v17 and didn&#8217;t see significant differences on an idle cluster.</p>
+</div>
+<div class="paragraph">
+<p><code>mclock_scheduler</code> should provide improved client workload performance during recovery events if the cluster is heavily utilized.
+Additionally, recovery events should be able to consume more capacity when there&#8217;s little client load on the cluster.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.ceph.com/en/quincy/rados/configuration/osd-config-ref/#dmclock-qos">Ceph documentation</a> for more details.</p>
 </div>
 </td>
 </tr>
@@ -1124,7 +1131,7 @@ We&#8217;ve not tested or benchmarked Ceph with the <code>mclock</code> schedule
     ceph_cluster:
       config_override:
         osd:
-          osd_op_queue: mclock_scheduler</code></pre>
+          osd_op_queue: wpq</code></pre>
 </div>
 </div>
 <div class="paragraph">

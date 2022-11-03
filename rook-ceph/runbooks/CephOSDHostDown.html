@@ -1138,39 +1138,43 @@ $ kubectl -n "${ceph_cluster}" describe cephcluster
 Status:
   Ceph:
     Capacity:
-      Bytes Available:  305409896448
+      Bytes Available:  574670872576
       Bytes Total:      578156433408
-      Bytes Used:       272746536960
-      Last Updated:     2021-07-13T12:02:48Z
+      Bytes Used:       3485560832
+      Last Updated:     2022-11-03T13:54:53Z
+    Fsid:               a5231b40-1896-448d-aae5-9b37f3d16bee
     Health:             HEALTH_OK <i class="conum" data-value="1"></i><b>(1)</b>
-    Last Changed:       2021-07-13T09:18:38Z <i class="conum" data-value="2"></i><b>(2)</b>
-    Last Checked:       2021-07-13T12:02:48Z
+    Last Changed:       2022-11-03T10:31:44Z <i class="conum" data-value="2"></i><b>(2)</b>
+    Last Checked:       2022-11-03T13:54:53Z
     Previous Health:    HEALTH_WARN
     Versions:
+      Mds:
+        ceph version 17.2.5 (98318ae89f1a893a6ded3a640405cdbb33e08757) quincy (stable):  2 <i class="conum" data-value="3"></i><b>(3)</b>
       Mgr:
-        ceph version 16.2.4 (3cbe25cde3cfa028984618ad32de9edc4c1eaed0) pacific (stable):  1 <i class="conum" data-value="3"></i><b>(3)</b>
+        ceph version 17.2.5 (98318ae89f1a893a6ded3a640405cdbb33e08757) quincy (stable):  1 <i class="conum" data-value="4"></i><b>(4)</b>
       Mon:
-        ceph version 16.2.4 (3cbe25cde3cfa028984618ad32de9edc4c1eaed0) pacific (stable):  3 <i class="conum" data-value="4"></i><b>(4)</b>
+        ceph version 17.2.5 (98318ae89f1a893a6ded3a640405cdbb33e08757) quincy (stable):  3 <i class="conum" data-value="5"></i><b>(5)</b>
       Osd:
-        ceph version 16.2.4 (3cbe25cde3cfa028984618ad32de9edc4c1eaed0) pacific (stable):  3 <i class="conum" data-value="5"></i><b>(5)</b>
+        ceph version 17.2.5 (98318ae89f1a893a6ded3a640405cdbb33e08757) quincy (stable):  3 <i class="conum" data-value="6"></i><b>(6)</b>
       Overall:
-        ceph version 16.2.4 (3cbe25cde3cfa028984618ad32de9edc4c1eaed0) pacific (stable):  7 <i class="conum" data-value="6"></i><b>(6)</b>
+        ceph version 17.2.5 (98318ae89f1a893a6ded3a640405cdbb33e08757) quincy (stable):  9 <i class="conum" data-value="7"></i><b>(7)</b>
   Conditions:
-    Last Heartbeat Time:   2021-07-13T12:02:48Z
-    Last Transition Time:  2021-07-06T18:07:00Z
+    Last Heartbeat Time:   2022-11-03T13:54:53Z
+    Last Transition Time:  2022-11-02T12:22:41Z
     Message:               Cluster created successfully
     Reason:                ClusterCreated
     Status:                True
-    Type:                  Ready <i class="conum" data-value="7"></i><b>(7)</b>
+    Type:                  Ready <i class="conum" data-value="8"></i><b>(8)</b>
   Message:                 Cluster created successfully
+  Observed Generation:     3
   Phase:                   Ready
   State:                   Created
   Storage:
     Device Classes:
       Name:  hdd
   Version:
-    Image:    docker.io/ceph/ceph:v16.2.4 <i class="conum" data-value="8"></i><b>(8)</b>
-    Version:  16.2.4-0</code></pre>
+    Image:    quay.io/ceph/ceph:v17.2.5 <i class="conum" data-value="9"></i><b>(9)</b>
+    Version:  17.2.5-0</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1185,26 +1189,30 @@ Status:
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>List of running Ceph MGR version(s)</td>
+<td>List of running Ceph MDS version(s)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>List of running Ceph MON version(s)</td>
+<td>List of running Ceph MGR version(s)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>List of running Ceph OSD version(s)</td>
+<td>List of running Ceph MON version(s)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>List of all running Ceph version(s)</td>
+<td>List of running Ceph OSD version(s)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Current condition of <code>CephCluster</code> resource</td>
+<td>List of all running Ceph version(s)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Current condition of <code>CephCluster</code> resource</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
 <td>Ceph docker image used for the Ceph cluster</td>
 </tr>
 </table>
