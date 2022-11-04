@@ -31,9 +31,6 @@
 <loc>https://hub.syn.tools/sitemap-cert-manager.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-cilium.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-cloud-portal.xml</loc>
 </sitemap>
 <sitemap>
@@ -119,9 +116,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-networkpolicy.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-nfs-subdir-external-provisioner.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
@@ -221,12 +215,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-steward.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-system-upgrade-controller.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
