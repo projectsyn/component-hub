@@ -1015,7 +1015,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>A parameter to enable <a href="https://docs.openshift.com/container-platform/4.9/monitoring/enabling-monitoring-for-user-defined-projects.html">monitoring for user-defined projects</a>.</p>
+<p>A parameter to enable <a href="https://docs.openshift.com/container-platform/latest/monitoring/enabling-monitoring-for-user-defined-projects.html">monitoring for user-defined projects</a>.</p>
 </div>
 </div>
 </div>
@@ -1201,8 +1201,14 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheusOperator: {}
-prometheus: ${openshift4_monitoring:configs:prometheusK8s}
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertmanager:
+  enabled: true
+  enableAlertmanagerConfig: true
+  volumeClaimTemplate: ${openshift4_monitoring:configs:alertmanagerMain:volumeClaimTemplate}
+prometheusOperator: {}
+prometheus:
+  retention: 8d
+  volumeClaimTemplate: ${openshift4_monitoring:configs:prometheusK8s:volumeClaimTemplate}
 thanosRuler: {}</code></pre>
 </div>
 </div>
@@ -1214,31 +1220,45 @@ thanosRuler: {}</code></pre>
 <p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">user workload monitoring components</a>.</p>
 </div>
 <div class="paragraph">
+<p>By default, we configure the user workload monitoring Prometheus and Alertmanager to inherit the <code>volumeClaimTemplate</code> specifications from the cluster-monitoring config.
+This allows users to configure the default storageclass and volume size of both monitoring stacks through the cluster-monitoring config.</p>
+</div>
+<div class="paragraph">
 <p>This table shows the monitoring components you can configure and the keys used to specify the components:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Component</th>
 <th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alertmanager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanager</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only on OpenShift 4.11 and newer</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheus</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Ruler</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>thanosRuler</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1416,6 +1436,47 @@ See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configu
   release-4.9:
     SystemMemoryExceedsReservation:
       for: 30m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignoreuserworkload"><a class="anchor" href="#_ignoreuserworkload"></a><code>ignoreUserWorkload</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of alerting rules for which the component should patch the <code>expr</code> and <code>annotations.description</code> fields to ensure they don&#8217;t alert for the user workload monitoring stack.</p>
+</div>
+<div class="paragraph">
+<p>By default, we don&#8217;t turn off any alerts for the user workload monitoring stack.</p>
+</div>
+<div class="paragraph">
+<p>The parameter supports removing entries by providing the entry to remove prefixed with <code>~</code>.
+The parameter can be completely cleared with the following config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_monitoring:
+    alerts:
+      ~ignoreUserWorkload: []</code></pre>
 </div>
 </div>
 </div>
