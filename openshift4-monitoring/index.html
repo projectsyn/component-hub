@@ -866,6 +866,15 @@ See the components defaults for the exact value.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_cluster_reader_permissions"><a class="anchor" href="#_cluster_reader_permissions"></a>Cluster-reader permissions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component deploys a <code>ClusterRole</code> which grants <code>get</code>, <code>list</code>, and <code>watch</code> permissions on all <code>monitoring.coreos.com</code> resources.
+This <code>ClusterRole</code> is configured to be aggregated to the <code>cluster-reader</code> <code>ClusterRole</code>, thus granting users which have <code>cluster-reader</code> read-only access to all <code>monitoring.coreos.com</code> resources in the cluster.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="next"><a href="references/parameters.html">Parameters</a></span>
 </nav>
