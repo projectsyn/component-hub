@@ -795,11 +795,101 @@
 </aside>
 <article class="doc">
 <h1 class="page">Cilium</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>cilium is a Commodore component to manage Cilium.</p>
+<p>cilium is a Commodore component to manage the Cilium networkplugin.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
+<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details on how to use the component to configure and deploy Cilium.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aggregated_permissions"><a class="anchor" href="#_aggregated_permissions"></a>Aggregated permissions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component creates the following <code>ClusterRoles</code> which are aggregated to the cluster&#8217;s default <code>ClusterRoles</code>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Resources</th>
+<th class="tableblock halign-left valign-top">Aggregated to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>syn-cilium-view</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p><code>ciliumnetworkpolicies.cilium.io</code></p>
+</li>
+<li>
+<p><code>ciliumendpoints.cilium.io</code></p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p><code>view</code></p>
+</li>
+<li>
+<p><code>edit</code></p>
+</li>
+<li>
+<p><code>admin</code></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>syn-cilium-edit</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p><code>ciliumnetworkpolicies.cilium.io</code></p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p><code>edit</code></p>
+</li>
+<li>
+<p><code>admin</code></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>syn-cilium-cluster-reader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All resources in <code>cilium.io</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cluster-reader</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This enables users to view<sup class="footnote" id="_footnote_view">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> <code>ciliumnetworkpolicy</code> and <code>ciliumendpoint</code> resources in their namespaces.
+Users which have <code>edit</code> or <code>admin</code> permissions in a namespace, can additionally create, modify, and delete <code>ciliumnetworkpolicy</code> resources in that namespace.
+Finally, users which have <code>cluster-reader</code> permissions can view<sup class="footnoteref">[<a class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> at all resources in <code>cilium.io</code> in all namespaces.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. View permission grants RBAC verbs <code>get</code>, <code>list</code> and <code>watch</code>
+</div>
 </div>
 <nav class="pagination">
   <span class="next"><a href="references/parameters.html">Parameters</a></span>
