@@ -880,10 +880,9 @@ This guide assumes that you&#8217;ve already upgraded component <code>openshift4
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For example: https://api.syn.vshn.net
 # IMPORTANT: do NOT add a trailing `/`. Commands below will fail.
 export COMMODORE_API_URL=&lt;lieutenant-api-endpoint&gt;
-export COMMODORE_API_TOKEN=&lt;lieutenant-api-token&gt;
 
 export CLUSTER_ID=&lt;lieutenant-cluster-id&gt; # Looks like: c-&lt;something&gt;
-export TENANT_ID=$(curl -sH "Authorization: Bearer ${COMMODORE_API_TOKEN}" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r .tenant)
+export TENANT_ID=$(curl -sH "Authorization: Bearer $(commodore fetch-token)" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r .tenant)
 
 # From https://git.vshn.net/-/profile/personal_access_tokens, "api" scope is sufficient
 export GITLAB_TOKEN=&lt;gitlab-api-token&gt;
@@ -991,13 +990,7 @@ You need the Hieradata repo token so that Terraform can access the LB hieradata 
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export EXOSCALE_API_KEY=EXO... <i class="conum" data-value="1"></i><b>(1)</b>
-export EXOSCALE_API_SECRET=... <i class="conum" data-value="2"></i><b>(2)</b>
-
-cat &lt;&lt;EOF &gt; ./terraform.env
-EXOSCALE_API_KEY
-EXOSCALE_API_SECRET
-HIERADATA_REPO_TOKEN
-EOF</code></pre>
+export EXOSCALE_API_SECRET=... <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1026,6 +1019,24 @@ You need the Exoscale credentials so that Terraform can refresh the state.
 </div>
 </li>
 <li>
+<p>Setup Git author information and create the Terraform environment file.
+The Git author info is required so that Terraform can commit the hieradata changes.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GIT_AUTHOR_NAME=$(git config --global author.name)
+export GIT_AUTHOR_EMAIL=$(git config --global author.email)
+
+cat &lt;&lt;EOF &gt; ./terraform.env
+EXOSCALE_API_KEY
+EXOSCALE_API_SECRET
+HIERADATA_REPO_TOKEN
+GIT_AUTHOR_NAME
+GIT_AUTHOR_EMAIL
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Setup Terraform</p>
 <div class="listingblock">
 <div class="title">Prepare Terraform execution environment</div>
@@ -1048,7 +1059,7 @@ alias terraform='docker run -it --rm \
   --ulimit memlock=-1 \
   "${tf_image}:${tf_tag}" /tf/terraform.sh'
 
-export GITLAB_REPOSITORY_URL=$(curl -sH "Authorization: Bearer ${COMMODORE_API_TOKEN}" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r '.gitRepo.url' | sed 's|ssh://||; s|/|:|')
+export GITLAB_REPOSITORY_URL=$(curl -sH "Authorization: Bearer $(commodore fetch-token)" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r '.gitRepo.url' | sed 's|ssh://||; s|/|:|')
 export GITLAB_REPOSITORY_NAME=${GITLAB_REPOSITORY_URL##*/}
 export GITLAB_CATALOG_PROJECT_ID=$(curl -sH "Authorization: Bearer ${GITLAB_TOKEN}" "https://git.vshn.net/api/v4/projects?simple=true&amp;search=${GITLAB_REPOSITORY_NAME/.git}" | jq -r ".[] | select(.ssh_url_to_repo == \"${GITLAB_REPOSITORY_URL}\") | .id")
 export GITLAB_STATE_URL="https://git.vshn.net/api/v4/projects/${GITLAB_CATALOG_PROJECT_ID}/terraform/state/cluster"

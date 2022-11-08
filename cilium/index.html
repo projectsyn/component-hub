@@ -806,6 +806,18 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="_metrics_scraping"><a class="anchor" href="#_metrics_scraping"></a>Metrics scraping</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, the component enables the metrics endpoint for the Cilium agent.
+The component assumes that prometheus-operator will be present on the target cluster, and creates a <code>ServiceMonitor</code> resource for the agent metrics endpoint.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.11/operations/metrics/#cilium-agent">Cilium docs</a> for available agent metrics.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_aggregated_permissions"><a class="anchor" href="#_aggregated_permissions"></a>Aggregated permissions</h2>
 <div class="sectionbody">
 <div class="paragraph">
