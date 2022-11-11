@@ -850,6 +850,43 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>5.4</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The logging stack version to deploy.
+This parameter is used in the default values for parameters <code>channel</code> and <code>alerts</code>.</p>
+</div>
+<div class="paragraph">
+<p>We recommend that you use this parameter to specify the logging stack version which the component should deploy.
+However, you can still parameters <code>channel</code> and <code>alerts</code> directly.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://access.redhat.com/support/policy/updates/openshift#logging">OpenShift Logging life cycle documentation</a> for supported versions of the logging stack.
+We recommend that you select a version of the logging stack that&#8217;s officially listed as compatible with your OpenShift version.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_channel"><a class="anchor" href="#_channel"></a><code>channel</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -867,16 +904,23 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>stable</code></p>
+<p><code>stable-${openshift4_logging:version}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>Channel of the operator subscription to use.
-In OpenShift 4.7 Red Hat introduced an OpenShift version independent logging stack starting with the version 5.0.
-Since version 5.1 there are two channels stable and stable-5.x.
-Choosing the stable channel allows never have to care about the interoperability as the specific OpenShift version delivers the right version via the operator marketplace.</p>
+If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
+</div>
+<div class="paragraph">
+<p>In OpenShift 4.7, RedHat decoupled the logging stack version from the OpenShift version.
+The decoupled logging stack versions start at version 5.0.
+With version 5.1 of the logging stack, channels for specific minor versions were introduced.</p>
+</div>
+<div class="paragraph">
+<p>Ideally we would just default to the <code>stable</code> channel, as that channel will always be backed by a logging stack version compatible with the OpenShift cluster version by the OpenShift marketplace operator.
+However, since there&#8217;s potential for changes in configuration between logging stack versions which need to be managed through the component, we default to using the <code>stable-5.x</code> channel matching the version specified in parameter <code>version</code>.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-deploying.html#cluster-logging-deploy-cli_cluster-logging-deploying">OpenShift documentation</a> for details.</p>
@@ -901,14 +945,34 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>master</code></p>
+<p><code>release-${openshift4_logging:version}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>Release version of the alerting rules.
-Should be adjusted according to the channel: If you specify <code>channel: stable-5.2</code> use <code>alerts: release-5.2</code>.</p>
+If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
+</div>
+<div class="paragraph">
+<p>Generally, the value for parameter <code>alerts</code> should match the value for parameter <code>channel</code>: if you specify <code>channel: stable-5.4</code>, you should use <code>alerts: release-5.4</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>RedHat moved the YAML file containing the alert rules between cluster-logging version 5.4 and 5.5.
+To ensure the component can deploy alert rules for version 5.5, we&#8217;ve implemented support for the different file locations through a lookup map in the component class.
+However, due to limitations of reclass, there&#8217;s no way to specify a fallback value in case the lookup map doesn&#8217;t contain a key.
+Because of this, the component no longer automatically supports new versions of the logging stack.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
