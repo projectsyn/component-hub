@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Integrating Alertmanager with OpsGenie :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/how-tos/opsgenie.html">
-    <link rel="prev" href="../references/alert-patching.html">
-    <link rel="next" href="migrate/v0.1-v1.x.html">
+    <title>alert-patching.libsonnet API reference :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/references/alert-patching.html">
+    <link rel="prev" href="parameters.html">
+    <link rel="next" href="../how-tos/opsgenie.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,10 +100,10 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+    <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
   </li>
 </ul>
   </li>
@@ -111,11 +111,11 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="opsgenie.html">OpsGenie integration</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/opsgenie.html">OpsGenie integration</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
+    <a class="nav-link" href="../how-tos/migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
   </li>
 </ul>
   </li>
@@ -823,441 +823,211 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OpenShift4 Monitoring</a></li>
-    <li>How-Tos</li>
-    <li><a href="opsgenie.html">OpsGenie integration</a></li>
+    <li>Reference</li>
+    <li><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/how-tos/opsgenie.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/references/alert-patching.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Integrating Alertmanager with OpsGenie</h1>
+<h1 class="page"><code>alert-patching.libsonnet</code> API reference</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This how-to assumes that you&#8217;re already using OpsGenie.
-It additionally assumes that you&#8217;re familiar with managing schedules and escalations.</p>
+<p>The component provides library <code>openshift4-monitoring-alert-patching.libsonnet</code>, which is also available as <code>alert-patching.libsonnet</code>.
+This library provides some helper functions which allow users to ensure that PrometheusRule objects which they manage are suitable to use with component <code>openshift4-monitoring</code>.</p>
 </div>
-<div class="admonitionblock note">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local com = import 'lib/commodore.libjsonnet';
+local kap = import 'lib/kapitan.libjsonnet';
+local kube = import 'lib/kube.libjsonnet';
+
+local inv = kap.inventory();
+local params = inv.parameters.&lt;component_name&gt;;
+
+local alertpatching = import 'lib/alert-patching.libsonnet'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+local patches = params.alerts.patches; <i class="conum" data-value="2"></i><b>(2)</b>
+local ignoreNames = com.renderArray(params.alerts.ignoreNames); <i class="conum" data-value="3"></i><b>(3)</b>
+
+local raw_alert_groups = [ ... ]; <i class="conum" data-value="4"></i><b>(4)</b>
+
+{
+  alert_rules: kube._Object('monitoring.coreos.com/v1', 'PrometheusRule', 'my-alert-rules') {
+    metadata+: {
+      namespace: params.namespace,
+    },
+    spec: {
+      groups: std.filter(
+        function(it) std.length(r.rules) &gt; 0,
+        [
+          alertpatching.filterPatchRules(
+            g, ignoreNames, patches,
+          ); <i class="conum" data-value="5"></i><b>(5)</b>
+          for g in groups
+        ],
+      ), <i class="conum" data-value="6"></i><b>(6)</b>
+    },
+  },
+};</code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p><strong>For VSHN managed clusters</strong> there is a template in the commodore-defaults repo, so the process can be abbreviated:</p>
-</div>
-<div class="paragraph">
-<p>Ensure the Vault secrets below exist (<code>clusters/kv/&lt;tenant-id&gt;/&lt;cluster-id&gt;/opsgenie/api-key</code> and <code>clusters/kv/&lt;tenant-id&gt;/&lt;cluster-id&gt;/opsgenie/heartbeat-password</code>)</p>
-</div>
-<div class="paragraph">
-<p>Set the Team UUID (usually in the tenant&#8217;s <code>common.yml</code>):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  opsgenie:
-    teamID: &lt;team-uuid&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Include the template in the cluster YAML:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  openshift4_monitoring:
-    alertManagerConfig: ${opsgenie:template}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And that&#8217;s it!</p>
-</div>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Import the library.
+By using the aliased name, you can make your component compatible with any monitoring component which provides an <code>alert-patching.libsonnet</code> library alias.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Extract alert patches from the component parameters.
+Alternatively, you can define patches directly in Jsonnet.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Extract alert names to ignore from the component parameters.
+We use <code>com.renderArray()</code> here to allow users to re-enable alerts which were ignored higher up in the hierarchy.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Loading/creation of alert rule groups omitted for brevity.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Filter and patch each group in the loaded groups.
+We pass our preprocessed <code>ignoreNames</code> and <code>patches</code> to the function.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>We use <code>std.filter()</code> to completely remove groups which don&#8217;t contain any rules after filtering them from the resulting <code>PrometheusRule</code> object.</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_filterrulesgroup_ignorenames_preserverecordingrulesfalse"><a class="anchor" href="#_filterrulesgroup_ignorenames_preserverecordingrulesfalse"></a><code>filterRules(group, ignoreNames=[], preserveRecordingRules=false)</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to setup Alertmanager integration with OpsGenie, you&#8217;ll need sufficient permissions in OpsGenie to setup integrations and heartbeats.
-If you&#8217;re using teams in OpsGenie, request role "admin" in your team to be able to follow along.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enabling_the_integrations_in_opsgenie_once_per_team"><a class="anchor" href="#_enabling_the_integrations_in_opsgenie_once_per_team"></a>Enabling the integrations in OpsGenie (once per team)</h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The Prometheus and REST API integrations can be used to forward alerts from multiple clusters to OpsGenie</p>
-</div>
-</td>
-</tr>
-</table>
+<p>This function filters alert rules in the provided group.</p>
 </div>
 <div class="paragraph">
-<p>In OpsGenie, navigate to <span class="menuseq"><b class="menu">Teams</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Your Team</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Integrations</b></span> and enable the Prometheus and REST API integrations.
-You can use the same integrations to receive alerts from multiple Alertmanagers.
-In the REST API integration enable "Read Access" and "Create and Update Access."
-The REST API integration is required for heartbeat alerts, such as the "Watchdog" alert.</p>
+<p>The function assumes that parameter <code>group</code> is a valid entry for the PrometheusRule CR <code>.spec.groups</code> field.</p>
 </div>
+<div class="sect2">
+<h3 id="_arguments"><a class="anchor" href="#_arguments"></a>Arguments</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>group</code></dt>
+<dd>
+<p>A PrometheusRule CR <code>.spec.groups</code> entry.</p>
+</dd>
+<dt class="hdlist1"><code>ignoreNames</code></dt>
+<dd>
+<p>A list of alert names to filter out.
+This argument is optional, and defaults to the empty list.
+The function doesn&#8217;t process the provided value for <code>ignoreNames</code>, except converting it to a Jsonnet set with <code>std.set()</code>.
+If you want to use <code>com.renderArray()</code> to allow re-enabling ignored alerts, you&#8217;ll have to do so before providing the list to the function.</p>
+</dd>
+<dt class="hdlist1"><code>preserveRecordingRules</code></dt>
+<dd>
+<p>Whether to keep or discard recording rules in the group.
+This argument is optional and defaults to <code>false</code>.
+This is useful when wanting to patch alerting rules which are already deployed to the cluster through some operator (for example cluster-logging, or rook-ceph).
+Generally, in such cases, we&#8217;ll only want to modify alerting rules, but don&#8217;t want to deploy duplicates of the recording rules which may be present in the same groups as the alerting rules in the upstream manifests.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value"><a class="anchor" href="#_return_value"></a>Return value</h3>
 <div class="paragraph">
-<p>Save the API keys which are generated when enabling the integrations in Vault, we&#8217;ll reference them from the Commodore hierarchy.</p>
-</div>
-<div class="paragraph">
-<p>The snippets in this how-to assume that you&#8217;re using the default Commodore Vault hierarchy, and expect the OpsGenie API keys to be in the following locations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Prometheus Integration: <code>clusters/kv/&lt;tenant-id&gt;/&lt;cluster-id&gt;/opsgenie/api-key</code></p>
-</li>
-<li>
-<p>REST API Integration: <code>clusters/kv/&lt;tenant-id&gt;/&lt;cluster-id&gt;/opsgenie/heartbeat-password</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configuring_the_cluster_heartbeat_in_opsgenie_for_each_cluster"><a class="anchor" href="#_configuring_the_cluster_heartbeat_in_opsgenie_for_each_cluster"></a>Configuring the cluster heartbeat in OpsGenie (for each cluster)</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Configure a heartbeat in <span class="menuseq"><b class="menu">Teams</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Your Team</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Heartbeats</b></span> to receive <code>Watchdog</code> alerts from the cluster as heartbeats in OpsGenie.
-Create a new heartbeat, the name can be whatever you&#8217;d like.
-However, we suggest using the Commodore <code>&lt;cluster-id&gt;</code> of the cluster as the heartbeat name.
-Set the heartbeat interval to two minutes.
-Optionally, you can add the cluster&#8217;s display name (or any other descriptive name for the cluster) in the heartbeat&#8217;s description field.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configuring_alertmanager_to_send_alerts_to_opsgenie"><a class="anchor" href="#_configuring_alertmanager_to_send_alerts_to_opsgenie"></a>Configuring Alertmanager to send alerts to OpsGenie</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To configure Alertmanager to send alerts to OpsGenie we need to configure an Alertmanager receiver using Alertmanager&#8217;s <code>opsgenie</code> integration.
-First, we need to configure the <code>opsgenie_api_key</code> in the <code>global</code> section of the Alertmanager config.
-For the global API key you&#8217;ll want to reference the Vault secret holding the API key for the Prometheus integration.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    global:
-      opsgenie_api_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/opsgenie/api-key}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Next, we need to configure the OpsGenie receiver.
-First off, we want to set our team as the responder for all the alerts received from Alertmanager.
-We recommend that you use the team&#8217;s UUID for configuring the responders, as the UUID remains stable even if the team name is changed.
-We also configure the OpsGenie receiver as the default receiver.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The team&#8217;s UUID can be found in the URL of the team dashboard.
-Alternatively, you can find the Team&#8217;s UUID by querying the OpsGenie API using the <code>curl</code> command below.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">OPSGENIE_REST_API_KEY="&lt;Rest API Integration Key&gt;"
-TEAM_NAME="Your Team"
-curl -H "Authorization: GenieKey $OPSGENIE_REST_API_KEY" "https://api.opsgenie.com/v2/teams/${TEAM_NAME}?identifierType=name" | jq -r '.data.id'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    receivers:
-      - name: opsgenie
-        opsgenie_configs:
-          - responders:
-              - id: &lt;team-uuid&gt;
-                type: team
-    route:
-      receiver: opsgenie</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Additionally, we configure a number of things to make use of Project Syn and Openshift4 conventions in the alerts which are created in OpsGenie.</p>
-</div>
-<div class="paragraph">
-<p>This how-to makes use of some Project Syn and OpenShift 4 conventions in the alerts, such as the alert criticality being present as label <code>severity</code>.
-To ensure the configuration snippets which use fields in <code>.GroupLabels</code> work correctly,  alerts must be grouped by <code>alertname</code>, <code>namespace</code>, and <code>severity</code> at least.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>We don&#8217;t need group alerts by the <code>tenant_id</code> and <code>cluster_id</code> labels, since each cluster has its own Alertmanager.
-All alerts in a cluster&#8217;s Alertmanager will have the same value for <code>tenant_id</code> and <code>cluster_id</code>, allowing us to refer to them through <code>.CommonLabels</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    route:
-      group_by:
-        - alertname
-        - namespace
-        - severity</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>First we want to map the alert group&#8217;s <code>severity</code> label to an OpsGenie priority.
-OpsGenie priorities are <code>P1</code>, <code>P2</code>, <code>P3</code> and <code>P4</code> in descending order of urgency.
-We want to map <code>critical</code> severity to <code>P1</code>, <code>warning</code> to <code>P2</code>, <code>info</code> to <code>P3</code> and everything else (this includes alerts which don&#8217;t have a severity label) to <code>P4</code>.
-To achieve this mapping we add the following configuration in the OpsGenie receiver:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    receivers:
-      - name: opsgenie
-        opsgenie_configs:
-          - priority: '{{ if eq .GroupLabels.severity "critical" }}P1{{ else if eq .GroupLabels.severity "warning" }}P2{{ else if eq .GroupLabels.severity "info" }}P3{{ else }}P4{{ end }}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Next, we want to have a title for the OpsGenie alerts which gives some Project Syn information at a glance (tenant and cluster):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    receivers:
-      - name: opsgenie
-        opsgenie_configs:
-          - message: '[{{ .CommonLabels.tenant_id }}/{{ .CommonLabels.cluster_id }}] {{ .GroupLabels.alertname }} in {{ .GroupLabels.namespace }}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Because the <a href="https://github.com/prometheus/alertmanager/blob/master/template/default.tmpl">default Alertmanager template</a> for OpsGenie alert descriptions doesn&#8217;t fully match our use case, we deploy a custom template for the alert description.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    receivers:
-      - name: opsgenie
-        opsgenie_configs:
-          - description: |-
-              {{ if gt (len .Alerts.Firing) 0 -}}
-              Alerts Firing:
-              {{ range .Alerts.Firing }}
-               - Message: {{ .Annotations.message }}
-                 Labels:
-              {{ range .Labels.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-              {{ end }}   Annotations:
-              {{ range .Annotations.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-              {{ end }}   Source: {{ .GeneratorURL }}
-              {{ end }}
-              {{- end }}
-              {{ if gt (len .Alerts.Resolved) 0 -}}
-              Alerts Resolved:
-              {{ range .Alerts.Resolved }}
-               - Message: {{ .Annotations.message }}
-                 Labels:
-              {{ range .Labels.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-              {{ end }}   Annotations:
-              {{ range .Annotations.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-              {{ end }}   Source: {{ .GeneratorURL }}
-              {{ end }}
-              {{- end }}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To make alerts filterable, we add a number of key-value pairs as <code>details</code> and a number of values as <code>tags</code>.
-OpsGenie allows filtering alerts both by <code>tag</code> and by <code>details.key</code> and <code>details.value</code>.
-Note that tags must be provided as a single comma-separated string to Alertmanager.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Alertmanager upstream has merged a <a href="https://github.com/prometheus/alertmanager/pull/2276">PR (prometheus/alertmanager#2276)</a> which will automatically add all common labels as details to the OpsGenie alert.
-As of 2021–02–24, there&#8217;s no Alertmanager release which contains this change.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    receivers:
-      - name: opsgenie
-        opsgenie_configs:
-          - details:
-              namespace: '{{- if .CommonLabels.exported_namespace -}}{{- .CommonLabels.exported_namespace -}}{{- else if .CommonLabels.namespace -}}{{- .CommonLabels.namespace -}}{{- end -}}'
-              pod: '{{- if .CommonLabels.pod -}}{{- .CommonLabels.pod -}}{{- end -}}'
-              deployment: '{{- if .CommonLabels.deployment -}}{{- .CommonLabels.deployment -}}{{- end -}}'
-              alertname: '{{ .GroupLabels.alertname }}'
-              cluster_id: '{{ .CommonLabels.cluster_id }}'
-              tenant_id: '{{ .CommonLabels.tenant_id }}'
-              severity: '{{ .GroupLabels.severity }}'
-            tags: '{{ .CommonLabels.tenant_id }},
-              {{ .CommonLabels.cluster_id }},
-              {{ .GroupLabels.severity }},
-              {{ .GroupLabels.alertname }},
-              {{ .GroupLabels.namespace }},
-              {{- if .CommonLabels.exported_namespace -}}{{ .CommonLabels.exported_namespace }},{{- end -}}'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Finally, we need to make sure that the Watchdog alert is sent to OpsGenie as a heartbeat instead of a regular alert.
-To this effect, we configure an additional receiver which sends alerts to the OpsGenie REST API integration.
-In particular, this receiver sends alerts to the heartbeat <code>ping</code> endpoint for the heartbeat we&#8217;ve configured.
-If you followed our suggestion and used the Commodore <code>cluster-id</code> as the name for the heartbeat the snippet below will work out of the box.
-For this receiver you need to provide the API key of the REST API integration, which should be stored in Vault.</p>
-</div>
-<div class="paragraph">
-<p>In addition to the receiver, we also add a routing configuration to match alerts which are called <code>Watchdog</code> and ensure they&#8217;re sent to the <code>heartbeat</code> receiver with a repeat interval of one minute (60 seconds).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
-  alertManagerConfig:
-    receivers:
-      - name: heartbeat
-        webhook_configs:
-          - send_resolved: false
-            url: https://api.opsgenie.com/v2/heartbeats/${cluster:name}/ping
-            http_config:
-              basic_auth:
-                password: ?{vaultkv:${cluster:tenant}/${cluster:name}/opsgenie/heartbeat-password}
-    route:
-      routes:
-        - match:
-            alertname: Watchdog
-          repeat_interval: 60s
-          receiver: heartbeat</code></pre>
+<p>The group with any alert rules whose field <code>alert</code> matches an entry in either component parameter <code>openshift4_monitoring.alerts.ignoreNames</code>, or an entry in the provided <code>ignoreNames</code> list removed.
+If <code>preserveRecordingRules</code> is <code>false</code>, all recording rules are also removed from the resulting group.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_full_component_configuration"><a class="anchor" href="#_full_component_configuration"></a>Full component configuration</h2>
+<h2 id="_patchrulerule_patches_patchnametrue"><a class="anchor" href="#_patchrulerule_patches_patchnametrue"></a><code>patchRule(rule, patches={}, patchName=true)</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since we&#8217;ve discussed individual elements of the Alertmanager configuration in the previous section, here&#8217;s the full, copy-pasteable configuration.</p>
+<p>This function patches the provided alert rule to adhere to the format expected by this component.
+This includes adding labels which are used by other parts of the component to the rule (for example <code>syn=true</code>), and ensuring that the alert name is prefixed with <code>SYN_</code>.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  openshift4_monitoring:
-    alertManagerConfig:
-      global:
-        opsgenie_api_key: ?{vaultkv:${cluster:tenant}/${cluster:name}/opsgenie/api-key}
-      receivers:
-        - name: opsgenie
-          opsgenie_configs:
-            - priority: '{{ if eq .GroupLabels.severity "critical" }}P1{{ else if eq .GroupLabels.severity "warning" }}P2{{ else if eq .GroupLabels.severity "info" }}P3{{ else }}P4{{ end }}'
-              message: '[{{ .CommonLabels.tenant_id }}/{{ .CommonLabels.cluster_id }}] {{ .GroupLabels.alertname }} in {{ .GroupLabels.namespace }}'
-              description: |-
-                {{ if gt (len .Alerts.Firing) 0 -}}
-                Alerts Firing:
-                {{ range .Alerts.Firing }}
-                 - Message: {{ .Annotations.message }}
-                   Labels:
-                {{ range .Labels.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-                {{ end }}   Annotations:
-                {{ range .Annotations.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-                {{ end }}   Source: {{ .GeneratorURL }}
-                {{ end }}
-                {{- end }}
-                {{ if gt (len .Alerts.Resolved) 0 -}}
-                Alerts Resolved:
-                {{ range .Alerts.Resolved }}
-                 - Message: {{ .Annotations.message }}
-                   Labels:
-                {{ range .Labels.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-                {{ end }}   Annotations:
-                {{ range .Annotations.SortedPairs }}   - {{ .Name }} = {{ .Value }}
-                {{ end }}   Source: {{ .GeneratorURL }}
-                {{ end }}
-                {{- end }}
-              details:
-                namespace: '{{- if .CommonLabels.exported_namespace -}}{{- .CommonLabels.exported_namespace -}}{{- else if .CommonLabels.namespace -}}{{- .CommonLabels.namespace -}}{{- end -}}'
-                pod: '{{- if .CommonLabels.pod -}}{{- .CommonLabels.pod -}}{{- end -}}'
-                deployment: '{{- if .CommonLabels.deployment -}}{{- .CommonLabels.deployment -}}{{- end -}}'
-                alertname: '{{ .GroupLabels.alertname }}'
-                cluster_id: '{{ .CommonLabels.cluster_id }}'
-                tenant_id: '{{ .CommonLabels.tenant_id }}'
-                severity: '{{ .GroupLabels.severity }}'
-              tags: '{{ .CommonLabels.tenant_id }},
-                {{ .CommonLabels.cluster_id }},
-                {{ .GroupLabels.severity }},
-                {{ .GroupLabels.alertname }},
-                {{ .GroupLabels.namespace }},
-                {{- if .CommonLabels.exported_namespace -}}{{ .CommonLabels.exported_namespace }},{{- end -}}'
-              responders:
-                - id: &lt;team-uuid&gt;
-                  type: team
-        - name: heartbeat
-          webhook_configs:
-            - send_resolved: false
-              url: https://api.opsgenie.com/v2/heartbeats/${cluster:name}/ping
-              http_config:
-                basic_auth:
-                  password: ?{vaultkv:${cluster:tenant}/${cluster:name}/opsgenie/heartbeat-password}
-      route:
-        group_by:
-          - alertname
-          - namespace
-          - severity
-        receiver: opsgenie
-        routes:
-          - match:
-              alertname: Watchdog
-            repeat_interval: 60s
-            receiver: heartbeat</code></pre>
+<div class="paragraph">
+<p>Custom alert patches can be provided through argument <code>patches</code>.</p>
+</div>
+<div class="paragraph">
+<p>Recording rules will always be returned unchanged.</p>
+</div>
+<div class="sect2">
+<h3 id="_arguments_2"><a class="anchor" href="#_arguments_2"></a>Arguments</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>rule</code></dt>
+<dd>
+<p>The rule to patch</p>
+</dd>
+<dt class="hdlist1"><code>patches</code></dt>
+<dd>
+<p>An object with partial alert rule definitions.
+The function uses the provided rule&#8217;s <code>alert</code> field to look up potential patches.
+This parameter is optional and defaults to an empty object.</p>
+</dd>
+<dt class="hdlist1"><code>patchName</code></dt>
+<dd>
+<p>Whether to prefix the alert name with <code>SYN_</code> if it isn&#8217;t already.
+This parameter is optional and defaults to <code>true</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value_2"><a class="anchor" href="#_return_value_2"></a>Return value</h3>
+<div class="paragraph">
+<p>The patched rule</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_filterpatchrulesgroup_ignorenames_patches_preserverecordingrulesfalse_patchnamestrue"><a class="anchor" href="#_filterpatchrulesgroup_ignorenames_patches_preserverecordingrulesfalse_patchnamestrue"></a><code>filterPatchRules(group, ignoreNames=[], patches={}, preserveRecordingRules=false, patchNames=true)</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This function provides a convenience wrapper which filters the provided group using <code>filterRules</code>, and applies <code>patchRule</code> for each rule which isn&#8217;t dropped by <code>filterRules</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_arguments_3"><a class="anchor" href="#_arguments_3"></a>Arguments</h3>
+<div class="paragraph">
+<p>See <code>filterRules</code> and <code>patchRule</code> for detailed descriptions of the arguments.</p>
+</div>
+<div class="paragraph">
+<p>Argument <code>patchNames</code> is passed as argument <code>patchName</code> to <code>patchRule</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value_3"><a class="anchor" href="#_return_value_3"></a>Return value</h3>
+<div class="paragraph">
+<p>The group with any rules that match a filter condition removed and all other rules patched according to the provided patches.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
-  <span class="next"><a href="migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a></span>
+  <span class="prev"><a href="parameters.html">Parameters</a></span>
+  <span class="next"><a href="../how-tos/opsgenie.html">OpsGenie integration</a></span>
 </nav>
 </article>
   </div>
@@ -1268,7 +1038,7 @@ For this receiver you need to provide the API key of the REST API integration, w
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/how-tos/opsgenie.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/references/alert-patching.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
