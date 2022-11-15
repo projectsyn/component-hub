@@ -955,6 +955,9 @@ default
 If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
 </div>
 <div class="paragraph">
+<p>The component uses this parameter to determine the version to download for both Elasticsearch Operator and fluentd alert rules.</p>
+</div>
+<div class="paragraph">
 <p>Generally, the value for parameter <code>alerts</code> should match the value for parameter <code>channel</code>: if you specify <code>channel: stable-5.5</code>, you should use <code>alerts: release-5.5</code>.</p>
 </div>
 <div class="admonitionblock warning">
