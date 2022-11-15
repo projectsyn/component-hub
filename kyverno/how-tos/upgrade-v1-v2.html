@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: KyvernoAverageAdmissionLatencyHigh :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/kyverno/runbooks/KyvernoAverageAdmissionLatencyHigh.html">
-    <link rel="prev" href="KyvernoAdmissionLatencyReachedWebhookTimeout.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Upgrade from 1.x to 2.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/kyverno/how-tos/upgrade-v1-v2.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../runbooks/KyvernoAdmissionLatencyReachedWebhookTimeout.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,8 +93,8 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v1-v2.html">Upgrade 1.x to 2.x</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-v1-v2.html">Upgrade 1.x to 2.x</a>
   </li>
 </ul>
   </li>
@@ -103,10 +103,10 @@
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="KyvernoAdmissionLatencyReachedWebhookTimeout.html">KyvernoAdmissionLatencyReachedWebhookTimeout</a>
+    <a class="nav-link" href="../runbooks/KyvernoAdmissionLatencyReachedWebhookTimeout.html">KyvernoAdmissionLatencyReachedWebhookTimeout</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="KyvernoAverageAdmissionLatencyHigh.html">KyvernoAverageAdmissionLatencyHigh</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/KyvernoAverageAdmissionLatencyHigh.html">KyvernoAverageAdmissionLatencyHigh</a>
   </li>
 </ul>
   </li>
@@ -796,71 +796,139 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">kyverno</a></li>
-    <li>Alert runbooks</li>
-    <li><a href="KyvernoAverageAdmissionLatencyHigh.html">KyvernoAverageAdmissionLatencyHigh</a></li>
+    <li><a href="upgrade-v1-v2.html">Upgrade 1.x to 2.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-kyverno/edit/master/docs/modules/ROOT/pages/runbooks/KyvernoAverageAdmissionLatencyHigh.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-kyverno/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v1-v2.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: KyvernoAverageAdmissionLatencyHigh</h1>
+<h1 class="page">Upgrade from 1.x to 2.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/runbooks/KyvernoAverageAdmissionLatencyHigh.adoc - include::partial$runbooks/contribution_note.adoc[]</p>
+<p>This guide describes the steps to perform an upgrade of the component from version <code>1.x</code> to <code>2.x</code>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Kyverno average admission latency reached 5 seconds.
-Kubernetes object creation und updating is delayed.</p>
+<p>With version <code>v2.0</code>, the component installs <a href="https://github.com/kyverno/kyverno/releases/tag/v1.8.0">Kyverno <code>v1.8+</code></a>.
+The release <code>v1.8.0</code> comes with significant internal changes, and we noticed at least two breaking changes.
+We strongly advise to thoroughly test every policy after the upgrade.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Please consider appending any additional breaking changes you encountered.
+We believe it&#8217;s likely that there are more subtle changes.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Check Kyverno memory and CPU usage / limits.</p>
-</li>
-<li>
-<p>Check Kyverno logs.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Check logs for client side throttling messages, such as:</p>
+<div class="sect2">
+<h3 id="_breaking_changes"><a class="anchor" href="#_breaking_changes"></a>Breaking Changes</h3>
+<div class="sect3">
+<h4 id="_unresolved_jmespath_expressions"><a class="anchor" href="#_unresolved_jmespath_expressions"></a>Unresolved JMESPath expressions</h4>
+<div class="paragraph">
+<p>Until Kyverno <code>v1.7.3</code> unresolved JMESPath expressions evaluated to an empty string.
+With Kyverno <code>v1.8.0</code> it will now evaluate to <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>This impacts policies that look similar to the following:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre>I0211 08:07:25.200825       1 request.go:668] Waited for 1.197259946s due to client-side throttling, not priority and fairness, request: GET:https://172.30.0.1:443/apis/rbac.authorization.k8s.io/v1/namespaces/test-project-request/rolebindings/namespace-owner</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  ...
+  mutate:
+    patchStrategicMerge:
+      metadata:
+        labels:
+          buzz: '{{ foo.bar }}'
+  ...</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If on Kyverno <code>1.6.0</code> or newer, increase <code>-clientRateLimitQPS</code> and <code>-clientRateLimitBurst</code> command line flags.
-The default QPS limit in the client is 5, 10 burst.</p>
+<p>For Kyverno <code>v1.7.3</code>, if <code>foo.bar</code> doesn&#8217;t exist, this mutate block will set the label <code>buzz</code> to an empty string.
+With Kyverno <code>v1.8.0+</code> it will now set it to <code>null</code>, which will result in an error.</p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>To restore the old behavior you should use a non-existence check in the form of the OR expression followed by a default value if the field doesn&#8217;t exist</p>
 </div>
-</li>
-<li>
-<p>VSHN: Notify Tarazed</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  ...
+  mutate:
+    patchStrategicMerge:
+      metadata:
+        labels:
+          buzz: '{{ foo.bar || "" }}'
+  ...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exlude_roles_clusterroles_and_subjects"><a class="anchor" href="#_exlude_roles_clusterroles_and_subjects"></a>Exlude Roles, ClusterRoles and Subjects</h4>
+<div class="paragraph">
+<p>Until Kyverno <code>v1.7.3</code> if you directly use the deprecated <code>exclude</code> key to exclude a subject or role from a policy, the rule will be skipped if the request either has one of the provided roles or if one of the provided subjects.
+With Kyverno <code>v1.8.0</code> the requester now needs to both be one of the subjects and have one of the provided roles.</p>
+</div>
+<div class="paragraph">
+<p>This impacts policies that look similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  ...
+  exclude:
+    clusterRoles:
+      - cluster-admin
+      - fooer
+    subjects:
+      - kind: ServiceAccount
+        name: foo
+        namespace: bar
+      - kind: ServiceAccount
+        name: foo
+        namespace: buzz
+  ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With Kyverno <code>&lt;v1.8.0</code> this will skip the policy if the requester either is a ServiceAccount <code>foo</code> in namespace <code>bar</code> or <code>buzz</code>, OR it has the ClusterRole <code>cluster-admin</code> or <code>fooer</code>.
+With Kyverno <code>v1.8.0+</code> the policy is only skipped if the principal for the request is ServiceAccount <code>foo</code> in namespace <code>bar</code> or <code>buzz</code>, and that ServiceAccount has the ClusterRole <code>cluster-admin</code> or <code>fooer</code>.</p>
+</div>
+<div class="paragraph">
+<p>To restore the old behavior you should use the <code>any</code> key.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  ...
+  exclude:
+    any:
+      - clusterRoles:
+          - cluster-admin
+          - fooer
+      - subjects:
+          - kind: ServiceAccount
+            name: foo
+            namespace: bar
+          - kind: ServiceAccount
+            name: foo
+            namespace: buzz
+  ...</code></pre>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="KyvernoAdmissionLatencyReachedWebhookTimeout.html">KyvernoAdmissionLatencyReachedWebhookTimeout</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../runbooks/KyvernoAdmissionLatencyReachedWebhookTimeout.html">KyvernoAdmissionLatencyReachedWebhookTimeout</a></span>
 </nav>
 </article>
   </div>
@@ -871,7 +939,7 @@ The default QPS limit in the client is 5, 10 burst.</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/kyverno/runbooks/KyvernoAverageAdmissionLatencyHigh.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/kyverno/how-tos/upgrade-v1-v2.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
