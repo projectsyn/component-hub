@@ -1458,8 +1458,13 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Role based access control to the created tenant resources.
-Lieutenant creates a <code>Role</code> for each tenant.</p>
+<p>Role based access control to the created tenant (or cluster) resources.
+Lieutenant creates a <code>Role</code> for each tenant and cluster using the tenant or cluster ID as the role name.</p>
+</div>
+<div class="paragraph">
+<p>The component will create a RoleBinding named <code>custom-&lt;key&gt;</code> for each entry in the parameter.
+The <code>roleRef</code> for each RoleBinding will use the key in the parameter as the role name.
+We prefix the RoleBinding name with <code>custom-</code>, because Lieutenant already manages RoleBindings which use the tenant and cluster IDs as names.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1473,12 +1478,27 @@ Lieutenant creates a <code>Role</code> for each tenant.</p>
     - name: 'g-buzz'
       kind: 'Group'
     - name: 'u-bar-1'
+      kind: 'User'
+  c-bar-546:
+    - name: 'u-bar-1'
       kind: 'User'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The example configuration above will grant user <code>u-bar-1</code> and service account <code>sa-bar</code> read access to all Clusters owned by Tenant <code>t-foo-324</code>.
-And it will grant group <code>g-buzz</code> and user <code>u-bar-1</code> read access to all Clusters owned by Tenant <code>t-foo-1</code>.</p>
+<p>The example configuration above will create</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a RoleBinding <code>custom-t-foo-324</code> which grants user <code>u-bar-1</code> and service account <code>sa-bar</code> read access to all clusters owned by tenant <code>t-foo-324</code>.</p>
+</li>
+<li>
+<p>a RoleBinding <code>custom-t-foo-1</code> which grants group <code>g-buzz</code> and user <code>u-bar-1</code> read access to all clusters owned by tenant <code>t-foo-1</code>.</p>
+</li>
+<li>
+<p>a RoleBinding <code>custom-c-bar-546</code> which grants user <code>u-bar-1</code> read access to cluster <code>c-bar-546</code>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>This can usually only be configured after the initial setup of Lieutenant.</p>
