@@ -896,6 +896,70 @@ Using <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentic
 </div>
 </div>
 <div class="sect1">
+<h2 id="_impersonating_users"><a class="anchor" href="#_impersonating_users"></a>Impersonating Users</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>impersonate</code> permissions are granted to the groups defined in <code>openshift4_authentication.sudoGroups</code>.</p>
+</div>
+<div class="paragraph">
+<p>This allows users in the sudoers group to impersonate other users in the cluster.</p>
+</div>
+<div class="paragraph">
+<p>This is especially useful for debugging RBAC issues affecting other users.
+You can check the permissions of a user or service account by running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">kubectl --as=system:serviceaccount:NS:SERVICEACCOUNT auth can-i get deployments/test
+kubectl --as=USER auth can-i get deployments/test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When impersonating a user, their groups aren&#8217;t included in the impersonation.
+It&#8217;s however possible to add groups to the impersonated user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">kubectl --as=USER --as-group=GROUP auth can-i get deployments/test <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>It&#8217;s not necessary to pass an existing user if you only want to impersonate groups.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Group impersonation is only possible when impersonating a user.</p>
+</div>
+<div class="paragraph">
+<p>Impersonation is logged in the Kubernetes API server audit logs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">❯ oc adm node-logs --role=master --path=kube-apiserver/audit.log | grep "impersonatedUser" | jq
+{
+  "kind": "Event",
+  [...]
+  "verb": "get",
+  "user":
+    {
+      "username": "chuck.testa",
+    },
+  "impersonatedUser":
+    {
+      "username": "john.dwight",
+      "groups": ["system:authenticated"]
+    },
+[...]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_removing_the_kubeadmin_user"><a class="anchor" href="#_removing_the_kubeadmin_user"></a>Removing the kubeadmin user</h2>
 <div class="sectionbody">
 <div class="paragraph">
