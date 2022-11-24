@@ -830,6 +830,23 @@ We believe it&#8217;s likely that there are more subtle changes.
 </tr>
 </table>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you&#8217;re upgrading to v2 on OpenShift 4.10, please make sure you&#8217;re upgrading to at least <code>v2.1.0</code>.</p>
+</div>
+<div class="paragraph">
+<p>This version introduces component parameter <code>containerSecurityContext</code>, which needs to be set to <code>null</code> to ensure the Kyverno pods start on OpenShift 4.10.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect2">
