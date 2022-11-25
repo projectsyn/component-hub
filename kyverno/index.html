@@ -806,11 +806,27 @@
 </aside>
 <article class="doc">
 <h1 class="page">kyverno</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>kyverno is a Commodore component to manage kyverno.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aggregated_cluster_roles_for_the_kyverno_crds"><a class="anchor" href="#_aggregated_cluster_roles_for_the_kyverno_crds"></a>Aggregated cluster roles for the Kyverno CRDs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kyverno already brings <code>ClusterRole</code> objects to aggregate read-write permissions for its CRDs to the <code>admin</code> cluster role.
+However, upstream doesn&#8217;t provide <code>ClusterRole</code> objects to aggregate read-only permissions for the Kyverno CRDs to the <code>view</code> or <code>cluster-reader</code> cluster roles.</p>
+</div>
+<div class="paragraph">
+<p>To address this shortcoming, the component creates two <code>ClusterRole</code> objects, <code>syn-kyverno:aggregate-to-view</code> and <code>syn-kyverno:aggregate-to-cluster-reader</code> which aggregate read-only permissions to the <code>view</code> and <code>cluster-reader</code> cluster roles for namespaced and cluster-scoped Kyverno CRDs respectively.</p>
+</div>
 <div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="next"><a href="how-tos/upgrade-v1-v2.html">Upgrade 1.x to 2.x</a></span>
