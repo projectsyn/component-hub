@@ -842,7 +842,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_cloudscale_stringdata_token"><a class="anchor" href="#_secrets_cloudscale_stringdata_token"></a><code>secrets.cloudscale.stringData.token</code></h2>
+<h2 id="_secrets_credentials_stringdata_cloudscale_api_token"><a class="anchor" href="#_secrets_credentials_stringdata_cloudscale_api_token"></a><code>secrets.credentials.stringData.CLOUDSCALE_API_TOKEN</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -870,6 +870,65 @@ default
 <div class="paragraph">
 <p>You need to get the token from the <a href="https://control.cloudscale.ch">Cloudscale Control Panel</a>.
 You need to select the correct Project (token is limited to one project), choose "API Tokens" in the menu and generate a new one.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_secrets_credentials_stringdata_kubernetes_server_url"></a><code>secrets.credentials.stringData.KUBERNETES_SERVER_URL</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes server URL.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_secrets_credentials_stringdata_kubernetes_server_token"></a><code>secrets.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The token to connect to a Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>buckets.cloudscale.crossplane.io</code> managed resource, and <code>get</code> and <code>list</code> permissions for namespaces.</p>
 </div>
 </div>
 </div>
