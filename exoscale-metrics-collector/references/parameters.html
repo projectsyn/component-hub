@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/exoscale-metrics-collector/references/parameters.html">
-    <link rel="prev" href="../how-tos/installation.html">
+    <link rel="prev" href="../how-tos/multi-instance.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +94,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/installation.html">Installation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/multi-instance.html">Multi Instance</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
@@ -831,7 +834,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/vshn/exoscale-metrics-collector/blob/master/component/class/defaults.yml">See `class/defaults.yml</a>.</p>
+<p><a href="https://github.com/vshn/exoscale-metrics-collector/blob/master/component/class/defaults.yml">See class/defaults.yml</a>.</p>
 </td>
 </tr>
 </table>
@@ -988,12 +991,50 @@ default
 <p>The token to connect to a Kubernetes cluster.</p>
 </div>
 <div class="paragraph">
-<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>buckets.exoscale.crossplane.io</code> managed resource.</p>
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to the following managed resources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>buckets.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>postgresqls.exoscale.crossplane.io</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets_credentials_stringdata_acr_db_url"><a class="anchor" href="#_secrets_credentials_stringdata_acr_db_url"></a><code>secrets.credentials.stringData.ACR_DB_URL</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Billing Database URL.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/installation.html">Installation</a></span>
+  <span class="prev"><a href="../how-tos/multi-instance.html">Multi Instance</a></span>
 </nav>
 </article>
   </div>

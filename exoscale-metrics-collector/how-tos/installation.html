@@ -6,7 +6,7 @@
     <title>Installation :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/exoscale-metrics-collector/how-tos/installation.html">
     <link rel="prev" href="../index.html">
-    <link rel="next" href="../references/parameters.html">
+    <link rel="next" href="multi-instance.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -95,6 +95,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="installation.html">Installation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="multi-instance.html">Multi Instance</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
@@ -795,7 +798,7 @@
 <div class="paragraph">
 <p>This component requires <a href="https://github.com/appuio/component-appuio-cloud-reporting">component-appuio-cloud-reporting</a> and is installed into the same namespace.
 This is required for this component to be able to access the billing database and its connection secrets.
-It also requires an Exoscale IAMKey and a Kubernetes/OpenShift Service Account token in the target cluster to get <code>buckets.exoscale.crossplane.io</code> resources.</p>
+It also requires an Exoscale IAMKey and a Kubernetes/OpenShift Service Account token in the target cluster to get resources (e.g. SOS buckets, Postgres, etc).</p>
 </div>
 </div>
 </div>
@@ -804,8 +807,20 @@ It also requires an Exoscale IAMKey and a Kubernetes/OpenShift Service Account t
 <div class="sectionbody">
 <div class="paragraph">
 <p>The data is matched from k8s cluster and Exoscale organization.
-The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and <code>buckets.exoscale.crossplane.io</code> resources.
-The Access Key (IAM Key) from an Exoscale organization is required to have read access across all SOS buckets.</p>
+The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and to the following managed resources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>buckets.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>postgresqls.exoscale.crossplane.io</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Access Key (IAM Key) from an Exoscale organization is required to have read access across all managed resources (e.g. SOS buckets, Postgres, etc).</p>
 </div>
 </div>
 </div>
@@ -829,7 +844,7 @@ parameters:
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="next"><a href="multi-instance.html">Multi Instance</a></span>
 </nav>
 </article>
   </div>

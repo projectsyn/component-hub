@@ -95,6 +95,9 @@
     <a class="nav-link" href="../how-tos/installation.html">Installation</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/multi-instance.html">Multi Instance</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
@@ -790,7 +793,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page gives a brief overview how buckets data usage is saved to the postgres billing database.</p>
+<p>This page gives a brief overview how resources data usage (e.g. buckets) is saved to the postgres billing database.</p>
 </div>
 </div>
 </div>
@@ -810,10 +813,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Buckets are fetched from Exoscale Provider and K8s Cluster.</p>
+<p>Resources (e.g. buckets, DBaaS, &#8230;&#8203;) are fetched from Exoscale Provider and K8s Cluster.</p>
 </li>
 <li>
-<p>The bucket names in Exoscale are unique across organisation which prevents clusters having same bucket names.</p>
+<p>The resource names in Exoscale are unique across organisation which prevents clusters having same resource names.</p>
 </li>
 </ul>
 </div>
