@@ -451,6 +451,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -471,6 +479,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../openshift4-version/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -691,10 +707,26 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -820,6 +852,54 @@ default
 </div>
 <div class="paragraph">
 <p>Dictionary containing the container images used by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">controller: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">controller:
+  limits:
+    memory: 512Mi
+  requests:
+    memory: 256Mi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This dictionary allows overriding the default resource requests.</p>
 </div>
 </div>
 </div>
