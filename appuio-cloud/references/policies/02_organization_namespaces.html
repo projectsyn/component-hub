@@ -1012,6 +1012,9 @@ spec:
                 name: argocd-application-controller
                 namespace: argocd
               - kind: ServiceAccount
+                name: olm-operator-serviceaccount
+                namespace: openshift-operator-lifecycle-manager
+              - kind: ServiceAccount
                 name: namespace-openshift-config-2c8343f13594d63-manager
                 namespace: syn-resource-locker
               - kind: ServiceAccount
@@ -1061,6 +1064,9 @@ spec:
                 name: argocd-application-controller
                 namespace: argocd
               - kind: ServiceAccount
+                name: olm-operator-serviceaccount
+                namespace: openshift-operator-lifecycle-manager
+              - kind: ServiceAccount
                 name: namespace-openshift-config-2c8343f13594d63-manager
                 namespace: syn-resource-locker
               - kind: ServiceAccount
@@ -1109,6 +1115,9 @@ spec:
               - kind: ServiceAccount
                 name: argocd-application-controller
                 namespace: argocd
+              - kind: ServiceAccount
+                name: olm-operator-serviceaccount
+                namespace: openshift-operator-lifecycle-manager
               - kind: ServiceAccount
                 name: namespace-openshift-config-2c8343f13594d63-manager
                 namespace: syn-resource-locker
