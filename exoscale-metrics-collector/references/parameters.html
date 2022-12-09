@@ -853,7 +853,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_schedule"><a class="anchor" href="#_schedule"></a><code>schedule</code></h2>
+<h2 id="_objectstorage_schedule"><a class="anchor" href="#_objectstorage_schedule"></a><code>objectStorage.schedule</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -876,7 +876,63 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The cron schedule at which the metrics collection job is spawned.</p>
+<p>The cron schedule at which the object storage metrics collection job is spawned.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dbaas_enabled"><a class="anchor" href="#_dbaas_enabled"></a><code>dbaas.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to add the DBaaS cronjob, too.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dbaas_schedule"><a class="anchor" href="#_dbaas_schedule"></a><code>dbaas.schedule</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>*/15 * * * *</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cron schedule at which the DBaaS metrics collection job is spawned, if enabled.</p>
 </div>
 </div>
 </div>

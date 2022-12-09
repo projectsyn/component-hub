@@ -825,6 +825,15 @@ The Kubernetes Service Account token is required to have <code>get</code> permis
 <li>
 <p><code>postgresqls.exoscale.crossplane.io</code></p>
 </li>
+<li>
+<p><code>mysqls.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>redis.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>kafkas.exoscale.crossplane.io</code></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -842,7 +851,11 @@ The Kubernetes Service Account token is required to have <code>get</code> permis
 
 parameters:
   exoscale_metrics_collector:
-    schedule: '10 10,16,20 * * *'</code></pre>
+    objectStorage:
+      schedule: '10 10,16,20 * * *'
+    dbaas:
+      enabled: true # must be manually enabled to scrape DBaas metrics
+      schedule: '*/15 * * * *'</code></pre>
 </div>
 </div>
 <div class="paragraph">
