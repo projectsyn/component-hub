@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from 4.x to 5.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-4.x-to-5.x.html">
-    <link rel="prev" href="upgrade-3.x-to-4.x.html">
-    <link rel="next" href="upgrade-5.x-to-6.x.html">
+    <title>Upgrade from v10 to v11 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-10.x-to-11.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -144,7 +142,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-4.x-to-5.x.html">Upgrade 4.x to 5.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -882,47 +880,86 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">keycloak</a></li>
-    <li>How-to guides</li>
-    <li><a href="upgrade-4.x-to-5.x.html">Upgrade 4.x to 5.x</a></li>
+    <li><a href="upgrade-10.x-to-11.x.html">Upgrade from v10 to v11</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-4.x-to-5.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-10.x-to-11.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from 4.x to 5.x</h1>
+<h1 class="page">Upgrade from v10 to v11</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version 4.x to 5.x.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version v9 to v10.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_changes"><a class="anchor" href="#_changes"></a>Changes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The component requires Kubernetes v1.21 or newer.</p>
+</li>
+<li>
+<p>K8up v1 support has been removed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parameter_changes"><a class="anchor" href="#_parameter_changes"></a>Parameter changes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>charts.keycloakx</code> changed from <code>1.6.1</code> to <code>1.7.0</code>, the Keycloak image is updated from <code>18.0.2</code> to <code>19.0.3</code>.</p>
+</li>
+<li>
+<p><code>charts.postgresql</code> changed from <code>12.0.0</code> to <code>12.1.3</code>, the Postgresql version changes from version <code>11.14.0-debian-10-r28</code> to <code>postgresql:11.17.0-debian-11-r37</code>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The major change removes the support of <a href="https://cert-manager.io">cert-manager</a> below 1.0.</p>
+<p>If you&#8217;ve configured custom values for any of those parameters, make sure to adjust your configurations when upgrading from component version v9 to v10.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>When upgrading the component, the following actions are required if the built-in database is used:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Upgrade the <a href="https://github.com/projectsyn/component-cert-manager">Project Syn cert-manager</a> component version to v2 or newer.</p>
+<p>Do a backup of the built-in database.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">instance=keycloak
+namespace=syn-${instance}
+
+kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c postgresql -- sh -c 'PGDATABASE="$POSTGRES_DB" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --clean' &gt; keycloak-postgresql-$(date +%F-%H-%M-%S).sql</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Update the component itself</p>
+<p>Apply the parameter changes.</p>
+</li>
+<li>
+<p>Compile and push the cluster catalog.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></span>
-  <span class="next"><a href="upgrade-5.x-to-6.x.html">Upgrade 5.x to 6.x</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -932,7 +969,7 @@
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-4.x-to-5.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-10.x-to-11.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
