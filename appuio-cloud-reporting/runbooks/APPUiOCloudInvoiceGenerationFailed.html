@@ -871,7 +871,7 @@ Rerunning the job, can leave duplicates which need to be cleaned up.</p>
 Look out for connectivity issues (for example between the job and the ERP).</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n appuio-cloud-reporting logs $(kubectl -n appuio-cloud-reporting get job -l cron-job-name=generate-invoices --field-selector status.successful=0 -o name | tail -n1)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n appuio-cloud-reporting logs $(kubectl -n appuio-cloud-reporting get job -l cron-job-name=generate-invoices --field-selector status.successful=0 -o name | tail -n1) --all-containers</code></pre>
 </div>
 </div>
 </li>
