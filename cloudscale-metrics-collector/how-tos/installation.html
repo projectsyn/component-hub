@@ -807,6 +807,35 @@ This is required for this component to be able to access the billing database an
 </div>
 </div>
 <div class="sect1">
+<h2 id="_sources"><a class="anchor" href="#_sources"></a>Sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The data is matched from a k8s cluster and a Cloudscale project.
+The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and to the following managed resources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>buckets.cloudscale.crossplane.io</code></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_cloudscale_project"><a class="anchor" href="#_cloudscale_project"></a>Cloudscale project</h3>
+<div class="paragraph">
+<p>The User Access from a Cloudscale project is required to have read access to object storage (SOS buckets).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_k8s_cluster"><a class="anchor" href="#_k8s_cluster"></a>K8s cluster</h3>
+<div class="paragraph">
+<p>The access to the desired cluster from where the metrics should be collected has to be configured. The current configuration for each instance is done in the
+<code>syn-tenant-repo</code> under <code>manifests/&lt;desired-cluster&gt;/billing</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">

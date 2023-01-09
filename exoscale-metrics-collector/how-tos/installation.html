@@ -814,7 +814,7 @@ It also requires an Exoscale IAMKey and a Kubernetes/OpenShift Service Account t
 <h2 id="_sources"><a class="anchor" href="#_sources"></a>Sources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The data is matched from k8s cluster and Exoscale organization.
+<p>The data is matched from a k8s cluster and an Exoscale organization.
 The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and to the following managed resources:</p>
 </div>
 <div class="ulist">
@@ -834,10 +834,23 @@ The Kubernetes Service Account token is required to have <code>get</code> permis
 <li>
 <p><code>kafkas.exoscale.crossplane.io</code></p>
 </li>
+<li>
+<p><code>opensearches.exoscale.crossplane.io</code></p>
+</li>
 </ul>
 </div>
+<div class="sect2">
+<h3 id="_exoscale_organization"><a class="anchor" href="#_exoscale_organization"></a>Exoscale organization</h3>
 <div class="paragraph">
 <p>The Access Key (IAM Key) from an Exoscale organization is required to have read access across all managed resources (e.g. SOS buckets, Postgres, etc).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_k8s_cluster"><a class="anchor" href="#_k8s_cluster"></a>K8s cluster</h3>
+<div class="paragraph">
+<p>The access to the desired cluster from where the metrics should be collected has to be configured. The current configuration for each instance is done in the
+<code>syn-tenant-repo</code> under <code>manifests/&lt;desired-cluster&gt;/billing</code></p>
+</div>
 </div>
 </div>
 </div>
