@@ -895,6 +895,52 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_apiserver_extraenv"><a class="anchor" href="#_apiserver_extraenv"></a><code>apiserver.extraEnv</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extraEnv:
+  ODOO_PASSWORD:
+    secretKeyRef:
+      name: odoo-user
+      key: password
+  DEBUG: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment that should be passed to the API server.
+If a dict is given <code>valueFrom:</code> is assumed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_apiserver_apiservice"><a class="anchor" href="#_apiserver_apiservice"></a><code>apiserver.apiservice</code></h2>
 <div class="sectionbody">
 <div class="dlist">
@@ -1111,6 +1157,48 @@ default
 </div>
 <div class="paragraph">
 <p>A list of extra command line arguments for the control-api controller deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controller_extraenv"><a class="anchor" href="#_controller_extraenv"></a><code>controller.extraEnv</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extraEnv:
+  DEBUG: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment that should be passed to the controller.
+If a dict is given <code>valueFrom:</code> is assumed.</p>
 </div>
 </div>
 </div>
