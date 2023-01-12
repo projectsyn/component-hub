@@ -112,80 +112,32 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/component-parameters.html">Component Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/provider-cloudscale.html">provider.cloudscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/provider-exoscale.html">provider.exoscale</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/provider-kubernetes.html">provider.kubernetes</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">XRD Parameters</span>
+    <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/common.html">Common Parameters</a>
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/objectstorage.html">composite.objectstorage</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/dbaas/exoscale/postgres.html">composite.dbaas.exoscale.postgres</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/dbaas/exoscale/mysql.html">composite.dbaas.exoscale.mysql</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/dbaas/exoscale/redis.html">composite.dbaas.exoscale.redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/dbaas/exoscale/kafka.html">composite.dbaas.exoscale.kafka</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composite/dbaas/exoscale/opensearch.html">composite.dbaas.exoscale.opensearch</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Composition Parameters</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/objectstorage/common.html">Common Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/objectstorage/cloudscale.html">composition.objectstorage.cloudscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/objectstorage/exoscale.html">composition.objectstorage.exoscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/dbaas/exoscale/common.html">Common Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/dbaas/exoscale/postgres.html">composition.dbaas.exoscale.postgres</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/dbaas/exoscale/mysql.html">composition.dbaas.exoscale.mysql</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/dbaas/exoscale/redis.html">composition.dbaas.exoscale.redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/dbaas/exoscale/kafka.html">composition.dbaas.exoscale.kafka</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/composition/dbaas/exoscale/opensearch.html">composition.dbaas.exoscale.opensearch</a>
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -899,10 +851,7 @@
 <p>A Crossplane provider to manage cloudscale.ch resources.</p>
 </li>
 <li>
-<p>A Crossplane composite (XRD) which serves as the user&#8217;s "interface" (API) for ordering S3 buckets.</p>
-</li>
-<li>
-<p>A Crossplane composition that "implements" an XRD using the cloudscale.ch provider.</p>
+<p>The AppCat Objectstorage service with the cloudscale implementation.</p>
 </li>
 </ul>
 </div>
@@ -980,55 +929,49 @@ vault kv put "${parent}" token=&lt;the-cloudscale-token&gt;</code></pre>
 <p>Configure cluster catalog.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">classes:
-  - appcat.provider.cloudscale <i class="conum" data-value="1"></i><b>(1)</b>
-  - appcat.provider.kubernetes <i class="conum" data-value="2"></i><b>(2)</b>
-  - appcat.composite.objectstorage <i class="conum" data-value="3"></i><b>(3)</b>
-  - appcat.composition.objectstorage.cloudscale <i class="conum" data-value="4"></i><b>(4)</b>
-applications: <i class="conum" data-value="5"></i><b>(5)</b>
-  - pkg.appcat
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications: <i class="conum" data-value="1"></i><b>(1)</b>
+  - appcat
+  - crossplane
 
 parameters:
-  packages:
-    appcat:
-      url: {page-origin-url}
-      version: master <i class="conum" data-value="6"></i><b>(6)</b>
-      path: packages
+  appcat:
+    providers:
+      cloudscale:
+        enabled: true <i class="conum" data-value="2"></i><b>(2)</b>
+    services:
+      generic:
+        objectstorage:
+          enabled: true <i class="conum" data-value="3"></i><b>(3)</b>
+          compositions:
+            exoscale:
+              enable: false <i class="conum" data-value="4"></i><b>(4)</b>
+
   crossplane:
     helmValues:
       rbacManager:
-        managementPolicy: Basic <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
+        managementPolicy: Basic <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The config for the operator (provider) that talks to cloudscale.ch API.</td>
+<td>Enable the <code>appcat</code> and <code>crossplane</code> components</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The config for the provider-kubernetes is required as a dependency.</td>
+<td>Enable the provider cloudscale</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The XRD is configured in this package.</td>
+<td>Enable the AppCat Objectstorage service</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The composition is configured in this package.</td>
+<td>Explicitly disable the exoscale implementation at we don&#8217;t deploy the provider exoscale</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>We need to enable the packages as part of the applications.
-This gives us access to the provided classes.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The version of the package (applies to all appcat packages!).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>Ensure that RBAC management policy is set to <code>Basic</code> only.</td>
 </tr>
 </table>

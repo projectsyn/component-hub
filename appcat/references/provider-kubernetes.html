@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>pkg.appcat.provider.kubernetes :: Commodore Hub</title>
+    <title>Provider Kubernetes :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-kubernetes.html">
     <link rel="prev" href="provider-exoscale.html">
-    <link rel="next" href="composite/common.html">
+    <link rel="next" href="services-exoscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -112,80 +112,32 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Component Parameters</a>
+    <a class="nav-link" href="component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">provider.cloudscale</a>
+    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">provider.exoscale</a>
+    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">provider.kubernetes</a>
+    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">XRD Parameters</span>
+    <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/common.html">Common Parameters</a>
+    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/objectstorage.html">composite.objectstorage</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/postgres.html">composite.dbaas.exoscale.postgres</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/mysql.html">composite.dbaas.exoscale.mysql</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/redis.html">composite.dbaas.exoscale.redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/kafka.html">composite.dbaas.exoscale.kafka</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/opensearch.html">composite.dbaas.exoscale.opensearch</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Composition Parameters</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/common.html">Common Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/cloudscale.html">composition.objectstorage.cloudscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/exoscale.html">composition.objectstorage.exoscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/common.html">Common Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/postgres.html">composition.dbaas.exoscale.postgres</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/mysql.html">composition.dbaas.exoscale.mysql</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/redis.html">composition.dbaas.exoscale.redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/kafka.html">composition.dbaas.exoscale.kafka</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/opensearch.html">composition.dbaas.exoscale.opensearch</a>
+    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -878,7 +830,7 @@
     <li><a href="../index.html">appcat</a></li>
     <li>Technical reference</li>
     <li>Provider Parameters</li>
-    <li><a href="provider-kubernetes.html">provider.kubernetes</a></li>
+    <li><a href="provider-kubernetes.html">Provider Kubernetes</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-kubernetes.adoc">Edit this Page</a></div>
@@ -888,16 +840,73 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">pkg.appcat.provider.kubernetes</h1>
+<h1 class="page">Provider Kubernetes</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>pkg.appcat.provider.kubernetes</code>.</p>
+<p>The parent key for all of the following parameters is <code>appcat.provider.kubernetes</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_imagesprovider_kubernetes"><a class="anchor" href="#_imagesprovider_kubernetes"></a><code>images:provider-kubernetes</code></h2>
+<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the provider should be installed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${crossplane:namespace}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace the provider kubernetes will be running in.
+This is in almost all cases the same namespace crossplane itself is running and won&#8217;t need to be changed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -909,24 +918,67 @@ type
 <p>dict</p>
 </td>
 </tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>spec</code> parameters contains the <code>spec</code> of the <code>Provider</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>Consult the <a href="https://docs.crossplane.io/v1.10/concepts/packages/#installing-a-package">upstream documentation</a> for configuration options.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_providerconfig"><a class="anchor" href="#_providerconfig"></a><code>providerConfig</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
 <tr>
 <td class="hdlist1">
-default
+type
 </td>
 <td class="hdlist2">
-<p>see <code>packages/provider/kubernetes.yml</code></p>
+<p>dict</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The package image repository for <a href="https://github.com/crossplane-contrib/provider-kubernetes">provider-kubernetes</a>.</p>
+<p>The <code>spec</code> of the <code>ProviderConfig</code>.</p>
+</div>
+<div class="paragraph">
+<p>Look at the <a href="https://doc.crds.dev/github.com/crossplane-contrib/provider-kubernetes/kubernetes.crossplane.io/ProviderConfig/v1alpha1@v0.6.0">upstream documentation</a> for available configuration options.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controllerconfig"><a class="anchor" href="#_controllerconfig"></a><code>controllerConfig</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>spec</code> of the <code>ControllerConfig</code>.
+By default, the component will set a fixed service account name.
+If the component is deployed on OpenShift, it will automatically add the necessary security context changes to the config.</p>
+</div>
+<div class="paragraph">
+<p>Consult the <a href="https://doc.crds.dev/github.com/crossplane/crossplane/pkg.crossplane.io/ControllerConfig/v1alpha1">upstream documentation</a> for configuration options.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-exoscale.html">provider.exoscale</a></span>
-  <span class="next"><a href="composite/common.html">Common Parameters</a></span>
+  <span class="prev"><a href="provider-exoscale.html">Provider Exoscale</a></span>
+  <span class="next"><a href="services-exoscale.html">Exoscale Services</a></span>
 </nav>
 </article>
   </div>

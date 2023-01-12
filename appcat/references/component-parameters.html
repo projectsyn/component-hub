@@ -112,80 +112,32 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Component Parameters</a>
+    <a class="nav-link" href="component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">provider.cloudscale</a>
+    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">provider.exoscale</a>
+    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">provider.kubernetes</a>
+    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">XRD Parameters</span>
+    <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/common.html">Common Parameters</a>
+    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/objectstorage.html">composite.objectstorage</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/postgres.html">composite.dbaas.exoscale.postgres</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/mysql.html">composite.dbaas.exoscale.mysql</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/redis.html">composite.dbaas.exoscale.redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/kafka.html">composite.dbaas.exoscale.kafka</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composite/dbaas/exoscale/opensearch.html">composite.dbaas.exoscale.opensearch</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Composition Parameters</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/common.html">Common Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/cloudscale.html">composition.objectstorage.cloudscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/objectstorage/exoscale.html">composition.objectstorage.exoscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/common.html">Common Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/postgres.html">composition.dbaas.exoscale.postgres</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/mysql.html">composition.dbaas.exoscale.mysql</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/redis.html">composition.dbaas.exoscale.redis</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/kafka.html">composition.dbaas.exoscale.kafka</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition/dbaas/exoscale/opensearch.html">composition.dbaas.exoscale.opensearch</a>
+    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -877,7 +829,7 @@
   <ul>
     <li><a href="../index.html">appcat</a></li>
     <li>Technical reference</li>
-    <li><a href="component-parameters.html">Component Parameters</a></li>
+    <li><a href="component-parameters.html">Parameters</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/component-parameters.adoc">Edit this Page</a></div>
@@ -896,7 +848,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -913,45 +865,23 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>{}</code></p>
+<p><a href="https://github.com/vshn/component-appcat/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
-  my-secret: <i class="conum" data-value="1"></i><b>(1)</b>
-    metadata:
-      namespace: syn-crossplane
-    stringData:
-      key: '?{vaultkv:${cluster:tenant}/${cluster:name}/appcat/example}'</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>metadata.name</code> of the Secret</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Deploys Secrets as shown in the example.
-If a key under <code>secrets.*</code> is set to <code>null</code> (for example through hierarchy), then the Secret is removed.</p>
+<p>This parameter allows selecting the Docker images to us.
+Each image is specified using keys <code>registry</code>, <code>repository</code> and <code>tag</code>.
+This structure allows easily injecting a registry mirror, if required.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_additionalresources"><a class="anchor" href="#_additionalresources"></a><code>additionalResources</code></h2>
+<h2 id="_providers"><a class="anchor" href="#_providers"></a><code>providers</code></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_providers_cloudscale"><a class="anchor" href="#_providers_cloudscale"></a><code>providers.cloudscale</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -964,72 +894,77 @@ type
 </tr>
 <tr>
 <td class="hdlist1">
-default
+reference
 </td>
 <td class="hdlist2">
-<p><code>{}</code></p>
+<p><a href="provider-cloudscale.html" class="page">See provider parameters</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows configuring <a href="https://github.com/vshn/provider-cloudscale">the provider cloudscale</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_providers_exoscale"><a class="anchor" href="#_providers_exoscale"></a><code>providers.exoscale</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
 </td>
 </tr>
 <tr>
 <td class="hdlist1">
-example
+reference
 </td>
 <td class="hdlist2">
+<p><a href="provider-exoscale.html" class="page">See provider parameters</a></p>
 </td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additionalResources:
-  my-secret: <i class="conum" data-value="1"></i><b>(1)</b>
-    apiVersion: v1 <i class="conum" data-value="2"></i><b>(2)</b>
-    kind: ConfigMap <i class="conum" data-value="3"></i><b>(3)</b>
-    metadata:
-      namespace: syn-crossplane
-    data:
-      key: value</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>metadata.name</code> of the object</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>apiVersion</code> of the object (<em>required</em>)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td><code>kind</code> of the object (<em>required</em>)</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Similar to <code>secrets</code>, but able to deploy arbitrary static resources.
-This can be used to deploy single ad-hoc resources, but it&#8217;s not intended to manage whole deployments.</p>
+<p>This parameter allows configuring <a href="https://github.com/vshn/provider-exoscale">the provider exoscale</a>.</p>
 </div>
-<div class="admonitionblock tip">
+</div>
+<div class="sect2">
+<h3 id="_providers_kubernetes"><a class="anchor" href="#_providers_kubernetes"></a><code>providers.kubernetes</code></h3>
+<div class="hdlist">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<td class="hdlist1">
+type
 </td>
-<td class="content">
-<div class="paragraph">
-<p>Consider adding dedicated parameters if there&#8217;s a pattern of commonly deployed resources.</p>
-</div>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+reference
+</td>
+<td class="hdlist2">
+<p><a href="provider-kubernetes.html" class="page">See provider parameters</a></p>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>This parameter allows configuring <a href="https://github.com/crossplane-contrib/provider-kubernetes">the provider kubernetes</a>.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_composites"><a class="anchor" href="#_composites"></a><code>composites</code></h2>
+<h2 id="_services"><a class="anchor" href="#_services"></a><code>services</code></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_services_exoscale"><a class="anchor" href="#_services_exoscale"></a><code>services.exoscale</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1042,59 +977,38 @@ type
 </tr>
 <tr>
 <td class="hdlist1">
-default
+reference
 </td>
 <td class="hdlist2">
-<p><code>{}</code></p>
+<p><a href="services-exoscale.html" class="page">See service parameters</a></p>
 </td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">composites:
-  "xobjectbuckets.appcat.vshn.io": <i class="conum" data-value="1"></i><b>(1)</b>
-    spec: <i class="conum" data-value="2"></i><b>(2)</b>
-      group: appcat.vshn.io
-      names:
-        kind: XObjectBucket
-        plural: xobjectbuckets
-      claimNames:
-        kind: ObjectBucket
-        plural: objectbuckets
-      versions:
-        - name: v1
-          schema:
-            openAPIV3Schema: {...}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>metadata.name</code> of the object</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>spec</code> of a composite ("XRD") verbatim</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Deploys the composite resource definitions (XRDs) to the cluster.</p>
+<p>This parameter allows enabling and configuring exoscale specific AppCat services.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_services_generic"><a class="anchor" href="#_services_generic"></a><code>services.generic</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
 </div>
-<div class="sect1">
-<h2 id="_compositions"><a class="anchor" href="#_compositions"></a><code>compositions</code></h2>
-<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>generic</code> parameter contains configuration for AppCat services that aren&#8217;t specific to one provider, but are implemented by multiple different providers.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_services_generic_objectstorage"><a class="anchor" href="#_services_generic_objectstorage"></a><code>services.generic.objectstorage</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1107,45 +1021,23 @@ type
 </tr>
 <tr>
 <td class="hdlist1">
-default
+reference
 </td>
 <td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
+<p><a href="service-objectstorage.html" class="page">See service parameters</a></p>
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">compositions:
-  test-composition: <i class="conum" data-value="1"></i><b>(1)</b>
-    spec: {...} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<div class="paragraph">
+<p>This parameter allows enabling and configuring the generic objectstorage AppCat service.</p>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>metadata.name</code> of the object</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>spec</code> of a composition</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../tutorials/install-exoscale.html">Install Exoscale Stack</a></span>
-  <span class="next"><a href="provider-cloudscale.html">provider.cloudscale</a></span>
+  <span class="next"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
 </nav>
 </article>
   </div>

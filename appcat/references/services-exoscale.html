@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Provider Exoscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-exoscale.html">
-    <link rel="prev" href="provider-cloudscale.html">
-    <link rel="next" href="provider-kubernetes.html">
+    <title>Exoscale Services :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/services-exoscale.html">
+    <link rel="prev" href="provider-kubernetes.html">
+    <link rel="next" href="service-objectstorage.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -121,7 +121,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -133,7 +133,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -829,30 +829,34 @@
   <ul>
     <li><a href="../index.html">appcat</a></li>
     <li>Technical reference</li>
-    <li>Provider Parameters</li>
-    <li><a href="provider-exoscale.html">Provider Exoscale</a></li>
+    <li>Service Parameters</li>
+    <li><a href="services-exoscale.html">Exoscale Services</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-exoscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/services-exoscale.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Provider Exoscale</h1>
+<h1 class="page">Exoscale Services</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.provider.exoscale</code>.</p>
+<p>The parent key for all of the following parameters is <code>appcat.services.exoscale</code>.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
+<div class="paragraph">
+<p>If you enable any of the exoscale service, make sure that the provider exoscale is deployed.
+Either by enabling it in <code>appcat.providers</code> or separately from this component.</p>
+</div>
 <div class="paragraph">
 <p>You can also have a look at the <a href="../tutorials/install-exoscale.html" class="page">tutorial for installing the Exoscale stack.</a></p>
 </div>
@@ -862,9 +866,8 @@
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -886,13 +889,12 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>If the provider should be installed.</p>
+<p>If exoscale services should be available at all.
+When set to false no exoscale services will be deployed, even if a specific service was enabled.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_connectionsecretnamespace"><a class="anchor" href="#_connectionsecretnamespace"></a><code>connectionSecretNamespace</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_secretnamespace"><a class="anchor" href="#_secretnamespace"></a><code>secretNamespace</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -908,19 +910,49 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-provider-exoscale-secrets</code></p>
+<p><code>${crossplane:namespace}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A namespace to store the connection secrets in.
-The namespace will be created and managed by this component.</p>
+<p>In which namespace an XR&#8217;s connection secret is written to.</p>
 </div>
+<div class="paragraph">
+<p>Defaults to the crossplane namespace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_providersecretnamespace"><a class="anchor" href="#_providersecretnamespace"></a><code>providerSecretNamespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>`${appcat:providers:exoscale:connectionSecretNamespace}^</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In which namespace the provider is putting the connection secrets of the managed resource.</p>
+</div>
+<div class="paragraph">
+<p>Defaults to what defined in the provider config.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_credentials"><a class="anchor" href="#_credentials"></a><code>credentials</code></h2>
+<h2 id="_mysql"><a class="anchor" href="#_mysql"></a><code>mysql</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -935,16 +967,16 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>Credentials to connect to the Exoscale API.
-You can specify the name and namespace of the created secret and the <code>stringData</code> in the <code>data</code> field.</p>
+<p>Configuration option for Exoscale MySQL.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>data</code> field should contain an IAM access key in the field <code>EXOSCALE_API_KEY</code> and the corresponding secret key in the field <code>EXOSCALE_API_SECRET</code>.</p>
+<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h2>
+<h2 id="_postgres"><a class="anchor" href="#_postgres"></a><code>postgres</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -959,15 +991,16 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>spec</code> parameters contains the <code>spec</code> of the <code>Provider</code> resource.</p>
+<p>Configuration option for Exoscale PostgrSQL.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 <div class="paragraph">
-<p>Consult the <a href="https://docs.crossplane.io/v1.10/concepts/packages/#installing-a-package">upstream documentation</a> for configuration options.</p>
+<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_providerconfig"><a class="anchor" href="#_providerconfig"></a><code>providerConfig</code></h2>
+<h2 id="_redis"><a class="anchor" href="#_redis"></a><code>redis</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -982,16 +1015,16 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>spec</code> of the <code>ProviderConfig</code>.
-By default, the component will add the credentials to the provider config.</p>
+<p>Configuration option for Exoscale Redis.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 <div class="paragraph">
-<p>Look at <a href="https://github.com/vshn/provider-exoscale/blob/master/apis/provider/v1/providerconfig_types.go">the provider exoscale</a> for available configuration options.</p>
+<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_controllerconfig"><a class="anchor" href="#_controllerconfig"></a><code>controllerConfig</code></h2>
+<h2 id="_kafka"><a class="anchor" href="#_kafka"></a><code>kafka</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1006,17 +1039,41 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>spec</code> of the <code>ControllerConfig</code>.
-If the component is deployed on OpenShift, it will automatically add the necessary security context changes to the config.</p>
+<p>Configuration option for Exoscale Kafka.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 <div class="paragraph">
-<p>Consult the <a href="https://doc.crds.dev/github.com/crossplane/crossplane/pkg.crossplane.io/ControllerConfig/v1alpha1">upstream documentation</a> for configuration options.</p>
+<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_opensearch"><a class="anchor" href="#_opensearch"></a><code>opensearch</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration option for Exoscale OpenSearch.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
-  <span class="next"><a href="provider-kubernetes.html">Provider Kubernetes</a></span>
+  <span class="prev"><a href="provider-kubernetes.html">Provider Kubernetes</a></span>
+  <span class="next"><a href="service-objectstorage.html">Objectstorage Service</a></span>
 </nav>
 </article>
   </div>
@@ -1027,7 +1084,7 @@ If the component is deployed on OpenShift, it will automatically add the necessa
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/provider-exoscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/services-exoscale.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
