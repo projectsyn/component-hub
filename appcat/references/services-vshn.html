@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Install Exoscale Stack :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/tutorials/install-exoscale.html">
-    <link rel="prev" href="install-cloudscale.html">
-    <link rel="next" href="../references/component-parameters.html">
+    <title>VSHN Services :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/services-vshn.html">
+    <link rel="prev" href="services-exoscale.html">
+    <link rel="next" href="service-objectstorage.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,10 +100,10 @@
     <span class="nav-text">Tutorials</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="install-cloudscale.html">Install Cloudscale Stack</a>
+    <a class="nav-link" href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="install-exoscale.html">Install Exoscale Stack</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/install-exoscale.html">Install Exoscale Stack</a>
   </li>
 </ul>
   </li>
@@ -112,20 +112,20 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
+    <a class="nav-link" href="component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
+    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
+    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
+    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
@@ -134,13 +134,13 @@
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
+    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
+    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -831,174 +831,124 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li>Tutorials</li>
-    <li><a href="install-exoscale.html">Install Exoscale Stack</a></li>
+    <li>Technical reference</li>
+    <li>Service Parameters</li>
+    <li><a href="services-vshn.html">VSHN Services</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/tutorials/install-exoscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/services-vshn.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Install Exoscale Stack</h1>
+<h1 class="page">VSHN Services</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial will guide you through the installation process of installing the following parts:</p>
+<p>The parent key for all of the following parameters is <code>appcat.services.vshn</code>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>A Crossplane provider to manage exoscale.com resources.</p>
-</li>
-<li>
-<p>The AppCat Objectstorage service with the cloudscale implementation.</p>
-</li>
-<li>
-<p>The Exoscale specific AppCat services</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>commodore</code></p>
-</li>
-<li>
-<p><code>vault</code></p>
-</li>
-<li>
-<p>A Syn-enabled cluster with ArgoCD</p>
-</li>
-<li>
-<p>Vault instance to store credentials</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_preparation"><a class="anchor" href="#_preparation"></a>Preparation</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Prepare some variables</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=&lt;the-cluster-id&gt;
-export TENANT_ID=&lt;the-tenant-id&gt;</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Login to Vault.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export VAULT_ADDR=https://vault-prod.syn.vshn.net
-vault login -method=oidc</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create an Organization on Exoscale Portal.</p>
-</li>
-<li>
-<p>Create a new IAM key within the new project, give it a memorable name like <code>appcat-${CLUSTER_ID}</code> and give it access to the <code>sos</code> and <code>dbaas</code> services.</p>
-</li>
-<li>
-<p>Save the token in Vault.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}/appcat/provider-exoscale"
-vault kv put "${parent}" access-key=&lt;the-exoscale-access-key&gt; secret-key=&lt;the-exoscale-secret-key&gt;</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Configure cluster catalog.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications: <i class="conum" data-value="1"></i><b>(1)</b>
-  - appcat
-  - crossplane
-
-parameters:
-  appcat:
-    providers:
-      exoscale:
-        enabled: true <i class="conum" data-value="2"></i><b>(2)</b>
-    services:
-      generic:
-        objectstorage:
-          enabled: true <i class="conum" data-value="3"></i><b>(3)</b>
-          compositions:
-            cloudscale:
-              enable: false <i class="conum" data-value="4"></i><b>(4)</b>
-      exoscale:
-        enabled: true <i class="conum" data-value="5"></i><b>(5)</b>
-
-  crossplane:
-    helmValues:
-      rbacManager:
-        managementPolicy: Basic <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
+<div class="admonitionblock important">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Enable the <code>appcat</code> and <code>crossplane</code> components</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable the provider exoscale</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Enable the AppCat Objectstorage service</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Explicitly disable the cloudscale implementation at we don&#8217;t deploy the provider cloudscale</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Enable the AppCat Exoscale services</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Ensure that RBAC management policy is set to <code>Basic</code> only.</td>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you enable any of the VSHN service, make sure that the necessary providers are deployed.
+Either by enabling it in <code>appcat.providers</code> or separately from this component.</p>
+</div>
+</td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Compile and push cluster catalog</p>
-</li>
-</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If VSHN services should be available at all.
+When set to false no VSHN services will be deployed, even if a specific service was enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_secretnamespace"><a class="anchor" href="#_secretnamespace"></a><code>secretNamespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${crossplane:namespace}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In which namespace an XR&#8217;s connection secret is written to.</p>
+</div>
+<div class="paragraph">
+<p>Defaults to the crossplane namespace.</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_postgres"><a class="anchor" href="#_postgres"></a><code>postgres</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration option for VSHN PostgrSQL.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="install-cloudscale.html">Install Cloudscale Stack</a></span>
-  <span class="next"><a href="../references/component-parameters.html">Parameters</a></span>
+  <span class="prev"><a href="services-exoscale.html">Exoscale Services</a></span>
+  <span class="next"><a href="service-objectstorage.html">Objectstorage Service</a></span>
 </nav>
 </article>
   </div>
@@ -1009,7 +959,7 @@ parameters:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/tutorials/install-exoscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/services-vshn.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
