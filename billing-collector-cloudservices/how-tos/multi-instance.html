@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cloudscale-metrics-collector/references/parameters.html">
-    <link rel="prev" href="../how-tos/installation.html">
+    <title>Deploy multiple instances :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/billing-collector-cloudservices/how-tos/multi-instance.html">
+    <link rel="prev" href="installation.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,12 +81,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="cloudscale-metrics-collector" data-version="master">
+<div class="nav-container" data-component="billing-collector-cloudservices" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">cloudscale-metrics-collector</a></h3>
+    <h3 class="title"><a href="../index.html">billing-collector-cloudservices</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -93,10 +94,13 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/installation.html">Installation</a>
+    <a class="nav-link" href="installation.html">Installation</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="multi-instance.html">Multi Instance</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -105,7 +109,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">cloudscale-metrics-collector</span>
+    <span class="title">billing-collector-cloudservices</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -181,6 +185,14 @@
         </li>
       </ul>
     </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">billing-collector-cloudservices</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
     <li class="component">
       <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
       <ul class="versions">
@@ -210,14 +222,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../cloud-portal/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">cloudscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -290,14 +294,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../exoscale-metrics-collector/index.html">exoscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../exoscale-metrics-collector/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -792,164 +788,90 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">cloudscale-metrics-collector</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">billing-collector-cloudservices</a></li>
+    <li><a href="multi-instance.html">Multi Instance</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/cloudscale-metrics-collector/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/billing-collector-cloudservices/edit/master/docs/modules/ROOT/pages/how-tos/multi-instance.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Deploy multiple instances</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Because this component depends on the component <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html">appuio-cloud-reporting</a>, some parameters are taken from that component and are not individually configurable in this component.
-In particular:</p>
+<p>This guide provides an example how to deploy multiple instances of this component.</p>
 </div>
-<div class="ulist">
-<ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_namespace">namespace</a></p>
+<p>Prepare catalog by configuring 2 instances</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
+  - billing-collector-cloudservices as collector-exoscale-ch-gva-2 <i class="conum" data-value="1"></i><b>(1)</b>
+  - billing-collector-cloudservices as collector-cloudscale-rma-0 <i class="conum" data-value="2"></i><b>(2)</b>
+parameters:
+  appuio_cloud_reporting:
+    namespace: 'appuio-cloud-reporting'
+    database:
+      name: 'reporting'
+      host: 'reporting-db.appuio-reporting.svc'
+      parameters: 'sslmode=disable'
+      password: 'passw0rd'
+      port: 5432</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Instance one with alias name collector-exoscale-ch-gva-2</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Instance two with alias name collector-cloudscale-rma-0</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
-<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database">database</a></p>
+<p>Add relevant entries to Vault</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
+instance_1="collector-exoscale-ch-gva-2"
+instance_2="collector-cloudscale-rma-0"
+
+vault kv put "${parent}/billing-collector-cloudservices/${instance_1}" exoscale-key=&lt;key-1&gt; exoscale-secret=&lt;secret-1&gt; cluster-server=&lt;server-url-1&gt; cluster-token=&lt;token-1&gt;
+vault kv put "${parent}/billing-collector-cloudservices/${instance_2}" exoscale-key=&lt;key-2&gt; exoscale-secret=&lt;secret-2&gt; cluster-server=&lt;server-url-2&gt; cluster-token=&lt;token-2&gt;</code></pre>
+</div>
+</div>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The following list includes only parameters of this component.
-The parent key for all of them is <code>cloudscale_metrics_collector</code>.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="../how-tos/installation.html" class="page">Installation</a> for a full example.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/vshn/cloudscale-metrics-collector/blob/master/component/class/defaults.yml">See `class/defaults.yml</a>.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_cloudscale_api_token"><a class="anchor" href="#_secrets_credentials_stringdata_cloudscale_api_token"></a><code>secrets.credentials.stringData.CLOUDSCALE_API_TOKEN</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The cloudscale API token.</p>
-</div>
-<div class="paragraph">
-<p>You need to get the token from the <a href="https://control.cloudscale.ch">Cloudscale Control Panel</a>.
-You need to select the correct Project (token is limited to one project), choose "API Tokens" in the menu and generate a new one.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_secrets_credentials_stringdata_kubernetes_server_url"></a><code>secrets.credentials.stringData.KUBERNETES_SERVER_URL</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Kubernetes server URL.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_secrets_credentials_stringdata_kubernetes_server_token"></a><code>secrets.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The token to connect to a Kubernetes cluster.</p>
-</div>
-<div class="paragraph">
-<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>buckets.cloudscale.crossplane.io</code> managed resource, and <code>get</code> and <code>list</code> permissions for namespaces.</p>
+<li>
+<p>Compile and push the cluster catalog</p>
+</li>
+<li>
+<p>Wait until changes are applied</p>
+</li>
+<li>
+<p>Verify that the instances are up and configured correctly</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/installation.html">Installation</a></span>
+  <span class="prev"><a href="installation.html">Installation</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -960,7 +882,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cloudscale-metrics-collector/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/billing-collector-cloudservices/how-tos/multi-instance.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Installation :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cloudscale-metrics-collector/how-tos/installation.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Data Usage :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/billing-collector-cloudservices/explanations/data-usage.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,20 +79,23 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="cloudscale-metrics-collector" data-version="master">
+<div class="nav-container" data-component="billing-collector-cloudservices" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">cloudscale-metrics-collector</a></h3>
+    <h3 class="title"><a href="../index.html">billing-collector-cloudservices</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="installation.html">Installation</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/installation.html">Installation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/multi-instance.html">Multi Instance</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
@@ -106,7 +107,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">cloudscale-metrics-collector</span>
+    <span class="title">billing-collector-cloudservices</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -182,6 +183,14 @@
         </li>
       </ul>
     </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">billing-collector-cloudservices</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
     <li class="component">
       <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
       <ul class="versions">
@@ -211,14 +220,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../cloud-portal/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">cloudscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -291,14 +292,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../exoscale-metrics-collector/index.html">exoscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../exoscale-metrics-collector/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -793,84 +786,68 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">cloudscale-metrics-collector</a></li>
-    <li><a href="installation.html">Installation</a></li>
+    <li><a href="../index.html">billing-collector-cloudservices</a></li>
+    <li><a href="data-usage.html">Data Usage</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/cloudscale-metrics-collector/edit/master/docs/modules/ROOT/pages/how-tos/installation.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/billing-collector-cloudservices/edit/master/docs/modules/ROOT/pages/explanations/data-usage.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Installation</h1>
-<div class="sect1">
-<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
+<h1 class="page">Data Usage</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This component requires <a href="https://github.com/appuio/component-appuio-cloud-reporting">component-appuio-cloud-reporting</a> and is installed into the same namespace.
-This is required for this component to be able to access the billing database and its connection secrets.</p>
+<p>This page gives a brief overview how resources data usage (e.g. buckets) is saved to the postgres billing database.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_sources"><a class="anchor" href="#_sources"></a>Sources</h2>
+<h2 id="_data_flow"><a class="anchor" href="#_data_flow"></a>Data flow</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The data is matched from a k8s cluster and a Cloudscale project.
-The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and to the following managed resources:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/application-logic.drawio.svg" alt="application logic.drawio">
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_source"><a class="anchor" href="#_data_source"></a>Data source</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>buckets.cloudscale.crossplane.io</code></p>
+<p>Resources (e.g. buckets, DBaaS, &#8230;&#8203;) are fetched from Exoscale Provider and K8s Cluster.</p>
+</li>
+<li>
+<p>The resource names in Exoscale are unique across organisation which prevents clusters having same resource names.</p>
 </li>
 </ul>
-</div>
-<div class="sect2">
-<h3 id="_cloudscale_project"><a class="anchor" href="#_cloudscale_project"></a>Cloudscale project</h3>
-<div class="paragraph">
-<p>The User Access from a Cloudscale project is required to have read access to object storage (SOS buckets).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_k8s_cluster"><a class="anchor" href="#_k8s_cluster"></a>K8s cluster</h3>
-<div class="paragraph">
-<p>The access to the desired cluster from where the metrics should be collected has to be configured. The current configuration for each instance is done in the
-<code>syn-tenant-repo</code> under <code>manifests/&lt;desired-cluster&gt;/billing</code></p>
-</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_data_saving"><a class="anchor" href="#_data_saving"></a>Data saving</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
-  - cloudscale-metrics-collector
-
-parameters:
-  cloudscale_metrics_collector:
-    namespace: 'appuio-cloud-reporting'
-    secrets:
-      credentials:
-        stringData:
-          CLOUDSCALE_API_TOKEN: "?{vaultkv:${cluster:tenant}/${cluster:name}/cloudscale-metrics-collector/${_instance}/token}"
-          KUBERNETES_SERVER_URL: "?{vaultkv:${cluster:tenant}/${cluster:name}/cloudscale-metrics-collector/${_instance}/cluster-server}"
-          KUBERNETES_SERVER_TOKEN: "?{vaultkv:${cluster:tenant}/${cluster:name}/cloudscale-metrics-collector/${_instance}/cluster-token}"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See the <a href="../references/parameters.html" class="page">parameters</a> reference for a full list of parameters.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The data is saved in a postgres database.</p>
+</li>
+<li>
+<p>A database must be provided in the postgres URL.</p>
+</li>
+<li>
+<p>The application ensures the initial configuration of specified database in the URL.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -880,7 +857,7 @@ parameters:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cloudscale-metrics-collector/how-tos/installation.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/billing-collector-cloudservices/explanations/data-usage.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>cloudscale-metrics-collector :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cloudscale-metrics-collector/index.html">
+    <title>billing-collector-cloudservices :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/billing-collector-cloudservices/index.html">
     <link rel="next" href="how-tos/installation.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -80,12 +80,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="cloudscale-metrics-collector" data-version="master">
+<div class="nav-container" data-component="billing-collector-cloudservices" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">cloudscale-metrics-collector</a></h3>
+    <h3 class="title"><a href="index.html">billing-collector-cloudservices</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -94,6 +94,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="how-tos/installation.html">Installation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/multi-instance.html">Multi Instance</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="references/parameters.html">Parameters</a>
@@ -105,7 +108,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">cloudscale-metrics-collector</span>
+    <span class="title">billing-collector-cloudservices</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -181,6 +184,14 @@
         </li>
       </ul>
     </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">billing-collector-cloudservices</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
     <li class="component">
       <a class="title" href="../cert-exporter/index.html">cert-exporter</a>
       <ul class="versions">
@@ -210,14 +221,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../cloud-portal/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="index.html">cloudscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="index.html">master</a>
         </li>
       </ul>
     </li>
@@ -290,14 +293,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../exoscale-metrics-collector/index.html">exoscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../exoscale-metrics-collector/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -792,20 +787,26 @@
   <a href="../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">cloudscale-metrics-collector</a></li>
+    <li><a href="index.html">billing-collector-cloudservices</a></li>
     <li><a href="index.html">Home</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/cloudscale-metrics-collector/edit/master/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/billing-collector-cloudservices/edit/master/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">cloudscale-metrics-collector</h1>
+<h1 class="page">billing-collector-cloudservices</h1>
 <div class="paragraph">
-<p>Batch job to sync usage data from the Cloudscale.ch metrics API to the <a href="https://github.com/appuio/appuio-cloud-reporting/">APPUiO Cloud Reporting</a> database.</p>
+<p>Batch job to sync usage data from the Exoscale and Cloudscale metrics APIs to the <a href="https://github.com/appuio/appuio-cloud-reporting/">APPUiO Cloud Reporting</a> database.</p>
+</div>
+<div class="paragraph">
+<p>Metrics are collected taking into account product (e.g. <code>object-storage-storage:exoscale</code>), source (e.g. <code>exoscale:namespace</code>), tenant (organization) and date time.</p>
+</div>
+<div class="paragraph">
+<p>On DBaaS, we also gather information by Plan. That can be seeing in the product. For example, in the case of a PostgreSQL database service, product may look like <code>postgres:exoscale:*:*:hobbyist-2</code>.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
@@ -822,7 +823,7 @@
 </footer>
 <script src="../_/js/site.js"></script>
 <script src="../_/js/vendor/lunr.js"></script>
-<script src="../_/js/vendor/search.js" id="search-script" data-base-path=".." data-page-path="/cloudscale-metrics-collector/index.html"></script>
+<script src="../_/js/vendor/search.js" id="search-script" data-base-path=".." data-page-path="/billing-collector-cloudservices/index.html"></script>
 <script async src="../_/../search-index.js"></script>
 <script async src="../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/exoscale-metrics-collector/references/parameters.html">
-    <link rel="prev" href="../how-tos/multi-instance.html">
+    <title>Installation :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/billing-collector-cloudservices/how-tos/installation.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="multi-instance.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,26 +81,26 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="exoscale-metrics-collector" data-version="master">
+<div class="nav-container" data-component="billing-collector-cloudservices" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">exoscale-metrics-collector</a></h3>
+    <h3 class="title"><a href="../index.html">billing-collector-cloudservices</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/installation.html">Installation</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/multi-instance.html">Multi Instance</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="installation.html">Installation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="multi-instance.html">Multi Instance</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -108,7 +109,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">exoscale-metrics-collector</span>
+    <span class="title">billing-collector-cloudservices</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -184,6 +185,14 @@
         </li>
       </ul>
     </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">billing-collector-cloudservices</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
     <li class="component">
       <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
       <ul class="versions">
@@ -213,14 +222,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../cloud-portal/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../cloudscale-metrics-collector/index.html">cloudscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../cloudscale-metrics-collector/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -293,14 +294,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">exoscale-metrics-collector</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -795,275 +788,34 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">exoscale-metrics-collector</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">billing-collector-cloudservices</a></li>
+    <li><a href="installation.html">Installation</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/exoscale-metrics-collector/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/billing-collector-cloudservices/edit/master/docs/modules/ROOT/pages/how-tos/installation.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
+<h1 class="page">Installation</h1>
+<div class="sect1">
+<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Because this component depends on the component <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html">appuio-cloud-reporting</a>, some parameters are taken from that component and are not individually configurable in this component.
-In particular:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_namespace">namespace</a></p>
-</li>
-<li>
-<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database">database</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The following list includes only parameters of this component.
-The parent key for all of them is <code>exoscale_metrics_collector</code>.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="../how-tos/installation.html" class="page">Installation</a> for a full example.</p>
+<p>This component requires <a href="https://github.com/appuio/component-appuio-cloud-reporting">component-appuio-cloud-reporting</a> and is installed into the same namespace.
+This is required for this component to be able to access the billing database and its connection secrets.
+It also requires an Exoscale IAMKey and a Kubernetes/OpenShift Service Account token in the target cluster to get resources (e.g. SOS buckets, Postgres, etc).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<h2 id="_sources"><a class="anchor" href="#_sources"></a>Sources</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/vshn/exoscale-metrics-collector/blob/master/component/class/defaults.yml">See class/defaults.yml</a>.</p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_objectstorage_schedule"><a class="anchor" href="#_objectstorage_schedule"></a><code>objectStorage.schedule</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>10 10,16,20 * * *</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The cron schedule at which the object storage metrics collection job is spawned.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dbaas_enabled"><a class="anchor" href="#_dbaas_enabled"></a><code>dbaas.enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether to add the DBaaS cronjob, too.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dbaas_schedule"><a class="anchor" href="#_dbaas_schedule"></a><code>dbaas.schedule</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>*/15 * * * *</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The cron schedule at which the DBaaS metrics collection job is spawned, if enabled.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_exoscale_api_key"><a class="anchor" href="#_secrets_credentials_stringdata_exoscale_api_key"></a><code>secrets.credentials.stringData.EXOSCALE_API_KEY</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Exoscale API key.</p>
-</div>
-<div class="paragraph">
-<p>You need to get the token from the <a href="https://portal.exoscale.com">Exoscale Console</a>.
-You need to select the correct account (token is limited to one account), choose "IAM" in the menu and generate a new key pair.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_exoscale_api_secret"><a class="anchor" href="#_secrets_credentials_stringdata_exoscale_api_secret"></a><code>secrets.credentials.stringData.EXOSCALE_API_SECRET</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Exoscale API secret.</p>
-</div>
-<div class="paragraph">
-<p>Second part of the Exoscale API credentials.
-See EXOSCALE_API_KEY for instructions.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_k8s_server_url"><a class="anchor" href="#_secrets_credentials_stringdata_k8s_server_url"></a><code>secrets.credentials.stringData.K8S_SERVER_URL</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Kubernetes server URL.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_secrets_credentials_stringdata_k8s_token"><a class="anchor" href="#_secrets_credentials_stringdata_k8s_token"></a><code>secrets.credentials.stringData.K8S_TOKEN</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The token to connect to a Kubernetes cluster.</p>
-</div>
-<div class="paragraph">
-<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to the following managed resources:</p>
+<p>The data is matched from a k8s cluster and an Exoscale organization.
+The Kubernetes Service Account token is required to have <code>get</code> permissions on <code>Namespaces</code> and to the following managed resources:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1073,40 +825,62 @@ default
 <li>
 <p><code>postgresqls.exoscale.crossplane.io</code></p>
 </li>
+<li>
+<p><code>mysqls.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>redis.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>kafkas.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>opensearches.exoscale.crossplane.io</code></p>
+</li>
 </ul>
+</div>
+<div class="sect2">
+<h3 id="_exoscale_organization"><a class="anchor" href="#_exoscale_organization"></a>Exoscale organization</h3>
+<div class="paragraph">
+<p>The Access Key (IAM Key) from an Exoscale organization is required to have read access across all managed resources (e.g. SOS buckets, Postgres, etc).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_k8s_cluster"><a class="anchor" href="#_k8s_cluster"></a>K8s cluster</h3>
+<div class="paragraph">
+<p>The access to the desired cluster from where the metrics should be collected has to be configured. The current configuration for each instance is done in the
+<code>syn-tenant-repo</code> under <code>manifests/&lt;desired-cluster&gt;/billing</code></p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_credentials_stringdata_acr_db_url"><a class="anchor" href="#_secrets_credentials_stringdata_acr_db_url"></a><code>secrets.credentials.stringData.ACR_DB_URL</code></h2>
+<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>Required.</p>
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
+  - billing-collector-cloudservices
+
+parameters:
+  metrics_collector:
+    exoscale:
+      enabled: true
+      objectStorage:
+        schedule: '10 10,16,20 * * *'
+      dbaas:
+        enabled: true # must be manually enabled to scrape DBaas metrics
+        schedule: '*/15 * * * *'</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The Billing Database URL.</p>
+<p>See the <a href="../references/parameters.html" class="page">parameters</a> reference for a full list of parameters.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/multi-instance.html">Multi Instance</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="multi-instance.html">Multi Instance</a></span>
 </nav>
 </article>
   </div>
@@ -1117,7 +891,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/exoscale-metrics-collector/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/billing-collector-cloudservices/how-tos/installation.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

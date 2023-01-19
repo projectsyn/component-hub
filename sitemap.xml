@@ -25,6 +25,9 @@
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-billing-collector-cloudservices.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cert-exporter.xml</loc>
 </sitemap>
 <sitemap>
@@ -35,9 +38,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cloud-portal.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-cloudscale-metrics-collector.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-autoscaler.xml</loc>
@@ -65,9 +65,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-exoscale-metrics-collector.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
