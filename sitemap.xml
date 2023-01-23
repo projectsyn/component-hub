@@ -121,6 +121,9 @@
 <loc>https://hub.syn.tools/sitemap-nfs-subdir-external-provisioner.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-ocp-drain-monitor.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
 </sitemap>
 <sitemap>
