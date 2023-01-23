@@ -1453,6 +1453,102 @@ The resulting <code>MachineConfig</code> objects will have the keys, prefixed wi
                 - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9BWBmqreqpn7cF9klFEeLrg/NWk3UAyvx7gj/cVFQn</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>We add special support for defining file contents in the hierarchy with key <code>storage.files.X.source.inline</code> which isn&#8217;t part of the Ignition spec.</p>
+</div>
+<div class="listingblock">
+<div class="title">Inline file contents example (custom <code>chrony.conf</code>)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs:
+  worker-chrony-custom:
+    metadata:
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec:
+      config:
+        ignition:
+          version: 3.2.0
+        storage:
+          files:
+            - path: /etc/chrony.conf
+              mode: 0644
+              overwrite: true
+              contents:
+                # The contents of `inline` get rendered as
+                # `source: 'data:text/plain;encoding=utf-8;base64,&lt;inline|base64&gt;'`
+                inline: |
+                  # Use ch.pool.ntp.org
+                  pool ch.pool.ntp.org iburst
+                  # Rest is copied from the default config
+                  driftfile /var/lib/chrony/drift
+                  makestep 1.0 3
+                  rtcsync
+                  keyfile /etc/chrony.keys
+                  leapsectz right/UTC
+                  logdir /var/log/chrony</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The resulting machine config for this example looks as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  annotations: <i class="conum" data-value="1"></i><b>(1)</b>
+    inline-contents.machineconfig.syn.tools/etc-chrony.conf: '# Use ch.pool.ntp.org
+
+      pool ch.pool.ntp.org iburst
+
+      # Rest is copied from the default config
+
+      driftfile /var/lib/chrony/drift
+
+      makestep 1.0 3
+
+      rtcsync
+
+      keyfile /etc/chrony.keys
+
+      leapsectz right/UTC
+
+      logdir /var/log/chrony
+
+      '
+  labels:
+    app.kubernetes.io/component: openshift4-nodes
+    app.kubernetes.io/managed-by: commodore
+    app.kubernetes.io/name: openshift4-nodes
+    machineconfiguration.openshift.io/role: worker
+    name: 99x-worker-chrony-custom
+  name: 99x-worker-chrony-custom
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+        - contents:
+            source: data:text/plain;encoding=utf-8;base64,IyBVc2UgY2gucG9vbC5udHAub3JnCnBvb2wgY2gucG9vbC5udHAub3JnIGlidXJzdAojIFJlc3QgaXMgY29waWVkIGZyb20gdGhlIGRlZmF1bHQgY29uZmlnCmRyaWZ0ZmlsZSAvdmFyL2xpYi9jaHJvbnkvZHJpZnQKbWFrZXN0ZXAgMS4wIDMKcnRjc3luYwprZXlmaWxlIC9ldGMvY2hyb255LmtleXMKbGVhcHNlY3R6IHJpZ2h0L1VUQwpsb2dkaXIgL3Zhci9sb2cvY2hyb255Cg== <i class="conum" data-value="2"></i><b>(2)</b>
+          mode: 420
+          overwrite: true
+          path: /etc/chrony.conf</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The original inline file contents are added as an annotation to the resulting machine config object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The actual entry in the files list in the Ignition config is encoded with base64 and added as a data scheme value (<code>data:text/plain;encoding=utf-8;base64,&#8230;&#8203;</code>) in the <code>contents.source</code> field.
+See the <a href="https://coreos.github.io/ignition/configuration-v3_2/">Ignition spec</a> for more details on supported ways to specify file contents.</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
