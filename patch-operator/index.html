@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>patch-operator :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/patch-operator/index.html">
-    <link rel="next" href="references/parameters.html">
+    <link rel="next" href="how-tos/migrate-from-resource-locker.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -92,6 +92,24 @@
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="index.html">Home</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/external-certificates.html">Configure external certificates</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="references/parameters.html">Parameters</a>
   </li>
@@ -810,13 +828,25 @@
 <article class="doc">
 <h1 class="page">patch-operator</h1>
 <div class="paragraph">
-<p>patch-operator is a Commodore component to manage patch-operator.</p>
+<p>patch-operator is a Commodore component to manage <a href="https://github.com/redhat-cop/patch-operator/">patch-operator</a>.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
+<p>The component renders the upstream Helm chart and sets up a default service account which is granted <code>cluster-admin</code> by default.
+All patches created through the component library are created in the operator&#8217;s namespace and use the default service account managed by the component by default.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details on how to configure the component.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re migrating your setup from resource-locker operator to patch-operator, see the <a href="how-tos/migrate-from-resource-locker.html" class="page">migration how-to</a> for further details.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component uses cert-manager to issue self-signed certificates for the metrics and webhook endpoints of the operator.
+Optionally, users can configure their own external certificates for these endpoints.
+See the <a href="how-tos/external-certificates.html" class="page">external certificates how-to</a> for further details on how to setup external certificates.</p>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="references/parameters.html">Parameters</a></span>
+  <span class="next"><a href="how-tos/migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a></span>
 </nav>
 </article>
   </div>

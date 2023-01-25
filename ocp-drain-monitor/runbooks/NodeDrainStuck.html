@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/patch-operator/references/parameters.html">
-    <link rel="prev" href="../how-tos/external-certificates.html">
+    <title>NodeDrainStuck :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ocp-drain-monitor/runbooks/NodeDrainStuck.html">
+    <link rel="prev" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,38 +80,29 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="patch-operator" data-version="master">
+<div class="nav-container" data-component="ocp-drain-monitor" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">patch-operator</a></h3>
+    <h3 class="title"><a href="../index.html">ocp-drain-monitor</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">How-to guides</span>
-<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/external-certificates.html">Configure external certificates</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="NodeDrainStuck.html">NodeDrainStuck</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Technical reference</span>
-<ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -120,7 +111,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">patch-operator</span>
+    <span class="title">ocp-drain-monitor</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -452,11 +443,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../ocp-drain-monitor/index.html">ocp-drain-monitor</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">ocp-drain-monitor</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../ocp-drain-monitor/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -612,11 +603,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">patch-operator</a>
+    <li class="component">
+      <a class="title" href="../../patch-operator/index.html">patch-operator</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../patch-operator/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -815,205 +806,76 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">patch-operator</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">ocp-drain-monitor</a></li>
+    <li>Runbooks</li>
+    <li><a href="NodeDrainStuck.html">NodeDrainStuck</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-patch-operator/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-ocp-drain-monitor/edit/master/docs/modules/ROOT/pages/runbooks/NodeDrainStuck.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">NodeDrainStuck</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>patch_operator</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
 </td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-patch-operator</code></p>
+<td class="content">
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>This alert fires when a node is stuck in the drain process for more than the set amount of time.
+Default is 10 minutes.</p>
+</div>
+<div class="paragraph">
+<p>This can hold up the maintenance process and delay the upgrade of the cluster.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_patch_serviceaccount"><a class="anchor" href="#_patch_serviceaccount"></a><code>patch_serviceaccount</code></h2>
+<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This parameter allows users to customize the default service account which is managed by the component for any patches created through the component library.</p>
+<p>Nodes usually get stuck in the drain process when there is a pod that isn&#8217;t evictable.
+This can be caused by a (rogue) <code>PodDisruptionBudget</code>, pods on new nodes not entering a <code>Ready</code> state, or extremely long <code>terminationGracePeriodSeconds</code> among other things.</p>
 </div>
 <div class="sect2">
-<h3 id="_patch_serviceaccount_name"><a class="anchor" href="#_patch_serviceaccount_name"></a><code>patch_serviceaccount.name</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>patch-sa</code></p>
-</td>
-</tr>
-</table>
-</div>
+<h3 id="_check_operator_logs"><a class="anchor" href="#_check_operator_logs"></a><span class="icon"><i class="fa fa-search"></i></span> Check operator logs</h3>
 <div class="paragraph">
-<p>The name of the service account.</p>
+<p>The drain process on OpenShift is initiated by the <code>machine-config-operator</code>.
+The operator logs reasons for why a node isn&#8217;t draining.
+You can find these logs by running the following command:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_patch_serviceaccount_cluster_role"><a class="anchor" href="#_patch_serviceaccount_cluster_role"></a><code>patch_serviceaccount.cluster_role</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>cluster-admin</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the cluster role to grant the ServiceAccount.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_external_certificates"><a class="anchor" href="#_external_certificates"></a><code>external_certificates</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to configure their own externally generated certificates for the patch-operator&#8217;s webhook and metrics endpoints.
-Supported keys are <code>tls.key</code>, <code>tls.crt</code> and <code>ca.crt</code>.
-The component will generate secrets with type <code>kubernetes.io/tls</code> and the provided keys.
-If key <code>ca.crt</code> is missing, the component assumes that <code>tls.crt</code> is a self-signed certificate.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-patch-operator/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Helm charts used by the component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enableCertManager: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl -n openshift-machine-config-operator logs deployments/machine-config-controller</code></pre>
 </div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>The Helm values to use to render the <code>patch-operator</code> helm chart.</p>
+<p>Look out for messages like the following:</p>
 </div>
-<div class="paragraph">
-<p>We enable cert-manager integration for the admission webhook serving certificates by default.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>E0116 14:26:30.051014       1 drain_controller.go:110] error when evicting pods/"apiserver-786c87d87d-9lkxw" -n "openshift-oauth-apiserver" (will retry after 5s): Cannot evict pod as it would violate the pod's disruption budget.</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1022,15 +884,70 @@ default
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If you install the component on a cluster which doesn&#8217;t have cert-manager installed, please disable this value and ensure webhook serving certificates are made available through parameter <code>external_certificates</code>.
+<div class="paragraph">
+<p>Add the <code>PodDisruptionBudget</code> found to cause the issue to the maintenance log.</p>
+</div>
+<div class="paragraph">
+<p>Create a customer ticket to get the <code>PodDisruptionBudget</code> fixed if possible.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_pods_on_node"><a class="anchor" href="#_check_pods_on_node"></a><span class="icon"><i class="fa fa-search"></i></span> Check pods on node</h3>
+<div class="paragraph">
+<p>You can list the pods on the node by running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl get pods --all-namespaces --field-selector spec.nodeName=$NODE_NAME</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check for pods (for example database pods) that might lead to data loss if evicted.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_force_drain_the_node"><a class="anchor" href="#_force_drain_the_node"></a><span class="icon"><i class="fa fa-gears"></i></span> Force drain the node</h3>
+<div class="paragraph">
+<p>If the node is stuck in the drain process for a long time, you can force the drain by running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl drain --force --ignore-daemonsets --delete-emptydir-data --grace-period=30 $NODE_NAME</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This can lead to data loss depending on the application.
+Check pods left on node first.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If this alert isn&#8217;t actionable, noisy, or was raised too early you may want to tune the time until the alert fires.
+You can do this by changing the <code>for</code> parameter in the <code>NodeDrainStuck</code> alert configuration.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/external-certificates.html">Configure external certificates</a></span>
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1041,7 +958,7 @@ If you install the component on a cluster which doesn&#8217;t have cert-manager 
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/patch-operator/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ocp-drain-monitor/runbooks/NodeDrainStuck.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

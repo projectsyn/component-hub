@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/patch-operator/references/parameters.html">
-    <link rel="prev" href="../how-tos/external-certificates.html">
+    <title>Configure external certificates :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/patch-operator/how-tos/external-certificates.html">
+    <link rel="prev" href="migrate-from-resource-locker.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,10 +100,10 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a>
+    <a class="nav-link" href="migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/external-certificates.html">Configure external certificates</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="external-certificates.html">Configure external certificates</a>
   </li>
 </ul>
   </li>
@@ -110,8 +111,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -816,221 +817,202 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">patch-operator</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-to guides</li>
+    <li><a href="external-certificates.html">Configure external certificates</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-patch-operator/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-patch-operator/edit/master/docs/modules/ROOT/pages/how-tos/external-certificates.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Configure external certificates</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>patch_operator</code>.</p>
+<div class="quoteblock abstract">
+<blockquote>
+This how-to shows you how you can configure externally managed certificates to install the component on clusters which don&#8217;t have cert-manager available.
+</blockquote>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-patch-operator</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_patch_serviceaccount"><a class="anchor" href="#_patch_serviceaccount"></a><code>patch_serviceaccount</code></h2>
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This parameter allows users to customize the default service account which is managed by the component for any patches created through the component library.</p>
+<p>The how-to assumes that you&#8217;re familiar with using Project Syn to configure clusters.</p>
 </div>
 <div class="sect2">
-<h3 id="_patch_serviceaccount_name"><a class="anchor" href="#_patch_serviceaccount_name"></a><code>patch_serviceaccount.name</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>patch-sa</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the service account.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_patch_serviceaccount_cluster_role"><a class="anchor" href="#_patch_serviceaccount_cluster_role"></a><code>patch_serviceaccount.cluster_role</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>cluster-admin</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the cluster role to grant the ServiceAccount.</p>
+<h3 id="_required_cli_tools"><a class="anchor" href="#_required_cli_tools"></a>Required CLI tools</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>commodore</code></p>
+</li>
+<li>
+<p><code>openssl</code></p>
+</li>
+<li>
+<p><code>vault</code></p>
+</li>
+<li>
+<p><code>yq</code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_external_certificates"><a class="anchor" href="#_external_certificates"></a><code>external_certificates</code></h2>
+<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to configure their own externally generated certificates for the patch-operator&#8217;s webhook and metrics endpoints.
-Supported keys are <code>tls.key</code>, <code>tls.crt</code> and <code>ca.crt</code>.
-The component will generate secrets with type <code>kubernetes.io/tls</code> and the provided keys.
-If key <code>ca.crt</code> is missing, the component assumes that <code>tls.crt</code> is a self-signed certificate.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-patch-operator/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Helm charts used by the component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set cluster id and tenant id as environment variables</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enableCertManager: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=c-cluster-id-1234 <i class="conum" data-value="1"></i><b>(1)</b>
+export TENANT_ID=t-tenant-id-1234 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
-</td>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Replace with the actual cluster id and tenant id of the cluster you want to configure.</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The Helm values to use to render the <code>patch-operator</code> helm chart.</p>
+</li>
+<li>
+<p>Compile the cluster</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID}</code></pre>
 </div>
-<div class="paragraph">
-<p>We enable cert-manager integration for the admission webhook serving certificates by default.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If you install the component on a cluster which doesn&#8217;t have cert-manager installed, please disable this value and ensure webhook serving certificates are made available through parameter <code>external_certificates</code>.
+We recommend running <code>commodore catalog compile</code> in an empty directory.
 </td>
 </tr>
 </table>
+</div>
+</li>
+<li>
+<p>Generate self-signed certificates for the patch-operator&#8217;s webhook and metrics certificates.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">operator_ns=syn-patch-operator <i class="conum" data-value="1"></i><b>(1)</b>
+
+lifetime=3650 <i class="conum" data-value="2"></i><b>(2)</b>
+
+webhook=patch-operator-webhook-service.${operator_ns}.svc
+metrics=patch-operator-controller-manager-metrics-service.${operator_ns}.svc
+
+openssl req -x509 -newkey rsa:4096 -nodes -keyout webhook.key -out webhook.crt -days ${lifetime} \
+  -subj "/CN=$webhook" -addext "subjectAltName = DNS:$webhook,DNS:${webhook}.cluster.local"
+openssl req -x509 -newkey rsa:4096 -nodes -keyout metrics.key -out metrics.crt -days ${lifetime} \
+  -subj "/CN=$metrics" -addext "subjectAltName = DNS:$metrics,DNS:${metrics}.cluster.local"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Update if you&#8217;re installing the patch operator in a different namespace.
+You can extract the actual operator namespace from the inventory with <code>kapitan inventory -t patch-operator | yq '.parameters.patch_operator.namespace'</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Certificate lifetime in days.
+Adjust as necessary.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Store keys in Vault</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export VAULT_ADDR=https://vault.example.com <i class="conum" data-value="1"></i><b>(1)</b>
+vault login -metod=oidc <i class="conum" data-value="2"></i><b>(2)</b>
+
+parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
+
+vault kv put $parent/patch-operator webhook-key=@webhook.key
+vault kv put $parent/patch-operator metrics-key=@metrics.key</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Replace with the URL of your Project Syn Vault instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This assumes that your Vault instance is setup with OIDC login for users.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Disable cert-manager integration in the component&#8217;s Helm values and configure the external certificates instead</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq -i '.parameters.patch_operator.helm_values.enableCertManager=false' \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
+
+webhook_cert=$(&lt;webhook.crt)
+yq -i ".parameters.patch_operator.external_certificates.webhook.\"tls.crt\"=\"${webhook_cert}\"" \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
+yq -i '.parameters.patch_operator.external_certificates.webhook."tls.key"="?{vaultkv:${cluster:tenant}/${cluster:name}/patch-operator/webhook-key}"' \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
+
+metrics_cert=$(&lt;metrics.crt)
+yq -i ".parameters.patch_operator.external_certificates.metrics.\"tls.crt\"=\"${metrics_cert}\"" \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
+yq -i '.parameters.patch_operator.external_certificates.metrics."tls.key"="?{vaultkv:${cluster:tenant}/${cluster:name}/patch-operator/metrics-key}"' \
+  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Commit and push the configuration change</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pushd inventory/classes/${TENANT_ID}
+git add ${CLUSTER_ID}.yml
+git commit -m "${CLUSTER_ID}: Configure external certificates for patch-operator"
+git push origin master
+popd</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Clean up temporary files</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm webhook.{key,crt} metrics.{key,crt}</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/external-certificates.html">Configure external certificates</a></span>
+  <span class="prev"><a href="migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1041,7 +1023,7 @@ If you install the component on a cluster which doesn&#8217;t have cert-manager 
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/patch-operator/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/patch-operator/how-tos/external-certificates.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

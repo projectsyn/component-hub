@@ -6,6 +6,7 @@
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/ocp-drain-monitor/references/parameters.html">
     <link rel="prev" href="../index.html">
+    <link rel="next" href="../runbooks/NodeDrainStuck.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +95,15 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/NodeDrainStuck.html">NodeDrainStuck</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -845,17 +855,175 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_namespacemetadata"><a class="anchor" href="#_namespacemetadata"></a><code>namespaceMetadata</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">annotations:
+  openshift.io/node-selector: "node-role.kubernetes.io/infra="
+labels:
+  openshift.io/cluster-monitoring: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Metadata to be added to the namespace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The images to use for this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_manifests_version"><a class="anchor" href="#_manifests_version"></a><code>manifests_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${ocp_drain_monitor:images:ocp_drain_monitor_controller:tag}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Git reference to the controller deployment manifests.
+The default is the tag of the controller image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">BadThingsHappening:
+  enabled: true
+  rule:
+    annotations:
+      description: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+      message: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+      runbook_url: https://hub.syn.tools/ocp-drain-monitor/runbooks/BadThingsHappening.html
+    expr: |
+      bad_thing_happening == 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>alerts</code> defines the alerts to be installed.
+The dictionary key is used as the name of the alert.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_name_enabled"><a class="anchor" href="#_alerts_name_enabled"></a><code>alerts.&lt;name&gt;.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines whether to install the alert.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_name_rule"><a class="anchor" href="#_alerts_name_rule"></a><code>alerts.&lt;name&gt;.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Holds the configuration of the alert rule.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">Prometheus Alerting Rules</a> for details.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../runbooks/NodeDrainStuck.html">NodeDrainStuck</a></span>
 </nav>
 </article>
   </div>
