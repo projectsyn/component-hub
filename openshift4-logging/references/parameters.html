@@ -955,6 +955,58 @@ However, since there&#8217;s potential for changes in configuration between logg
 </div>
 </div>
 <div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>release-${openshift4_logging:version}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Release version of the alerting rules.
+If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
+</div>
+<div class="paragraph">
+<p>The component uses this parameter to determine the version to download for both Elasticsearch Operator and fluentd alert rules.</p>
+</div>
+<div class="paragraph">
+<p>Generally, the value for parameter <code>alerts</code> should match the value for parameter <code>channel</code>: if you specify <code>channel: stable-5.5</code>, you should use <code>alerts: release-5.5</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>RedHat moved the YAML file containing the alert rules between cluster-logging version 5.4 and 5.5.
+To ensure the component can deploy alert rules for version 5.5, we&#8217;ve implemented support for the different file locations through a lookup map in the component class.
+However, due to limitations of reclass, there&#8217;s no way to specify a fallback value in case the lookup map doesn&#8217;t contain a key.
+Because of this, the component no longer automatically supports new versions of the logging stack.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1006,8 +1058,6 @@ default
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
   elasticsearch:
     enabled: true
-    alerts: 'release-${openshift4_logging:version}'
-    ignore_alerts: []
     kibana_host: null
     predict_elasticsearch_storage_alert:
       enabled: true
@@ -1024,56 +1074,6 @@ default
 </div>
 <div class="paragraph">
 <p>Configuration of the elasticsearch component.</p>
-</div>
-<div class="sect2">
-<h3 id="_components_elasticsearch_alerts"><a class="anchor" href="#_components_elasticsearch_alerts"></a><code>components.elasticsearch.alerts</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>release-${openshift4_logging:version}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Release version of the alerting rules.
-If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
-</div>
-<div class="paragraph">
-<p>The component uses this parameter to determine the version to download for both Elasticsearch Operator and fluentd alert rules.</p>
-</div>
-<div class="paragraph">
-<p>Generally, the value for parameter <code>alerts</code> should match the value for parameter <code>channel</code>: if you specify <code>channel: stable-5.6</code>, you should use <code>alerts: release-5.6</code>.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>RedHat moved the YAML file containing the alert rules between cluster-logging version 5.4 and 5.5.
-To ensure the component can deploy alert rules for version 5.5, we&#8217;ve implemented support for the different file locations through a lookup map in the component class.
-However, due to limitations of reclass, there&#8217;s no way to specify a fallback value in case the lookup map doesn&#8217;t contain a key.
-Because of this, the component no longer automatically supports new versions of the logging stack.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_components_elasticsearch_kibana_host"><a class="anchor" href="#_components_elasticsearch_kibana_host"></a><code>components.elasticsearch.kibana_host</code></h3>
@@ -1302,6 +1302,139 @@ default
 <div class="paragraph">
 <p>The severity of the fired alert.</p>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_components_lokistack"><a class="anchor" href="#_components_lokistack"></a><code>components.lokistack</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  lokistack:
+    enabled: false
+    logStore:
+      access_key_id: ''
+      access_key_secret: ''
+      endpoint: ''
+      bucketnames: '${cluster:name}-logstore'
+    spec:
+      size: 1x.extra-small
+      storage:
+        schemas:
+          - version: v12
+            effectiveDate: '2022-06-01'
+        secret:
+          type: s3
+          name: loki-logstore
+      storageClassName: ''
+      tenants:
+        mode: openshift-logging</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration of the lokistack component.</p>
+</div>
+<div class="sect2">
+<h3 id="_components_lokistack_logstore"><a class="anchor" href="#_components_lokistack_logstore"></a><code>components.lokistack.logStore</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">logStore:
+  access_key_id: ''
+  access_key_secret: ''
+  endpoint: ''
+  bucketnames: '${cluster:name}-logstore'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the connection information for the s3 storage used by the lokistack.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-loki.html#logging-loki-deploy_cluster-logging-loki">Openshift Docs</a> or
+<a href="https://loki-operator.dev/docs/object_storage.md">Lokistack Operator Docs</a> for available parameters.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_components_lokistack_spec"><a class="anchor" href="#_components_lokistack_spec"></a><code>components.lokistack.spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  size: 1x.extra-small
+  storage:
+    schemas:
+      - version: v12
+        effectiveDate: '2022-06-01'
+    secret:
+      type: s3
+      name: loki-logstore
+  storageClassName: ''
+  tenants:
+    mode: openshift-logging</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the <code>.spec</code> for the LokiStack resource.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-loki.html#logging-loki-deploy_cluster-logging-loki">Openshift Docs</a> for available parameters.</p>
 </div>
 </div>
 </div>
