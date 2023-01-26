@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Configure external certificates :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/patch-operator/how-tos/external-certificates.html">
-    <link rel="prev" href="migrate-from-resource-locker.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>patch-operator.libsonnet API reference :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/patch-operator/references/lib-patch-operator.html">
+    <link rel="prev" href="parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,10 +99,10 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a>
+    <a class="nav-link" href="../how-tos/migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="external-certificates.html">Configure external certificates</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/external-certificates.html">Configure external certificates</a>
   </li>
 </ul>
   </li>
@@ -112,10 +111,10 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+    <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/lib-patch-operator.html"><code>patch-operator.libsonnet</code> API reference</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="lib-patch-operator.html"><code>patch-operator.libsonnet</code> API reference</a>
   </li>
 </ul>
   </li>
@@ -820,202 +819,191 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">patch-operator</a></li>
-    <li>How-to guides</li>
-    <li><a href="external-certificates.html">Configure external certificates</a></li>
+    <li>Technical reference</li>
+    <li><a href="lib-patch-operator.html"><code>patch-operator.libsonnet</code> API reference</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-patch-operator/edit/master/docs/modules/ROOT/pages/how-tos/external-certificates.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-patch-operator/edit/master/docs/modules/ROOT/pages/references/lib-patch-operator.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Configure external certificates</h1>
+<h1 class="page"><code>patch-operator.libsonnet</code> API reference</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
-This how-to shows you how you can configure externally managed certificates to install the component on clusters which don&#8217;t have cert-manager available.
-</blockquote>
+<div class="paragraph">
+<p>This page documents the fields and functions provided by the <code>patch-operator.libsonnet</code> component library.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The how-to assumes that you&#8217;re familiar with using Project Syn to configure clusters.</p>
+<p>The library is intended to provide an easy interface to patch single resources to other components.</p>
+</div>
+<div class="paragraph">
+<p>For example, to add a custom label to an existing namespace on the cluster, you can use the following Jsonnet snippet.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local kube = import 'lib/kube.libjsonnet';
+local p = import 'lib/patch-operator.libsonnet';
+
+// Create a strategic merge patch for the namespace
+local ns_patch = p.Patch(
+  kube.Namespace('the-namespace'),
+  {
+    metadata: {
+      labels: {
+        foo: 'bar'
+      },
+    },
+  }
+);
+
+{
+  // output the patch
+  ns_patch: ns_patch,
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_function_reference"><a class="anchor" href="#_function_reference"></a>Function reference</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_apiversion"><a class="anchor" href="#_apiversion"></a><code>apiVersion</code></h3>
+<div class="paragraph">
+<p>Field <code>apiVersion</code> provides the API version of the <code>Patch</code> resources created by the library.</p>
+</div>
+<div class="sect3">
+<h4 id="_return_value"><a class="anchor" href="#_return_value"></a>Return value</h4>
+<div class="paragraph">
+<p><code>redhatcop.redhat.io/v1alpha1</code></p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_required_cli_tools"><a class="anchor" href="#_required_cli_tools"></a>Required CLI tools</h3>
+<h3 id="_patchtargetobj_patchtemplate_patchstrategyapplicationstrategic_merge_patchjson"><a class="anchor" href="#_patchtargetobj_patchtemplate_patchstrategyapplicationstrategic_merge_patchjson"></a><code>Patch(targetobj, patchtemplate, patchstrategy='application/strategic-merge-patch+json')</code></h3>
+<div class="sect3">
+<h4 id="_arguments"><a class="anchor" href="#_arguments"></a>Arguments</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>targetobj</code></dt>
+<dd>
+<p>The target object to patch.
+The library expects this to be a valid Kubernetes object definition.
+The object doesn&#8217;t need to be complete, but fields <code>apiVersion</code>, <code>kind</code>, <code>metadata.name</code> must be present.
+For namespaced resources, field <code>metadata.namespace</code> also must be present for accurate patch targeting.</p>
+</dd>
+<dt class="hdlist1"><code>patchtemplate</code></dt>
+<dd>
+<p>An object describing the patch to apply.
+The exact format of this object is defined by parameter <code>patchstrategy</code>.
+The operator supports the same patch formats as <code>kubectl patch</code>.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>See the Kubernetes docs on <a href="https://kubernetes.io/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/">patching objects</a> for more information on supported formats.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/redhat-cop/patch-operator/#runtime-patch-enforcement">the patch-operator README</a> for more details on additional features provided by patch-operator.</p>
+</div>
+<div class="paragraph">
+<p>Please note that this function doesn&#8217;t support selecting multiple target objects for a patch, but users are free to modify the returned patch object to do so.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>patchstrategy</code></dt>
+<dd>
+<p>The strategy to use to apply the patch provided in parameter <code>patchtemplate</code>.
+The parameter defaults to Kubernetes' strategic merge patch (<code>application/strategic-merge-patch+json</code>).</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Supported strategies are</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>commodore</code></p>
+<p><code>application/json-patch+json</code> for <a href="https://tools.ietf.org/html/rfc6902">RFC 6902 JSON patches</a></p>
 </li>
 <li>
-<p><code>openssl</code></p>
+<p><code>application/merge-patch+json</code> for <a href="https://tools.ietf.org/html/rfc7386">RFC 7386 JSON merge patches</a></p>
 </li>
 <li>
-<p><code>vault</code></p>
-</li>
-<li>
-<p><code>yq</code></p>
+<p><code>application/strategic-merge-patch+json</code> for Kubernetes' strategic merge patches</p>
 </li>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_return_value_2"><a class="anchor" href="#_return_value_2"></a>Return value</h4>
+<div class="paragraph">
+<p>A list containing the rendered <code>Patch</code> custom resource.</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set cluster id and tenant id as environment variables</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=c-cluster-id-1234 <i class="conum" data-value="1"></i><b>(1)</b>
-export TENANT_ID=t-tenant-id-1234 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the actual cluster id and tenant id of the cluster you want to configure.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Compile the cluster</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID}</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-We recommend running <code>commodore catalog compile</code> in an empty directory.
+<div class="paragraph">
+<p>We return a list, so that we could return additional resources if required.
+Users should always add the complete list to the component&#8217;s output to ensure that patches can be applied correctly.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Generate self-signed certificates for the patch-operator&#8217;s webhook and metrics certificates.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">operator_ns=syn-patch-operator <i class="conum" data-value="1"></i><b>(1)</b>
-
-lifetime=3650 <i class="conum" data-value="2"></i><b>(2)</b>
-
-webhook=patch-operator-webhook-service.${operator_ns}.svc
-metrics=patch-operator-controller-manager-metrics-service.${operator_ns}.svc
-
-openssl req -x509 -newkey rsa:4096 -nodes -keyout webhook.key -out webhook.crt -days ${lifetime} \
-  -subj "/CN=$webhook" -addext "subjectAltName = DNS:$webhook,DNS:${webhook}.cluster.local"
-openssl req -x509 -newkey rsa:4096 -nodes -keyout metrics.key -out metrics.crt -days ${lifetime} \
-  -subj "/CN=$metrics" -addext "subjectAltName = DNS:$metrics,DNS:${metrics}.cluster.local"</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Update if you&#8217;re installing the patch operator in a different namespace.
-You can extract the actual operator namespace from the inventory with <code>kapitan inventory -t patch-operator | yq '.parameters.patch_operator.namespace'</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Certificate lifetime in days.
-Adjust as necessary.</td>
-</tr>
-</table>
+<div class="sect2">
+<h3 id="_render_patchpatch_rl_version_patch_idpatch1"><a class="anchor" href="#_render_patchpatch_rl_version_patch_idpatch1"></a><code>render_patch(patch, rl_version, patch_id='patch1')</code></h3>
+<div class="paragraph">
+<p>This function can be used to render individual patches.
+There&#8217;s no real need for this function anymore, and it may be removed in a future release.</p>
 </div>
-</li>
-<li>
-<p>Store keys in Vault</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export VAULT_ADDR=https://vault.example.com <i class="conum" data-value="1"></i><b>(1)</b>
-vault login -metod=oidc <i class="conum" data-value="2"></i><b>(2)</b>
-
-parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
-
-vault kv put $parent/patch-operator webhook-key=@webhook.key
-vault kv put $parent/patch-operator metrics-key=@metrics.key</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the URL of your Project Syn Vault instance.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>This assumes that your Vault instance is setup with OIDC login for users.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Disable cert-manager integration in the component&#8217;s Helm values and configure the external certificates instead</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq -i '.parameters.patch_operator.helm_values.enableCertManager=false' \
-  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
-
-webhook_cert=$(&lt;webhook.crt)
-yq -i ".parameters.patch_operator.external_certificates.webhook.\"tls.crt\"=\"${webhook_cert}\"" \
-  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
-yq -i '.parameters.patch_operator.external_certificates.webhook."tls.key"="?{vaultkv:${cluster:tenant}/${cluster:name}/patch-operator/webhook-key}"' \
-  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
-
-metrics_cert=$(&lt;metrics.crt)
-yq -i ".parameters.patch_operator.external_certificates.metrics.\"tls.crt\"=\"${metrics_cert}\"" \
-  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml
-yq -i '.parameters.patch_operator.external_certificates.metrics."tls.key"="?{vaultkv:${cluster:tenant}/${cluster:name}/patch-operator/metrics-key}"' \
-  inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml</code></pre>
+<div class="sect3">
+<h4 id="_arguments_2"><a class="anchor" href="#_arguments_2"></a>Arguments</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>patch</code></dt>
+<dd>
+<p>The patch to format.
+See the documentation for the <code>Patch()</code> function for details.</p>
+</dd>
+<dt class="hdlist1"><code>rl_version</code></dt>
+<dd>
+<p>This parameter is deprecated, and no longer has any effect.
+It will be removed in a future release.</p>
+</dd>
+<dt class="hdlist1"><code>patch_id</code></dt>
+<dd>
+<p>The patch ID to inject into the patch provided in argument <code>patch</code>.
+Defaults to <code>patch1</code>.</p>
+</dd>
+</dl>
 </div>
 </div>
-</li>
-<li>
-<p>Commit and push the configuration change</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pushd inventory/classes/${TENANT_ID}
-git add ${CLUSTER_ID}.yml
-git commit -m "${CLUSTER_ID}: Configure external certificates for patch-operator"
-git push origin master
-popd</code></pre>
+<div class="sect3">
+<h4 id="_return_value_3"><a class="anchor" href="#_return_value_3"></a>Return value</h4>
+<div class="paragraph">
+<p>An object with key <code>patch_id</code> and value <code>patch</code>.</p>
 </div>
 </div>
-</li>
-<li>
-<p>Clean up temporary files</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm webhook.{key,crt} metrics.{key,crt}</code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="migrate-from-resource-locker.html">Migrate from component <code>resource-locker</code></a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1026,7 +1014,7 @@ popd</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/patch-operator/how-tos/external-certificates.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/patch-operator/references/lib-patch-operator.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
