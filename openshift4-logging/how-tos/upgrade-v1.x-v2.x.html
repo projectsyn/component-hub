@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from v0.1.0 to v1.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/upgrade-v0.1-v1.x.html">
-    <link rel="prev" href="../references/parameters.html">
-    <link rel="next" href="upgrade-v1.x-v2.x.html">
+    <title>Upgrade from v1.x to v2.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/upgrade-v1.x-v2.x.html">
+    <link rel="prev" href="upgrade-v0.1-v1.x.html">
+    <link rel="next" href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -108,10 +108,10 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a>
   </li>
 </ul>
@@ -827,130 +827,129 @@
   <ul>
     <li><a href="../index.html">OpenShift4 Logging</a></li>
     <li>How-Tos</li>
-    <li><a href="upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a></li>
+    <li><a href="upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v0.1-v1.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v1.x-v2.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from v0.1.0 to v1.x</h1>
-<div class="sect1">
-<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
+<h1 class="page">Upgrade from v1.x to v2.x</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>We recommend creating an empty directory to follow this how-to.
-Following the how-to in an empty directory ensures that running Commodore doesn&#8217;t accidentally delete existing files.</p>
+<p>To support Loki Stack some Elasticsearch parameters have moved. The component is backwards compatible,
+but moving the parameters is highly encouraged.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_migrate_kibana_host_and_predict_elasticsearch_storage_alert"><a class="anchor" href="#_migrate_kibana_host_and_predict_elasticsearch_storage_alert"></a>Migrate <code>kibana_host</code> and <code>predict_elasticsearch_storage_alert</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Move the <code>kibana_host</code> parameter to <code>components.elasticsearch.kibana_host</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">workdir=$(mktemp -d)
-pushd "${workdir}"</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make a note of the cluster and tenant IDs</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=c-the-cluster-1234 <i class="conum" data-value="1"></i><b>(1)</b>
-export TENANT_ID=t-the-tenant-1234 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    kibana_host: logging.cluster.local <i class="conum" data-value="1"></i><b>(1)</b>
+    predict_elasticsearch_storage_alert: <i class="conum" data-value="2"></i><b>(2)</b>
+      enabled: true
+      lookback_range: 72h
+      predict_hours_from_now: 72
+      threshold: 85
+      for: 6h
+      severity: warning</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the cluster ID of the cluster to update</td>
+<td>Move <code>kibana_host</code> to <code>components.elasticsearch.kibana_host</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Replace with the tenant ID of the cluster&#8217;s tenant</td>
+<td>Move section <code>predict_elasticsearch_storage_alert</code> to <code>components.elasticsearch.predict_elasticsearch_storage_alert</code></td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Make a note of the latest v1.x version</p>
+<div class="paragraph">
+<p>Example for v2.x:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export V1X=v1.0.0 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    components:
+      elasticsearch:
+        kibana_host: logging.cluster.local
+        predict_elasticsearch_storage_alert:
+          enabled: true
+          lookback_range: 72h
+          predict_hours_from_now: 72
+          threshold: 85
+          for: 6h
+          severity: warning</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_removed_parameters"><a class="anchor" href="#_removed_parameters"></a>Removed Parameters</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_clusterlogging_curator"><a class="anchor" href="#_clusterlogging_curator"></a><code>clusterLogging.curator</code></h3>
+<div class="paragraph">
+<p>Curator deployment was removed with Openshift 4.7.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    clusterLogging:
+      curation: <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the latest v1.x release published on <a href="https://github.com/appuio/component-openshift4-logging/releases">GitHub</a>.</td>
+<td>Entire section <code>monitoring</code> is deprecated</td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Compile cluster catalog to create a local working directory to make the changes</p>
+</div>
+<div class="sect2">
+<h3 id="_monitoring"><a class="anchor" href="#_monitoring"></a><code>monitoring</code></h3>
+<div class="paragraph">
+<p>Monitoring with component prometheus was removed.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile "${CLUSTER_ID}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    monitoring: <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Configure <code>openshift4-operators</code> instance <code>openshift-operators-redhat</code></p>
-<div class="listingblock">
-<div class="title">c-cluster-id.yml</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq eval -i '.applications += ["openshift4-operators as openshift-operators-redhat"]' \
-  "inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml"</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Entire section <code>monitoring</code> is deprecated</td>
+</tr>
+</table>
 </div>
-</div>
-</li>
-<li>
-<p>Upgrade <code>openshift4-logging</code> to <code>v1.0.0</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq eval -i ".parameters.components.openshift4-logging.version = \"${V1X}\"" \
-  "inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml"</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Commit and push changes to cluster config</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(cd "inventory/classes/${TENANT_ID}" &amp;&amp; git commit -av &amp;&amp; git push origin master)</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Compile and push cluster catalog</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile --push -i "${CLUSTER_ID}"</code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
-  <span class="next"><a href="upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a></span>
+  <span class="prev"><a href="upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a></span>
+  <span class="next"><a href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">SYN_ElasticsearchExpectNodeToReachDiskWatermark</a></span>
 </nav>
 </article>
   </div>
@@ -961,7 +960,7 @@ export TENANT_ID=t-the-tenant-1234 <i class="conum" data-value="2"></i><b>(2)</b
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/upgrade-v0.1-v1.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/upgrade-v1.x-v2.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
