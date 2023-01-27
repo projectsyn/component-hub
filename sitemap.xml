@@ -142,6 +142,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-keepalived.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-local-storage.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-logging.xml</loc>
 </sitemap>
 <sitemap>
@@ -167,6 +170,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-scheduling.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-slos.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-splunk-forwarder.xml</loc>
