@@ -181,7 +181,6 @@ class GithubRepoLoader:
                 ]
 
     def get_commodore_repos(self, query: str) -> List[Repo]:
-
         """
         Get active repos from search results.
         Filters out repos listed in the ignore-list
