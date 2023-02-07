@@ -1011,6 +1011,92 @@ You have to option to enable or disable it through the <code>enabled</code> para
 <p>Whether to enable NetworkPolicy in the PostgreSQL instance namespace. This allows to establish connections from claim&#8217;s namespace to the PostgreSQL instance.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_postgres_bucket_region"><a class="anchor" href="#_postgres_bucket_region"></a><code>postgres.bucket_region</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>''</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Bucket region, required for xObjectBucket and PostreSQL managed by VSHN backup, should be cloud specific.</p>
+</div>
+<div class="ulist">
+<div class="title">Examples</div>
+<ul>
+<li>
+<p>Cloudscale</p>
+<div class="ulist">
+<ul>
+<li>
+<p>'lpg'</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Exoscale</p>
+<div class="ulist">
+<ul>
+<li>
+<p>'ch-gva-2'</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_postgres_bucket_endpoint"><a class="anchor" href="#_postgres_bucket_endpoint"></a><code>postgres.bucket_endpoint</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>''</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Bucket endpoint, required for xObjectBucket and PostreSQL managed by VSHN backup, should be cloud specific.</p>
+</div>
+<div class="ulist">
+<div class="title">Examples</div>
+<ul>
+<li>
+<p>Cloudscale</p>
+<div class="ulist">
+<ul>
+<li>
+<p>'https://objects.lpg.cloudscale.ch'</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Exoscale</p>
+<div class="ulist">
+<ul>
+<li>
+<p>'https://sos-ch-gva-2.exo.io'</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">
