@@ -37,10 +37,16 @@
 <loc>https://hub.syn.tools/sitemap-cilium.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-cloud-portal.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-autoscaler.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-control-api.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-coredns.xml</loc>
@@ -89,6 +95,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-keycloak.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-keycloak-attribute-sync-controller.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-kyverno.xml</loc>
@@ -245,6 +254,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vault.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vertical-pod-autoscaler.xml</loc>
