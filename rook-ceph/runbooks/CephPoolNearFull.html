@@ -182,7 +182,7 @@
     <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGUnavilableBlockingIO.html">CephPGUnavilableBlockingIO</a>
+    <a class="nav-link" href="CephPGUnavailableBlockingIO.html">CephPGUnavailableBlockingIO</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
@@ -1147,7 +1147,25 @@ Writes may continue, but you are at risk of the pool going read only if more cap
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>See the how-to on <a href="../how-tos/scale-cluster.html" class="page">scaling a PVC-based Ceph cluster</a> for instructions to resize the cluster.</p>
+<p>First, identify the affected pool(s) by looking at the <code>QUOTA BYTES</code> and <code>STORED</code> values in the output of <code>ceph df detail</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
+$ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph df detail</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Increase the pool&#8217;s quota, if a quota configured.
+You can use <code>ceph osd pool set quota &lt;pool_name&gt; max_bytes &lt;bytes&gt;</code> or a similar command.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, check whether the balancer is active with <code>ceph balancer status</code>.
+If the balancer is off, check the cluster&#8217;s configuration for any notes on why the balancer is off.
+If there&#8217;s no documented reason for the balancer being off, turn it back on in automatic mode with <code>ceph balancer on</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the Ceph cluster is running out of space, see the how-to on <a href="../how-tos/scale-cluster.html" class="page">scaling a PVC-based Ceph cluster</a> for instructions to resize the cluster.</p>
 </div>
 </div>
 </div>

@@ -180,7 +180,7 @@
     <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGUnavilableBlockingIO.html">CephPGUnavilableBlockingIO</a>
+    <a class="nav-link" href="CephPGUnavailableBlockingIO.html">CephPGUnavailableBlockingIO</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
@@ -1132,7 +1132,9 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <div class="sectionbody">
 <div class="paragraph">
 <p>The ceph monitors rely on a consistent time reference to maintain quorum and cluster consistency.
-This event indicates that at least one of your MONs isn&#8217;t sync&#8217;d correctly.</p>
+This event indicates that at least one of your MONs isn&#8217;t sync&#8217;d correctly.
+The Ceph monitors rely on closely synchronized time to maintain quorum and cluster consistency.
+This alert indicates that time on at least one mon has drifted too far from the lead mon.</p>
 </div>
 </div>
 </div>
@@ -1140,11 +1142,32 @@ This event indicates that at least one of your MONs isn&#8217;t sync&#8217;d cor
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_check_which_hosts_time_isnt_synced"><a class="anchor" href="#_check_which_hosts_time_isnt_synced"></a>Check which hosts time isn&#8217;t synced</h3>
+<h3 id="_check_which_hosts_time_isnt_synced"><a class="anchor" href="#_check_which_hosts_time_isnt_synced"></a>Check which host&#8217;s time isn&#8217;t synced</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
 $ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the time sync status on each monitor host with <code>ceph time-sync-status</code> and the state and peers of the <code>ntpd</code> or <code>chrony</code> daemon on the host.</p>
+</div>
+<div class="paragraph">
+<p>For <code>ntpd</code>, you can check the peers with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ntpq -p</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For <code>chrony</code>, you can check the state and peers with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ chronyc sources
+$ chronyc sourcestats
+$ chronyc tracking</code></pre>
 </div>
 </div>
 </div>

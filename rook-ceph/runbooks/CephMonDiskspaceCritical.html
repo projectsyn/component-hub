@@ -182,7 +182,7 @@
     <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGUnavilableBlockingIO.html">CephPGUnavilableBlockingIO</a>
+    <a class="nav-link" href="CephPGUnavailableBlockingIO.html">CephPGUnavailableBlockingIO</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
@@ -1137,7 +1137,12 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <div class="paragraph">
 <p>The free space available to a monitor&#8217;s store is critically low (&lt;5% by default).
 You should increase the space available to the monitor(s).
-The default location for the store sits under /var/lib/rook/&lt;MON_NAME&gt;/data as a <code>hostPath</code> volume.</p>
+The monitor&#8217;s store can be found at <code>/var/lib/rook/&lt;MON_NAME&gt;/data</code> on the host.</p>
+</div>
+<div class="paragraph">
+<p>Look for old, rotated versions of <code><strong>.log</code> and <code>MANIFEST</strong></code>.
+IMPORTANT: Don&#8217;t touch any <code>*.sst</code> files.
+Also check any other directories under <code>/var/lib/rook</code> and other directories on the same filesystem, often <code>/var/log</code> and <code>/var/tmp</code> are culprits.</p>
 </div>
 </div>
 </div>
