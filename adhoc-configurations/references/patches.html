@@ -883,12 +883,12 @@
 <h2 id="_patch_application_infrastructure"><a class="anchor" href="#_patch_application_infrastructure"></a>Patch application infrastructure</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To apply object patches on the cluster we make use of the <a href="https://github.com/redhat-cop/resource-locker-operator">resource-locker-operator</a>.
-The resource-locker-operator is deployed via Commodore component <a href="https://github.com/projectsyn/component-resource-locker">resource-locker</a>.</p>
+<p>To apply object patches on the cluster we make use of the <a href="https://github.com/redhat-cop/patch-operator">patch-operator</a>.
+The patch-operator is deployed via Commodore component <a href="https://github.com/projectsyn/component-patch-operator">patch-operator</a>.</p>
 </div>
 <div class="paragraph">
 <p>By default, the <code>adhoc-configurations</code> component creates a service account and clusterrolebinding to use with the patches managed by the component.
-Users can choose to bring their own ServiceAccount or ClusterRoleBinding, by setting component parameters <code>resourcelocker.serviceaccount.create</code> and <code>resourcelocker.clusterrolebinding.create</code> to <code>False</code> respectively.</p>
+Users can choose to bring their own ServiceAccount or ClusterRoleBinding, by setting component parameters <code>patches.serviceaccount.create</code> and <code>patches.clusterrolebinding.create</code> to <code>False</code> respectively.</p>
 </div>
 </div>
 </div>
@@ -896,9 +896,24 @@ Users can choose to bring their own ServiceAccount or ClusterRoleBinding, by set
 <h2 id="_patch_input_format"><a class="anchor" href="#_patch_input_format"></a>Patch input format</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The input format for object patches are <code>ResourceLocker</code> objects.
-To remove some of the more tedious bits of writing <code>ResourceLocker</code> objects, the component provides some extra plumbing to ensure provided <code>ResourceLocker</code> objects work smoothly with the resource-locker-operator deployed in the cluster.
-The <a href="#_patch_processing_by_the_component">next section</a> provides a detailed description of the processing that the component does for <code>ResourceLocker</code> objects.</p>
+<p>The input format for object patches are patch-operator <code>Patch</code> objects.
+To remove some of the more tedious bits of writing <code>Patch</code> objects, the component provides some extra plumbing to ensure provided <code>Patch</code> objects work smoothly with the patch-operator deployed in the cluster.
+The <a href="#_patch_processing_by_the_component">next section</a> provides a detailed description of the processing that the component does for <code>Patch</code> objects.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component also has limited support for transforming <code>ResourceLocker</code> objects which contain only object patches into <code>Patch</code> objects.
+If the legacy resource-locker-operator patches provide custom patch ids, those are reused as keys in the <code>Patch</code> custom resource&#8217;s <code>spec.patches</code> object.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -911,18 +926,22 @@ The <a href="#_patch_processing_by_the_component">next section</a> provides a de
 <div class="ulist">
 <ul>
 <li>
-<p>The name of each <code>ResourceLocker</code> object is prefixed with <code>adhoc-configurations-</code>.</p>
+<p>The name of each <code>Patch</code> object is prefixed with <code>adhoc-configurations-</code>.</p>
 </li>
 <li>
-<p>The <code>apiVersion</code> of all <code>ResourceLocker</code> resources matches the version of resource-locker-operator which is deployed on the cluster.</p>
+<p>The <code>apiVersion</code> of all <code>Patch</code> resources matches the version of patch-operator which is deployed on the cluster.</p>
 </li>
 <li>
-<p>The namespace of all <code>ResourceLocker</code> resources is set to the namespace in which the resource-locker-operator runs.</p>
+<p>The namespace of all <code>Patch</code> resources is set to the namespace in which the patch-operator runs.</p>
 </li>
 <li>
-<p>The field <code>spec.serviceAccountRef</code> of all <code>ResourceLocker</code> resources is set to the ServiceAccount managed by (or provided to) the component.</p>
+<p>The field <code>spec.serviceAccountRef</code> of all <code>Patch</code> resources is set to the ServiceAccount managed by (or provided to) the component.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Additionally, the postprocessing filter will transform legacy <code>ResourceLocker</code> resources provided in the abbreviated format supported by previous component versions into equivalent <code>Patch</code> resources by transforming field <code>patches</code> from a list to an object with autogenerated keys.
+This feature is only provided to make migration to patch-operator easier and users are encouraged to update their patch specifications to the format expected by patch-operator.</p>
 </div>
 </div>
 </div>

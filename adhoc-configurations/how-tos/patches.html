@@ -903,36 +903,37 @@ An object patch in the context of this guide is a patch that could be applied wi
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure resource-locker-operator is deployed on the cluster.</p>
+<p>Ensure patch-operator is deployed on the cluster.</p>
 <div class="listingblock">
 <div class="title">c-cluster-id.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">applications:
-  - resource-locker</code></pre>
+  - patch-operator</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Define your <code>ResourceLocker</code> object containing your patch(es)</p>
+<p>Define your <code>Patch</code> object containing your patch(es)</p>
 <div class="paragraph">
-<p>For example, to patch a service object <code>my-service</code> in namespace <code>my-app</code> to expose target port 8000 on port 8000 in addition to existing port configurations, we&#8217;d supply the following <code>ResourceLocker</code> object.</p>
+<p>For example, to patch a service object <code>my-service</code> in namespace <code>my-app</code> to expose target port 8000 on port 8000 in addition to existing port configurations, we&#8217;d supply the following <code>Patch</code> object.</p>
 </div>
 <div class="listingblock">
 <div class="title">manifests/c-cluster-id/service-patch.yaml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ResourceLocker
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: Patch
 metadata:
   name: my-first-patch
 spec:
   patches:
-    - patchTemplate: |- <i class="conum" data-value="1"></i><b>(1)</b>
+    my-app-service: <i class="conum" data-value="1"></i><b>(1)</b>
+      patchTemplate: |- <i class="conum" data-value="2"></i><b>(2)</b>
         spec:
           ports:
             - protocol: TCP
               port: 8000
               targetPort: 8000
-      patchType: application/strategic-merge-patch+json <i class="conum" data-value="2"></i><b>(2)</b>
-      targetObjectRef: <i class="conum" data-value="3"></i><b>(3)</b>
+      patchType: application/strategic-merge-patch+json <i class="conum" data-value="3"></i><b>(3)</b>
+      targetObjectRef: <i class="conum" data-value="4"></i><b>(4)</b>
         apiVersion: v1
         kind: Service
         namespace: my-app
@@ -943,14 +944,16 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The patch to apply.
-The component can automatically inject <code>id: patch&lt;N&gt;</code> into each patch in the template.
-This allows existing patches to continue working when component <code>resource-locker</code> is upgraded to v2.x.
-Note that the component doesn&#8217;t preserve user-provided values for field <code>id</code>.
-Further, the component doesn&#8217;t remove field <code>id</code> from the provided patches when component <code>resource-locker</code> v1.x is deployed on the cluster.</td>
+<td>The internal identifier for the patch.
+The patch-operator uses the patch id to provide metrics about patch errors and reconcile times for the patch.
+Users should try to keep patch identifiers unique to ensure patch-operator metrics remain usable.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The patch to apply.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>The patch strategy to use when applying the patch, must be one of
 <div class="ulist">
 <ul>
@@ -973,7 +976,7 @@ Further, the component doesn&#8217;t remove field <code>id</code> from the provi
 </div></td>
 </tr>
 <tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>The object to patch</td>
 </tr>
 </table>
@@ -986,8 +989,8 @@ Further, the component doesn&#8217;t remove field <code>id</code> from the provi
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A <code>ResourceLocker</code> object can contain multiple patches.
-Just add additional entries to the <code>spec.patches</code> array in the <code>ResourceLocker</code> object.</p>
+<p>A <code>Patch</code> object can contain multiple patches.
+Just add additional key-value pairs to the <code>spec.patches</code> object in the <code>Patch</code> object.</p>
 </div>
 </td>
 </tr>
@@ -995,9 +998,9 @@ Just add additional entries to the <code>spec.patches</code> array in the <code>
 </div>
 </li>
 <li>
-<p>Add your <code>ResourceLocker</code> manifest in the tenant repo for the cluster on which you want to apply the patch.</p>
+<p>Add your <code>Patch</code> manifest in the tenant repo for the cluster on which you want to apply the patch.</p>
 <div class="paragraph">
-<p>The file holding the <code>ResourceLocker</code> manifest can be named arbitrarily.</p>
+<p>The file holding the <code>Patch</code> manifest can be named arbitrarily.</p>
 </div>
 </li>
 <li>

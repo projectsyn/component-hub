@@ -953,7 +953,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_resourcelocker"><a class="anchor" href="#_resourcelocker"></a><code>resourcelocker</code></h2>
+<h2 id="_patches"><a class="anchor" href="#_patches"></a><code>patches</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Section to configure ServiceAccount and ClusterRoleBinding which will be used for object patches.</p>
@@ -977,7 +977,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">create: True
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">create: true
 name: adhoc-configurations-manager</code></pre>
 </div>
 </div>
@@ -986,8 +986,8 @@ name: adhoc-configurations-manager</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>The ServiceAccount to create (or use if <code>create</code> is False).
-When <code>create</code> is False, a <code>ServiceAccount</code> with the given name must exist in the namespace in which the resource-locker-operator is installed.</p>
+<p>The ServiceAccount to create (or use if <code>create</code> is false).
+When <code>create</code> is false, a <code>ServiceAccount</code> with the given name must exist in the namespace in which the patch-operator is installed.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1009,7 +1009,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">create: True
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">create: true
 clusterrole_name: cluster-admin</code></pre>
 </div>
 </div>
@@ -1019,8 +1019,8 @@ clusterrole_name: cluster-admin</code></pre>
 </div>
 <div class="paragraph">
 <p>Configuration for ClusterRoleBinding.
-The ClusterRoleBinding will only be created if field <code>create</code> is True.
-Otherwise the user needs to ensure that the ServiceAccount used for the <code>ResourceLocker</code> objects has sufficient permissions to apply the patches.</p>
+The ClusterRoleBinding will only be created if field <code>create</code> is true.
+Otherwise the user needs to ensure that the ServiceAccount used for the <code>Patch</code> objects has sufficient permissions to apply the patches.</p>
 </div>
 <div class="paragraph">
 <p>The ClusterRoleBinding will refer to a ClusterRole with name <code>clusterrole_name</code>.
