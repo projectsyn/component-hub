@@ -1081,6 +1081,127 @@ If you install the component on a cluster which doesn&#8217;t have cert-manager 
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring_enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On OpenShift 4, the component sets label <code>openshift.io/cluster-monitoring=true</code> on the namespace, so that the patch operator <code>ServiceMonitor</code> object is picked up by the OpenShift 4 cluster monitoring stack.
+The component generates a <code>PrometheusRule</code> object with alerts as defined in <code>alerts</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-patch-operator/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">BadThingsHappening:
+  enabled: true
+  rule:
+    annotations:
+      description: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+      message: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+      runbook_url: https://hub.syn.tools/patch-operator/runbooks/BadThingsHappening.html
+    expr: |
+      bad_thing_happening == 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>alerts</code> defines the alerts to be installed.
+The dictionary key is used as the name of the alert.
+Note that <code>alerts</code> is ignored if <code>monitoring_enabled</code> is set to <code>false</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_name_enabled"><a class="anchor" href="#_alerts_name_enabled"></a><code>alerts.&lt;name&gt;.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines whether to install the alert.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_name_rule"><a class="anchor" href="#_alerts_name_rule"></a><code>alerts.&lt;name&gt;.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Holds the configuration of the alert rule.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">Prometheus Alerting Rules</a> for details.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/external-certificates.html">Configure external certificates</a></span>
   <span class="next"><a href="lib-patch-operator.html"><code>patch-operator.libsonnet</code> API reference</a></span>
