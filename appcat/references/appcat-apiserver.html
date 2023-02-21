@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Provider Exoscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-exoscale.html">
-    <link rel="prev" href="provider-cloudscale.html">
-    <link rel="next" href="provider-kubernetes.html">
+    <title>AppCat API Server :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-apiserver.html">
+    <link rel="prev" href="component-parameters.html">
+    <link rel="next" href="provider-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -127,7 +127,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">AppCat API Server Parameters</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="appcat-apiserver.html">AppCat API Server</a>
   </li>
 </ul>
@@ -139,7 +139,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -914,36 +914,22 @@
   <ul>
     <li><a href="../index.html">appcat</a></li>
     <li>Technical reference</li>
-    <li>Provider Parameters</li>
-    <li><a href="provider-exoscale.html">Provider Exoscale</a></li>
+    <li>AppCat API Server Parameters</li>
+    <li><a href="appcat-apiserver.html">AppCat API Server</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-exoscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/appcat-apiserver.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Provider Exoscale</h1>
+<h1 class="page">AppCat API Server</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.provider.exoscale</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can also have a look at the <a href="../tutorials/install-exoscale.html" class="page">tutorial for installing the Exoscale stack.</a></p>
-</div>
-</td>
-</tr>
-</table>
+<p>The parent key for all of the following parameters is <code>appcat.apiserver</code>.</p>
 </div>
 </div>
 </div>
@@ -971,12 +957,12 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>If the provider should be installed.</p>
+<p>If the API Server should be installed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_connectionsecretnamespace"><a class="anchor" href="#_connectionsecretnamespace"></a><code>connectionSecretNamespace</code></h2>
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -993,19 +979,19 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-provider-exoscale-secrets</code></p>
+<p><code>appcat-apiserver</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A namespace to store the connection secrets in.
+<p>A namespace where API Server should run.
 The namespace will be created and managed by this component.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_credentials"><a class="anchor" href="#_credentials"></a><code>credentials</code></h2>
+<h2 id="_extraargs"><a class="anchor" href="#_extraargs"></a><code>extraArgs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1014,22 +1000,18 @@ The namespace will be created and managed by this component.</p>
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>array</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Credentials to connect to the Exoscale API.
-You can specify the name and namespace of the created secret and the <code>stringData</code> in the <code>data</code> field.</p>
-</div>
-<div class="paragraph">
-<p>The <code>data</code> field should contain an IAM access key in the field <code>EXOSCALE_API_KEY</code> and the corresponding secret key in the field <code>EXOSCALE_API_SECRET</code>.</p>
+<p>Extra arguments to pass to the API Server.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h2>
+<h2 id="_extraenv"><a class="anchor" href="#_extraenv"></a><code>extraEnv</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1044,15 +1026,12 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>spec</code> parameters contains the <code>spec</code> of the <code>Provider</code> resource.</p>
-</div>
-<div class="paragraph">
-<p>Consult the <a href="https://docs.crossplane.io/v1.10/concepts/packages/#installing-a-package">upstream documentation</a> for configuration options.</p>
+<p>Extra environment variables to be passed to the deployment of the API Server.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_providerconfig"><a class="anchor" href="#_providerconfig"></a><code>providerConfig</code></h2>
+<h2 id="_apiservice_insecureskiptlsverify"><a class="anchor" href="#_apiservice_insecureskiptlsverify"></a><code>apiservice.insecureSkipTLSVerify</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1061,22 +1040,26 @@ type
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>spec</code> of the <code>ProviderConfig</code>.
-By default, the component will add the credentials to the provider config.</p>
-</div>
-<div class="paragraph">
-<p>Look at <a href="https://github.com/vshn/provider-exoscale/blob/master/apis/provider/v1/providerconfig_types.go">the provider exoscale</a> for available configuration options.</p>
+<p>Configuration of the <code>APIService</code>. The parameter <code>insecureSkipTLSVerify</code> disables TLS certificate verification when communicating with this API Server.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_controllerconfig"><a class="anchor" href="#_controllerconfig"></a><code>controllerConfig</code></h2>
+<h2 id="_tls_certsecretname"><a class="anchor" href="#_tls_certsecretname"></a><code>tls.certSecretName</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1085,23 +1068,83 @@ By default, the component will add the credentials to the provider config.</p>
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>appcat-apiserver-tls</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>spec</code> of the <code>ControllerConfig</code>.
-If the component is deployed on OpenShift, it will automatically add the necessary security context changes to the config.</p>
+<p>The secret name where the certificate is saved.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tls_servercert"><a class="anchor" href="#_tls_servercert"></a><code>tls.serverCert</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>""</p>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Consult the <a href="https://doc.crds.dev/github.com/crossplane/crossplane/pkg.crossplane.io/ControllerConfig/v1alpha1">upstream documentation</a> for configuration options.</p>
+<p>The public certificate to be saved in <code>tls.certSecretName</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tls_serverkey"><a class="anchor" href="#_tls_serverkey"></a><code>tls.serverKey</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/appcat/apiserver/apiserver-key</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The key of the certificate <code>tls.serverCert</code>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
-  <span class="next"><a href="provider-kubernetes.html">Provider Kubernetes</a></span>
+  <span class="prev"><a href="component-parameters.html">Parameters</a></span>
+  <span class="next"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
 </nav>
 </article>
   </div>
@@ -1112,7 +1155,7 @@ If the component is deployed on OpenShift, it will automatically add the necessa
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/provider-exoscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-apiserver.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
