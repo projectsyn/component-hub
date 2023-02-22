@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert Group: syn-CpuCapacity :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/runbooks/cpucapacity.html">
-    <link rel="prev" href="memorycapacity.html">
-    <link rel="next" href="unusedcapacity.html">
+    <title>How the Restore Process Works :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/explanations/restore.html">
+    <link rel="prev" href="crossplane-secrets-non-provider.html">
+    <link rel="next" href="../tutorials/install-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,12 +81,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="openshift4-monitoring" data-version="master">
+<div class="nav-container" data-component="appcat" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">OpenShift4 Monitoring</a></h3>
+    <h3 class="title"><a href="../index.html">appcat</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -97,58 +97,73 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Reference</span>
+    <span class="nav-text">Explanations</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/parameters.html">Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">How-Tos</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/opsgenie.html">OpsGenie integration</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Explanation</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/resource_management.html">Resource Management</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Runbooks</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="podcapacity.html">Pod Capacity Alert</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="resourcerequests.html">Resource Requests Alert</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="memorycapacity.html">Memory Capacity Alert</a>
+    <a class="nav-link" href="crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="cpucapacity.html">CPU Capacity Alert</a>
+    <a class="nav-link" href="restore.html">How the Restore Process Works</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="unusedcapacity.html">Node Capacity Alert</a>
+    <a class="nav-link" href="../tutorials/install-exoscale.html">Install Exoscale Stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="remotewrite.html">Prometheus RemoteWrite Alert</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">AppCat API Server Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/appcat-apiserver.html">AppCat API Server</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Provider Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Service Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -157,7 +172,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">OpenShift4 Monitoring</span>
+    <span class="title">appcat</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -177,11 +192,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../appcat/index.html">appcat</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">appcat</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../appcat/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -593,11 +608,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">OpenShift4 Monitoring</a>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -908,196 +923,57 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">OpenShift4 Monitoring</a></li>
-    <li>Runbooks</li>
-    <li><a href="cpucapacity.html">CPU Capacity Alert</a></li>
+    <li><a href="../index.html">appcat</a></li>
+    <li>Explanations</li>
+    <li><a href="restore.html">How the Restore Process Works</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/runbooks/cpucapacity.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/explanations/restore.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert Group: syn-CpuCapacity</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">How the Restore Process Works</h1>
 <div class="paragraph">
-<p>We provide two rules to notice if a cluster has high CPU utilization.
-If a cluster has consistently high CPU utilization, workload latency might increase and operations might time out.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="SYN_ClusterCpuUsageHigh"><a class="anchor" href="#SYN_ClusterCpuUsageHigh"></a>Alert Rule: SYN_ClusterCpuUsageHigh</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
-<div class="paragraph">
-<p>This alert indicates that the total CPU utilization over all worker nodes is high.
-By default, it will fire if the number of idle cores is less than the core count of the largest worker node for more than two hours.</p>
+<p>The restore is defined by another composition <code>vshnpostgresqlrestore</code>.
+That composition patches some more information necessary to trigger a restore.
+It also deploys a copy job to the <code>syn-appcat-control</code> namespace.
+This is necessary so that we can access the backups from different namespaces.</p>
 </div>
 <div class="paragraph">
-<p>If you receive this alert, a worker node failure in the cluster is likely to cause high latency for customer workloads.
-After verifying that the cluster&#8217;s CPU utilization is high, you should consider adding more CPU capacity.</p>
+<p>The copy job copies three things from the original instance namespace to the new namespace:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_investigate"><a class="anchor" href="#_investigate"></a><span class="icon"><i class="fa fa-search"></i></span> Investigate</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Verify the alert</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Verify that the reported load is correct.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl top nodes</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If the load reported by <code>top nodes</code> doesn&#8217;t appear to be particularly high, there might be a bug in the alert rule.
-If that&#8217;s the case, please disable this alert and open an issue for this component.</p>
-</div>
+<p>the secret containing bucket credentials</p>
 </li>
 <li>
-<p>Check if there is a sudden increase in CPU usage that indicate that this might be temporary or caused by a misbehaving workload.</p>
+<p>an sgObjectStorage that contains the endpoint and bucket name where the backup is stored</p>
+</li>
+<li>
+<p>sgBackup this object contains the actual necessary information to successfully trigger a restore of the instance</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Either add more worker nodes or resize existing worker nodes according to the install <a href="https://kb.vshn.ch/oc4/index.html">instructions for your cloud</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
 <div class="paragraph">
-<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you might want to tune it.</p>
+<p>This job is deployed to a dedicated <code>syn-appcat-control</code> namespace that&#8217;s not available to the user.</p>
 </div>
 <div class="paragraph">
-<p>Through the component parameters you have the option modify the alert threshold factor, change for how long it needs to be firing until you are alerted, or disable it outright.
-In the example below will adapt the rule to only alert after four hours and change the threshold factor to 0.7.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
-  groups:
-    CpuCapacity:
-      rules:
-        ClusterCpuUsageHigh:
-          enabled: true
-          for: 4h
-          expr:
-            factor: 0.7</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="SYN_ExpectClusterCpuUsageHigh"><a class="anchor" href="#SYN_ExpectClusterCpuUsageHigh"></a>Alert Rule: SYN_ExpectClusterCpuUsageHigh</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_overview_2"><a class="anchor" href="#_overview_2"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
-<div class="paragraph">
-<p>This alert indicates that we expect the total CPU utilization over all worker nodes to become high in the next days.
-By default, this alert will fire if we expect the number of idle cores to less than the core count of the largest worker node in three days.</p>
+<p>These objects are necessary for StackGres to perform a succesful restore of the given backup.
+The remaining differences in the restore composition are to pass the necessary information to the <code>sgCluster</code> object.
+The actual restore is handled by StackGres.</p>
 </div>
 <div class="paragraph">
-<p>If you receive this alert, the cluster might soon experience degraded workload performance in case of a worker node failure.
-After verifying the CPU utilization growth, you should consider adding more CPU capacity in the next days.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_investigate_2"><a class="anchor" href="#_investigate_2"></a><span class="icon"><i class="fa fa-search"></i></span> Investigate</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Look at the source of this alert in Prometheus</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Does the prediction look realistic?</p>
-</li>
-<li>
-<p>Compare it to the graph without the <code>predict_linear</code></p>
-</li>
-<li>
-<p>If there is any doubt in the prediction, monitor this graph for the next hours or days</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Check the actual CPU usage on each worker node</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl top nodes</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If the number is widely different than the prediction, the alert is probably not actionable.</p>
-</div>
-</li>
-<li>
-<p>Check if there is a sudden increase in CPU usage that indicate that this might be temporary or caused by a misbehaving workload.</p>
-</li>
-<li>
-<p>Add one or more worker nodes or resize existing worker nodes according to the install <a href="https://kb.vshn.ch/oc4/index.html">instructions for your cloud</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tune_2"><a class="anchor" href="#_tune_2"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
-<div class="paragraph">
-<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you might want to tune it.</p>
-</div>
-<div class="paragraph">
-<p>Through the component parameters you have the option tune the alert rule.
-You can modify the threshold, change for how long it needs to be firing until you are alerted, how far into the future to predict, or disable it outright.</p>
-</div>
-<div class="paragraph">
-<p>In the example below will adapt the rule so that it will alert if we expect that all CPU cores will be utilized in 5 days, but only if it fired for 12h.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
-  groups:
-    CpuCapacity:
-      rules:
-        ClusterCpuUsageHigh:
-          enabled: true
-          for: 12h
-          expr:
-            threshold: '0' <i class="conum" data-value="1"></i><b>(1)</b>
-            predict: '5*24*60*60' <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The threshold can be an arbitrary promql expression</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>How far into the future to predict in seconds</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+<p>To ensure quicker reconciliation the <code>dependsOn</code> feature of <code>provider-kubernetes</code> is used on the <code>sgCluster</code> object.
+This ensures that the <code>sgCluster</code> is only applied after the job has been created.
+This cuts the reconcilation of the actual cluster in half.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="memorycapacity.html">Memory Capacity Alert</a></span>
-  <span class="next"><a href="unusedcapacity.html">Node Capacity Alert</a></span>
+  <span class="prev"><a href="crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a></span>
+  <span class="next"><a href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a></span>
 </nav>
 </article>
   </div>
@@ -1108,7 +984,7 @@ You can modify the threshold, change for how long it needs to be firing until yo
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/runbooks/cpucapacity.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/explanations/restore.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
