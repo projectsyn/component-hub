@@ -1479,8 +1479,25 @@ default
       name: loki-logstore
   storageClassName: ''
   tenants:
-    mode: openshift-logging</code></pre>
+    mode: openshift-logging
+  limits:
+    global:
+      ingestion:
+        ingestionBurstSize: 9 <i class="conum" data-value="1"></i><b>(1)</b>
+        ingestionRate: 5 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>value in MiB (per push event)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>value in MiB/s</td>
+</tr>
+</table>
 </div>
 </td>
 </tr>
@@ -1490,7 +1507,38 @@ default
 <p>A dictionary holding the <code>.spec</code> for the LokiStack resource.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-loki.html#logging-loki-deploy_cluster-logging-loki">Openshift Docs</a> for available parameters.</p>
+<p>The component configures fluentd as the default log forwarder.
+The default chunk size limit in fluentd is 8 MiB which the burst size limit of 9 MiB accounts for.
+The ingestion rate defines the MiB/s limit for a tenant.
+OpenShift Logging uses the following three tenants:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>application</p>
+</li>
+<li>
+<p>audit</p>
+</li>
+<li>
+<p>infrastructure</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The max allowed volume for a tenant per day can be calculated with the following formula:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\$"volumePerDay"_"tenant" ("in GiB/s") = ("ingestionRate"_"tenant" ("in MiB/s") * 60 * 60 * 24) / 1024\$
+</div>
+</div>
+<div class="paragraph">
+<p>The default of 5 MiB/s allows up to ~420 GiB of logs per day for a tenant.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-loki.html#logging-loki-deploy_cluster-logging-loki">Openshift Docs</a> for available parameters.
+See the <a href="https://loki-operator.dev/docs/api.md/">Loki Operator Docs</a> for available Lokistack specs.</p>
 </div>
 </div>
 </div>

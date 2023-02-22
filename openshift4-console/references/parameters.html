@@ -1060,6 +1060,49 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_config_plugins"><a class="anchor" href="#_config_plugins"></a><code>config.plugins</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Add plugins to the console.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While adding custom plugins is supported, Argo CD will ignore differences to allow other components to patch this field.</p>
+</div>
+<div class="paragraph">
+<p>Manual syncs in Argo CD may be necessary.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_config_route"><a class="anchor" href="#_config_route"></a><code>config.route</code></h3>
 <div class="hdlist">
 <table>
