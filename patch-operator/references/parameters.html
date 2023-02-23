@@ -1012,6 +1012,25 @@ Supported keys are <code>tls.key</code>, <code>tls.crt</code> and <code>ca.crt</
 The component will generate secrets with type <code>kubernetes.io/tls</code> and the provided keys.
 If key <code>ca.crt</code> is missing, the component assumes that <code>tls.crt</code> is a self-signed certificate.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The certificate must be provided directly in the hierarchy, rather than as a secret reference.</p>
+</div>
+<div class="paragraph">
+<p>When field <code>tls.crt</code> or <code>ca.crt</code> are provided as secret references, the component will generate invalid admission webhook configurations if the certificates are provided as PEM-encoded.
+To get valid admission webhook configs with secret references, the certificates would have to be base64-encoded PEM-encoded certificates.
+However, by base64-encoding the certificates in Vault, we&#8217;d get an invalid certificate secret, since we always emit the secrets with the certificate values in field <code>stringData</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">

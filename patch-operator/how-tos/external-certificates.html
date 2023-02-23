@@ -978,9 +978,9 @@ webhook=patch-operator-webhook-service.${operator_ns}.svc
 metrics=patch-operator-controller-manager-metrics-service.${operator_ns}.svc
 
 openssl req -x509 -newkey rsa:4096 -nodes -keyout webhook.key -out webhook.crt -days ${lifetime} \
-  -subj "/CN=$webhook" -addext "subjectAltName = DNS:$webhook,DNS:${webhook}.cluster.local"
+  -subj "/CN=webhook" -addext "subjectAltName = DNS:$webhook,DNS:${webhook}.cluster.local"
 openssl req -x509 -newkey rsa:4096 -nodes -keyout metrics.key -out metrics.crt -days ${lifetime} \
-  -subj "/CN=$metrics" -addext "subjectAltName = DNS:$metrics,DNS:${metrics}.cluster.local"</code></pre>
+  -subj "/CN=metrics" -addext "subjectAltName = DNS:$metrics,DNS:${metrics}.cluster.local"</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1007,8 +1007,7 @@ vault login -metod=oidc <i class="conum" data-value="2"></i><b>(2)</b>
 
 parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
 
-vault kv put $parent/patch-operator webhook-key=@webhook.key
-vault kv put $parent/patch-operator metrics-key=@metrics.key</code></pre>
+vault kv put $parent/patch-operator webhook-key=@webhook.key metrics-key=@metrics.key</code></pre>
 </div>
 </div>
 <div class="colist arabic">
