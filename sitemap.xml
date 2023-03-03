@@ -187,6 +187,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-scheduling.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-service-mesh.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-slos.xml</loc>
 </sitemap>
 <sitemap>
