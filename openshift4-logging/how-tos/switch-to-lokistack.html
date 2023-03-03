@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../how-tos/upgrade-v0.1-v1.x.html">
+    <title>Switch to Lokistack :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/switch-to-lokistack.html">
+    <link rel="prev" href="upgrade-v1.x-v2.x.html">
+    <link rel="next" href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,8 +99,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">References</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -109,13 +109,13 @@
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a>
+    <a class="nav-link" href="upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a>
+    <a class="nav-link" href="upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/switch-to-lokistack.html">Switch to Lokistack</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="switch-to-lokistack.html">Switch to Lokistack</a>
   </li>
 </ul>
   </li>
@@ -877,167 +877,143 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OpenShift4 Logging</a></li>
-    <li>References</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-Tos</li>
+    <li><a href="switch-to-lokistack.html">Switch to Lokistack</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/switch-to-lokistack.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Switch to Lokistack</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>openshift4_logging</code>.</p>
+<p>Instructions to switch from Elasticsearch Logging to Lokistack.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-deploying.html#cluster-logging-deploy-cli_cluster-logging-deploying">OpenShift docs</a> for details.</p>
+<p>Migrating the logs isn&#8217;t part of this How-To, instead you can keep Elasticsearch logging until the retention time is expired. Then it&#8217;s safe to remove Elasticsearch Logging.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Running Lokistack and Elasticsearch Logging at the same time might exceed the resources of the infra nodes. Check in advance that you have enough resources available.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_keep_elasticsearch"><a class="anchor" href="#_keep_elasticsearch"></a>Keep Elasticsearch</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="paragraph">
+<p>To keep Elasticseach Logging just make sure the component is enabled:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  elasticsearch:
+    enabled: true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enable_lokistack_and_make_it_default"><a class="anchor" href="#_enable_lokistack_and_make_it_default"></a>Enable Lokistack and make it default</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable the Lokistack component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  elasticsearch:
+    enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  lokistack:
+    enabled: true
+
+clusterLogging:
+  logStore:
+    type: lokistack <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Keep the existing Elasticsearch</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Make Lokistack the default logstore</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_configure_lokistack"><a class="anchor" href="#_configure_lokistack"></a>Configure Lokistack</h3>
+<div class="paragraph">
+<p>See the <a href="../references/parameters.html#_components_lokistack" class="page">Lokistack parameters reference</a> for configuration options.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remove_elasticsearch"><a class="anchor" href="#_remove_elasticsearch"></a>Remove Elasticsearch</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
 </td>
-<td class="hdlist2">
-<p><code>openshift-logging</code></p>
+<td class="content">
+<div class="paragraph">
+<p>You might want to keep Elasticsearch Logging to access the logs until the retention time is expired.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to install the operator.</p>
+<p>Disable the Elasticsearch component:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  elasticsearch:
+    enabled: false</code></pre>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>5.6</code></p>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>The logging stack version to deploy.
-This parameter is used in the default values for parameters <code>channel</code> and <code>alerts</code>.</p>
+<p>This will remove the subscriptions and the Kibana deployment.</p>
+</div>
+<div class="sect2">
+<h3 id="_remove_deployments"><a class="anchor" href="#_remove_deployments"></a>Remove Deployments</h3>
+<div class="paragraph">
+<p>The Elasticsearch deployment has to be removed manually.</p>
 </div>
 <div class="paragraph">
-<p>We recommend that you use this parameter to specify the logging stack version which the component should deploy.
-However, you can still parameters <code>channel</code> and <code>alerts</code> directly.</p>
+<p>Remove the Elasticsearch custom resource and pvc:</p>
 </div>
-<div class="paragraph">
-<p>See the <a href="https://access.redhat.com/support/policy/updates/openshift#logging">OpenShift Logging life cycle documentation</a> for supported versions of the logging stack.
-We recommend that you select a version of the logging stack that&#8217;s officially listed as compatible with your OpenShift version.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_channel"><a class="anchor" href="#_channel"></a><code>channel</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>stable-${openshift4_logging:version}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Channel of the operator subscription to use.
-If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
-</div>
-<div class="paragraph">
-<p>In OpenShift 4.7, RedHat decoupled the logging stack version from the OpenShift version.
-The decoupled logging stack versions start at version 5.0.
-With version 5.1 of the logging stack, channels for specific minor versions were introduced.</p>
-</div>
-<div class="paragraph">
-<p>Ideally we would just default to the <code>stable</code> channel, as that channel will always be backed by a logging stack version compatible with the OpenShift cluster version by the OpenShift marketplace operator.
-However, since there&#8217;s potential for changes in configuration between logging stack versions which need to be managed through the component, we default to using the <code>stable-5.x</code> channel matching the version specified in parameter <code>version</code>.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-deploying.html#cluster-logging-deploy-cli_cluster-logging-deploying">OpenShift documentation</a> for details.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n openshift-logging delete elasticsearches.logging.openshift.io elasticsearch
+kubectl -n openshift-logging delete pvc -l logging-cluster=elasticsearch</code></pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>release-${openshift4_logging:version}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Release version of the alerting rules.
-If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
-</div>
-<div class="paragraph">
-<p>The component uses this parameter to determine the version to download for both Elasticsearch Operator and fluentd alert rules.</p>
-</div>
-<div class="paragraph">
-<p>Generally, the value for parameter <code>alerts</code> should match the value for parameter <code>channel</code>: if you specify <code>channel: stable-5.5</code>, you should use <code>alerts: release-5.5</code>.</p>
-</div>
+<div class="sect2">
+<h3 id="_remove_operators"><a class="anchor" href="#_remove_operators"></a>Remove Operators</h3>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1046,966 +1022,56 @@ If you specify the logging stack version through parameter <code>version</code>,
 </td>
 <td class="content">
 <div class="paragraph">
-<p>RedHat moved the YAML file containing the alert rules between cluster-logging version 5.4 and 5.5.
-To ensure the component can deploy alert rules for version 5.5, we&#8217;ve implemented support for the different file locations through a lookup map in the component class.
-However, due to limitations of reclass, there&#8217;s no way to specify a fallback value in case the lookup map doesn&#8217;t contain a key.
-Because of this, the component no longer automatically supports new versions of the logging stack.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[]</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter can be used to disable alerts provided by openshift cluster-logging-operator.
-The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_components_elasticsearch"><a class="anchor" href="#_components_elasticsearch"></a><code>components.elasticsearch</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
-  elasticsearch:
-    enabled: true
-    kibana_host: null
-    predict_elasticsearch_storage_alert:
-      enabled: true
-      lookback_range: 72h
-      predict_hours_from_now: 72
-      threshold: 85
-      for: 6h
-      severity: warning</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration of the elasticsearch component.</p>
-</div>
-<div class="sect2">
-<h3 id="_components_elasticsearch_kibana_host"><a class="anchor" href="#_components_elasticsearch_kibana_host"></a><code>components.elasticsearch.kibana_host</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<p><code>kibana.apps.cluster.syn.tools</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Host name of the Kibana route.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_components_elasticsearch_predict_elasticsearch_storage_alert"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
-  elasticsearch:
-    predict_elasticsearch_storage_alert:
-      enabled: true
-      lookback_range: 72h
-      predict_hours_from_now: 72
-      threshold: 85
-      for: 6h
-      severity: warning</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Create an alert <code>SYN_ElasticsearchExpectNodeToReachDiskWatermark</code> if the storage allocated for Elasticsearch is predicted to reach the low storage watermark.</p>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_enabled"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_enabled"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.enabled</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Enable or disable this alert.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_lookback_range"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_lookback_range"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.lookback_range</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>prometheus duration</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>72h</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>How for to look back to calculate the prediction.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_predict_hours_from_now"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_predict_hours_from_now"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.predict_hours_from_now</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>72</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>How far in the future the prediction is calculated.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_threshold"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_threshold"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.threshold</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>85</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The threshold for the alert.
-Percentage of disk fill.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_for"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_for"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.for</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>prometheus duration</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>6h</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The alert is firing once the threshold has been reached for this long.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_severity"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_severity"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.severity</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>warning</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The severity of the fired alert.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_components_lokistack"><a class="anchor" href="#_components_lokistack"></a><code>components.lokistack</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
-  lokistack:
-    enabled: false
-    logStore:
-      access_key_id: ''
-      access_key_secret: ''
-      endpoint: ''
-      bucketnames: '${cluster:name}-logstore'
-    spec:
-      size: 1x.extra-small
-      storage:
-        schemas:
-          - version: v12
-            effectiveDate: '2022-06-01'
-        secret:
-          type: s3
-          name: loki-logstore
-      storageClassName: ''
-      tenants:
-        mode: openshift-logging</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration of the lokistack component.</p>
-</div>
-<div class="sect2">
-<h3 id="_components_lokistack_logstore"><a class="anchor" href="#_components_lokistack_logstore"></a><code>components.lokistack.logStore</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">logStore:
-  access_key_id: ''
-  access_key_secret: ''
-  endpoint: ''
-  bucketnames: '${cluster:name}-logstore'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the connection information for the s3 storage used by the lokistack.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-loki.html#logging-loki-deploy_cluster-logging-loki">Openshift Docs</a> or
-<a href="https://loki-operator.dev/docs/object_storage.md">Lokistack Operator Docs</a> for available parameters.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_components_lokistack_spec"><a class="anchor" href="#_components_lokistack_spec"></a><code>components.lokistack.spec</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
-  size: 1x.extra-small
-  storage:
-    schemas:
-      - version: v12
-        effectiveDate: '2022-06-01'
-    secret:
-      type: s3
-      name: loki-logstore
-  storageClassName: ''
-  tenants:
-    mode: openshift-logging
-  limits:
-    global:
-      ingestion:
-        ingestionBurstSize: 9 <i class="conum" data-value="1"></i><b>(1)</b>
-        ingestionRate: 5 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>value in MiB (per push event)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>value in MiB/s</td>
-</tr>
-</table>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the <code>.spec</code> for the LokiStack resource.</p>
-</div>
-<div class="paragraph">
-<p>The component configures fluentd as the default log forwarder.
-The default chunk size limit in fluentd is 8 MiB which the burst size limit of 9 MiB accounts for.
-The ingestion rate defines the MiB/s limit for a tenant.
-OpenShift Logging uses the following three tenants:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>application</p>
-</li>
-<li>
-<p>audit</p>
-</li>
-<li>
-<p>infrastructure</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The max allowed volume for a tenant per day can be calculated with the following formula:</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\$"volumePerDay"_"tenant" ("in GiB/s") = ("ingestionRate"_"tenant" ("in MiB/s") * 60 * 60 * 24) / 1024\$
-</div>
-</div>
-<div class="paragraph">
-<p>The default of 5 MiB/s allows up to ~420 GiB of logs per day for a tenant.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-loki.html#logging-loki-deploy_cluster-logging-loki">Openshift Docs</a> for available parameters.
-See the <a href="https://loki-operator.dev/docs/api.md/">Loki Operator Docs</a> for available Lokistack specs.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_clusterlogging"><a class="anchor" href="#_clusterlogging"></a><code>clusterLogging</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <code>defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the <code>.spec</code> for cluster logging.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/config/cluster-logging-configuring-cr.html">OpenShift docs</a> for available parameters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_clusterlogforwarding"><a class="anchor" href="#_clusterlogforwarding"></a><code>clusterLogForwarding</code></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_clusterlogforwarding_enabled"><a class="anchor" href="#_clusterlogforwarding_enabled"></a><code>clusterLogForwarding.enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Enables log forwarding for the cluster.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_forwarders"><a class="anchor" href="#_clusterlogforwarding_forwarders"></a><code>clusterLogForwarding.forwarders</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Each key in this dictionary holds the parameters for an <code>.spec.outputs</code> object.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-external.html">OpenShift docs</a> for available parameters.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_namespace_groups"><a class="anchor" href="#_clusterlogforwarding_namespace_groups"></a><code>clusterLogForwarding.namespace_groups</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of a specified group of namespaces.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of the specified namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="paragraph">
-<p>Enable json parsing for a 'namespace_group' only makes sense if the logs are forwarded to the clusters default elasticsearch instance. Therefor 'default' will automatically be added to the forwarders.</p>
+<p>Verify that no other Elasticsearches, using this operator, exists:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  namespace_groups:
-    my-group: <i class="conum" data-value="1"></i><b>(1)</b>
-      namespaces: <i class="conum" data-value="2"></i><b>(2)</b>
-        - my-namespace
-      forwarders: <i class="conum" data-value="3"></i><b>(3)</b>
-        - splunk-forwarder
-      json: true <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get elasticsearches.logging.openshift.io -A</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Namespace to configure.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>List of namespaces.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Enable json logging only for defined namespaces.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_application_logs"><a class="anchor" href="#_clusterlogforwarding_application_logs"></a><code>clusterLogForwarding.application_logs</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Customization for the logging of all applications.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
+<p>Remove the Elasticsearch operator:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  application_logs:
-    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
-      - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable json logging for all applications.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_infrastructure_logs"><a class="anchor" href="#_clusterlogforwarding_infrastructure_logs"></a><code>clusterLogForwarding.infrastructure_logs</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  infrastructure_logs:
-    enabled: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of <code>openshift*</code>, <code>kube*</code>, or <code>default</code> projects.</p>
-</div>
-<div class="paragraph">
-<p>Enabled by default.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  infrastructure_logs:
-    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
-      - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable json logging for all applications.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_audit_logs"><a class="anchor" href="#_clusterlogforwarding_audit_logs"></a><code>clusterLogForwarding.audit_logs</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  audit_logs:
-    enabled: false</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of <a href="https://docs.openshift.com/container-platform/latest/security/audit-log-policy-config.html">audit logs</a>.</p>
-</div>
-<div class="paragraph">
-<p>Disabled by default.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  audit_logs:
-    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
-      - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable json logging for all applications.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_json"><a class="anchor" href="#_clusterlogforwarding_json"></a><code>clusterLogForwarding.json</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see below</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Setting <code>json.enabled</code> is required for json parsing to be available. You need to additionally enable it in <code>clusterLogForwarding.application_logs</code> or <code>clusterLogForwarding.namespace_groups</code>, based on your needs, to actually parse the logs.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  json:
-    enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
-    typekey: 'kubernetes.labels.logFormat' <i class="conum" data-value="2"></i><b>(2)</b>
-    typename: 'nologformat' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>By default JSON parsing is disabled.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The value of that field, if present, is used to construct the index name.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>If <code>typekey</code> isn&#8217;t set or its key isn&#8217;t present, the value of this field is used to construct the index name.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-enabling-json-logging.html#cluster-logging-configuration-of-json-log-data-for-default-elasticsearch_cluster-logging-enabling-json-logging">OpenShift docs</a> for a detailed explanation.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogging:
-  logStore:
-    retentionPolicy:
-      application:
-        maxAge: 15d
-    elasticsearch:
-      nodeCount: 5</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_forward_logs_for_all_application_logs_to_third_party"><a class="anchor" href="#_forward_logs_for_all_application_logs_to_third_party"></a>Forward logs for all application logs to third-party</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  forwarders:
-    splunk-forwarder:
-      secret:
-        name: splunk-forwarder
-      type: fluentdForward
-      url: tls://splunk-forwarder:24224
-  application_logs:
-    forwarders:
-      - splunk-forwarder</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n openshift-operators-redhat delete csv -l operators.coreos.com/elasticsearch-operator.openshift-operators-redhat=""</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_forward_logs_for_certain_namespaces_to_third_party"><a class="anchor" href="#_forward_logs_for_certain_namespaces_to_third_party"></a>Forward logs for certain namespaces to third-party</h3>
+<h3 id="_remove_custom_resource_definitions"><a class="anchor" href="#_remove_custom_resource_definitions"></a>Remove Custom Resource Definitions</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Before you remove the CRDs, make sure no other deployments are using these resources.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The only thing left now are the CRDs from the Elasticsearch operator:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  forwarders:
-    splunk-forwarder:
-      secret:
-        name: splunk-forwarder
-      type: fluentdForward
-      url: tls://splunk-forwarder:24224
-  namespace_groups:
-    my-group:
-      namespaces:
-        - my-namespace
-      forwarders:
-        - splunk-forwarder</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enable_json_parsing_for_all_application_logs"><a class="anchor" href="#_enable_json_parsing_for_all_application_logs"></a>Enable JSON parsing for all application logs</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  application_logs:
-    json: true
-  json:
-    enabled: true</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enable_json_parsing_for_certain_namespaces"><a class="anchor" href="#_enable_json_parsing_for_certain_namespaces"></a>Enable JSON parsing for certain namespaces</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  namespace_groups:
-    my-group:
-      namespaces:
-        - my-namespace
-      json: true
-  json:
-    enabled: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete crd -l app.kubernetes.io/instance=elastic-operator</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../how-tos/upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a></span>
+  <span class="prev"><a href="upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a></span>
+  <span class="next"><a href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">SYN_ElasticsearchExpectNodeToReachDiskWatermark</a></span>
 </nav>
 </article>
   </div>
@@ -2016,7 +1082,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/switch-to-lokistack.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
