@@ -930,19 +930,48 @@ type
 <p>dict</p>
 </td>
 </tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
 </table>
 </div>
 <div class="paragraph">
 <p>List of Helm values to pass to the Helm chart.
-For a list of supported values see: <a href="https://stackgres.io/doc/latest/install/operator/parameters/">stackgres operator paramaters</a>.</p>
+For a list of supported values see: <a href="https://stackgres.io/doc/latest/install/operator/parameters/">stackgres operator parameters</a>.</p>
+</div>
+<div class="paragraph">
+<p>By default, the rest API is disabled and certificate management by cert-manager is enabled.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This means by default this component requires a working cert-manager instance on the cluster.
+If cert-manager isn&#8217;t installed on the target cluster, disable cert-manager support by setting <code>helmValues.cert.certManager.autoConfigure: false</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When switching from or to cert-manager generated certificates can&#8217;t be done automatically, but needs manual intervention.
+<strong>Before</strong> modifying <code>helmValues.cert.certManager.autoConfigure</code> you&#8217;ll have to manually remove the secrets <code>stackgres-operator-certs</code> and <code>stackgres-operator-ca</code> from the operator namespace.
+This is necessary as the installation jobs won&#8217;t clean up old certificates, which will lead to certificate validation errors.</p>
+</div>
+<div class="paragraph">
+<p>Please be aware that this will result in downtime for the operator.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
