@@ -916,7 +916,7 @@ default
 </div>
 <div class="paragraph">
 <p>The namespace to create for the component instance.
-The component is implemented in such a way that only instances (and therefore namespaces) <code>openshift-operators</code> and <code>openshift-operators-redhat</code> can be created.
+The component is implemented in such a way that only instances (and therefore namespaces) <code>openshift-operators</code> and <code>openshift-operators-redhat</code> can be created, unless <code>useCustomNamespace</code> is set to <code>true</code>.
 Generally, it shouldn&#8217;t be necessary to override this parameter.</p>
 </div>
 </div>
@@ -1064,6 +1064,35 @@ default
 <p>The component defaults to <code>certified-operators</code> for instance <code>openshift-operators</code>.
 This source provides community-maintained operators which are certified by RedHat.
 Alternatively, you can use <code>community-operators</code> for other community-maintained operators.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usecustomnamespace"><a class="anchor" href="#_usecustomnamespace"></a><code>useCustomNamespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to allow non-standard namespace names for the OperatorGroup.
+If this parameter is set to <code>true</code>, the component will allow using namespace names other than <code>openshift-operators</code> and <code>openshift-operators-redhat</code>.</p>
 </div>
 </div>
 </div>
