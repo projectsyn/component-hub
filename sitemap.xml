@@ -112,7 +112,13 @@
 <loc>https://hub.syn.tools/sitemap-kyverno.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-lieutenant.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-machineset-egress-cidr-operator.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-metallb.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-metrics-server.xml</loc>
@@ -227,6 +233,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-secret-generator.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-secrets.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
