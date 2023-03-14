@@ -1104,6 +1104,107 @@ If this parameter is set to <code>true</code>, the component will allow using na
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_subscription"><a class="anchor" href="#_subscription"></a><code>subscription</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This parameter allows users of the component to configure one subscription per instance.
+The component explicitly doesn&#8217;t allow configuring multiple instances in the same namespace, since we&#8217;ve seen various issues with conflicting upgrades when multiple subscriptions are created in the same namespace, especially when <code>installPlanApproval=Manual</code> is required for some reason.</p>
+</div>
+<div class="sect2">
+<h3 id="_subscription_name"><a class="anchor" href="#_subscription_name"></a><code>subscription.name</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the operator to create a subscription for.
+If this field isn&#8217;t <code>null</code>, the component will create a <code>Subscription</code> object.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_subscription_channel"><a class="anchor" href="#_subscription_channel"></a><code>subscription.channel</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the update channel to use for the subscription.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_subscription_spec"><a class="anchor" href="#_subscription_spec"></a><code>subscription.spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This field is merged into the base <code>Subscription</code> object.
+You can override any valid fields in the <code>Subscription</code> object&#8217;s <code>spec</code> here.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate the contents of this parameter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="component-library.html">Component library</a></span>
 </nav>
