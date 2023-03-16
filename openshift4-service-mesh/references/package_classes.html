@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-service-mesh/references/parameters.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="package_classes.html">
+    <title>Package classes :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-service-mesh/references/package_classes.html">
+    <link rel="prev" href="parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,10 +92,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="package_classes.html">Package classes</a>
   </li>
 </ul>
@@ -866,199 +865,49 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">openshift4-service-mesh</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="package_classes.html">Package classes</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-service-mesh/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-service-mesh/edit/master/docs/modules/ROOT/pages/references/package_classes.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Package classes</h1>
 <div class="paragraph">
-<p>This documentation covers parameters for both component <code>openshift4-service-mesh</code> and config package <code>openshift4-service-mesh</code>.</p>
+<p>The <code>openshift4-service-mesh</code> configuration package provides the following classes:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_package_parameters"><a class="anchor" href="#_package_parameters"></a>Package parameters</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>pkg.openshift4_service_mesh</code>.</p>
-</div>
-<div class="sect2">
-<h3 id="_operator"><a class="anchor" href="#_operator"></a><code>operator</code></h3>
-<div class="paragraph">
-<p>type: object
-default:: <code>{"channel": "stable", "installPlanApproval": "Automatic"}</code></p>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to customize the upgrade channel and upgrade mode for the service mesh operator.
-This parameter is passed on to component <code>openshift4-service-mesh</code> in the component&#8217;s parameter <code>operator</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_es_operator"><a class="anchor" href="#_es_operator"></a><code>es_operator</code></h3>
-<div class="paragraph">
-<p>type: object
-default:: <code>{"channel": "stable", "installPlanApproval": "Automatic"}</code></p>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to customize the upgrade channel and mode for the OpenShift ElasticSearch operator.
-This parameter is passed on to component <code>openshift4-service-mesh</code> in the component&#8217;s parameter <code>es_operator</code>.</p>
-</div>
-<div class="admonitionblock note">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>main</code></dt>
+<dd>
+<p>This class provides the default configuration for installing OpenShift service mesh.
+It configures two <code>openshift4-operators</code> instances to manage the Kiali and distributed tracing (Jaeger) operators.
+Additionally, it configures the <code>openshift4-service-mesh</code> component.
+See the <a href="parameters.html#_package_parameters" class="page">package parameters reference</a> for details on how to configure the package.</p>
+</dd>
+<dt class="hdlist1"><code>preview</code></dt>
+<dd>
+<p>This class includes the <code>main</code> class, and overrides the openshift4-service-mesh component version with <code>master</code>.</p>
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>The ES operator is only installed by this component if it&#8217;s not already installed for the OpenShift logging stack through component <code>openshift4-logging</code>.
-If the ES operator is installed through <code>openshift4-logging</code>, this parameter has no effect.</p>
-</div>
+This class should never be included on a production cluster.
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_kiali"><a class="anchor" href="#_kiali"></a><code>kiali</code></h3>
-<div class="paragraph">
-<p>type: object
-default:: <code>{"channel": "stable", "installPlanApproval": "Automatic"}</code></p>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to customize the upgrade channel and mode for the Kiali operator.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This operator is installed through component <code>openshift4-operators</code>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_distributed_tracing"><a class="anchor" href="#_distributed_tracing"></a><code>distributed_tracing</code></h3>
-<div class="paragraph">
-<p>type: object
-default:: <code>{"channel": "stable", "installPlanApproval": "Automatic"}</code></p>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to customize the upgrade channel and mode for the distributed tracing framework (Jaeger).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This operator is installed through component <code>openshift4-operators</code>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_component_parameters"><a class="anchor" href="#_component_parameters"></a>Component parameters</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>openshift4_service_mesh</code>.</p>
-</div>
-<div class="sect2">
-<h3 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-openshift-service-mesh</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The namespace in which the service mesh operator is deployed.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operator_2"><a class="anchor" href="#_operator_2"></a><code>operator</code></h3>
-<div class="paragraph">
-<p>type: object
-default:: <code>{"channel": "stable", "installPlanApproval": "Automatic"}</code></p>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to customize the upgrade channel and upgrade mode for the service mesh operator.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_es_operator_2"><a class="anchor" href="#_es_operator_2"></a><code>es_operator</code></h3>
-<div class="paragraph">
-<p>type: object
-default:: <code>{"channel": "stable", "installPlanApproval": "Automatic"}</code></p>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to customize the upgrade channel and mode for the OpenShift ElasticSearch operator.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The ES operator is only installed by this component if it&#8217;s not already installed for the OpenShift logging stack through component <code>openshift4-logging</code>.
-If the ES operator is installed through <code>openshift4-logging</code>, this parameter has no effect.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This component installs the ES operator in namespace <code>&lt;namespace&gt;-es-operator</code>, where the value of the component parameter <code>namespace</code> is used for <code>&lt;namespace&gt;</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+</dd>
+</dl>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="package_classes.html">Package classes</a></span>
+  <span class="prev"><a href="parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1069,7 +918,7 @@ If the ES operator is installed through <code>openshift4-logging</code>, this pa
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-service-mesh/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-service-mesh/references/package_classes.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

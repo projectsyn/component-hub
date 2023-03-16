@@ -95,6 +95,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="references/parameters.html">Parameters</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="references/package_classes.html">Package classes</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -874,7 +877,15 @@
 <article class="doc">
 <h1 class="page">openshift4-service-mesh</h1>
 <div class="paragraph">
-<p>openshift4-service-mesh is a Commodore component to manage openshift4-service-mesh.</p>
+<p><code>openshift4-service-mesh</code> is a Commodore component and configuration package to manage the <a href="https://docs.openshift.com/container-platform/latest/service_mesh/v2x/ossm-about.html">OpenShift Service Mesh (OSSM)</a>.</p>
+</div>
+<div class="paragraph">
+<p>We recommend installing the OpenShift service mesh through the provided configuration package.
+The package ensures that all the operators required by OpenShift service mesh are installed into separate namespaces to minimize upgrade conflicts.
+If you use the Commodore component directly, you&#8217;ll have to ensure that Kiali and the distributed tracing framework (Jaeger) operators are installed yourself.</p>
+</div>
+<div class="paragraph">
+<p>When using the configuration package, users should prefer configuring the service mesh through parameter <code>pkg.openshift4_service_mesh</code>.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
