@@ -114,6 +114,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade from 2.x to 3.x</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade from 3.x to 4.x</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -1008,7 +1011,7 @@ type
 <p>When the cluster and the network infrastucture supports it, IPv6 CIDRs can be configured as well.</p>
 </div>
 <div class="paragraph">
-<p>If the parameter addresses is provided, an address pool called <code>default</code> in protocol mode <code>layer2</code> is created.</p>
+<p>If the parameter addresses is provided, the component creates an <code>IPAddressPool</code> and <code>L2Advertisement</code> called <code>default</code> to advertise the provided CIDRs in layer 2 mode.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="https://metallb.universe.tf/configuration/#layer-2-configuration">MetalLB documentation</a> for more details.</p>
@@ -1026,6 +1029,24 @@ type
 </td>
 <td class="hdlist2">
 <p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This parameter is deprecated.
+Config provided in this parameter should be migrated to the new component parameters which are mapped to custom resources, see below.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="../how-tos/upgrade-3.x-to-4.x.html" class="page">migration how-to</a> for details.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -1065,6 +1086,234 @@ The component doesn&#8217;t validate the provided configuration.
 </div>
 <div class="paragraph">
 <p>See the <a href="https://metallb.universe.tf/configuration/">MetalLB documentation</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ipaddresspools"><a class="anchor" href="#_ipaddresspools"></a><code>ipAddressPools</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in this parameter is transformed into a <code>IPAddressPool</code> custom resource.
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is merged into the resource as provided.
+One implication of this is that you need to provide a valid partial custom resource definition.
+For example, you must put configurations into field <code>spec</code> in the provided value.
+The component doesn&#8217;t validate the provided values.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When you use parameter <code>addresses</code>, you can further customize the <code>IPAddressPool</code> named <code>default</code> through this parameter.
+If you specify additional CIDRs through this parameter, the list provided here is merged with the list provided in <code>addresses</code>, filtering out duplicate entries.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_l2advertisements"><a class="anchor" href="#_l2advertisements"></a><code>l2Advertisements</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in this parameter is transformed into a <code>L2Advertisement</code> custom resource.
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is merged into the resource as provided.
+One implication of this is that you need to provide a valid partial custom resource definition.
+For example, you must put configurations into field <code>spec</code> in the provided value.
+The component doesn&#8217;t validate the provided values.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When you use parameter <code>addresses</code>, you can further customize the <code>L2Advertisement</code> named <code>default</code> through this parameter.
+If you specify additional address pool names through this parameter, the component ensures that there&#8217;s no duplicate entry for pool name <code>default</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bgppeers"><a class="anchor" href="#_bgppeers"></a><code>bgpPeers</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in this parameter is transformed into a <code>BGPPeer</code> custom resource.
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is merged into the resource as provided.
+One implication of this is that you need to provide a valid partial custom resource definition.
+For example, you must put configurations into field <code>spec</code> in the provided value.
+The component doesn&#8217;t validate the provided values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bgpadvertisements"><a class="anchor" href="#_bgpadvertisements"></a><code>bgpAdvertisements</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in this parameter is transformed into a <code>BGPAdvertisement</code> custom resource.
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is merged into the resource as provided.
+One implication of this is that you need to provide a valid partial custom resource definition.
+For example, you must put configurations into field <code>spec</code> in the provided value.
+The component doesn&#8217;t validate the provided values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_communities"><a class="anchor" href="#_communities"></a><code>communities</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in this parameter is transformed into a <code>Community</code> custom resource.
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is merged into the resource as provided.
+One implication of this is that you need to provide a valid partial custom resource definition.
+For example, you must put configurations into field <code>spec</code> in the provided value.
+The component doesn&#8217;t validate the provided values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bfdprofiles"><a class="anchor" href="#_bfdprofiles"></a><code>bfdProfiles</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in this parameter is transformed into a <code>BFDProfile</code> custom resource.
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is merged into the resource as provided.
+One implication of this is that you need to provide a valid partial custom resource definition.
+For example, you must put configurations into field <code>spec</code> in the provided value.
+The component doesn&#8217;t validate the provided values.</p>
 </div>
 </div>
 </div>

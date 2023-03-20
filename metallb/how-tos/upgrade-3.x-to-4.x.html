@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from 1.x to 2.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/metallb/how-tos/upgrade-1.x-to-2.x.html">
-    <link rel="prev" href="../references/parameters.html">
-    <link rel="next" href="upgrade-2.x-to-3.x.html">
+    <title>Upgrade from component version 3.x to 4.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/metallb/how-tos/upgrade-3.x-to-4.x.html">
+    <link rel="prev" href="upgrade-2.x-to-3.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -108,13 +107,13 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade from 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade from 2.x to 3.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade from 3.x to 4.x</a>
   </li>
 </ul>
@@ -885,21 +884,21 @@
   <ul>
     <li><a href="../index.html">MetalLB</a></li>
     <li>How-to guides</li>
-    <li><a href="upgrade-1.x-to-2.x.html">Upgrade from 1.x to 2.x</a></li>
+    <li><a href="upgrade-3.x-to-4.x.html">Upgrade from 3.x to 4.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-metallb/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-1.x-to-2.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-metallb/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-3.x-to-4.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from 1.x to 2.x</h1>
+<h1 class="page">Upgrade from component version 3.x to 4.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version 1.x to 2.x.</p>
+<p>This guide describes the steps to peform an upgrade of the component from version 3.x to 4.x.</p>
 </div>
 </div>
 </div>
@@ -907,25 +906,453 @@
 <h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Beginning with version 2.0.0, this component is no longer based on the Bitnami Helm chart, but on the official Helm chart for MetalLB.</p>
+<p>Beginning with version 4.0.0, the component only supports MetalLB &gt;= 0.13, and always renders configuration as MetalLB custom resources.</p>
 </div>
 <div class="paragraph">
-<p>The upgrade can be done in-place.</p>
+<p>If you explicitly set the MetalLB helm chart version to &lt; 0.13, the component will fail to compile.</p>
 </div>
 <div class="paragraph">
-<p>You should notice that the Docker image changes from docker.io to quay.io.</p>
+<p>If you use parameter <code>addresses</code> to configure MetalLB, you don&#8217;t have to migrate your config.
+However, if you use parameter <code>config</code> to configure MetalLb, you should update your configuration to use the new custom resource config parameters directly.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_migrate_config_to_custom_resource_parameters"><a class="anchor" href="#_migrate_config_to_custom_resource_parameters"></a>Migrate config to custom resource parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After upgrading to component version 4.x, the component will translate configurations provided in parameter <code>config</code> into custom resources transparently.
+However, the <code>config</code> parameter will be removed in a future version, so we strongly recommend migrating the configuration to the new <code>ipAddressPools</code>, <code>l2Advertisements</code>, <code>bgpPeers</code>, <code>bgpAdvertisements</code>, <code>communities</code> and <code>bfdProfiles</code> parameters.</p>
 </div>
 <div class="paragraph">
-<p>We&#8217;re doing this because we want to be als close to upstream as possible.</p>
+<p>You can extract the values for the new parameters from the cluster catalog after compiling component version 4.x for the first time.
+The config is put into the catalog in file <code>catalog/manifests/metallb/02_config.yaml</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_migration"><a class="anchor" href="#_example_migration"></a>Example migration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides an example of how a reasonably complex configuration can be mapped to the new parameters.
+Generally speaking, the config format remains mostly the same, except that the advertisement configurations got moved out of the address pool configuration into their own dedicated custom resources.
+Additionally, the address pool custom resource doesn&#8217;t have a field <code>protocol</code>.
+That information is now modeled by referring to the address pool from either an <code>L2Advertisement</code> or <code>BGPAdvertisement</code> resource.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. old <code>class/defaults.yml</code></div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters
+  metallb:
+    config:
+      peers:
+        - peer-address: 192.0.2.1
+          peer-asn: 64501
+          my-asn: 64500
+          bfd-profile: full1
+        - peer-address: 192.0.2.2
+          peer-asn: 64501
+          my-asn: 64500
+          node-selectors:
+            - match-labels:
+                rack: frontend
+              match-expressions:
+                - key: network-speed
+                  operator: NotIn
+                  values: [slow]
+            - match-expressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values: [hostA, hostB]
+      address-pools:
+        - name: default
+          addresses:
+            - 198.51.100.32/27
+          protocol: layer2
+        - name: bgp
+          addresses:
+            - 198.51.100.64/27
+          protocol: bgp
+          auto-assign: false
+          bgp-advertisements:
+            - aggregation-length: 32
+              localpref: 100
+              communities:
+                - 64512:1234
+            - aggregation-length: 27
+              localpref: 50
+              communities:
+                - 64512:1234
+        - name: bgp2
+          addresses:
+            - 198.51.100.96/27
+          protocol: bgp
+          auto-assign: false
+          bgp-advertisements:
+            - aggregation-length: 32
+              localpref: 100
+              communities:
+                - no-advertise
+            - aggregation-length: 27
+      bgp-communities:
+        no-advertise: 65535:65282
+      bfd-profiles:
+        - name: full1
+          receive-interval: 179
+          transmit-interval: 180
+          echo-interval: 62
+          echo-mode: false
+          passive-mode: false
+          minimum-ttl: 254</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 2. generated custom resource-based config</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: metallb.io/v1beta1
+kind: BGPPeer
+metadata:
+  annotations:
+    metallb.syn.tools/description: This BGP peer is generated from the legacy config
+      parameter
+  labels:
+    name: peer1
+  name: peer1
+  namespace: syn-metallb
+spec:
+  bfdProfile: full1
+  myASN: 64500
+  peerASN: 64501
+  peerAddress: 192.0.2.1
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPPeer
+metadata:
+  annotations:
+    metallb.syn.tools/description: This BGP peer is generated from the legacy config
+      parameter
+  labels:
+    name: peer2
+  name: peer2
+  namespace: syn-metallb
+spec:
+  myASN: 64500
+  nodeSelectors:
+    - matchExpressions:
+        - key: network-speed
+          operator: NotIn
+          values:
+            - slow
+      matchLabels:
+        rack: frontend
+    - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+            - hostA
+            - hostB
+  peerASN: 64501
+  peerAddress: 192.0.2.2
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  annotations:
+    metallb.syn.tools/description: This IP address pool is generated from the legacy
+      parameter "config"
+  labels:
+    name: default
+  name: default
+  namespace: syn-metallb
+spec:
+  addresses:
+    - 198.51.100.32/27
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  annotations:
+    metallb.syn.tools/description: This IP address pool is generated from the legacy
+      parameter "config"
+  labels:
+    name: bgp
+  name: bgp
+  namespace: syn-metallb
+spec:
+  addresses:
+    - 198.51.100.64/27
+  autoAssign: false
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  annotations:
+    metallb.syn.tools/description: This IP address pool is generated from the legacy
+      parameter "config"
+  labels:
+    name: bgp2
+  name: bgp2
+  namespace: syn-metallb
+spec:
+  addresses:
+    - 198.51.100.96/27
+  autoAssign: false
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  annotations:
+    metallb.syn.tools/description: This advertisements is generated from legacy address
+      pool config
+  labels:
+    name: bgp-1
+  name: bgp-1
+  namespace: syn-metallb
+spec:
+  aggregationLength: 32
+  communities:
+    - 64512:1234
+  ipAddressPools:
+    - bgp
+  localPref: 100
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  annotations:
+    metallb.syn.tools/description: This advertisements is generated from legacy address
+      pool config
+  labels:
+    name: bgp-2
+  name: bgp-2
+  namespace: syn-metallb
+spec:
+  aggregationLength: 27
+  communities:
+    - 64512:1234
+  ipAddressPools:
+    - bgp
+  localPref: 50
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  annotations:
+    metallb.syn.tools/description: This advertisements is generated from legacy address
+      pool config
+  labels:
+    name: bgp2-1
+  name: bgp2-1
+  namespace: syn-metallb
+spec:
+  aggregationLength: 32
+  communities:
+    - no-advertise
+  ipAddressPools:
+    - bgp2
+  localPref: 100
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  annotations:
+    metallb.syn.tools/description: This advertisements is generated from legacy address
+      pool config
+  labels:
+    name: bgp2-2
+  name: bgp2-2
+  namespace: syn-metallb
+spec:
+  aggregationLength: 27
+  ipAddressPools:
+    - bgp2
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  annotations:
+    metallb.syn.tools/description: This L2Advertisement is generated if any L2 address
+      pools are configured through the legacy configuration parameters
+  labels:
+    name: legacy
+  name: legacy
+  namespace: syn-metallb
+spec:
+  ipAddressPools:
+    - default
+---
+apiVersion: metallb.io/v1beta1
+kind: BFDProfile
+metadata:
+  annotations:
+    metallb.syn.tools/description: This BFD profile is generated from the legacy config
+      parameter
+  labels:
+    name: full1
+  name: full1
+  namespace: syn-metallb
+spec:
+  echoInterval: 62
+  echoMode: false
+  minimumTtl: 254
+  passiveMode: false
+  receiveInterval: 179
+  transmitInterval: 180
+---
+apiVersion: metallb.io/v1beta1
+kind: Community
+metadata:
+  annotations:
+    metallb.syn.tools/description: This object is generated from the legacy config
+      parameter
+  labels:
+    name: legacy
+  name: legacy
+  namespace: syn-metallb
+spec:
+  communities:
+    - name: no-advertise
+      value: 65535:65282</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 3. new <code>class/defaults.yml</code></div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  metallb:
+    ipAddressPools:
+      default:
+        spec:
+          addresses:
+            - 198.51.100.32/27
+      bgp:
+        spec:
+          addresses:
+            - 198.51.100.64/27
+      bgp2:
+        spec:
+          addresses:
+            - 198.51.100.96/27
+    l2Advertisements:
+      legacy:
+        spec:
+          ipAddressPools:
+            - default
+    bgpAdvertisements: <i class="conum" data-value="1"></i><b>(1)</b>
+      bgp-1:
+        spec:
+          aggregationLength: 32
+          communities:
+            - 64512:1234
+          ipAddressPools:
+            - bgp
+          localPref: 100
+      bgp-2:
+        spec:
+          aggregationLength: 27
+          communities:
+            - 64512:1234
+          ipAddressPools:
+            - bgp
+          localPref: 50
+      bgp2-1:
+        spec:
+          aggregationLength: 32
+          communities:
+            - no-advertise
+          ipAddressPools:
+            - bgp2
+          localPref: 100
+      bgp2-2:
+        spec:
+          aggregationLength: 27
+          ipAddressPools:
+            - bgp2
+    bgpPeers: <i class="conum" data-value="2"></i><b>(2)</b>
+      peer1:
+        spec:
+          bfdProfile: full1
+          myASN: 64500
+          peerASN: 64501
+          peerAddress: 192.0.2.1
+      peer2:
+        spec:
+          myASN: 64500
+          nodeSelectors:
+            - matchExpressions:
+                - key: network-speed
+                  operator: NotIn
+                  values:
+                    - slow
+              matchLabels:
+                rack: frontend
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - hostA
+                    - hostB
+          peerASN: 64501
+          peerAddress: 192.0.2.2
+    bfdProfiles:
+      full1:
+        spec:
+          echoInterval: 62
+          echoMode: false
+          minimumTtl: 254
+          passiveMode: false
+          receiveInterval: 179
+          transmitInterval: 180
+    communities:
+      legacy:
+        spec:
+          communities:
+            - name: no-advertise
+              value: 65535:65282</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The component&#8217;s config migration generates names for the resulting <code>BGPAdvertisement</code> custom resources.
+The generated names have form <code>&lt;address pool name&gt;-X</code>, where X is the index of the advertisement in the old address pool config plus 1.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The component&#8217;s config migration generates names for the resulting <code>BGPPeer</code> custom resources.
+The generated names have form <code>peerX</code>, where X is the index of the peer in the old config plus 1.</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 <div class="paragraph">
-<p>Please also keep in mind that we upgraded the version of MetalLB from v0.9.5 to v0.12.1. You can find the full changelog <a href="https://metallb.universe.tf/release-notes/">here</a>.</p>
+<p>Alternatively, you can also use the <a href="https://metallb.universe.tf/configuration/migration_to_crds/">upstream config migration tool</a> to generate custom resources from a YAML file containing the previously deployed <code>config</code> ConfigMap.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further_references"><a class="anchor" href="#_further_references"></a>Further references</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the <a href="https://metallb.universe.tf/configuration/">upstream documentation</a> for details on the custom resource-based config.
+The upstream documentation also has <a href="https://metallb.universe.tf/apis/">full API documentation</a> for all custom resources.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
-  <span class="next"><a href="upgrade-2.x-to-3.x.html">Upgrade from 2.x to 3.x</a></span>
+  <span class="prev"><a href="upgrade-2.x-to-3.x.html">Upgrade from 2.x to 3.x</a></span>
 </nav>
 </article>
   </div>
@@ -936,7 +1363,7 @@
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/metallb/how-tos/upgrade-1.x-to-2.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/metallb/how-tos/upgrade-3.x-to-4.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

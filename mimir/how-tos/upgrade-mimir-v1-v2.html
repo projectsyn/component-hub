@@ -949,11 +949,11 @@ export MIMIR_PARAM_KEY="$( echo $MIMIR_INSTANCE | sed -e 's/-/_/g' )"</code></pr
 <p>Update the component version to v2.x in your cluster configuration:</p>
 <div class="listingblock">
 <div class="content">
-<pre>cd inventory/classes/$TENANT_ID
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd inventory/classes/$TENANT_ID
 
-yq eval -i ".parameters.components.mimir.version = v2.0.0" ${CLUSTER_ID}.yml
+yq eval -i '.parameters.components.mimir.version = "v2.0.1"' ${CLUSTER_ID}.yml
 
-cd ../../..</pre>
+cd ../../..</code></pre>
 </div>
 </div>
 </li>

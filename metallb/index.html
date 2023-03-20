@@ -113,6 +113,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="how-tos/upgrade-2.x-to-3.x.html">Upgrade from 2.x to 3.x</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/upgrade-3.x-to-4.x.html">Upgrade from 3.x to 4.x</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -937,7 +940,7 @@ Otherwise, elevated fail-over rates may occur during manifest application, as th
 <h2 id="_layer2_mode_default"><a class="anchor" href="#_layer2_mode_default"></a>Layer2 Mode (default)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For a minimal configuration, a CIDR defining the VIP range is required.</p>
+<p>For a minimal configuration, only a CIDR defining the VIP range is required.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -953,23 +956,29 @@ Otherwise, elevated fail-over rates may occur during manifest application, as th
 <h2 id="_bgp_mode"><a class="anchor" href="#_bgp_mode"></a>BGP Mode</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The BGP mode can be configured by providing a full config to MetalLB.</p>
+<p>The BGP mode can be configured by providing appropriate config:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code>parameters:
   metallb:
-    config:
-      peers:
-        - peer-address: 10.0.0.1
-          peer-asn: 64501
-          my-asn: 64500
-      address-pools:
-        - name: bgp-pool1
-          protocol: bgp
+    bgpPeers:
+      my-peer:
+        spec:
+          peerAddress: 10.0.0.1
+          peerASN: 64501
+          myASN: 64500
+    ipAddressPools:
+      bgp-pool1:
+        spec:
           addresses:
             - fc00::/7
-            - 10.128.1.192/27</code></pre>
+            - 10.128.1.192/27
+    bgpAdvertisements:
+      bgp-pool1:
+        spec:
+          ipAddressPools:
+            - bgp-pool1</code></pre>
 </div>
 </div>
 <div class="paragraph">
