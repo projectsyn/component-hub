@@ -1168,7 +1168,7 @@ You have to option to enable or disable it through the <code>enabled</code> para
 </div>
 </div>
 <div class="sect2">
-<h3 id="_postgres_plan"><a class="anchor" href="#_postgres_plan"></a><code>postgres.plan</code></h3>
+<h3 id="_postgres_plans"><a class="anchor" href="#_postgres_plans"></a><code>postgres.plans</code></h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">type</dt>
@@ -1208,9 +1208,17 @@ You can also set a node selector through <code>scheduling.nodeSelector</code>.</
     size: ${appcat:services:vshn:postgres:plans:standard-4:size}
     scheduling:
       nodeSelector:
-        appuio.io/node-class: "plus"
+        appuio.io/node-class: "plus" <i class="conum" data-value="1"></i><b>(1)</b>
     note: "Will be scheduled on APPUiO Cloud plus nodes"</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>See  <a href="https://docs.appuio.cloud/user/references/node-classes.html">Node Classes</a></td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -1271,6 +1279,78 @@ You have to option to enable or disable it through the <code>enabled</code> para
 </div>
 <div class="paragraph">
 <p>Whether to enable NetworkPolicy in the Redis instance namespace. This allows to establish connections from claim&#8217;s namespace to the Redis instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_redis_plans"><a class="anchor" href="#_redis_plans"></a><code>redis.plans</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dict</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>A dict of plans for Redis by VSHN.</p>
+</div>
+<div class="paragraph">
+<p>The key is the name of the plan.
+You can configure the CPU request through <code>size.cpu</code>, memory through <code>size.memory</code>, and disk size through <code>size.disk</code>.
+You can also set a node selector through <code>scheduling.nodeSelector</code>.</p>
+</div>
+<div class="paragraph">
+<p>There is also the option to specify a note in <code>note</code>, which will be added to the description of the field in the CRD.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">plans:
+  standard-2:
+    size:
+      cpu: "500m"
+      memory: "2Gi"
+      disk: 16Gi
+  standard-4:
+    size:
+      cpu: "1"
+      memory: "4Gi"
+      disk: 16Gi
+  standard-8:
+    enabled: false
+  plus-4:
+    size: ${appcat:services:vshn:redis:plans:standard-4:size}
+    scheduling:
+      nodeSelector:
+        appuio.io/node-class: "plus" <i class="conum" data-value="1"></i><b>(1)</b>
+    note: "Will be scheduled on APPUiO Cloud plus nodes"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>See  <a href="https://docs.appuio.cloud/user/references/node-classes.html">Node Classes</a></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_redis_defaultplan"><a class="anchor" href="#_redis_defaultplan"></a><code>redis.defaultPlan</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>standard-1</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The default plan used for Redis by VSHN, if the service user doesn&#8217;t specify a plan.</p>
 </div>
 </div>
 </div>
