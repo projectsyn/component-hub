@@ -1167,6 +1167,70 @@ You have to option to enable or disable it through the <code>enabled</code> para
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_postgres_plan"><a class="anchor" href="#_postgres_plan"></a><code>postgres.plan</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dict</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>A dict of plans for PostgreSQL by VSHN.</p>
+</div>
+<div class="paragraph">
+<p>The key is the name of the plan.
+You can configure the CPU request through <code>size.cpu</code>, memory through <code>size.memory</code>, and disk size through <code>size.disk</code>.
+You can also set a node selector through <code>scheduling.nodeSelector</code>.</p>
+</div>
+<div class="paragraph">
+<p>There is also the option to specify a note in <code>note</code>, which will be added to the description of the field in the CRD.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">plans:
+  standard-2:
+    size:
+      cpu: "400m"
+      memory: "1728Mi"
+      disk: 20Gi
+  standard-4:
+    size:
+      cpu: "900m"
+      memory: "3776Mi"
+      disk: 40Gi
+  standard-8:
+    enabled: false
+  plus-4:
+    size: ${appcat:services:vshn:postgres:plans:standard-4:size}
+    scheduling:
+      nodeSelector:
+        appuio.io/node-class: "plus"
+    note: "Will be scheduled on APPUiO Cloud plus nodes"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_postgres_defaultplan"><a class="anchor" href="#_postgres_defaultplan"></a><code>postgres.defaultPlan</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>standard-2</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The default plan used for PostgreSQL by VSHN, if the service user doesn&#8217;t specify a plan.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
