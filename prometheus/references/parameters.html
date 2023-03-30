@@ -1265,6 +1265,41 @@ The key is set to the addon name (replace hyphens with underscore - eg. for addo
 </div>
 </div>
 <div class="sect1">
+<h2 id="_ingressnetworkpolicysource"><a class="anchor" href="#_ingressnetworkpolicysource"></a><code>ingressNetworkPolicySource</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceSelector:
+  matchLabels: {}
+  podSelector: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict containing the <code>namespaceSelector</code> and <code>podSelector</code> to match the ingress controller pods.
+Required when configuring ingress for Grafana.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_base"><a class="anchor" href="#_base"></a><code>base</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1298,6 +1333,12 @@ grafana:
   enabled: false
   config: {}
   overrides: {}
+  ingress:
+    enabled: false
+    host: ""
+    annotations: {}
+    tls: {}
+    ingressClassName: ""
 nodeExporter:
   enabled: false
   config: {}
