@@ -947,6 +947,95 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_odoo8_countries"><a class="anchor" href="#_odoo8_countries"></a><code>odoo8.countries</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/appuio/component-control-api/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">odoo8:
+  countries:
+    Switzerland:
+      code: CH
+      id: 44
+    Liechtenstein:
+      code: LI
+      id: 129</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing allowed countries and their Odoo 8 configuration.</p>
+</div>
+<div class="paragraph">
+<p>The key is the name of the country as it should be displayed in the UI.
+The value is a dictionary containing the <code>id</code> and <code>code</code> of the country in Odoo 8.</p>
+</div>
+<div class="sect2">
+<h3 id="_odoo8_countries_id"><a class="anchor" href="#_odoo8_countries_id"></a><code>odoo8.countries.*.id</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The ID of the country in Odoo 8. Check the Odoo 8 database for the correct value.
+An export of the country IDs defined in the VSHN Odoo is available <a href="https://github.com/appuio/control-api/blob/master/countries-export-full.yaml">here</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo8_countries_code"><a class="anchor" href="#_odoo8_countries_code"></a><code>odoo8.countries.*.code</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The ISO 3166-1 alpha-2 code of the country. Check the Odoo 8 database for the correct value.
+An export is available <a href="https://github.com/appuio/control-api/blob/master/countries-export-full.yaml">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_apiserver_extraargs"><a class="anchor" href="#_apiserver_extraargs"></a><code>apiserver.extraArgs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
