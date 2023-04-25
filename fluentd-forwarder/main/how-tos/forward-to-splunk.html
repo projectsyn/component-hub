@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Howto forward to S3 Bucket :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/fluentd-forwarder/main/how-tos/forward-to-s3.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="forward-to-splunk.html">
+    <title>Howto forward to Splunk HEC :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/fluentd-forwarder/main/how-tos/forward-to-splunk.html">
+    <link rel="prev" href="forward-to-s3.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,10 +100,10 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Howtos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="forward-to-s3.html">Forward to S3 Bucket</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="forward-to-splunk.html">Forward to Splunk Server</a>
   </li>
 </ul>
@@ -883,34 +883,25 @@
   <ul>
     <li><a href="../index.html">Fluentd Forwarder</a></li>
     <li>Howtos</li>
-    <li><a href="forward-to-s3.html">Forward to S3 Bucket</a></li>
+    <li><a href="forward-to-splunk.html">Forward to Splunk Server</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-fluentd-forwarder/edit/main/docs/modules/ROOT/pages/how-tos/forward-to-s3.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-fluentd-forwarder/edit/main/docs/modules/ROOT/pages/how-tos/forward-to-splunk.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Howto forward to S3 Bucket</h1>
+<h1 class="page">Howto forward to Splunk HEC</h1>
 <div class="sect1">
 <h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The configuration of the component is very versatile and depends on how you intend to use it.
-You could hardcode the s3 bucket and endpoint directly in the <code>config</code> section, but using environment variables allows you to easily adapt to multi cluster setups.</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">env:
-  s3_bucket: &lt;NAME_OF_S3_BUCKET&gt;
-  s3_endpoint: &lt;URL_TO_S3_STORAGE&gt;
-
-secrets:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
   shared_key: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/sharedkey}'
-  s3_accesskey: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/s3_accesskey}'
-  s3_secretkey: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/s3_secretkey}'</code></pre>
+  hec_token: '?{vaultkv:${cluster:tenant}/${cluster:name}/fluentd-forwarder/${_instance}/hectoken}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -921,69 +912,40 @@ In this example each namespace will be stored in a different directory.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config: |
   &lt;system&gt;
-    log_level info
+    log_level "info"
   &lt;/system&gt;
   &lt;source&gt;
     @type forward
     port 24224
-    null
     &lt;security&gt;
       shared_key "#{ENV['SHARED_KEY']}"
       self_hostname "#{ENV['HOSTNAME']}"
     &lt;/security&gt;
   &lt;/source&gt;
 
-  &lt;match kubernetes.**&gt;
-    @type rewrite_tag_filter
-    &lt;rule&gt;
-      key \$['kubernetes']['namespace_name']
-      pattern ^(.+)$
-      tag kube.$1
-    &lt;/rule&gt;
-  &lt;/match&gt;
-
-  &lt;match kube.my_namespace&gt;
-    %(match_tmpl)s
-    path my_namespace/
-  &lt;/match&gt;
-
-  &lt;match kube.my_other_namespace&gt;
-    %(match_tmpl)s
-    path my_namespace/
-  &lt;/match&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The repetitive part of the <code>&lt;match&gt;</code> configuration can be exported using <code>config_vars</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config_vars:
-  match_tmpl: |
-    @type s3
-    &lt;format&gt;
-      @type json
-    &lt;/format&gt;
-    aws_key_id "#{ENV['S3_ACCESSKEY']}"
-    aws_sec_key "#{ENV['S3_SECRETKEY']}"
-    s3_bucket "#{ENV['S3_BUCKET']}"
-    s3_endpoint "#{ENV['S3_ENDPOINT']}"
-    time_slice_format %Y-%m-%d_%H%M
-    &lt;buffer time&gt;
+  &lt;match **&gt;
+    @type splunk_hec
+    hec_token "#{ENV['HEC_TOKEN'] }"
+    hec_host &lt;URL_TO_SPLUNK_HEC&gt;
+    insecure_ssl "true"
+    &lt;buffer&gt;
       @type memory
-      compress text
-      chunk_limit_size 256m
-      timekey 5m
-      timekey_wait 1m
-      timekey_use_utc true
-    &lt;/buffer&gt;</code></pre>
+      chunk_limit_records 100000
+      chunk_limit_size 200m
+      flush_interval 5s
+      flush_thread_count 1
+      overflow_action block
+      retry_max_times 3
+      total_limit_size 600m
+    &lt;/buffer&gt;
+  &lt;/match&gt;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="forward-to-splunk.html">Forward to Splunk Server</a></span>
+  <span class="prev"><a href="forward-to-s3.html">Forward to S3 Bucket</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -994,7 +956,7 @@ In this example each namespace will be stored in a different directory.</p>
 </footer>
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>
-<script src="../../../_/js/vendor/search.js" id="search-script" data-base-path="../../.." data-page-path="/fluentd-forwarder/main/how-tos/forward-to-s3.html"></script>
+<script src="../../../_/js/vendor/search.js" id="search-script" data-base-path="../../.." data-page-path="/fluentd-forwarder/main/how-tos/forward-to-splunk.html"></script>
 <script async src="../../../_/../search-index.js"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
