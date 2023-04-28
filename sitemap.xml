@@ -19,6 +19,9 @@
 <loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
@@ -140,6 +143,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-config.xml</loc>
