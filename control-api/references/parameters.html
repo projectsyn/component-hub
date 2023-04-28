@@ -1676,6 +1676,225 @@ Each entry will generate a <code>Secret</code> with the key as its name.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_cleanupjob_enabled"><a class="anchor" href="#_cleanupjob_enabled"></a><code>cleanupJob.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls whether a cronjob for cleaning up stale inflight records should be created.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanupjob_schedule"><a class="anchor" href="#_cleanupjob_schedule"></a><code>cleanupJob.schedule</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>45 0 * * *</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Cron schedule for the cleanup cron job.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanupjob_extraargs"><a class="anchor" href="#_cleanupjob_extraargs"></a><code>cleanupJob.extraArgs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of extra command line arguments for the cleanup container.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanupjob_extraenv"><a class="anchor" href="#_cleanupjob_extraenv"></a><code>cleanupJob.extraEnv</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extraEnv:
+  ODOO_PASSWORD:
+    secretKeyRef:
+      name: odoo-user
+      key: password
+  DEBUG: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment that should be passed to the cleanup container.
+If a dict is given <code>valueFrom:</code> is assumed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanupjob_nodeselector"><a class="anchor" href="#_cleanupjob_nodeselector"></a><code>cleanupJob.nodeSelector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeSelector:
+  node-role.kubernetes.io/infra: ''</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Node selector to apply to the cleanup job.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanupjob_jobhistorylimit_failed"><a class="anchor" href="#_cleanupjob_jobhistorylimit_failed"></a><code>cleanupJob.jobHistoryLimit.failed</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>2</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>How many failed jobs to keep at most.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleanupjob_jobhistorylimit_successful"><a class="anchor" href="#_cleanupjob_jobhistorylimit_successful"></a><code>cleanupJob.jobHistoryLimit.successful</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>2</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>How many successful jobs to keep at most.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/tls.html">Setup TLS Certificates</a></span>
   <span class="next"><a href="../runbooks/InvitationEmailStuck.html">Invitation E-Mail Stuck</a></span>
