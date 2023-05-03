@@ -1865,15 +1865,16 @@ See <a href="../explanations/resource_management.html" class="page">Resource Man
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
 capacityAlerts:
   enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  groupByNodeLabels: [] <i class="conum" data-value="2"></i><b>(2)</b>
   groups:
     PodCapacity:
       rules:
         TooManyPods:
           annotations:
-            message: 'The number of pods is too damn high' <i class="conum" data-value="2"></i><b>(2)</b>
-          for: 3h <i class="conum" data-value="3"></i><b>(3)</b>
+            message: 'The number of pods is too damn high' <i class="conum" data-value="3"></i><b>(3)</b>
+          for: 3h <i class="conum" data-value="4"></i><b>(4)</b>
         ExpectTooManyPods:
-          expr: <i class="conum" data-value="4"></i><b>(4)</b>
+          expr: <i class="conum" data-value="5"></i><b>(5)</b>
             range: '2d'
             predict: '5*24*60*60'</code></pre>
 </div>
@@ -1885,25 +1886,26 @@ capacityAlerts:
         TooMuchMemoryRequested:
           enabled: true
           expr:
-            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="5"></i><b>(5)</b>
+            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="6"></i><b>(6)</b>
     CpuCapacity:
       rules:
         ClusterCpuUsageHigh:
-          enabled: false <i class="conum" data-value="6"></i><b>(6)</b>
+          enabled: false <i class="conum" data-value="7"></i><b>(7)</b>
         ExpectClusterCpuUsageHigh:
-          enabled: false <i class="conum" data-value="6"></i><b>(6)</b>
+          enabled: false <i class="conum" data-value="7"></i><b>(7)</b>
     UnusedCapacity:
       rules:
         ClusterHasUnusedNodes:
-          enabled: false <i class="conum" data-value="7"></i><b>(7)</b>
+          enabled: false <i class="conum" data-value="8"></i><b>(8)</b>
 ---
 &lt;1&gt; Enables capacity alerts
-&lt;2&gt; Changes the alert message for the pod capacity alert
-&lt;3&gt; Only alerts for pod capacity if it fires for 3 hours
-&lt;4&gt; Change the pod count prediction to look at the last two days and predict the value in five days
-&lt;5&gt; Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB
-&lt;6&gt; Disables both CPU capacity alert rules
-&lt;7&gt; Disables alert if the cluster has unused nodes.</pre>
+&lt;2&gt; List of node labels (as they show up in the `kube_node_labels` metric) by which alerts are grouped
+&lt;3&gt; Changes the alert message for the pod capacity alert
+&lt;4&gt; Only alerts for pod capacity if it fires for 3 hours
+&lt;5&gt; Change the pod count prediction to look at the last two days and predict the value in five days
+&lt;6&gt; Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB
+&lt;7&gt; Disables both CPU capacity alert rules
+&lt;8&gt; Disables alert if the cluster has unused nodes.</pre>
 </div>
 </div>
 </div>
