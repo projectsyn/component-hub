@@ -58,6 +58,9 @@
 <loc>https://hub.syn.tools/sitemap-coredns.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-cortex-tenant-ns-label.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-crossplane.xml</loc>
 </sitemap>
 <sitemap>
