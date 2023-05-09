@@ -573,6 +573,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -1347,6 +1355,10 @@ grafana:
     annotations: {}
     tls: {}
     ingressClassName: ""
+  persistence:
+    enabled: false
+    storageClass: ""
+    size: ""
 nodeExporter:
   enabled: false
   config: {}
