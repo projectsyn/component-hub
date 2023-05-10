@@ -925,11 +925,91 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  eventrouter:
+    resources:
+      eventrouter:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure resource requests and limits for eventrouter container.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  eventrouter:
+    spec:
+      securityContext:
+        runAsUser: 10001</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure additional spec for deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
+  eventrouter:
+    namespace: example-namespace
+    ~spec: {}</code></pre>
 </div>
 </div>
 </div>
