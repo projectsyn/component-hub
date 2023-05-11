@@ -22,6 +22,9 @@
 <loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-aws-cloudwatch-metrics.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
@@ -71,6 +74,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-csi-local-static.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
