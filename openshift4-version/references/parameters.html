@@ -1005,6 +1005,36 @@ We recommend that users set <code>spec.clusterID</code> to a non-component param
 </div>
 </div>
 <div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows selecting the Docker images to use for the job making the cluster version unmanaged.
+Each image is specified using keys <code>registry</code>, <code>image</code> and <code>tag</code>.
+This structure allows easily injecting a registry mirror, if required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="paragraph">
