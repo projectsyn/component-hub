@@ -106,6 +106,9 @@
 <loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-grafana-organizations-operator.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-group-sync-operator.xml</loc>
 </sitemap>
 <sitemap>
