@@ -1043,6 +1043,66 @@ The default is the tag of the controller image.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_upgrade_configs"><a class="anchor" href="#_upgrade_configs"></a>upgrade_configs</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_configs:
+  monday-afternoon:
+    spec:
+      maxSchedulingDelay: 1h
+      maxUpgradeStartDelay: 1h
+      schedule:
+        cron: "0 10 * * 2"
+        location: Europe/Zurich
+      jobTemplate:
+        spec:
+          config:
+            upgradeTimeout: 12h
+            preUpgradeHealthChecks:
+              timeout: 1h
+            postUpgradeHealthChecks:
+              timeout: 1h</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is used to configure the <code>UpgradeConfig</code> objects.
+The dictionary key is used as the name of the <code>UpgradeConfig</code> object.
+The value is the configuration of the <code>UpgradeConfig</code> object.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/appuio/openshift-upgrade-controller" class="bare">github.com/appuio/openshift-upgrade-controller</a> for the manifest definition.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_cluster_version_openshiftversion"><a class="anchor" href="#_cluster_version_openshiftversion"></a><code>cluster_version.openshiftVersion</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1131,6 +1191,10 @@ We recommend that users set <code>spec.clusterID</code> to a non-component param
 </div>
 <div class="paragraph">
 <p>Values specified in this parameter take precedence over default values derived from parameter <code>openshiftVersion</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>desiredUpdate</code> field is removed from the <code>ClusterVersion</code> object.
+The desired update is determined by the controller based on the <code>UpgradeConfig</code> and upstream <code>ClusterVersion</code> objects.</p>
 </div>
 <div class="sect2">
 <h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
