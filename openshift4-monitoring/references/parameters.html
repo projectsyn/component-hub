@@ -674,6 +674,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -1415,6 +1423,63 @@ This allows users to configure the default storageclass and volume size of both 
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_configsuserworkload_prometheus_remotewrite"><a class="anchor" href="#_configsuserworkload_prometheus_remotewrite"></a><code>configsUserWorkload.prometheus._remoteWrite</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">_remoteWrite:
+  example:
+    url: https://prometheus.example.com/api/v1/write
+    headers:
+      "X-Scope-OrgID": customer
+    writeRelabelConfigs:
+      - sourceLabels: ['customer']
+        regex: '.+'
+        action: keep
+    basicAuth:
+      username:
+        name: remote-write-customer
+        key: username
+      password:
+        name: remote-write-customer
+        key: password</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the remote write configurations for the Prometheus component of the user workload monitoring stack.
+The key is the name of the configuration, the value is the content of the configuration.</p>
+</div>
+<div class="paragraph">
+<p>The remote write configuration will be appended to the <code>configsUserWorkload.prometheus.remoteWrite</code> parameter for backwards compatibility.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
