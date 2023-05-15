@@ -76,9 +76,6 @@
 <loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-csi-local-static.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
@@ -266,6 +263,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-steward.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-storage-local-static.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
