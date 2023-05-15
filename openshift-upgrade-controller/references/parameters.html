@@ -1035,6 +1035,146 @@ The default is the tag of the controller image.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_cluster_version_openshiftversion"><a class="anchor" href="#_cluster_version_openshiftversion"></a><code>cluster_version.openshiftVersion</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Major: '4'
+Minor: '8'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is used to conditionally add configurations in the <code>ClusterVersion</code> object.</p>
+</div>
+<div class="paragraph">
+<p>The component currently uses this parameter to set default values for
+* field <code>capabilities.baselineCapabilitySet</code>, which was introduced in OpenShift 4.11.
+The component defaults this field to <code>v4.11</code>.
+* field <code>channel</code>.
+The component sets this field to <code>stable-&lt;Major&gt;.&lt;Minor&gt;</code>, where <code>&lt;Major&gt;</code> and <code>&lt;Minor&gt;</code> are replaced with the values of fields <code>Major</code> and <code>Minor</code> of this parameter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cluster_version_spec"><a class="anchor" href="#_cluster_version_spec"></a><code>cluster_version.spec</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upstream: https://api.openshift.com/api/upgrades_info/v1/graph</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/updating/updating-cluster-between-minor.html">OpenShift docs</a> for available parameters and values.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>clusterID</code> must be set in the <code>ClusterVersion</code> object.
+The value for this field is supposed to be extracted from the cluster as a fact.
+However, the corresponding dynamic fact isn&#8217;t implemented yet.
+We recommend that users set <code>spec.clusterID</code> to a non-component parameter such as <code>openshift.clusterID</code> in the config hierarchy.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Values specified in this parameter take precedence over default values derived from parameter <code>openshiftVersion</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="paragraph">
+<p>We recommend configuring a reference for component parameter <code>openshift_upgrade_controller.cluster_version.spec.clusterID</code> for all OpenShift 4 clusters:</p>
+</div>
+<div class="listingblock">
+<div class="title">openshift4.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift:
+    clusterID: 'OVERRIDE_THIS_IN_THE_CLUSTER_CONFIG'
+  openshift_upgrade_controller:
+    cluster_version:
+      spec:
+        clusterID: ${openshift.clusterID}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this approach, each individual cluster config only needs to set generic parameter <code>openshift.clusterID</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">cluster.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift:
+    clusterID: '6d8329e3-7098-4bab-b7d8-11f1dc353481'
+
+  openshift_upgrade_controller:
+    cluster_version:
+      spec: ...</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This example assumes that <code>openshift_upgrade_controller.cluster_version.spec.clusterID</code> is set to <code>${openshift.clusterID}</code> somewhere in the inventory.
+Due to <a href="https://github.com/projectsyn/commodore/issues/138" class="bare">github.com/projectsyn/commodore/issues/138</a>, this can not yet be done in the defaults.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">

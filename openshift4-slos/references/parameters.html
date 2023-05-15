@@ -1687,6 +1687,114 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_blackbox_exporter_deployment_affinity"><a class="anchor" href="#_blackbox_exporter_deployment_affinity"></a><code>blackbox_exporter.deployment.affinity</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deployment:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: []
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+              - key: name
+                operator: In
+                values:
+                  - ${openshift4_slos:blackbox_exporter:name}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Affinity rules for the Blackbox exporter deployment.</p>
+</div>
+<div class="paragraph">
+<p>Schedules replicas on different nodes.
+This is done to avoid SLO violations when rebooting a worker node.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_deployment_replicas"><a class="anchor" href="#_blackbox_exporter_deployment_replicas"></a><code>blackbox_exporter.deployment.replicas</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>2</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of replicas for the Blackbox exporter deployment.
+Defaults to 2 to avoid SLO violations when rebooting a worker node.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_blackbox_exporter_deployment_poddisruptionbudget"><a class="anchor" href="#_blackbox_exporter_deployment_poddisruptionbudget"></a><code>blackbox_exporter.deployment.podDisruptionBudget</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deployment:
+  podDisruptionBudget:
+    selector:
+      matchLabels:
+        name: ${openshift4_slos:blackbox_exporter:name}
+    minAvailable: 1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The PodDisruptionBudget for the Blackbox exporter deployment.
+Ensures at least one replica is available at all times.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_blackbox_exporter_config"><a class="anchor" href="#_blackbox_exporter_config"></a><code>blackbox_exporter.config</code></h3>
 <div class="hdlist">
 <table>
