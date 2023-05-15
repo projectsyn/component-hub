@@ -164,6 +164,15 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -686,14 +695,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../openshift4-keepalived/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -1075,6 +1076,177 @@ type
 <div class="paragraph">
 <p>The input passed to the Kustomize renderer.
 See <a href="https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/">the Kustomization File</a> for all available options.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerting_labels"><a class="anchor" href="#_alerting_labels"></a><code>alerting.labels</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Labels that will be added to any SLO alerts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerting_page_labels"><a class="anchor" href="#_alerting_page_labels"></a><code>alerting.page_labels</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Labels that will be added to any critical SLO alerts.
+<code>page_alerts</code> are alerts are critical alerts for a high burn rate that require immediate attention.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerting_tickt_labels"><a class="anchor" href="#_alerting_tickt_labels"></a><code>alerting.tickt_labels</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Labels that will be added to any non-crtiical SLO alerts.
+<code>ticket_alerts</code> are alerts for an elevated burn rate that might require attention, but aren’t urgent.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vshn_postgres_uptime"><a class="anchor" href="#_vshn_postgres_uptime"></a><code>vshn.postgres.uptime</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration of the PostgreSQL by VSHN uptime SLO.</p>
+</div>
+<div class="sect2">
+<h3 id="_vshn_postgres_uptime_objective"><a class="anchor" href="#_vshn_postgres_uptime_objective"></a><code>vshn.postgres.uptime.objective</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>float</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>99.9</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The SLO objective in percentage between 0-100.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vshn_postgres_uptime_alerting_page_alert"><a class="anchor" href="#_vshn_postgres_uptime_alerting_page_alert"></a><code>vshn.postgres.uptime.alerting.page_alert</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The alert configuration for <code>page_alerts</code>.
+Can be used to add additional labels or annotations through <code>labels</code> or <code>annotations</code> key, disable the alert through the <code>disable</code> key, or delay emitting the alert through the <code>for</code> key.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vshn_postgres_uptime_alerting_ticket_alert"><a class="anchor" href="#_vshn_postgres_uptime_alerting_ticket_alert"></a><code>vshn.postgres.uptime.alerting.ticket_alert</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The alert configuration for <code>ticket_alert</code>.
+Can be used to add additional labels or annotations through <code>labels</code> or <code>annotations</code> key, disable the alert through the <code>disable</code> key, or delay emitting the alert through the <code>for</code> key.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">vshn:
+  postgres:
+    uptime:
+      objective: 81.9 <i class="conum" data-value="1"></i><b>(1)</b>
+      alerting:
+        page_alert:
+          labels: <i class="conum" data-value="2"></i><b>(2)</b>
+            foo: bar
+          for: 13m <i class="conum" data-value="3"></i><b>(3)</b>
+        ticket_alert:
+          annotations: <i class="conum" data-value="4"></i><b>(4)</b>
+            please: ignore</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Reduces the objective to 81.9%</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Adds the label <code>foo: bar</code> to all page alerts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Only fires page alerts if they are pending for 13 minutes</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Adds annotation <code>please: ignore</code> to all ticket alerts</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
