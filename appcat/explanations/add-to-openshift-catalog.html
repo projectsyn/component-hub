@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>AppCat API Server :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-apiserver.html">
-    <link rel="prev" href="slo-parameters.html">
-    <link rel="next" href="provider-cloudscale.html">
+    <title>Add a service to the OpenShift catalog :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/explanations/add-to-openshift-catalog.html">
+    <link rel="prev" href="restore.html">
+    <link rel="next" href="../tutorials/install-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,13 +100,13 @@
     <span class="nav-text">Explanations</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
+    <a class="nav-link" href="crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/restore.html">How the Restore Process Works</a>
+    <a class="nav-link" href="restore.html">How the Restore Process Works</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
   </li>
 </ul>
   </li>
@@ -127,26 +127,26 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+    <a class="nav-link" href="../references/slo-parameters.html">AppCat SLOs Parameters</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/appcat-apiserver.html">AppCat API Server Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
@@ -155,13 +155,13 @@
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -981,237 +981,184 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li>Technical reference</li>
-    <li><a href="appcat-apiserver.html">AppCat API Server Parameters</a></li>
+    <li>Explanations</li>
+    <li><a href="add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/appcat-apiserver.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/explanations/add-to-openshift-catalog.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">AppCat API Server</h1>
+<h1 class="page">Add a service to the OpenShift catalog</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.apiserver</code>.</p>
+<p>There&#8217;s a function in the common library that helps to create an OpenShift template.
+The function will ensure that all necessary metadata is set for the template.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
+<h2 id="_set_the_template_metadata"><a class="anchor" href="#_set_the_template_metadata"></a>Set the template metadata</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local osTemplate =
+  common.OpenShiftTemplate('postgresqlbyvshn', <i class="conum" data-value="1"></i><b>(1)</b>
+                           'PostgreSQL', <i class="conum" data-value="2"></i><b>(2)</b>
+                           templateDescription, <i class="conum" data-value="3"></i><b>(3)</b>
+                           'icon-postgresql', <i class="conum" data-value="4"></i><b>(4)</b>
+                           'database,sql,postgresql', <i class="conum" data-value="5"></i><b>(5)</b>
+                           templateMessage, <i class="conum" data-value="6"></i><b>(6)</b>
+                           'VSHN', <i class="conum" data-value="7"></i><b>(7)</b>
+                           'https://vs.hn/vshn-postgresql') <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Objectname of the tempalte. All these objects are deployed to the <code>openshift</code> namespace. So make sure this name doesn&#8217;t collide with any other template. Use the <code>$servicenameby$provider</code> naming scheme to avoid collisons.</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>DisplayName of the template. This is the name shown in the OpenShift console.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Description of the service, a description what this service is. Can usually be copied from <a href="https://products.vshn.ch/appcat/services_index.html">the product docs</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Icon class, the icon can be chosen from predefined ones. See this list <a href="https://docs.openshift.com/container-platform/4.11/openshift_images/using-templates.html#templates-writing-description_using-templates">here</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Tags, various tags that can be set. For some of the tags there are predefined filters in the OpenShift console.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Template message, a message that is shown after the template is applied. It&#8217;s only shown if the template is applied via the CLI.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Provider name, this can be set to the name of the provider that provides this service. For example VSHN or Exoscale.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Docs link, this should point to the docs of this specific service.</td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>If the API Server should be installed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_add_the_actual_template"><a class="anchor" href="#_add_the_actual_template"></a>Add the actual template</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="paragraph">
+<p>To add the actual template part, you need to add fields to the template</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local templateObject = kube._Object('vshn.appcat.vshn.io/v1', 'VSHNPostgreSQL', '${INSTANCE_NAME}') + { <i class="conum" data-value="1"></i><b>(1)</b>
+  spec: {
+    parameters: {
+      service: {
+        majorVersion: '${MAJOR_VERSION}',
+      },
+      size: {
+        plan: '${PLAN}',
+      },
+    },
+    writeConnectionSecretToRef: {
+      name: '${SECRET_NAME}',
+    },
+  },
+};
+
+local osTemplate =
+  common.OpenShiftTemplate(...)  + {
+    objects: [
+      templateObject, <i class="conum" data-value="1"></i><b>(1)</b>
+    ],
+    parameters: [ <i class="conum" data-value="2"></i><b>(2)</b>
+      {
+        name: 'PLAN',
+        value: 'standard-4',
+      },
+      {
+        name: 'SECRET_NAME',
+        value: 'postgresql-credentials',
+      },
+      {
+        name: 'INSTANCE_NAME',
+      },
+      {
+        name: 'MAJOR_VERSION',
+        value: '15',
+      },
+    ],
+  }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The actual template, this is just a normal claim with some variable placeholders. Each tempalte could hold multiple objects to template.</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appcat-apiserver</code></p>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Parameters define the user input and will be placed in the variable placeholders specified in the object. If the <code>value</code> field is provided then it&#8217;s set a default and can be overwriten by the user.</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A namespace where API Server should run.
-The namespace will be created and managed by this component.</p>
+<p>Currently we expose these parameters for each service:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PLAN: with the same default as in the CRD</p>
+</li>
+<li>
+<p>SECRET_NAME: Crossplane&#8217;s <code>writeConnectionSecretToRef</code> field</p>
+</li>
+<li>
+<p>INSTANCE_NAME: name of the claim. It should not have a default.</p>
+</li>
+<li>
+<p>MAJOR_VERSION or VERSION: depending on the service we expose only the major version or a specific version.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extraargs"><a class="anchor" href="#_extraargs"></a><code>extraArgs</code></h2>
+<h2 id="_render_it"><a class="anchor" href="#_render_it"></a>Render it</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Extra arguments to pass to the API Server.</p>
+<p>Finally, we need to render it, but only on OpenShift.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local isOpenshift = std.startsWith(inv.parameters.facts.distribution, 'openshift');
+
+{
+  '20_xrd_vshn_postgres': xrd,
+  ...
+  [if isOpenshift then '21_openshift_template_postgresql_vshn']: osTemplate,
+}</code></pre>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_extraenv"><a class="anchor" href="#_extraenv"></a><code>extraEnv</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Extra environment variables to be passed to the deployment of the API Server.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_apiservice_insecureskiptlsverify"><a class="anchor" href="#_apiservice_insecureskiptlsverify"></a><code>apiservice.insecureSkipTLSVerify</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration of the <code>APIService</code>. The parameter <code>insecureSkipTLSVerify</code> disables TLS certificate verification when communicating with this API Server.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tls_certsecretname"><a class="anchor" href="#_tls_certsecretname"></a><code>tls.certSecretName</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appcat-apiserver-tls</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The secret name where the certificate is saved.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tls_servercert"><a class="anchor" href="#_tls_servercert"></a><code>tls.serverCert</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>""</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The public certificate to be saved in <code>tls.certSecretName</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tls_serverkey"><a class="anchor" href="#_tls_serverkey"></a><code>tls.serverKey</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/appcat/apiserver/apiserver-key</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The key of the certificate <code>tls.serverCert</code>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="slo-parameters.html">AppCat SLOs Parameters</a></span>
-  <span class="next"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
+  <span class="prev"><a href="restore.html">How the Restore Process Works</a></span>
+  <span class="next"><a href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a></span>
 </nav>
 </article>
   </div>
@@ -1222,7 +1169,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-apiserver.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/explanations/add-to-openshift-catalog.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
