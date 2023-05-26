@@ -1279,6 +1279,74 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_pvc"><a class="anchor" href="#_pvc"></a><code>pvc</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows customizing the registry PVC when <code>config.storage.pvc</code> is set.
+The PVC is created with the name given in <code>config.storage.pvc.claim</code>.
+The parameter contents are used verbatim for the PVC resource.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component doesn&#8217;t verify whether the PVC configuration and the contents of parameter <code>config</code> will result in a working image registry.
+Please make sure you configure the registry appropriately for the provided PVC definition.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example, you could use the following snippet to configure the registry to use an RWO PVC:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_registry:
+    config:
+      replicas: 1
+      rolloutStrategy: Recreate
+      storage:
+        pvc:
+          claim: image-registry-storage
+
+    pvc:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
