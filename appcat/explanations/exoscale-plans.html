@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>AppCat API Server :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-postgres-controller.html">
+    <title>Generate Exoscale plans :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/explanations/exoscale-plans.html">
+    <link rel="prev" href="add-to-openshift-catalog.html">
+    <link rel="next" href="../tutorials/install-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,16 +100,16 @@
     <span class="nav-text">Explanations</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
+    <a class="nav-link" href="crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/restore.html">How the Restore Process Works</a>
+    <a class="nav-link" href="restore.html">How the Restore Process Works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
+    <a class="nav-link" href="add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/exoscale-plans.html">Generate Exoscale plans</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="exoscale-plans.html">Generate Exoscale plans</a>
   </li>
 </ul>
   </li>
@@ -128,26 +130,26 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+    <a class="nav-link" href="../references/slo-parameters.html">AppCat SLOs Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+    <a class="nav-link" href="../references/appcat-apiserver.html">AppCat API Server Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
@@ -156,13 +158,13 @@
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -982,141 +984,59 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li><a href="appcat-postgres-controller.html">AppCat API Server</a></li>
+    <li>Explanations</li>
+    <li><a href="exoscale-plans.html">Generate Exoscale plans</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/appcat-postgres-controller.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/explanations/exoscale-plans.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">AppCat API Server</h1>
-<div id="preamble">
+<h1 class="page">Generate Exoscale plans</h1>
+<div class="sect1">
+<h2 id="_generate_plan_json_files"><a class="anchor" href="#_generate_plan_json_files"></a>Generate plan json files</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.controllers.postgres</code>.</p>
+<p>You need valid Exoscale API credentials for this to work.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export EXOSCALE_API_SECRET=...
+export EXOSCALE_API_KEY=
+make generate-exoscale-plans</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
+<h2 id="_import_the_generated_json"><a class="anchor" href="#_import_the_generated_json"></a>Import the generated json</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>If this is a new composition then add this to the metadata:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">common.VshnMetaDBaaSExoscale('Redis') + {
+    metadata+: {
+      annotations+: {
+        'metadata.appcat.vshn.io/plans': importstr 'exoscale-plans/redis.json',
+      },
+    },
+  }</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>If the PostgreSQL Controller should be installed.</p>
+<p>This is necessary as the <code>importstr</code> doesn&#8217;t allow variables within the file path.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appcat-controllers</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A namespace where PostgreSQL Server should run.
-The namespace will be created and managed by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_extraargs"><a class="anchor" href="#_extraargs"></a><code>extraArgs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Extra arguments to pass to the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_extraenv"><a class="anchor" href="#_extraenv"></a><code>extraEnv</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Extra environment variables to be passed to the deployment of the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The resource requests and limits for the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
+<nav class="pagination">
+  <span class="prev"><a href="add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a></span>
+  <span class="next"><a href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a></span>
+</nav>
 </article>
   </div>
 </main>
@@ -1126,7 +1046,7 @@ type
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-postgres-controller.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/explanations/exoscale-plans.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
