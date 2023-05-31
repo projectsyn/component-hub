@@ -1299,6 +1299,38 @@ The subkeys are also used to create a ServiceAccount adn RBAC for the agent on t
 </div>
 </div>
 <div class="sect1">
+<h2 id="_zone_agent_service_accounts"><a class="anchor" href="#_zone_agent_service_accounts"></a><code>zone_agent_service_accounts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows adding additional ServiceAccounts for zones that should not be shown in the portal.</p>
+</div>
+<div class="paragraph">
+<p>The list is appended to <code>keys(zones)</code>.
+Entries can be removed by prefixing them with <code>~</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_cluster_admin_impersonation_oidc_administrator_role"><a class="anchor" href="#_cluster_admin_impersonation_oidc_administrator_role"></a><code>cluster_admin_impersonation.oidc_administrator_role</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
