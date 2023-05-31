@@ -1331,6 +1331,74 @@ Entries can be removed by prefixing them with <code>~</code>.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_usage_profiles"><a class="anchor" href="#_usage_profiles"></a><code>usage_profiles</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">usage_profiles:
+  example:
+    spec:
+      namespaceCount: 25
+      resources:
+        deny-egress-tcp-25:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            annotations:
+              description: Deny egress traffic to all hosts on ports 25
+          spec:
+            egress:
+            - ports:
+              - port: 25
+                protocol: TCP
+              to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+            podSelector: {}
+            policyTypes:
+            - Egress</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Deploys UsageProfile definitions to the control-api.</p>
+</div>
+<div class="paragraph">
+<p>Each subkey of <code>usage_profiles</code> results in the resource&#8217;s <code>metadata.name</code> and contains an object that&#8217;s an <code>appuio.io/v1/UsageProfile</code> spec verbatim.</p>
+</div>
+<div class="paragraph">
+<p>Usage profiles are used to define resource limits and quotas for organizations.
+You can read more about usage profiles in the <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_cluster_admin_impersonation_oidc_administrator_role"><a class="anchor" href="#_cluster_admin_impersonation_oidc_administrator_role"></a><code>cluster_admin_impersonation.oidc_administrator_role</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
