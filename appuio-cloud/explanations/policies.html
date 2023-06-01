@@ -93,7 +93,16 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../how-tos/tls.html">Setup Webook Certificate</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/connect-to-control-api.html">Connect Zone to Control-API</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -1045,7 +1054,7 @@ Some policies, such as <code>validate-namespace-metadata</code> are also execute
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../_images/namespace-policies-429812d52fa42e9232ee5dbf621214161760aaa3.svg" alt="namespace-policies">
+<img src="../_images/namespace-policies-0adbffe7399876e22c7da228676852b12a4a1ab9.svg" alt="namespace-policies">
 </div>
 </div>
 <div class="colist arabic">
@@ -1113,6 +1122,23 @@ The component allows operators to adjust the global and per-organization namespa
 <div class="paragraph">
 <p>This policy implements the requirement that a single organization can only <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/performance/ns-quota.html">create a limited number of namespaces</a> on an APPUiO Cloud zone.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This policy was migrated to the APPUiO Cloud Agent with introduction of the UsageProfile feature. See <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">Control API: UsageProfile</a>.</p>
+</div>
+<div class="paragraph">
+<p>Overrides of the default quotas are still possible using the same ConfigMap as the Kyverno policy.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </dd>
 <dt class="hdlist1"><a href="../references/policies/02_validate_namespace_metadata.html" class="page"><code>validate-namespace-metadata</code> (labeled <code>NS_LBL</code>)</a></dt>
 <dd>
@@ -1160,6 +1186,23 @@ The policy allows cluster operators to adjust the generated objects by adding ap
 <div class="paragraph">
 <p>This policy implements the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/performance/resource-quota.html">the APPUiO Cloud zone is protected from abusive resource usage</a> for resource types which can be managed through Kubernetes <code>ResourceQuota</code> and <code>LimitRange</code> objects.
 Notably, we deploy a quota limiting the cumulative memory and CPU <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">resource requests and limits</a> of all containers per namespace and a quota limiting the count of other Resources, such as <code>Service</code> and <code>Secret</code> objects, per namespace.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This policy was migrated to the APPUiO Cloud Agent with introduction of the UsageProfile feature. See <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">Control API: UsageProfile</a>.</p>
+</div>
+<div class="paragraph">
+<p>Overrides of the default quotas are still possible by adding the same annotations as before to the namespace.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </dd>
 </dl>

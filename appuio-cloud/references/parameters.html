@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-cloud/references/parameters.html">
-    <link rel="prev" href="../how-tos/tls.html">
+    <link rel="prev" href="../how-tos/connect-to-control-api.html">
     <link rel="next" href="policies/index.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -94,7 +94,16 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../how-tos/tls.html">Setup Webook Certificate</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/connect-to-control-api.html">Connect Zone to Control-API</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -1093,6 +1102,38 @@ This structure allows easily injecting a registry mirror, if required.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows creating arbitrary <code>Secret</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
+The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1117,6 +1158,53 @@ default
 </div>
 <div class="paragraph">
 <p>Controls if <code>ServiceMonitor</code> object is created to scrape the APPUiO Cloud Agent metrics.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_feature_set"><a class="anchor" href="#_agent_feature_set"></a><code>agent_feature_set</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">agent_feature_set:
+- usage-profiles</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls which Kyverno policies are installed.
+As we&#8217;re migrating policies to the agent, this parameter allows to disable deprecated policies.
+See <code>possible values</code> for a list of available feature sets.</p>
+</div>
+<div class="paragraph">
+<p>This parameter will not configure the agent to use the feature set.
+To ensure there&#8217;s no window where both policies are disabled, the agent should be upgraded <em>before</em> the policy is removed.</p>
 </div>
 </div>
 </div>
@@ -1181,6 +1269,80 @@ default
 </div>
 <div class="paragraph">
 <p>The contents of this parameter are merged over the default resource requests and limits of the Agent&#8217;s base configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_extraargs"><a class="anchor" href="#_agent_extraargs"></a><code>agent.extraArgs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of extra command line arguments for the agent deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_extraenv"><a class="anchor" href="#_agent_extraenv"></a><code>agent.extraEnv</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extraEnv:
+  CONTROL_API_TOKEN:
+    secretKeyRef:
+      name: control-api
+      key: token
+  DEBUG: "true"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional environment that should be passed to the agent deployment.
+If a dict is given <code>valueFrom:</code> is assumed.</p>
 </div>
 </div>
 </div>
@@ -2311,7 +2473,7 @@ Each entry is transformed to a Kubernetes <code>matchExpression</code> entry by 
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/tls.html">Setup Webook Certificate</a></span>
+  <span class="prev"><a href="../how-tos/connect-to-control-api.html">Connect Zone to Control-API</a></span>
   <span class="next"><a href="policies/index.html">Policies</a></span>
 </nav>
 </article>
