@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from 6.x to 7.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-6.x-to-7.x.html">
-    <link rel="prev" href="upgrade-5.x-to-6.x.html">
-    <link rel="next" href="upgrade-7.x-to-8.x.html">
+    <title>Upgrade from 7.x to 8.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-7.x-to-8.x.html">
+    <link rel="prev" href="upgrade-6.x-to-7.x.html">
+    <link rel="next" href="#cluster-default-ingress-class.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -114,10 +114,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-5.x-to-6.x.html">Upgrade 5.x to 6.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -949,21 +949,21 @@
   <ul>
     <li><a href="../index.html">ingress-nginx</a></li>
     <li>How-to guides</li>
-    <li><a href="upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a></li>
+    <li><a href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-6.x-to-7.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-7.x-to-8.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from 6.x to 7.x</h1>
+<h1 class="page">Upgrade from 7.x to 8.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version 6.x to 7.x.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version 7.x to 8.x.</p>
 </div>
 </div>
 </div>
@@ -971,22 +971,48 @@
 <h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This release removes support for Kubernetes v1.20 and v1.21.
-This release adds support for Kubernetes v1.25.0.</p>
+<p>The helm chart v4.4.0 did introduce a change[<a href="https://github.com/kubernetes/ingress-nginx/commit/249780737c862a7cf690058511ee7126ddd0d788" class="bare">github.com/kubernetes/ingress-nginx/commit/249780737c862a7cf690058511ee7126ddd0d788</a>] of the <code>election-id</code> from <code>ingress-controller-leader</code> to <code>ingress-nginx-leader</code>.
+Changing the electionID might cause a ingress service interrupt until all NGINX Ingress components have been upgraded.
+During the upgrade the leader might not be choosen correctly.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>No steps required if the Kubernetes version is equal or higher than v1.22.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Before upgrading to the latest version, you can optionally add following config to preserve the original electionID naming:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  ingress_nginx:
+    helm_values:
+      controller:
+        electionID: ingress-controller-leader</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Not preserving the electionID might cause a downtime on the ingress path!
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-5.x-to-6.x.html">Upgrade 5.x to 6.x</a></span>
-  <span class="next"><a href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a></span>
+  <span class="prev"><a href="upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a></span>
+  <span class="next"><a href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a></span>
 </nav>
 </article>
   </div>
@@ -997,7 +1023,7 @@ This release adds support for Kubernetes v1.25.0.</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-6.x-to-7.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-7.x-to-8.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
