@@ -1076,6 +1076,135 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_emailalerting"><a class="anchor" href="#_emailalerting"></a><code>emailAlerting</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration options for email alerting trough an SMTP service.
+Here you can configure the smtp host as well as the credentails required to send out alerts via any SMTP mail relay.</p>
+</div>
+<div class="sect2">
+<h3 id="_emailalerting_smtphost"><a class="anchor" href="#_emailalerting_smtphost"></a><code>emailAlerting.smtpHost</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>'smtp.eu.mailgun.org:465'</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Hostname to be used for sending out email alerts</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_emailalerting_smtpusername"><a class="anchor" href="#_emailalerting_smtpusername"></a><code>emailAlerting.smtpUsername</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>'<a href="mailto:myuser@example.com">myuser@example.com</a>'</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The Username for the mail relay server</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_emailalerting_smtppassword"><a class="anchor" href="#_emailalerting_smtppassword"></a><code>emailAlerting.smtpPassword</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>?{vaultkv:<em>shared</em>/<em>shared</em>/mailgun/smtp_password}</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The Password for the mail relay server.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_emailalerting_smtpfromaddress"><a class="anchor" href="#_emailalerting_smtpfromaddress"></a><code>emailAlerting.smtpFromAddress</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>'<a href="mailto:myuser@example.com">myuser@example.com</a>'</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The email address used in the FROM header for sending out the alerts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_emailalerting_secretnamespace"><a class="anchor" href="#_emailalerting_secretnamespace"></a><code>emailAlerting.secretNamespace</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>'syn-appcat'</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The namespace where the secret that contains the password for the smtp relay server will be placed in</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_emailalerting_secretname"><a class="anchor" href="#_emailalerting_secretname"></a><code>emailAlerting.secretName</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>'mailgun-smtp-secret'</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The name of the secret that contains the password for the smtp relay server.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_postgres"><a class="anchor" href="#_postgres"></a><code>postgres</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
