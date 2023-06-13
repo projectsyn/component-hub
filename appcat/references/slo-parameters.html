@@ -1272,6 +1272,162 @@ Can be used to add additional labels or annotations through <code>labels</code> 
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_sla_reporter"><a class="anchor" href="#_sla_reporter"></a><code>sla_reporter</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration options for the monthly SLA report generator.</p>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_enabled"><a class="anchor" href="#_sla_reporter_enabled"></a><code>sla_reporter.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enables or disables the monthly reporter cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_resources"><a class="anchor" href="#_sla_reporter_resources"></a><code>sla_reporter.resources</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resource requests and limits for the SLA Reporter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_schedule"><a class="anchor" href="#_sla_reporter_schedule"></a><code>sla_reporter.schedule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"0 9 1 * *"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Cron schedule when the SLA Reporter should run.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_bucket_region"><a class="anchor" href="#_sla_reporter_bucket_region"></a><code>sla_reporter.bucket_region</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>lpg</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The region in which the bucket that stores the reports should be provisioned.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_slo_mimir_endpoint"><a class="anchor" href="#_sla_reporter_slo_mimir_endpoint"></a><code>sla_reporter.slo_mimir_endpoint</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="http://vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc.cluster.local:8080/prometheus" class="bare">vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc.cluster.local:8080/prometheus</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Endpoint for the Prometheus compatible data source.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_mimir_organization"><a class="anchor" href="#_sla_reporter_mimir_organization"></a><code>sla_reporter.mimir_organization</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>appuio-managed-openshift-metrics</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Organization header needed to query Mimir data sources.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="component-parameters.html">Parameters</a></span>
   <span class="next"><a href="appcat-apiserver.html">AppCat API Server Parameters</a></span>
