@@ -1009,6 +1009,27 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_patch_subdirectories"><a class="anchor" href="#_patch_subdirectories"></a><code>patch_subdirectories</code></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>list</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>[]</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>A list of subdirectories of <code>manifests_path</code> in which the component should search for <code>Patch</code> resources.
+This allows users to store partial <code>Patch</code> resources in a subdirectory of <code>manifests_path</code> without having to manage the patch-operator RBAC themselves.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_patches"><a class="anchor" href="#_patches"></a><code>patches</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
