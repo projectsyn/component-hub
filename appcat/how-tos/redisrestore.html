@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>VSHN Services :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/services-vshn.html">
-    <link rel="prev" href="services-exoscale.html">
-    <link rel="next" href="service-objectstorage.html">
+    <title>How-To Manual Redis Restore :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/how-tos/redisrestore.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -130,26 +128,26 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+    <a class="nav-link" href="../references/slo-parameters.html">AppCat SLOs Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+    <a class="nav-link" href="../references/appcat-apiserver.html">AppCat API Server Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
@@ -158,13 +156,13 @@
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -984,580 +982,164 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li>Technical reference</li>
-    <li>Service Parameters</li>
-    <li><a href="services-vshn.html">VSHN Services</a></li>
+    <li><a href="redisrestore.html">How-To Manual Redis Restore</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/services-vshn.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/how-tos/redisrestore.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">VSHN Services</h1>
+<h1 class="page">How-To Manual Redis Restore</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.services.vshn</code>.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you enable any of the VSHN service, make sure that the necessary providers are deployed.
-Either by enabling it in <code>appcat.providers</code> or separately from this component.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
+<p>This document explains how a Redis instance can be restored manually.</p>
 </div>
 <div class="paragraph">
-<p>If VSHN services should be available at all.
-When set to false no VSHN services will be deployed, even if a specific service was enabled.</p>
+<p>Requirements:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>restic installed</p>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="_secretnamespace"><a class="anchor" href="#_secretnamespace"></a><code>secretNamespace</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${crossplane:namespace}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>In which namespace an XR&#8217;s connection secret is written to.</p>
-</div>
-<div class="paragraph">
-<p>Defaults to the crossplane namespace.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_emailalerting"><a class="anchor" href="#_emailalerting"></a><code>emailAlerting</code></h2>
+<h2 id="_connect_restic_to_the_redis_backup"><a class="anchor" href="#_connect_restic_to_the_redis_backup"></a>Connect Restic to the redis backup</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration options for email alerting trough an SMTP service.
-Here you can configure the smtp host as well as the credentails required to send out alerts via any SMTP mail relay.</p>
-</div>
-<div class="sect2">
-<h3 id="_emailalerting_smtphost"><a class="anchor" href="#_emailalerting_smtphost"></a><code>emailAlerting.smtpHost</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>'smtp.eu.mailgun.org:465'</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Hostname to be used for sending out email alerts</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_emailalerting_smtpusername"><a class="anchor" href="#_emailalerting_smtpusername"></a><code>emailAlerting.smtpUsername</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>'<a href="mailto:myuser@example.com">myuser@example.com</a>'</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The Username for the mail relay server</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_emailalerting_smtppassword"><a class="anchor" href="#_emailalerting_smtppassword"></a><code>emailAlerting.smtpPassword</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>?{vaultkv:<em>shared</em>/<em>shared</em>/mailgun/smtp_password}</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The Password for the mail relay server.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_emailalerting_smtpfromaddress"><a class="anchor" href="#_emailalerting_smtpfromaddress"></a><code>emailAlerting.smtpFromAddress</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>'<a href="mailto:myuser@example.com">myuser@example.com</a>'</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The email address used in the FROM header for sending out the alerts.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_emailalerting_secretnamespace"><a class="anchor" href="#_emailalerting_secretnamespace"></a><code>emailAlerting.secretNamespace</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>'syn-appcat'</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The namespace where the secret that contains the password for the smtp relay server will be placed in</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_emailalerting_secretname"><a class="anchor" href="#_emailalerting_secretname"></a><code>emailAlerting.secretName</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>'mailgun-smtp-secret'</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The name of the secret that contains the password for the smtp relay server.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">instanceNamespace='mynamespace'
+# get the repository password
+export RESTIC_PASSWORD=$(kubectl -n "${instanceNamespace}" get secrets k8up-repository-password -o jsonpath='{.data.password}' | base64 -d)
+
+# get the s3 credentials
+export AWS_ACCESS_KEY_ID=$( kubectl -n "${instanceNamespace}" get secrets backup-bucket-credentials -o jsonpath='{.data.AWS_ACCESS_KEY_ID}' | base64 -d)
+export AWS_SECRET_ACCESS_KEY=$(kubectl -n "${instanceNamespace}" get secrets backup-bucket-credentials -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}' | base64 -d)
+bucket=$(kubectl -n "${instanceNamespace}" get secrets backup-bucket-credentials -o jsonpath='{.data.BUCKET_NAME}' | base64 -d)
+endpoint=$(kubectl -n "${instanceNamespace}" get secrets backup-bucket-credentials -o jsonpath='{.data.ENDPOINT_URL}' | base64 -d)
+export RESTIC_REPOSITORY="s3:${endpoint}/${bucket}"</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_postgres"><a class="anchor" href="#_postgres"></a><code>postgres</code></h2>
+<h2 id="_list_available_backups"><a class="anchor" href="#_list_available_backups"></a>List available backups</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Configuration option for VSHN PostgreSQL.
-You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
-</div>
-<div class="paragraph">
-<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
-</div>
-<div class="sect2">
-<h3 id="_postgres_enablenetworkpolicy"><a class="anchor" href="#_postgres_enablenetworkpolicy"></a><code>postgres.enableNetworkPolicy</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>bool</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>true</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Whether to enable NetworkPolicy in the PostgreSQL instance namespace. This allows to establish connections from claim&#8217;s namespace to the PostgreSQL instance.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_postgres_controlnamespace"><a class="anchor" href="#_postgres_controlnamespace"></a><code>postgres.controlNamespace</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>'appcat-control'</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Name of the additional namespace that&#8217;s needed to the backup copy job.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_postgres_bucket_region"><a class="anchor" href="#_postgres_bucket_region"></a><code>postgres.bucket_region</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>''</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Bucket region, required for xObjectBucket and PostreSQL managed by VSHN backup, should be cloud specific.</p>
-</div>
-<div class="ulist">
-<div class="title">Examples</div>
-<ul>
-<li>
-<p>Cloudscale</p>
-<div class="ulist">
-<ul>
-<li>
-<p>'lpg'</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Exoscale</p>
-<div class="ulist">
-<ul>
-<li>
-<p>'ch-gva-2'</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_postgres_bucket_endpoint"><a class="anchor" href="#_postgres_bucket_endpoint"></a><code>postgres.bucket_endpoint</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>''</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Bucket endpoint, required for xObjectBucket and PostreSQL managed by VSHN backup, should be cloud specific.</p>
-</div>
-<div class="ulist">
-<div class="title">Examples</div>
-<ul>
-<li>
-<p>Cloudscale</p>
-<div class="ulist">
-<ul>
-<li>
-<p>'https://objects.lpg.cloudscale.ch'</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Exoscale</p>
-<div class="ulist">
-<ul>
-<li>
-<p>'https://sos-ch-gva-2.exo.io'</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_postgres_plans"><a class="anchor" href="#_postgres_plans"></a><code>postgres.plans</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>dict</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>A dict of plans for PostgreSQL by VSHN.</p>
-</div>
-<div class="paragraph">
-<p>The key is the name of the plan.
-You can configure the CPU request through <code>size.cpu</code>, memory through <code>size.memory</code>, and disk size through <code>size.disk</code>.
-You can also set a node selector through <code>scheduling.nodeSelector</code>.</p>
-</div>
-<div class="paragraph">
-<p>There is also the option to specify a note in <code>note</code>, which will be added to the description of the field in the CRD.</p>
+<p>Pick the snapshot you want to restore from the list.</p>
 </div>
 <div class="listingblock">
-<div class="title">Examples</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">plans:
-  standard-2:
-    size:
-      cpu: "400m"
-      memory: "1728Mi"
-      disk: 20Gi
-  standard-4:
-    size:
-      cpu: "900m"
-      memory: "3776Mi"
-      disk: 40Gi
-  standard-8:
-    enabled: false
-  plus-4:
-    size: ${appcat:services:vshn:postgres:plans:standard-4:size}
-    scheduling:
-      nodeSelector:
-        appuio.io/node-class: "plus" <i class="conum" data-value="1"></i><b>(1)</b>
-    note: "Will be scheduled on APPUiO Cloud plus nodes"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">restic snapshots
+repository 5a0b7f47 opened (version 2, compression level auto)
+created new cache in /Users/simonbeck/Library/Caches/restic
+ID        Time                 Host                              Tags        Paths
+------------------------------------------------------------------------------------------------------------------------
+8699508e  2023-06-16 09:27:08  vshn-redis-redis-app1-prod-x94wt              /vshn-redis-redis-app1-prod-x94wt-redis.tar
+------------------------------------------------------------------------------------------------------------------------
+1 snapshots
+____
+
+
+== Restore locally
+
+[source,bash]</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>See  <a href="https://docs.appuio.cloud/user/references/node-classes.html">Node Classes</a></td>
-</tr>
-</table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_postgres_defaultplan"><a class="anchor" href="#_postgres_defaultplan"></a><code>postgres.defaultPlan</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>standard-2</code></p>
-</dd>
-</dl>
-</div>
+<h1 id="_restore_the_tar_file_locally" class="sect0"><a class="anchor" href="#_restore_the_tar_file_locally"></a>restore the tar file locally</h1>
+
+<h1 id="_take_the_snapshot_id_and_the_filename_from_the_list_above" class="sect0"><a class="anchor" href="#_take_the_snapshot_id_and_the_filename_from_the_list_above"></a>take the snapshot ID and the filename from the list above</h1>
 <div class="paragraph">
-<p>The default plan used for PostgreSQL by VSHN, if the service user doesn&#8217;t specify a plan.</p>
+<p>id=8699508e
+filename=/vshn-redis-redis-app1-prod-x94wt-redis.tar
+restic dump "${id}" "${filename}" &gt; ~/Desktop/restore.tar</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_redis"><a class="anchor" href="#_redis"></a><code>redis</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
+<h1 id="_extract_the_tar_file" class="sect0"><a class="anchor" href="#_extract_the_tar_file"></a>extract the tar file</h1>
 <div class="paragraph">
-<p>Configuration option for VSHN Redis.
-You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
-</div>
-<div class="paragraph">
-<p>It&#8217;s enabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
-</div>
-<div class="sect2">
-<h3 id="_redis_enablenetworkpolicy"><a class="anchor" href="#_redis_enablenetworkpolicy"></a><code>redis.enableNetworkPolicy</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>bool</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>true</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Whether to enable NetworkPolicy in the Redis instance namespace. This allows to establish connections from claim&#8217;s namespace to the Redis instance.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_redis_bucket_region"><a class="anchor" href="#_redis_bucket_region"></a><code>redis.bucket_region</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>bool</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p>lpg</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>What region the backup buckets should use.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_redis_plans"><a class="anchor" href="#_redis_plans"></a><code>redis.plans</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>dict</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>A dict of plans for Redis by VSHN.</p>
-</div>
-<div class="paragraph">
-<p>The key is the name of the plan.
-You can configure the CPU request through <code>size.cpu</code>, memory through <code>size.memory</code>, and disk size through <code>size.disk</code>.
-You can also set a node selector through <code>scheduling.nodeSelector</code>.</p>
-</div>
-<div class="paragraph">
-<p>There is also the option to specify a note in <code>note</code>, which will be added to the description of the field in the CRD.</p>
+<p>cd ~/Desktop
+tar xvf restore.tar</p>
 </div>
 <div class="listingblock">
-<div class="title">Examples</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">plans:
-  standard-2:
-    size:
-      cpu: "500m"
-      memory: "2Gi"
-      disk: 16Gi
-  standard-4:
-    size:
-      cpu: "1"
-      memory: "4Gi"
-      disk: 16Gi
-  standard-8:
-    enabled: false
-  plus-4:
-    size: ${appcat:services:vshn:redis:plans:standard-4:size}
-    scheduling:
-      nodeSelector:
-        appuio.io/node-class: "plus" <i class="conum" data-value="1"></i><b>(1)</b>
-    note: "Will be scheduled on APPUiO Cloud plus nodes"</code></pre>
+<pre>== Put back into instance
+
+[source,bash]</pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>See  <a href="https://docs.appuio.cloud/user/references/node-classes.html">Node Classes</a></td>
-</tr>
-</table>
+<h1 id="_scale_down_instance" class="sect0"><a class="anchor" href="#_scale_down_instance"></a>scale down instance</h1>
+<div class="paragraph">
+<p>kubectl -n "${instanceNamespace}" scale statefulset redis-master --replicas 0</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_redis_defaultplan"><a class="anchor" href="#_redis_defaultplan"></a><code>redis.defaultPlan</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>standard-1</code></p>
-</dd>
-</dl>
+<h1 id="_create_a_temp_restore_pod" class="sect0"><a class="anchor" href="#_create_a_temp_restore_pod"></a>create a temp restore pod</h1>
+<div class="paragraph">
+<p>cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: restic
+  namespace: "$instanceNamespace"
+  labels:
+    run: restic</p>
 </div>
 <div class="paragraph">
-<p>The default plan used for Redis by VSHN, if the service user doesn&#8217;t specify a plan.</p>
+<p>spec:
+  template:
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: redis-data-redis-master-0
+      containers:
+        - name: restic
+          image: ghcr.io/k8up-io/k8up:master
+          command:
+            - bash
+            - -c
+            - |
+              rm -rf /data/*
+              restic dump "${id}" ${filename} &gt; /data/restore.tar
+              cd /data
+              tar xvf restore.tar
+              mv data/* .
+              rmdir data
+              rm restore.tar
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              value: "${AWS_ACCESS_KEY_ID}"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: ${AWS_SECRET_ACCESS_KEY}
+            - name: RESTIC_PASSWORD
+              value: "${RESTIC_PASSWORD}"
+            - name: RESTIC_REPOSITORY
+              value: "${RESTIC_REPOSITORY}"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+EOF</p>
+</div>
+<h1 id="_delete_the_job_once_it_succeeded" class="sect0"><a class="anchor" href="#_delete_the_job_once_it_succeeded"></a>Delete the job once it succeeded</h1>
+<div class="paragraph">
+<p>kubectl -n "${instanceNamespace}" delete job restic</p>
+</div>
+<h1 id="_scale_instance_back_up" class="sect0"><a class="anchor" href="#_scale_instance_back_up"></a>Scale instance back up</h1>
+<div class="paragraph">
+<p>kubectl -n "${instanceNamespace}" scale statefulset redis-master --replicas 1</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
 </div>
 </div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="services-exoscale.html">Exoscale Services</a></span>
-  <span class="next"><a href="service-objectstorage.html">Objectstorage Service</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1567,7 +1149,7 @@ You can also set a node selector through <code>scheduling.nodeSelector</code>.</
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/services-vshn.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/how-tos/redisrestore.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
