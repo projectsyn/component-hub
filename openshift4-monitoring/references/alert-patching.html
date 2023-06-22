@@ -1101,6 +1101,9 @@ If <code>preserveRecordingRules</code> is <code>false</code>, all recording rule
 This includes adding labels which are used by other parts of the component to the rule (for example <code>syn=true</code>), and ensuring that the alert name is prefixed with <code>SYN_</code>.</p>
 </div>
 <div class="paragraph">
+<p>The function also reads any custom annotations from parameter <code>openshift4_monitoring.alerts.customAnnotations</code> and applies those to the alert rule.</p>
+</div>
+<div class="paragraph">
 <p>Custom alert patches can be provided through argument <code>patches</code>.</p>
 </div>
 <div class="paragraph">
