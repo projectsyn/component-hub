@@ -1588,13 +1588,101 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>[]</code></p>
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>List of <a href="https://github.com/prometheus-operator/kube-prometheus">kube-prometheus</a> alert rule names to be dropped.</p>
+<p>List of alert rule names to be dropped.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This parameter is taken into account in the <code>filterRules</code> and <code>filterPatchRules</code> library functions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignorewarnings"><a class="anchor" href="#_ignorewarnings"></a><code>ignoreWarnings</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of alert rule names for which to drop alerts with label <code>severity: warning</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In contrast to <code>ignoreNames</code>, this parameter is not taken into account in the <code>filterRules</code> and <code>filterPatchRules</code> library functions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignoregroups"><a class="anchor" href="#_ignoregroups"></a><code>ignoreGroups</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of complete alert rule groups to drop.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This parameter is not taken into account for <code>filterRules</code> and <code>filterPatchRules</code>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
