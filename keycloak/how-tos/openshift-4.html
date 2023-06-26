@@ -1043,7 +1043,75 @@ Also, the sample below configures end-to-end encryption to Keycloak with <a href
     extraVolumeMounts:
       # Required as the OpenShift user can not create the data directory in the keycloak directory UID 1000/GID 0
       data:
-        mountPath: /opt/keycloak/data
+        mountPath: /opt/keycloak/data</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parameters_for_openshift_4_11_and_higher"><a class="anchor" href="#_parameters_for_openshift_4_11_and_higher"></a>Parameters for OpenShift 4.11 and higher</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenShift 4.11 introduces <a href="https://docs.openshift.com/container-platform/4.11/release_notes/ocp-4-11-release-notes.html#ocp-4-11-auth-pod-security-admission">Pod Security Admission</a> globally.</p>
+</div>
+<div class="paragraph">
+<p><code>runAsUser</code> and <code>runAsGroup</code> must be unset.</p>
+</div>
+<div class="paragraph">
+<p>The pod security context can be configured like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    helm_values:
+      podSecurityContext:
+        fsGroup: null
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      securityContext:
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: null
+      dbchecker:
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: null
+          runAsUser: null</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may enforce the Pod Security Admission on a namespace level:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    namespaceLabels:
+      pod-security.kubernetes.io/audit: restricted
+      pod-security.kubernetes.io/enforce: restricted
+      pod-security.kubernetes.io/warn: restricted
+      security.openshift.io/scc.podSecurityLabelSync: "false"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parameters_for_up_to_openshift_4_10"><a class="anchor" href="#_parameters_for_up_to_openshift_4_10"></a>Parameters for up to OpenShift 4.10</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenShift 4.10 and below do no support pod security admission.
+<code>runAsUser</code> and <code>runAsGroup</code> must be unset.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
     helm_values:
       podSecurityContext: null
       securityContext: null

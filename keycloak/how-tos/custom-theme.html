@@ -1077,6 +1077,13 @@ In combination with an emptyDir volume that&#8217;s shared with the Keycloak con
         volumeMounts:
           - name: themes
             mountPath: /target
+        ## Hardening
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+        ## Hardening end
 
     extraVolumes:
       themes:
