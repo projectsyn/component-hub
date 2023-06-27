@@ -8,5 +8,13 @@
     "automerge": true,
     "automergeType": "pr",
     "platformAutomerge": true
-  }
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": ["dev-dependencies"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    }
+  ]
 }
