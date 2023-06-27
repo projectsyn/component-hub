@@ -1050,54 +1050,48 @@ ID        Time                 Host                              Tags        Pat
 ------------------------------------------------------------------------------------------------------------------------
 8699508e  2023-06-16 09:27:08  vshn-redis-redis-app1-prod-x94wt              /vshn-redis-redis-app1-prod-x94wt-redis.tar
 ------------------------------------------------------------------------------------------------------------------------
-1 snapshots
-____
-
-
-== Restore locally
-
-[source,bash]</code></pre>
+1 snapshots</code></pre>
 </div>
 </div>
 </div>
 </div>
-<h1 id="_restore_the_tar_file_locally" class="sect0"><a class="anchor" href="#_restore_the_tar_file_locally"></a>restore the tar file locally</h1>
-
-<h1 id="_take_the_snapshot_id_and_the_filename_from_the_list_above" class="sect0"><a class="anchor" href="#_take_the_snapshot_id_and_the_filename_from_the_list_above"></a>take the snapshot ID and the filename from the list above</h1>
-<div class="paragraph">
-<p>id=8699508e
-filename=/vshn-redis-redis-app1-prod-x94wt-redis.tar
-restic dump "${id}" "${filename}" &gt; ~/Desktop/restore.tar</p>
-</div>
-<h1 id="_extract_the_tar_file" class="sect0"><a class="anchor" href="#_extract_the_tar_file"></a>extract the tar file</h1>
-<div class="paragraph">
-<p>cd ~/Desktop
-tar xvf restore.tar</p>
-</div>
+<div class="sect1">
+<h2 id="_restore_locally"><a class="anchor" href="#_restore_locally"></a>Restore locally</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre>== Put back into instance
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># restore the tar file locally
+# take the snapshot ID and the filename from the list above
+id=8699508e
+filename=/vshn-redis-redis-app1-prod-x94wt-redis.tar
+restic dump "${id}" "${filename}" &gt; ~/Desktop/restore.tar
 
-[source,bash]</pre>
+# extract the tar file
+cd ~/Desktop
+tar xvf restore.tar</code></pre>
 </div>
 </div>
-<h1 id="_scale_down_instance" class="sect0"><a class="anchor" href="#_scale_down_instance"></a>scale down instance</h1>
-<div class="paragraph">
-<p>kubectl -n "${instanceNamespace}" scale statefulset redis-master --replicas 0</p>
 </div>
-<h1 id="_create_a_temp_restore_pod" class="sect0"><a class="anchor" href="#_create_a_temp_restore_pod"></a>create a temp restore pod</h1>
-<div class="paragraph">
-<p>cat &lt;&lt;EOF | kubectl apply -f -
+</div>
+<div class="sect1">
+<h2 id="_put_back_into_instance"><a class="anchor" href="#_put_back_into_instance"></a>Put back into instance</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># scale down instance
+kubectl -n "${instanceNamespace}" scale statefulset redis-master --replicas 0
+
+# create a temp restore pod
+cat &lt;&lt;EOF | kubectl apply -f -
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: restic
   namespace: "$instanceNamespace"
   labels:
-    run: restic</p>
-</div>
-<div class="paragraph">
-<p>spec:
+    run: restic
+
+spec:
   template:
     spec:
       restartPolicy: Never
@@ -1131,19 +1125,15 @@ metadata:
           volumeMounts:
             - name: data
               mountPath: /data
-EOF</p>
+EOF
+
+# Delete the job once it succeeded
+kubectl -n "${instanceNamespace}" delete job restic
+
+# Scale instance back up
+kubectl -n "${instanceNamespace}" scale statefulset redis-master --replicas 1</code></pre>
 </div>
-<h1 id="_delete_the_job_once_it_succeeded" class="sect0"><a class="anchor" href="#_delete_the_job_once_it_succeeded"></a>Delete the job once it succeeded</h1>
-<div class="paragraph">
-<p>kubectl -n "${instanceNamespace}" delete job restic</p>
 </div>
-<h1 id="_scale_instance_back_up" class="sect0"><a class="anchor" href="#_scale_instance_back_up"></a>Scale instance back up</h1>
-<div class="paragraph">
-<p>kubectl -n "${instanceNamespace}" scale statefulset redis-master --replicas 1</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre></pre>
 </div>
 </div>
 <nav class="pagination">
