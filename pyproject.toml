@@ -17,7 +17,7 @@ Jinja2 = "3.1.2"
 alt-profanity-check = "1.2.2"
 
 [tool.poetry.dev-dependencies]
-pytest = "7.3.2"
+pytest = "7.4.0"
 mypy = "1.4.0"
 types-PyYAML = "6.0.12.10"
 autopep8 = "2.0.2"
