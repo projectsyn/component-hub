@@ -1093,6 +1093,43 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_nginx_resolver_override"><a class="anchor" href="#_nginx_resolver_override"></a><code>nginx_resolver_override</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>""</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>"172.30.0.10"</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If set, the nginx resolver is set to this value.
+This can be used to insert the static IP of the cluster DNS server, which will fix the case when the resolved DNS service IP changes, but nginx keeps the old IP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
