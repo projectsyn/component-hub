@@ -1572,6 +1572,67 @@ type
 <p>Configuration parameters related to influence the resulting alert rules.</p>
 </div>
 <div class="sect2">
+<h3 id="_includenamespaces"><a class="anchor" href="#_includenamespaces"></a><code>includeNamespaces</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of namespace patterns to use for alerts which have <code>namespace=~"(openshift-.<strong>|kube-.</strong>|default)"</code> in the upstream rule.
+The component generates a regex pattern from the list by concatenating all elements into a large OR-regex.
+To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.<strong>|kube-.</strong>|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from the parameter.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>The component processes the list with `com.renderArray()` to allow users to drop entries in the hierarchy.</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate that the list entries are valid regex patterns.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example"><a class="anchor" href="#_example"></a>Example</h4>
+<div class="paragraph">
+<p>We assume that the input config has patterns <code>default</code> and <code>syn.*</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">includeNamespaces:
+  - default
+  - syn.*</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component will generate namespace selector <code>namespace=~"(default|syn.*)"</code> from this input configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_ignorenames"><a class="anchor" href="#_ignorenames"></a><code>ignoreNames</code></h3>
 <div class="hdlist">
 <table>
@@ -2163,7 +2224,7 @@ rules:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
