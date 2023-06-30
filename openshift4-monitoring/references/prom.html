@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>AppCat API Server :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-postgres-controller.html">
+    <title>prom.libsonnet API reference :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/references/prom.html">
+    <link rel="prev" href="alert-patching.html">
+    <link rel="next" href="../how-tos/opsgenie.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,12 +81,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="appcat" data-version="master">
+<div class="nav-container" data-component="openshift4-monitoring" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">appcat</a></h3>
+    <h3 class="title"><a href="../index.html">OpenShift4 Monitoring</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -95,79 +97,37 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Explanations</span>
+    <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
+    <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/restore.html">How the Restore Process Works</a>
+    <a class="nav-link" href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/exoscale-plans.html">Generate Exoscale plans</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/redisrestore.html">How-To Manual Redis Restore</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="prom.html"><code>prom.libsonnet</code> API reference</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Tutorials</span>
+    <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a>
+    <a class="nav-link" href="../how-tos/opsgenie.html">OpsGenie integration</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../tutorials/install-exoscale.html">Install Exoscale Stack</a>
+    <a class="nav-link" href="../how-tos/migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Technical reference</span>
+    <span class="nav-text">Explanation</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Provider Parameters</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Service Parameters</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
-  </li>
-</ul>
+    <a class="nav-link" href="../explanations/resource_management.html">Resource Management</a>
   </li>
 </ul>
   </li>
@@ -176,7 +136,22 @@
     <span class="nav-text">Runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a>
+    <a class="nav-link" href="../runbooks/podcapacity.html">Pod Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/resourcerequests.html">Resource Requests Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/memorycapacity.html">Memory Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/cpucapacity.html">CPU Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/unusedcapacity.html">Node Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/remotewrite.html">Prometheus RemoteWrite Alert</a>
   </li>
 </ul>
   </li>
@@ -185,7 +160,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">appcat</span>
+    <span class="title">OpenShift4 Monitoring</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -205,11 +180,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">appcat</a>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -661,11 +636,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift4 Monitoring</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../openshift4-monitoring/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -984,198 +959,255 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">appcat</a></li>
-    <li><a href="appcat-postgres-controller.html">AppCat API Server</a></li>
+    <li><a href="../index.html">OpenShift4 Monitoring</a></li>
+    <li>Reference</li>
+    <li><a href="prom.html"><code>prom.libsonnet</code> API reference</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/appcat-postgres-controller.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/references/prom.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">AppCat API Server</h1>
+<h1 class="page"><code>prom.libsonnet</code> API reference</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.controllers.postgres</code>.</p>
+<p>The component provides library <code>openshift4-monitoring-prom.libsonnet</code>, which is also available as <code>prom.libsonnet</code>.
+This library provides some helper functions which allow users to more easily create prometheus-operator custom resources.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
+<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local kap = import 'lib/kapitan.libjsonnet';
+
+local inv = kap.inventory();
+local params = inv.parameters.&lt;component_name&gt;;
+
+local prom = import 'lib/prom.libsonnet'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+local rules = params.rules; <i class="conum" data-value="2"></i><b>(2)</b>
+
+{
+  service_monitor: prom.ServiceMonitor('my-service-monitor') {
+    spec+: {
+     // ...
+    },
+  }, <i class="conum" data-value="3"></i><b>(3)</b>
+  additional_rules: prom.generateRules('my-alert-rules', rules), <i class="conum" data-value="4"></i><b>(4)</b>
+};</code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Import the library.
+By using the aliased name, you can make your component compatible with any monitoring component which provides an <code>alert-patching.libsonnet</code> library alias.</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Extract alert rules from the component parameters.
+Alternatively, you can define patches directly in Jsonnet.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The library provides basic wrappers to generate prometheus-operator custom resources.
+These functions are implemented through <code>kube._Object()</code> internally.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><code>generateRules()</code> is modelled after <code>com.generateResources()</code> and can be used to transform additional alerting and recording rules defined in the hierarchy into a valid <code>PrometheusRule</code> manifest.</td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>If the PostgreSQL Controller should be installed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_prometheusrulename"><a class="anchor" href="#_prometheusrulename"></a><code>PrometheusRule(name)</code></h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appcat-controllers</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>A namespace where PostgreSQL Server should run.
-The namespace will be created and managed by this component.</p>
+<p>Helper to create PrometheusRule objects.</p>
+</div>
+<div class="sect2">
+<h3 id="_arguments"><a class="anchor" href="#_arguments"></a>Arguments</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>name</code></dt>
+<dd>
+<p>The name of the resulting <code>PrometheusRule</code> object.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value"><a class="anchor" href="#_return_value"></a>Return value</h3>
+<div class="paragraph">
+<p>An empty <code>PrometheusRule</code> object.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespacelabels"><a class="anchor" href="#_namespacelabels"></a><code>namespaceLabels</code></h2>
+<h2 id="_prometheusname"><a class="anchor" href="#_prometheusname"></a><code>Prometheus(name)</code></h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${appcat:namespaceLabels}</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Additional labels to add to the created namespace.</p>
+<p>Helper to create <code>Prometheus</code> objects.</p>
+</div>
+<div class="sect2">
+<h3 id="_arguments_2"><a class="anchor" href="#_arguments_2"></a>Arguments</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>name</code></dt>
+<dd>
+<p>The name of the resulting <code>Prometheus</code> object.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value_2"><a class="anchor" href="#_return_value_2"></a>Return value</h3>
+<div class="paragraph">
+<p>An empty Prometheus object.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespaceannotations"><a class="anchor" href="#_namespaceannotations"></a><code>namespaceAnnotations</code></h2>
+<h2 id="_alertmanagername"><a class="anchor" href="#_alertmanagername"></a><code>AlertManager(name)</code></h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${appcat:namespaceAnnotations}</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Additional annotations to add to the created namespace.</p>
+<p>Helper to create <code>AlertManager</code> objects.</p>
+</div>
+<div class="sect2">
+<h3 id="_arguments_3"><a class="anchor" href="#_arguments_3"></a>Arguments</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>name</code></dt>
+<dd>
+<p>The name of the resulting <code>AlertManager</code> object.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value_3"><a class="anchor" href="#_return_value_3"></a>Return value</h3>
+<div class="paragraph">
+<p>An empty <code>AlertManager</code> object.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extraargs"><a class="anchor" href="#_extraargs"></a><code>extraArgs</code></h2>
+<h2 id="_generaterulesname_rules"><a class="anchor" href="#_generaterulesname_rules"></a><code>generateRules(name, rules)</code></h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="paragraph">
+<p>This function takes an object defining a set of rule groups.
+Each key-value pair in the object represents the name of a rule group and the list of rules for the group.
+The function expects that each value is another object where each key-value pair represents an alerting or recording rule.</p>
+</div>
+<div class="paragraph">
+<p>Alerting and recording rules are distinguished through the specific format of the keys in these objects.
+All alerting rules must be prefixed with <code>alert:</code>
+All recording rules must be prefixed with <code>record:</code>
+The component will extract the first colon-delimited part of the key and inject key-value pair <code>[part0]: parts</code> into the provided value.</p>
+</div>
+<div class="paragraph">
+<p>Note that the function will pass each rule through <a href="alert-patching.html#patchRule" class="page">the alert-patching <code>patchRule()</code> function</a> with <code>patches={}</code> and <code>patch_name=false</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="paragraph">
+<p>Let&#8217;s take the following input value for <code>rules</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">rules:
+  my-group:
+    "record:foo:sum":
+      expr: sum(foo)
+    "alert:FooAlert"
+      expr: foo:sum &lt; 10
+      for: 10m
+      annotations:
+        summary: Less than 10 Foos for 10 minutes
+      labels:
+        severity: warning</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The library will generate the <code>PrometheusRule</code> shown below with call <code>generateRules('my-rules', rules)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: my-rules
+spec:
+  groups:
+    - name: my-group
+      rules:
+        - expr: sum(foo)
+          record: foo:sum
+        - alert: FooAlert
+          annotations:
+            summary: Less than 10 Foos for 10 minutes
+          expr: foo:sum &lt; 10
+          for: 10m
+          labels:
+            severity: warning
+            syn: "true" <i class="conum" data-value="2"></i><b>(2)</b>
+            syn_component: foocomponent <i class="conum" data-value="2"></i><b>(2)</b>
+            syn_team: footeam <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Alerting rules are patched to match the default configuration for component <code>openshift4-monitoring</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>If Project Syn multi-team configuration is present, label <code>syn_team</code> is added based on the component instance calling the <code>generateRules()</code> function.</td>
 </tr>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_arguments_4"><a class="anchor" href="#_arguments_4"></a>Arguments</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>name</code></dt>
+<dd>
+<p>The name of the resulting <code>PrometheusRule</code> object</p>
+</dd>
+<dt class="hdlist1"><code>rules</code></dt>
+<dd>
+<p>An object representing a set of rule groups.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value_4"><a class="anchor" href="#_return_value_4"></a>Return value</h3>
 <div class="paragraph">
-<p>Extra arguments to pass to the PostgreSQL Controller.</p>
+<p>A single <code>PrometheusRule</code> object containing all non-empty groups based on parameter <code>groups</code>.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_extraenv"><a class="anchor" href="#_extraenv"></a><code>extraEnv</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
 </div>
-<div class="paragraph">
-<p>Extra environment variables to be passed to the deployment of the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The resource requests and limits for the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
+<nav class="pagination">
+  <span class="prev"><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
+  <span class="next"><a href="../how-tos/opsgenie.html">OpsGenie integration</a></span>
+</nav>
 </article>
   </div>
 </main>
@@ -1185,7 +1217,7 @@ type
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-postgres-controller.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/references/prom.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
