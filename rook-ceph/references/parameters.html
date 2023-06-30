@@ -2042,6 +2042,37 @@ The provided values aren&#8217;t validated, they&#8217;re applied to the corresp
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_additionalrules"><a class="anchor" href="#_additionalrules"></a><code>additionalRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional alerting and recording rules.
+All rules defined in this parameter will be added to rule group <code>syn-rook-ceph-additional.rules</code>.</p>
+</div>
+<div class="paragraph">
+<p>For alerting rules, a runbook URL is injected if annotation <code>runbook_url</code> is not already set on the rule.
+The injected runbook URL is derived from the alert name using pattern <code>https://hub.syn.tools/rook-ceph/runbooks/{alertname}.html</code>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
