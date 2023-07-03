@@ -1191,6 +1191,227 @@ The value is the configuration of the <code>UpgradeJobHooks</code> object.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_upgrade_silence"><a class="anchor" href="#_upgrade_silence"></a><code>upgrade_silence</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default:: default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/appuio/component-openshift-upgrade-controller/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creates a pre-configured <code>UpgradeJobHook</code> object to silence alerts given by <code>alert_matchers</code> during the upgrade.</p>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_silence_alertmanager_host_upgrade_silence_alertmanager_operated_service_upgrade_silence_alertmanager_namespace"><a class="anchor" href="#_upgrade_silence_alertmanager_host_upgrade_silence_alertmanager_operated_service_upgrade_silence_alertmanager_namespace"></a><code>upgrade_silence.alertmanager_host</code>, <code>upgrade_silence.alertmanager_operated_service</code>, <code>upgrade_silence.alertmanager_namespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertmanager_host: "alertmanager-main"
+alertmanager_operated_service: "alertmanager-operated"
+alertmanager_namespace: "openshift-monitoring"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The host name, service name and namespace of the Alertmanager to use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_silence_upgrade_job_selector"><a class="anchor" href="#_upgrade_silence_upgrade_job_selector"></a><code>upgrade_silence.upgrade_job_selector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_job_selector:
+  matchLabels: ${openshift_upgrade_controller:upgrade_configs:appuio-monday-afternoon:spec:jobTemplate:metadata:labels}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selects which <code>UpgradeJob</code> objects this hook applies to.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_silence_alert_matchers"><a class="anchor" href="#_upgrade_silence_alert_matchers"></a><code>upgrade_silence.alert_matchers</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alert_matchers:
+  "only maintenance without SLOs":
+    matchers:
+      - name: alertname
+        value: "Watchdog"
+        isRegex: false
+        isEqual: false
+      - name: Maintenance
+        value: "true"
+        isRegex: false
+        isEqual: false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selects the alerts to silence.
+The dictionary key is added as a comment to the silence.
+The value is the configuration of the silence.
+List values are ANDed together, and multiple silence configurations are ORed together.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_silence_silence_timeout_hours"><a class="anchor" href="#_upgrade_silence_silence_timeout_hours"></a><code>upgrade_silence.silence_timeout_hours</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>12</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The duration of the silence in hours.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_silence_silence_after_finish_minutes"><a class="anchor" href="#_upgrade_silence_silence_after_finish_minutes"></a><code>upgrade_silence.silence_after_finish_minutes</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>30</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The duration to wait after the upgrade job has finished before expiring the silence in minutes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_silence_additional_job_configuration"><a class="anchor" href="#_upgrade_silence_additional_job_configuration"></a><code>upgrade_silence.additional_job_configuration</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional configuration for the <code>UpgradeJob</code> object.
+This is merged with the configuration generated by the component.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_cluster_version_openshiftversion"><a class="anchor" href="#_cluster_version_openshiftversion"></a><code>cluster_version.openshiftVersion</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
