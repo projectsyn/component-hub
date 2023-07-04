@@ -1091,51 +1091,6 @@ This ensures neither openshift-sdn nor OVN-Kubernetes monitoring rules are deplo
 </div>
 </div>
 <div class="sect1">
-<h2 id="_upstreamrules_elasticsearchoperator"><a class="anchor" href="#_upstreamrules_elasticsearchoperator"></a><code>upstreamRules.elasticsearchOperator</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-This parameter is deprecated and will be removed in a future version of the component.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether the Elasticsearch Operator Prometheus rules should be included or not.</p>
-</div>
-<div class="paragraph">
-<p>Component <code>openshift4-logging</code> starting with version v1.7.0 manages the Elasticsearch Operator Prometheus rules itself.
-This parameter doesn&#8217;t have an effect if the inventory includes component <code>openshift4-logging</code> with version v1.7.0 or newer.
-For such inventories, this component will never include the Elasticsearch Operator Prometheus rules.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_upstreamrules_clustersamplesoperator"><a class="anchor" href="#_upstreamrules_clustersamplesoperator"></a><code>upstreamRules.clusterSamplesOperator</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
