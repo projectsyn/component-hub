@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>AppCat API Server :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-postgres-controller.html">
+    <title>Add a new VSHN service to billing :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/how-tos/billing.html">
+    <link rel="prev" href="../references/service-objectstorage.html">
+    <link rel="next" href="../runbooks/vshn-postgresql.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -131,26 +133,26 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+    <a class="nav-link" href="../references/slo-parameters.html">AppCat SLOs Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+    <a class="nav-link" href="../references/appcat-apiserver.html">AppCat API Server Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
   </li>
 </ul>
   </li>
@@ -159,13 +161,13 @@
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -173,8 +175,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../how-tos/billing.html">Add a new VSHN service to billing</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="billing.html">Add a new VSHN service to billing</a>
   </li>
 </ul>
   </li>
@@ -994,197 +996,42 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li><a href="appcat-postgres-controller.html">AppCat API Server</a></li>
+    <li>Technical reference</li>
+    <li>How-Tos</li>
+    <li><a href="billing.html">Add a new VSHN service to billing</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/appcat-postgres-controller.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/how-tos/billing.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">AppCat API Server</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Add a new VSHN service to billing</h1>
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.controllers.postgres</code>.</p>
+<p>If you want to add a new service to billing please ensure the following points:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The instance namespace contains a label of the form <code>'appuio.io/billing-name': 'appcat-$servicename',</code></p>
+</li>
+<li>
+<p>There&#8217;s a product in the billing database&#8217;s product table in the form of <code>appcat_$servicename:vshn:*:*:besteffort</code> and <code>appcat_$servicename:vshn:*:*:guaranteed</code>.</p>
+</li>
+<li>
+<p>There&#8217;s a discount in the discount table in the form of <code>appcat_$servicename:vshn</code>.</p>
+</li>
+<li>
+<p>Matching products are added to the ERP</p>
+</li>
+</ul>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If the PostgreSQL Controller should be installed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>appcat-controllers</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A namespace where PostgreSQL Server should run.
-The namespace will be created and managed by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespacelabels"><a class="anchor" href="#_namespacelabels"></a><code>namespaceLabels</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${appcat:namespaceLabels}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional labels to add to the created namespace.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespaceannotations"><a class="anchor" href="#_namespaceannotations"></a><code>namespaceAnnotations</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${appcat:namespaceAnnotations}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional annotations to add to the created namespace.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_extraargs"><a class="anchor" href="#_extraargs"></a><code>extraArgs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Extra arguments to pass to the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_extraenv"><a class="anchor" href="#_extraenv"></a><code>extraEnv</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Extra environment variables to be passed to the deployment of the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The resource requests and limits for the PostgreSQL Controller.</p>
-</div>
-</div>
-</div>
+<nav class="pagination">
+  <span class="prev"><a href="../references/service-objectstorage.html">Objectstorage Service</a></span>
+  <span class="next"><a href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a></span>
+</nav>
 </article>
   </div>
 </main>
@@ -1194,7 +1041,7 @@ type
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-postgres-controller.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/how-tos/billing.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
