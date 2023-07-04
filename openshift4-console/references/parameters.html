@@ -987,40 +987,6 @@ Annotations can be removed by setting the value to <code>null</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_openshift_version"><a class="anchor" href="#_openshift_version"></a><code>openshift_version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>4.8</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The component uses this parameter to select the appropriate recommended way to configure a custom console hostname.</p>
-</div>
-<div class="paragraph">
-<p>On OpenShift 4.7 and older, the values provided for parameters <code>config.route</code> or <code>route</code> are inserted into the <code>console.operator.openshift.io/cluster</code> custom resource.</p>
-</div>
-<div class="paragraph">
-<p>On OpenShift 4.8 and newer, the values provided for the parameters are configured in <code>spec.componentRoutes</code> of the <code>ingress.config.openshift.io/cluster</code> custom resource.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_route"><a class="anchor" href="#_route"></a><code>route</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
