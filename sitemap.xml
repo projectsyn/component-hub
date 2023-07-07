@@ -88,9 +88,6 @@
 <loc>https://hub.syn.tools/sitemap-fleetlock.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-fluentbit.xml</loc>
 </sitemap>
 <sitemap>
@@ -290,8 +287,5 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vertical-pod-autoscaler.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-xelon-csi.xml</loc>
 </sitemap>
 </sitemapindex>
