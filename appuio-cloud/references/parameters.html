@@ -1368,6 +1368,74 @@ That means, if a namespace requests less than <code>4Gi</code> of memory per req
 </div>
 </div>
 <div class="sect1">
+<h2 id="_agent_nodeselector"><a class="anchor" href="#_agent_nodeselector"></a><code>agent.nodeSelector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeSelector:
+  node-role.kubernetes.io/master: ""</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The node selector (if applicable) for the agent deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_tolerations"><a class="anchor" href="#_agent_tolerations"></a><code>agent.tolerations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">tolerations:
+  - effect: "NoSchedule"
+    key: "node-role.kubernetes.io/master"
+    operator: "Exists"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The tolerations (if applicable) for the agent deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_agent_webhook_tls"><a class="anchor" href="#_agent_webhook_tls"></a><code>agent.webhook.tls</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
