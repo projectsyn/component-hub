@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Deploy multiple instances :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/multi-instance.html">
-    <link rel="prev" href="use-external-db.html">
-    <link rel="next" href="db-tls.html">
+    <title>Upgrade from v11 to v12 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-11.x-to-12.x.html">
+    <link rel="prev" href="upgrade-10.x-to-11.x.html">
+    <link rel="next" href="openshift-4.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -114,7 +114,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="use-external-db.html">Use external database</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="multi-instance.html">Deploy multiple instances</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -165,7 +165,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1006,107 +1006,86 @@
   <ul>
     <li><a href="../index.html">keycloak</a></li>
     <li>How-to guides</li>
-    <li><a href="multi-instance.html">Deploy multiple instances</a></li>
+    <li><a href="upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/multi-instance.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-11.x-to-12.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Deploy multiple instances</h1>
+<h1 class="page">Upgrade from v11 to v12</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides an example how to deploy multiple instances of this component.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version v11 to v12.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>Requirements</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_changes"><a class="anchor" href="#_changes"></a>Changes</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>commodore</code></p>
-</li>
-<li>
-<p><code>pwgen</code></p>
-</li>
-<li>
-<p><code>vault</code></p>
+<p>Parameters for the chart source and version has been changed against <a href="https://syn.tools/syn/explanations/commodore-components/helm-charts.html#_example">Project Syn best practices</a>.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_parameter_changes"><a class="anchor" href="#_parameter_changes"></a>Parameter changes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>charts.keycloakx</code> changed to <code>charts.keycloakx.version</code>.</p>
+</li>
+<li>
+<p><code>charts.postgresql</code> changed to <code>charts.postgresql.version</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you&#8217;ve configured custom values for any of those parameters, make sure to adjust your configurations when upgrading from component version v11 to v12.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When upgrading the component, the following actions are required if the built-in database is used:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Prepare catalog</p>
+<p>Do a backup of the built-in database.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Add the instances and give them a name.
-applications:
-- keycloak as keycloak-test
-- keycloak as keycloak-prod
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">instance=keycloak
+namespace=syn-${instance}
 
-parameters:
-  # Configure the test instance with defaults and built-in database
-  keycloak_test:
-    namespace: tenant-keycloak-test
-
-  # Configure the production instance using an external database
-  keycloak_prod:
-    namespace: tenant-keycloak-prod
-    database:
-      provider: external
-      external:
-        host: my-postgres-db-server.tld</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>By default, the component configures the namespace with <code>syn-&lt;instance-name&gt;</code>.
-Using the <code>syn-</code> prefix might not be what you want when using multiple instances or when deploying Keycloak for another tenant.
-Use the <code>namespace</code> parameter to customize the namespace, but be sure that each instance gets their own namespace.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Set secrets (don&#8217;t forget to also <a href="keycloak-tls.html" class="page">store certificates for each Keycloak instance</a>)</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
-
-vault kv put "${parent}/keycloak-test" admin-password=$(pwgen -s 32 1) db-password=$(pwgen -s 32 1)
-vault kv put "${parent}/keycloak-prod" admin-password=$(pwgen -s 32 1) db-password=&lt;your-external-db-password&gt;</code></pre>
+kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c postgresql -- sh -c 'PGDATABASE="$POSTGRES_DB" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --clean' &gt; keycloak-postgresql-$(date +%F-%H-%M-%S).sql</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Compile and push the cluster catalog</p>
+<p>Apply the parameter changes.</p>
 </li>
 <li>
-<p>Wait until changes are applied</p>
-</li>
-<li>
-<p>Verify that the instances are up and configured correctly</p>
+<p>Compile and push the cluster catalog.</p>
 </li>
 </ol>
 </div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="use-external-db.html">Use external database</a></span>
-  <span class="next"><a href="db-tls.html">Encrypt database connection</a></span>
+  <span class="prev"><a href="upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a></span>
+  <span class="next"><a href="openshift-4.html">Install on OpenShift 4</a></span>
 </nav>
 </article>
   </div>
@@ -1117,7 +1096,7 @@ vault kv put "${parent}/keycloak-prod" admin-password=$(pwgen -s 32 1) db-passwo
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/multi-instance.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-11.x-to-12.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

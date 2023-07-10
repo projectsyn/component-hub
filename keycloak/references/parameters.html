@@ -165,6 +165,9 @@
     <a class="nav-link" href="../how-tos/upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/openshift-4.html">Install on OpenShift 4</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1220,7 +1223,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_charts_keycloakx"><a class="anchor" href="#_charts_keycloakx"></a><code>charts.keycloakx</code></h2>
+<h2 id="_charts_keycloakx_source"><a class="anchor" href="#_charts_keycloakx_source"></a><code>charts.keycloakx.source</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1229,7 +1232,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>helm chart version</p>
+<p>helm chart source</p>
 </td>
 </tr>
 <tr>
@@ -1237,18 +1240,19 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>1.6.1</code></p>
+<p><code><a href="https://codecentric.github.io/helm-charts" class="bare">codecentric.github.io/helm-charts</a></code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A specific chart version. See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
+<p>A specific helm chart source.
+See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_charts_postgresql"><a class="anchor" href="#_charts_postgresql"></a><code>charts.postgresql</code></h2>
+<h2 id="_charts_keycloakx_version"><a class="anchor" href="#_charts_keycloakx_version"></a><code>charts.keycloakx.version</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1265,13 +1269,71 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>11.6.15</code></p>
+<p>See <code>class/defaults.yml</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A specific chart version. See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
+<p>A specific helm chart version. See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_postgresql_source"><a class="anchor" href="#_charts_postgresql_source"></a><code>charts.postgresql.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>helm chart source</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://charts.bitnami.com/bitnami" class="bare">charts.bitnami.com/bitnami</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A specific helm chart source.
+See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_postgresql_version"><a class="anchor" href="#_charts_postgresql_version"></a><code>charts.postgresql.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>helm chart version</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <code>class/defaults.yml</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A specific chart version.
+See the <a href="https://kapitan.dev/external_dependencies/#helm-type">kapitan documentation</a> for more information.</p>
 </div>
 </div>
 </div>
