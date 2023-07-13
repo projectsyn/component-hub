@@ -1723,7 +1723,7 @@ Allows configuring custom annotations for individual alerts.</p>
 </dd>
 <dt class="hdlist1">keys</dt>
 <dd>
-<p>potential values of parameter <code>manifests_versions</code></p>
+<p>potential values of parameter <code>manifests_versions</code> and <code>*</code></p>
 </dd>
 <dt class="hdlist1">default</dt>
 <dd>
@@ -1734,10 +1734,15 @@ Allows configuring custom annotations for individual alerts.</p>
 <div class="paragraph">
 <p>The parameter <code>patchRules</code> allows users to customize upstream alerts.
 The component expects that top-level keys in the parameter correspond to values of parameter <code>manifests_versions</code>.
-This enables users to selectively patch upstream alerts for a particular OpenShift 4 version.</p>
+Additionally, the component supports special top-level key <code>*</code>.</p>
 </div>
 <div class="paragraph">
-<p>For each version, the component expects alert names as keys and any alert configuration as values.
+<p>Alert patches which are defined under top-level key <code><strong></code> are applied regardless of the OpenShift 4 version specified in parameter <code>manifest_versions</code>.
+Additionally, the component applies all patches under the key which matches the value of parameter <code>manifest_versions</code>.
+If an alert is patched in both top-level key <code></strong></code> and the top-level key matching parameter <code>manifest_versions</code>, the patches are merged together, with the version-specific patch overriding the generic patch.</p>
+</div>
+<div class="paragraph">
+<p>The component expects alert names as keys and any alert configuration as values in each top-level key.
 See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting rules documentation</a> for extended documentation on configuring alerting rules.</p>
 </div>
 <div class="paragraph">
@@ -1746,7 +1751,11 @@ See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configu
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
-  release-4.9:
+  '*':
+    PrometheusRemoteWriteBehind:
+      annotations:
+        runbook_url: https://example.com/runbooks/PrometheusRemoteWriteBehind.html
+  release-4.11:
     SystemMemoryExceedsReservation:
       for: 30m</code></pre>
 </div>
