@@ -946,95 +946,6 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_majorversion"><a class="anchor" href="#_majorversion"></a><code>majorVersion</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>v2</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-values
-</td>
-<td class="hdlist2">
-<p><code>v1</code>, <code>v2</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter controls which major version of K8up should be installed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This parameter is <strong>deprecated</strong>
-</td>
-</tr>
-</table>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether to create the ArgoCD app for the component.
-Setting this to false, effectively disables the component from being deployed.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The manifests will still appear in the catalog, but without the ArgoCD app they won&#8217;t get deployed.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1086,68 +997,17 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The default Docker image locations and tags to use for K8up (key <code>k8up</code>) and Wrestic (key <code>wrestic</code>).</p>
+<p>The default Docker image location and tag to use for K8up (key <code>k8up</code>).</p>
 </div>
 <div class="paragraph">
 <p>Entries in this dict should be dictionaries with keys <code>registry</code>, <code>repository</code>, and <code>tag</code>.
 This structure provides the basis for <a href="https://syn.tools/syn/SDDs/0017-maintenance-with-renovate.html">dependency maintenance with Renovate</a>.</p>
 </div>
 <div class="paragraph">
-<p>Please customize K8up and Wrestic image locations and tags in this dict
-instead of directly in <code>helmValues</code>.</p>
+<p>Please customize K8up image location and tag in this dict instead of directly in <code>helmValues</code>.</p>
 </div>
 <div class="paragraph">
 <p>The value of <code>k8up.tag</code> in this dict is used by the component to select the CRD YAML to download.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_crd"><a class="anchor" href="#_crd"></a><code>crd</code></h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This parameter is deprecated starting with <code>component-backup-k8up</code> v3.0.0 (which adds K8up v2 support)
-Only use this parameter if you&#8217;re deploying K8up v1 with the component.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>k8up-crd.yaml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The name of the CRD yaml File.</p>
-</div>
-<div class="paragraph">
-<p>Use <code>k8up-crd.yaml</code> (default) for K8s &gt;= 1.16
-Change to <code>k8up-crd-legacy.yaml</code> for K8s &#8656; 1.15 (for example OpenShift 3.11)</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://github.com/appuio/charts/tree/master/k8up#handling-crds" class="bare">github.com/appuio/charts/tree/master/k8up#handling-crds</a></p>
 </div>
 </div>
 </div>
@@ -1442,7 +1302,7 @@ default
 <div class="paragraph">
 <p>Sets the number of old, successful jobs to keep when cleaning up, applies to all job types.
 Overrides <code>global_backup_config.keepjobs</code>.
-If neither <code>global_backup_config.keepjobs</code> nor this parameter are set, the <a href="https://k8up.io/k8up/1.2.0/references/config-reference.html">K8up default value</a> for the configuration is used.</p>
+If neither <code>global_backup_config.keepjobs</code> nor this parameter are set, the <a href="https://k8up.io/k8up/2.7/references/operator-config-reference.html">K8up default value</a> for the configuration is used.</p>
 </div>
 </div>
 </div>
@@ -1472,7 +1332,7 @@ default
 <div class="paragraph">
 <p>Sets the number of old, failed jobs to keep when cleaning up, applies to all job types.
 Overrides <code>global_backup_config.keepjobs</code>.
-If neither <code>global_backup_config.keepjobs</code> nor this parameter are set, the <a href="https://k8up.io/k8up/1.2.0/references/config-reference.html">K8up default value</a> for the configuration is used.</p>
+If neither <code>global_backup_config.keepjobs</code> nor this parameter are set, the <a href="https://k8up.io/k8up/2.7/references/operator-config-reference.html">K8up default value</a> for the configuration is used.</p>
 </div>
 </div>
 </div>
