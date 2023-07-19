@@ -115,6 +115,9 @@
 <loc>https://hub.syn.tools/sitemap-ingress-nginx.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-json-exporter.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-keycloak.xml</loc>
 </sitemap>
 <sitemap>
