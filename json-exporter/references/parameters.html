@@ -958,6 +958,91 @@ default
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-json-exporter/blob/master/class/defaults.yml">See class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>All helm_values are passed to the Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://artifacthub.io/packages/helm/prometheus-community/prometheus-json-exporter?modal=values">helm chart values</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">helm_values:
+  prometheusRule:
+    enabled: true
+    additionalLabels:
+      monitoring.syn.tools/infra: "true"
+  serviceMonitor:
+    enabled: true
+    defaults:
+      labels:
+        monitoring.syn.tools/infra: "true"
+    targets:
+      - name: example
+        url: http://example.com/healthz
+        labels: {}
+        interval: 60s
+        scrapeTimeout: 60s
+        additionalMetricsRelabels: {}
+        module: example_module
+  configuration:
+    config: |
+      ---
+      modules:
+        default:
+          metrics:
+            - name: example_global_value
+              path: "{ .counter }"
+              help: Example of a top-level global value scrape in the json
+              labels:
+                environment: beta
+                location: "planet-{.location}"
+
+            - name: example_value
+              type: object
+              help: Example of sub-level value scrapes from a json
+              path: '{.values[?(@.state == "ACTIVE")]}'
+              labels:
+                environment: beta
+                id: '{.id}'
+              values:
+                active: 1
+                count: '{.count}'
+                boolean: '{.some_boolean}'
+
+          headers:
+            X-Dummy: my-test-header</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
 </nav>
