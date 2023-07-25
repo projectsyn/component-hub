@@ -1587,6 +1587,56 @@ See the kube state metrics defaults as an example: <a href="https://github.com/p
 </div>
 </div>
 <div class="sect1">
+<h2 id="_instances_prometheusalertmanagergrafana_networkpolicy_additionalingressrules"><a class="anchor" href="#_instances_prometheusalertmanagergrafana_networkpolicy_additionalingressrules"></a><code>instances.*.(prometheus|alertmanager|grafana).networkPolicy.additionalIngressRules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>null</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheus:
+  networkPolicy:
+    additionalIngressRules:
+      - from:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: kube-system
+            podSelector:
+              matchLabels:
+                app: konnectivity-agent</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Can be used to supply additional ingress rules to the NetworkPolicies for Prometheus, Grafana or Alertmanager.
+Configured rules will be appended to the existing NetworkPolicy and must adhere to the <a href="https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/#NetworkPolicySpec">Kubernetes NetworkPolicy spec</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="common"><a class="anchor" href="#common"></a><code>base.common</code>, <code>instances.common</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
