@@ -82,6 +82,9 @@
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-exporter-filterproxy.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-fleetlock.xml</loc>
 </sitemap>
 <sitemap>
@@ -97,6 +100,9 @@
 <loc>https://hub.syn.tools/sitemap-gitlab-runner.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-grafana-organizations-operator.xml</loc>
 </sitemap>
 <sitemap>
@@ -104,6 +110,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-hub.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-ingress-nginx.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-json-exporter.xml</loc>
@@ -173,6 +182,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-networking.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-nodes.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-operators.xml</loc>
