@@ -106,9 +106,6 @@
 <loc>https://hub.syn.tools/sitemap-grafana-organizations-operator.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-group-sync-operator.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-hub.xml</loc>
 </sitemap>
 <sitemap>
@@ -119,9 +116,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-keycloak.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-keycloak-attribute-sync-controller.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-kyverno.xml</loc>
@@ -247,9 +241,6 @@
 <loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-secret-generator.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-secrets.xml</loc>
 </sitemap>
 <sitemap>
@@ -266,9 +257,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-storage-local-static.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-system-upgrade-controller.xml</loc>
