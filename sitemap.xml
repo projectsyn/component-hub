@@ -106,6 +106,12 @@
 <loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-grafana-organizations-operator.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-group-sync-operator.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-hub.xml</loc>
 </sitemap>
 <sitemap>
@@ -266,6 +272,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-system-upgrade-controller.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
