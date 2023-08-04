@@ -989,6 +989,10 @@ default
 <div class="paragraph">
 <p>The namespace in which to install cert-manager.</p>
 </div>
+<div class="paragraph">
+<p>The component always adds label <code>openshift.io/cluster-monitoring=true</code> to the namespace.
+Additionally, if component <code>prometheus</code> is installed on the cluster, the component registers the namespace to be monitored through the default Prometheus stack managed by that component.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
