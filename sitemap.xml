@@ -52,9 +52,6 @@
 <loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-control-api.xml</loc>
 </sitemap>
 <sitemap>
@@ -281,9 +278,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-traefik.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vault.xml</loc>
