@@ -73,6 +73,9 @@
 <loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
@@ -125,6 +128,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-kyverno.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-lieutenant.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-machineset-egress-cidr-operator.xml</loc>
@@ -254,6 +260,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-stackgres-operator.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-statefulset-resize-controller.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-steward.xml</loc>
