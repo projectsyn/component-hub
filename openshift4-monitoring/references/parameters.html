@@ -1099,6 +1099,68 @@ This ensures neither openshift-sdn nor OVN-Kubernetes monitoring rules are deplo
 </div>
 </div>
 <div class="sect1">
+<h2 id="_enablealertmanagerisolationnetworkpolicy"><a class="anchor" href="#_enablealertmanagerisolationnetworkpolicy"></a><code>enableAlertmanagerIsolationNetworkPolicy</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Blocks all traffic to Alertmanager pods except the allowed API traffic.</p>
+</div>
+<div class="paragraph">
+<p>This works around an observed accidental clustering with user workload or custom Alertmanager clusters in other namespaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enableuserworkloadalertmanagerisolationnetworkpolicy"><a class="anchor" href="#_enableuserworkloadalertmanagerisolationnetworkpolicy"></a><code>enableUserWorkloadAlertmanagerIsolationNetworkPolicy</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Blocks all traffic to Alertmanager pods except the allowed API traffic.</p>
+</div>
+<div class="paragraph">
+<p>This works around an observed accidental clustering with system or custom Alertmanager clusters in other namespaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_enableuserworkload"><a class="anchor" href="#_enableuserworkload"></a><code>enableUserWorkload</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
