@@ -1788,7 +1788,8 @@ For some log aggregation systems you may need to deploy a separate log forwarder
         - my-namespace
       forwarders: <i class="conum" data-value="3"></i><b>(3)</b>
         - splunk-forwarder
-      json: true <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+      json: true <i class="conum" data-value="4"></i><b>(4)</b>
+      detectMultilineErrors: true <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1808,6 +1809,10 @@ For some log aggregation systems you may need to deploy a separate log forwarder
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>Enable json logging only for defined namespaces.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Enable detecting multiline errors for defined namespaces.</td>
 </tr>
 </table>
 </div>
@@ -1847,7 +1852,8 @@ For some log aggregation systems you may need to deploy a separate log forwarder
   application_logs:
     forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
       - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+    json: true <i class="conum" data-value="2"></i><b>(2)</b>
+    detectMultilineErrors: true <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1859,6 +1865,10 @@ For some log aggregation systems you may need to deploy a separate log forwarder
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>Enable json logging for all applications.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Enable detecting multiline errors for all applications.</td>
 </tr>
 </table>
 </div>
