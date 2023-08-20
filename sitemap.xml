@@ -79,9 +79,6 @@
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-etcd.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
 </sitemap>
 <sitemap>
@@ -257,9 +254,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-stackgres-operator.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-statefulset-resize-controller.xml</loc>
