@@ -157,6 +157,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift-upgrade-controller.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
 </sitemap>
 <sitemap>
@@ -235,6 +238,9 @@
 <loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>
 </sitemap>
 <sitemap>
@@ -281,6 +287,12 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vault.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-vertical-pod-autoscaler.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-xelon-csi.xml</loc>
