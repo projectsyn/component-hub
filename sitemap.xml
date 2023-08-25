@@ -7,7 +7,13 @@
 <loc>https://hub.syn.tools/sitemap-adhoc-configurations.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-appcat.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-appcat-service-postgresql.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
@@ -23,6 +29,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-billing-collector-cloudservices.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-cert-exporter.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cert-manager.xml</loc>
@@ -53,6 +62,12 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cortex-tenant-ns-label.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-crossplane.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-csi-cloudscale.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
@@ -166,6 +181,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-logging.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-monitoring.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-networking.xml</loc>
 </sitemap>
 <sitemap>
@@ -194,6 +212,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-splunk-forwarder.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-terraform.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-version.xml</loc>
@@ -257,6 +278,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-traefik.xml</loc>
