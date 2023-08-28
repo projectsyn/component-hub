@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/csi-cloudscale/references/parameters.html">
-    <link rel="prev" href="../how-tos/upgrade-2.x-to-3.x.html">
+    <link rel="prev" href="../how-tos/upgrade-3.x-to-4.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -103,6 +103,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
 </ul>
   </li>
@@ -980,7 +983,7 @@ See <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/#limit-p
 </div>
 </div>
 <div class="sect1">
-<h2 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -989,7 +992,7 @@ See <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/#limit-p
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>dictionary</p>
 </td>
 </tr>
 <tr>
@@ -997,15 +1000,43 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>v3.5.0</code></p>
+<p><a href="https://github.com/projectsyn/component-csi-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Version of the driver to install.
-See <a href="https://github.com/cloudscale-ch/csi-cloudscale/releases">available versions</a>.
-See <a href="https://github.com/cloudscale-ch/csi-cloudscale#kubernetes-compatibility">Kubernetes compatibility</a> to choose the right version for your cluster.</p>
+<p>Container image to use for the cloudscale.ch CSI driver.
+See the upstream list of <a href="https://github.com/cloudscale-ch/csi-cloudscale/releases">available versions</a> for supported values.
+See the upstream <a href="https://github.com/cloudscale-ch/csi-cloudscale#kubernetes-compatibility">Kubernetes compatibility table</a> to choose the right version for your cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-csi-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Helm chart to use to deploy the cloudscale.ch CSI driver.</p>
 </div>
 </div>
 </div>
@@ -1027,14 +1058,43 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>Vault reference</p>
+<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/cloudscale/token}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Cloudscale API token to be used by the CSI driver.
+<p>cloudscale.ch API token to be used by the CSI driver.
 This should be a reference to a secret in Vault instead of the plaintext token.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api_token_secret_name"><a class="anchor" href="#_api_token_secret_name"></a><code>api_token_secret_name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cloudscale</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Name of the Kubernetes secret which is created to hold the API token.
+The value of this parameter is also passed to the Helm chart as <code>helm_values.token.existingSecret</code></p>
 </div>
 </div>
 </div>
@@ -1096,6 +1156,18 @@ default
 <p>Tolerations that should be applied to the CSI node driver daemonset.
 The component will transform entries in the dictionary to valid Kubernetes <code>tolerations</code> entries.
 The component will reuse the key in the dictionary as value for field <code>key</code> in the <code>tolerations</code> entry.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component will append tolerations defined in this parameter to tolerations provided through <code>helm_values.node.tolerations</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
@@ -1201,8 +1273,51 @@ It&#8217;s the user&#8217;s responsibility to provide values which result in a v
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-csi-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Helm values to use when rendering the CSI driver Helm chart.
+See <a href="https://github.com/cloudscale-ch/csi-cloudscale/blob/master/charts/csi-cloudscale/values.yaml">the upstream <code>values.yaml</code></a> for supported values.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We explicitly set fields <code>controller.serviceAccountName</code> and <code>node.serviceAccountName</code> and reference those fields in the component to manage additional RoleBindings on OpenShift 4.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></span>
+  <span class="prev"><a href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></span>
 </nav>
 </article>
   </div>

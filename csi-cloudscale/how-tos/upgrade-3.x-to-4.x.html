@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from 2.x to 3.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/csi-cloudscale/how-tos/upgrade-2.x-to-3.x.html">
-    <link rel="prev" href="upgrade-1.x-to-2.x.html">
-    <link rel="next" href="upgrade-3.x-to-4.x.html">
+    <title>Upgrade from 3.x to 4.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/csi-cloudscale/how-tos/upgrade-3.x-to-4.x.html">
+    <link rel="prev" href="upgrade-2.x-to-3.x.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -102,10 +102,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
 </ul>
@@ -933,91 +933,41 @@
   <ul>
     <li><a href="../index.html">csi-cloudscale</a></li>
     <li>How-to guides</li>
-    <li><a href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></li>
+    <li><a href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-csi-cloudscale/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-2.x-to-3.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-csi-cloudscale/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-3.x-to-4.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from 2.x to 3.x</h1>
+<h1 class="page">Upgrade from 3.x to 4.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version 2.x to 3.x.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Before upgrading to version 3.x, please ensure that your Kubernetes cluster is running the version <a href="https://github.com/cloudscale-ch/csi-cloudscale#kubernetes-compatibility">1.17 or later</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>Requirements</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>kubectl</code></p>
-</li>
-<li>
-<p><code>shell</code></p>
-</li>
-</ul>
-</div>
-</div>
+<p>This guide describes the steps to perform an upgrade of the component from version 3.x to 4.x.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_by_step_guide_optional"><a class="anchor" href="#_step_by_step_guide_optional"></a>Step-by-step guide (Optional)</h2>
+<h2 id="_migration_guide"><a class="anchor" href="#_migration_guide"></a>Migration guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The node label used by the CSI driver called <code>region</code> has been renamed to <code>csi.cloudscale.ch/zone</code>.
-If you don&#8217;t need the <code>region</code> label on the specific cluster for an other purpose, you are free to remove them.
-If you keep them, it will stay configued in the node object, but is no longer managed by the CSI driver.</p>
+<p>Parameter <code>version</code> has been removed in component version v4.0.0.
+If you use this parameter to deploy a specific version of the CSI driver, you should set parameter <code>images.cloudscale-csi-plugin.tag</code> to the desired version.</p>
 </div>
 <div class="paragraph">
-<p>Check the the <a href="https://github.com/cloudscale-ch/csi-cloudscale#from-csi-cloudscale-v2x-to-v3x">cloudscale.ch documentation</a> for more details.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>To remove the no longer used <code>region</code> lables on all affected node objects:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl label no -l region region-</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify there are no more node objects with a <code>region</code> label:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get no -l csi.cloudscale.ch/zone</code></pre>
-</div>
-</div>
-</li>
-</ol>
+<p>Alternatively, you may want to select a specific Helm chart version.
+See the <a href="https://github.com/cloudscale-ch/csi-cloudscale/releases?q=helm-csi&amp;expanded=true">helm-csi-cloudscale GitHub releases</a> for available Helm chart versions.
+The chart version can be specified in parameter <code>charts.csi-cloudscale.version</code>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a></span>
-  <span class="next"><a href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></span>
+  <span class="prev"><a href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1028,7 +978,7 @@ If you keep them, it will stay configued in the node object, but is no longer ma
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/csi-cloudscale/how-tos/upgrade-2.x-to-3.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/csi-cloudscale/how-tos/upgrade-3.x-to-4.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
