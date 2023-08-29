@@ -124,6 +124,9 @@
 <loc>https://hub.syn.tools/sitemap-keycloak.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-keycloak-attribute-sync-controller.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-kyverno.xml</loc>
 </sitemap>
 <sitemap>
