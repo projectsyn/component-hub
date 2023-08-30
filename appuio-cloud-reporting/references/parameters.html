@@ -1178,11 +1178,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">host: null
-port: 5432
-name: appuio-cloud-reporting
-username: appuio-cloud-reporting
-password: null
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">url: postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?$(DB_PARAMS)
 parameters: ''</code></pre>
 </div>
 </div>
@@ -1192,6 +1188,159 @@ parameters: ''</code></pre>
 </div>
 <div class="paragraph">
 <p>Dictionary managing the connection to the reporting database.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_secret"><a class="anchor" href="#_database_secret"></a><code>database_secret</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_secret: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing key value pairs that are stored in a secret and loaded as environment variables.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_secret:
+  DB_USER: appuio-cloud-reporting
+  DB_PASSWORD: letmein
+  DB_HOST: db.example.com
+  DB_PORT: 5432
+  DB_NAME: appuio-cloud-reporting</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_env"><a class="anchor" href="#_database_env"></a><code>database_env</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_env: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing additional environment variables.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_env:
+  DB_USER:
+    secretKeyRef:
+      name: reporting-db-prod-cred
+      key: POSTGRESQL_USER
+  DB_PASSWORD:
+    secretKeyRef:
+      name: reporting-db-prod-cred
+      key: POSTGRESQL_PASSWORD
+  DB_HOST:
+    secretKeyRef:
+      name: reporting-db-prod-cred
+      key: POSTGRESQL_HOST
+  DB_PORT:
+    secretKeyRef:
+      name: reporting-db-prod-cred
+      key: POSTGRESQL_PORT
+  DB_NAME:
+    secretKeyRef:
+      name: reporting-db-prod-cred
+      key: POSTGRESQL_DB</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extra_volumes"><a class="anchor" href="#_extra_volumes"></a><code>extra_volumes</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extra_volumes: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Mount additional volumes to the pods.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extra_volumes:
+  dbsecret:
+    mount_spec:
+      readOnly: true
+      mountPath: /secrets/database
+    volume_spec:
+      secret:
+        secretName: reporting-db-prod-cred
+        defaultMode: 0600</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1552,7 +1701,7 @@ Prometheus selector syntax (<code>test="asd"</code>) is used.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">

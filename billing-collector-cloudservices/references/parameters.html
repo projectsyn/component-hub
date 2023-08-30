@@ -1000,12 +1000,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">host: null
-port: 5432
-name: appuio-cloud-reporting
-username: appuio-cloud-reporting
-password: null
-parameters: ''</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database: ${appuio_cloud_reporting:database}</code></pre>
 </div>
 </div>
 </td>
@@ -1013,7 +1008,103 @@ parameters: ''</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>Dictionary managing the connection to the reporting database.</p>
+<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database">appuio-cloud-reporting docs</a> for reference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_secret"><a class="anchor" href="#_database_secret"></a><code>database_secret</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_secret: ${appuio_cloud_reporting:database_secret}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database_secret">appuio-cloud-reporting docs</a> for reference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_env"><a class="anchor" href="#_database_env"></a><code>database_env</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_env: ${appuio_cloud_reporting:database_env}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database_env">appuio-cloud-reporting docs</a> for reference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extra_volumes"><a class="anchor" href="#_extra_volumes"></a><code>extra_volumes</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extra_volumes: ${appuio_cloud_reporting:extra_volumes}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_extra_volumes">appuio-cloud-reporting docs</a> for reference.</p>
 </div>
 </div>
 </div>
