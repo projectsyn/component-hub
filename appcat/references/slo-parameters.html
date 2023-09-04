@@ -1433,7 +1433,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1451,7 +1451,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sla_reporter_slo_mimir_endpoint"><a class="anchor" href="#_sla_reporter_slo_mimir_endpoint"></a><code>sla_reporter.slo_mimir_endpoint</code></h3>
+<h3 id="_sla_reporter_slo_mimir_svc"><a class="anchor" href="#_sla_reporter_slo_mimir_svc"></a><code>sla_reporter.slo_mimir_svc</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1459,7 +1459,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1467,13 +1467,39 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="http://vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc.cluster.local:8080/prometheus" class="bare">vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc.cluster.local:8080/prometheus</a></p>
+<p>vshn-appuio-mimir-query-frontend</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Endpoint for the Prometheus compatible data source.</p>
+<p>The service for the Prometheus compatible data source.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla_reporter_slo_mimir_namespace"><a class="anchor" href="#_sla_reporter_slo_mimir_namespace"></a><code>sla_reporter.slo_mimir_namespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vshn-appuio-mimir</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>THe namespace where the Prometheus compatible data source is deployed.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1485,7 +1511,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
