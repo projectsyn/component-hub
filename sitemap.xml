@@ -16,9 +16,6 @@
 <loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-argocd.xml</loc>
 </sitemap>
 <sitemap>
@@ -50,9 +47,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-control-api.xml</loc>
@@ -208,9 +202,6 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-service-mesh.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-slos.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-splunk-forwarder.xml</loc>
 </sitemap>
 <sitemap>
@@ -266,9 +257,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-steward.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-storage-local-static.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-storageclass.xml</loc>
