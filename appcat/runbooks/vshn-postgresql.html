@@ -1181,6 +1181,66 @@ You can modify the objective, disable the page or ticket alert, or completely di
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="PostgreSQLReplicationCritical"><a class="anchor" href="#PostgreSQLReplicationCritical"></a>PostgreSQLReplicationCritical</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This alert fires if the replication is broken for a VSHNPostrgeSQL instance last longer than 10 minutes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code># figure out which pod is master
+kubectl get pods -n $affected_namespace -l app=StackGresCluster -l role=master
+
+# figure out which pod are replicas
+kubectl get pods -n default -l app=StackGresCluster,cluster=true -l role=replica
+
+# reinitialize replica pod (example commands)
+k --as cluster-admin -n vshn-postgresql-test-cluster-always-true-jnlj4 exec -ti pods/test-cluster-always-true-jnlj4-1 -- bash
+(inside pod):bash-4.4$ patronictl list
+(inside pod):bash-4.4$ patronictl reinit test-cluster-always-true-jnlj4 test-cluster-always-true-jnlj4-1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>notice that patronictl takes the name of the cluster and the name of the pod, not the name of the statefulset. Can be used in scripts with <code>--force</code> flag which auto-accepts all prompts.</p>
+</div>
+<div class="paragraph">
+<p>if that doesn;t work:
+delete replica pods and let patroni fix itself
+if that doesn&#8217;t work either, please refer to the patroni documentation on how to fix replication issues.
+<a href="https://stackgres.io/doc/1.1/administration/patroni/management/">Stackgres documentation</a></p>
+</div>
+<div class="paragraph">
+<p>We need to build know-how on how to fix replication issues, please document your findings in this runbook.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PostgreSQLReplicationLagCritical"><a class="anchor" href="#PostgreSQLReplicationLagCritical"></a>PostgreSQLReplicationLagCritical</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This alert fires if the replication lag is higher than 5 minutes for a VSHNPostrgeSQL instance. It means that replicas are behind master. If storage and network looks okay, you can try to re-initialize the node with the replication lag.
+Probably related to network or storage.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PostgreSQLPodReplicasCritical"><a class="anchor" href="#PostgreSQLPodReplicasCritical"></a>PostgreSQLPodReplicasCritical</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This alert fires when there are issues with statefullset responsible for replicas. It means that there are less replicas than expected. Most probably related to quota issues.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>kubectl describe -n vshn-postgresql-&lt;instance&gt; sts &lt;instance&gt;
+## for exmaple:  kubectl -n vshn-postgresql-test-cluster-always-true-jnlj4 describe sts test-cluster-always-true-jnlj4
+
+## get events from affected namespace and look for issues
+k -n vshn-postgresql-test-cluster-always-true-jnlj4 get events</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/billing.html">Add a new VSHN service to billing</a></span>
 </nav>
