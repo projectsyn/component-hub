@@ -997,7 +997,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift.io/node-selector: node-role.kubernetes.io/infra=</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift.io/node-selector: ''</code></pre>
 </div>
 </div>
 </td>
@@ -1157,7 +1157,9 @@ If this parameter is set to <code>true</code>, the component will allow using na
 <div class="sectionbody">
 <div class="paragraph">
 <p>This parameter allows users of the component to configure one subscription per instance.
-The component explicitly doesn&#8217;t allow configuring multiple instances in the same namespace, since we&#8217;ve seen various issues with conflicting upgrades when multiple subscriptions are created in the same namespace, especially when <code>installPlanApproval=Manual</code> is required for some reason.</p>
+The component explicitly doesn&#8217;t allow configuring multiple instances in the same namespace, since we&#8217;ve seen various issues with conflicting upgrades when multiple subscriptions are created in the same namespace, especially when <code>installPlanApproval=Manual</code> is required for some reason.
+By default the components sets the nodeAffinity to infra nodes, this can be overwritten.
+See <a href="https://docs.openshift.com/container-platform/latest/nodes/scheduling/nodes-scheduler-node-affinity.html#nodes-scheduler-node-affinity-configuring-required_nodes-scheduler-node-affinity">Official Documentation</a></p>
 </div>
 <div class="sect2">
 <h3 id="_subscription_name"><a class="anchor" href="#_subscription_name"></a><code>subscription.name</code></h3>
