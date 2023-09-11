@@ -160,9 +160,6 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-config.xml</loc>
 </sitemap>
 <sitemap>
@@ -236,9 +233,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>
