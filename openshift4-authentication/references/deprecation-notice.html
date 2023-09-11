@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/csi-hetznercloud/references/parameters.html">
-    <link rel="prev" href="../index.html">
+    <title>Deprecated features :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/references/deprecation-notice.html">
+    <link rel="prev" href="parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,20 +80,47 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="csi-hetznercloud" data-version="master">
+<div class="nav-container" data-component="openshift4-authentication" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">CSI Hetznercloud</a></h3>
+    <h3 class="title"><a href="../index.html">OpenShift 4 Authentication</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/ldap-sync.html">LDAP Sync</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/configure-secrets.html">Configure secrets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/configure-oidc-provider.html">Configure OIDC provider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/group-memberships.html">Manage group memberships</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">References</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="deprecation-notice.html">Deprecated features</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -102,7 +129,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">CSI Hetznercloud</span>
+    <span class="title">OpenShift 4 Authentication</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -243,14 +270,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../cm-hetznercloud/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -275,14 +294,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../cortex-tenant-ns-label/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../crossplane/index.html">crossplane</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -295,14 +306,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../csi-driver-smb/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">CSI Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -335,22 +338,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../exporter-filterproxy/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../fleetlock/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -519,6 +506,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -723,6 +718,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../rancher-monitoring/index.html">rancher-monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rancher-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../rbac/index.html">rbac</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -893,97 +896,62 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">CSI Hetznercloud</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">OpenShift 4 Authentication</a></li>
+    <li>References</li>
+    <li><a href="deprecation-notice.html">Deprecated features</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/tegridy-io/component-csi-hetznercloud/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/references/deprecation-notice.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>csi_hetznercloud</code>.</p>
-</div>
-</div>
-</div>
+<h1 class="page">Deprecated features</h1>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_v2_3_0"><a class="anchor" href="#_v2_3_0"></a>v2.3.0</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-csi-hetznercloud</code></p>
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Directly providing a Vault secret reference as a string in <code>openshift4_authentication.identityProviders.*.ldap.bindPassword</code> is <strong>deprecated</strong>.
+Users should switch to the secret references mechanism, as documented in <a href="../how-tos/configure-secrets.html" class="page">configuring secrets for identity providers</a> how-to, as the legacy syntax will be removed in a future release.</p>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>See below for an example diff showing how to restructure an LDAP identity provider configuration from the legacy syntax to secret references.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_hcloudtoken"><a class="anchor" href="#_hcloudtoken"></a><code>hcloudToken</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>insertCoin</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The token to access the hetzner cloud api.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://docs.hetzner.com/de/cloud/api/getting-started/generating-api-token/">Hetzner Documentation</a> on how to create a token.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">csi_hetznercloud:
-  hcloudToken: my-project-token</code></pre>
+<pre class="highlightjs highlight"><code class="language-diff hljs" data-lang="diff">parameters:
+  openshift4_authentication:
+    identityProviders:
+      &lt;name_of_the_provider&gt;:
+        type: LDAP
+        ldap:
+-         bindPassword: "?{vaultkv:${cluster:tenant}/${cluster:name}/ldap-auth/bindPassword}"
++         bindPassword:
++           name: ldap-bind <i class="conum" data-value="1"></i><b>(1)</b>
++   secrets:
++     ldap-bind: <i class="conum" data-value="1"></i><b>(1)</b>
++       bindPassword: '?{vaultkv:${cluster:tenant}/${cluster:name}/ldap-auth/bindPassword}' <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name of the secret containing the LDAP bind password.
+The name needs to be identical in both locations.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The bind password <strong>must</strong> be stored in key <code>bindPassword</code> in the secret.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="prev"><a href="parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -994,7 +962,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/csi-hetznercloud/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/references/deprecation-notice.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

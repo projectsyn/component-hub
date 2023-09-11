@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>cortex-tenant-ns-label :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cortex-tenant-ns-label/index.html">
-    <link rel="next" href="references/parameters.html">
+    <title>OpenShift 4 Authentication: A Commodore component to manage authentication (via OAuth) on OpenShift 4 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/index.html">
+    <link rel="next" href="how-tos/ldap-sync.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,26 +80,47 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="cortex-tenant-ns-label" data-version="master">
+<div class="nav-container" data-component="openshift4-authentication" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">cortex-tenant-ns-label</a></h3>
+    <h3 class="title"><a href="index.html">OpenShift 4 Authentication</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="index.html">Home</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="how-tos/ldap-sync.html">LDAP Sync</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="how-tos/configure-secrets.html">Configure secrets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="how-tos/configure-oidc-provider.html">Configure OIDC provider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="how-tos/group-memberships.html">Manage group memberships</a>
+  </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Reference</span>
-<ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">References</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="references/deprecation-notice.html">Deprecated features</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -108,7 +129,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">cortex-tenant-ns-label</span>
+    <span class="title">OpenShift 4 Authentication</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -249,14 +270,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../cm-hetznercloud/index.html">CM Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../cm-hetznercloud/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../cockroach-operator/index.html">CockroachDB Operator</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -280,14 +293,6 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="index.html">cortex-tenant-ns-label</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="index.html">master</a>
-        </li>
-      </ul>
-    </li>
     <li class="component">
       <a class="title" href="../crossplane/index.html">crossplane</a>
       <ul class="versions">
@@ -301,14 +306,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../csi-driver-smb/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../csi-hetznercloud/index.html">CSI Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../csi-hetznercloud/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -341,22 +338,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../exporter-filterproxy/index.html">exporter-filterproxy</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../exporter-filterproxy/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../fleetlock/index.html">Fleetlock</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../fleetlock/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -525,6 +506,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
         </li>
       </ul>
     </li>
@@ -729,6 +718,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../rancher-monitoring/index.html">rancher-monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../rancher-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../rbac/index.html">rbac</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -899,26 +896,194 @@
   <a href="../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">cortex-tenant-ns-label</a></li>
+    <li><a href="index.html">OpenShift 4 Authentication</a></li>
     <li><a href="index.html">Home</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-cortex-tenant-ns-label/edit/master/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">cortex-tenant-ns-label</h1>
+<h1 class="page">OpenShift 4 Authentication: A Commodore component to manage authentication (via OAuth) on OpenShift 4</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>cortex-tenant-ns-label is a Commodore component to manage the cortex-tenant-ns-label proxy.</p>
+<p>OpenShift 4 Authentication: A Commodore component to manage authentication (via OAuth) on OpenShift 4 is a Commodore component for Managing the OpenShift 4 authentication config.
+The component allows to configure identity providers, templates to customize the look and feel of the login and the validity of the issued tokens.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
+<p>This reflects the documentation provided by <code>oc explain --api-version config.openshift.io/v1 OAuth</code> with some small tweaks to simplify the input.</p>
+</div>
+<div class="paragraph">
+<p>The parameters <code>openshift4_authentication.templates.(err,login,providerSelection)</code> directly take the template string.
+The values will be written to a secret which then gets referenced in the OAuth CRD.</p>
+</div>
+<div class="paragraph">
+<p>The value of parameter <code>openshift4_authentication.identityProviders</code> must be a dictionary.
+The keys of the dictionary are only present to allow customizing the configuration of an identity provider later in the hierarchy.
+The keys themselves aren&#8217;t reflected anywhere in the generated configuration.</p>
+</div>
+<div class="paragraph">
+<p>Each value in the dictionary must be a valid identityProvider configuration for OpenShift 4.
+The component supports any type of provider config which is supported by Openshift 4.</p>
+</div>
+<div class="paragraph">
+<p>When configuring an LDAP identity provider which is secured with a certificate issued by a CA which is part of the system CA bundle, the LDAP server CA doesn&#8217;t need to be specified explicitly.
+Otherwise, the CA can be provided as a literal string in field <code>ca</code> of the LDAP identity provider config.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, the component only supports configuring a custom CA certificate for LDAP identity providers.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users should use the component&#8217;s <a href="how-tos/configure-secrets.html" class="page">secret configuration mechanism</a> to deploy secrets containing identity provider credentials.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ldap_group_sync"><a class="anchor" href="#_ldap_group_sync"></a>LDAP Group Sync</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://docs.openshift.com/container-platform/4.8/authentication/ldap-syncing.html">LDAP group sync</a> is configured to sync and prune groups from LDAP.
+Configured groups are synced from the LDAP provider and will be pruned once deleted again in LDAP.</p>
+</div>
+<div class="paragraph">
+<p>The sync cronjob is configured to be scheduled on the master nodes.
+The reason for this scheduling configuration stems from a combination of two factors: first, LDAP servers may be protected with IP allow-lists, and second, an OCP4 cluster may be deployed with public IPs for all nodes</p>
+</div>
+<div class="paragraph">
+<p>If both of those factors are combined, we need to add all the master node IPs to the allow-list, so that the control plane can talk to the LDAP server.
+In this scenario, if the LDAP sync cronjob is scheduled on the master nodes, we don&#8217;t need to add additional infra or worker node IPs to the allow-list.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cluster_admin_sudo"><a class="anchor" href="#_cluster_admin_sudo"></a>Cluster Admin Sudo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>RBAC rules are set up in order to allow a sudo like method to gain cluster-admin privileges.</p>
+</div>
+<div class="paragraph">
+<p>By default only <code>cluster-read</code> and <code>impersonate</code> permissions are granted to the groups defined in <code>openshift4_authentication.sudoGroups</code>.
+Using <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation">user impersonation</a>, permissions can be escalated to full <code>cluster-admin</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">oc --as cluster-admin get secret</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component also deploys a <code>RoleBinding</code> and a <code>ClusterRoleBinding</code> to ensure that users in the sudoers group can access the OpenShift cluster monitoring Alertmanager and its associated resources in the OpenShift console.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://kb.vshn.ch/oc4/how-tos/authentication/sudo.html">how-to</a> and <a href="https://kb.vshn.ch/oc4/explanations/sudo.html">explanation</a> for further details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_impersonating_users"><a class="anchor" href="#_impersonating_users"></a>Impersonating Users</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>impersonate</code> permissions are granted to the groups defined in <code>openshift4_authentication.sudoGroups</code>.</p>
+</div>
+<div class="paragraph">
+<p>This allows users in the sudoers group to impersonate other users in the cluster.</p>
+</div>
+<div class="paragraph">
+<p>This is especially useful for debugging RBAC issues affecting other users.
+You can check the permissions of a user or service account by running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">kubectl --as=system:serviceaccount:NS:SERVICEACCOUNT auth can-i get deployments/test
+kubectl --as=USER auth can-i get deployments/test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When impersonating a user, their groups aren&#8217;t included in the impersonation.
+It&#8217;s however possible to add groups to the impersonated user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">kubectl --as=USER --as-group=GROUP auth can-i get deployments/test <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>It&#8217;s not necessary to pass an existing user if you only want to impersonate groups.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Group impersonation is only possible when impersonating a user.</p>
+</div>
+<div class="paragraph">
+<p>Impersonation is logged in the Kubernetes API server audit logs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">❯ oc adm node-logs --role=master --path=kube-apiserver/audit.log | grep "impersonatedUser" | jq
+{
+  "kind": "Event",
+  [...]
+  "verb": "get",
+  "user":
+    {
+      "username": "chuck.testa",
+    },
+  "impersonatedUser":
+    {
+      "username": "john.dwight",
+      "groups": ["system:authenticated"]
+    },
+[...]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_removing_the_kubeadmin_user"><a class="anchor" href="#_removing_the_kubeadmin_user"></a>Removing the kubeadmin user</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component deploys an Espejo syncconfig which deletes the <code>kubeadmin</code> secret in namespace <code>kube-system</code>.
+This removes the <code>kubeadmin</code> user generated by the OpenShift installer, as described in the <a href="https://docs.openshift.com/container-platform/latest/authentication/remove-kubeadmin.html">OpenShift docs</a>.
+To avoid removing the user before other authentication methods are configured, the component ensures that the syncconfig is only deployed after the authentication configuration is deployed on the cluster.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Removing this user doesn&#8217;t affect the <code>kubeconfig</code> file generated by the OpenShift installer.
+The <code>kubeconfig</code> file uses a client certificate to authorize against the cluster as <code>cluster-admin</code>.
+This certificate remains valid even if the <code>kubeadmin</code> user is removed from the cluster.
+In order words, emergency access with <code>kubeconfig</code> is still possible.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="references/parameters.html">Parameters</a></span>
+  <span class="next"><a href="how-tos/ldap-sync.html">LDAP Sync</a></span>
 </nav>
 </article>
   </div>
@@ -929,7 +1094,7 @@
 </footer>
 <script src="../_/js/site.js"></script>
 <script src="../_/js/vendor/lunr.js"></script>
-<script src="../_/js/vendor/search.js" id="search-script" data-base-path=".." data-page-path="/cortex-tenant-ns-label/index.html"></script>
+<script src="../_/js/vendor/search.js" id="search-script" data-base-path=".." data-page-path="/openshift4-authentication/index.html"></script>
 <script async src="../_/../search-index.js"></script>
 <script async src="../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

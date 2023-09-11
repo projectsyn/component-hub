@@ -49,9 +49,6 @@
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
 </sitemap>
 <sitemap>
@@ -59,9 +56,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-coredns.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-cortex-tenant-ns-label.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-crossplane.xml</loc>
@@ -73,9 +67,6 @@
 <loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
@@ -83,12 +74,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-exporter-filterproxy.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-fleetlock.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
@@ -158,6 +143,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-config.xml</loc>
@@ -233,6 +221,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>

@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cortex-tenant-ns-label/references/parameters.html">
-    <link rel="prev" href="../index.html">
+    <title>Configure OIDC provider :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/how-tos/configure-oidc-provider.html">
+    <link rel="prev" href="configure-secrets.html">
+    <link rel="next" href="group-memberships.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,26 +81,47 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="cortex-tenant-ns-label" data-version="master">
+<div class="nav-container" data-component="openshift4-authentication" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">cortex-tenant-ns-label</a></h3>
+    <h3 class="title"><a href="../index.html">OpenShift 4 Authentication</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ldap-sync.html">LDAP Sync</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configure-secrets.html">Configure secrets</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="configure-oidc-provider.html">Configure OIDC provider</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="group-memberships.html">Manage group memberships</a>
+  </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Reference</span>
+    <span class="nav-text">References</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/deprecation-notice.html">Deprecated features</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -108,7 +130,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">cortex-tenant-ns-label</span>
+    <span class="title">OpenShift 4 Authentication</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -249,14 +271,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../cm-hetznercloud/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -280,14 +294,6 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">cortex-tenant-ns-label</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
-        </li>
-      </ul>
-    </li>
     <li class="component">
       <a class="title" href="../../crossplane/index.html">crossplane</a>
       <ul class="versions">
@@ -301,14 +307,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../csi-driver-smb/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../csi-hetznercloud/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -341,22 +339,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../exporter-filterproxy/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../fleetlock/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -525,6 +507,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -729,6 +719,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../rancher-monitoring/index.html">rancher-monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rancher-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../rbac/index.html">rbac</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -899,244 +897,87 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">cortex-tenant-ns-label</a></li>
-    <li>Reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">OpenShift 4 Authentication</a></li>
+    <li>How-to guides</li>
+    <li><a href="configure-oidc-provider.html">Configure OIDC provider</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-cortex-tenant-ns-label/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/how-tos/configure-oidc-provider.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Configure OIDC provider</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>cortex_tenant_ns_label</code>.</p>
+<p>This guide shows how to configure an OIDC provider (for example Keycloak).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_app_name"><a class="anchor" href="#_app_name"></a><code>app_name</code></h2>
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step by step guide</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>cortex-tenant-ns-label</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configure the deployment name of the cortex-tenant-ns-label reverse proxy.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure a new client in the OIDC provider (with client credentials)</p>
+</li>
+<li>
+<p>Put the client secret in Vault.
+For example at this location: <code>${cluster:tenant}/${cluster:name}/oidc/&lt;name_of_the_provider&gt;/clientSecret</code></p>
+</li>
+<li>
+<p>Configure this component like the following example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">listen: 0.0.0.0:8080
-target: https://metrics-receive/v1/push
-log_level: warn
-auth:
-  egress:
-    username: 'user'
-    password: 'pass'
-namespace:
-  tenant_label: 'organization'</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_authentication:
+    identityProviders:
+      keycloak-auth:
+        name: my-keycloak
+        type: OpenID
+        mappingMethod: add
+        openID:
+          issuer: https://keycloak.company.tld/auth/realms/company-realm
+          clientID: ${cluster:name}
+          clientSecret:
+            name: company-keycloak <i class="conum" data-value="1"></i><b>(1)</b>
+          claims:
+            preferredUsername:
+              - preferred_username
+            name:
+              - name
+            email:
+              - email
+
+    secrets:
+      company-keycloak: <i class="conum" data-value="1"></i><b>(1)</b>
+        clientSecret: '?{vaultkv:${cluster:tenant}/${cluster:name}/oidc/keycloak-auth/clientSecret}' <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">listen: 0.0.0.0:8080
-target: https://metrics-receive.appuio.net/api/v1/push
-log_level: warn
-auth:
-  egress:
-    username: ?{vaultkv:__shared__/__shared__/metrics-receive-appuio-net-remote-write/username}
-    password: ?{vaultkv:__shared__/__shared__/metrics-receive-appuio-net-remote-write/password}
-  namespace:
-    tenant_label: 'appuio.io/organization'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configure the cortex-tenant-ns-label reverse proxy. See <a href="https://github.com/vshn/cortex-tenant-ns-label" class="bare">github.com/vshn/cortex-tenant-ns-label</a> for more details. All configuration is merged with the defaults.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_image"><a class="anchor" href="#_image"></a><code>image</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the secret.</td>
 </tr>
 <tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">registry: ghcr.io
-repository: vshn/cortex-tenant-ns-label
-tag: 'latest'</code></pre>
-</div>
-</div>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For OpenID connect, the client secret <strong>must</strong> be stored in a key named <code>clientSecret</code> in the secret.</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Configure the image source for the cortex-tenant-ns-label reverse proxy.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_limits"><a class="anchor" href="#_limits"></a><code>limits</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cpu: '1'
-memory: '256Mi'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configure the maximum resources for the cortex-tenant-ns-label reverse proxy.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-cortex-tenant-ns-label</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configure the namespace used to deploy the cortex-tenant-ns-label reverse proxy.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_requests"><a class="anchor" href="#_requests"></a><code>requests</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cpu: '100m'
-memory: '256Mi'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configure the reserved resources for the cortex-tenant-ns-label reverse proxy.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="prev"><a href="configure-secrets.html">Configure secrets</a></span>
+  <span class="next"><a href="group-memberships.html">Manage group memberships</a></span>
 </nav>
 </article>
   </div>
@@ -1147,7 +988,7 @@ memory: '256Mi'</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cortex-tenant-ns-label/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/how-tos/configure-oidc-provider.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

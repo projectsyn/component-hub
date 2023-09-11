@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/fleetlock/references/parameters.html">
-    <link rel="prev" href="../index.html">
+    <title>Manage group memberships :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-authentication/how-tos/group-memberships.html">
+    <link rel="prev" href="configure-oidc-provider.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,20 +81,47 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="fleetlock" data-version="master">
+<div class="nav-container" data-component="openshift4-authentication" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Fleetlock</a></h3>
+    <h3 class="title"><a href="../index.html">OpenShift 4 Authentication</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ldap-sync.html">LDAP Sync</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configure-secrets.html">Configure secrets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configure-oidc-provider.html">Configure OIDC provider</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="group-memberships.html">Manage group memberships</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">References</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/deprecation-notice.html">Deprecated features</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -102,7 +130,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Fleetlock</span>
+    <span class="title">OpenShift 4 Authentication</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -243,14 +271,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../cm-hetznercloud/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -275,14 +295,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../cortex-tenant-ns-label/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../crossplane/index.html">crossplane</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -295,14 +307,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../csi-driver-smb/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../csi-hetznercloud/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -335,22 +339,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../exporter-filterproxy/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">Fleetlock</a>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -519,6 +507,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -723,6 +719,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../rancher-monitoring/index.html">rancher-monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rancher-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../rbac/index.html">rbac</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -893,65 +897,127 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Fleetlock</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">OpenShift 4 Authentication</a></li>
+    <li>How-to guides</li>
+    <li><a href="group-memberships.html">Manage group memberships</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/tegridy-io/component-fleetlock/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-authentication/edit/master/docs/modules/ROOT/pages/how-tos/group-memberships.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Manage group memberships</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>fleetlock</code>.</p>
+<p>This page covers a guide on how to add or remove RBAC users to/from groups.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_add_user"><a class="anchor" href="#_add_user"></a>Add user</h2>
 <div class="sectionbody">
-<div class="hdlist">
+<div class="paragraph">
+<p>Add a user to a group as an empty object.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
 </td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-fleetlock</code></p>
+<td class="content">
+The name of the user is a name of the RBAC user resource, which might not be the one the user is using to log in.
 </td>
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The name of the group is subject to some naming rules, see <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-label-names">DNS Label Names</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_authentication:
+    groupMemberships:
+      example-group:
+        users:
+          example-user: {}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The <code>state</code> property can be specified explicitly, but is <code>present</code> already by default.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">          example-user:
+            state: present</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_remove_user"><a class="anchor" href="#_remove_user"></a>Remove user</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>If you have common groups "up" in the hierarchy, but want to remove a specific user from such a group, set the <code>state</code> property to <code>absent</code>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_authentication:
+    groupMemberships:
+      example-group:
+        users:
+          removed-user:
+            state: absent</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remove_group"><a class="anchor" href="#_remove_group"></a>Remove group</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have common groups "up" in the hierarchy, but want to avoid such a group being applied to the cluster, set the <code>state</code> property to <code>absent</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_authentication:
+    groupMemberships:
+      removed-group:
+        state: absent</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="prev"><a href="configure-oidc-provider.html">Configure OIDC provider</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -962,7 +1028,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/fleetlock/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-authentication/how-tos/group-memberships.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
