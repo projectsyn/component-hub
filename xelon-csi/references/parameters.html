@@ -1111,6 +1111,32 @@ Currently, the component only sets resource requests.</p>
 <p>This parameter holds configurations for the CSI driver daemonset.</p>
 </div>
 <div class="sect2">
+<h3 id="_csi_driver_metadata_directory"><a class="anchor" href="#_csi_driver_metadata_directory"></a><code>csi_driver.metadata_directory</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>/etc/init.d</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure which host path the CSI driver daemonset mounts to expose the Xelon AG <code>metadata.json</code> to the CSI driver.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_csi_driver_resources"><a class="anchor" href="#_csi_driver_resources"></a><code>csi_driver.resources</code></h3>
 <div class="hdlist">
 <table>
