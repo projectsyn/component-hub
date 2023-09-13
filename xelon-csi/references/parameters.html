@@ -986,6 +986,34 @@ See the <a href="https://github.com/Xelon-AG/xelon-csi/releases">CSI driver GitH
 </div>
 </div>
 <div class="sect1">
+<h2 id="_metadata_directory"><a class="anchor" href="#_metadata_directory"></a><code>metadata_directory</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>/etc/init.d</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure which host path is mounted as <code>/etc/init.d</code> for the CSI driver and controller to expose the Xelon AG <code>metadata.json</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_controller"><a class="anchor" href="#_controller"></a><code>controller</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1109,32 +1137,6 @@ Currently, the component only sets resource requests.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This parameter holds configurations for the CSI driver daemonset.</p>
-</div>
-<div class="sect2">
-<h3 id="_csi_driver_metadata_directory"><a class="anchor" href="#_csi_driver_metadata_directory"></a><code>csi_driver.metadata_directory</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>/etc/init.d</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter allows users to configure which host path the CSI driver daemonset mounts to expose the Xelon AG <code>metadata.json</code> to the CSI driver.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_csi_driver_resources"><a class="anchor" href="#_csi_driver_resources"></a><code>csi_driver.resources</code></h3>
