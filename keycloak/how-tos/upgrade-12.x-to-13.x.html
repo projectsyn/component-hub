@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from v8 to v9 :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-8.x-to-9.x.html">
-    <link rel="prev" href="upgrade-7.x-to-8.x.html">
-    <link rel="next" href="upgrade-9.x-to-10.x.html">
+    <title>Upgrade from v12 to v13 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-12.x-to-13.x.html">
+    <link rel="prev" href="upgrade-11.x-to-12.x.html">
+    <link rel="next" href="openshift-4.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -156,7 +156,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -168,7 +168,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-12.x-to-13.x.html">Upgrade 12.x to 13.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1017,62 +1017,36 @@
   <ul>
     <li><a href="../index.html">keycloak</a></li>
     <li>How-to guides</li>
-    <li><a href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a></li>
+    <li><a href="upgrade-12.x-to-13.x.html">Upgrade 12.x to 13.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-8.x-to-9.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-12.x-to-13.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from v8 to v9</h1>
+<h1 class="page">Upgrade from v12 to v13</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version v8 to v9.</p>
-</div>
-<div class="paragraph">
-<p>The major component upgrade focuses on the Wildfly to Quarkus migration enforced by the Keycloak team as Wildfly will be no longer supported.
-This upgrade contains just the required changes to run Keycloak in the same manner as the former installation does.
-All other changes and refactorings have been postponed to the next major component version.
-No Keycloak DB migration or schema change is expected to happen as the application version doesn&#8217;t change.</p>
-</div>
-<div class="paragraph">
-<p>The component was previously based on the <a href="https://artifacthub.io/packages/helm/codecentric/keycloak">Keycloak Helm chart</a> and from now on will use the <a href="https://artifacthub.io/packages/helm/codecentric/keycloakx">Keycloakx Helm chart</a>.
-The Keycloakx Helm chart no longer contains the builtin <code>bitnami/postgresql</code> database.
-To establish the same behavior, the component continues to support the <code>bitnami/postgresql</code> Helm chart to install the built-in database.</p>
-</div>
-<div class="paragraph">
-<p>If you want to know more about what has changed internally, check out <a href="../explanations/migration-to-quarkus.html" class="page">Migration to Quarkus</a>.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version v12 to v13.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_parameter_changes"><a class="anchor" href="#_parameter_changes"></a>Parameter changes</h2>
+<h2 id="_changes"><a class="anchor" href="#_changes"></a>Changes</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>charts.keycloak</code> has been replaced with <code>charts.keycloakx</code>.</p>
+<p>The component requires Kubernetes v1.23 or newer.</p>
 </li>
 <li>
-<p><code>charts.keycloakx</code> has been added with version defaulting to <code>1.3.2</code>.</p>
-</li>
-<li>
-<p><code>charts.postgresql</code> has been added with the same <code>bitnami/postgresql</code> major version <code>10.16.2</code> as the former Keycloak Helm chart dependency <code>10.3.13</code> has been.</p>
-</li>
-<li>
-<p><code>monitoring.statistics</code> has been removed as Keycloak based on Quarkus always expose all statistics via the metrics endpoint.</p>
-</li>
-<li>
-<p><code>helm_values.postgresql</code> has been moved to <code>postgresql_helm_values</code> reflecting the two independent Helm charts.</p>
+<p>Keycloak version is v21.1.2 by default.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>If you&#8217;ve configured custom values for any of those parameters, make sure to adjust your configurations when upgrading from component version v8 to v9.</p>
 </div>
 </div>
 </div>
@@ -1091,158 +1065,7 @@ To establish the same behavior, the component continues to support the <code>bit
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">instance=keycloak
 namespace=syn-${instance}
 
-kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c keycloak-postgresql -- sh -c 'PGDATABASE="$POSTGRES_DB" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --clean' &gt; keycloak-postgresql-$(date +%F-%H-%M-%S).sql</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If a Keycloak theme is used the path needs to be changed from</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parameters:
-  &lt;keycloak instance&gt;:
-    extraVolumeMounts:
-      theme:
-        mountPath: /opt/jboss/keycloak/themes/company
-    extraEnv:
-      KEYCLOAK_WELCOME_THEME:
-        value: 'company'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>to</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parameters:
-  &lt;keycloak instance&gt;:
-    extraVolumeMounts:
-      theme:
-        mountPath: /opt/keycloak/themes/company
-    extraEnv:
-      KC_SPI_THEME_WELCOME_THEME:
-        value: 'company'</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Remove the parameter <code>monitoring.statistics</code> from the cluster configuration if it has been defined.</p>
-</li>
-</ol>
-</div>
-<div class="sect2">
-<h3 id="_specific_to_openshift"><a class="anchor" href="#_specific_to_openshift"></a>Specific to OpenShift</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Change the security context dbchecker parameter from</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  &lt;keycloak instance&gt;:
-    helm_values:
-      pgchecker:
-        securityContext: null</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>to</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  &lt;keycloak instance&gt;:
-    helm_values:
-      dbchecker:
-        securityContext: null</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add an emptydir for <code>/opt/keycloak/data</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  &lt;keycloak instance&gt;:
-    extraVolumes:
-      data:
-        emptyDir: {}
-    extraVolumeMounts:
-      # Required as the OpenShift user can not create the data directory in the keycloak directory UID 1000/GID 0
-      data:
-        mountPath: /opt/keycloak/data</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_specific_to_openshift_builtin_db"><a class="anchor" href="#_specific_to_openshift_builtin_db"></a>Specific to OpenShift + Builtin DB</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Change the security context for the builtin database from</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  &lt;keycloak instance&gt;:
-    helm_values:
-      postgresql:
-        securityContext:
-          enabled: false
-        volumePermissions:
-          securityContext:
-            runAsUser: auto
-            shmVolume:
-              chmod:
-                enabled: false</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>to</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  &lt;keycloak instance&gt;:
-    postgresql_helm_values:
-      securityContext:
-        enabled: false
-      containerSecurityContext:
-        enabled: false
-      volumePermissions:
-        securityContext:
-          runAsUser: auto
-      shmVolume:
-        chmod:
-          enabled: false</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_apply_the_deployment"><a class="anchor" href="#_apply_the_deployment"></a>Apply the deployment</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Disable the automated sync policy for the keycloak instance</p>
-</li>
-<li>
-<p>Scale down the existing keycloak to prevent the Wildfly based instance writing to the same database:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn-keycloak scale statefulset keycloak --replicas=0</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Delete the ingress object to prevent duplicate hostname issues seen on the OpenShift router:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn-keycloak delete ingress keycloak</code></pre>
+kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c postgresql -- sh -c 'PGDATABASE="$POSTGRES_DB" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --clean' &gt; keycloak-postgresql-$(date +%F-%H-%M-%S).sql</code></pre>
 </div>
 </div>
 </li>
@@ -1252,20 +1075,13 @@ kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c keycloak-postgresql 
 <li>
 <p>Compile and push the cluster catalog.</p>
 </li>
-<li>
-<p>Enable the automated sync policy for the keycloak instance</p>
-</li>
-<li>
-<p>Verify that ArgoCD can sync all resources.</p>
-</li>
 </ol>
 </div>
 </div>
 </div>
-</div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a></span>
-  <span class="next"><a href="upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a></span>
+  <span class="prev"><a href="upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a></span>
+  <span class="next"><a href="openshift-4.html">Install on OpenShift 4</a></span>
 </nav>
 </article>
   </div>
@@ -1276,7 +1092,7 @@ kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c keycloak-postgresql 
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-8.x-to-9.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-12.x-to-13.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
