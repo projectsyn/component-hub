@@ -114,6 +114,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../explanations/redisrestore.html">How-To Manual Redis Restore</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/minio.html">Minio</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -153,6 +156,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-minio.html">Provider Minio</a>
   </li>
 </ul>
   </li>
@@ -1570,6 +1576,64 @@ You can also set a node selector through <code>scheduling.nodeSelector</code>.</
 </div>
 <div class="paragraph">
 <p>The default plan used for Redis by VSHN, if the service user doesn&#8217;t specify a plan.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_minio"><a class="anchor" href="#_minio"></a>minio</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration option for VSHN Minio.
+You have to option to enable or disable it through the <code>enabled</code> parameter and can set the <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s disabled by default and use the top level defined namespaces for <code>secretNamespace</code> and <code>providerSecretNamespace</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_instances"><a class="anchor" href="#_instances"></a>instances</h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>array</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Array of minio instances to deploy to a given cluster.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instances:
+  - name: my-minio
+    namespace: default
+    spec:
+      parameters:
+        service:
+          mode: standalone
+        size:
+          disk: 1Gi
+      writeConnectionSecretToRef:
+        name: my-minio-creds</code></pre>
+</div>
 </div>
 </div>
 </div>

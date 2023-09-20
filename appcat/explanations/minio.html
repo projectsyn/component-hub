@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Provider Exoscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-exoscale.html">
-    <link rel="prev" href="provider-cloudscale.html">
-    <link rel="next" href="provider-kubernetes.html">
+    <title>Minio :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/explanations/minio.html">
+    <link rel="prev" href="redisrestore.html">
+    <link rel="next" href="../tutorials/install-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,22 +100,22 @@
     <span class="nav-text">Explanations</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
+    <a class="nav-link" href="crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/restore.html">How the Restore Process Works</a>
+    <a class="nav-link" href="restore.html">How the Restore Process Works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
+    <a class="nav-link" href="add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/exoscale-plans.html">Generate Exoscale plans</a>
+    <a class="nav-link" href="exoscale-plans.html">Generate Exoscale plans</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/redisrestore.html">How-To Manual Redis Restore</a>
+    <a class="nav-link" href="redisrestore.html">How-To Manual Redis Restore</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/minio.html">Minio</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="minio.html">Minio</a>
   </li>
 </ul>
   </li>
@@ -136,29 +136,29 @@
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="component-parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/component-parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+    <a class="nav-link" href="../references/slo-parameters.html">AppCat SLOs Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+    <a class="nav-link" href="../references/appcat-apiserver.html">AppCat API Server Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Provider Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+    <a class="nav-link" href="../references/provider-cloudscale.html">Provider Cloudscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+    <a class="nav-link" href="../references/provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="provider-minio.html">Provider Minio</a>
+    <a class="nav-link" href="../references/provider-kubernetes.html">Provider Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../references/provider-minio.html">Provider Minio</a>
   </li>
 </ul>
   </li>
@@ -167,13 +167,13 @@
     <span class="nav-text">Service Parameters</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+    <a class="nav-link" href="../references/services-exoscale.html">Exoscale Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+    <a class="nav-link" href="../references/services-vshn.html">VSHN Services</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+    <a class="nav-link" href="../references/service-objectstorage.html">Objectstorage Service</a>
   </li>
 </ul>
   </li>
@@ -1010,195 +1010,87 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">appcat</a></li>
-    <li>Technical reference</li>
-    <li>Provider Parameters</li>
-    <li><a href="provider-exoscale.html">Provider Exoscale</a></li>
+    <li>Explanations</li>
+    <li><a href="minio.html">Minio</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-exoscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/explanations/minio.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Provider Exoscale</h1>
+<h1 class="page">Minio</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.provider.exoscale</code>.</p>
+<p>Installing Minio and generating the providerconfigs can be managed via the component.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>You can also have a look at the <a href="../tutorials/install-exoscale.html" class="page">tutorial for installing the Exoscale stack.</a></p>
+<p>This setup has multiple parts to it:</p>
 </div>
-</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p>provider</p>
+</li>
+<li>
+<p>composition functions</p>
+</li>
+<li>
+<p>deployments via composition function</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h2>
+<h2 id="_provider"><a class="anchor" href="#_provider"></a>Provider</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>If the provider should be installed.</p>
+<p>The provider section <code>appcat.provider.minio</code> can take multiple variations of provider configs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>By referencing an existing provider config by name</p>
+</li>
+<li>
+<p>By creating additional configs through the <code>additionalProviderConfigs</code> field</p>
+</li>
+<li>
+<p>Automatically injected configs from the <code>appcat.services.vshn.minio.instance`</code> field</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_connectionsecretnamespace"><a class="anchor" href="#_connectionsecretnamespace"></a><code>connectionSecretNamespace</code></h2>
+<h2 id="_composition_function"><a class="anchor" href="#_composition_function"></a>Composition Function</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-provider-exoscale-secrets</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>A namespace to store the connection secrets in.
-The namespace will be created and managed by this component.</p>
+<p>The composition here is very bare bones, the whole composition is via functions.
+The compositions are generated depending on how many provider configs there are.
+Each composition will handle exactly one provider config.
+This is the mechanism we can use so that a user can choose between different minio instances.
+We already use this mechanism to choose between different clouds for the <code>ObjectBuckets</code>.
+The default composition can easily be set.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_credentials"><a class="anchor" href="#_credentials"></a><code>credentials</code></h2>
+<h2 id="_deployment"><a class="anchor" href="#_deployment"></a>Deployment</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Credentials to connect to the Exoscale API.
-You can specify the name and namespace of the created secret and the <code>stringData</code> in the <code>data</code> field.</p>
-</div>
-<div class="paragraph">
-<p>The <code>data</code> field should contain an IAM access key in the field <code>EXOSCALE_API_KEY</code> and the corresponding secret key in the field <code>EXOSCALE_API_SECRET</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>spec</code> parameters contains the <code>spec</code> of the <code>Provider</code> resource.</p>
-</div>
-<div class="paragraph">
-<p>Consult the <a href="https://docs.crossplane.io/v1.10/concepts/packages/#installing-a-package">upstream documentation</a> for configuration options.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_providerconfig"><a class="anchor" href="#_providerconfig"></a><code>providerConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>spec</code> of the <code>ProviderConfig</code>.
-By default, the component will add the credentials to the provider config.</p>
-</div>
-<div class="paragraph">
-<p>Look at <a href="https://github.com/vshn/provider-exoscale/blob/master/apis/provider/v1/providerconfig_types.go">the provider exoscale</a> for available configuration options.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_controllerconfig"><a class="anchor" href="#_controllerconfig"></a><code>controllerConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>spec</code> of the <code>ControllerConfig</code>.
-If the component is deployed on OpenShift, it will automatically add the necessary security context changes to the config.</p>
-</div>
-<div class="paragraph">
-<p>Consult the <a href="https://doc.crds.dev/github.com/crossplane/crossplane/pkg.crossplane.io/ControllerConfig/v1alpha1">upstream documentation</a> for configuration options.</p>
+<p>Via <code>appcat.services.vshn.minio.instance</code> it&#8217;s possible to deploy arbitrary amounts of minio instances to a cluster.
+As mentioned above, the provider configs will then be injected automatically and new compositions are generated accordingly.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
-  <span class="next"><a href="provider-kubernetes.html">Provider Kubernetes</a></span>
+  <span class="prev"><a href="redisrestore.html">How-To Manual Redis Restore</a></span>
+  <span class="next"><a href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a></span>
 </nav>
 </article>
   </div>
@@ -1209,7 +1101,7 @@ If the component is deployed on OpenShift, it will automatically add the necessa
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/provider-exoscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/explanations/minio.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

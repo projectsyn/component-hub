@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Provider Exoscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-exoscale.html">
-    <link rel="prev" href="provider-cloudscale.html">
-    <link rel="next" href="provider-kubernetes.html">
+    <title>Provider Minio :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/provider-minio.html">
+    <link rel="prev" href="provider-kubernetes.html">
+    <link rel="next" href="services-exoscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -151,13 +151,13 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="provider-minio.html">Provider Minio</a>
   </li>
 </ul>
@@ -1012,35 +1012,21 @@
     <li><a href="../index.html">appcat</a></li>
     <li>Technical reference</li>
     <li>Provider Parameters</li>
-    <li><a href="provider-exoscale.html">Provider Exoscale</a></li>
+    <li><a href="provider-minio.html">Provider Minio</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-exoscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/provider-minio.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Provider Exoscale</h1>
+<h1 class="page">Provider Minio</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>appcat.provider.exoscale</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can also have a look at the <a href="../tutorials/install-exoscale.html" class="page">tutorial for installing the Exoscale stack.</a></p>
-</div>
-</td>
-</tr>
-</table>
+<p>The parent key for all of the following parameters is <code>appcat.provider.minio</code>.</p>
 </div>
 </div>
 </div>
@@ -1073,7 +1059,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_connectionsecretnamespace"><a class="anchor" href="#_connectionsecretnamespace"></a><code>connectionSecretNamespace</code></h2>
+<h2 id="_providerconfigrefs"><a class="anchor" href="#_providerconfigrefs"></a><code>providerConfigRefs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1082,27 +1068,18 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-provider-exoscale-secrets</code></p>
+<p>array</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A namespace to store the connection secrets in.
-The namespace will be created and managed by this component.</p>
+<p>A list of names for already existing <code>ProviderConfigs</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_credentials"><a class="anchor" href="#_credentials"></a><code>credentials</code></h2>
+<h2 id="_additionalproviderconfigs"><a class="anchor" href="#_additionalproviderconfigs"></a><code>additionalProviderConfigs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1111,64 +1088,26 @@ The namespace will be created and managed by this component.</p>
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>array</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Credentials to connect to the Exoscale API.
-You can specify the name and namespace of the created secret and the <code>stringData</code> in the <code>data</code> field.</p>
+<p>A list of additional <code>ProviderConfigs</code> that should be deployed via the component.
+Contains the <code>spec</code> of the <code>ProviderConfig</code> object.</p>
 </div>
-<div class="paragraph">
-<p>The <code>data</code> field should contain an IAM access key in the field <code>EXOSCALE_API_KEY</code> and the corresponding secret key in the field <code>EXOSCALE_API_SECRET</code>.</p>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additionalProviderConfigs:
+  - name: minio
+    minioURL: http://minio-server.minio.svc:9000/
+    credentials:
+      apiSecretRef:
+        name: minio-secret
+        namespace: syn-crossplane</code></pre>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>spec</code> parameters contains the <code>spec</code> of the <code>Provider</code> resource.</p>
-</div>
-<div class="paragraph">
-<p>Consult the <a href="https://docs.crossplane.io/v1.10/concepts/packages/#installing-a-package">upstream documentation</a> for configuration options.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_providerconfig"><a class="anchor" href="#_providerconfig"></a><code>providerConfig</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>spec</code> of the <code>ProviderConfig</code>.
-By default, the component will add the credentials to the provider config.</p>
-</div>
-<div class="paragraph">
-<p>Look at <a href="https://github.com/vshn/provider-exoscale/blob/master/apis/provider/v1/providerconfig_types.go">the provider exoscale</a> for available configuration options.</p>
 </div>
 </div>
 </div>
@@ -1197,8 +1136,8 @@ If the component is deployed on OpenShift, it will automatically add the necessa
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="provider-cloudscale.html">Provider Cloudscale</a></span>
-  <span class="next"><a href="provider-kubernetes.html">Provider Kubernetes</a></span>
+  <span class="prev"><a href="provider-kubernetes.html">Provider Kubernetes</a></span>
+  <span class="next"><a href="services-exoscale.html">Exoscale Services</a></span>
 </nav>
 </article>
   </div>
@@ -1209,7 +1148,7 @@ If the component is deployed on OpenShift, it will automatically add the necessa
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/provider-exoscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/provider-minio.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
