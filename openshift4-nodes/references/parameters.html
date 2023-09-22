@@ -1128,6 +1128,42 @@ Namespaced resources without an explicit <code>.metadata.namespace</code> field 
 </div>
 </div>
 <div class="sect1">
+<h2 id="_nodeconfig"><a class="anchor" href="#_nodeconfig"></a><code>nodeConfig</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cgroupMode: v1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default values applied to the <code>node.config.openshift.io</code> object created by this component.</p>
+</div>
+<div class="paragraph">
+<p>You can switch between cgroup v1 and cgroup v2, as needed, by editing the node.config object.
+For more information, see <a href="https://docs.openshift.com/container-platform/latest/installing/install_config/enabling-cgroup-v2.html">Enabling Linux control group version 2</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_nodegroups"><a class="anchor" href="#_nodegroups"></a><code>nodeGroups</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
