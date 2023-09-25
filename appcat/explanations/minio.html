@@ -1088,6 +1088,47 @@ As mentioned above, the provider configs will then be injected automatically and
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_example_config"><a class="anchor" href="#_example_config"></a>Example Config</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">appcat:
+  providers:
+    minio:
+      enabled: true
+  services:
+    generic:
+      objectstorage:
+        enabled: true
+        compositions:
+          minio:
+            enabled: true
+    minio:
+      enabled: true
+      instances:
+        - name: my-minio
+          namespace: myns
+          spec:
+            parameters:
+              service:
+                mode: standalone <i class="conum" data-value="1"></i><b>(1)</b>
+              size:
+                disk: 1Gi
+            writeConnectionSecretToRef:
+              name: my-minio-creds</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Single instance deployment</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="redisrestore.html">How-To Manual Redis Restore</a></span>
   <span class="next"><a href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a></span>
