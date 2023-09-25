@@ -79,9 +79,6 @@
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-etcd.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
 </sitemap>
 <sitemap>
@@ -103,9 +100,6 @@
 <loc>https://hub.syn.tools/sitemap-gitlab-runner.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-grafana-organizations-operator.xml</loc>
 </sitemap>
 <sitemap>
@@ -113,15 +107,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-hub.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-ingress-nginx.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-json-exporter.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-keycloak.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-keycloak-attribute-sync-controller.xml</loc>
@@ -257,9 +242,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-stackgres-operator.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-statefulset-resize-controller.xml</loc>
