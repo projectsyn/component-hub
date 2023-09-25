@@ -1104,19 +1104,20 @@ As mentioned above, the provider configs will then be injected automatically and
         compositions:
           minio:
             enabled: true
-    minio:
-      enabled: true
-      instances:
-        - name: my-minio
-          namespace: myns
-          spec:
-            parameters:
-              service:
-                mode: standalone <i class="conum" data-value="1"></i><b>(1)</b>
-              size:
-                disk: 1Gi
-            writeConnectionSecretToRef:
-              name: my-minio-creds</code></pre>
+    vshn:
+      minio:
+        enabled: true
+        instances:
+          - name: my-minio
+            namespace: myns
+            spec:
+              parameters:
+                service:
+                  mode: standalone <i class="conum" data-value="1"></i><b>(1)</b>
+                size:
+                  disk: 1Gi
+              writeConnectionSecretToRef:
+                name: my-minio-creds</code></pre>
 </div>
 </div>
 <div class="colist arabic">
