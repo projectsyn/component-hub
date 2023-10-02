@@ -1005,7 +1005,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The default Docker image location and tag to use for K8up (key <code>k8up</code>).</p>
+<p>The default Docker image location and tag to use for K8up (key <code>k8up</code>) and kubectl (key <code>kubectl</code>).</p>
 </div>
 <div class="paragraph">
 <p>Entries in this dict should be dictionaries with keys <code>registry</code>, <code>repository</code>, and <code>tag</code>.
@@ -1016,6 +1016,10 @@ This structure provides the basis for <a href="https://syn.tools/syn/SDDs/0017-m
 </div>
 <div class="paragraph">
 <p>The value of <code>k8up.tag</code> in this dict is used by the component to select the CRD YAML to download.</p>
+</div>
+<div class="paragraph">
+<p>The component uses the contents of field <code>kubectl</code> to patch the Helm chart&#8217;s cleanup job.
+This allows users to configure a custom location for the <code>kubectl</code> image used by the job.</p>
 </div>
 </div>
 </div>
