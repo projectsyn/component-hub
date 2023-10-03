@@ -1554,6 +1554,97 @@ inhibit_rules:
 </div>
 </div>
 <div class="sect1">
+<h2 id="_alertmanagerautodiscovery"><a class="anchor" href="#_alertmanagerautodiscovery"></a><code>alertManagerAutoDiscovery</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertManagerAutoDiscovery:
+  enabled: true
+  debug_config_map: false
+  team_receiver_format: team_default_%s
+  additional_alert_matchers: []
+  prepend_routes: []
+  append_routes: []</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>alertManagerAutoDiscovery</code> holds the configuration for the Alertmanager auto-discovery feature.</p>
+</div>
+<div class="paragraph">
+<p>The auto-discovery routes alerts to the configured teams based on their namespaces and the top-level <code>syn.teams[*].instances</code> and <code>syn.owner</code> parameters.
+Auto-discovery first creates a list of Commodore component instances by parsing the <code>applications</code> array using the same rules as Commodore itself (see also the <a href="https://syn.tools/commodore/reference/architecture.html#_component_instantiation">Commodore component instantiation documentation</a>).
+For each discovered instance, the component then renders the instance parameters, and reads the cmoponent&#8217;s namespace from field <code>namespace</code> or <code>namespace.name</code> in the rendered parameters.
+Finally, routing rules are generated to route alerts from the discovered namespaces to the associated component instance&#8217;s owning team.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>syn</code> Team Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">syn:
+  owner: daring-donkeys
+  teams:
+    electric-elephants:
+      instances: [postgres]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The auto-discovery feature is enabled by default.
+A ConfigMap can be enabled with <code>debug_config_map</code> to debug the auto-discovery feature.</p>
+</div>
+<div class="paragraph">
+<p>The configuration is merged with the <code>alertManagerConfig</code> parameter.
+Route receivers are generated for each team based on the <code>team_receiver_format</code> parameter.
+The routes are ordered as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>alertManagerAutoDiscovery.prepend_routes + generated routes + alertManagerAutoDiscovery.append_routes + alertManagerConfig.routes + route all to syn.owner</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>additional_alert_matchers</code> is a list of additional alert matchers to add to the generated routes.
+This can be used to handle special cases where the auto-discovery feature does not work as expected.
+For example if an alert should go to a different team than the namespace suggests based on a label.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertManagerAutoDiscovery:
+  additional_alert_matchers:
+    - 'syn_team = ""'
+# becomes
+- continue: true
+  matchers:
+    - syn_team = ""
+    - namespace =~ "my-ns"
+  receiver: team_default_lovable-lizards
+- continue: false
+  matchers:
+    - syn_team = ""
+    - namespace =~ "my-ns"
+  receiver: __component_openshift4_monitoring_null</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
