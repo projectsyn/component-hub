@@ -1685,14 +1685,12 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>List of namespace patterns to use for alerts which have <code>namespace=~"(openshift-.<strong>|kube-.</strong>|default)"</code> in the upstream rule.
+<p>List of namespace patterns to use for alerts which have <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in the upstream rule.
 The component generates a regex pattern from the list by concatenating all elements into a large OR-regex.
-To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.<strong>|kube-.</strong>|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from the parameter.</p>
+To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from the parameter.</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>The component processes the list with `com.renderArray()` to allow users to drop entries in the hierarchy.</pre>
-</div>
+<div class="paragraph">
+<p>The component processes the list with <code>com.renderArray()</code> to allow users to drop entries in the hierarchy.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -1898,9 +1896,9 @@ The component expects that top-level keys in the parameter correspond to values 
 Additionally, the component supports special top-level key <code>*</code>.</p>
 </div>
 <div class="paragraph">
-<p>Alert patches which are defined under top-level key <code><strong></code> are applied regardless of the OpenShift 4 version specified in parameter <code>manifest_versions</code>.
+<p>Alert patches which are defined under top-level key <code>*</code> are applied regardless of the OpenShift 4 version specified in parameter <code>manifest_versions</code>.
 Additionally, the component applies all patches under the key which matches the value of parameter <code>manifest_versions</code>.
-If an alert is patched in both top-level key <code></strong></code> and the top-level key matching parameter <code>manifest_versions</code>, the patches are merged together, with the version-specific patch overriding the generic patch.</p>
+If an alert is patched in both top-level key <code>*</code> and the top-level key matching parameter <code>manifest_versions</code>, the patches are merged together, with the version-specific patch overriding the generic patch.</p>
 </div>
 <div class="paragraph">
 <p>The component expects alert names as keys and any alert configuration as values in each top-level key.
@@ -2216,8 +2214,7 @@ See <a href="../explanations/resource_management.html" class="page">Resource Man
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
-capacityAlerts:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
   enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
   groupByNodeLabels: [] <i class="conum" data-value="2"></i><b>(2)</b>
   groups:
@@ -2230,12 +2227,9 @@ capacityAlerts:
         ExpectTooManyPods:
           expr: <i class="conum" data-value="5"></i><b>(5)</b>
             range: '2d'
-            predict: '5*24*60*60'</code></pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>    ResourceRequests:
+            predict: '5*24*60*60'
+
+    ResourceRequests:
       rules:
         TooMuchMemoryRequested:
           enabled: true
@@ -2250,17 +2244,44 @@ capacityAlerts:
     UnusedCapacity:
       rules:
         ClusterHasUnusedNodes:
-          enabled: false <i class="conum" data-value="8"></i><b>(8)</b>
----
-&lt;1&gt; Enables capacity alerts
-&lt;2&gt; List of node labels (as they show up in the `kube_node_labels` metric) by which alerts are grouped
-&lt;3&gt; Changes the alert message for the pod capacity alert
-&lt;4&gt; Only alerts for pod capacity if it fires for 3 hours
-&lt;5&gt; Change the pod count prediction to look at the last two days and predict the value in five days
-&lt;6&gt; Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB
-&lt;7&gt; Disables both CPU capacity alert rules
-&lt;8&gt; Disables alert if the cluster has unused nodes.</pre>
+          enabled: false <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enables capacity alerts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>List of node labels (as they show up in the <code>kube_node_labels</code> metric) by which alerts are grouped</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Changes the alert message for the pod capacity alert</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Only alerts for pod capacity if it fires for 3 hours</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Change the pod count prediction to look at the last two days and predict the value in five days</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Disables both CPU capacity alert rules</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Disables alert if the cluster has unused nodes.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -2307,8 +2328,7 @@ This field is then merged into the provided value which should be a valid rule d
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
-rules:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">rules:
   generic-rules:
     "alert:ContainerOOMKilled":
       annotations:
@@ -2317,8 +2337,7 @@ rules:
         kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
       labels:
         source: https://git.vshn.net/swisscompks/syn-tenant-repo/-/blob/master/common.yml
-        severity: devnull
----</code></pre>
+        severity: devnull</code></pre>
 </div>
 </div>
 </div>
