@@ -4,6 +4,7 @@ from typing import List, Optional, Set, Union
 import click
 import yaml
 from github import Github, GithubException
+from github.Auth import Token
 from github.Repository import Repository
 from github.Organization import Organization
 from github.NamedUser import NamedUser
@@ -171,7 +172,7 @@ class GithubRepoLoader:
         ignore_topics: List[str],
         ignorelist: Optional[Path] = None,
     ):
-        self._github: Github = Github(github_token)
+        self._github: Github = Github(auth=Token(github_token))
         self._ignore_list: List[str] = []
         self._ignore_topics = ignore_topics
         if ignorelist is not None:

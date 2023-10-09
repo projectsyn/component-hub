@@ -2,14 +2,14 @@ import pytest
 import os
 
 from dotenv import load_dotenv
-from github import Github
+from github import Auth, Github
 
 from component_hub import github_wrapper
 
 
 def _setup():
     load_dotenv()
-    gh = Github(os.environ["GITHUB_TOKEN"])
+    gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]))
     owners = {
         "organizations": {},
         "users": {},
