@@ -1687,7 +1687,7 @@ default
 <div class="paragraph">
 <p>List of namespace patterns to use for alerts which have <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in the upstream rule.
 The component generates a regex pattern from the list by concatenating all elements into a large OR-regex.
-To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from the parameter.</p>
+To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from this parameter and parameter <code>excludeNamespaces</code>.</p>
 </div>
 <div class="paragraph">
 <p>The component processes the list with <code>com.renderArray()</code> to allow users to drop entries in the hierarchy.</p>
@@ -1718,6 +1718,68 @@ The component doesn&#8217;t validate that the list entries are valid regex patte
 </div>
 <div class="paragraph">
 <p>The component will generate namespace selector <code>namespace=~"(default|syn.*)"</code> from this input configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_excludenamespaces"><a class="anchor" href="#_excludenamespaces"></a><code>excludeNamespaces</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of namespace patterns to exclude for alerts which have <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in the upstream rule.
+The component generates a regex pattern from the list by concatenating all elements into a large OR-regex.
+To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from this parameter and parameter <code>includeNamespaces</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component processes the list with <code>com.renderArray()</code> to allow users to drop entries in the hierarchy.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate that the list entries are valid regex patterns.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h4>
+<div class="paragraph">
+<p>We assume that the input config has patterns <code>default</code> and <code>openshift.<strong></code> and <code>syn.</strong></code> for <code>includeNamespaces</code> and <code>openshift-adp</code> for <code>excludeNamespaces</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">includeNamespaces:
+  - default
+  - openshift.*
+  - syn.*
+excludeNamespaces:
+  - openshift-adp</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component will generate namespace selector <code>namespace=<sub>"(default|openshift.<strong>|syn.</strong>)",namespace!</sub>"(openshift-adp)"</code> from this input configuration.</p>
 </div>
 </div>
 </div>
@@ -2343,7 +2405,7 @@ This field is then merged into the provided value which should be a valid rule d
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
+<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
