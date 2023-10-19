@@ -49,12 +49,6 @@
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-control-api.xml</loc>
 </sitemap>
 <sitemap>
@@ -73,9 +67,6 @@
 <loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
@@ -83,12 +74,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-eventrouter.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-exporter-filterproxy.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-fleetlock.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
@@ -281,9 +266,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-traefik.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vault.xml</loc>
