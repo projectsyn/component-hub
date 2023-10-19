@@ -253,6 +253,22 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../hub/index.html">Commodore Hub</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -293,6 +309,14 @@
       </ul>
     </li>
     <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -321,6 +345,22 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -825,6 +865,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1583,7 +1631,7 @@ The resulting <code>MachineConfig</code> objects will have the keys, prefixed wi
               overwrite: true
               contents:
                 # The contents of `inline` get rendered as
-                # `source: 'data:text/plain;encoding=utf-8;base64,&lt;inline|base64&gt;'`
+                # `source: 'data:text/plain;charset=utf-8;base64,&lt;inline|base64&gt;'`
                 inline: |
                   # Use ch.pool.ntp.org
                   pool ch.pool.ntp.org iburst
@@ -1638,7 +1686,7 @@ spec:
     storage:
       files:
         - contents:
-            source: data:text/plain;encoding=utf-8;base64,IyBVc2UgY2gucG9vbC5udHAub3JnCnBvb2wgY2gucG9vbC5udHAub3JnIGlidXJzdAojIFJlc3QgaXMgY29waWVkIGZyb20gdGhlIGRlZmF1bHQgY29uZmlnCmRyaWZ0ZmlsZSAvdmFyL2xpYi9jaHJvbnkvZHJpZnQKbWFrZXN0ZXAgMS4wIDMKcnRjc3luYwprZXlmaWxlIC9ldGMvY2hyb255LmtleXMKbGVhcHNlY3R6IHJpZ2h0L1VUQwpsb2dkaXIgL3Zhci9sb2cvY2hyb255Cg== <i class="conum" data-value="2"></i><b>(2)</b>
+            source: data:text/plain;charset=utf-8;base64,IyBVc2UgY2gucG9vbC5udHAub3JnCnBvb2wgY2gucG9vbC5udHAub3JnIGlidXJzdAojIFJlc3QgaXMgY29waWVkIGZyb20gdGhlIGRlZmF1bHQgY29uZmlnCmRyaWZ0ZmlsZSAvdmFyL2xpYi9jaHJvbnkvZHJpZnQKbWFrZXN0ZXAgMS4wIDMKcnRjc3luYwprZXlmaWxlIC9ldGMvY2hyb255LmtleXMKbGVhcHNlY3R6IHJpZ2h0L1VUQwpsb2dkaXIgL3Zhci9sb2cvY2hyb255Cg== <i class="conum" data-value="2"></i><b>(2)</b>
           mode: 420
           overwrite: true
           path: /etc/chrony.conf</code></pre>
@@ -1652,7 +1700,7 @@ spec:
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The actual entry in the files list in the Ignition config is encoded with base64 and added as a data scheme value (<code>data:text/plain;encoding=utf-8;base64,&#8230;&#8203;</code>) in the <code>contents.source</code> field.
+<td>The actual entry in the files list in the Ignition config is encoded with base64 and added as a data scheme value (<code>data:text/plain;charset=utf-8;base64,&#8230;&#8203;</code>) in the <code>contents.source</code> field.
 See the <a href="https://coreos.github.io/ignition/configuration-v3_2/">Ignition spec</a> for more details on supported ways to specify file contents.</td>
 </tr>
 </table>
