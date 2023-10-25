@@ -1066,18 +1066,6 @@ type
 <div class="paragraph">
 <p>Dictionary containing the container images used by this component.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The tag for the ArgoCD image is used to download the corresponding deployment manifests.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1298,6 +1286,192 @@ Can be used to ensure prometheus-operator picks up the <code>PrometheusRule</cod
       git.example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9EkPcVdsz/oVTI2VJkBlq8Mv/dg3rhcbgzAEKyiwUG
     monitoring:
       dashboards: true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operator"><a class="anchor" href="#_operator"></a><code>operator</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the ArgoCD operator which is deployed as part of this component.</p>
+</div>
+<div class="sect2">
+<h3 id="_operator_namespace"><a class="anchor" href="#_operator_namespace"></a><code>operator.namespace</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>syn-argocd-operator</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The namespace in which to deploy the argocd operator</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_cluster_scope_namespaces"><a class="anchor" href="#_operator_cluster_scope_namespaces"></a><code>operator.cluster_scope_namespaces</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>array</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>["${argocd:namespace}"]</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>List of namespaces in which argocd is allowed to be installed at the cluster scope.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_migrate"><a class="anchor" href="#_operator_migrate"></a><code>operator.migrate</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>false</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Whether to migrate from v5 or earlier. If you are upgrading from v5, set this to <code>true</code> on the first catalog compilation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_images"><a class="anchor" href="#_operator_images"></a><code>operator.images</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the container images used by the operator</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_manifests_version"><a class="anchor" href="#_operator_manifests_version"></a><code>operator.manifests_version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${argocd:images:argocd_operator:tag}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Version of the kubernetes manifests for the operator</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_kustomization_url"><a class="anchor" href="#_operator_kustomization_url"></a><code>operator.kustomization_url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://github.com/argoproj-labs/argocd-operator//config/default/" class="bare">github.com/argoproj-labs/argocd-operator//config/default/</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL of the kustomization to deploy the operator</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_kustomize_input"><a class="anchor" href="#_operator_kustomize_input"></a><code>operator.kustomize_input</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kustomize inputs supplied to the argocd operator kustomization</p>
 </div>
 </div>
 </div>
