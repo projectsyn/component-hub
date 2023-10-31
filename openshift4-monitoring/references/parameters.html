@@ -2457,6 +2457,59 @@ The value must be a dict with a key <code>stringData</code> which is a dict of k
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_remotewritedefaults"><a class="anchor" href="#_remotewritedefaults"></a><code>remoteWriteDefaults</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">remoteWriteDefaults:
+  cluster: {}
+  userWorkload: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">remoteWriteDefaults:
+  cluster:
+    queueConfig:
+      maxShards: 80
+  userWorkload:
+    queueConfig:
+      maxShards: 20</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict of default remote write configurations for the Prometheus component.
+Those values are merged into each remote write configuration in <code>configs.prometheusK8s.remoteWrite</code> and <code>configsUserWorkload.prometheus.remoteWrite</code>.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
   <span class="next"><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
