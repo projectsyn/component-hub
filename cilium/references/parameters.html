@@ -1428,6 +1428,139 @@ See <a href="https://docs.cilium.io/en/v1.13/helm-reference/">Reference</a>.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_egress_gateway"><a class="anchor" href="#_egress_gateway"></a><code>egress_gateway</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure the [Cilium EgressGatewayPolicy] feature.</p>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_enabled"><a class="anchor" href="#_egress_gateway_enabled"></a><code>egress_gateway.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to set all the configurations necessary to enable the egress gateway policy feature through a single parameter.
+The parameter sets the following Helm values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">egressGateway:
+  enabled: true
+bpf:
+  masquerade: true
+l7Proxy: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notably, the L7 proxy feature is disabled by default when egress gateway policies are enabled.
+This is recommended by the Cilium documentation, see also <a href="https://docs.cilium.io/en/v1.13/network/egress-gateway/#incompatibility-with-other-features">the upstream documentation</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_policies"><a class="anchor" href="#_egress_gateway_policies"></a><code>egress_gateway.policies</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy <code>CiliumEgressGatewayPolicy</code> resources.
+Each key-value pair in the parameter is converted to a <code>CiliumEgressGatewayPolicy</code> resource.
+Entries can be removed by setting the value to <code>null</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">egress_gateway:
+  policies:
+    all-example:
+      metadata:
+        annotations:
+          syn.tools/description: |
+            Route all egress traffic from example-namespace through
+            203.0.113.100.
+      spec:
+        destinationCIDRs:
+          - 0.0.0.0/0
+        egressGroups:
+          - nodeSelector:
+              matchLabels:
+                node-role.kubernetes.io/infra: ""
+            egressIP: 203.0.113.100
+        selectors:
+          - podSelector:
+              matchLabels:
+                io.kubernetes.pod.namespace: example-namespace
+    removed: null</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component configuration shown above is rendered as follows by the component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2
+kind: CiliumEgressGatewayPolicy
+metadata:
+  annotations:
+    syn.tools/description: |
+      Route all egress traffic from example-namespace through
+      203.0.113.100.
+  labels:
+    name: all-example-namespace
+  name: all-example-namespace
+spec:
+  destinationCIDRs:
+    - 0.0.0.0/0
+  egressGroups:
+    - egressIP: 203.0.113.100
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: ''
+  selectors:
+    - podSelector:
+        matchLabels:
+          io.kubernetes.pod.namespace: example-namespace</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1453,7 +1586,7 @@ Users should prefer to configure Cilium itself through parameter <code>cilium_he
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
+<h2 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
