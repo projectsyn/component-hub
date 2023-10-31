@@ -1101,6 +1101,7 @@ As mentioned above, the provider configs will then be injected automatically and
     generic:
       objectstorage:
         enabled: true
+        defaultComposition: my-minio <i class="conum" data-value="1"></i><b>(1)</b>
         compositions:
           minio:
             enabled: true
@@ -1113,7 +1114,7 @@ As mentioned above, the provider configs will then be injected automatically and
             spec:
               parameters:
                 service:
-                  mode: standalone <i class="conum" data-value="1"></i><b>(1)</b>
+                  mode: standalone <i class="conum" data-value="2"></i><b>(2)</b>
                 size:
                   disk: 1Gi
               writeConnectionSecretToRef:
@@ -1124,6 +1125,10 @@ As mentioned above, the provider configs will then be injected automatically and
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name of the default composition reference, use the name of any of the instances from <code>appcat.vshn.minio.instances</code>. NOTE: don&#8217;t use the FQDN of the composition, the component will amend it correctly for you</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>Single instance deployment</td>
 </tr>
 </table>
