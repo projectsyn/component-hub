@@ -1200,9 +1200,9 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <div class="sectionbody">
 <div class="paragraph">
 <p>One or more PGs haven&#8217;t been deep scrubbed recently.
-Deep scrub is a data integrity feature, protecting against bit-rot.
-It compares the contents of objects and their replicas for inconsistency.
-When PGs miss their deep scrub window, it may indicate that the window is too small or PGs weren&#8217;t in a 'clean' state during the deep-scrub window.</p>
+Deep scrubs protect against bit-rot.
+They compare data replicas to ensure consistency.
+When PGs miss their deep scrub interval, it may indicate that the window is too small or PGs weren&#8217;t in a <code>clean</code> state during the deep-scrub window.</p>
 </div>
 </div>
 </div>

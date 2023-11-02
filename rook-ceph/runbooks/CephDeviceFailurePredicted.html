@@ -1199,7 +1199,10 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The device health module has determined that one or more devices will fail soon.</p>
+<p>The device health module has determined that one or more devices will fail soon.
+To review device status use <code>ceph device ls</code>. To show a specific device use <code>ceph device info &lt;dev id&gt;</code>.
+Mark the OSD out so that data may migrate to other OSDs.
+Once the OSD has drained, destroy the OSD, replace the device, and redeploy the OSD.</p>
 </div>
 </div>
 </div>

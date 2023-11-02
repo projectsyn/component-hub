@@ -1199,11 +1199,10 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An OSD has reached it&#8217;s BACKFILL FULL threshold.
-This will prevent rebalance operations completing for some pools. Check the current capacity utilisation with 'ceph df'</p>
-</div>
-<div class="paragraph">
-<p>To resolve, either add capacity to the cluster, or delete unwanted data</p>
+<p>An OSD has reached the BACKFILL FULL threshold.
+This will prevent rebalance operations from completing.
+Use <code>ceph health detail</code> and <code>ceph osd df</code> to identify the problem.
+To resolve, add capacity to the affected OSD&#8217;s failure domain, restore down/out OSDs, or delete unwanted data.</p>
 </div>
 </div>
 </div>

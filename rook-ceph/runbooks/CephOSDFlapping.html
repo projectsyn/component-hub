@@ -1199,7 +1199,9 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This alert fires if a Ceph OSD pod has restarted five or more times in the last five minutes.</p>
+<p>This alert fires if a Ceph OSD pod was marked down and back up at least once a minute for 5 minutes.
+This may indicate a network issue (latency, packet loss, MTU mismatch) on the cluster network, or the public network if no cluster network is deployed.
+Check the network stats on the listed host(s).</p>
 </div>
 </div>
 </div>

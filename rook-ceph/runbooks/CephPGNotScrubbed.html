@@ -1200,20 +1200,23 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <div class="sectionbody">
 <div class="paragraph">
 <p>One or more PGs haven&#8217;t been scrubbed recently.
-The scrub process is a data integrity feature, protectng against bit-rot.
-It checks that objects and their metadata (size and attributes) match across object replicas.
-When PGs miss their scrub window, it may indicate the scrub window is too small, or PGs weren&#8217;t in a 'clean' state during the scrub window.</p>
+Scrubs check metadata integrity, protecting against bit-rot.
+They check that metadata is consistent across data replicas.
+When PGs miss their scrub interval, it may indicate that the scrub window is too small, or PGs weren&#8217;t in a <code>clean</code> state during the scrub window.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_initiate_a_scrub"><a class="anchor" href="#_initiate_a_scrub"></a>Initiate a scrub</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
 $ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph health detail
 $ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph pg scrub &lt;PG_ID_FROM_ALERT&gt;</code></pre>
+</div>
 </div>
 </div>
 </div>

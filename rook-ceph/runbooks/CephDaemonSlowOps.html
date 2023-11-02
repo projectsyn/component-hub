@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: CephPGBackfillAtRisk :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephPGBackfillAtRisk.html">
-    <link rel="prev" href="CephNodeRootFilesystemFull.html">
-    <link rel="next" href="CephPGImbalance.html">
+    <title>Alert rule: CephDaemonSlowOps :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephDaemonSlowOps.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -166,7 +164,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1163,19 +1161,17 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Rook Ceph</a></li>
-    <li>Alert runbooks</li>
-    <li>Ceph Cluster</li>
-    <li><a href="CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a></li>
+    <li><a href="CephDaemonSlowOps.html">Alert rule: CephDaemonSlowOps</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephPGBackfillAtRisk.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephDaemonSlowOps.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: CephPGBackfillAtRisk</h1>
+<h1 class="page">Alert rule: CephDaemonSlowOps</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -1199,9 +1195,8 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Data redundancy may be at risk due to lack of free space within the cluster.
-One or more OSDs have reached the <code>backfillfull</code> threshold.
-Add more capacity, or delete unwanted data.</p>
+<p>One or more OSD requests or monitor requests are taking a long time to process.
+This alert might be an indication of extreme load, a slow storage device, or a software bug.</p>
 </div>
 </div>
 </div>
@@ -1215,14 +1210,10 @@ Add more capacity, or delete unwanted data.</p>
 <h2 id="_upstream_documentation"><a class="anchor" href="#_upstream_documentation"></a><span class="icon"><i class="fa fa-book"></i></span> Upstream documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://docs.ceph.com/en/latest/rados/operations/health-checks#pg-backfill-full" class="bare">docs.ceph.com/en/latest/rados/operations/health-checks#pg-backfill-full</a></p>
+<p><a href="https://docs.ceph.com/en/latest/rados/operations/health-checks#slow-ops" class="bare">docs.ceph.com/en/latest/rados/operations/health-checks#slow-ops</a></p>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a></span>
-  <span class="next"><a href="CephPGImbalance.html">CephPGImbalance</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1232,7 +1223,7 @@ Add more capacity, or delete unwanted data.</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephPGBackfillAtRisk.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephDaemonSlowOps.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
