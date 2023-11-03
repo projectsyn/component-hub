@@ -76,6 +76,9 @@
 <loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-emergency-credentials-controller.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
