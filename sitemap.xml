@@ -157,6 +157,9 @@
 <loc>https://hub.syn.tools/sitemap-nfs-subdir-external-provisioner.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift-upgrade-controller.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
 </sitemap>
 <sitemap>
@@ -164,6 +167,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-config.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-console.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-ingress.xml</loc>
