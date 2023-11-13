@@ -158,6 +158,9 @@
     <a class="nav-link" href="CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1207,8 +1210,15 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This alert fires when the Ceph cluster utilization is higher than 85% of the cluster capacity, and the cluster is in read-only mode.
-To resolve this alert, unused data should be deleted or the cluster size must be increased.</p>
+<p>This alert fires when utilization of a Ceph storage device (disk) is higher than 85% of the device&#8217;s capacity.
+Most likely, the Ceph cluster is in read-only mode when this alert fires.</p>
+</div>
+<div class="paragraph">
+<p>This alert may indicate that the cluster utilization has reached problematic levels.
+If this alert is triggered by high cluster utilization, unused data should be deleted or the cluster size must be increased.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, investigate why this particular device has higher utilization than the other storage devices in the Ceph cluster.</p>
 </div>
 </div>
 </div>

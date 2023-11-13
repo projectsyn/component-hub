@@ -6,7 +6,7 @@
     <title>Alert rule: CephNodeInconsistentMTU :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephNodeInconsistentMTU.html">
     <link rel="prev" href="CephNodeDiskspaceWarning.html">
-    <link rel="next" href="CephNodeNetworkPacketDrops.html">
+    <link rel="next" href="CephNodeNetworkBondDegraded.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -156,6 +156,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
@@ -1207,7 +1210,7 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Node has a different MTU size than the median value on device.</p>
+<p>At least one network device on the node has a different MTU size than the median value for that device across all storage nodes.</p>
 </div>
 </div>
 </div>
@@ -1219,7 +1222,7 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 </div>
 <nav class="pagination">
   <span class="prev"><a href="CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a></span>
-  <span class="next"><a href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a></span>
+  <span class="next"><a href="CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a></span>
 </nav>
 </article>
   </div>

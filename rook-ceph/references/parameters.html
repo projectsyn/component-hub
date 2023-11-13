@@ -157,6 +157,9 @@
     <a class="nav-link" href="../runbooks/CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../runbooks/CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -1894,8 +1897,7 @@ The component creates exactly one storageclass and volumesnapshotclass per CephF
       # extended here
     mirroring:
       enabled: false
-  mount_options:
-    discard: true
+  mount_options: {}
   storage_class_config:
     allowVolumeExpansion: true</code></pre>
 </div>
@@ -1911,12 +1913,24 @@ This CephFS instance is configured to have 3 replicas both for the metadata pool
 By default, the CephFS instance is configured to assume that metadata will consume roughly 20% and data roughly 80% of the storage cluster.</p>
 </li>
 <li>
-<p>A storage class which creates PVs on the CephFS instance, supports volume expansion and configures PVs to be mounted with <code>-o discard</code>.</p>
+<p>A storage class which creates PVs on the CephFS instance and  supports volume expansion.</p>
 </li>
 <li>
 <p>A <code>VolumeSnapshotClass</code> associated with the storage class</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+CephFS doesn&#8217;t require mount option <code>discard</code>, and ceph-csi v3.9.0+ will fail to mount any CephFS volumes if the storage class is configured with mount option <code>discard</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The key <code>data_pools</code> is provided to avoid having to manage a list of data pools directly in the hierarchy.
