@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: CephOSDBackfillFull :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/runbooks/CephOSDBackfillFull.html">
-    <link rel="prev" href="CephMonDownQuorumAtRisk.html">
-    <link rel="next" href="CephOSDDown.html">
+    <title>Upgrading to Ceph-CSI v3.9.0 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/how-tos/upgrade-ceph-csi-v3.9.html">
+    <link rel="prev" href="configure-ceph.html">
+    <link rel="next" href="add_alert_runbook.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -109,19 +109,19 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/openshift4.html">Configuring the component for OpenShift 4</a>
+    <a class="nav-link" href="openshift4.html">Configuring the component for OpenShift 4</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/setup-cluster.html">Setup a PVC-based Ceph cluster</a>
+    <a class="nav-link" href="setup-cluster.html">Setup a PVC-based Ceph cluster</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/scale-cluster.html">Scale a PVC-based Ceph cluster</a>
+    <a class="nav-link" href="scale-cluster.html">Scale a PVC-based Ceph cluster</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/configure-ceph.html">Configuring and tuning Ceph</a>
+    <a class="nav-link" href="configure-ceph.html">Configuring and tuning Ceph</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-ceph-csi-v3.9.html">Upgrading to Ceph-CSI v3.9.0</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-ceph-csi-v3.9.html">Upgrading to Ceph-CSI v3.9.0</a>
   </li>
 </ul>
   </li>
@@ -130,14 +130,14 @@
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/add_alert_runbook.html">Adding a new alert runbook</a>
+    <a class="nav-link" href="add_alert_runbook.html">Adding a new alert runbook</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Rook-Ceph operator</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="RookCephOperatorScaledDown.html">RookCephOperatorScaledDown</a>
+    <a class="nav-link" href="../runbooks/RookCephOperatorScaledDown.html">RookCephOperatorScaledDown</a>
   </li>
 </ul>
   </li>
@@ -146,64 +146,64 @@
     <span class="nav-text">Ceph Cluster</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDaemonCrash.html">CephDaemonCrash</a>
+    <a class="nav-link" href="../runbooks/CephDaemonCrash.html">CephDaemonCrash</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephHealthError.html">CephHealthError</a>
+    <a class="nav-link" href="../runbooks/CephHealthError.html">CephHealthError</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephHealthWarning.html">CephHealthWarning</a>
+    <a class="nav-link" href="../runbooks/CephHealthWarning.html">CephHealthWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a>
+    <a class="nav-link" href="../runbooks/CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
+    <a class="nav-link" href="../runbooks/CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a>
+    <a class="nav-link" href="../runbooks/CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
+    <a class="nav-link" href="../runbooks/CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephNodeNetworkPacketErrors.html">CephNodeNetworkPacketErrors</a>
+    <a class="nav-link" href="../runbooks/CephNodeNetworkPacketErrors.html">CephNodeNetworkPacketErrors</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
+    <a class="nav-link" href="../runbooks/CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
+    <a class="nav-link" href="../runbooks/CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGImbalance.html">CephPGImbalance</a>
+    <a class="nav-link" href="../runbooks/CephPGImbalance.html">CephPGImbalance</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a>
+    <a class="nav-link" href="../runbooks/CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGNotScrubbed.html">CephPGNotScrubbed</a>
+    <a class="nav-link" href="../runbooks/CephPGNotScrubbed.html">CephPGNotScrubbed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
+    <a class="nav-link" href="../runbooks/CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGUnavailableBlockingIO.html">CephPGUnavailableBlockingIO</a>
+    <a class="nav-link" href="../runbooks/CephPGUnavailableBlockingIO.html">CephPGUnavailableBlockingIO</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGsDamaged.html">CephPGsDamaged</a>
+    <a class="nav-link" href="../runbooks/CephPGsDamaged.html">CephPGsDamaged</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGsHighPerOSD.html">CephPGsHighPerOSD</a>
+    <a class="nav-link" href="../runbooks/CephPGsHighPerOSD.html">CephPGsHighPerOSD</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGsInactive.html">CephPGsInactive</a>
+    <a class="nav-link" href="../runbooks/CephPGsInactive.html">CephPGsInactive</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPGsUnclean.html">CephPGsUnclean</a>
+    <a class="nav-link" href="../runbooks/CephPGsUnclean.html">CephPGsUnclean</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephSlowOps.html">CephSlowOps</a>
+    <a class="nav-link" href="../runbooks/CephSlowOps.html">CephSlowOps</a>
   </li>
 </ul>
   </li>
@@ -212,13 +212,13 @@
     <span class="nav-text">Ceph pools</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolBackfillFull.html">CephPoolBackfillFull</a>
+    <a class="nav-link" href="../runbooks/CephPoolBackfillFull.html">CephPoolBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolFull.html">CephPoolFull</a>
+    <a class="nav-link" href="../runbooks/CephPoolFull.html">CephPoolFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephPoolNearFull.html">CephPoolNearFull</a>
+    <a class="nav-link" href="../runbooks/CephPoolNearFull.html">CephPoolNearFull</a>
   </li>
 </ul>
   </li>
@@ -227,19 +227,19 @@
     <span class="nav-text">Ceph MDS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemFailureNoStandby.html">CephFilesystemFailureNoStandby</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemFailureNoStandby.html">CephFilesystemFailureNoStandby</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemInsufficientStandby.html">CephFilesystemInsufficientStandby</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemInsufficientStandby.html">CephFilesystemInsufficientStandby</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemMDSRanksLow.html">CephFilesystemMDSRanksLow</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemMDSRanksLow.html">CephFilesystemMDSRanksLow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemOffline.html">CephFilesystemOffline</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemOffline.html">CephFilesystemOffline</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemReadOnly.html">CephFilesystemReadOnly</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemReadOnly.html">CephFilesystemReadOnly</a>
   </li>
 </ul>
   </li>
@@ -248,10 +248,10 @@
     <span class="nav-text">Ceph MGR</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMgrModuleCrash.html">CephMgrModuleCrash</a>
+    <a class="nav-link" href="../runbooks/CephMgrModuleCrash.html">CephMgrModuleCrash</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMgrPrometheusModuleInactive.html">CephMgrPrometheusModuleInactive</a>
+    <a class="nav-link" href="../runbooks/CephMgrPrometheusModuleInactive.html">CephMgrPrometheusModuleInactive</a>
   </li>
 </ul>
   </li>
@@ -260,16 +260,16 @@
     <span class="nav-text">Ceph MON</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonDiskspaceCritical.html">CephMonDiskspaceCritical</a>
+    <a class="nav-link" href="../runbooks/CephMonDiskspaceCritical.html">CephMonDiskspaceCritical</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonDiskspaceLow.html">CephMonDiskspaceLow</a>
+    <a class="nav-link" href="../runbooks/CephMonDiskspaceLow.html">CephMonDiskspaceLow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonDown.html">CephMonDown</a>
+    <a class="nav-link" href="../runbooks/CephMonDown.html">CephMonDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a>
+    <a class="nav-link" href="../runbooks/CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a>
   </li>
 </ul>
   </li>
@@ -277,44 +277,44 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Ceph OSD</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="CephOSDBackfillFull.html">CephOSDBackfillFull</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDBackfillFull.html">CephOSDBackfillFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDown.html">CephOSDDown</a>
+    <a class="nav-link" href="../runbooks/CephOSDDown.html">CephOSDDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDDownHigh.html">CephOSDDownHigh</a>
+    <a class="nav-link" href="../runbooks/CephOSDDownHigh.html">CephOSDDownHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDFlapping.html">CephOSDFlapping</a>
+    <a class="nav-link" href="../runbooks/CephOSDFlapping.html">CephOSDFlapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDFull.html">CephOSDFull</a>
+    <a class="nav-link" href="../runbooks/CephOSDFull.html">CephOSDFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDHostDown.html">CephOSDHostDown</a>
+    <a class="nav-link" href="../runbooks/CephOSDHostDown.html">CephOSDHostDown</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDInternalDiskSizeMismatch.html">CephOSDInternalDiskSizeMismatch</a>
+    <a class="nav-link" href="../runbooks/CephOSDInternalDiskSizeMismatch.html">CephOSDInternalDiskSizeMismatch</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDNearFull.html">CephOSDNearFull</a>
+    <a class="nav-link" href="../runbooks/CephOSDNearFull.html">CephOSDNearFull</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDReadErrors.html">CephOSDReadErrors</a>
+    <a class="nav-link" href="../runbooks/CephOSDReadErrors.html">CephOSDReadErrors</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDTimeoutsClusterNetwork.html">CephOSDTimeoutsClusterNetwork</a>
+    <a class="nav-link" href="../runbooks/CephOSDTimeoutsClusterNetwork.html">CephOSDTimeoutsClusterNetwork</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDTimeoutsPublicNetwork.html">CephOSDTimeoutsPublicNetwork</a>
+    <a class="nav-link" href="../runbooks/CephOSDTimeoutsPublicNetwork.html">CephOSDTimeoutsPublicNetwork</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephOSDTooManyRepairs.html">CephOSDTooManyRepairs</a>
+    <a class="nav-link" href="../runbooks/CephOSDTooManyRepairs.html">CephOSDTooManyRepairs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephObjectMissing.html">CephObjectMissing</a>
+    <a class="nav-link" href="../runbooks/CephObjectMissing.html">CephObjectMissing</a>
   </li>
 </ul>
   </li>
@@ -323,10 +323,10 @@
     <span class="nav-text">CephFS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemDamaged.html">CephFilesystemDamaged</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemDamaged.html">CephFilesystemDamaged</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephFilesystemDegraded.html">CephFilesystemDegraded</a>
+    <a class="nav-link" href="../runbooks/CephFilesystemDegraded.html">CephFilesystemDegraded</a>
   </li>
 </ul>
   </li>
@@ -335,13 +335,13 @@
     <span class="nav-text">Ceph devices</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDeviceFailurePredicted.html">CephDeviceFailurePredicted</a>
+    <a class="nav-link" href="../runbooks/CephDeviceFailurePredicted.html">CephDeviceFailurePredicted</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDeviceFailurePredictionTooHigh.html">CephDeviceFailurePredictionTooHigh</a>
+    <a class="nav-link" href="../runbooks/CephDeviceFailurePredictionTooHigh.html">CephDeviceFailurePredictionTooHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a>
+    <a class="nav-link" href="../runbooks/CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a>
   </li>
 </ul>
   </li>
@@ -1177,83 +1177,151 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Rook Ceph</a></li>
-    <li>Alert runbooks</li>
-    <li>Ceph OSD</li>
-    <li><a href="CephOSDBackfillFull.html">CephOSDBackfillFull</a></li>
+    <li>How-to guides</li>
+    <li><a href="upgrade-ceph-csi-v3.9.html">Upgrading to Ceph-CSI v3.9.0</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/runbooks/CephOSDBackfillFull.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-ceph-csi-v3.9.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: CephOSDBackfillFull</h1>
+<h1 class="page">Upgrading to Ceph-CSI v3.9.0</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
+<div class="paragraph">
+<p>Starting from component version v6.0.0, the component deploys Ceph-CSI v3.9.0 by default.</p>
+</div>
+<div class="paragraph">
+<p>Ceph-CSI has been updated to pass any mount options configured for CephFS volumes to the <code>NodeStageVolume</code> calls which create bind mounts for existing volumes.</p>
+</div>
+<div class="paragraph">
+<p>We previously configured mount option <code>discard</code> for CephFS, which isn&#8217;t a supported option for bind mounts.
+However, the option is unnecessary for CephFS anyway, so we remove it completely from the generated CephFS storage class in component version v6.0.0.</p>
+</div>
+<div class="paragraph">
+<p>This how-to is intended for users which are upgrading an existing Rook-Ceph setup to component version v6.0.0 from a previous component version.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>cluster-admin</code> access to the cluster</p>
+</li>
+<li>
+<p>Access to Project Syn configuration for the cluster, including a method to compile the catalog</p>
+</li>
+<li>
+<p><code>kubectl</code></p>
+</li>
+<li>
+<p><code>jq</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check mount options for all CephFS volumes.
+If this command shows custom mount options for any volumes, you&#8217;ll want to handle those volumes separately.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pv -ojson | \
+  jq -r '.items[] | select(.spec.storageClassName=="cephfs-fspool-cluster") | "\(.metadata.name) \(.spec.mountOptions)" '</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove mount option <code>discard</code> from all existing CephFS volumes.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for pv in $(kubectl get pv -ojson |\
+  jq -r '.items[] | select(.spec.storageClassName=="cephfs-fspool-cluster" and (.spec.mountOptions//[]) == ["discard"]) | .metadata.name');
+do
+  kubectl patch --as=cluster-admin pv $pv --type=json \
+    -p '[{"op": "replace", "path": "/spec/mountOptions", "value": [] }]'
+done</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Upgrade component to v6.0.0</p>
+</li>
+<li>
+<p>Check for any CephFS volumes which got provisioned between step 2 and the upgrade and remove mount option <code>discard</code> for those volumes.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pv -ojson | \
+  jq -r '.items[] | select(.spec.storageClassName=="cephfs-fspool-cluster" and (.spec.mountOptions//[]) == ["discard"]) | "\(.metadata.name) \(.spec.mountOptions)" '</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Finally, you should make sure you replace the existing CSI driver <code>holder</code> pods (if they&#8217;re present on your cluster) with updated pods to ensure you&#8217;re not getting any spurious DaemonSetRolloutStuck alerts.</p>
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
-Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
-</div>
+This needs to be done for each node after a node drain to ensure no Ceph-CSI mounts are active on the node
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>An OSD has reached the BACKFILL FULL threshold.
-This will prevent rebalance operations from completing.
-Use <code>ceph health detail</code> and <code>ceph osd df</code> to identify the problem.
-To resolve, add capacity to the affected OSD&#8217;s failure domain, restore down/out OSDs, or delete unwanted data.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_check_current_capacity_utilisation"><a class="anchor" href="#_check_current_capacity_utilisation"></a>Check current capacity utilisation</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
-$ kubectl -n ${ceph_cluster_ns} exec -it deploy/rook-ceph-tools -- ceph df
---- RAW STORAGE ---
-[...]
-
---- POOLS ---
-POOL                   ID  PGS   STORED  OBJECTS     USED  %USED  MAX AVAIL
-device_health_metrics   1    8  937 KiB        3  2.7 MiB      0     93 GiB
-fspool-metadata         2   32   23 MiB       29   69 MiB   0.02     93 GiB
-fspool-data0            3   32      0 B        0      0 B      0     93 GiB
-storagepool             4   32   20 KiB        5   71 KiB      0     93 GiB</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">node_selector="node-role.kubernetes.io/worker" <i class="conum" data-value="1"></i><b>(1)</b>
+timeout=300s <i class="conum" data-value="2"></i><b>(2)</b>
+for node in $(kubectl get node -o name -l $node_selector); do
+  echo "Draining $node"
+  if !kubectl drain --ignore-daemonsets --delete-emptydir-data --timeout=$timeout $node
+  then
+    echo "Drain of $node failed... exiting"
+    break
+  fi
+  echo "Deleting holder pods for $node"
+  kubectl -n syn-rook-ceph-operator delete pods \
+    --field-selector spec.nodeName=${node//node\/} -l app=csi-cephfsplugin-holder
+  kubectl -n syn-rook-ceph-operator delete pods \
+    --field-selector spec.nodeName=${node//node\/} -l app=csi-rbdplugin-holder
+  echo "Uncordoning $node"
+  kubectl uncordon $node
+done</code></pre>
 </div>
 </div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Adjust the node selector to the set of nodes you want to drain</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Adjust if you expect node drains to be slower or faster than 5 minutes</td>
+</tr>
+</table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upstream_documentation"><a class="anchor" href="#_upstream_documentation"></a><span class="icon"><i class="fa fa-book"></i></span> Upstream documentation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://docs.ceph.com/en/latest/rados/operations/health-checks#osd-backfillfull" class="bare">docs.ceph.com/en/latest/rados/operations/health-checks#osd-backfillfull</a></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a></span>
-  <span class="next"><a href="CephOSDDown.html">CephOSDDown</a></span>
+  <span class="prev"><a href="configure-ceph.html">Configuring and tuning Ceph</a></span>
+  <span class="next"><a href="add_alert_runbook.html">Adding a new alert runbook</a></span>
 </nav>
 </article>
   </div>
@@ -1264,7 +1332,7 @@ storagepool             4   32   20 KiB        5   71 KiB      0     93 GiB</cod
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/runbooks/CephOSDBackfillFull.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/how-tos/upgrade-ceph-csi-v3.9.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
