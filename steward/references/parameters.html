@@ -1111,6 +1111,52 @@ defaults
 </div>
 </div>
 <div class="sect1">
+<h2 id="_additional_facts"><a class="anchor" href="#_additional_facts"></a><code>additional_facts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_facts:
+  myIdFromHierarchy: mx7bMF3VIfVpGhMZDnoW65oG08Wv9ICYXetH5DNM
+  glusterVersion:
+    major: 11
+    minor: 1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional facts to be added to the dynamic facts Steward provides to Lieutenant.
+Objects are serialized to JSON.
+Dynamic facts implemented in Steward can&#8217;t be overridden.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
