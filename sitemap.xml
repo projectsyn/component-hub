@@ -52,6 +52,9 @@
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
 </sitemap>
 <sitemap>
@@ -71,6 +74,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-emergency-credentials-controller.xml</loc>
@@ -242,6 +248,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-registry-cache.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
