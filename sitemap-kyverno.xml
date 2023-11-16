@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://hub.syn.tools/kyverno/how-tos/upgrade-v1-v2.html</loc>
-<lastmod>2023-11-16T13:21:48.205Z</lastmod>
+<lastmod>2023-11-16T14:17:10.303Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/kyverno/index.html</loc>
-<lastmod>2023-11-16T13:21:48.205Z</lastmod>
+<lastmod>2023-11-16T14:17:10.303Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/kyverno/references/parameters.html</loc>
-<lastmod>2023-11-16T13:21:48.205Z</lastmod>
+<lastmod>2023-11-16T14:17:10.303Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/kyverno/runbooks/KyvernoAdmissionLatencyReachedWebhookTimeout.html</loc>
-<lastmod>2023-11-16T13:21:48.205Z</lastmod>
+<lastmod>2023-11-16T14:17:10.303Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/kyverno/runbooks/KyvernoAverageAdmissionLatencyHigh.html</loc>
-<lastmod>2023-11-16T13:21:48.205Z</lastmod>
+<lastmod>2023-11-16T14:17:10.303Z</lastmod>
 </url>
 </urlset>
