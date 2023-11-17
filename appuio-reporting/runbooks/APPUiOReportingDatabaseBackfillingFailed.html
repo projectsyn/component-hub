@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Alert rule: APPUiOCloudReportingDatabaseTenantMappingFailed :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appuio-reporting/runbooks/APPUiOCloudReportingDatabaseTenantMappingFailed.html">
-    <link rel="prev" href="APPUiOCloudReportingDatabaseBackfillingFailed.html">
+    <title>Alert rule: APPUiOReportingDatabaseBackfillingFailed :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appuio-reporting/runbooks/APPUiOReportingDatabaseBackfillingFailed.html">
+    <link rel="prev" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -101,17 +101,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="APPUiOCloudInvoiceGenerationFailed.html">APPUiOCloudInvoiceGenerationFailed</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="APPUiOCloudReportingDatabaseBackfillingFailed.html">APPUiOCloudReportingDatabaseBackfillingFailed</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="APPUiOCloudReportingDatabaseTenantMappingFailed.html">APPUiOCloudReportingDatabaseTenantMappingFailed</a>
+    <a class="nav-link" href="APPUiOReportingDatabaseBackfillingFailed.html">APPUiOReportingDatabaseBackfillingFailed</a>
   </li>
 </ul>
   </li>
@@ -945,17 +936,17 @@
   <ul>
     <li><a href="../index.html">appuio-reporting</a></li>
     <li>Alert runbooks</li>
-    <li><a href="APPUiOCloudReportingDatabaseTenantMappingFailed.html">APPUiOCloudReportingDatabaseTenantMappingFailed</a></li>
+    <li><a href="APPUiOReportingDatabaseBackfillingFailed.html">APPUiOReportingDatabaseBackfillingFailed</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-appuio-reporting/edit/master/docs/modules/ROOT/pages/runbooks/APPUiOCloudReportingDatabaseTenantMappingFailed.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-appuio-reporting/edit/master/docs/modules/ROOT/pages/runbooks/APPUiOReportingDatabaseBackfillingFailed.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Alert rule: APPUiOCloudReportingDatabaseTenantMappingFailed</h1>
+<h1 class="page">Alert rule: APPUiOReportingDatabaseBackfillingFailed</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock note">
@@ -979,8 +970,11 @@ Click "Edit this Page" in the top right corner to create a PR directly on GitHub
 <h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>APPUiO Cloud Reporting failed while trying to add a tenant target mapping from billing metrics to the reporting database.
-This can lead to problems during the monthly invoice generation.</p>
+<p>APPUiO Reporting failed while trying to backfill Prometheus metering data to the reporting database.
+This might leave gaps in the reported data and totals will be too low in the next invoice run.</p>
+</div>
+<div class="paragraph">
+<p>Deleting the failed job will clear this alert.</p>
 </div>
 </div>
 </div>
@@ -1025,15 +1019,83 @@ oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-After fixing the underlying issue, the next run of the cronjob should fix the problem.
+After fixing the underlying issue, you need to backfill all gaps in the reporting database.
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_backfill_gaps_in_reporting_database"><a class="anchor" href="#_backfill_gaps_in_reporting_database"></a><span class="icon"><i class="fa fa-terminal"></i></span> Backfill gaps in reporting database</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This runbook expects <code>jq</code> to be installed.</p>
+</div>
+<div class="paragraph">
+<p>On macOS it expects the <code>date</code> command from GNU coreutils to be installed as <code>gdate</code> (<code>brew install coreutils</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find failed jobs</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CRONJOB_NAME=&lt;name of the cronjob that has failing jobs&gt;
+NAMESPACE=appuio-reporting
+
+query_name=$(kubectl -n $NAMESPACE get cronjobs $CRONJOB_NAME "-o=jsonpath={.metadata.annotations['query-name']}")
+echo $query_name
+
+failed_timestamps=$(kubectl -n $NAMESPACE get jobs --selector=cron-job-name=$CRONJOB_NAME -ojson \
+  | jq -r '[.items[] | select((.status.conditions[] | select( .type == "Failed" ) | length ) &gt;  0)]
+            | .[].metadata.creationTimestamp')
+echo $failed_timestamps</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Review query name and failed timestamps</p>
+</li>
+<li>
+<p>Re-run the queries to backfill the gaps</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAMESPACE=appuio-reporting
+
+job_template=$(kubectl -n $NAMESPACE get jobs --selector=cron-job-name=$CRONJOB_NAME -ojson \
+  | jq -r '.items | first | .metadata.name')
+
+date_bin=date
+if [[ "$OSTYPE" == "darwin"* ]]; then date_bin=gdate; fi
+
+echo $failed_timestamps \
+  | xargs -I @ $date_bin --date @ +"%Y-%m-%dT%H:00:00Z" \
+  | xargs -n1 oc -n $NAMESPACE --as=cluster-admin debug job/$job_template -- appuio-reporting report --query-name=$query_name --begin</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="APPUiOCloudReportingDatabaseBackfillingFailed.html">APPUiOCloudReportingDatabaseBackfillingFailed</a></span>
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1044,7 +1106,7 @@ After fixing the underlying issue, the next run of the cronjob should fix the pr
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appuio-reporting/runbooks/APPUiOCloudReportingDatabaseTenantMappingFailed.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appuio-reporting/runbooks/APPUiOReportingDatabaseBackfillingFailed.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

@@ -6,7 +6,7 @@
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-reporting/references/parameters.html">
     <link rel="prev" href="../index.html">
-    <link rel="next" href="../runbooks/APPUiOCloudReportingMissingData.html">
+    <link rel="next" href="../runbooks/APPUiOReportingDatabaseBackfillingFailed.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -103,16 +103,7 @@
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudInvoiceGenerationFailed.html">APPUiOCloudInvoiceGenerationFailed</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudReportingDatabaseBackfillingFailed.html">APPUiOCloudReportingDatabaseBackfillingFailed</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/APPUiOCloudReportingDatabaseTenantMappingFailed.html">APPUiOCloudReportingDatabaseTenantMappingFailed</a>
+    <a class="nav-link" href="../runbooks/APPUiOReportingDatabaseBackfillingFailed.html">APPUiOReportingDatabaseBackfillingFailed</a>
   </li>
 </ul>
   </li>
@@ -1009,7 +1000,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/appuio/component-appuio-reporting/blob/master/class/defaults.yml">See `class/defaults.yml</a>.</p>
+<p><a href="https://github.com/appuio/component-appuio-reporting/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a>.</p>
 </td>
 </tr>
 </table>
@@ -1035,24 +1026,6 @@ type
 <p>The image used for managing data in the reporting database.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_images_erp_adapter"><a class="anchor" href="#_images_erp_adapter"></a><code>images.erp_adapter</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The image used for creating invoices and syncing target fields.</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1075,9 +1048,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">backfill: '15 * * * *'
-check_missing: '30 8-14 * * *'
-invoice: '0 10 1 * *'</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">backfill: '15 * * * *'</code></pre>
 </div>
 </div>
 </td>
@@ -1114,7 +1085,7 @@ default
 </div>
 <div class="paragraph">
 <p>This parameter allows to enable development mode for the component.
-The component prevents periodic jobs from being disabled, unless development mode is active.</p>
+The component prevents certain configurations if development is disabled.</p>
 </div>
 </div>
 </div>
@@ -1148,7 +1119,8 @@ invoice: false</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>This parameter allows users to selectively suspend one or more of the periodic jobs.</p>
+<p>This parameter allows users to selectively suspend one or more of the periodic jobs.
+It is only available if <code>development_mode</code> is set to <code>true</code>.</p>
 </div>
 <div class="paragraph">
 <p>A suspended CronJob still exists on the cluster, but no new jobs are created based on the CronJob&#8217;s schedule.</p>
@@ -1165,8 +1137,8 @@ invoice: false</code></pre>
 Instead investigate why the alerts are triggered, and resolve the actual cause, such as missing data in the billing database.</p>
 </div>
 <div class="paragraph">
-<p>By disabling one or more of the periodic jobs, you&#8217;ll most likely break the usage-based billing for the APPUiO Cloud instance.
-Breaking the usage-based billing will lead to lost income for the APPUiO Cloud instance.</p>
+<p>By disabling one or more of the periodic jobs, you&#8217;ll most likely break the usage-based billing for the APPUiO instance.
+Breaking the usage-based billing will lead to lost income for the APPUiO instance.</p>
 </div>
 </td>
 </tr>
@@ -1175,7 +1147,7 @@ Breaking the usage-based billing will lead to lost income for the APPUiO Cloud i
 </div>
 </div>
 <div class="sect1">
-<h2 id="_database"><a class="anchor" href="#_database"></a><code>database</code></h2>
+<h2 id="_override_sales_order_id"><a class="anchor" href="#_override_sales_order_id"></a><code>override_sales_order_id</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1184,7 +1156,7 @@ Breaking the usage-based billing will lead to lost income for the APPUiO Cloud i
 type
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1192,123 +1164,30 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">url: postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?$(DB_PARAMS)
-parameters: ''</code></pre>
-</div>
-</div>
+<p><code>null</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Dictionary managing the connection to the reporting database.</p>
+<p>If set, this parameter causes all metered billing records sent to Odoo to have the same static <code>sales_order_id</code>, which is set to the value of this parameter.
+This is only available if <code>development_mode</code> is set to <code>true</code>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_database_secret"><a class="anchor" href="#_database_secret"></a><code>database_secret</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock important">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
 </td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_secret: {}</code></pre>
-</div>
+<td class="content">
+<div class="paragraph">
+<p>Setting this parameter will very likely result in faulty billing data.
+It should not be set against a productive system.
+Its purpose is to allow testing of the reporting process against a test system, in which the correct sales orders may not exist.</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing key value pairs that are stored in a secret and loaded as environment variables.</p>
-</div>
-<div class="sect2">
-<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_secret:
-  DB_USER: appuio-reporting
-  DB_PASSWORD: letmein
-  DB_HOST: db.example.com
-  DB_PORT: 5432
-  DB_NAME: appuio-reporting</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_database_env"><a class="anchor" href="#_database_env"></a><code>database_env</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_env: {}</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing additional environment variables.</p>
-</div>
-<div class="sect2">
-<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_env:
-  DB_USER:
-    secretKeyRef:
-      name: reporting-db-prod-cred
-      key: POSTGRESQL_USER
-  DB_PASSWORD:
-    secretKeyRef:
-      name: reporting-db-prod-cred
-      key: POSTGRESQL_PASSWORD
-  DB_HOST:
-    secretKeyRef:
-      name: reporting-db-prod-cred
-      key: POSTGRESQL_HOST
-  DB_PORT:
-    secretKeyRef:
-      name: reporting-db-prod-cred
-      key: POSTGRESQL_PORT
-  DB_NAME:
-    secretKeyRef:
-      name: reporting-db-prod-cred
-      key: POSTGRESQL_DB</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1343,7 +1222,7 @@ default
 <p>Mount additional volumes to the pods.</p>
 </div>
 <div class="sect2">
-<h3 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h3>
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extra_volumes:
@@ -1417,7 +1296,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_erp_adapter_url"><a class="anchor" href="#_erp_adapter_url"></a><code>erp_adapter.url</code></h2>
+<h2 id="_odoo_metered_billing_endpoint"><a class="anchor" href="#_odoo_metered_billing_endpoint"></a><code>odoo.metered_billing_endpoint</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1440,41 +1319,12 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>URL used to connect with the ERP Instance.
-For Odoo the URL must be in the format of <code><a href="https://user:pass@host">:port</a>/db-name</code>.</p>
+<p>URL of the REST API to which to send metered billing records.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_erp_adapter_invoice_title"><a class="anchor" href="#_erp_adapter_invoice_title"></a><code>erp_adapter.invoice_title</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>"APPUiO Cloud"</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Invoice title to be used by the ERP adapter when generating invoices.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_backfill_queries"><a class="anchor" href="#_backfill_queries"></a><code>backfill.queries</code></h2>
+<h2 id="_odoo_oauth"><a class="anchor" href="#_odoo_oauth"></a><code>odoo.oauth</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1493,10 +1343,9 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">appuio_cloud_memory: true
-appuio_cloud_loadbalancer: true
-appuio_cloud_persistent_storage: true
-appcat_postgresql_vshn_standalone: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">token_endpoint: null
+client_id: null
+client_secret: null</code></pre>
 </div>
 </div>
 </td>
@@ -1504,13 +1353,123 @@ appcat_postgresql_vshn_standalone: true</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>Queries to use when backfilling metrics data.
-<code>true</code> enables the query, every other value disables the query.
-Every query is run in its own CronJob.</p>
+<p>Configuration of the OAuth client used to connect to the metered billing REST API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rules"><a class="anchor" href="#_rules"></a><code>rules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-appuio-reporting/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a>.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">rule_appuio_managed_vcpu: <i class="conum" data-value="1"></i><b>(1)</b>
+  enabled: true
+  products: <i class="conum" data-value="2"></i><b>(2)</b>
+    - product_id: 'openshift-worker-vcpu-cloudscale-besteffort' <i class="conum" data-value="3"></i><b>(3)</b>
+      params: <i class="conum" data-value="4"></i><b>(4)</b>
+        vshn_service_level: best-effort
+        cloud_provider: cloudscale
+    - product_id: 'openshift-worker-vcpu-cloudscale-guaranteedavailability'
+      params:
+        vshn_service_level: guaranteed-availability
+        cloud_provider: cloudscale
+  instance_id_pattern: '%(cluster_id)s' <i class="conum" data-value="5"></i><b>(5)</b>
+  item_description_pattern: 'All Compute Resources' <i class="conum" data-value="6"></i><b>(6)</b>
+  item_group_description_pattern: 'APPUiO Managed OpenShift - Cluster: %(cluster_id)s' <i class="conum" data-value="7"></i><b>(7)</b>
+  unit_id: 'uom_00000' <i class="conum" data-value="8"></i><b>(8)</b>
+  query_pattern: | <i class="conum" data-value="9"></i><b>(9)</b>
+    max_over_time(
+      sum by(cluster_id, vshn_service_level, tenant_id, role, cloud_provider, sales_order_id) (
+        node_cpu_info{cloud_provider="%(cloud_provider)s", vshn_service_level="%(vshn_service_level)s"}
+      )[59m:1m]
+    )</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Multiple rules can be defined in the dictionary, with the rule name serving as key.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>All products whose corresponding queries can be generated from this rule should be listed here.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Odoo ID of the product for which usage is being queried.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Dictionary of arbitrary parameters describing the product. These will be applied to the <code>query_pattern</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The labels of the query result are applied to this pattern to generate the instance ID.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>(Optional) The labels of the query result are applied to this pattern to generate the human readable item description.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>(Optional) The labels of the query result are applied to this pattern to generate the human readable item group description.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Odoo ID of the unit of measurement used.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>The product params are applied to this pattern to generate one query for each product.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Check the reporting database for possible queries.
-Currently known queries are <code>appuio_cloud_memory</code>, <code>appuio_cloud_loadbalancer</code>, <code>appuio_cloud_persistent_storage</code>, and <code>appcat_postgresql_vshn_standalone</code>.</p>
+<p>Dictionary containing rules by which to generate Prometheus queries.
+A rule corresponds to a single query template, from which queries for multiple products may be generated.</p>
+</div>
+<div class="paragraph">
+<p>For more information on the individual parameters and how they are used, refer to <a href="https://docs.central.vshn.ch/metered-billing-data-flow.html#_example_api_payload">Metered Billing Data Flow</a>.</p>
+</div>
+<div class="paragraph">
+<p>In place of <code>instance_id_pattern</code>, <code>item_description_pattern</code> and <code>item_group_description_pattern</code>, it is also possible to specify <code>instance_id_jsonnet</code>, <code>item_description_jsonnet</code> or <code>item_group_description_jsonnet</code>, respectively.
+These parameters contain a jsonnet snippet which should evaluate to a string containing the parameter in question.
+The jsonnet is evaluated with an external variable named <code>labels</code> containing all query result labels as a dictionary.
+It can be accessed in the snippet e.g. with <code>local labels = std.extVar("labels");</code>.</p>
+</div>
+<div class="paragraph">
+<p>The jsonnet parameter takes precedence over the pattern parameter if both are specified.</p>
+</div>
+<div class="paragraph">
+<p>Note that there is no jsonnet variant for the <code>query_pattern</code> parameter.</p>
 </div>
 </div>
 </div>
@@ -1615,13 +1574,13 @@ example
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">APPUiOCloudReportingDidSomething:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">APPUiOReportingDidSomething:
   enabled: false
   rule:
     annotations:
-      description: APPUiOCloudReporting did something.
-      message: APPUiOCloudReporting did something.
-      runbook: https://hub.syn.tools/appuio-reporting/runbooks/APPUiOCloudReportingDidSomething.html
+      description: APPUiOReporting did something.
+      message: APPUiOReporting did something.
+      runbook: https://hub.syn.tools/appuio-reporting/runbooks/APPUiOReportingDidSomething.html
     expr: |
       appuio_reporting_doing_something &gt; 1
     for: 10m
@@ -1634,115 +1593,13 @@ example
 </table>
 </div>
 <div class="paragraph">
-<p>Alerts monitoring the cloud reporting cron jobs.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tenantmapping"><a class="anchor" href="#_tenantmapping"></a><code>tenantmapping</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration for the tenant mapping job.
-The job is responsible for mapping the tenants source (organization) to the target in the ERP (billing entity).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tenantmapping_dry_run"><a class="anchor" href="#_tenantmapping_dry_run"></a><code>tenantmapping.dry_run</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Doesn&#8217;t commit the tenant mapping to the database if set to <code>true</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tenantmapping_metrics_selector"><a class="anchor" href="#_tenantmapping_metrics_selector"></a><code>tenantmapping.metrics_selector</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>namespace="appuio-control-api-production"</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Further narrows down the metrics to be considered for the tenant mapping.
-Prometheus selector syntax (<code>test="asd"</code>) is used.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">schedules:
-  invoice: '0 12 1 * *'
-
-database:
-  host: reporting-database.appuio.cloud
-  port: 5432
-  name: reporting-database
-  username: reporting-user
-  password: ?{vaultkv:${cluster:tenant}/${cluster:name}/appuio-reporting/reporting-database-password}
-
-erp_adapter:
-  url: ?{vaultkv:${cluster:tenant}/${cluster:name}/appuio-reporting/erp-url}
-
-prometheus:
-  url: http://thanos-query.appuio-thanos.svc:9090</code></pre>
-</div>
+<p>Alerts monitoring the reporting cron jobs.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../runbooks/APPUiOCloudReportingMissingData.html">APPUiOCloudReportingMissingData</a></span>
+  <span class="next"><a href="../runbooks/APPUiOReportingDatabaseBackfillingFailed.html">APPUiOReportingDatabaseBackfillingFailed</a></span>
 </nav>
 </article>
   </div>
