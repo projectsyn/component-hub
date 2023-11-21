@@ -1034,8 +1034,8 @@ This structure provides the basis for <a href="https://syn.tools/syn/SDDs/0017-m
 <p>The value of <code>k8up.tag</code> in this dict is used by the component to select the CRD YAML to download.</p>
 </div>
 <div class="paragraph">
-<p>The component uses the contents of field <code>kubectl</code> to patch the Helm chart&#8217;s cleanup job.
-This allows users to configure a custom location for the <code>kubectl</code> image used by the job.</p>
+<p>The component passes field <code>kubectl</code> to the Helm chart in value <code>cleanup</code>.
+This allows users to control which container image is used by the cleanup job.</p>
 </div>
 </div>
 </div>
