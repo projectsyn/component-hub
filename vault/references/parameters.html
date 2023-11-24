@@ -1027,14 +1027,18 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>1.18</code></p>
+<p><code>1.24</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>The Kubernetes version of the cluster the component is deployed to.
-This is relevant for the <code>Ingress</code> API version.</p>
+This parameter is passed to Helm when rendering the Helm chart.
+The default chart version used by the component requires Kubernetes 1.20 or newer.</p>
+</div>
+<div class="paragraph">
+<p>We recommend setting this parameter based on the cluster&#8217;s <code>kubernetesVersion</code> dynamic fact.</p>
 </div>
 </div>
 </div>
