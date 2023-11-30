@@ -43,16 +43,10 @@
 <loc>https://hub.syn.tools/sitemap-cilium.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-cloud-portal.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-autoscaler.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-backup.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
@@ -74,9 +68,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-csi-driver-smb.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-emergency-credentials-controller.xml</loc>
@@ -178,9 +169,6 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-ingress.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-keepalived.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-local-storage.xml</loc>
 </sitemap>
 <sitemap>
@@ -250,9 +238,6 @@
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-registry-cache.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
 </sitemap>
 <sitemap>
@@ -296,9 +281,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-vertical-pod-autoscaler.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-xelon-csi.xml</loc>
