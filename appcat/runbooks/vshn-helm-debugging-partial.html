@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Add a new VSHN service to billing :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/appcat/how-tos/billing.html">
-    <link rel="prev" href="../references/service-objectstorage.html">
-    <link rel="next" href="../runbooks/vshn-postgresql.html">
+    <title>Untitled :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/runbooks/vshn-helm-debugging-partial.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -181,8 +179,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="billing.html">Add a new VSHN service to billing</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/billing.html">Add a new VSHN service to billing</a>
   </li>
 </ul>
   </li>
@@ -193,19 +191,19 @@
     <span class="nav-text">Runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a>
+    <a class="nav-link" href="vshn-postgresql.html">PostgreSQL by VSHN</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/vshn-redis.html">Redis by VSHN</a>
+    <a class="nav-link" href="vshn-redis.html">Redis by VSHN</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/vshn-minio.html">MinIO by VSHN</a>
+    <a class="nav-link" href="vshn-minio.html">MinIO by VSHN</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/vshn-mariadb.html">MariaDB by VSHN</a>
+    <a class="nav-link" href="vshn-mariadb.html">MariaDB by VSHN</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/vshn-generic.html">Generic alerts</a>
+    <a class="nav-link" href="vshn-generic.html">Generic alerts</a>
   </li>
 </ul>
   </li>
@@ -1036,44 +1034,70 @@
 <button class="nav-toggle"></button>
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="../index.html">appcat</a></li>
-    <li>Technical reference</li>
-    <li>How-Tos</li>
-    <li><a href="billing.html">Add a new VSHN service to billing</a></li>
-  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/how-tos/billing.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/runbooks/vshn-helm-debugging-partial.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Add a new VSHN service to billing</h1>
+<div class="sect2">
+<h3 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
 <div class="paragraph">
-<p>If you want to add a new service to billing please ensure the following points:</p>
+<p>Failed probes can have a multitude of reasons, but in general there are two different kinds of issue classes.
+Either the instance itself is failing or provisioning or updating the instance failed.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The instance namespace contains a label of the form <code>'appuio.io/billing-name': 'appcat-$servicename',</code></p>
-</li>
-<li>
-<p>There&#8217;s a product in the billing database&#8217;s product table in the form of <code>appcat_$servicename:vshn:*:*:besteffort</code> and <code>appcat_$servicename:vshn:*:*:guaranteed</code>.</p>
-</li>
-<li>
-<p>There&#8217;s a discount in the discount table in the form of <code>appcat_$servicename:vshn</code>.</p>
-</li>
-<li>
-<p>Matching products are added to the ERP</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>In any case, you should first figure out where the effected instance runs.
+The alert will provide you with three labels: <code>cluster_id</code>, <code>namespace</code>, and <code>name</code>.
+Connect to the Kubernetes cluster with the provided <code>cluster_id</code> and get the effected claim.</p>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="../references/service-objectstorage.html">Objectstorage Service</a></span>
-  <span class="next"><a href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a></span>
-</nav>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">export NAMESPACE={{ namespace }}
+export NAME={{ name }}
+
+export COMPOSITE=$(kubectl -n $NAMESPACE get {service} $NAME -o jsonpath="{.spec.resourceRef.name}")
+kubectl -n $NAMESPACE get {service} $NAME</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the claim is not <code>SYNCED</code> this might indicate that there is an issue with provisioning.
+If it is synced there is most likely an issue with the instance itself, you can skip to the next subsection.</p>
+</div>
+<div class="sect3">
+<h4 id="_debugging_provisioning"><a class="anchor" href="#_debugging_provisioning"></a>Debugging Provisioning</h4>
+<div class="paragraph">
+<p>To figure out what went wrong with provisioning it usually helps to take a closer look at the composite.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as cluster-admin describe x{service} $COMPOSITE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If there are sync issues there usually are events that point to the root cause of the issue.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, it can help to look at the <code>Object</code> resources that are created for this instance or the <code>releases.helm.crossplane.io</code> object associated with the instance.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as cluster-admin get object -l crossplane.io/composite=$COMPOSITE
+kubectl --as cluster-admin get object $OBJECT_NAME
+kubectl --as cluster-admin get releases.helm.crossplane.io -l crossplane.io/composite=$COMPOSITE
+kubectl --as cluster-admin describe releases.helm.crossplane.io -l crossplane.io/composite=$COMPOSITE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If any of them are not synced, describing them should point you in the right direction.</p>
+</div>
+<div class="paragraph">
+<p>Finally, it might also be helpful to look at the logs of various crossplane components in namespace <code>syn-crossplane</code>.</p>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
@@ -1083,7 +1107,7 @@
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/how-tos/billing.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/runbooks/vshn-helm-debugging-partial.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
