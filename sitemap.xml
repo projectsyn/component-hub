@@ -7,7 +7,13 @@
 <loc>https://hub.syn.tools/sitemap-adhoc-configurations.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-appcat.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-appcat-service-postgresql.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-appuio-cloud-reporting.xml</loc>
@@ -181,6 +187,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-logging.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-monitoring.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-networking.xml</loc>
 </sitemap>
 <sitemap>
@@ -275,6 +284,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-traefik.xml</loc>
