@@ -175,6 +175,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-console.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-dns.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-ingress.xml</loc>
 </sitemap>
 <sitemap>
