@@ -62,7 +62,7 @@ jobs:
           git commit -m "First commit"
 
       - name: Upload generated site configuration
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: antora-site-configuration
           path: build/
@@ -84,7 +84,7 @@ jobs:
         run: cd $PROJECT_SLUG; make html
 
       - name: Upload built Antora Site
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: antora-site
           path: component-hub
