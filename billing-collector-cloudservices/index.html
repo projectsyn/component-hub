@@ -96,10 +96,10 @@
     <a class="nav-link" href="how-tos/installation.html">Installation</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="how-tos/multi-instance.html">Multi Instance</a>
+    <a class="nav-link" href="#how-tos/multi-instance.adoc">Multi Instance</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="references/parameters.html">Parameters</a>
+    <a class="nav-link" href="#references/parameters.adoc">Parameters</a>
   </li>
 </ul>
   </li>
@@ -952,16 +952,13 @@
 <article class="doc">
 <h1 class="page">billing-collector-cloudservices</h1>
 <div class="paragraph">
-<p>Batch job to sync usage data from the Exoscale and Cloudscale metrics APIs to the <a href="https://github.com/appuio/appuio-cloud-reporting/">APPUiO Cloud Reporting</a> database.</p>
+<p>Controller to sync usage data from the Exoscale and Cloudscale metrics APIs to Odoo16</p>
 </div>
 <div class="paragraph">
 <p>Metrics are collected taking into account product (e.g. <code>object-storage-storage:exoscale</code>), source (e.g. <code>exoscale:namespace</code>), tenant (organization) and date time.</p>
 </div>
 <div class="paragraph">
-<p>On DBaaS, we also gather information by Plan. That can be seeing in the product. For example, in the case of a PostgreSQL database service, product may look like <code>postgres:exoscale:*:*:hobbyist-2</code>.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
+<p>On DBaaS, we also gather information by Plan. That can be seeing in the product. For example, in the case of a PostgreSQL database service, product may look like <code>appcat-exoscale-pg-hobbyist-2</code>.</p>
 </div>
 <nav class="pagination">
   <span class="next"><a href="how-tos/installation.html">Installation</a></span>

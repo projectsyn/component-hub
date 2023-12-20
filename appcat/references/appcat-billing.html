@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/billing-collector-cloudservices/references/parameters.html">
-    <link rel="prev" href="../how-tos/multi-instance.html">
+    <title>AppCat Billing :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-billing.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -80,26 +79,131 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="billing-collector-cloudservices" data-version="master">
+<div class="nav-container" data-component="appcat" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">billing-collector-cloudservices</a></h3>
+    <h3 class="title"><a href="../index.html">appcat</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanations</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/installation.html">Installation</a>
+    <a class="nav-link" href="../explanations/crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/multi-instance.html">Multi Instance</a>
+    <a class="nav-link" href="../explanations/restore.html">How the Restore Process Works</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/exoscale-plans.html">Generate Exoscale plans</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/redisrestore.html">How-To Manual Redis Restore</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/minio.html">Minio</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/install-exoscale.html">Install Exoscale Stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="component-parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Provider Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-minio.html">Provider Minio</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Service Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/billing.html">Add a new VSHN service to billing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-redis.html">Redis by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-minio.html">MinIO by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-mariadb.html">MariaDB by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-generic.html">Generic alerts</a>
   </li>
 </ul>
   </li>
@@ -108,7 +212,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">billing-collector-cloudservices</span>
+    <span class="title">appcat</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -128,11 +232,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../appcat/index.html">appcat</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">appcat</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../appcat/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -200,11 +304,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">billing-collector-cloudservices</a>
+    <li class="component">
+      <a class="title" href="../../billing-collector-cloudservices/index.html">billing-collector-cloudservices</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../billing-collector-cloudservices/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -939,40 +1043,47 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">billing-collector-cloudservices</a></li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li><a href="../index.html">appcat</a></li>
+    <li><a href="appcat-billing.html">AppCat Billing</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/vshn/billing-collector-cloudservices/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/master/docs/modules/ROOT/pages/references/appcat-billing.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
+<h1 class="page">AppCat Billing</h1>
+<div class="sect1">
+<h2 id="_images_collector"><a class="anchor" href="#_images_collector"></a><code>images.collector</code></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Because this component depends on the component <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html">appuio-cloud-reporting</a>, some parameters are taken from that component and are not individually configurable in this component.
-In particular:</p>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/vshn/component-appcat/blob/master/component/class/defaults.yml">See class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_namespace">namespace</a></p>
-</li>
-<li>
-<p><a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database">database</a></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
-<p>The following list includes only parameters of this component.
-The parent key for all of them is <code>metrics_collector</code>.</p>
+<p>Dictionary containing the container image used by this component.</p>
 </div>
+<hr>
 <div class="paragraph">
-<p>See <a href="../how-tos/installation.html" class="page">Installation</a> for a full example.</p>
+<p>The parent key for all of the following parameters is <code>appcat.billing</code>.</p>
 </div>
 </div>
 </div>
@@ -994,18 +1105,18 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>${_instance}</code></p>
+<p><code>${appcat:namespace}</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>The namespace in which to deploy the cloud billing.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_database"><a class="anchor" href="#_database"></a><code>database</code></h2>
+<h2 id="_tenantid"><a class="anchor" href="#_tenantid"></a><code>tenantID</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1014,7 +1125,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1022,22 +1133,108 @@ type
 default
 </td>
 <td class="hdlist2">
+<p><code>${cluster:tenant}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the tenant the cluster belongs to. Defaults to the <code>cluster:tenant</code> lieutenant fact.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clusterid"><a class="anchor" href="#_clusterid"></a><code>clusterID</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${cluster:name}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the cluster. Defaults to the <code>cluster:name</code> lieutenant fact.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instanceuom"><a class="anchor" href="#_instanceuom"></a><code>instanceUOM</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>uom_uom_45_1e112771</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Unit of measurement for the instances.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enablemockorginfo"><a class="anchor" href="#_enablemockorginfo"></a><code>enableMockOrgInfo</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If a PrometheusRule with mock recording rules should be created. If enabled it will create two the following two metrics:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database: ${appuio_cloud_reporting:database}</code></pre>
+<pre class="highlightjs highlight"><code class="language-prometheus hljs" data-lang="prometheus">appuio_control_organization_info{organization="awesomekorp", sales_order="ST10120"} 1
+appuio_control_organization_info'{organization="notvshn", sales_order="invalid"}  1</code></pre>
 </div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database">appuio-cloud-reporting docs</a> for reference.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_database_secret"><a class="anchor" href="#_database_secret"></a><code>database_secret</code></h2>
+<h2 id="_salesorder"><a class="anchor" href="#_salesorder"></a><code>salesOrder</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1046,7 +1243,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1054,22 +1251,18 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_secret: ${appuio_cloud_reporting:database_secret}</code></pre>
-</div>
-</div>
+<p><code>TBD</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database_secret">appuio-cloud-reporting docs</a> for reference.</p>
+<p>The sales order to be used on that cluster (only relevant for APPUiO Managed)</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_database_env"><a class="anchor" href="#_database_env"></a><code>database_env</code></h2>
+<h2 id="_vshn_enablecronjobs"><a class="anchor" href="#_vshn_enablecronjobs"></a><code>vshn.enableCronjobs</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1078,7 +1271,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>boolean</p>
 </td>
 </tr>
 <tr>
@@ -1086,22 +1279,18 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">database_env: ${appuio_cloud_reporting:database_env}</code></pre>
-</div>
-</div>
+<p><code>false</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_database_env">appuio-cloud-reporting docs</a> for reference.</p>
+<p>If the billing cronjob for VSHN Appcat services should be enabled.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_extra_volumes"><a class="anchor" href="#_extra_volumes"></a><code>extra_volumes</code></h2>
+<h2 id="_vshn_schedule"><a class="anchor" href="#_vshn_schedule"></a><code>vshn.schedule</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1110,7 +1299,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1118,22 +1307,18 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">extra_volumes: ${appuio_cloud_reporting:extra_volumes}</code></pre>
-</div>
-</div>
+<p>"30 * * * *"</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>See <a href="https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html#_extra_volumes">appuio-cloud-reporting docs</a> for reference.</p>
+<p>The schedule used for the billing cronjob.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<h2 id="_vshn_meteringrules"><a class="anchor" href="#_vshn_meteringrules"></a><code>vshn.meteringRules</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1142,7 +1327,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dictionary</p>
+<p>boolean</p>
 </td>
 </tr>
 <tr>
@@ -1150,18 +1335,47 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/vshn/billing-collector-cloudservices/blob/master/component/class/defaults.yml">See class/defaults.yml</a>.</p>
+<p><code>false</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Dictionary containing the container images used by this component.</p>
+<p>If metering prometheus rules should be deployed. Used for alerting.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_exoscale_enabled"><a class="anchor" href="#_exoscale_enabled"></a><code>exoscale.enabled</code></h2>
+<h2 id="_cloud_uom"><a class="anchor" href="#_cloud_uom"></a><code>cloud.uom</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{GB: uom_uom_71_6f28fc21, GBDay: uom_uom_78_b847edc1, KReq: uom_uom_60_a83156c7, InstanceHour: uom_uom_45_1e112771}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Unit of measure map that translates the cloud serivce value to the odoo16 value
+Format: "cloud service value": "odoo16 value"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_exoscale_enabled"><a class="anchor" href="#_cloud_exoscale_enabled"></a><code>cloud.exoscale.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1187,7 +1401,7 @@ default
 <p>Set to true if you want to deploy the exosacle metrics collector components.</p>
 </div>
 <div class="sect2">
-<h3 id="_exoscale_objectstorage_enabled"><a class="anchor" href="#_exoscale_objectstorage_enabled"></a><code>exoscale.objectStorage.enabled</code></h3>
+<h3 id="_cloud_exoscale_objectstorage_enabled"><a class="anchor" href="#_cloud_exoscale_objectstorage_enabled"></a><code>cloud.exoscale.objectStorage.enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1209,37 +1423,47 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Enable exoscale object storage cronjob.</p>
+<p>Enable exoscale object storage collector.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exoscale_objectstorage_schedule"><a class="anchor" href="#_exoscale_objectstorage_schedule"></a><code>exoscale.objectStorage.schedule</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>10 10,16,20 * * *</code></p>
-</td>
-</tr>
-</table>
+<h3 id="_cloud_exoscale_objectstorage_collectintervalhours"><a class="anchor" href="#_cloud_exoscale_objectstorage_collectintervalhours"></a><code>cloud.exoscale.objectStorage.collectIntervalHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>23</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>The cron schedule at which the object storage metrics collection job is spawned.</p>
+<p>The interval (in hours) that the collector collects billing metrics for Exoscale object storage service.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exoscale_dbaas_enabled"><a class="anchor" href="#_exoscale_dbaas_enabled"></a><code>exoscale.dbaas.enabled</code></h3>
+<h3 id="_cloud_exoscale_objectstorage_billinghours"><a class="anchor" href="#_cloud_exoscale_objectstorage_billinghours"></a><code>cloud.exoscale.objectStorage.billingHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>6</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Only collect billing metrics after a certain hour of the day.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_exoscale_dbaas_enabled"><a class="anchor" href="#_cloud_exoscale_dbaas_enabled"></a><code>cloud.exoscale.dbaas.enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1261,37 +1485,29 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Whether to add the DBaaS cronjob, too.</p>
+<p>Enable exoscale dbaas collector.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exoscale_dbaas_schedule"><a class="anchor" href="#_exoscale_dbaas_schedule"></a><code>exoscale.dbaas.schedule</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>*/15 * * * *</code></p>
-</td>
-</tr>
-</table>
+<h3 id="_cloud_exoscale_dbaas_collectintervalminutes"><a class="anchor" href="#_cloud_exoscale_dbaas_collectintervalminutes"></a><code>cloud.exoscale.dbaas.collectIntervalMinutes</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>15</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>The cron schedule at which the DBaaS metrics collection job is spawned, if enabled.</p>
+<p>The interval (in minutes) that the collector collects billing metrics for Exoscale DBaaS services.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_secrets_exoscale_credentials_stringdata_exoscale_api_key"><a class="anchor" href="#_secrets_exoscale_credentials_stringdata_exoscale_api_key"></a><code>secrets.exoscale.credentials.stringData.EXOSCALE_API_KEY</code></h3>
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_key"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_key"></a><code>cloud.secrets.exoscale.credentials.stringData.EXOSCALE_API_KEY</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1321,7 +1537,7 @@ You need to select the correct account (token is limited to one account), choose
 </div>
 </div>
 <div class="sect2">
-<h3 id="_secrets_exoscale_credentials_stringdata_exoscale_api_secret"><a class="anchor" href="#_secrets_exoscale_credentials_stringdata_exoscale_api_secret"></a><code>secrets.exoscale.credentials.stringData.EXOSCALE_API_SECRET</code></h3>
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_secret"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_secret"></a><code>cloud.secrets.exoscale.credentials.stringData.EXOSCALE_API_SECRET</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1351,7 +1567,7 @@ See EXOSCALE_API_KEY for instructions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_secrets_exoscale_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_secrets_exoscale_credentials_stringdata_kubernetes_server_url"></a><code>secrets.exoscale.credentials.stringData.KUBERNETES_SERVER_URL</code></h3>
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_url"></a><code>cloud.secrets.exoscale.credentials.stringData.KUBERNETES_SERVER_URL</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1377,7 +1593,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_secrets_exoscale_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_secrets_exoscale_credentials_stringdata_kubernetes_server_token"></a><code>secrets.exoscale.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h3>
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_token"></a><code>cloud.secrets.exoscale.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1418,7 +1634,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cloudscale_enabled"><a class="anchor" href="#_cloudscale_enabled"></a><code>cloudscale.enabled</code></h2>
+<h2 id="_cloud_cloudscale_enabled"><a class="anchor" href="#_cloud_cloudscale_enabled"></a><code>cloud.cloudscale.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1444,7 +1660,7 @@ default
 <p>Set to true if you want to deploy the cloudscale metrics collector components.</p>
 </div>
 <div class="sect2">
-<h3 id="_cloudscale_objectstorage_enabled"><a class="anchor" href="#_cloudscale_objectstorage_enabled"></a><code>cloudscale.objectStorage.enabled</code></h3>
+<h3 id="_cloud_cloudscale_objectstorage_enabled"><a class="anchor" href="#_cloud_cloudscale_objectstorage_enabled"></a><code>cloud.cloudscale.objectStorage.enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1466,39 +1682,67 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Enable cloudscale object storage cronjob.</p>
+<p>Enable cloudscale object storage collector.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cloudscale_objectstorage_schedule"><a class="anchor" href="#_cloudscale_objectstorage_schedule"></a><code>cloudscale.objectStorage.schedule</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>10 4,10,16 * * *</code></p>
-</td>
-</tr>
-</table>
+<h3 id="_cloud_cloudscale_objectstorage_collectintervalhours"><a class="anchor" href="#_cloud_cloudscale_objectstorage_collectintervalhours"></a><code>cloud.cloudscale.objectStorage.collectIntervalHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>23</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>The cron schedule at which the object storage metrics collection job is spawned.</p>
+<p>The interval (in hours) that the collector collects billing metrics for Cloudscale object storage service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_cloudscale_objectstorage_billinghours"><a class="anchor" href="#_cloud_cloudscale_objectstorage_billinghours"></a><code>cloud.cloudscale.objectStorage.billingHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>6</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Only collect billing metrics after a certain hour of the day.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_cloudscale_objectstorage_days"><a class="anchor" href="#_cloud_cloudscale_objectstorage_days"></a><code>cloud.cloudscale.objectStorage.days</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>1</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>How many days ago to get the billing metrics from cloudscale. The returned metrics are always for one day.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_cloudscale_credentials_stringdata_cloudscale_api_token"><a class="anchor" href="#_secrets_cloudscale_credentials_stringdata_cloudscale_api_token"></a><code>secrets.cloudscale.credentials.stringData.CLOUDSCALE_API_TOKEN</code></h2>
+<h2 id="_cloud_secrets_cloudscale_credentials_stringdata_cloudscale_api_token"><a class="anchor" href="#_cloud_secrets_cloudscale_credentials_stringdata_cloudscale_api_token"></a><code>cloud.secrets.cloudscale.credentials.stringData.CLOUDSCALE_API_TOKEN</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1530,7 +1774,7 @@ You need to select the correct Project (token is limited to one project), choose
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_cloudscale_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_secrets_cloudscale_credentials_stringdata_kubernetes_server_url"></a><code>secrets.cloudscale.credentials.stringData.KUBERNETES_SERVER_URL</code></h2>
+<h2 id="_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_url"></a><code>cloud.secrets.cloudscale.credentials.stringData.KUBERNETES_SERVER_URL</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1558,7 +1802,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_secrets_cloudscale_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_secrets_cloudscale_credentials_stringdata_kubernetes_server_token"></a><code>secrets.cloudscale.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h2>
+<h2 id="_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_token"></a><code>cloud.secrets.cloudscale.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1588,9 +1832,314 @@ default
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="../how-tos/multi-instance.html">Multi Instance</a></span>
-</nav>
+<div class="sect1">
+<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>true</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable monitoring for the billing monitoirng</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/vshn/component-appcat/blob/master/component/class/defaults.yml">See class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of alerting rules to deploy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_policies_target_namespaces"><a class="anchor" href="#_network_policies_target_namespaces"></a><code>network_policies.target_namespaces</code>:</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of namespaces to which the billing tool should have access to.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prometheus"><a class="anchor" href="#_prometheus"></a><code>prometheus</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prometheus_url"><a class="anchor" href="#_prometheus_url"></a><code>prometheus.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="http://vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc:8080/prometheus" class="bare">vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc:8080/prometheus</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the prometheus instance that holds the <code>appuio_control_organization_info</code> to find the correct <code>salesOrder</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prometheus_org_id"><a class="anchor" href="#_prometheus_org_id"></a><code>prometheus.org_id</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"appuio-cloud-metering-c-appuio-cloudscale-lpg-2|appuio-cloud-metering-c-appuio-exoscale-ch-gva-2-0"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The (optional) organization id to use for the prometheus query (required for mimir)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_odoo"><a class="anchor" href="#_odoo"></a><code>odoo</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_odoo_url"><a class="anchor" href="#_odoo_url"></a><code>odoo.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"https://test.central.vshn.ch/api/v2/product_usage_report_POST"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the odoo endpoint used to send billing metrics to.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo_oauth_url"><a class="anchor" href="#_odoo_oauth_url"></a><code>odoo.oauth.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"https://test.central.vshn.ch/api/v2/authentication/oauth2/token"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the odoo oauth endpoint</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo_oauth_clientid"><a class="anchor" href="#_odoo_oauth_clientid"></a><code>odoo.oauth.clientID</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>clientID to connect to Odoo via oauth</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo_oauth_clientsecret"><a class="anchor" href="#_odoo_oauth_clientsecret"></a><code>odoo.oauth.clientSecret</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>clientSecret to connect to Odoo via oauth</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloudapi"><a class="anchor" href="#_cloudapi"></a><code>cloudAPI</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cloudapi_url"><a class="anchor" href="#_cloudapi_url"></a><code>cloudAPI.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the APPUiO Control API cluster</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloudapi_token"><a class="anchor" href="#_cloudapi_token"></a><code>cloudAPI.token</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The token to connect to the APPUiO Control API cluster.</p>
+</div>
+<div class="paragraph">
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>organizations.organization.appuio.io</code> managed resource.</p>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
@@ -1600,7 +2149,7 @@ default
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/billing-collector-cloudservices/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-billing.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
