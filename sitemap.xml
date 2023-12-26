@@ -97,6 +97,9 @@
 <loc>https://hub.syn.tools/sitemap-exporter-filterproxy.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-fleetlock.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-floodgate.xml</loc>
 </sitemap>
 <sitemap>
@@ -263,6 +266,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-secrets.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-stackgres-operator.xml</loc>
