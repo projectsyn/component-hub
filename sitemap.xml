@@ -55,9 +55,6 @@
 <loc>https://hub.syn.tools/sitemap-cm-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-cockroach-operator.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-control-api.xml</loc>
 </sitemap>
 <sitemap>
@@ -142,12 +139,6 @@
 <loc>https://hub.syn.tools/sitemap-lieutenant.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-machineset-egress-cidr-operator.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-metallb.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-metrics-server.xml</loc>
 </sitemap>
 <sitemap>
@@ -215,9 +206,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-scheduling.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-service-mesh.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-slos.xml</loc>
