@@ -1309,6 +1309,9 @@ default
 <div class="paragraph">
 <p>If set, this value is sent as the <code>X-Scope-OrgID</code> header in all requests to Prometheus.</p>
 </div>
+<div class="paragraph">
+<p>This parameter can be overridden for each individual rule by setting the <code>prometheus_org_id</code> parameter on the rule.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1421,7 +1424,8 @@ example
       sum by(cluster_id, vshn_service_level, tenant_id, role, cloud_provider, sales_order_id) (
         node_cpu_info{cloud_provider="%(cloud_provider)s", vshn_service_level="%(vshn_service_level)s"}
       )[59m:1m]
-    )</code></pre>
+    )
+  prometheus_org_id: my-prom-org <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1461,6 +1465,10 @@ example
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
 <td>The product params are applied to this pattern to generate one query for each product.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>(Optional) If set, the value of the <code>X-Scope-OrgID</code> header used for Prometheus queries from this rule. Overrides the <code>prometheus.org_id</code> parameter.</td>
 </tr>
 </table>
 </div>

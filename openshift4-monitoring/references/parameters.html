@@ -1583,6 +1583,10 @@ inhibit_rules:
 <div class="paragraph">
 <p>See the <a href="https://docs.openshift.com/container-platform/latest/monitoring/managing-alerts.html#applying-custom-alertmanager-configuration_managing-alerts">OpenShift docs</a> for available parameters.</p>
 </div>
+<div class="paragraph">
+<p>The component will silently drop any fields in the provided config which are empty.
+The component treats <code>null</code> as empty for scalar fields.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
