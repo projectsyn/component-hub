@@ -22,7 +22,7 @@ mypy = "1.8.0"
 types-PyYAML = "6.0.12.12"
 autopep8 = "2.0.4"
 pylint = "3.0.3"
-flake8 = "6.1.0"
+flake8 = "7.0.0"
 black = "23.12.1"
 bandit = "1.7.6"
 
