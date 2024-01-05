@@ -1083,7 +1083,10 @@ If you need to override the chart version, you can pin it in the parameters:</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   keycloak:
     charts:
-      keycloakx: '&lt;version&gt;'</code></pre>
+      keycloakx:
+        version: '&lt;version&gt;'
+      postgresql:
+        version: '&lt;version&gt;'</code></pre>
 </div>
 </div>
 </div>
@@ -1103,9 +1106,23 @@ If you need to override the Keycloak version, you can pin it in the parameters:<
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   keycloak:
-    helm_values:
-      image:
-        tag: '&lt;tag&gt;'</code></pre>
+    images:
+      keycloak:
+        registry: '&lt;registry&gt;'
+        repository: '&lt;repository&gt;'
+        tag: '&lt;version&gt;'
+      busybox:
+        registry: '&lt;registry&gt;'
+        repository: '&lt;repository&gt;'
+        tag: '&lt;version&gt;'
+      postgresql:
+        registry: '&lt;registry&gt;'
+        repository: '&lt;repository&gt;'
+        tag: '&lt;version&gt;'
+      bitnamishell:
+        registry: '&lt;registry&gt;'
+        repository: '&lt;repository&gt;'
+        tag: '&lt;version&gt;'</code></pre>
 </div>
 </div>
 </div>
