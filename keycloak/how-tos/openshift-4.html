@@ -1168,6 +1168,34 @@ Also, the sample below configures end-to-end encryption to Keycloak with <a href
 </div>
 </div>
 <div class="sect1">
+<h2 id="_parameters_for_built_in_postgresql_database_on_openshift_4_11_and_higher_and_the_bitnami_postgres_helm_chart_12_7_0_and_higher"><a class="anchor" href="#_parameters_for_built_in_postgresql_database_on_openshift_4_11_and_higher_and_the_bitnami_postgres_helm_chart_12_7_0_and_higher"></a>Parameters for built-in Postgresql database on OpenShift 4.11 and higher and the Bitnami Postgres Helm Chart 12.7.0 and higher</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are using the built-in database provider (by default unless <code>keycloak.database.provider</code> is overridden) you also need to adjust the following parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  keycloak:
+    postgresql_helm_values:
+      primary:
+        podSecurityContext:
+          enabled: true
+          fsGroup: null
+          runAsNonRoot: true
+        containerSecurityContext:
+          enabled: true
+          runAsUser: null
+          runAsGroup: null
+      volumePermissions:
+        enabled: false
+      shmVolume:
+        enabled: false</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_parameters_for_built_in_postgresql_database_on_openshift_4_11_and_higher"><a class="anchor" href="#_parameters_for_built_in_postgresql_database_on_openshift_4_11_and_higher"></a>Parameters for built-in Postgresql database on OpenShift 4.11 and higher</h2>
 <div class="sectionbody">
 <div class="paragraph">
