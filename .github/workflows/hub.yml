@@ -62,7 +62,7 @@ jobs:
           git commit -m "First commit"
 
       - name: Upload generated site configuration
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: antora-site-configuration
           path: build/
@@ -73,7 +73,7 @@ jobs:
     needs: generate
     steps:
       - name: Download Antora Site configuration
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: antora-site-configuration
 
@@ -84,7 +84,7 @@ jobs:
         run: cd $PROJECT_SLUG; make html
 
       - name: Upload built Antora Site
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: antora-site
           path: component-hub
@@ -96,7 +96,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Download Antora Site
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: antora-site
 
