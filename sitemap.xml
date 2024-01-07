@@ -115,9 +115,6 @@
 <loc>https://hub.syn.tools/sitemap-grafana-helm.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-grafana-organizations-operator.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-group-sync-operator.xml</loc>
 </sitemap>
 <sitemap>
@@ -167,9 +164,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-api.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-config.xml</loc>
@@ -287,9 +281,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-system-upgrade-controller.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-thanos.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-topolvm.xml</loc>
