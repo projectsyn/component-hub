@@ -82,12 +82,6 @@
 <loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-emergency-credentials-controller.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-etcd.xml</loc>
 </sitemap>
 <sitemap>
@@ -121,10 +115,10 @@
 <loc>https://hub.syn.tools/sitemap-group-sync-operator.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-hub.xml</loc>
+<loc>https://hub.syn.tools/sitemap-home-assistant.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-ingress-nginx.xml</loc>
+<loc>https://hub.syn.tools/sitemap-hub.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-json-exporter.xml</loc>
@@ -197,9 +191,6 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-networking.xml</loc>
-</sitemap>
-<sitemap>
-<loc>https://hub.syn.tools/sitemap-openshift4-nodes.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-operators.xml</loc>
