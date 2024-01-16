@@ -1277,6 +1277,55 @@ Only available if the cluster health isn&#8217;t <code>HEALTH_OK</code>.</td>
 </tr>
 </table>
 </div>
+<div class="sect3">
+<h4 id="_check_ceph_crash_logs"><a class="anchor" href="#_check_ceph_crash_logs"></a>Check Ceph crash logs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
+$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- ceph crash ls <i class="conum" data-value="1"></i><b>(1)</b>
+[ ... list of crash logs ... ]
+$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- \
+      ceph crash info &lt;CRASH_ID&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+[ ... detailed crash info ... ]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>List currently not archived crash logs</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Show detailed information of crash log with id <code>&lt;CRASH_ID&gt;</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_archive_ceph_crash_logs"><a class="anchor" href="#_archive_ceph_crash_logs"></a>Archive Ceph crash logs</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ceph_cluster_ns=syn-rook-ceph-cluster
+$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- \
+      ceph crash archive-all <i class="conum" data-value="1"></i><b>(1)</b>
+$ kubectl -n "${ceph_cluster_ns}" exec -it deploy/rook-ceph-tools -- \
+      ceph crash archive &lt;CRASH_ID&gt; <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Archive all currently not archived crash logs</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Archive crash log with id <code>&lt;CRASH_ID&gt;</code></td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
