@@ -1404,6 +1404,49 @@ example
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cluster_id_to_name_map:
+  c-cluster1: "My Cluster"
+  c-other-cluster: "My Other Cluster"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary mapping cluster IDs to a more human friendly name.
+Use this within rules by referencing it like <code>${appuio_reporting:cluster_d_to_name_map:c-cluster1}</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rules_2"><a class="anchor" href="#_rules_2"></a><code>rules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-appuio-reporting/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a>.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">rule_appuio_managed_vcpu: <i class="conum" data-value="1"></i><b>(1)</b>
   enabled: true
   products: <i class="conum" data-value="2"></i><b>(2)</b>
