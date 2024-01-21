@@ -970,7 +970,7 @@
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>dictionary</p>
 </td>
 </tr>
 <tr>
@@ -978,13 +978,136 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-fleetlock</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">annotations: {} <i class="conum" data-value="1"></i><b>(1)</b>
+labels: {} <i class="conum" data-value="2"></i><b>(2)</b>
+name: `syn-fleetlock` <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Additional namespace annotations.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Additional namespace labels.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Name of the namespace.</td>
+</tr>
+</table>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>The namespace in which to deploy this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_replicacount"><a class="anchor" href="#_replicacount"></a><code>replicaCount</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>int</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>1</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Number of replicas of this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_service"><a class="anchor" href="#_service"></a><code>service</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">service:
+  clusterIP: 10.43.0.11</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The clusterIP of the service, used by Zincati service.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/poseidon/fleetlock#usage">Fleetlock Docu</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
+  requests:
+    cpu: 30m
+    memory: 30Mi
+  limits:
+    memory: 50Mi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resources requested by this component.</p>
 </div>
 </div>
 </div>
