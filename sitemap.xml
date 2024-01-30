@@ -312,4 +312,7 @@
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-xelon-csi.xml</loc>
 </sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-yawol-controller.xml</loc>
+</sitemap>
 </sitemapindex>
