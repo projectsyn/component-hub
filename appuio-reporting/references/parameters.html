@@ -1015,6 +1015,40 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_namespacemetadata"><a class="anchor" href="#_namespacemetadata"></a><code>namespaceMetadata</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceMetadata:
+  labels:
+    openshift.io/cluster-monitoring: 'true'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace metadata to apply to the namespace created by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1057,38 +1091,6 @@ type
 <div class="paragraph">
 <p>The image used for managing data in the reporting database.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_schedules"><a class="anchor" href="#_schedules"></a><code>schedules</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">backfill: '15 * * * *'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary managing the schedules of the periodic jobs (implemented as Kubernetes CronJobs).</p>
 </div>
 </div>
 </div>
@@ -1553,6 +1555,9 @@ It can be accessed in the snippet e.g. with <code>local labels = std.extVar("lab
 </div>
 <div class="paragraph">
 <p>Note that there is no jsonnet variant for the <code>query_pattern</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>CronJobs are spread across the hour to allow for a more even load on the cluster and Prometheus.</p>
 </div>
 </div>
 </div>
