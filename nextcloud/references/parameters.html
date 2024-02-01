@@ -1019,6 +1019,72 @@ name: app-${_instance}</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nextcloud:
+  requests:
+    cpu: 500m
+    memory: 3Gi
+  limits:
+    cpu: 4
+    memory: 8Gi
+nginx:
+  requests:
+    cpu: 10m
+    memory: 16Mi
+  limits:
+    cpu: 50m
+    memory: 128Mi
+cronjob:
+  requests:
+    cpu: 150m
+    memory: 256Mi
+  limits:
+    cpu: 1
+    memory: 1Gi
+postgresql:
+  requests:
+    cpu: 20m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+redis:
+  requests:
+    cpu: 20m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure resource requests and limits.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
