@@ -1334,13 +1334,104 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/tegridy-io/component-nextcloud/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+<p><a href="https://github.com/tegridy-io/component-nextcloud/blob/master/class/defaults.yml">See component defaults</a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>The Helm values to use when rendering the Helm charts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_backup"><a class="anchor" href="#_backup"></a><code>backup</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+schedule: '30 4 * * *' <i class="conum" data-value="2"></i><b>(2)</b>
+bucket: my-backup-bucket <i class="conum" data-value="3"></i><b>(3)</b>
+password: ?{vaultkv:${cluster:tenant}/${cluster:name}/nextcloud/${_instance}/backup} <i class="conum" data-value="4"></i><b>(4)</b>
+keepFailed: 3
+keepSuccess: 5
+backend: <i class="conum" data-value="5"></i><b>(5)</b>
+  endpoint: null
+  accessKey: null
+  secretKey: null
+check: <i class="conum" data-value="6"></i><b>(6)</b>
+  enabled: true
+  schedule: '30 8 * * *'
+prune: <i class="conum" data-value="7"></i><b>(7)</b>
+  enabled: true
+  schedule: '30 13 * * *'
+retention: <i class="conum" data-value="8"></i><b>(8)</b>
+  keepLast: 3
+  keepWeekly: 3
+spec: {} <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable backup.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Backup schedule.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Bucket name to use for backups.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Password K8up/restic uses to encrypt data.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Configure s3 backend.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Enable/Configure checking backups.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Enable/Configure prune backups.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Configure retention (prune needs to be enabled), <a href="https://k8up.io/k8up/references/object-specifications.html#_retention">see K8up retention spec</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Additional specifications, <a href="https://k8up.io/k8up/references/object-specifications.html">see K8up object spec</a>.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure backups, using <a href="https://k8up.io">K8up operator</a>.</p>
 </div>
 </div>
 </div>
