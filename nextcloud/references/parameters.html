@@ -1104,10 +1104,11 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">url: nextcloud.local <i class="conum" data-value="1"></i><b>(1)</b>
-tls: <i class="conum" data-value="2"></i><b>(2)</b>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ingress: <i class="conum" data-value="1"></i><b>(1)</b>
   enabled: true
-  issuer: letsencrypt-production
+  tls: true
+  url: nextcloud.local <i class="conum" data-value="2"></i><b>(2)</b>
+  annotations: {}
 persistence: <i class="conum" data-value="3"></i><b>(3)</b>
   enabled: true
   accessMode: ReadWriteOnce
@@ -1141,11 +1142,11 @@ extra: <i class="conum" data-value="4"></i><b>(4)</b>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Configure nextcloud URL.</td>
+<td>Configure nextcloud ingress.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Configure tls with cert-manager.</td>
+<td>Enable tls for ingress.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
