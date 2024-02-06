@@ -1044,7 +1044,7 @@ name: `syn-fleetlock` <i class="conum" data-value="3"></i><b>(3)</b></code></pre
 type
 </td>
 <td class="hdlist2">
-<p>int</p>
+<p>integer</p>
 </td>
 </tr>
 <tr>
@@ -1072,7 +1072,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>dictionary</p>
 </td>
 </tr>
 <tr>
@@ -1082,8 +1082,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">service:
-  clusterIP: 10.43.0.11</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterIP: 10.43.0.11</code></pre>
 </div>
 </div>
 </td>
@@ -1108,7 +1107,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>dictionary</p>
 </td>
 </tr>
 <tr>
@@ -1118,12 +1117,11 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
-  requests:
-    cpu: 30m
-    memory: 30Mi
-  limits:
-    memory: 50Mi</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">requests:
+  cpu: 30m
+  memory: 30Mi
+limits:
+  memory: 50Mi</code></pre>
 </div>
 </div>
 </td>
@@ -1132,6 +1130,51 @@ default
 </div>
 <div class="paragraph">
 <p>The resources requested by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prometheus"><a class="anchor" href="#_prometheus"></a><code>prometheus</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+service: {} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable servicemonitor.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Additional servicemonitor spec.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable/configure service monitor.</p>
 </div>
 </div>
 </div>
