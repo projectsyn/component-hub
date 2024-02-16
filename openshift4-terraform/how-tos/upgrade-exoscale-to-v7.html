@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Migrate from component openshift4-cloudscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/migrate-from-openshift4-cloudscale.html">
-    <link rel="prev" href="upgrade-exoscale-to-v7.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Upgrade Exoscale clusters to component version v7 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/upgrade-exoscale-to-v7.html">
+    <link rel="prev" href="upgrade-exoscale-v4-v5.html">
+    <link rel="next" href="migrate-from-openshift4-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -117,10 +117,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-exoscale-v4-v5.html">Upgrade Exoscale clusters from component version v4 to v5</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a>
   </li>
 </ul>
@@ -1004,29 +1004,58 @@
   <ul>
     <li><a href="../index.html">openshift4-terraform</a></li>
     <li>How-to guides</li>
-    <li><a href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></li>
+    <li><a href="upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/migrate-from-openshift4-cloudscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-exoscale-to-v7.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Migrate from component <code>openshift4-cloudscale</code></h1>
+<h1 class="page">Upgrade Exoscale clusters to component version v7</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This component supports both the Terraform module for OpenShift 4 on Exoscale and cloudscale.ch.
-Previously there was a dedicated component <code>openshift4-cloudscale</code> for driving the Terraform module for OpenShift 4 on cloudscale.ch.
-That component is deprecated in favor of this component.</p>
+<p>When migrating to component version v7, the following breaking changes in <code>terraform-openshift4-exoscale</code> v5 require manual changes to the Terraform state of existing clusters:</p>
 </div>
-<div class="paragraph">
-<p>This how-to provides a guide for migrating from component <code>openshift4-cloudscale</code> to <code>openshift4-terraform</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/appuio/terraform-openshift4-exoscale/pull/87" target="_blank" rel="noopener">Change default root disk size to 100Gi</a></p>
+</li>
+<li>
+<p><a href="https://github.com/appuio/terraform-openshift4-exoscale/pull/91" target="_blank" rel="noopener">Manage Floaty IAMv3 credentials in Terraform</a></p>
+</li>
+</ul>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This guide assumes that you&#8217;ve already upgraded component <code>openshift4-terraform</code> to a v7 version for the cluster you&#8217;re migrating.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>It&#8217;s highly recommended that you first perform the component migration and then follow the guide to <a href="upgrade-cloudscale-v1-v2.html" class="page">upgrade the cloudscale.ch Terraform module from v1 to v2</a>.</p>
+<p>The guide applies for upgrading to component version v7 from component version v5 or v6.
+Where necessary, we provide specific information based on the version you&#8217;re upgrading from.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1034,123 +1063,428 @@ That component is deprecated in favor of this component.</p>
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>TODO: Update</p>
+</div>
+<div class="paragraph">
 <p>You need to be able to execute the following CLI tools locally:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
+<p><code>docker</code></p>
+</li>
+<li>
 <p><code>yq</code> <a href="https://github.com/mikefarah/yq">yq YAML processor</a> (Version 4 or newer)</p>
 </li>
 <li>
-<p><code>commodore</code></p>
+<p><code>jq</code></p>
 </li>
 <li>
-<p><code>git</code></p>
+<p><code>vault</code> <a href="https://www.vaultproject.io/docs/commands">Vault CLI</a></p>
+</li>
+<li>
+<p><code>exo</code> &gt;= <code>v1.75.0</code> <a href="https://github.com/exoscale/cli">Exoscale CLI</a></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
+<h2 id="_setup_environment"><a class="anchor" href="#_setup_environment"></a>Setup environment</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_prepare_inputs"><a class="anchor" href="#_prepare_inputs"></a>Prepare inputs</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make a note of the Project Syn ID of the cluster which you want to migrate</p>
+<p>Access to API</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=c-the-cluster-1234 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For example: https://api.syn.vshn.net
+# IMPORTANT: do NOT add a trailing `/`. Commands below will fail.
+export COMMODORE_API_URL=&lt;lieutenant-api-endpoint&gt;
+
+export CLUSTER_ID=&lt;lieutenant-cluster-id&gt; # Looks like: c-&lt;something&gt;
+export TENANT_ID=$(curl -sH "Authorization: Bearer $(commodore fetch-token)" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r .tenant)
+
+# From https://git.vshn.net/-/profile/personal_access_tokens, "api" scope is sufficient
+export GITLAB_TOKEN=&lt;gitlab-api-token&gt;
+export GITLAB_USER=&lt;gitlab-user-name&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Connect with Vault</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export VAULT_ADDR=https://vault-prod.syn.vshn.net
+vault login -method=oidc</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_update_cluster_configuration"><a class="anchor" href="#_update_cluster_configuration"></a>Update cluster configuration</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify that your cluster uses component <code>openshift4-terraform</code> v7.
+If that&#8217;s not the case, update the component version to v7.x before compiling the cluster catalog.</p>
+</li>
+<li>
+<p>Compile the cluster catalog to create a local working directory</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile "${CLUSTER_ID}"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update cluster configuration to ensure that Terraform doesn&#8217;t try to shrink VM disks and remove any potential Terraform module version pins.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pushd "inventory/classes/${TENANT_ID}"
+
+yq -i 'del(.parameters.openshift4_terraform.version)' "${CLUSTER_ID}.yml" <i class="conum" data-value="1"></i><b>(1)</b>
+yq -i 'with(.parameters.openshift4_terraform.terraform_variables;
+  select(.|keys|all_c(. != "root_disk_size")) | .root_disk_size = 120)' \
+  "${CLUSTER_ID}.yml" <i class="conum" data-value="2"></i><b>(2)</b>
+
+git commit -am "Update Terraform configuration for cluster ${CLUSTER_ID}" <i class="conum" data-value="3"></i><b>(3)</b>
+git push
+
+popd</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the ID of the cluster to migrate</td>
+<td>Delete the <code>terraform-openshift4-exoscale</code> module version override, if it&#8217;s present.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>terraform-openshift4-exoscale</code> versions &lt; v5 used 120Gi as the default root disk size.
+We need to ensure that all existing clusters set the <code>root_disk_size</code> Terraform variable to ensure that Terraform won&#8217;t try to shrink VM disks.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The <code>yq</code> expression shouldn&#8217;t overwrite existing overrides for <code>root_disk_size</code>, but we recommend verifying the change before committing it.
+You may want to only commit the non-whitespace subset of the changes, since <code>yq</code> will delete any empty lines in the cluster configuration file.</td>
 </tr>
 </table>
+</div>
+</li>
+<li>
+<p>Compile the cluster catalog again to apply the changed value for <code>root_disk_size</code> in the catalog.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile "${CLUSTER_ID}"</code></pre>
+</div>
 </div>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_migrate_component_config"><a class="anchor" href="#_migrate_component_config"></a>Migrate component config</h3>
+</div>
+<div class="sect1">
+<h2 id="_migrate_terraform_state"><a class="anchor" href="#_migrate_terraform_state"></a>Migrate Terraform state</h2>
+<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make cluster catalog available locally</p>
+<p>Fetch hieradata repo token from Vault</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID}</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export HIERADATA_REPO_TOKEN=$(vault kv get \
+  -format=json "clusters/kv/lbaas/hieradata_repo_token" | jq -r '.data.data.token')</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You need the Hieradata repo token so that Terraform can access the LB hieradata Git repo.
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
-<p>Extract tenant ID from commodore working directory</p>
+<p>Create an Exoscale API key with role <code>unrestricted</code> for the cluster&#8217;s organization from the <a href="https://portal.exoscale.com">Exoscale Console</a>.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You may need to create the <code>unrestricted</code> IAMv3 role with "Default Service Strategy" set to <code>allow</code> if such a role doesn&#8217;t exist yet in the cluster&#8217;s organization.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export TENANT_ID=$(yq e '.parameters.cluster.tenant' inventory/classes/params/cluster.yml)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export EXOSCALE_API_KEY=EXO... <i class="conum" data-value="1"></i><b>(1)</b>
+export EXOSCALE_API_SECRET=... <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Replace with your API key</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Replace with your API secret</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You need the Exoscale credentials so that Terraform can refresh the state.
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
-<p>Update cluster config to use component <code>openshift4-terraform</code></p>
+<p>Setup Git author information and create the Terraform environment file.
+The Git author info is required so that Terraform can commit the hieradata changes.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Change to tenant config repo
-pushd "inventory/classes/${TENANT_ID}"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GIT_AUTHOR_NAME=$(git config --global user.name)
+export GIT_AUTHOR_EMAIL=$(git config --global user.email)
 
-# Remove component openshift4-cloudscale and add component openshift4-terraform
-yq eval -i '.applications = (.applications[] |
-  select(. != "openshift4-cloudscale") | [[.]][]) + (["openshift4-terraform"])' \
-  "${CLUSTER_ID}.yml"
+cat &lt;&lt;EOF &gt; ./terraform.env
+EXOSCALE_API_KEY
+EXOSCALE_API_SECRET
+HIERADATA_REPO_TOKEN
+GIT_AUTHOR_NAME
+GIT_AUTHOR_EMAIL
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Setup Terraform</p>
+<div class="listingblock">
+<div class="title">Prepare Terraform execution environment</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Set terraform image and tag to be used
+tf_image=$(\
+  yq eval ".parameters.openshift4_terraform.images.terraform.image" \
+  dependencies/openshift4-terraform/class/defaults.yml)
+tf_tag=$(\
+  yq eval ".parameters.openshift4_terraform.images.terraform.tag" \
+  dependencies/openshift4-terraform/class/defaults.yml)
 
-# Move parameters from openshift4_cloudscale to openshift4_terraform
-yq eval -i '.parameters.openshift4_terraform = .parameters.openshift4_cloudscale |
-  del(.parameters.openshift4_cloudscale) |
-  .parameters.openshift4_terraform.terraform_variables =
-    .parameters.openshift4_terraform.variables |
-  del(.parameters.openshift4_terraform.variables)' "${CLUSTER_ID}.yml"</code></pre>
+# Generate the terraform alias
+base_dir=$(pwd)
+alias terraform='docker run -it --rm \
+  -e REAL_UID=$(id -u) \
+  --env-file ${base_dir}/terraform.env \
+  -w /tf \
+  -v $(pwd):/tf \
+  --ulimit memlock=-1 \
+  "${tf_image}:${tf_tag}" /tf/terraform.sh'
+
+export GITLAB_REPOSITORY_URL=$(curl -sH "Authorization: Bearer $(commodore fetch-token)" ${COMMODORE_API_URL}/clusters/${CLUSTER_ID} | jq -r '.gitRepo.url' | sed 's|ssh://||; s|/|:|')
+export GITLAB_REPOSITORY_NAME=${GITLAB_REPOSITORY_URL##*/}
+export GITLAB_CATALOG_PROJECT_ID=$(curl -sH "Authorization: Bearer ${GITLAB_TOKEN}" "https://git.vshn.net/api/v4/projects?simple=true&amp;search=${GITLAB_REPOSITORY_NAME/.git}" | jq -r ".[] | select(.ssh_url_to_repo == \"${GITLAB_REPOSITORY_URL}\") | .id")
+export GITLAB_STATE_URL="https://git.vshn.net/api/v4/projects/${GITLAB_CATALOG_PROJECT_ID}/terraform/state/cluster"
+
+pushd catalog/manifests/openshift4-terraform/</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Inspect changes and commit them if they&#8217;re ok</p>
 <div class="listingblock">
-<div class="title">Commit changes</div>
+<div class="title">Initialize Terraform</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git commit -av
-git push origin master</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">terraform init \
+  "-backend-config=address=${GITLAB_STATE_URL}" \
+  "-backend-config=lock_address=${GITLAB_STATE_URL}/lock" \
+  "-backend-config=unlock_address=${GITLAB_STATE_URL}/lock" \
+  "-backend-config=username=${GITLAB_USER}" \
+  "-backend-config=password=${GITLAB_TOKEN}" \
+  "-backend-config=lock_method=POST" \
+  "-backend-config=unlock_method=DELETE" \
+  "-backend-config=retry_wait_min=5"</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Switch back to Commodore working directory</p>
+<p>Remove old Terraform-managed Floaty key from the Terraform state</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This step is only required if you&#8217;re upgrading from <code>terraform-openshift4-exoscale</code> v3.</p>
+</div>
+<div class="paragraph">
+<p>While you can still execute these commands when upgrading from <code>terraform-openshift4-exoscale</code> v4, they will fail since such clusters don&#8217;t use a Terraform-managed legacy Floaty key.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Extract the old Terraform-managed Floaty API key from the state, so we can revoke it later</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">OLD_FLOATY_KEY=$(terraform state show "module.cluster.module.lb.exoscale_iam_access_key.floaty" |\
+  grep id | cut -d'=' -f2 | tr -d ' "\r\n')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Ensure the old Terraform-managed Floaty IAM credentials don&#8217;t get deleted by the next Terraform apply</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">terraform state rm module.cluster.module.lb.exoscale_iam_access_key.floaty</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the Terraform state using <code>plan</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">popd</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">terraform plan</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Update GitLab CI configuration</p>
+<div class="paragraph">
+<p>You can expect the following changes:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Change location of <code>gitlab-ci.yml</code> in <span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">General pipelines</b></span> to <code>manifests/openshift4-terraform/gitlab-ci.yml</code></p>
+<p>The new field <code>private</code> will be set to <code>false</code> on all compute instances</p>
+</li>
+<li>
+<p>Direct SSH access to the cluster VMs will be removed:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>module.cluster.security_group_rule.all_machines_ssh_v4</code> and <code>module.cluster.security_group_rule.all_machines_ssh_v6</code> will be destroyed</p>
+</li>
+<li>
+<p><code>module.cluster.security_group_rule.all_machines_ssh</code>, <code>module.cluster.module.lb.exoscale_security_group_rule.load_balancers_ssh_v4</code>, and <code>module.cluster.module.lb.exoscale_security_group_rule.load_balancers_ssh_v6</code> will be created</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Compile and push new catalog</p>
+<p>The new managed Floaty IAMv3 Exoscale credentials (role and key) will be created</p>
+</li>
+<li>
+<p>The LB hieradata will be updated to use the new IAMv3 Floaty access key</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you&#8217;re satisfied with the pending changes, you can apply them.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID} --push -i</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">terraform apply</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Merge the hieradata MR.</p>
+</li>
+<li>
+<p>Run Puppet on the cluster&#8217;s LBs, so that you&#8217;re using the new IAMv3 Floaty API key.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for id in 0 1; do
+  lb_fqdn=$(terraform state show "module.cluster.module.lb.exoscale_domain_record.lb[$id]" | grep hostname | cut -d'=' -f2 | tr -d ' "\r\n')
+  echo "${lb_fqdn}"
+  ssh "${lb_fqdn}" sudo puppetctl run
+done</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Fetch and then remove the old Floaty API key from Vault</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Skip this step if you&#8217;re upgrading from <code>terraform-openshift4-exoscale</code> v3.
+For such an upgrade you should already have extracted and removed a legacy API key from the Terraform state.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">OLD_FLOATY_KEY=$(vault kv get -format=json \
+  clusters/kv/${TENANT_ID}/${CLUSTER_ID}/floaty | \
+  jq -r '.data.data.iam_key')
+
+vault kv delete clusters/kv/${TENANT_ID}/${CLUSTER_ID}/floaty</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Revoke the old Floaty access key</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Don&#8217;t remove the old Floaty API key before you&#8217;ve ensured that the new API key has been rolled out on the LBs.
+Otherwise, Floaty won&#8217;t be able to migrate the Elastic IPs between the two LBs until you roll out the new key.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Print out the legacy key</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "Legacy Floaty key: ${OLD_FLOATY_KEY}"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Print out the Terraform-managed IAMv3 key</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NEW_FLOATY_KEY=$(terraform state show "module.cluster.module.lb.exoscale_iam_api_key.floaty" |\
+  grep ' id' | cut -d'=' -f2 | tr -d ' "\r\n')
+echo "Terraform-managed key: ${NEW_FLOATY_KEY}"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Revoke the Terraform-managed legacy key</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">exo iam access-key revoke "${OLD_FLOATY_KEY}"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Revoke the manually provisioned IAMv3 key</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">exo iam api-key delete "${OLD_FLOATY_KEY}"</code></pre>
 </div>
 </div>
 </li>
@@ -1158,10 +1492,9 @@ git push origin master</code></pre>
 </div>
 </div>
 </div>
-</div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="upgrade-exoscale-v4-v5.html">Upgrade Exoscale clusters from component version v4 to v5</a></span>
+  <span class="next"><a href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></span>
 </nav>
 </article>
   </div>
@@ -1172,7 +1505,7 @@ git push origin master</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/migrate-from-openshift4-cloudscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/upgrade-exoscale-to-v7.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
