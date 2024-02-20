@@ -1018,7 +1018,16 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-kubevirt-operator</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace:
+  annotations: {}
+  labels:
+    kubevirt.io: ''
+    pod-security.kubernetes.io/enforce: privileged
+  name: syn-kubevirt-operator</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
@@ -1049,7 +1058,7 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">operator:
-  replicas: 2</code></pre>
+  replicas: 1</code></pre>
 </div>
 </div>
 </td>
