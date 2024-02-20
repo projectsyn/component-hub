@@ -1071,7 +1071,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_instance"><a class="anchor" href="#_instance"></a><code>instance</code></h2>
+<h2 id="_kubevirt"><a class="anchor" href="#_kubevirt"></a><code>kubevirt</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1090,7 +1090,7 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instance: {}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt: {}</code></pre>
 </div>
 </div>
 </td>
@@ -1103,18 +1103,90 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_instancetypes"><a class="anchor" href="#_instancetypes"></a><code>instanceTypes</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instanceTypes: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>ClusterInstanceTypes configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instancepreferences"><a class="anchor" href="#_instancepreferences"></a><code>instancePreferences</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instancePreferences: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>ClusterInstanceTypes configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instances:
-  certificateRotateStrategy: {}
-  configuration: {}
-  customizeComponents: {}
-  imagePullPolicy: IfNotPresent
-  infra:
-    replicas: 1
-  workloadUpdateStrategy: {}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt_operator:
+  kubevirt:
+    certificateRotateStrategy: {}
+    configuration: {}
+    customizeComponents: {}
+    imagePullPolicy: IfNotPresent
+    infra:
+      replicas: 1
+    workloadUpdateStrategy: {}
+
+  instanceTypes:
+    small-4:
+      cpu:
+        guest: 2
+      memory:
+        quest: 4Gi</code></pre>
 </div>
 </div>
 </div>
