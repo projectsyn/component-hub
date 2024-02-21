@@ -1001,8 +1001,13 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_kubevirt"><a class="anchor" href="#_kubevirt"></a><code>kubevirt</code></h2>
+<h2 id="_operators"><a class="anchor" href="#_operators"></a><code>operators</code></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Enable / Configure operators.</p>
+</div>
+<div class="sect2">
+<h3 id="_kubevirt"><a class="anchor" href="#_kubevirt"></a><code>kubevirt</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1021,39 +1026,34 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt:
-  version: v1.1.1 <i class="conum" data-value="1"></i><b>(1)</b>
-  namespace: <i class="conum" data-value="2"></i><b>(2)</b>
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  version: v1.1.1 <i class="conum" data-value="2"></i><b>(2)</b>
+  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
     annotations: {}
     labels:
       kubevirt.io: ''
       pod-security.kubernetes.io/enforce: privileged
     name: syn-kubevirt-operator
-  replicas: 1 <i class="conum" data-value="3"></i><b>(3)</b>
-  spec: <i class="conum" data-value="4"></i><b>(4)</b>
-    certificateRotateStrategy: {}
-    configuration: {}
-    customizeComponents: {}
-    imagePullPolicy: IfNotPresent
-    workloadUpdateStrategy: {}</code></pre>
+  replicas: 1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>KubeVirt version.</td>
+<td>Enable KubeVirt operator.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Configure KubeVirt namespace.</td>
+<td>KubeVirt version.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure KubeVirt operator replicas.</td>
+<td>Configure KubeVirt namespace.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Define KubeVirt instance.</td>
+<td>Configure KubeVirt operator replicas.</td>
 </tr>
 </table>
 </div>
@@ -1062,13 +1062,11 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>KubeVirt configuration, see <a href="https://kubevirt.io/user-guide/operations/customize_components/">KubeVirt Documentation</a> for specs.</p>
+<p>KubeVirt operator configuration.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_importer"><a class="anchor" href="#_importer"></a><code>importer</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_importer"><a class="anchor" href="#_importer"></a><code>importer</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1087,48 +1085,121 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">importer:
-  version: v1.58.1 <i class="conum" data-value="1"></i><b>(1)</b>
-  namespace: <i class="conum" data-value="2"></i><b>(2)</b>
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  version: v1.58.1 <i class="conum" data-value="2"></i><b>(2)</b>
+  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
     annotations: {}
     labels:
       cdi.kubevirt.io: ''
     name: syn-kubevirt-cdi
-  replicas: 1 <i class="conum" data-value="3"></i><b>(3)</b>
-  spec: <i class="conum" data-value="4"></i><b>(4)</b>
-    config:
-      featureGates:
-        - HonorWaitForFirstConsumer
-    imagePullPolicy: IfNotPresent
-    infra:
-      nodeSelector:
-        kubernetes.io/os: linux
-      tolerations:
-        - key: CriticalAddonsOnly
-          operator: Exists
-    workload:
-      nodeSelector:
-        kubernetes.io/os: linux</code></pre>
+  replicas: 1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Containerized Data Importer version.</td>
+<td>Enable CDI operator.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Configure CDI namespace.</td>
+<td>Containerized Data Importer version.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure CDI operator replicas.</td>
+<td>Configure CDI namespace.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Define CDI instance.</td>
+<td>Configure CDI operator replicas.</td>
 </tr>
 </table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Containerized Data Importer operator configuration.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configure instances.</p>
+</div>
+<div class="sect2">
+<h3 id="_kubevirt_2"><a class="anchor" href="#_kubevirt_2"></a><code>kubevirt</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt:
+  certificateRotateStrategy: {}
+  configuration: {}
+  customizeComponents: {}
+  imagePullPolicy: IfNotPresent
+  workloadUpdateStrategy: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See <a href="https://kubevirt.io/user-guide/operations/customize_components">KubeVirt Documentation</a> for specs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_importer_2"><a class="anchor" href="#_importer_2"></a><code>importer</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">importer:
+  config:
+    featureGates:
+      - HonorWaitForFirstConsumer
+  imagePullPolicy: IfNotPresent
+  infra:
+    nodeSelector:
+      kubernetes.io/os: linux
+    tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+  workload:
+    nodeSelector:
+      kubernetes.io/os: linux</code></pre>
+</div>
 </div>
 </td>
 </tr>
@@ -1139,9 +1210,15 @@ default
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_instancetypes"><a class="anchor" href="#_instancetypes"></a><code>instanceTypes</code></h2>
+<h2 id="_cluster"><a class="anchor" href="#_cluster"></a><code>cluster</code></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Cluster scoped VM types and preferences.</p>
+</div>
+<div class="sect2">
+<h3 id="_types"><a class="anchor" href="#_types"></a><code>types</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1157,11 +1234,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instanceTypes: {}</code></pre>
-</div>
-</div>
+<p>{}</p>
 </td>
 </tr>
 </table>
@@ -1170,10 +1243,8 @@ default
 <p>ClusterInstanceTypes configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_instancepreferences"><a class="anchor" href="#_instancepreferences"></a><code>instancePreferences</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_preferences"><a class="anchor" href="#_preferences"></a><code>preferences</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1189,17 +1260,14 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">instancePreferences: {}</code></pre>
-</div>
-</div>
+<p>{}</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>ClusterInstanceTypes configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
+<p>ClusterInstancePreferences configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1209,12 +1277,13 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt_operator:
-  instanceTypes:
-    small-4:
-      cpu:
-        guest: 2
-      memory:
-        quest: 4Gi</code></pre>
+  cluster:
+    types:
+      small-4:
+        cpu:
+          guest: 2
+        memory:
+          quest: 4Gi</code></pre>
 </div>
 </div>
 </div>
