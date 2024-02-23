@@ -1007,6 +1007,71 @@
 <p>Enable / Configure operators.</p>
 </div>
 <div class="sect2">
+<h3 id="_hyperconverged"><a class="anchor" href="#_hyperconverged"></a><code>hyperconverged</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">hyperconverged:
+  enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+  channel: stable <i class="conum" data-value="2"></i><b>(2)</b>
+  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
+    annotations: {}
+    labels: {}
+  resources: {} <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable Hyperconverged operator.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Hyperconveged olm release channel.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configure KubeVirt namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Configure resources for operator.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Hyperconverged cluster operator configuration.</p>
+</div>
+<div class="paragraph">
+<p>Deploying hyperconverged cluster operator will use OLM to install the operator.</p>
+</div>
+<div class="paragraph">
+<p>This operator will manage all other operator contained in this component.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/kubevirt/hyperconverged-cluster-operator">Hyperconverged Cluster Operator Github</a> for documentation.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_kubevirt"><a class="anchor" href="#_kubevirt"></a><code>kubevirt</code></h3>
 <div class="hdlist">
 <table>
@@ -1148,22 +1213,10 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt:
-  certificateRotateStrategy: {}
-  configuration: {}
-  customizeComponents: {}
-  imagePullPolicy: IfNotPresent
-  workloadUpdateStrategy: {}</code></pre>
-</div>
-</div>
+<p>See <a href="https://kubevirt.io/user-guide/operations/customize_components">KubeVirt Documentation</a>.</p>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>See <a href="https://kubevirt.io/user-guide/operations/customize_components">KubeVirt Documentation</a> for specs.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1183,30 +1236,10 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">importer:
-  config:
-    featureGates:
-      - HonorWaitForFirstConsumer
-  imagePullPolicy: IfNotPresent
-  infra:
-    nodeSelector:
-      kubernetes.io/os: linux
-    tolerations:
-      - key: CriticalAddonsOnly
-        operator: Exists
-  workload:
-    nodeSelector:
-      kubernetes.io/os: linux</code></pre>
-</div>
-</div>
+<p>See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">CDI Documentation</a>.</p>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">CDI Documentation</a> for specs.</p>
 </div>
 </div>
 </div>
@@ -1277,6 +1310,34 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt_operator:
+  config:
+    kubevirt:
+      imagePullPolicy: IfNotPresent
+      infra:
+        nodeSelector:
+          kubernetes.io/os: linux
+        tolerations:
+          - key: CriticalAddonsOnly
+            operator: Exists
+      workload:
+        nodeSelector:
+          kubernetes.io/os: linux
+
+    importer:
+      config:
+        featureGates:
+          - HonorWaitForFirstConsumer
+      imagePullPolicy: IfNotPresent
+      infra:
+        nodeSelector:
+          kubernetes.io/os: linux
+        tolerations:
+          - key: CriticalAddonsOnly
+            operator: Exists
+      workload:
+        nodeSelector:
+          kubernetes.io/os: linux
+
   cluster:
     types:
       small-4:
