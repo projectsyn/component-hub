@@ -1098,8 +1098,7 @@ default
     labels:
       kubevirt.io: ''
       pod-security.kubernetes.io/enforce: privileged
-    name: syn-kubevirt-operator
-  replicas: 1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+    name: syn-kubevirt-operator</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1115,10 +1114,6 @@ default
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Configure KubeVirt namespace.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Configure KubeVirt operator replicas.</td>
 </tr>
 </table>
 </div>
@@ -1156,8 +1151,7 @@ default
     annotations: {}
     labels:
       cdi.kubevirt.io: ''
-    name: syn-kubevirt-cdi
-  replicas: 1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+    name: syn-kubevirt-cdi</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1174,10 +1168,6 @@ default
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Configure CDI namespace.</td>
 </tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Configure CDI operator replicas.</td>
-</tr>
 </table>
 </div>
 </td>
@@ -1186,6 +1176,58 @@ default
 </div>
 <div class="paragraph">
 <p>Containerized Data Importer operator configuration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_addons"><a class="anchor" href="#_network_addons"></a><code>network_addons</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">network_addons:
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  version: v0.91.0 <i class="conum" data-value="2"></i><b>(2)</b>
+  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
+    annotations: {}
+    labels: {}
+    name: syn-kubevirt-cna</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable CNA operator.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Cluster Network Addons version.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configure CNA namespace.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Cluster Network Addons operator configuration.</p>
 </div>
 </div>
 </div>
@@ -1237,6 +1279,29 @@ default
 </td>
 <td class="hdlist2">
 <p>See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">CDI Documentation</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_addons_2"><a class="anchor" href="#_network_addons_2"></a><code>network_addons</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/kubevirt/cluster-network-addons-operator">CNA Documentation</a>.</p>
 </td>
 </tr>
 </table>
