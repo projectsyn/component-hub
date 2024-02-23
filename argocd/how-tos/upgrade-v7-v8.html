@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/argocd/references/parameters.html">
-    <link rel="prev" href="../how-tos/upgrade-v7-v8.html">
+    <title>Upgrade component-argocd from v7.x to v8.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/argocd/how-tos/upgrade-v7-v8.html">
+    <link rel="prev" href="upgrade-v5-v6.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,13 +100,13 @@
     <span class="nav-text">How-tos</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v3-v4.html">Upgrade from <code>v3.x</code> to <code>v4.x</code></a>
+    <a class="nav-link" href="upgrade-v3-v4.html">Upgrade from <code>v3.x</code> to <code>v4.x</code></a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v5-v6.html">Upgrade from <code>v5.5.x</code> to <code>v6.x</code></a>
+    <a class="nav-link" href="upgrade-v5-v6.html">Upgrade from <code>v5.5.x</code> to <code>v6.x</code></a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a>
   </li>
 </ul>
   </li>
@@ -113,8 +114,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">References</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -1003,557 +1004,63 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Argo CD</a></li>
-    <li>References</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-tos</li>
+    <li><a href="upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-argocd/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-argocd/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v7-v8.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The parent key for all of the following parameters is <code>argocd</code>.</p>
-</div>
-</div>
-</div>
+<h1 class="page">Upgrade <code>component-argocd</code> from <code>v7.x</code> to <code>v8.x</code></h1>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_argocd_operator_custom_resource_version_migration"><a class="anchor" href="#_argocd_operator_custom_resource_version_migration"></a>ArgoCD Operator custom resource version migration</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_distribution"><a class="anchor" href="#_distribution"></a><code>distribution</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>${facts:distribution}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Kubernetes distribution of the cluster.</p>
+<p>As of component version 8, the ArgoCD operator uses a new api version <code>argoproj.io/v1beta1</code>.
+If there are other unmanaged ArgoCD deployed, you need to enable the conversion webhook.</p>
 </div>
 <div class="sect2">
-<h3 id="_resync_time"><a class="anchor" href="#_resync_time"></a><code>resync_time</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>3m0s</code></p>
-</td>
-</tr>
-</table>
-</div>
+<h3 id="_1_upgrade_component_argocd_with_conversion_webhook_flag"><a class="anchor" href="#_1_upgrade_component_argocd_with_conversion_webhook_flag"></a>1. Upgrade component-argocd with conversion webhook flag</h3>
 <div class="paragraph">
-<p>Resync interval.
-Lower values mean quicker sync but higher CPU usage and more Git traffic.</p>
+<p>The first time you roll out component-argocd v8.x, set the following configuration in your hierarchy:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_ssh_known_hosts"><a class="anchor" href="#_ssh_known_hosts"></a><code>ssh_known_hosts</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>SSH known hosts for Git servers.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.
-Each entry follows the <a href="https://syn.tools/syn/explanations/commodore-components/container-images.html">Commodore component best practices</a> for specifying container images.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_log_level"><a class="anchor" href="#_log_level"></a><code>log_level</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: info</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter exposes the log level for the ArgoCD components.
-By default, all components are configured with the log level given in key <code>default</code>.
-The log level can be customized for individual components by providing the desired level in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_log_format"><a class="anchor" href="#_log_format"></a><code>log_format</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: `text`</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter exposes the log format for the ArgoCD components.
-By default, all components are configured to use the log format given for key <code>default</code>.
-The log format can be customized for individual components by providing the desired log format in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-defaults
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the resource requests and limits for the different
-components. Keys correspond to different pods/containers:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>application_controller</code></p>
-</li>
-<li>
-<p><code>redis</code></p>
-</li>
-<li>
-<p><code>repo_server</code></p>
-</li>
-<li>
-<p><code>repo_server_vault_agent</code> - for the <code>vault_agent</code> container in the <code>repo-server</code> pod</p>
-</li>
-<li>
-<p><code>server</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Users can remove configured requests and limits by setting any keys or subkeys in the dictionary to <code>null</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If monitoring should be enabled for this component.
-Requires the <a href="https://github.com/prometheus-operator/prometheus-operator">Prometheus Operator</a> to be installed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_dashboards"><a class="anchor" href="#_monitoring_dashboards"></a><code>monitoring.dashboards</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If dashboards should be enabled for this component.
-Requires the <a href="https://github.com/integr8ly/grafana-operator">Grafana Operator</a> to be installed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_prometheus_rule_labels"><a class="anchor" href="#_monitoring_prometheus_rule_labels"></a><code>monitoring.prometheus_rule_labels</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{"prometheus":"platform"}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Labels to set on the alert rule configuration.
-Can be used to ensure prometheus-operator picks up the <code>PrometheusRule</code> object by setting appropriate labels.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   argocd:
-    resync_seconds: 3
-    ssh_known_hosts: |
-      git.example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9EkPcVdsz/oVTI2VJkBlq8Mv/dg3rhcbgzAEKyiwUG
-    monitoring:
-      dashboards: true</code></pre>
+    operator:
+      conversion_webhook: true</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_operator"><a class="anchor" href="#_operator"></a><code>operator</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-defaults
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>Configuration for the ArgoCD operator which is deployed as part of this component.</p>
+<p>Roll out the upgrade with this configuration, and wait until:
+* The ArgoCD operator deployment is rolled out.
+* All unmanaged ArgoCD CR are updated.</p>
 </div>
-<div class="sect2">
-<h3 id="_operator_namespace"><a class="anchor" href="#_operator_namespace"></a><code>operator.namespace</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>syn-argocd-operator</code></p>
-</dd>
-</dl>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as cluster-admin get argocds -A -ocustom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,API:.apiVersion'
+NAMESPACE          NAME               API
+openshift-gitops   openshift-gitops   argoproj.io/v1beta1
+syn                syn-argocd         argoproj.io/v1beta1</code></pre>
 </div>
-<div class="paragraph">
-<p>The namespace in which to deploy the argocd operator</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_operator_cluster_scope_namespaces"><a class="anchor" href="#_operator_cluster_scope_namespaces"></a><code>operator.cluster_scope_namespaces</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>array</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>["${argocd:namespace}"]</code></p>
-</dd>
-</dl>
-</div>
+<h3 id="_2_remove_the_migration_flag_to_complete_the_migration"><a class="anchor" href="#_2_remove_the_migration_flag_to_complete_the_migration"></a>2. Remove the migration flag to complete the migration</h3>
 <div class="paragraph">
-<p>List of namespaces in which argocd is allowed to be installed at the cluster scope.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operator_migrate"><a class="anchor" href="#_operator_migrate"></a><code>operator.migrate</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
-<p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
-<p><code>false</code></p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>Whether to migrate from v5 or earlier. If you are upgrading from v5, set this to <code>true</code> on the first catalog compilation.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operator_images"><a class="anchor" href="#_operator_images"></a><code>operator.images</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-defaults
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by the operator</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operator_manifests_version"><a class="anchor" href="#_operator_manifests_version"></a><code>operator.manifests_version</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${argocd:images:argocd_operator:tag}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Version of the kubernetes manifests for the operator</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operator_kustomization_url"><a class="anchor" href="#_operator_kustomization_url"></a><code>operator.kustomization_url</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code><a href="https://github.com/argoproj-labs/argocd-operator//config/default/" class="bare">github.com/argoproj-labs/argocd-operator//config/default/</a></code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>URL of the kustomization to deploy the operator</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_operator_kustomize_input"><a class="anchor" href="#_operator_kustomize_input"></a><code>operator.kustomize_input</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-defaults
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Kustomize inputs supplied to the argocd operator kustomization</p>
+<p>After the first rollout of v8.x, the conversion webhook flag can be removed.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a></span>
+  <span class="prev"><a href="upgrade-v5-v6.html">Upgrade from <code>v5.5.x</code> to <code>v6.x</code></a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1564,7 +1071,7 @@ defaults
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/argocd/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/argocd/how-tos/upgrade-v7-v8.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
