@@ -1001,13 +1001,8 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_operators"><a class="anchor" href="#_operators"></a><code>operators</code></h2>
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Enable / Configure operators.</p>
-</div>
-<div class="sect2">
-<h3 id="_hyperconverged"><a class="anchor" href="#_hyperconverged"></a><code>hyperconverged</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1025,13 +1020,64 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">hyperconverged:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace:
+  annotations: {} <i class="conum" data-value="1"></i><b>(1)</b>
+  labels: {} <i class="conum" data-value="2"></i><b>(2)</b>
+  name: syn-kubevirt-operator <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Additional annotations.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Additional labels.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Namespace name.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Namespace configuraton.</p>
+</div>
+<div class="paragraph">
+<p>If deploying Hyperconverged Cluster operator the namespace name will be hardcoded to <code>kubevirt-hyperconverged</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm"><a class="anchor" href="#_olm"></a><code>olm</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">olm:
   enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
   channel: stable <i class="conum" data-value="2"></i><b>(2)</b>
-  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
-    annotations: {}
-    labels: {}
-  resources: {} <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+  resources: {} <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1046,10 +1092,6 @@ default
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure KubeVirt namespace.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>Configure resources for operator.</td>
 </tr>
 </table>
@@ -1070,6 +1112,13 @@ default
 <div class="paragraph">
 <p>See <a href="https://github.com/kubevirt/hyperconverged-cluster-operator">Hyperconverged Cluster Operator Github</a> for documentation.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operators"><a class="anchor" href="#_operators"></a><code>operators</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable / Configure operators.</p>
 </div>
 <div class="sect2">
 <h3 id="_kubevirt"><a class="anchor" href="#_kubevirt"></a><code>kubevirt</code></h3>
@@ -1092,13 +1141,7 @@ default
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt:
   enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
-  version: v1.1.1 <i class="conum" data-value="2"></i><b>(2)</b>
-  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
-    annotations: {}
-    labels:
-      kubevirt.io: ''
-      pod-security.kubernetes.io/enforce: privileged
-    name: syn-kubevirt-operator</code></pre>
+  version: v1.1.1 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1111,10 +1154,6 @@ default
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>KubeVirt version.</td>
 </tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure KubeVirt namespace.</td>
-</tr>
 </table>
 </div>
 </td>
@@ -1126,7 +1165,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_importer"><a class="anchor" href="#_importer"></a><code>importer</code></h3>
+<h3 id="_data_importer"><a class="anchor" href="#_data_importer"></a><code>data_importer</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1146,12 +1185,7 @@ default
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">importer:
   enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
-  version: v1.58.1 <i class="conum" data-value="2"></i><b>(2)</b>
-  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
-    annotations: {}
-    labels:
-      cdi.kubevirt.io: ''
-    name: syn-kubevirt-cdi</code></pre>
+  version: v1.58.1 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1163,10 +1197,6 @@ default
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>Containerized Data Importer version.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure CDI namespace.</td>
 </tr>
 </table>
 </div>
@@ -1199,11 +1229,7 @@ default
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">network_addons:
   enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
-  version: v0.91.0 <i class="conum" data-value="2"></i><b>(2)</b>
-  namespace: <i class="conum" data-value="3"></i><b>(3)</b>
-    annotations: {}
-    labels: {}
-    name: syn-kubevirt-cna</code></pre>
+  version: v0.91.0 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1216,10 +1242,6 @@ default
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>Cluster Network Addons version.</td>
 </tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Configure CNA namespace.</td>
-</tr>
 </table>
 </div>
 </td>
@@ -1228,6 +1250,138 @@ default
 </div>
 <div class="paragraph">
 <p>Cluster Network Addons operator configuration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hostpath_provisioner"><a class="anchor" href="#_hostpath_provisioner"></a><code>hostpath_provisioner</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">network_addons:
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  version: v0.18.0 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable Hostpath Provisioner perator.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Cluster Network Addons version.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Hostpath Provisioner operator configuration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_schedule_scale"><a class="anchor" href="#_schedule_scale"></a><code>schedule_scale</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">schedule_scale:
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  version: v0.19.0 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable Scheduling, Scale and Performance operator.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Scheduling, Scale and Performance operator version.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Scheduling, Scale and Performance operator configuration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_teanant_quota"><a class="anchor" href="#_teanant_quota"></a><code>teanant_quota</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">tenant_quota:
+  enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+  version: v1.2.0 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable Managed Tenant Quota operator.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Managed Tenant Quota operator version.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Managed Tenant Quota operator configuration.</p>
 </div>
 </div>
 </div>
@@ -1262,7 +1416,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_importer_2"><a class="anchor" href="#_importer_2"></a><code>importer</code></h3>
+<h3 id="_data_importer_2"><a class="anchor" href="#_data_importer_2"></a><code>data_importer</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1278,7 +1432,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">CDI Documentation</a>.</p>
+<p>See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">Containerized Data Importer Documentation</a>.</p>
 </td>
 </tr>
 </table>
@@ -1301,7 +1455,76 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/cluster-network-addons-operator">CNA Documentation</a>.</p>
+<p>See <a href="https://github.com/kubevirt/cluster-network-addons-operator">Cluster Network Addons Documentation</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hostpath_provisioner_2"><a class="anchor" href="#_hostpath_provisioner_2"></a><code>hostpath_provisioner</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/kubevirt/hostpath-provisioner-operator">Hostpath Provisioner Documentation</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_schedule_scale_2"><a class="anchor" href="#_schedule_scale_2"></a><code>schedule_scale</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/kubevirt/ssp-operator/blob/main/docs/configuration.md">Scheduling, Scale and Performance Documentation</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_teanant_quota_2"><a class="anchor" href="#_teanant_quota_2"></a><code>teanant_quota</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/kubevirt/managed-tenant-quota">Managed Tenant Quota Documentation</a>.</p>
 </td>
 </tr>
 </table>
@@ -1310,7 +1533,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cluster"><a class="anchor" href="#_cluster"></a><code>cluster</code></h2>
+<h2 id="_vm"><a class="anchor" href="#_vm"></a><code>vm</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Cluster scoped VM types and preferences.</p>
