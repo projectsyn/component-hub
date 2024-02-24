@@ -1104,13 +1104,28 @@ default
 <p>Hyperconverged cluster operator configuration.</p>
 </div>
 <div class="paragraph">
-<p>Deploying hyperconverged cluster operator will use OLM to install the operator.</p>
-</div>
-<div class="paragraph">
-<p>This operator will manage all other operator contained in this component.</p>
-</div>
-<div class="paragraph">
 <p>See <a href="https://github.com/kubevirt/hyperconverged-cluster-operator">Hyperconverged Cluster Operator Github</a> for documentation.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deploying hyperconverged cluster operator will use OLM to install the operator.</p>
+</li>
+<li>
+<p>This operator will manage all other operator contained in this component.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1389,146 +1404,99 @@ default
 <div class="sect1">
 <h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Configure instances.</p>
+<p>If using olm / Hyperconverged Cluster operator all configuration is done under this field:</p>
 </div>
-<div class="sect2">
-<h3 id="_kubevirt_2"><a class="anchor" href="#_kubevirt_2"></a><code>kubevirt</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://kubevirt.io/user-guide/operations/customize_components">KubeVirt Documentation</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
+  featureGates:
+    persistentReservation: true
+    withHostPassthroughCPU: true</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_data_importer_2"><a class="anchor" href="#_data_importer_2"></a><code>data_importer</code></h3>
-<div class="hdlist">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
 </td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">Containerized Data Importer Documentation</a>.</p>
+<td class="content">
+<div class="paragraph">
+<p>If using indivudual operators configure under specified keys:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>kubevirt</code>: See <a href="https://kubevirt.io/user-guide/operations/customize_components">KubeVirt Documentation</a>.</p>
+</li>
+<li>
+<p><code>data_importer</code>: See <a href="https://github.com/kubevirt/containerized-data-importer/blob/main/doc/cdi-config.md">Containerized Data Importer Documentation</a>.</p>
+</li>
+<li>
+<p><code>network_addons</code>: See <a href="https://github.com/kubevirt/cluster-network-addons-operator">Cluster Network Addons Documentation</a>.</p>
+</li>
+<li>
+<p><code>hostpath_provisioner</code>: See <a href="https://github.com/kubevirt/hostpath-provisioner-operator">Hostpath Provisioner Documentation</a>.</p>
+</li>
+<li>
+<p><code>schedule_scale</code>: See <a href="https://github.com/kubevirt/ssp-operator/blob/main/docs/configuration.md">Scheduling, Scale and Performance Documentation</a>.</p>
+</li>
+<li>
+<p><code>teanant_quota</code>: See <a href="https://github.com/kubevirt/managed-tenant-quota">Managed Tenant Quota Documentation</a>.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
+  kubevirt:
+    imagePullPolicy: IfNotPresent
+    infra:
+      replicas: 1
+
+  data_importer:
+    config:
+      featureGates:
+        - HonorWaitForFirstConsumer
+    infra:
+      replicas: 1</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_network_addons_2"><a class="anchor" href="#_network_addons_2"></a><code>network_addons</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/cluster-network-addons-operator">Cluster Network Addons Documentation</a>.</p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_hostpath_provisioner_2"><a class="anchor" href="#_hostpath_provisioner_2"></a><code>hostpath_provisioner</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/hostpath-provisioner-operator">Hostpath Provisioner Documentation</a>.</p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_schedule_scale_2"><a class="anchor" href="#_schedule_scale_2"></a><code>schedule_scale</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/ssp-operator/blob/main/docs/configuration.md">Scheduling, Scale and Performance Documentation</a>.</p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_teanant_quota_2"><a class="anchor" href="#_teanant_quota_2"></a><code>teanant_quota</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/kubevirt/managed-tenant-quota">Managed Tenant Quota Documentation</a>.</p>
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 </div>
@@ -1563,6 +1531,31 @@ default
 <div class="paragraph">
 <p>ClusterInstanceTypes configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Example <code>VirtualMachineClusterInstancetype</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">vm:
+  types:
+    small-4:
+      cpu:
+        guest: 2
+      memory:
+        quest: 4Gi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_preferences"><a class="anchor" href="#_preferences"></a><code>preferences</code></h3>
@@ -1589,50 +1582,28 @@ default
 <div class="paragraph">
 <p>ClusterInstancePreferences configuration, see <a href="https://kubevirt.io/user-guide/virtual_machines/instancetypes/">KubeVirt Documentation</a> for specs.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Example <code>VirtualMachineClusterPreference</code>:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kubevirt_operator:
-  config:
-    kubevirt:
-      imagePullPolicy: IfNotPresent
-      infra:
-        nodeSelector:
-          kubernetes.io/os: linux
-        tolerations:
-          - key: CriticalAddonsOnly
-            operator: Exists
-      workload:
-        nodeSelector:
-          kubernetes.io/os: linux
-
-    importer:
-      config:
-        featureGates:
-          - HonorWaitForFirstConsumer
-      imagePullPolicy: IfNotPresent
-      infra:
-        nodeSelector:
-          kubernetes.io/os: linux
-        tolerations:
-          - key: CriticalAddonsOnly
-            operator: Exists
-      workload:
-        nodeSelector:
-          kubernetes.io/os: linux
-
-  cluster:
-    types:
-      small-4:
-        cpu:
-          guest: 2
-        memory:
-          quest: 4Gi</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">vm:
+  preferences:
+    virtio:
+      devices:
+        preferredDiskBus: virtio</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
