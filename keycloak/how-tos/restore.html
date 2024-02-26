@@ -1273,7 +1273,7 @@ kubectl -n $NAMESPACE get statefulset keycloakx -w</code></pre>
 
 restic dump "${SNAPSHOT_ID}" /$NAMESPACE-keycloak-postgresql.sql \
   | kubectl -n $NAMESPACE exec -i $POD \
-  -- sh -c 'PGPASSWORD="${POSTGRES_PASSWORD}" psql --set ON_ERROR_STOP=on -U "${POSTGRES_USER}" ${POSTGRES_DB}'</code></pre>
+  -- sh -c 'PGPASSWORD="${POSTGRES_PASSWORD}" psql --set ON_ERROR_STOP=on -U "${POSTGRES_USER}" ${POSTGRES_DATABASE}'</code></pre>
 </div>
 </div>
 </li>

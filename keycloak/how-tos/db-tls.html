@@ -1252,7 +1252,7 @@ vault kv patch "${parent}/${instance}" server-cert=@server.crt server-cert-key=@
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">namespace=syn-keycloak
 kubectl exec -it -n ${namespace} keycloak-postgresql-0 -c keycloak-postgresql -- sh -c \
-'PGDATABASE="$POSTGRES_DB" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" '\
+'PGDATABASE="$POSTGRES_DATABASE" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" '\
 'psql -c "SELECT datname, usename, ssl, client_addr FROM pg_stat_ssl JOIN pg_stat_activity ON pg_stat_ssl.pid = pg_stat_activity.pid;"'</code></pre>
 </div>
 </div>
