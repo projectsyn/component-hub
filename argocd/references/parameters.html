@@ -1560,6 +1560,155 @@ defaults
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_instances"><a class="anchor" href="#_instances"></a><code>instances</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This section allows the definition of arbitrary <code>ArgoCD</code> instances, and associated <code>AppProject</code> resources.
+The keys of this parameter are parsed as namespaced names (<code>&lt;namespace&gt;/&lt;name&gt;</code>) and used as namespaces and names of the created resources.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Namespace management</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each <code>ArgoCD</code> instance must be deployed to its own namespace</p>
+</li>
+<li>
+<p>You MUST create the target namespace <em>manually</em> before deploying ArgoCD using this component</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Due to how Argo CD works, namespaces holding Argo CD instances cannot be created by other Argo CD instances.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  argocd:
+    instances:
+      some-namespace/some-argocd:
+        config:
+          spec:
+            sso:
+              provider: dex
+              dex:
+                openShiftOAuth: true
+          ...
+        projects:
+          some-project:
+            spec:
+              clusterResourceWhitelist: []
+              destinations:
+                - namespace: corp-*
+                  server: https://kubernetes.default.svc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_namespacename_config"><a class="anchor" href="#_instances_namespacename_config"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  applicationInstanceLabelKey: &lt;name&gt;.&lt;namespace&gt;/instance</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Plain configuration that will be merged verbatim into the created <code>ArgoCD</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://argocd-operator.readthedocs.io/en/latest/reference/argocd/">the <code>ArgoCD</code> reference of the Argo CD Operator</a> for available fields.</p>
+</div>
+<div class="paragraph">
+<p>To avoid common issues, some defaults are configured.
+They can be overwritten via the inventory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_namespacename_projects"><a class="anchor" href="#_instances_namespacename_projects"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.projects</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Arbitrary <code>AppProject</code> instances to be deployed on the cluster.</p>
+</div>
+<div class="paragraph">
+<p>The keys of this parameter are used as the generated resource&#8217;s <code>metadata.name</code>, while the parent `ArgoCD&#8217;s namespace will be inherited.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/projects/">the <code>AppProject</code> reference of Argo CD</a> for available fields.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a></span>
 </nav>
