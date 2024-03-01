@@ -1255,7 +1255,7 @@ default
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
   elasticsearch:
-    enabled: true
+    enabled: false
     kibana_host: null
     predict_elasticsearch_storage_alert:
       enabled: true
@@ -1272,6 +1272,20 @@ default
 </div>
 <div class="paragraph">
 <p>Configuration of the elasticsearch component.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Elasticsearch is deprecated.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_components_elasticsearch_kibana_host"><a class="anchor" href="#_components_elasticsearch_kibana_host"></a><code>components.elasticsearch.kibana_host</code></h3>
@@ -1528,7 +1542,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>false</code></p>
+<p><code>true</code></p>
 </td>
 </tr>
 </table>

@@ -1039,11 +1039,54 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Elasticsearch is deprecated.
+The component will deploy Lokistack by default, for keeping elasticsearch apply config below.</p>
+</div>
+<div class="paragraph">
 <p>The parameter <code>clusterLogging.collector.logs</code> is deprecated.
 The component is backwards compatible, but moving the parameters to <code>clusterLogging.collector</code> is highly encouraged.</p>
 </div>
 <div class="paragraph">
 <p>See <a href="https://docs.openshift.com/container-platform/latest/logging/log_collection_forwarding/cluster-logging-collector.html">OpenShift Documentation</a> for reference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_keep_elasticsearch_as_logging_stack"><a class="anchor" href="#_keep_elasticsearch_as_logging_stack"></a>Keep Elasticsearch as Logging stack</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enable Elasticsearch in <code>components</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    components:
+      lokistack:
+        enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+      elasticsearch:
+        enabled: true <i class="conum" data-value="2"></i><b>(2)</b>
+
+    clusterLogging:
+      logStore:
+        type: elasticsearch <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Disable Lokistack in <code>components</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Enable Elasticsearch in <code>components</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set Elasticsearch in <code>clusterLogging</code></td>
+</tr>
+</table>
 </div>
 </div>
 </div>
