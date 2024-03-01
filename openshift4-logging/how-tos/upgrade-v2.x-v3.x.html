@@ -1043,6 +1043,11 @@
 The component will deploy Lokistack by default, for keeping elasticsearch apply config below.</p>
 </div>
 <div class="paragraph">
+<p>Fluentd collector is deprecated.
+The component will deploy Vector by default, for keeping Fluentd apply config below.
+Vector does not support all forwarding protocols, see <a href="https://docs.openshift.com/container-platform/4.15/logging/log_collection_forwarding/log-forwarding.html#log-forwarding-collector-outputs_log-forwarding">OpenShift Documentation</a>.</p>
+</div>
+<div class="paragraph">
 <p>The parameter <code>clusterLogging.collector.logs</code> is deprecated.
 The component is backwards compatible, but moving the parameters to <code>clusterLogging.collector</code> is highly encouraged.</p>
 </div>
@@ -1085,6 +1090,31 @@ The component is backwards compatible, but moving the parameters to <code>cluste
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Set Elasticsearch in <code>clusterLogging</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_keep_fluentd_as_log_collector"><a class="anchor" href="#_keep_fluentd_as_log_collector"></a>Keep Fluentd as Log collector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Set <code>clusterLogging.collection.type</code> to <code>fluentd</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    clusterLogging:
+      collection:
+        type: fluentd <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set Fluentd in <code>clusterLogging</code></td>
 </tr>
 </table>
 </div>
