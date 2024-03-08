@@ -171,6 +171,9 @@
     <a class="nav-link" href="../how-tos/upgrade-12.x-to-13.x.html">Upgrade 12.x to 13.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-13.x-to-14.x.html">Upgrade 13.x to 14.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/openshift-4.html">Install on OpenShift 4</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1454,6 +1457,36 @@ default
 <div class="paragraph">
 <p>Defines the FQDN the keycloak ingress or route object is configured.
 FQDN should be overwritten on the cluster level.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_relativepath"><a class="anchor" href="#_relativepath"></a><code>relativePath</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>/</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines the relative path of Keycloak.
+The default realtiv path of Keycloak has changed from <code>/auth</code> to <code>/</code> with the <a href="https://www.keycloak.org/migration/migrating-to-quarkus">migration to Quarkus</a>.
+To preserve the legacy behavior of Wildfly set the relativePath to <code>/auth</code>.</p>
 </div>
 </div>
 </div>
