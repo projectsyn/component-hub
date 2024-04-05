@@ -2594,6 +2594,167 @@ Those values are merged into each remote write configuration in <code>configs.pr
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_cronjobs"><a class="anchor" href="#_cronjobs"></a><code>cronjobs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict of arbitrary cronjobs to create in the <code>openshift-monitoring</code> namespace.
+The key is the name of the cronjob and the values are its configuration options as shown below.</p>
+</div>
+<div class="sect2">
+<h3 id="_schedule_2"><a class="anchor" href="#_schedule_2"></a><code>schedule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Schedule of the CronJob in cron syntax.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_script"><a class="anchor" href="#_script"></a><code>script</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The script to execute as part of the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image"><a class="anchor" href="#_image"></a><code>image</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>images.oc</code> from <a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image_image"><a class="anchor" href="#_image_image"></a><code>image.image</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The image used by the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image_tag"><a class="anchor" href="#_image_tag"></a><code>image.tag</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The image tag used by the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Any additional custom configuration for the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cronjobs:
+  my-cronjob:
+    schedule: "1 * * * *"
+    image:
+      image: quay.io/appuio/oc
+      tag: v4.13
+    script: |
+      #!/bin/sh
+      echo "this is an example"
+    config:
+      spec:
+        failedJobsHistoryLimit: 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
   <span class="next"><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
