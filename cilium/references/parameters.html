@@ -1666,6 +1666,234 @@ spec:
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_egress_gateway_egress_ip_ranges"><a class="anchor" href="#_egress_gateway_egress_ip_ranges"></a><code>egress_gateway.egress_ip_ranges</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumEgressGatewayPolicy</code> resources which assign a single egress IP to a namespace according to the design selected in <a href="https://kb.vshn.ch/oc4/explanations/decisions/cloudscale-cilium-egressip.html">Floating egress IPs with Cilium on cloudscale</a>.</p>
+</div>
+<div class="paragraph">
+<p>Each entry in the parameter is intended to describe a group of dummy interfaces that can be used in <code>CiliumEgressGatewayPolicy</code> resources.
+The component expects that each value is an object with fields <code>egress_range</code>, <code>node_selector</code> and <code>namespace_egress_ips</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h4>
+<div class="paragraph">
+<p>The component expects that the key for each entry matches the prefix of the dummy interface names that are assigned the shadow IPs which map to the egress IP range defined in <code>egress_range</code>.
+To expand, the component expects that each node matching the selector in <code>node_selector</code> has a dummy interfaces which is named <code>&lt;prefix&gt;_&lt;i&gt;</code> for \$i \in [0, n)\$ where \$n\$ is the number of IPs contained in the specified egress range.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the component expects that the network environment of the cluster ensures that all traffic which originates from the IPs assigned to the dummy interfaces on each node is mapped to the IPs in the range given in <code>egress_range</code>.
+The details of the mapping are left to the operator of the cluster&#8217;s network environment, but the component expects that traffic that originates from the IPs assigned to the same dummy interface on different nodes is mapped to a single egress IP.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend that cluster operators allocate a shadow egress IP range of the same size as the egress IP range specified in field <code>egress_range</code> for each node that matches the node selector defined in <code>node_selector</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, a cluster operator could select shadow IP CIDRs <code>192.0.2.32/27</code>, <code>192.0.2.64/27</code> and <code>192.0.2.96/27</code> for an egress IP CIDR of <code>192.0.2.0/27</code> if 3 nodes in the cluster match the node selector.</p>
+</div>
+<div class="paragraph">
+<p>In this case, the operator would need to ensure that traffic originating from each shadow IP CIDR is mapped to the egress CIDR. One option to realize this mapping are iptables <code>NETMAP</code> rules on the cluster&#8217;s default gateway:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">iptables -t nat -A POSTROUTING -j NETMAP -s 192.0.2.32/27 --to 192.0.2.0/27 -p all
+iptables -t nat -A POSTROUTING -j NETMAP -s 192.0.2.64/27 --to 192.0.2.0/27 -p all
+iptables -t nat -A POSTROUTING -j NETMAP -s 192.0.2.96/27 --to 192.0.2.0/27 -p all</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This approach assumes that the default gateway has suitable routes to ensure that traffic to <code>192.0.2.0/25</code> is routed to the nodes matching the node selector.
+The easiest option to do so is to define a link-local route for <code>192.0.2.0/25</code> on the network interface of the default gateway which is attached to the L2 network of the cluster nodes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_policy_generation"><a class="anchor" href="#_policy_generation"></a>Policy generation</h4>
+<div class="paragraph">
+<p>The component will generate one <code>CiliumEgressGatewayPolicy</code> for each key-value pair in field <code>namespace_egress_ips</code> for each egress range.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The compilation will abort with an error if the same namespace appears in multiple egress range definitions.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t enforce that different egress ranges are non-overlapping.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component expects that keys in field <code>namespace_egress_ips</code> are namespace names.
+Additionally, the component expects that values in that field are IPs in the defined egress IP range.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component allows users to assign the same egress IP to multiple namespaces.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component expects that the value of <code>egress_range</code> has format <code>192.0.2.32-192.0.2.63</code>.
+If the range isn&#8217;t given in the expected format or if the component detects that the given range is empty (for example if the first IP is larger than the last IP) compilation is aborted with an error.
+Additionally, the component also aborts compilation with an error if an egress IP that&#8217;s assigned to a namespace is outside the specified egress range.</p>
+</div>
+<div class="paragraph">
+<p>Finally, entries in <code>egress_ip_ranges</code> and <code>namespace_egress_ips</code> can be removed by setting the value to <code>null</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">egress_ip_ranges:
+  egress_a:
+    egress_range: '192.0.2.32 - 192.0.2.63'
+    node_selector:
+      node-role.kubernetes.io/infra: ''
+    namespace_egress_ips:
+      foo: 192.0.2.32
+      bar: 192.0.2.61</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The configuration shown above results in the two <code>CiliumEgressGatewayPolicy</code> resources shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2
+kind: CiliumEgressGatewayPolicy
+metadata:
+  annotations: <i class="conum" data-value="1"></i><b>(1)</b>
+    cilium.syn.tools/description: Generated policy to assign egress IP 192.0.2.61
+      in egress range "egress_a" (192.0.2.32 - 192.0.2.63) to namespace bar.
+    cilium.syn.tools/egress-ip: 192.0.2.61
+    cilium.syn.tools/egress-range: 192.0.2.32 - 192.0.2.63
+    cilium.syn.tools/interface-prefix: egress_a
+    cilium.syn.tools/source-namespace: bar
+  labels:
+    name: bar
+  name: bar <i class="conum" data-value="2"></i><b>(2)</b>
+spec:
+  destinationCIDRs:
+    - 0.0.0.0/0 <i class="conum" data-value="3"></i><b>(3)</b>
+  egressGroups:
+    - interface: egress_a_29 <i class="conum" data-value="4"></i><b>(4)</b>
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: '' <i class="conum" data-value="5"></i><b>(5)</b>
+  selectors:
+    - podSelector:
+        matchLabels:
+          io.kubernetes.pod.namespace: bar <i class="conum" data-value="6"></i><b>(6)</b>
+---
+apiVersion: cilium.io/v2
+kind: CiliumEgressGatewayPolicy
+metadata:
+  annotations: <i class="conum" data-value="1"></i><b>(1)</b>
+    cilium.syn.tools/description: Generated policy to assign egress IP 192.0.2.32
+      in egress range "egress_a" (192.0.2.32 - 192.0.2.63) to namespace foo.
+    cilium.syn.tools/egress-ip: 192.0.2.32
+    cilium.syn.tools/egress-range: 192.0.2.32 - 192.0.2.63
+    cilium.syn.tools/interface-prefix: egress_a
+    cilium.syn.tools/source-namespace: foo
+  labels:
+    name: foo
+  name: foo <i class="conum" data-value="2"></i><b>(2)</b>
+spec:
+  destinationCIDRs:
+    - 0.0.0.0/0 <i class="conum" data-value="3"></i><b>(3)</b>
+  egressGroups:
+    - interface: egress_a_0 <i class="conum" data-value="4"></i><b>(4)</b>
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: '' <i class="conum" data-value="5"></i><b>(5)</b>
+  selectors:
+    - podSelector:
+        matchLabels:
+          io.kubernetes.pod.namespace: foo <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The component adds a number of annotations that contain the input data that was used to generate the policy.
+Additionally, the component adds an annotation that gives a human-readable description of the policy.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The namespace name is used as the name for the <code>CiliumEgressGatewayPolicy</code> resource.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The policy always masquerades all traffic from the namespace with the defined egress IP.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The policy uses the key in <code>egress_ip_ranges</code> and the offset of the selected egress IP into the range to generate the name of the dummy interface that&#8217;s expected to be assigned the shadow IPs that map to the egress IP.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The policy uses the node selector that&#8217;s defined in the parameter.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>The policy always matches all traffic originating in the specified namespace.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1694,7 +1922,7 @@ Users should prefer to configure Cilium itself through parameter <code>cilium_he
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h2>
+<h2 id="_example_5"><a class="anchor" href="#_example_5"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
