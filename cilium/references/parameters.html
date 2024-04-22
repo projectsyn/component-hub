@@ -1667,6 +1667,36 @@ spec:
 </div>
 </div>
 <div class="sect2">
+<h3 id="_egress_gateway_generate_shadow_ranges_configmap"><a class="anchor" href="#_egress_gateway_generate_shadow_ranges_configmap"></a><code>egress_gateway.generate_shadow_ranges_configmap</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When this parameter is set to true, the component will deploy a ConfigMap which is suitable for the systemd unit which creates dummy interfaces managed by component openshift4-nodes.
+Additionally, the component will deploy one or more DaemonSets (depending on the contents of <code>egress_gateway.egress_ip_ranges</code>) to ensure the Kubelets on all nodes where egress interfaces need to be created can access the ConfigMap.</p>
+</div>
+<div class="paragraph">
+<p>See also the documentation for <a href="https://hub.syn.tools/openshift4-nodes/references/parameters.html#_egressinterfaces">parameter <code>egressInterfaces</code> in openshift4-nodes</a>.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_egress_gateway_egress_ip_ranges"><a class="anchor" href="#_egress_gateway_egress_ip_ranges"></a><code>egress_gateway.egress_ip_ranges</code></h3>
 <div class="hdlist">
 <table>
@@ -1693,7 +1723,19 @@ default
 </div>
 <div class="paragraph">
 <p>Each entry in the parameter is intended to describe a group of dummy interfaces that can be used in <code>CiliumEgressGatewayPolicy</code> resources.
-The component expects that each value is an object with fields <code>egress_range</code>, <code>node_selector</code> and <code>namespace_egress_ips</code>.</p>
+The component expects that each value is an object with fields <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, and <code>shadow_ranges</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Field <code>shadow_ranges</code> is optional, see the section on <a href="#_shadow_ranges">shadow ranges</a> for more details.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h4>
@@ -1792,6 +1834,26 @@ Additionally, the component also aborts compilation with an error if an egress I
 </div>
 </div>
 <div class="sect3">
+<h4 id="_shadow_ranges"><a class="anchor" href="#_shadow_ranges"></a>Shadow ranges</h4>
+<div class="paragraph">
+<p>The component optionally deploys a ConfigMap which contains a map from node names to egress shadow IP ranges.
+This ConfigMap is only deployed when parameter <code>egress_gateway.generate_shadow_ranges_configmap</code> is set to <code>true</code>.
+If the shadow ranges ConfigMap is enabled, the component will check that each shadow range is the same size as the egress IP range it&#8217;s associated with.
+If there are any mismatches compilation aborts with an error.</p>
+</div>
+<div class="paragraph">
+<p>If that parameter is set to true, the component will extract the node names and associated shadow IP ranges from field <code>shadow_ranges</code> in each entry of <code>egress_ip_ranges</code>.
+Ranges which don&#8217;t define this field (or where it&#8217;s set to <code>null</code>) are skipped.</p>
+</div>
+<div class="paragraph">
+<p>This ConfigMap is intended to be consumed by a component running on the node (such as the systemd unit deployed by openshift4-nodes, see the documentation for <a href="https://hub.syn.tools/openshift4-nodes/references/parameters.html#_egressinterfaces">parameter <code>egressInterfaces</code> in openshift4-nodes</a>.</p>
+</div>
+<div class="paragraph">
+<p>To ensure the Kubelet Kubeconfig on the nodes can be used to access this ConfigMap, the component also deploys a DaemonSet which mounts the ConfigMap for each unique node selector in all egress IP ranges.
+The DaemonSet pods establish a link between the node and the ConfigMap which is required in order for the Kubernetes Node authorization mode to allow the Kubelet to access the ConfigMap.</p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h4>
 <div class="listingblock">
 <div class="content">
@@ -1802,7 +1864,10 @@ Additionally, the component also aborts compilation with an error if an egress I
       node-role.kubernetes.io/infra: ''
     namespace_egress_ips:
       foo: 192.0.2.32
-      bar: 192.0.2.61</code></pre>
+      bar: 192.0.2.61
+    shadow_ranges:
+      infra-foo: 198.51.100.32 - 198.51.100.63
+      infra-bar: 198.51.100.64 - 198.51.100.95</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1889,6 +1954,71 @@ Additionally, the component adds an annotation that gives a human-readable descr
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>The policy always matches all traffic originating in the specified namespace.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additionally, if parameter <code>egress_gateway.generate_shadow_ranges_configmap</code> is set to <code>true</code>, the <code>ConfigMap</code> and <code>DaemonSet</code> shown below are created.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eip-shadow-ranges
+data: <i class="conum" data-value="1"></i><b>(1)</b>
+  infra-foo: '{"egress_a":{"base":"198.51.100","from":"32","to":"63"}}'
+  infra-bar: '{"egress_a":{"base":"198.51.100","from":"64","to":"95"}}'
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    cilium.syn.tools/description: Daemonset which ensures that the Kubelet on the
+      nodes where the pods are scheduled can access configmap eip-shadow-ranges in
+      namespace cilium.
+  name: eip-shadow-ranges-e70e8
+spec:
+  selector:
+    matchLabels:
+      name: eip-shadow-ranges-e70e8
+  template:
+    metadata:
+      labels:
+        name: eip-shadow-ranges-e70e8
+    spec:
+      containers:
+        - command:
+            - /bin/sh
+            - -c
+            - 'trap : TERM INT; sleep infinity &amp; wait'
+          image: docker.io/bitnami/kubectl:1.29.4@sha256:f3cee231ead7d61434b7f418b6d10e1b43ff0d33dca43b341bcf3088fcaaa769
+          imagePullPolicy: IfNotPresent
+          name: sleep
+          volumeMounts: <i class="conum" data-value="2"></i><b>(2)</b>
+            - mountPath: /data/eip-shadow-ranges
+              name: shadow-ranges
+      nodeSelector:
+        node-role.kubernetes.io/infra: '' <i class="conum" data-value="3"></i><b>(3)</b>
+      volumes: <i class="conum" data-value="2"></i><b>(2)</b>
+        - configMap:
+            name: eip-shadow-ranges
+          name: shadow-ranges</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The contents of the ConfigMap are generated in the format that the systemd unit managed by component <code>openshift4-nodes</code> expects.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The DaemonSet mounts the <code>eip-shadow-ranges</code> ConfigMap as a volume.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The DaemonSet is scheduled using the same node selector that&#8217;s used for the <code>CiliumEgressGatewayPolicy</code> resources</td>
 </tr>
 </table>
 </div>

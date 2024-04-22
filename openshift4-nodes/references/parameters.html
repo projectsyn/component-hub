@@ -1937,7 +1937,106 @@ Please make sure you don&#8217;t specify a namespace which is already managed by
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_egressinterfaces"><a class="anchor" href="#_egressinterfaces"></a><code>egressInterfaces</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigPools: []
+nodeKubeconfig: /var/lib/kubelet/kubeconfig
+shadowRangeConfigMap:
+  namespace: cilium
+  name: eip-shadow-ranges</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This feature is intended to be used when configuring floating egress IPs with Cilium according to the design selected in <a href="https://kb.vshn.ch/oc4/explanations/decisions/cloudscale-cilium-egressip.html">Floating egress IPs with Cilium on cloudscale</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter will deploy a MachineConfig which configures a systemd service that sets up dummy interfaces for egress IPs on the nodes in each MachineConfigPool listed in field <code>machineConfigPools</code>.
+The component supports removal of MachineConfigPools by prefixing the pool with <code>~</code>.</p>
+</div>
+<div class="paragraph">
+<p>The systemd unit deployed by the script is configured to be executed after the node&#8217;s network is online but before the Kubelet starts.
+The systemd unit executes a script which reads the required egress interfaces and associated IPs from the configmap indicated in parameter <code>shadowRangeConfigMap</code>.</p>
+</div>
+<div class="paragraph">
+<p>The script uses the file indicated in field <code>nodeKubeconfig</code> to fetch the ConfigMap from the cluster.
+If the default value is used, the script will use the node&#8217;s Kubelet kubeconfig to access the cluster.
+To ensure the Kubelet can access the configmap, users should ensure that a pod which mounts the ConfigMap is running on the node.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Component cilium can deploy a suitable ConfigMap and DaemonSets which ensure that the Kubelets on all nodes that need to create egress dummy interfaces can access the ConfigMap.
+See the documentation for <a href="http://localhost:2020/cilium/references/parameters.html#_egress_gateway_egress_ip_ranges">component-cilium&#8217;s support for egress IP ranges</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The script expects the ConfigMap to have a key matching each node name on which egress dummy interfaces should be configured.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">data:
+  infra-foo: '{"egress_a": {"base": "198.51.100", "from": "32", "to": "63"}}'
+  infra-bar: '{"egress_a": {"base": "198.51.100", "from": "64", "to": "95"}}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the ConfigMap data shown above the script will configure the following dummy interfaces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>egress_a_0</code> - <code>egress_a_31</code> with IPs 198.51.100.32 - 195.51.100.63 on node infra-foo.</p>
+</li>
+<li>
+<p><code>egress_a_0</code> - <code>egress_a_31</code> with IPs 198.51.100.64 - 195.51.100.95 on node infra-bar.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
