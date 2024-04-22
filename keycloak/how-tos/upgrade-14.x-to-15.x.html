@@ -1223,8 +1223,8 @@ kubectl -n $NAMESPACE get statefulset keycloakx -w</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE scale statefulset keycloak-postgresql --replicas=0
 
-# Wait until statefulset has been scaled down
-kubectl -n $NAMESPACE get statefulset keycloak-postgresql -w</code></pre>
+# Check if the statefulset pod have been scaled down
+kubectl -n $NAMESPACE get pod keycloak-postgresql-0</code></pre>
 </div>
 </div>
 </li>
@@ -1255,8 +1255,8 @@ YOU ARE GOING TO DELETE THE COMPLETE DATABASE! YOU WILL LOOSE DATA IF YOU TAKE T
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE delete persistentvolumeclaim data-keycloak-postgresql-0
 
-# Wait until persistent volume claim has been deleted
-kubectl -n $NAMESPACE get persistentvolumeclaim data-keycloak-postgresql-0 -w</code></pre>
+# Check if the persistent volume claim has been deleted
+kubectl -n $NAMESPACE get persistentvolumeclaim data-keycloak-postgresql-0</code></pre>
 </div>
 </div>
 </li>
@@ -1264,7 +1264,7 @@ kubectl -n $NAMESPACE get persistentvolumeclaim data-keycloak-postgresql-0 -w</c
 <p>Patch the Postgres statefulset to v15.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl n $NAMESPACE patch sts keycloak-postgresql -p '{"spec": {"template": {"spec": {"containers": [{"name": "postgresql", "image": "docker.io/bitnami/postgresql:15.6.0-debian-12-r5"}]}}}}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE patch sts keycloak-postgresql -p '{"spec": {"template": {"spec": {"containers": [{"name": "postgresql", "image": "docker.io/bitnami/postgresql:15.6.0-debian-12-r5"}]}}}}'</code></pre>
 </div>
 </div>
 </li>
@@ -1283,7 +1283,15 @@ kubectl -n $NAMESPACE get statefulset keycloak-postgresql -w</code></pre>
 <p>Verify the Postgres database is on v15.6.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn-keycloak-test logs keycloak-postgresql-0 | grep "PostgreSQL 15.6"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE logs keycloak-postgresql-0 | grep "PostgreSQL 15.6"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>should look similar to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">2024-03-26 16:17:24.653 GMT [1] LOG:  starting PostgreSQL 15.6 on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit</code></pre>
 </div>
 </div>
 </li>
@@ -1313,7 +1321,7 @@ cat "$DUMPFILE" \
 <p>Compare the two files</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">diff keycloak-postgresql-2024-02-23-13-04-21.sql keycloak-postgresql-2024-02-23-13-04-35.sql</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">diff &lt;(sort keycloak-postgresql-2024-03-26-17-14-52.sql) &lt;(sort keycloak-postgresql-2024-03-26-17-20-40.sql)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1386,7 +1394,7 @@ cat "$DUMPFILE" \
 <p>Re-enable ArgoCD auto sync</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn patch applications.argoproj.io root  --type=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n syn patch applications.argoproj.io root --type=json \
   -p '[{
     "op":"replace",
     "path":"/spec/syncPolicy",
