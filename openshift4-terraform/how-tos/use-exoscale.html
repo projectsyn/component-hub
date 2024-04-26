@@ -1088,46 +1088,12 @@ The component currently assumes that the Git repositories live on a GitLab insta
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Set up three new API keys in <a href="https://portal.exoscale.com">portal.exoscale.com</a>.
-Two of them are used for the Terraform pipeline.</p>
+<p>Set up two new API keys in <a href="https://portal.exoscale.com">portal.exoscale.com</a>.
+One of them is used for the Terraform pipeline.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>The first key should be created with the a read-only IAM role:</p>
-<div class="listingblock">
-<div class="title">Read-only role</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "name": "openshift4-terraform-ro",
-  "policy": {
-    "default-service-strategy": "deny",
-    "services": {
-      "compute": {
-        "type": "rules",
-        "rules": [
-          {
-            "action": "allow",
-            "expression": "matches(operation, '(get|list)-.*')"
-          }
-        ]
-      },
-      "dns": {
-        "type": "rules",
-        "rules": [
-          {
-            "action": "allow",
-            "expression": "matches(operation, '(get|list)-.*')"
-          }
-        ]
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>The second key can be created with a role with full permissions</p>
+<p>The first key needs to be created with a role with full permissions</p>
 <div class="listingblock">
 <div class="title">Full permissions role configuration</div>
 <div class="content">
@@ -1139,7 +1105,7 @@ Two of them are used for the Terraform pipeline.</p>
 </div>
 </li>
 <li>
-<p>The third key needs the following IAM role (this key will be deployed onto the LBs for <a href="https://github.com/vshn/floaty">Floaty</a>):</p>
+<p>The second key needs the following IAM role (this key will be deployed onto the LBs for <a href="https://github.com/vshn/floaty">Floaty</a>):</p>
 <div class="listingblock">
 <div class="title">Floaty IAM role</div>
 <div class="content">
@@ -1260,12 +1226,6 @@ Please note that the Terraform module currently only supports the <a href="https
 <p><span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Variables</b></span></p>
 <div class="ulist">
 <ul>
-<li>
-<p><code>EXOSCALE_API_SECRET_RO</code></p>
-</li>
-<li>
-<p><code>EXOSCALE_API_KEY_RO</code></p>
-</li>
 <li>
 <p><code>EXOSCALE_API_SECRET_RW</code></p>
 </li>
