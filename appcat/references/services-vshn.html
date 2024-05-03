@@ -1541,6 +1541,32 @@ You can also set a node selector through <code>scheduling.nodeSelector</code>.</
 <p>The default plan used for PostgreSQL by VSHN, if the service user doesn&#8217;t specify a plan.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_postgres_additionalinputs_loadbalancerannotations"><a class="anchor" href="#_postgres_additionalinputs_loadbalancerannotations"></a><code>postgres.additionalInputs.loadbalancerAnnotations</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>string</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p><code>""</code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Additional loadbalancer annotations. They need to be specified as yaml maps.</p>
+</div>
+<div class="listingblock">
+<div class="title">Examples</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">loadbalancerAnnotations: |
+  foo: bar
+  important: label</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
