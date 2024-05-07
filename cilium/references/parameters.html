@@ -1531,7 +1531,7 @@ default
 </div>
 <div class="paragraph">
 <p>The configuration values of the underlying Cilium helm chart.
-See <a href="https://docs.cilium.io/en/v1.13/helm-reference/">Opensource Cilium documentation</a> for supported values.</p>
+See <a href="https://docs.cilium.io/en/v1.14/helm-reference/">Opensource Cilium documentation</a> for supported values.</p>
 </div>
 <div class="paragraph">
 <p>The component will pre-process certain Helm values to allow users to more gracefully upgrade to newer Cilium versions which remove deprecated Helm values.</p>
@@ -1657,8 +1657,10 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>This parameter allows users to set all the configurations necessary to enable the egress gateway policy feature through a single parameter.
-The parameter sets the following Helm values:</p>
+<p>This parameter allows users to set all the configurations necessary to enable the egress gateway policy feature through a single parameter.</p>
+</div>
+<div class="paragraph">
+<p>The parameter sets the following Helm values:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1671,7 +1673,11 @@ l7Proxy: false</code></pre>
 </div>
 <div class="paragraph">
 <p>Notably, the L7 proxy feature is disabled by default when egress gateway policies are enabled.
-This is recommended by the Cilium documentation, see also <a href="https://docs.cilium.io/en/v1.13/network/egress-gateway/#incompatibility-with-other-features">the upstream documentation</a>.</p>
+This is recommended by the Cilium documentation, see also <a href="https://docs.cilium.io/en/v1.14/network/egress-gateway/#incompatibility-with-other-features">the upstream documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>For Cilium EE, the component uses Helm value <code>egressGateway.enabled</code> for Helm value <code>enterprise.egressGatewayHA.enabled</code> by default.
+It&#8217;s possible to override this by explicitly setting <code>egressGateway.enabled=false</code> and <code>enterprise.egressGatewayHA.enabled=true</code> in the component&#8217;s <code>cilium_helm_values</code>.</p>
 </div>
 </div>
 <div class="sect2">
