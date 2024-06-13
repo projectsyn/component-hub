@@ -1662,6 +1662,64 @@ Due to <a href="https://github.com/projectsyn/commodore/issues/138" class="bare"
 </div>
 </div>
 <div class="sect1">
+<h2 id="_cluster_version_overlays"><a class="anchor" href="#_cluster_version_overlays"></a><code>cluster_version.overlays</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cluster_version:
+  spec:
+    template:
+      spec:
+        channel: stable-4.13
+  overlays:
+    "2024-06-13T17:00:00+02:00":
+      spec:
+        channel: stable-4.14</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to schedule changes to the <code>ClusterVersion</code> object.
+The overlay with the latest <code>from</code> timestamp after the current time is merged onto the base configuration in <code>spec.template</code>.
+Overlays do not accumulate.
+See the upgrade controller <code>ClusterVersion</code> CRD for details.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary key is used as the <code>from</code> field of the overlay.
+The value is used as the <code>overlay</code> field of the overlay.</p>
+</div>
+<div class="paragraph">
+<p>Entries can be removed by setting the value to <code>null</code> in the hierarchy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
