@@ -1276,11 +1276,15 @@ default
 </div>
 <div class="paragraph">
 <p>A dictionary of node groups to create on the cluster.
-It&#8217;s centered around the MachineSet CRD but also takes care of some additional aspects like zone distribution and auto scaling.</p>
+It&#8217;s centered around the <code>MachineSet</code> CRD but also takes care of some additional aspects like zone distribution and auto scaling.</p>
 </div>
 <div class="paragraph">
 <p>The top level key is the name of each set of machines.
 Each set of machines has the values described below.</p>
+</div>
+<div class="paragraph">
+<p>If an entry has value <code>null</code>, no <code>MachineSet</code> is created for that entry.
+This allows users to remove entries in the hierarchy.</p>
 </div>
 <div class="sect2">
 <h3 id="_annotations"><a class="anchor" href="#_annotations"></a><code>annotations</code></h3>
@@ -1462,7 +1466,10 @@ default
 <div class="paragraph">
 <p>The role of the created Nodes.
 The value will be added as the <code>node-role.kubernetes.io/&lt;role&gt;: ""</code> label to nodes.
-The <code>worker</code> role label will always be added to inherit the base configuration for nodes.</p>
+Unless <code>role</code> is set to <code>master</code>, the <code>worker</code> role label will always be added to inherit the base configuration for nodes.</p>
+</div>
+<div class="paragraph">
+<p>When <code>role</code> is set to <code>master</code>, the component will create a <code>ControlPlaneMachineSet</code> instead of a <code>MachineSet</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1502,7 +1509,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>This gives you the full control over the resulting MachineSet.
+<p>This gives you the full control over the resulting <code>MachineSet</code> or <code>ControlPlaneMachineSet</code>.
 Values given here will be merged with precedence with the defaults configured in <a href="#defaultSpec">[defaultSpec]</a>.
 The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
 </div>
