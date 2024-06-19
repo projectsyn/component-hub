@@ -1124,6 +1124,38 @@ The values can be everything that&#8217;s accepted in the <code>spec</code> fiel
 </div>
 </div>
 <div class="sect1">
+<h2 id="_controlplanedefaultspecs"><a class="anchor" href="#_controlplanedefaultspecs"></a><code>controlPlaneDefaultSpecs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Sensible defaults for a growing number of cloud providers.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default values applied to each <code>controlplanemachinesets.machine.openshift.io</code> object created by this component.</p>
+</div>
+<div class="paragraph">
+<p>The top level keys are the names of cloud providers as reported by the cluster fact <code>${facts:cloud}</code>.
+The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>controlplanemachinesets.machine.openshift.io</code> object.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_infrastructureid"><a class="anchor" href="#_infrastructureid"></a><code>infrastructureID</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
