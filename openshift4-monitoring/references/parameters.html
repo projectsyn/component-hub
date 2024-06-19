@@ -2766,6 +2766,143 @@ default
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_customnodeexporter"><a class="anchor" href="#_customnodeexporter"></a><code>customNodeExporter</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This parameter allows users to deploy an additional node-exporter DaemonSet.
+We provide this option, since OpenShift&#8217;s cluster-monitoring stack currently doesn&#8217;t allow users to customize the bundled node-exporter DaemonSet.</p>
+</div>
+<div class="paragraph">
+<p>Currently, the parameter is tailored to allow users to run an additional node-exporter which enables collectors that aren&#8217;t enabled in the default node exporter.</p>
+</div>
+<div class="paragraph">
+<p>The configuration is rendered by using the same Jsonnet that&#8217;s used by the OpenShift cluster-monitoring stack to generate the default node-exporter DaemonSet.
+The component further customizes the resulting manifests to ensure that there&#8217;s no conflicts between the default node-exporter and the additional node-exporter.</p>
+</div>
+<div class="paragraph">
+<p>The additional node-exporter is deployed in the namespace indicated by parameter <code>namespace</code>.
+By default this is namespace <code>openshift-monitoring</code>.
+The component also deploys a <code>ServiceMonitor</code> which ensures that the additional node-exporter is scraped by the cluster-monitoring stack&#8217;s Prometheus.</p>
+</div>
+<div class="paragraph">
+<p>Users can configure arbitrary recording and alerting rules which use metrics scraped from the additional node-exporter via parameter <code>rules</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy the additional node-exporter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_collectors"><a class="anchor" href="#_collectors"></a><code>collectors</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>["network_route"]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Which collectors to enable in the additional node-exporter.
+By default, all collectors are disabled.
+Users can remove entries from this list by providing an existing entry prefixed with <code>~</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_args"><a class="anchor" href="#_args"></a><code>args</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional command line arguments to pass to the additional node-exporter.
+Please note that specifying <code>--[no-]collector.&lt;name&gt;</code> here will break the DaemonSet, since <code>node-exporter</code> doesn&#8217;t support specifying these flags multiple times.
+Users should use parameter <code>customNodeExporter.collectors</code> to enable collectors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metricrelabelings"><a class="anchor" href="#_metricrelabelings"></a><code>metricRelabelings</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to specify the content of field <code>metricRelabelings</code> of the <code>ServiceMonitor</code> which is created for the additional node-exporter.
+By default, the component drops all metrics except <code>node_network_route*</code> metrics for host devices prefixed with <code>ens</code>.
+Since this component only applies to OpenShift 4, we know that any node&#8217;s host interfaces will use device names that are prefixed with <code>ens</code>.</p>
+</div>
+<div class="paragraph">
+<p>Users are encouraged to extend or overwrite this parameter to ensure all the metrics they&#8217;re interested in are actually scraped by Prometheus.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
   <span class="next"><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
