@@ -1299,6 +1299,83 @@ The value is the configuration of the <code>UpgradeJobHooks</code> object.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_upgrade_suspension_windows"><a class="anchor" href="#_upgrade_suspension_windows"></a>upgrade_suspension_windows</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_suspension_windows:
+  end-of-year-holidays-2023:
+    spec:
+      start: "2023-12-25T00:00:00Z"
+      end: "2024-01-08T00:00:00Z"
+      reason: "End of year holidays"
+      configSelector: {}
+      jobSelector:
+        matchLabels: ${openshift_upgrade_controller:upgrade_configs:monday-afternoon:spec:jobTemplate:metadata:labels}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is used to configure the <code>UpgradeSuspensionWindow</code> objects.
+The dictionary key is used as the name of the <code>UpgradeSuspensionWindow</code> object.
+The value is the configuration of the <code>UpgradeSuspensionWindow</code> object.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/appuio/openshift-upgrade-controller" class="bare">github.com/appuio/openshift-upgrade-controller</a> for the manifest definition.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<code>spec.jobSelector</code> and <code>spec.configSelector</code> can be referenced from the <code>UpgradeConfig</code> and <code>UpgradeJob</code> object using Commodore variable expansion.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+An empty selector (<code>jobSelector: {}</code>) matches all objects. A null selector (<code>jobSelector: null</code>, <code>jobSelector:</code>, omitted) matches no objects.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_upgrade_silence"><a class="anchor" href="#_upgrade_silence"></a><code>upgrade_silence</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
