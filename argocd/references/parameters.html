@@ -1140,6 +1140,62 @@ type
 </div>
 </div>
 <div class="sect1">
+<h2 id="_network_policies_enabled"><a class="anchor" href="#_network_policies_enabled"></a><code>network_policies.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable NetworkPolicies that isolate ArgoCD from the rest of the cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_policies_allow_from_namespaces"><a class="anchor" href="#_network_policies_allow_from_namespaces"></a><code>network_policies.allow_from_namespaces</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>List(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional namespaces which should be able to access ArgoCD.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
