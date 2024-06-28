@@ -1284,6 +1284,35 @@ The <code>APIService</code> object instructs the Kubernetes API server to delega
 </div>
 </div>
 <div class="sect1">
+<h2 id="_apiserver_resources"><a class="anchor" href="#_apiserver_resources"></a><code>apiserver.resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Custom resource requests and limits to use for the API server container.
+The contents of this parameter are merged over the default requests defined in the upstream API server manifest.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_apiserver_tls"><a class="anchor" href="#_apiserver_tls"></a><code>apiserver.tls</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1628,6 +1657,35 @@ example
 <div class="paragraph">
 <p>Additional environment that should be passed to the controller.
 If a dict is given <code>valueFrom:</code> is assumed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controller_resources"><a class="anchor" href="#_controller_resources"></a><code>controller.resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Custom resource requests and limits to use for the controller container.
+The contents of this parameter are merged over the default requests defined in the upstream controller manifest.</p>
 </div>
 </div>
 </div>
