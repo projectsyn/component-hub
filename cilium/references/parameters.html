@@ -1552,6 +1552,22 @@ See <a href="https://docs.cilium.io/en/v1.14/helm-reference/">Opensource Cilium 
 <div class="paragraph">
 <p>The component will pre-process certain Helm values to allow users to more gracefully upgrade to newer Cilium versions which remove deprecated Helm values.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On OpenShift 4, the component will deploy a Patch which controls whether OpenShift deploys kube-proxy based on the value of <code>cilium_helm_values.kubeProxyReplacement</code>.
+If the <code>kubeProxyReplacement</code> Helm value is set to <code>true</code> or <code>strict</code> the component will configure OpenShift to not deploy kube-proxy.
+Otherwise, the component will configure OpenShift to deploy kube-proxy.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
