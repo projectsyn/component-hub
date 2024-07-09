@@ -1160,6 +1160,47 @@ The open-source version and the enterprise version.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes version to provide to <code>helm template</code> when rendering the Helm chart.
+This parameter has no effect when <code>install_method</code> is set to <code>olm</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Set this parameter to <code>${dynamic_facts:kubernetesVersion:major}.${dynamic_facts:kubernetesVersion.minor}</code> to use the cluster&#8217;s reported Kubernetes version when rendering the Helm chart.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_charts_cilium_source"><a class="anchor" href="#_charts_cilium_source"></a><code>charts.cilium.source</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
