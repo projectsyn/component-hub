@@ -1749,6 +1749,9 @@ l7Proxy: false</code></pre>
 This is recommended by the Cilium documentation, see also <a href="https://docs.cilium.io/en/v1.14/network/egress-gateway/#incompatibility-with-other-features">the upstream documentation</a>.</p>
 </div>
 <div class="paragraph">
+<p>Additionally, BPF masquerading can&#8217;t be disabled when the egress gateway feature is enabled.</p>
+</div>
+<div class="paragraph">
 <p>For Cilium EE, the component uses Helm value <code>egressGateway.enabled</code> for Helm value <code>enterprise.egressGatewayHA.enabled</code> by default.
 It&#8217;s possible to override this by explicitly setting <code>egressGateway.enabled=false</code> and <code>enterprise.egressGatewayHA.enabled=true</code> in the component&#8217;s <code>cilium_helm_values</code>.</p>
 </div>
