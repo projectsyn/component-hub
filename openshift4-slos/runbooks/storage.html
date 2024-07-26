@@ -1187,6 +1187,146 @@ Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="canaries"><a class="anchor" href="#canaries"></a>Canaries</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_2"><a class="anchor" href="#_overview_2"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
+<div class="paragraph">
+<p>This SLO measures the percentage of pods timed out or failed during a complete lifecycle, measured while waiting for a canary pods.
+The Pod mounts a PVC and writes a file to it, then removes the file and the PVC.
+In the current implementation the image for the pod is pulled from the built-in OpenShift registry.</p>
+</div>
+<div class="paragraph">
+<p>There are two types of alerts that fire if we expect to miss the configured objective.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A ticket alert means that the error rate is slightly higher than the objective.
+If we don&#8217;t intervene at some point after receiving this alert, we can expect to miss the objective.
+However no immediate, urgent action is necessary.
+A ticket alert should have a label <code>severity: warning</code>.</p>
+</li>
+<li>
+<p>A page alert means that the error rate is significantly higher than the objective.
+Immediate action is necessary to not miss the objective.
+A page alert should have a label <code>severity: critical</code> and should page on-call.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps_for_debugging_2"><a class="anchor" href="#_steps_for_debugging_2"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
+<div class="paragraph">
+<p>An unschedulable storage canary workload can have more root causes than just a storage issue.</p>
+</div>
+<div class="paragraph">
+<p>First check the debugging section of the <a href="workload-schedulability.html#canary" class="page">Workload Schedulability - Canary</a> runbook.</p>
+</div>
+<div class="paragraph">
+<p>Check the output of the <code>kubectl describe</code> documented in the run book above for storage specific issues:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedMount       47s                kubelet            MountVolume.SetUp failed for volume "pvc-d0fd0b25-60dc-47dd-9ec8-734941361dff" : mount failed: exit status 32
+Mounting command: mount
+Mounting arguments: -t nfs nfs-store3.example.ch:/srv/nfs/export/canary-nfs-pvc-d0fd0b25-60dc-47dd-9ec8-734941361dff /var/lib/kubelet/pods/9dbc5afa-5af1-4176-bc06-8a428a5448a8/volumes/kubernetes.io~nfs/pvc-d0fd0b25-60dc-47dd-9ec8-734941361dff
+Output: mount.nfs: Connection refused
+
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedMount       23m                kubelet            MountVolume.SetUp failed for volume "pvc-7681612b-9ac4-4cd6-867c-14c990351078" : mount failed: No space left on device</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the pod goes into a <code>Error</code> state you can check the logs of the pod with <code>kubectl logs</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl describe pods -A -l "scheduler-canary-controller.appuio.io/instance" | grep Error
+
+kubectl logs -n &lt;namespace&gt; &lt;pod-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the PVC and PV status with <code>kubectl get pvc</code> and <code>kubectl get pv</code> and check the logs of the CSI plugin for more information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Extract the pod name and PVC name
+kubectl get pods -A -l "scheduler-canary-controller.appuio.io/instance" -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.spec.volumes[*].persistentVolumeClaim.claimName}{'\n'}{end}"
+
+# Check the PVC status
+kubectl describe pvc -n &lt;namespace&gt; &lt;pvc-name&gt;
+
+# Extract the PV name from the PVC
+kubectl get pvc -n &lt;namespace&gt; &lt;pvc-name&gt; -o=jsonpath="{.spec.volumeName}"
+# Check the PV status
+kubectl describe pv &lt;pv-name&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We don&#8217;t have a lot of experience with this alert yet.
+If you had to debug this alert, please consider adding any insight, tips, or code snippets you gained to this runbook.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tune_2"><a class="anchor" href="#_tune_2"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
+<div class="paragraph">
+<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you may want to tune the SLO.</p>
+</div>
+<div class="paragraph">
+<p>You have the option tune the SLO through the component parameters.
+You can modify the objective, disable the page or ticket alert, restrict the SLO to certain storage operations or volume plugins, or completely disable the SLO.</p>
+</div>
+<div class="paragraph">
+<p>The example below will set the SLO set the objective to 97.00%, disable the page alert, and only consider the Syn-managed CephFS storage provider.
+This means this SLO won&#8217;t alert on-call anymore and won&#8217;t alert if there are issues with CSI plugins other than the Syn-managed CephFS CSI plugin.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">slos:
+  storage:
+    canary:
+      objective: 99.0
+      _sli:
+        volume_plugins:
+          # Disable default storage class canary
+          "": null
+          # Enable Syn-managed CephFS canary
+          cephfs-fspool-cluster: {}</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Disabling the SLO or changing the objective will also impact the SLO dashboard and SLA reporting.
+Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="workload-schedulability.html">Workload SLOs</a></span>
   <span class="next"><a href="../explanations/improving-slos.html">Improving SLOs</a></span>

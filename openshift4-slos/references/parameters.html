@@ -1122,6 +1122,53 @@ The Sloth version can be overridden by the <code>tag</code> parameter.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
+  canary-ssd-encrypted-luks-key:
+    stringData:
+      luksKey: XXXXXX</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows creating arbitrary <code>Secret</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
+The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_slos"><a class="anchor" href="#_slos"></a><code>slos</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1171,7 +1218,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The configuration for the csi-operations SLO.</p>
+<p>The configuration for the csi-operations storage SLO.</p>
 </div>
 <div class="paragraph">
 <p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
@@ -1191,6 +1238,95 @@ The fields can contain an arbitrary <a href="https://prometheus.io/docs/promethe
 </td>
 <td class="content">
 Look at <a href="../runbooks/storage.html#csi-operations" class="page">the runbook</a> for an explanation of this SLO.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_slos_storage_canary"><a class="anchor" href="#_slos_storage_canary"></a><code>slos.storage.canary</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">canary:
+  enabled: true
+  objective: 99.0
+  _sli:
+    volume_plugins_default_params:
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      interval: 1m
+      maxPodCompletionTimeout: 3m
+
+    volume_plugins:
+      # Empty value for the default plugin
+      "": {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">canary:
+  enabled: true
+  objective: 99.0
+  _sli:
+    volume_plugins:
+      # Disable the canary for the default storage class
+      "": null
+      # Enable the canaries for ssd and bulk storage classes
+      ssd: {}
+      bulk:
+        size: 10Gi</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for the canary storage SLO.</p>
+</div>
+<div class="paragraph">
+<p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
+</div>
+<div class="paragraph">
+<p>The canary SLO is tested by creating a PVC for every configured storage class and periodically running a pod that writes and deletes a file on the respective PVC.
+You can configure which volume plugins are tested with <code>_sli.volume_plugins</code>.
+The key is the storage class name and the value is a dictionary which can override the default parameters set in <code>volume_plugins_default_params</code>.
+An empty key (<code>""</code>) is used for the default storage class.
+The value can be set to <code>null</code> to disable the canary for a specific storage class.</p>
+</div>
+<div class="paragraph">
+<p>Any additional field is added directly to the <code>slo</code> input for sloth.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Look at <a href="../runbooks/storage.html#canaries" class="page">the runbook</a> for an explanation of this SLO.
 </td>
 </tr>
 </table>
