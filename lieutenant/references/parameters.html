@@ -1254,6 +1254,35 @@ Environment variables configured in this parameter have precedence over environm
 </div>
 </div>
 <div class="sect1">
+<h2 id="_operator_lieutenant_api_url"><a class="anchor" href="#_operator_lieutenant_api_url"></a><code>operator.lieutenant_api_url</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://${lieutenant:api:ingress:host}" class="bare">${lieutenant:api:ingress:host}</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Make the Lieutenant Operator aware of where the API is publicly reachable.
+By default, the API ingress hostname is used, with a <code>https://</code> prefix.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_operator_vault_enabled"><a class="anchor" href="#_operator_vault_enabled"></a><code>operator.vault.enabled</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
