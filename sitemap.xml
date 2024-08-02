@@ -85,9 +85,6 @@
 <loc>https://hub.syn.tools/sitemap-csi-exoscale.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-csi-hetznercloud.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-driver-amdgpu.xml</loc>
 </sitemap>
 <sitemap>
