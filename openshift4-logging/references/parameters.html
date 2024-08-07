@@ -1744,6 +1744,92 @@ See the <a href="https://loki-operator.dev/docs/api.md/">Loki Operator Docs</a> 
 </div>
 </div>
 <div class="sect1">
+<h2 id="_components_logmetrics"><a class="anchor" href="#_components_logmetrics"></a><code>components.logmetrics</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration of the logfile metrics component.
+See subsections for supported keys.</p>
+</div>
+<div class="sect2">
+<h3 id="_components_logmetrics_enabled"><a class="anchor" href="#_components_logmetrics_enabled"></a><code>components.logmetrics.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy the LogFileMetricsExporter on the cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_components_logmetrics_spec"><a class="anchor" href="#_components_logmetrics_spec"></a><code>components.logmetrics.spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  nodeSelector: <i class="conum" data-value="1"></i><b>(1)</b>
+    node-role.kubernetes.io/infra: ''
+  resources: <i class="conum" data-value="2"></i><b>(2)</b>
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 128Mi</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>configure nodeSelector</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>configure resources</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/log_collection_forwarding/cluster-logging-collector.html#creating-logfilesmetricexporter_cluster-logging-collector">LogCollection Docs</a> for available specs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_operatorresources"><a class="anchor" href="#_operatorresources"></a><code>operatorResources</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
