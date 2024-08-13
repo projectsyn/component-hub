@@ -118,6 +118,9 @@
     <a class="nav-link" href="../how-tos/upgrade-v2.x-v3.x.html">Upgrade from v2.x to v3.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-v3.x-v4.x.html">Upgrade from v3.x to v4.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/switch-to-lokistack.html">Switch to Lokistack</a>
   </li>
 </ul>
@@ -1289,16 +1292,14 @@ default
 <div class="paragraph">
 <p>Configuration of the elasticsearch component.</p>
 </div>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Elasticsearch is deprecated.</p>
-</div>
+Elasticsearch is deprecated.
 </td>
 </tr>
 </table>
@@ -1875,7 +1876,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>see <code>defaults.yml</code></p>
+<p>{}</p>
 </td>
 </tr>
 </table>
@@ -1889,36 +1890,8 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clusterlogforwarding"><a class="anchor" href="#_clusterlogforwarding"></a><code>clusterLogForwarding</code></h2>
+<h2 id="_clusterlogforwarder"><a class="anchor" href="#_clusterlogforwarder"></a><code>clusterLogForwarder</code></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_clusterlogforwarding_enabled"><a class="anchor" href="#_clusterlogforwarding_enabled"></a><code>clusterLogForwarding.enabled</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Enables log forwarding for the cluster.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_forwarders"><a class="anchor" href="#_clusterlogforwarding_forwarders"></a><code>clusterLogForwarding.forwarders</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1940,316 +1913,32 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Each key in this dictionary holds the parameters for an <code>.spec.outputs</code> object.</p>
+<p>A dictionary holding the <code>.spec</code> for cluster log forwarding.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/4.16/observability/logging/log_collection_forwarding/configuring-log-forwarding.html#logging-create-clf_configuring-log-forwarding">OpenShift docs</a> for available parameters.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_namespace_groups"><a class="anchor" href="#_clusterlogforwarding_namespace_groups"></a><code>clusterLogForwarding.namespace_groups</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of a specified group of namespaces.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of the specified namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="paragraph">
-<p>Enable json parsing for a 'namespace_group' only makes sense if the logs are forwarded to the clusters default elasticsearch instance. Therefor 'default' will automatically be added to the forwarders.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  namespace_groups:
-    my-group: <i class="conum" data-value="1"></i><b>(1)</b>
-      namespaces: <i class="conum" data-value="2"></i><b>(2)</b>
-        - my-namespace
-      forwarders: <i class="conum" data-value="3"></i><b>(3)</b>
-        - splunk-forwarder
-      json: true <i class="conum" data-value="4"></i><b>(4)</b>
-      detectMultilineErrors: true <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Namespace to configure.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>List of namespaces.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Enable json logging only for defined namespaces.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Enable detecting multiline errors for defined namespaces.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_application_logs"><a class="anchor" href="#_clusterlogforwarding_application_logs"></a><code>clusterLogForwarding.application_logs</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of all applications.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  application_logs:
-    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
-      - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b>
-    detectMultilineErrors: true <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable json logging for all applications.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Enable detecting multiline errors for all applications.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_infrastructure_logs"><a class="anchor" href="#_clusterlogforwarding_infrastructure_logs"></a><code>clusterLogForwarding.infrastructure_logs</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  infrastructure_logs:
-    enabled: true</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of <code>openshift*</code>, <code>kube*</code>, or <code>default</code> projects.</p>
-</div>
-<div class="paragraph">
-<p>Enabled by default.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  infrastructure_logs:
-    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
-      - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable json logging for all applications.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_audit_logs"><a class="anchor" href="#_clusterlogforwarding_audit_logs"></a><code>clusterLogForwarding.audit_logs</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  audit_logs:
-    enabled: false</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Customization for the logging of <a href="https://docs.openshift.com/container-platform/latest/security/audit-log-policy-config.html">audit logs</a>.</p>
-</div>
-<div class="paragraph">
-<p>Disabled by default.</p>
-</div>
-<div class="paragraph">
-<p>Enabling forwarders will send the logs of all namespaces to a third-party log aggregator.
-For some log aggregation systems you may need to deploy a separate log forwarder.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  audit_logs:
-    forwarders: <i class="conum" data-value="1"></i><b>(1)</b>
-      - splunk-forwarder
-    json: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of forwarders (defined in <code>clusterLogForwarding.forwarders</code>).</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Enable json logging for all applications.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_clusterlogforwarding_json"><a class="anchor" href="#_clusterlogforwarding_json"></a><code>clusterLogForwarding.json</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see below</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Setting <code>json.enabled</code> is required for json parsing to be available. You need to additionally enable it in <code>clusterLogForwarding.application_logs</code> or <code>clusterLogForwarding.namespace_groups</code>, based on your needs, to actually parse the logs.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  json:
-    enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
-    typekey: 'kubernetes.labels.logFormat' <i class="conum" data-value="2"></i><b>(2)</b>
-    typename: 'nologformat' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>By default JSON parsing is disabled.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The value of that field, if present, is used to construct the index name.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>If <code>typekey</code> isn&#8217;t set or its key isn&#8217;t present, the value of this field is used to construct the index name.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/log_collection_forwarding/cluster-logging-enabling-json-logging.html">OpenShift docs</a> for a detailed explanation.</p>
-</div>
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/log_collection_forwarding/log-forwarding.html">OpenShift docs</a> for available parameters.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_clusterlogforwarding"><a class="anchor" href="#_clusterlogforwarding"></a><code>clusterLogForwarding</code></h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<code>clusterLogForwarding</code> is deprecated, please use <code>clusterLogForwarder</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -2266,17 +1955,17 @@ default
 <h3 id="_forward_logs_for_all_application_logs_to_third_party"><a class="anchor" href="#_forward_logs_for_all_application_logs_to_third_party"></a>Forward logs for all application logs to third-party</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  forwarders:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
+  outputs:
     splunk-forwarder:
       secret:
         name: splunk-forwarder
       type: fluentdForward
       url: tls://splunk-forwarder:24224
-  application_logs:
-    forwarders:
-      - splunk-forwarder</code></pre>
+  pipelines:
+    application-logs:
+      outputRefs:
+        - splunk-forwarder</code></pre>
 </div>
 </div>
 </div>
@@ -2284,19 +1973,23 @@ default
 <h3 id="_forward_logs_for_certain_namespaces_to_third_party"><a class="anchor" href="#_forward_logs_for_certain_namespaces_to_third_party"></a>Forward logs for certain namespaces to third-party</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  forwarders:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
+  inputs:
+    my-apps:
+      application:
+        namespaces:
+          - my-namespace
+  outputs:
     splunk-forwarder:
       secret:
         name: splunk-forwarder
       type: fluentdForward
       url: tls://splunk-forwarder:24224
-  namespace_groups:
-    my-group:
-      namespaces:
-        - my-namespace
-      forwarders:
+  pipelines:
+    my-apps:
+      inputRefs:
+        - my-apps
+      outputRefs:
         - splunk-forwarder</code></pre>
 </div>
 </div>
@@ -2305,12 +1998,10 @@ default
 <h3 id="_enable_json_parsing_for_all_application_logs"><a class="anchor" href="#_enable_json_parsing_for_all_application_logs"></a>Enable JSON parsing for all application logs</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  application_logs:
-    json: true
-  json:
-    enabled: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
+  pipelines:
+    application-logs:
+      parse: json</code></pre>
 </div>
 </div>
 </div>
@@ -2318,15 +2009,19 @@ default
 <h3 id="_enable_json_parsing_for_certain_namespaces"><a class="anchor" href="#_enable_json_parsing_for_certain_namespaces"></a>Enable JSON parsing for certain namespaces</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarding:
-  enabled: true
-  namespace_groups:
-    my-group:
-      namespaces:
-        - my-namespace
-      json: true
-  json:
-    enabled: true</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
+  inputs:
+    my-apps:
+      application:
+        namespaces:
+          - my-namespace
+  pipelines:
+    my-apps:
+      inputRefs:
+        - my-apps
+      outputRefs:
+        - default
+      parse: json</code></pre>
 </div>
 </div>
 </div>
