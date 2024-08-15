@@ -2217,6 +2217,167 @@ spec:
 </div>
 </div>
 <div class="sect1">
+<h2 id="_l2_announcements"><a class="anchor" href="#_l2_announcements"></a><code>l2_announcements</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure the [Cilium L2 Announcements / L2 Aware LB] feature.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The current implementation (and therefore examples shown here) has only been tested with Cilium EE.
+Please refer to the <a href="https://docs.cilium.io/en/stable/network/egress-gateway/#example-policy">example policy in the upstream documentation</a> for Cilium OSS.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_l2_announcements_enabled"><a class="anchor" href="#_l2_announcements_enabled"></a><code>l2_announcements.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to set all the configurations necessary to enable the l2 announcement policy feature.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is important to adjust the client rate limit when using this feature, due to increased API usage.
+See <a href="https://docs.cilium.io/en/latest/network/l2-announcements/#sizing-client-rate-limit">Sizing client rate limit</a> for sizing guidelines.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kube Proxy replacement mode must be enabled.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_5"><a class="anchor" href="#_example_5"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">l2_announcements:
+  enabled: true
+cilium_helm_values:
+  kubeProxyReplacement: true
+  k8sServiceHost: api-int.${openshift:baseDomain}
+  k8sServicePort: "6443"
+  k8sClientRateLimit:
+    qps: 35 <i class="conum" data-value="1"></i><b>(1)</b>
+    burst: 45 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Setting the base QPS rate.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The burst QPS should be slightly higher.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_l2_announcements_policies"><a class="anchor" href="#_l2_announcements_policies"></a><code>l2_announcements.policies</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy <code>CiliumL2AnnouncementPolicy</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in the parameter is converted to a <code>CiliumL2AnnouncementPolicy</code> resource.
+Entries can be removed by setting the value to <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://docs.cilium.io/en/latest/network/l2-announcements/#policies">the upstream documentation</a> for further explanation.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_6"><a class="anchor" href="#_example_6"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">l2_announcements:
+  policies:
+    color_blue:
+      spec:
+        serviceSelector:
+          matchLabels:
+            color: blue
+        nodeSelector:
+          matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: DoesNotExist
+        interfaces:
+        - ^eth[0-9]+
+        externalIPs: true
+        loadBalancerIPs: true</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_bgp"><a class="anchor" href="#_bgp"></a><code>bgp</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2364,7 +2525,7 @@ The LoadBalancer IP address management (LB IPAM) feature is under active develop
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_5"><a class="anchor" href="#_example_5"></a>Example</h2>
+<h2 id="_example_7"><a class="anchor" href="#_example_7"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
