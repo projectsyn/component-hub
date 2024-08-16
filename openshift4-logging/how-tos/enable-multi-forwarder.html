@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from v0.1.0 to v1.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/upgrade-v0.1-v1.x.html">
-    <link rel="prev" href="../references/parameters.html">
-    <link rel="next" href="upgrade-v1.x-v2.x.html">
+    <title>Enable Multi LogForwarder :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/enable-multi-forwarder.html">
+    <link rel="prev" href="switch-to-lokistack.html">
+    <link rel="next" href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -108,7 +108,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -123,7 +123,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="switch-to-lokistack.html">Switch to Lokistack</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="enable-multi-forwarder.html">Enable Multi LogForwarder</a>
   </li>
 </ul>
@@ -1047,120 +1047,68 @@
   <ul>
     <li><a href="../index.html">OpenShift4 Logging</a></li>
     <li>How-Tos</li>
-    <li><a href="upgrade-v0.1-v1.x.html">Upgrade from v0.1.0 to v1.x</a></li>
+    <li><a href="enable-multi-forwarder.html">Enable Multi LogForwarder</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v0.1-v1.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/enable-multi-forwarder.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from v0.1.0 to v1.x</h1>
-<div class="sect1">
-<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
+<h1 class="page">Enable Multi LogForwarder</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>We recommend creating an empty directory to follow this how-to.
-Following the how-to in an empty directory ensures that running Commodore doesn&#8217;t accidentally delete existing files.</p>
+<p>Red Hat OpenShift Logging Operator only watches the <code>openshift-logging</code> namespace.
+If you want the Red Hat OpenShift Logging Operator to watch all namespaces on your cluster, you must redeploy the Operator.
+You can complete the following procedure to redeploy the Operator without deleting your logging components.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_disable_argocd_sync"><a class="anchor" href="#_disable_argocd_sync"></a>Disable ArgoCD sync</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Disable ArgoCD sync of component-openshift4-logging:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">workdir=$(mktemp -d)
-pushd "${workdir}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json \
+  -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
+kubectl --as=cluster-admin -n syn patch apps openshift4-logging --type=json \
+  -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_remove_cluster_logging_opeartor_group"><a class="anchor" href="#_remove_cluster_logging_opeartor_group"></a>Remove Cluster Logging Opeartor Group</h2>
+<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make a note of the cluster and tenant IDs</p>
+<p>Remove Subscription:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=c-the-cluster-1234 <i class="conum" data-value="1"></i><b>(1)</b>
-export TENANT_ID=t-the-tenant-1234 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the cluster ID of the cluster to update</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Replace with the tenant ID of the cluster&#8217;s tenant</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Make a note of the latest v1.x version</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export V1X=v1.0.0 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the latest v1.x release published on <a href="https://github.com/appuio/component-openshift4-logging/releases">GitHub</a>.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Compile cluster catalog to create a local working directory to make the changes</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile "${CLUSTER_ID}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n openshift-logging delete sub cluster-logging</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Configure <code>openshift4-operators</code> instance <code>openshift-operators-redhat</code></p>
+<p>Remove OperatorGroup:</p>
 <div class="listingblock">
-<div class="title">c-cluster-id.yml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq eval -i '.applications += ["openshift4-operators as openshift-operators-redhat"]' \
-  "inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n openshift-logging delete og cluster-logging</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Upgrade <code>openshift4-logging</code> to <code>v1.0.0</code></p>
+<p>Remove ClusterServiceVersion:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq eval -i ".parameters.components.openshift4-logging.version = \"${V1X}\"" \
-  "inventory/classes/${TENANT_ID}/${CLUSTER_ID}.yml"</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Commit and push changes to cluster config</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(cd "inventory/classes/${TENANT_ID}" &amp;&amp; git commit -av &amp;&amp; git push origin master)</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Compile and push cluster catalog</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile --push -i "${CLUSTER_ID}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n openshift-logging delete csv -l operators.coreos.com/cluster-logging.openshift-logging=</code></pre>
 </div>
 </div>
 </li>
@@ -1168,9 +1116,61 @@ export TENANT_ID=t-the-tenant-1234 <i class="conum" data-value="2"></i><b>(2)</b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_enable_namespaced_logforwarding"><a class="anchor" href="#_enable_namespaced_logforwarding"></a>Enable namespaced LogForwarding</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the following parameter in the tenant repo:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">parameters:
+  openshift4_logging:
+    namespaceLogForwarderEnabled: true</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Compile and push catalog</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enable_argocd_sync"><a class="anchor" href="#_enable_argocd_sync"></a>Enable ArgoCD sync</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Make sure ArgoCD is refreshed before enabling the sync again.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable ArgoCD sync of component-openshift4-logging:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json \
+  -p '[{
+    "op":"replace",
+    "path":"/spec/syncPolicy",
+    "value": {"automated": {"prune": true, "selfHeal": true}}
+  }]'</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
-  <span class="next"><a href="upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a></span>
+  <span class="prev"><a href="switch-to-lokistack.html">Switch to Lokistack</a></span>
+  <span class="next"><a href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">SYN_ElasticsearchExpectNodeToReachDiskWatermark</a></span>
 </nav>
 </article>
   </div>
@@ -1181,7 +1181,7 @@ export TENANT_ID=t-the-tenant-1234 <i class="conum" data-value="2"></i><b>(2)</b
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/upgrade-v0.1-v1.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/enable-multi-forwarder.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

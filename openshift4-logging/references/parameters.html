@@ -123,6 +123,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/switch-to-lokistack.html">Switch to Lokistack</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/enable-multi-forwarder.html">Enable Multi LogForwarder</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -1938,6 +1941,74 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_namespacelogforwarderenabled"><a class="anchor" href="#_namespacelogforwarderenabled"></a><code>namespaceLogForwarderEnabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Enabling namespaced log forwarding requires redeploying the logging operator. See <a href="../how-tos/enable-multi-forwarder.html" class="page">How-To</a> for instructions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespacelogforwarder"><a class="anchor" href="#_namespacelogforwarder"></a><code>namespaceLogForwarder</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the <code>.spec</code> for namespaced log forwarding.</p>
+</div>
+<div class="paragraph">
+<p>See in examples below for configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1949,6 +2020,31 @@ default
         maxAge: 15d
     elasticsearch:
       nodeCount: 5</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_namespaced_clusterlogforwarder"><a class="anchor" href="#_use_namespaced_clusterlogforwarder"></a>Use namespaced ClusterLogForwarder</h3>
+<div class="paragraph">
+<p>Example creates a <code>ClusterLogForwarder</code>, <code>ServiceAccount</code> and <code>RoleBinding</code> in namespace <code>my-namespace</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceLogForwarderEnabled: true
+namespaceLogForwarder:
+  my-namespace/my-forwarder:
+    outputs:
+      splunk-forwarder:
+        secret:
+          name: splunk-forwarder
+        type: fluentdForward
+        url: tls://splunk-forwarder:24224
+    pipelines:
+      application-logs:
+        inputRefs:
+          - application
+        outputRefs:
+          - splunk-forwarder</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
