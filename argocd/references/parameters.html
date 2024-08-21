@@ -1100,8 +1100,11 @@ default
 <div class="paragraph">
 <p>The Kubernetes distribution of the cluster.</p>
 </div>
-<div class="sect2">
-<h3 id="_resync_time"><a class="anchor" href="#_resync_time"></a><code>resync_time</code></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resync_time"><a class="anchor" href="#_resync_time"></a><code>resync_time</code></h2>
+<div class="sectionbody">
 <div class="hdlist">
 <table>
 <tr>
@@ -1127,8 +1130,10 @@ default
 Lower values mean quicker sync but higher CPU usage and more Git traffic.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_ssh_known_hosts"><a class="anchor" href="#_ssh_known_hosts"></a><code>ssh_known_hosts</code></h3>
+</div>
+<div class="sect1">
+<h2 id="_ssh_known_hosts"><a class="anchor" href="#_ssh_known_hosts"></a><code>ssh_known_hosts</code></h2>
+<div class="sectionbody">
 <div class="hdlist">
 <table>
 <tr>
@@ -1144,6 +1149,74 @@ type
 <div class="paragraph">
 <p>SSH known hosts for Git servers.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resource_exclusions"><a class="anchor" href="#_resource_exclusions"></a><code>resource_exclusions</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary(list|dictionary)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cilium:
+- apiGroups:
+  - cilium.io
+  kinds:
+  - CiliumIdentity
+  clusters:
+  - "*"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom:
+- apiGroups:
+  - custom.io
+  kinds:
+  - ClusterWrecker
+  clusters:
+  - "*"
+backup: null</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of resource exclusions for the ArgoCD instance.
+Those resources will not be managed by ArgoCD.</p>
+</div>
+<div class="paragraph">
+<p>The keys are the names of the exclusion groups.
+Keys are not used, they are exclusively for hierarchical structuring.</p>
+</div>
+<div class="paragraph">
+<p>The values are lists of resource definitions that should be excluded from the ArgoCD instance.
+Those lists get concatenated.</p>
+</div>
+<div class="paragraph">
+<p>Check <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/#additional-tracking-methods-via-an-annotation">ArgoCD documentation</a> for more information.</p>
 </div>
 </div>
 </div>
