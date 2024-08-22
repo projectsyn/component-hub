@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/logformat.html">
-    <link rel="prev" href="aws.html">
-    <link rel="next" href="enable-chroot.html">
+    <title>Upgrade from 9.x to 10.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-9.x-to-10.x.html">
+    <link rel="prev" href="upgrade-8.x-to-9.x.html">
+    <link rel="next" href="#cluster-default-ingress-class.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -123,7 +123,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -132,7 +132,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="aws.html">AWS - Amazon Web Services Load Balancers</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="logformat.html">NGINX upstream log format as JSON</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1059,61 +1059,57 @@
   <ul>
     <li><a href="../index.html">ingress-nginx</a></li>
     <li>How-to guides</li>
-    <li><a href="logformat.html">NGINX upstream log format as JSON</a></li>
+    <li><a href="upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/logformat.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-9.x-to-10.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<div class="sect1">
-<h2 id="_nginx_upstream_log_format_as_json"><a class="anchor" href="#_nginx_upstream_log_format_as_json"></a>NGINX upstream log format as JSON</h2>
+<h1 class="page">Upgrade from 9.x to 10.x</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default the upstream log is defined as a regular human readable string.
-To switch to a JSON based format you might use this example:</p>
+<p>This guide describes the steps to perform an upgrade of the component from version 9.x to 10.x.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        config:
-          log-format-upstream: &gt;-
-            {
-            "time": "$time_iso8601",
-            "remote_addr": "$proxy_protocol_addr",
-            "x-forward-for": "$proxy_add_x_forwarded_for",
-            "req_id": "$req_id",
-            "remote_user": "$remote_user",
-            "bytes_sent": $bytes_sent,
-            "request_time": $request_time,
-            "status": "$status",
-            "host": "$host",
-            "request_proto": "$server_protocol",
-            "request_uri": "$uri",
-            "request_query": "$args",
-            "request_length": $request_length,
-            "request_time": $request_time,
-            "request_method": "$request_method",
-            "http_referer": "$http_referer",
-            "http_user_agent": "$http_user_agent",
-            "namespace": "$namespace",
-            "ingress_name": "$ingress_name",
-            "service_name": "$service_name",
-            "service_port": "$service_port"
-            }</code></pre>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This release removes support for Kubernetes v1.25
+This release adds support for Kubernetes v1.29.0 and v1.30.0.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_breaking_changes"><a class="anchor" href="#_breaking_changes"></a>Breaking changes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This version dropped Opentracing and zipkin modules, just Opentelemetry is supported as of this release
+This version dropped support for PodSecurityPolicy
+This version dropped support for GeoIP (legacy). Only GeoIP2 is supported</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.10.0">release notes</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>No steps required if you don&#8217;t use zipkin modules, GeoIP (legacy) and the Kubernetes version is equal or higher than v1.26.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="aws.html">AWS - Amazon Web Services Load Balancers</a></span>
-  <span class="next"><a href="enable-chroot.html">Enable chrooted NGINX process</a></span>
+  <span class="prev"><a href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a></span>
+  <span class="next"><a href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a></span>
 </nav>
 </article>
   </div>
@@ -1124,7 +1120,7 @@ To switch to a JSON based format you might use this example:</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/logformat.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-9.x-to-10.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
