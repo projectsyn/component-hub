@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Deploy on existing OpenShift cluster :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cloudscale-cloud-controller-manager/how-tos/deploy-ocp.html">
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="loadbalance-ipmode.html">
+    <title>Load Balancer IP Mode :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/cloudscale-cloud-controller-manager/how-tos/loadbalance-ipmode.html">
+    <link rel="prev" href="deploy-ocp.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -93,10 +93,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="deploy-ocp.html">Deploy on existing OpenShift cluster</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="loadbalance-ipmode.html">Load Balancer IP Mode</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1021,201 +1021,100 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">cloudscale-cloud-controller-manager</a></li>
-    <li><a href="deploy-ocp.html">Deploy on existing OpenShift cluster</a></li>
+    <li><a href="loadbalance-ipmode.html">Load Balancer IP Mode</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cloudscale-cloud-controller-manager/edit/master/docs/modules/ROOT/pages/how-tos/deploy-ocp.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cloudscale-cloud-controller-manager/edit/master/docs/modules/ROOT/pages/how-tos/loadbalance-ipmode.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Deploy on existing OpenShift cluster</h1>
+<h1 class="page">Load Balancer IP Mode</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes how to deploy cloudscale.ch CCM on an existing cluster.</p>
+<p>This guide describes how to steer the internal traffic flow with cloudscale CCM.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<h2 id="_internal_routing_and_proxy_protocol"><a class="anchor" href="#_internal_routing_and_proxy_protocol"></a>Internal routing and Proxy Protocol</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Ensure nodes are registered with cloudscale.ch provider id</p>
 <div class="paragraph">
-<p>If not already present add the following machine config which customizes the kubelet systemd service on all cluster nodes.
-As described in <a href="https://github.com/openshift/infrastructure-provider-onboarding-guide/blob/main/docs/platform-external/installing.md" class="bare">github.com/openshift/infrastructure-provider-onboarding-guide/blob/main/docs/platform-external/installing.md</a>.</p>
+<p>Kubernetes tries to route traffic within the cluster whenever possible.
+This is usually a valid default as it is faster.</p>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Applying the <code>MachineConfig</code> causes node reboots.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>However if the proxy protocol or proxy protocol v2 is enabled on both the load balancer and the listening service, the service expects to receive encapsulated traffic using the proxy protocol headers.</p>
+</div>
+<div class="paragraph">
+<p>If the traffic is routed directly and not passing the load balancer the traffic is not to be encapsulated, which results in the service being unable to parse it correctly and dropping the connection:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
-  config:
-    ignition:
-      version: 3.2.0
-    storage:
-      files:
-        - mode: 493 # 0755
-          path: /usr/local/bin/appuio-kubelet-providerid
-          contents:
-            inline: |
-              #!/bin/bash
-              set -e -o pipefail
-              NODECONF=/etc/systemd/system/kubelet.service.d/20-appuio-providerid.conf
-              if [ -e "\${NODECONF}" ]; then
-                echo "Not replacing existing \${NODECONF}"
-                exit 0
-              fi
-              PROVIDERID=$(curl -sL http://169.254.169.254/openstack/2017-02-22/meta_data.json | \
-                jq -r .meta.cloudscale_uuid)
-              cat &gt;"\${NODECONF}" &lt;&lt;EOF
-              [Service]
-              Environment="KUBELET_PROVIDERID=cloudscale://\${PROVIDERID}"
-              EOF
-    systemd:
-      units:
-        - name: appuio-kubelet-providerid.service
-          enabled: true
-          contents: |
-            [Unit]
-            Description=Fetch provide id from metadata service
-            After=NetworkManager-wait-online.service
-            Before=kubelet.service
-            [Service]
-            ExecStart=/usr/local/bin/appuio-kubelet-providerid
-            Type=oneshot
-            [Install]
-            WantedBy=network-online.target</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl http://internal-path-to-service/
+curl: (56) Recv failure: Connection reset by peer</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Check if provider id is present on nodes</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for n in $(kubectl get nodes -oname); do
-  PROVIDERID=$(oc -n syn-debug-nodes --as=cluster-admin debug $n -- chroot /host cat /etc/systemd/system/kubelet.service.d/20-appuio-providerid.conf 2&gt;&amp;1 | grep PROVIDERID | sed -e 's/^Environment="KUBELET_PROVIDERID=\([^"]\+\)"$/\1/g')
-  echo kubectl --as=cluster-admin patch $n --type=merge -p "{\"spec\":{\"providerID\":\"${PROVIDERID}\"}}";
-done</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Patch nodes with provider id</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for n in $(kubectl get nodes -oname); do
-  PROVIDERID=$(oc -n syn-debug-nodes --as=cluster-admin debug $n -- chroot /host cat /etc/systemd/system/kubelet.service.d/20-appuio-providerid.conf 2&gt;&amp;1 | grep PROVIDERID | sed -e 's/^Environment="KUBELET_PROVIDERID=\([^"]\+\)"$/\1/g')
-  kubectl --as=cluster-admin patch $n --type=merge -p "{\"spec\":{\"providerID\":\"${PROVIDERID}\"}}";
-done
-kubectl get no -ocustom-columns='NAME:.metadata.name,PROVIDER_ID:.spec.providerID'</code></pre>
+<div class="sect1">
+<h2 id="_kubernetes_1_30_and_higher"><a class="anchor" href="#_kubernetes_1_30_and_higher"></a>Kubernetes 1.30 and higher</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The cloudscale CCM does set .status.loadBalancer.ingress.ipMode automatically to "Proxy", unless LoadBalancerIPMode is set to "VIP".
+This behavior therefore routes the traffic via the load balancer and you have manually configure it to "VIP" to enforce the cluster internal routing.</p>
 </div>
+<div class="paragraph">
+<p>See the Kubernetes documentation <a href="https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-ip-mode">Specifying IPMode of load balancer status</a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kubernetes_up_to_1_29"><a class="anchor" href="#_kubernetes_up_to_1_29"></a>Kubernetes up to 1.29</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To force on older Kubernetes routing traffic via the load balancer, you need to replace the service IP with the load balancer hostname.
+The cloudscale CCM allows you to set the hostname using the annotation <code>k8s.cloudscale.ch/loadbalancer-force-hostname</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           PROVIDER_ID
-infra-8344     cloudscale://1b04b1fb-d6c8-4108-92f4-f64f8c1ca960
-infra-87c9     cloudscale://2813282a-2a88-461d-a927-4ad96bf4360a
-infra-eba2     cloudscale://22fd8f7d-0eb8-4d10-82d7-e35df65e62b8
-master-3b79    cloudscale://b7597a27-0129-40cc-9bd8-ac19f5d3deb6
-master-6cc2    cloudscale://556ca8bd-37a3-4a48-8412-8eafe90c606a
-master-edc2    cloudscale://48255c88-ad2b-4242-a4ba-74332f16b264
-storage-17fd   cloudscale://2584f7f1-a2cf-4598-903b-80ff6acc1dd0
-storage-534a   cloudscale://e2c96748-7d24-45e7-b345-8b83d7dc21bf
-storage-c4e4   cloudscale://a8358646-fe30-4fb6-bffb-6971863286d3
-worker-10db    cloudscale://f2a2cc9b-aae9-4674-ae64-de4bd3cfb1db
-worker-3b6c    cloudscale://671553ab-2243-4075-b35b-0592aa9d2299
-worker-52c6    cloudscale://a6255254-46bf-4c4f-8638-9eb26559814e
-worker-8e76    cloudscale://a0ba2200-bfc3-435a-b733-8607b6ee4190</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    k8s.cloudscale.ch/loadbalancer-pool-protocol: proxyv2
+    k8s.cloudscale.ch/loadbalancer-force-hostname: &lt;full qualified load balancer DNS name&gt;
+  name: example-service
+  namespace: example
+spec:
+  externalTrafficPolicy: Local
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: https
+  selector:
+    app.kubernetes.io/name: example
+  sessionAffinity: None
+  type: LoadBalancer</code></pre>
 </div>
-</div>
-</li>
-<li>
-<p>Deploy component-cloudscale-cloud-controller-manager</p>
-</li>
-<li>
-<p>Patch infrastructure config</p>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-This step triggers node reboots to apply the Kubelet flag <code>--cloud-provider=external</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as cluster-admin patch infrastructure.config  cluster --type=merge -p '{"spec":{"platformSpec":{"external":{"platformName":"cloudscale.ch"},"type":"External"}}}'
-infrastructure.config.openshift.io/cluster patched</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl proxy &amp;
-curl -XPATCH -H"Content-Type: application/merge-patch+json" http://localhost:8001/apis/config.openshift.io/v1/infrastructures/cluster/status -d '{"status":{"platform":"External","platformStatus":{"external":{"cloudControllerManager":{"state":"External"}},"type":"External"}}}'</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Taint nodes with <code>node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as cluster-admin taint node --all node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Check if instance-type is applied</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get nodes -ocustom-columns='NAME:.metadata.name,INSTANCE_TYPE:.metadata.labels.node\.kubernetes\.io/instance-type'</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           INSTANCE_TYPE
-infra-8344     flex-24-6
-infra-87c9     flex-24-6
-infra-eba2     flex-24-6
-master-3b79    flex-24-6
-master-6cc2    flex-24-6
-master-edc2    flex-24-6
-storage-17fd   flex-8-2
-storage-534a   flex-8-2
-storage-c4e4   flex-8-2
-worker-10db    flex-16-4
-worker-3b6c    flex-16-4
-worker-52c6    flex-16-4
-worker-8e76    flex-16-4</code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="loadbalance-ipmode.html">Load Balancer IP Mode</a></span>
+  <span class="prev"><a href="deploy-ocp.html">Deploy on existing OpenShift cluster</a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>
@@ -1226,7 +1125,7 @@ worker-8e76    flex-16-4</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cloudscale-cloud-controller-manager/how-tos/deploy-ocp.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cloudscale-cloud-controller-manager/how-tos/loadbalance-ipmode.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
