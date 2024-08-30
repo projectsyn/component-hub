@@ -1106,6 +1106,43 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_backend_type"><a class="anchor" href="#_backend_type"></a><code>backend_type</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>s3</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p><code>s3</code>, <code>sftp</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Which backend type to configure for the backup.
+Currently, the component supports backing up to S3 (compatible) buckets and SFTP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_bucket"><a class="anchor" href="#_bucket"></a><code>bucket</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1123,6 +1160,18 @@ type
 <div class="paragraph">
 <p>Holds the name and credentials for an S3 type storage bucket.
 This bucket will be used to store the backups.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The bucket configuration is ignored (but must be present) when <code>backend_type</code> isn&#8217;t set to <code>s3</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_accesskey"><a class="anchor" href="#_accesskey"></a><code>accesskey</code></h3>
@@ -1194,7 +1243,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/s3_secret_key}</code></p>
+<p><code>'?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/s3_secret_key}'</code></p>
 </td>
 </tr>
 </table>
@@ -1202,6 +1251,276 @@ default
 <div class="paragraph">
 <p>The secret key needed to access the storage bucket.
 The default is a reference to a secret within Vault.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sftp"><a class="anchor" href="#_sftp"></a><code>sftp</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This section holds SFTP connection details.
+When <code>backend_type</code> is set to <code>sftp</code>, the SFTP connection will be used to store the backups.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The SFTP configuration is ignored when <code>backend_type</code> isn&#8217;t set to <code>sftp</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_host"><a class="anchor" href="#_host"></a><code>host</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>sftp.example.com</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The host name of the SFTP server.
+Must resolve on the cluster.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_port"><a class="anchor" href="#_port"></a><code>port</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>22</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The port on which the SFTP server listens for incoming SSH connections.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_user"><a class="anchor" href="#_user"></a><code>user</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>exampleuser</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The user name to use when connecting to the SFTP server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_path"><a class="anchor" href="#_path"></a><code>path</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cluster-backup</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The path on the SFTP server where the backups should be stored.
+Relative paths are interpreted relative to the SSH user&#8217;s home directory on the server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extra_ssh_config"><a class="anchor" href="#_extra_ssh_config"></a><code>extra_ssh_config</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>''</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Any additional contents for the backup job&#8217;s <code>~/.ssh/config</code> file.
+The value must be a valid snippet of SSH config.</p>
+</div>
+<div class="paragraph">
+<p>The contents are appended to a file which contains a basic config that&#8217;s constructed from parameters <code>sftp.host</code>, <code>sftp.port</code> and <code>sftp.user</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Default <code>~/.ssh/config</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code>Host &lt;sftp.host&gt;
+Port &lt;sftp.port&gt;
+User &lt;sftp.user&gt;
+IdentityFile ~/.ssh/ssh_key</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The SSH config file is mounted to the backup job pod via K8up&#8217;s <code>PodConfig</code> mechanism as <code>/home/k8up/.ssh</code>.
+Additionally, the <code>PodConfig</code> sets environment variable <code>HOME</code> to <code>/home/k8up</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_ssh_private_key"><a class="anchor" href="#_ssh_private_key"></a><code>ssh_private_key</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>'?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/ssh_private_key}'</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The private key to use to authenticate on the SFTP server.
+To ensure that the SSH key will be handled correctly, the component will always append a trailing new line to the provided value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ssh_public_key"><a class="anchor" href="#_ssh_public_key"></a><code>ssh_public_key</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>'?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/ssh_public_key}'</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The public key associated with the private key provided in <code>ssh_private_key</code>.
+Currently not used, but deployed into the cluster for completeness.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ssh_known_hosts"><a class="anchor" href="#_ssh_known_hosts"></a><code>ssh_known_hosts</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>''</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The provided value is used verbatim as the contents for the backup job&#8217;s <code>~/.ssh/known_hosts</code>.</p>
 </div>
 </div>
 </div>
@@ -1335,7 +1654,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/password}'</code></p>
+<p><code>'?{vaultkv:${cluster:tenant}/${cluster:name}/cluster-backup/password}'</code></p>
 </td>
 </tr>
 </table>
