@@ -66,6 +66,7 @@ jobs:
         with:
           name: antora-site-configuration
           path: build/
+          include-hidden-files: true
 
   build:
     name: Build Antora Site 💪
