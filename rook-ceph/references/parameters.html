@@ -1873,14 +1873,26 @@ keys
 values
 </td>
 <td class="hdlist2">
-<p>dicts with keys <code>config</code> and <code>mount_options</code>, and <code>storage_class_config</code></p>
+<p>dicts with keys <code>config</code> and <code>mount_options</code>, <code>storage_class_config</code>, and <code>extra_storage_classes</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>In this parameter <code>CephBlockPool</code> resources are configured.
-The component creates exactly one storageclass and volumesnapshotclass per block pool.</p>
+The component creates one storageclass and volumesnapshotclass per block pool.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component will create additional storage classes if field <code>extra_storage_classes</code> is provided.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>By default the parameter holds the following configuration:</p>
@@ -1918,7 +1930,7 @@ The component creates exactly one storageclass and volumesnapshotclass per block
 </ul>
 </div>
 <div class="paragraph">
-<p>See <a href="https://rook.io/docs/rook/v1.9/ceph-pool-crd.html">the Rook.io <code>CephBlockPool</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+<p>See <a href="https://rook.github.io/docs/rook/v1.14/CRDs/Block-Storage/ceph-block-pool-crd/">the Rook.io <code>CephBlockPool</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
 </div>
 <div class="paragraph">
 <p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource.</p>
@@ -1932,6 +1944,65 @@ Providing a key with value <code>false</code> or <code>null</code> will result i
 <div class="paragraph">
 <p>See the filesystem documentation for the set of supported mount options.
 For example, see the list of supported mount options for <code>ext4</code> in the <a href="https://man7.org/linux/man-pages/man5/ext4.5.html#Mount_options_for_ext4">man page</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_storage_pools_rbd_poolname_extra_storage_classes"><a class="anchor" href="#_storage_pools_rbd_poolname_extra_storage_classes"></a><code>storage_pools.rbd.&lt;poolname&gt;.extra_storage_classes</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storagepool:
+  extra_storage_classes:
+    small-files:
+      parameters:
+        csi.storage.k8s.io/fstype: ext4 <i class="conum" data-value="1"></i><b>(1)</b>
+        mkfsOptions: -m0 -Enodiscard,lazy_itable_init=1,lazy_journal_init=1 -i1024 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>When providing <code>mkfsOptions</code> it makes sense to explicitly specify the fstype, since mismatched fstype and mkfsOptions will likely result in errors.
+Note that provinding <code>fstype</code> isn&#8217;t strictly necessary, if the same fstype is set in <code>storage_pools.rbd.&lt;poolname&gt;.storage_class_config</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>-m0 -Enodiscard,lazy_itable_init=1,lazy_journal_init=1</code> are the default <code>mkfsOptions</code> for ext4 in ceph-csi.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional storage classes for an RBD blockpool.
+The component will generate a storage class for each key-value pair in the parameter.</p>
+</div>
+<div class="paragraph">
+<p>The key will be used as a suffix for the storage class name.
+The resulting storage class name will have the form <code>rbd-&lt;poolname&gt;-&lt;ceph cluster name&gt;-&lt;key&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component will use the configurations provided in <code>storage_pools.rbd.&lt;poolname&gt;.mount_options</code> and <code>storage_pools.rbd.&lt;poolname&gt;.storage_class_config</code> as the base for any storage classes defined here.
+The provided value will be merged into the base storage class definition.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
