@@ -1235,7 +1235,7 @@ OpenShift&#8217;s ingress router must be configured to allow wildcard routes for
 <h2 id="_httpproxyparalus"><a class="anchor" href="#_httpproxyparalus"></a><code>httpProxyParalus</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This parameter contains customizations to apply  to the Contour <code>HTTPProxy</code> object for the Paralus control plane.</p>
+<p>This parameter contains customizations to apply to the Contour <code>HTTPProxy</code> object for the Paralus control plane.</p>
 </div>
 <div class="sect2">
 <h3 id="_httpproxyparalus_loadbalancerpolicy"><a class="anchor" href="#_httpproxyparalus_loadbalancerpolicy"></a><code>httpProxyParalus.loadBalancerPolicy</code></h3>
@@ -1273,6 +1273,34 @@ See the <a href="https://projectcontour.io/docs/1.24/config/request-routing/#loa
 <div class="paragraph">
 <p>By default, the component configures sticky sessions for the Paralus service.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dbcronjob"><a class="anchor" href="#_dbcronjob"></a><code>dbCronJob</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This parameter contains customizations to apply to the cronjob cleaning up audit logs.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-paralus/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
