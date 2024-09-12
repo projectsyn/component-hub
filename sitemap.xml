@@ -283,6 +283,9 @@
 <loc>https://hub.syn.tools/sitemap-rook-ceph.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-rotating-bucket-backup.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-secret-generator.xml</loc>
 </sitemap>
 <sitemap>
