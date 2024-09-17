@@ -1077,6 +1077,336 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_namespace_metadata"><a class="anchor" href="#_namespace_metadata"></a><code>namespace_metadata</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">annotations: {}
+labels: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows adding additional annotations and labels to the namespace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The images to use for the component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jobs"><a class="anchor" href="#_jobs"></a><code>jobs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    jobs:
+      myjob:
+        source_bucket:
+          name: mytestbucket
+          accesskey: accesskey
+          secretkey: secretkey
+          url: https://objects.rma.example.com
+        target_bucket_tmpl:
+          type: appcat
+          parameters:
+            region: lpg</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The backup jobs to run. The key is the name of the job. The value is a dictionary with the following keys:</p>
+</div>
+<div class="sect2">
+<h3 id="_source_bucket_name"><a class="anchor" href="#_source_bucket_name"></a><code>source_bucket.name</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the source bucket.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source_bucket_accesskey"><a class="anchor" href="#_source_bucket_accesskey"></a><code>source_bucket.accesskey</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The access key for the source bucket.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source_bucket_secretkey"><a class="anchor" href="#_source_bucket_secretkey"></a><code>source_bucket.secretkey</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The secret key for the source bucket.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source_bucket_url"><a class="anchor" href="#_source_bucket_url"></a><code>source_bucket.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The URL of the source bucket.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_target_bucket_tmpl_type"><a class="anchor" href="#_target_bucket_tmpl_type"></a><code>target_bucket_tmpl.type</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The type of the target bucket. Currently, only <code>appcat</code> is supported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_target_bucket_tmpl_parameters"><a class="anchor" href="#_target_bucket_tmpl_parameters"></a><code>target_bucket_tmpl.parameters</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The parameters for the target bucket. The keys and values depend on the type of the target bucket.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if <code>PrometheusRule</code> objects are created.
+The alerts expect <code>kube-state-metrics</code> to be running in the cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring_alerts"><a class="anchor" href="#_monitoring_alerts"></a><code>monitoring.alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/vshn/component-rotating-bucket-backup/blob/master/class/defaults.yml">defaults.yml</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alerts:
+  MyAlert:
+    enabled: true
+    rule:
+      expr: |
+        up{namespace="${rotating_bucket_backup:namespace}"} == 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Instance {{ $labels.instance }} down"
+        description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The alerts to configure.
+The key is the name of the alert.
+The value is a dictionary with the following keys:</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls if the alert is enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rule"><a class="anchor" href="#_rule"></a><code>rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Prometheus rule for the alert.
+The keys and values depend on the alert.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">

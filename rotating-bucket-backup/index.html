@@ -1042,7 +1042,12 @@
 <article class="doc">
 <h1 class="page">rotating-bucket-backup</h1>
 <div class="paragraph">
-<p>rotating-bucket-backup is a Commodore component to manage rotating-bucket-backup.</p>
+<p>rotating-bucket-backup is a Commodore component to manage S3 bucket backups.</p>
+</div>
+<div class="paragraph">
+<p>The component creates a backup of an S3 bucket and stores it in another S3 bucket.
+The component creates a new bucket for each day of the month and stores the backup in the corresponding bucket.
+It then rotates by overwriting the corresponding bucket on the same day of the month.</p>
 </div>
 <div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
