@@ -14,7 +14,7 @@ click = "8.1.7"
 importlib-metadata = "8.2.0"
 python-dotenv = "1.0.1"
 Jinja2 = "3.1.4"
-alt-profanity-check = "1.5.1"
+alt-profanity-check = "1.5.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "8.3.3"
