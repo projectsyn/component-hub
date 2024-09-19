@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Policies :: Commodore Hub</title>
+    <title>Cloud Agent Policies :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-cloud/explanations/policies.html">
-    <link rel="prev" href="../references/policies/30_set_runonce_activedeadlineseconds.html">
+    <link rel="prev" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -110,36 +110,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../references/policies/index.html">Policies</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/02_disallow_reserved_namespaces.html">Policy: <code>disallow-reserved-namespaces</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/02_organization_namespaces.html">Policy: <code>organization-namespaces</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/02_organization_projects.html">Policy: <code>organization-projects</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/02_organization_sa_namespaces.html">Policy: <code>organization-sa-namespaces</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/02_validate_namespace_metadata.html">Policy: <code>validate-namespace-metadata</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/11_generate_quota_limit_range_in_ns.html">Policy: <code>quota-and-limit-range-in-ns</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/12_namespace_quota_per_zone.html">Policy: <code>check-namespace-quota</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../references/policies/30_set_runonce_activedeadlineseconds.html">Policy: <code>set-runonce-activedeadlineseconds</code></a>
-  </li>
-</ul>
   </li>
 </ul>
   </li>
@@ -1098,12 +1068,12 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Policies</h1>
+<h1 class="page">Cloud Agent Policies</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="quoteblock abstract">
 <blockquote>
-This documentation explains how the different policies interact to implement the requirements and architectural decisions for APPUiO Cloud.
+This documentation explains how the different admission webhooks and controllers, referenced here as policies, interact to implement the requirements and architectural decisions for APPUiO Cloud.
 </blockquote>
 </div>
 </div>
@@ -1113,7 +1083,7 @@ This documentation explains how the different policies interact to implement the
 <div class="sectionbody">
 <div class="paragraph">
 <p>The overall desired architecture for namespace ownership on APPUiO Cloud is documented in the <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/namespace-ownership.html">APPUiO Cloud for System Engineers</a> documentation.
-This component implements the architecture described there with Kyverno policies and the <a href="https://github.com/appuio/appuio-cloud-agent">APPUiO Cloud Agent</a>.</p>
+This component implements the architecture described there with the <a href="https://github.com/appuio/appuio-cloud-agent">APPUiO Cloud Agent</a>.</p>
 </div>
 <div class="paragraph">
 <p>This article explains how the different policies managed by the component implement namespace ownership and other adjacent policies.</p>
@@ -1179,7 +1149,7 @@ Some policies, such as <code>validate-namespace-metadata</code> are also execute
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../_images/namespace-policies-0adbffe7399876e22c7da228676852b12a4a1ab9.svg" alt="namespace-policies">
+<img src="../_images/namespace-policies-85539c6901ff5c01f770117c173448d4b54f524f.svg" alt="namespace-policies">
 </div>
 </div>
 <div class="colist arabic">
@@ -1202,8 +1172,8 @@ Some policies, such as <code>validate-namespace-metadata</code> are also execute
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Checking whether a principal is allowed to bypass the namespace policies is implemented as exclude rules in the other validating policies.
-However, to better illustrate the flow of a request in the diagram, we pretend it&#8217;s a separate validating policy (labeled <code>PRIV</code>).</p>
+<p>Checking whether a principal is allowed to bypass the namespace policies is implemented as exclude rules in the other policies.
+However, to better illustrate the flow of a request in the diagram, we pretend it&#8217;s a separate policy (labeled <code>PRIV</code>).</p>
 </div>
 </td>
 </tr>
@@ -1217,7 +1187,8 @@ However, to better illustrate the flow of a request in the diagram, we pretend i
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Generally, Kyverno policies are evaluated in parallel, but we organize them in a flow-chart style to better illustrate how they interact.</p>
+<p>Mutating policies are executed before validating policies, both are executed in parallel with other policies of the same type.
+We organize them in a flow-chart style to better illustrate how they interact.</p>
 </div>
 </td>
 </tr>
@@ -1231,7 +1202,7 @@ However, to better illustrate the flow of a request in the diagram, we pretend i
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><a href="../references/policies/02_disallow_reserved_namespaces.html" class="page"><code>disallow-reserved-namespaces</code> (labeled <code>RSVD</code>)</a></dt>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/namespace_metadata_validator.go"><code>namespace_metadata_validator</code> (labeled <code>NMEV</code>)</a></dt>
 <dd>
 <p>This policy ensures that users can&#8217;t create namespaces which match a pattern which is reserved for the system.
 We need this policy to ensure that users can&#8217;t adversely impact the system by using namespace names which might be used by the system in the future.</p>
@@ -1240,7 +1211,27 @@ We need this policy to ensure that users can&#8217;t adversely impact the system
 The component allows operators to configure the set of disallowed patterns.</p>
 </div>
 </dd>
-<dt class="hdlist1"><a href="../references/policies/12_namespace_quota_per_zone.html" class="page"><code>check-namespace-quota</code> (labeled <code>NS_QUOT</code>)</a></dt>
+</dl>
+</div>
+<div class="paragraph">
+<p>This policy also ensures that users can only create or edit selected labels and annotations.
+In particular, we want to allow users to transfer namespace ownership between organizations of which they&#8217;re members.</p>
+</div>
+<div class="paragraph">
+<p>+
+As shown in the <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-organization-rbac.html">end-user documentation</a>, transferring a namespace is done by changing the namespace&#8217;s <code>appuio.io/organization</code> label to the organization which should receive ownership of the namespace.</p>
+</div>
+<div class="paragraph">
+<p>+
+To protect the cluster, we need to ensure that users can&#8217;t modify arbitrary labels or annotations on a namespaces, since OpenShift exposes a number of privileged operations (such as setting a namespace-wide node selector for workloads) as labels and annotations on namespace objects.</p>
+</div>
+<div class="paragraph">
+<p>+
+TIP: This policy is executed when namespaces are created or updated.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/namespace_quota_validator.go"><code>namespace_quota_validator.go</code> (labeled <code>NS_QUOT</code>)</a></dt>
 <dd>
 <p>This policy denies creation of new namespaces for an organization which has used up their namespace quota on a zone.
 The component allows operators to adjust the global and per-organization namespace quota.</p>
@@ -1255,40 +1246,17 @@ The component allows operators to adjust the global and per-organization namespa
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This policy was migrated to the APPUiO Cloud Agent with introduction of the UsageProfile feature. See <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">Control API: UsageProfile</a>.</p>
-</div>
-<div class="paragraph">
-<p>Overrides of the default quotas are still possible using the same ConfigMap as the Kyverno policy.</p>
+<p>This policy has two modes:
+Legacy mode: The policy reads the namespace quota from a ConfigMap in the same namespace as the policy.
+UsageProfile mode: See <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">Control API: UsageProfile</a>.
+Overrides of the default quotas are still possible using the same ConfigMap as the legacy policy.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 </dd>
-<dt class="hdlist1"><a href="../references/policies/02_validate_namespace_metadata.html" class="page"><code>validate-namespace-metadata</code> (labeled <code>NS_LBL</code>)</a></dt>
-<dd>
-<p>This policy ensures that users can only create or edit selected labels and annotations.
-In particular, we want to allow users to transfer namespace ownership between organizations of which they&#8217;re members.</p>
-<div class="paragraph">
-<p>As shown in the <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-organization-rbac.html">end-user documentation</a>, transferring a namespace is done by changing the namespace&#8217;s <code>appuio.io/organization</code> label to the organization which should receive ownership of the namespace.</p>
-</div>
-<div class="paragraph">
-<p>To protect the cluster, we need to ensure that users can&#8217;t modify arbitrary labels or annotations on a namespaces, since OpenShift exposes a number of privileged operations (such as setting a namespace-wide node selector for workloads) as labels and annotations on namespace objects.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-This policy is executed when namespaces are created or updated.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1"><code>default-rolebinding-in-ns (labeled ORG_RBAC)</code></dt>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/controllers/org_rbac_controller.go"><code>org_rbac_controller.go</code> (labeled <code>ORG_RBAC</code>)</a></dt>
 <dd>
 <p>The <a href="https://github.com/appuio/appuio-cloud-agent/blob/master/controllers/org_rbac_controller.go">Organization RBAC Controller</a> of the APPUiO Cloud Agent makes sure that by default organizations are granted all the permissions necessary to manager their own namespaces.</p>
 <div class="paragraph">
@@ -1303,7 +1271,7 @@ This allows organizations to further restrict access for their members.</p>
 <p>This fulfills the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-organization-rbac.html">namespaces are owned by organizations</a>.</p>
 </div>
 </dd>
-<dt class="hdlist1"><a href="../references/policies/11_generate_quota_limit_range_in_ns.html" class="page"><code>quota-and-limit-range-in-ns</code> (labeled <code>RES_QUOT</code>)</a></dt>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/controllers/legacy_resource_quota_controller.go"><code>legacy_resource_quota_controller.go</code> (labeled <code>RES_QUOT</code>)</a></dt>
 <dd>
 <p>This policy is applied to any namespace which is created with an organization label.
 It generates default <code>ResourceQuota</code> and <code>LimitRange</code> objects in all namespaces belonging to an organization.
@@ -1320,10 +1288,24 @@ Notably, we deploy a quota limiting the cumulative memory and CPU <a href="https
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This policy was migrated to the APPUiO Cloud Agent with introduction of the UsageProfile feature. See <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">Control API: UsageProfile</a>.</p>
+<p>This policy is superseeded by the UsageProfile feature. See <a href="https://kb.vshn.ch/appuio-cloud/references/architecture/control-api-usage-profile.html">Control API: UsageProfile</a>.</p>
 </div>
 <div class="paragraph">
 <p>Overrides of the default quotas are still possible by adding the same annotations as before to the namespace.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A validating policy (<a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/reserved_resourcequota_limitrange_validator.go"><code>reserved_resourcequota_limitrange_validator.go</code></a>) forbids modification of the reserved <code>ResourceQuota</code> and <code>LimitRange</code> objects in the namespace.</p>
 </div>
 </td>
 </tr>
@@ -1340,68 +1322,55 @@ Notably, we deploy a quota limiting the cumulative memory and CPU <a href="https
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><a href="../references/policies/02_organization_namespaces.html" class="page"><code>organization-namespaces</code> (labeled <code>USR_NS_ORG</code>)</a></dt>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/namespace_project_organization_mutator.go"><code>namespace_project_organization_mutator.go</code> (labeled <code>ORG_NS</code>)</a></dt>
 <dd>
-<p>This policy is executed when a namespace is created by a user.
-If the user creates a namespace without an explicit <code>appuio.io/organization</code> label, their default organization is set as the value of the label.</p>
+<p>This policy is executed when a namespace or OpenShift project is created by a user or a ServiceAccount.</p>
+</dd>
+</dl>
+</div>
+<div class="sect3">
+<h4 id="_user_flow"><a class="anchor" href="#_user_flow"></a>User flow</h4>
 <div class="paragraph">
-<p>The policy denies the request if the user tries to create a namespace for an organization which they&#8217;re not a member of.
+<p>If the user creates a namespace without an explicit <code>appuio.io/organization</code> label, their default organization is set as the value of the label.</p>
+</div>
+<div class="paragraph">
+<p>+
+The policy denies the request if the user tries to create a namespace for an organization which they&#8217;re not a member of.
 It also denies the request when a user who doesn&#8217;t have a default organization tries to create a namespace without an explicit organization label.</p>
 </div>
 <div class="paragraph">
-<p>This policy implements the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-arbitrary-name.html">users can create arbitrary namespaces directly with <code>kubectl create</code></a>
+<p>+
+This policy implements the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/ns-arbitrary-name.html">users can create arbitrary namespaces directly with <code>kubectl create</code></a>
 Additionally, this policy ensures that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/functional/namespace-organization.html">user namespaces are associated with an organization for billing purposes</a> for those namespaces.</p>
 </div>
-</dd>
-<dt class="hdlist1"><a href="../references/policies/02_organization_sa_namespaces.html" class="page"><code>organization-sa-namespaces</code> (labeled <code>SA_NS_ORG</code>)</a></dt>
-<dd>
-<p>This policy is executed when a namespace is created by a ServiceAccount.
-The policy looks up the ServiceAccount&#8217;s organization by looking up the organization to which the ServiceAccount&#8217;s namespace belongs.
-If the ServiceAccount creates a namespace without an explicit <code>appuio.io/organization</code> label, it&#8217;s organization is set as the value of the label.</p>
+</div>
+<div class="sect3">
+<h4 id="_serviceaccount_flow"><a class="anchor" href="#_serviceaccount_flow"></a>ServiceAccount flow</h4>
 <div class="paragraph">
-<p>The policy denies the request if the ServiceAccount tries to create a namespace for a different organization than the one to which it belongs.</p>
+<p>The policy looks up the ServiceAccount&#8217;s organization by looking up the organization to which the ServiceAccount&#8217;s namespace belongs.
+If the ServiceAccount creates a namespace without an explicit <code>appuio.io/organization</code> label, it&#8217;s organization is set as the value of the label.</p>
 </div>
 <div class="paragraph">
-<p>This policy implements the requirement that users should be able to <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/create-ns-with-serviceaccount.html">use ServiceAccount tokens to create namespaces</a>.
+<p>+
+The policy denies the request if the ServiceAccount tries to create a namespace for a different organization than the one to which it belongs.</p>
+</div>
+<div class="paragraph">
+<p>+
+This policy implements the requirement that users should be able to <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/create-ns-with-serviceaccount.html">use ServiceAccount tokens to create namespaces</a>.
 Additionally, this policy ensures that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/functional/namespace-organization.html">user namespaces are associated with an organization for billing purposes</a> for namespaces created by ServiceAccounts.</p>
 </div>
-</dd>
-</dl>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_policies_which_are_executed_for_requests_to_create_an_openshift_project"><a class="anchor" href="#_policies_which_are_executed_for_requests_to_create_an_openshift_project"></a>Policies which are executed for requests to create an OpenShift project</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><a href="../references/policies/03_projectrequest.html" class="page"><code>organization-in-projectrequests</code> (labeled <code>PRJREQ_ORG</code>)</a></dt>
-<dd>
-<p>This policy is executed when a user creates a <code>ProjectRequest</code> either with <code>oc new-project</code> or through the OpenShift web console.
-It checks whether the user has a default organization and denies the request if they don&#8217;t.
-This policy is necessary because the request to create a <code>ProjectRequest</code> is the only request in the project creation flow where the principal is the user which wants to create the project.</p>
+<h3 id="_openshift_project_flow"><a class="anchor" href="#_openshift_project_flow"></a>OpenShift Project flow</h3>
 <div class="paragraph">
-<p>We need to rely on the user&#8217;s default organization for namespaces created through OpenShift projects, because there&#8217;s no straightforward way for us to allow users to specify additional metadata in an OpenShift <code>ProjectRequest</code>.</p>
-</div>
-<div class="paragraph">
-<p>Note that this policy doesn&#8217;t itself inject the user&#8217;s default organization into the request.
-Instead, the <code>organization-projects</code> policy ensures that the resulting namespace is created with label <code>appuio.io/organization</code> set to the user&#8217;s default organization for any project requests which weren&#8217;t denied.</p>
-</div>
-<div class="paragraph">
-<p>This policy enables the requirement that users can <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/usability/create-ns-with-oc-new-project.html">create arbitrary namespaces through OpenShift&#8217;s Project mechanism</a> without violating the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/functional/namespace-organization.html">user namespaces are associated with an organization for billing purposes</a>.</p>
-</div>
-<div class="paragraph">
-<p>Injecting the organization label also ensures the policies which generate the default <code>RoleBinding</code> and quota objects are triggered for namespaces created through OpenShift projects.</p>
-</div>
-</dd>
-<dt class="hdlist1"><a href="../references/policies/02_organization_projects.html" class="page"><code>organization-projects</code> (labeled <code>PRJ_ORG</code>)</a></dt>
-<dd>
 <p>This policy is executed when the control plane creates a <code>Project</code> resource based on a <code>ProjectRequest</code> created by a user.
 The policy reads the annotation <code>openshift.io/requester</code> on the <code>Project</code> and uses the value of that annotation to lookup the user which requested the project.
 The user&#8217;s default organization is then injected as label <code>appuio.io/organization</code> on the <code>Project</code> resource<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
-<div class="paragraph">
-<p>This policy ensures the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/functional/namespace-organization.html">user namespaces are associated with an organization for billing purposes</a> for namespaces created through an OpenShift project.</p>
 </div>
-</dd>
-</dl>
+<div class="paragraph">
+<p>+
+This policy ensures the requirement that <a href="https://kb.vshn.ch/appuio-cloud/references/quality-requirements/functional/namespace-organization.html">user namespaces are associated with an organization for billing purposes</a> for namespaces created through an OpenShift project.</p>
 </div>
 </div>
 </div>
@@ -1410,12 +1379,11 @@ The user&#8217;s default organization is then injected as label <code>appuio.io/
 <h2 id="_policies_which_dont_interact_with_organization_namespaces"><a class="anchor" href="#_policies_which_dont_interact_with_organization_namespaces"></a>Policies which don&#8217;t interact with organization namespaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The component also manages Kyverno policies which implement other features than namespace ownership on APPUiO Cloud zones.
-As shown below, there&#8217;s currently only one policy which doesn&#8217;t cover some aspect of namespace ownership.</p>
+<p>The component also manages policies which implement other features than namespace ownership on APPUiO Cloud zones.</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><a href="../references/policies/30_set_runonce_activedeadlineseconds.html" class="page"><code>set-runonce-activedeadlineseconds</code></a></dt>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/pod_runonce_active_deadline_seconds_mutator.go"><code>pod_runonce_active_deadline_seconds_mutator.go</code></a></dt>
 <dd>
 <p>This policy injects a default value for <code>.spec.activeDeadlineSeconds</code> for run-once pods<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> which don&#8217;t have an explicit value for that field.</p>
 <div class="paragraph">
@@ -1434,6 +1402,45 @@ The policy which validates mutations of annotations on namespaces allows users t
 </table>
 </div>
 </dd>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/pod_node_selector_mutator.go"><code>pod_node_selector_mutator.go</code></a></dt>
+<dd>
+<p>This policy injects a default value for <code>.spec.nodeSelector</code> for pods which don&#8217;t have an explicit value for that field.</p>
+<div class="paragraph">
+<p>This allows users to choose a default node class value for their workloads if they don&#8217;t specify a node selector in their pod or pod controller manifests.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The policy which validates mutations of annotations on namespaces allows users to override the default value which is injected for individual namespaces by annotating the namespace.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/appuio/appuio-cloud-agent/blob/master/webhooks/ratio_validator.go"><code>ratio_validator.go</code></a></dt>
+<dd>
+<p>This policy validates that the ratio of CPU and memory requests to limits in a pod is within a configured range.</p>
+<div class="paragraph">
+<p>On violation of the ratio, the policy warns the user that they might be billed more than expected for their workloads.
+It does not however deny the request.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Fair-usage ratios differ between cloud providers and node node classes.
+</td>
+</tr>
+</table>
+</div>
+</dd>
 </dl>
 </div>
 </div>
@@ -1443,9 +1450,6 @@ The policy which validates mutations of annotations on namespaces allows users t
 <div class="sectionbody">
 <div class="ulist">
 <ul>
-<li>
-<p>The <a href="../references/policies/index.html" class="page">policy reference documentation</a> shows what each policy does and how users can configure the policies through the component.</p>
-</li>
 <li>
 <p>The APPUiO Cloud requirements implemented by the policies can be found in the VSHN Knowledge Base, in the section <a href="https://kb.vshn.ch/appuio-cloud/index.html">APPUiO Cloud for Engineers</a>.</p>
 </li>
@@ -1463,7 +1467,7 @@ The policy which validates mutations of annotations on namespaces allows users t
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/policies/30_set_runonce_activedeadlineseconds.html">Policy: <code>set-runonce-activedeadlineseconds</code></a></span>
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
 </nav>
 </article>
   </div>

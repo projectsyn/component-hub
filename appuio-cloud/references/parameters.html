@@ -6,7 +6,7 @@
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/appuio-cloud/references/parameters.html">
     <link rel="prev" href="../how-tos/connect-to-control-api.html">
-    <link rel="next" href="policies/index.html">
+    <link rel="next" href="../explanations/policies.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -111,36 +111,6 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="parameters.html">Parameters</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="policies/index.html">Policies</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/02_disallow_reserved_namespaces.html">Policy: <code>disallow-reserved-namespaces</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/02_organization_namespaces.html">Policy: <code>organization-namespaces</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/02_organization_projects.html">Policy: <code>organization-projects</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/02_organization_sa_namespaces.html">Policy: <code>organization-sa-namespaces</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/02_validate_namespace_metadata.html">Policy: <code>validate-namespace-metadata</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/11_generate_quota_limit_range_in_ns.html">Policy: <code>quota-and-limit-range-in-ns</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/12_namespace_quota_per_zone.html">Policy: <code>check-namespace-quota</code></a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="policies/30_set_runonce_activedeadlineseconds.html">Policy: <code>set-runonce-activedeadlineseconds</code></a>
-  </li>
-</ul>
   </li>
 </ul>
   </li>
@@ -1287,89 +1257,6 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_agent_feature_set"><a class="anchor" href="#_agent_feature_set"></a><code>agent_feature_set</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list(string)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[]</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-possible values
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">agent_feature_set:
-- usage-profiles</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Controls which Kyverno policies are installed.
-As we&#8217;re migrating policies to the agent, this parameter allows to disable deprecated policies.
-See <code>possible values</code> for a list of available feature sets.</p>
-</div>
-<div class="paragraph">
-<p>This parameter will not configure the agent to use the feature set.
-To ensure there&#8217;s no window where both policies are disabled, the agent should be upgraded <em>before</em> the policy is removed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_disable_kyverno_cluster_policies"><a class="anchor" href="#_disable_kyverno_cluster_policies"></a><code>disable_kyverno_cluster_policies</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>list(string)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<p><code>[organization-namespaces]</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Allows to generically disable Kyverno cluster policies by name.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_agent_replicas"><a class="anchor" href="#_agent_replicas"></a><code>agent.replicas</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1813,8 +1700,7 @@ example
 </table>
 </div>
 <div class="paragraph">
-<p>A special key to map between the Kyverno way of specifying subjects and the APPUiO Cloud Agent way.
-The key is omitted from the final configuration.</p>
+<p>A special key format the Subjects configuration for the APPUiO Cloud Agent.</p>
 </div>
 </div>
 </div>
@@ -2096,49 +1982,6 @@ type
 Each entry will generate a <code>ResourceQuota</code> with the key as its name.</p>
 </div>
 <div class="sect2">
-<h3 id="_generatedresourcequotaname_synchronize"><a class="anchor" href="#_generatedresourcequotaname_synchronize"></a><code>generatedResourceQuota[name].synchronize</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether the created <code>ResourceQuota</code> is kept in sync.
-If set to <code>false</code> the created <code>ResourceQuota</code> can be modified.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>There is a bug in <code>kyverno</code> up until <code>v1.4.2</code>.
-The bug has been fixed, but as of writing this the fix hasn&#8217;t been released.
-The bug will cause the <code>ResourceQuota</code> to be updated if the <code>Namespace</code> or <code>ClusterPolicy</code> changes, even if <code>synchronize</code> has been disabled.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_generatedresourcequotaname_spec"><a class="anchor" href="#_generatedresourcequotaname_spec"></a><code>generatedResourceQuota[name].spec</code></h3>
 <div class="hdlist">
 <table>
@@ -2185,7 +2028,7 @@ For example: <code>resourcequota.appuio.io/organization-objects.openshift.io_ima
 <div class="paragraph">
 <p>The exception is that for customizing storage class quotas you need to set annotation <code>resourcequota.appuio.io/&lt;name&gt;.storageclasses</code>.
 This is because the regular annotations for storageclass-specific resources are generally too long to be accepted as annotation keys by Kubernetes.
-The value of the <code>resourcequota.appuio.io/&lt;name&gt;.storageclasses</code> annotation is parsed as JSON by Kyverno.
+The value of the <code>resourcequota.appuio.io/&lt;name&gt;.storageclasses</code> annotation is parsed as JSON by the APPUIO Cloud Agent.
 The policy expects that the parsed JSON is a single object.
 For quota keys of the resource quota <code>&lt;name&gt;</code> which match the prefix <code>&lt;storageclass&gt;.storageclass.storage.k8s.io</code> the policy checks that JSON object instead of a plain annotation for overrides.</p>
 </div>
@@ -2238,49 +2081,6 @@ default
 </div>
 <div class="paragraph">
 <p>The <code>metadata.name</code> of the <code>LimitRange</code> that gets generated in the new <code>Namespace</code> created by the user.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_generatedlimitrange_synchronize"><a class="anchor" href="#_generatedlimitrange_synchronize"></a><code>generatedLimitRange.synchronize</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether the created <code>LimitRange</code> is kept in sync.
-If set to <code>false</code> the created <code>LimitRange</code> can be modified.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>There is a bug in <code>kyverno</code> up until <code>v1.4.2</code>.
-The bug has been fixed, but as of writing this the fix hasn&#8217;t been released.
-The bug will cause the <code>LimitRange</code> to be updated if the <code>Namespace</code> or <code>ClusterPolicy</code> changes, even if <code>synchronize</code> has been disabled.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -2706,7 +2506,7 @@ Each entry is transformed to a Kubernetes <code>matchExpression</code> entry by 
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/connect-to-control-api.html">Connect Zone to Control-API</a></span>
-  <span class="next"><a href="policies/index.html">Policies</a></span>
+  <span class="next"><a href="../explanations/policies.html">Policies</a></span>
 </nav>
 </article>
   </div>
