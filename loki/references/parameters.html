@@ -1057,7 +1057,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_name"><a class="anchor" href="#_name"></a><code>name</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1074,7 +1074,58 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>syn-loki</code></p>
+<p><code>${_instance}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace:
+  name: syn-loki <i class="conum" data-value="1"></i><b>(1)</b>
+  create: true <i class="conum" data-value="2"></i><b>(2)</b>
+  metadata: {} <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the namespace to deploy component into.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Should the namespace be created by the component.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Metadata to add to the namespace.</td>
+</tr>
+</table>
+</div>
 </td>
 </tr>
 </table>
@@ -1085,11 +1136,301 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
+  loki-bucket-secret:
+    stringData:
+      S3_ACCESS_KEY_ID: null
+      S3_SECRET_ACCESS_KEY: null
+      S3_ENDPOINT: null</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict of secrets to create in the namespace. The key is the name of the secret, the value is the content of the secret.
+The value must be a dict with a key <code>stringData</code> which is a dict of key/value pairs to add to the secret.</p>
+</div>
+<div class="paragraph">
+<p>Holds the secrets for the S3 bucket by default.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_globalnodeselector"><a class="anchor" href="#_globalnodeselector"></a><code>globalNodeSelector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Node selector configuration which is used for each component&#8217;s <code>nodeSelector</code> field in parameter <code>helm_values</code>.</p>
+</div>
+<div class="paragraph">
+<p>This value is used verbatim as a Kubernetes node selector.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">charts:
+  loki: "&lt;CURRENT VERSION&gt;"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Holds the reference to the used version of the charts.
+See <a href="https://github.com/projectsyn/component-loki/blob/master/class/defaults.yml">class/defaults.yml</a> for the current version.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configurations related to alerts.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Upstream service monitors, rules, and alerts can be enabled by setting the following Helm values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">helm_values:
+  monitoring:
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_alerts_additionalrules"><a class="anchor" href="#_alerts_additionalrules"></a><code>alerts.additionalRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-loki/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additionalRules:
+  "alert:CustomTestAlert":
+    expr: vector(1) == 0
+    for: 1h
+    annotations:
+      summary: Test alert
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional alerting and recording rules.
+All rules defined in this parameter will be added to rule group <code>loki-custom.rules</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_patchrules"><a class="anchor" href="#_alerts_patchrules"></a><code>alerts.patchRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-mimir/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
+  ignoreNames:
+    - LokiContinuousTestNotRunningOnWrites
+  patches:
+    LokiInconsistentRuntimeConfig:
+      for: 15m</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to patch or remove alerts provided by the upstream Loki chart.</p>
+</div>
+<div class="paragraph">
+<p>The values in the <code>ignoreNames</code> parameter correspond to the field <code>alert</code> of the alert to ignore.</p>
+</div>
+<div class="paragraph">
+<p>The keys in the <code>patches</code> parameter correspond to the field <code>alert</code> of the alert to patch.
+The component expects valid partial Prometheus alert rule objects as values.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The provided values aren&#8217;t validated, they&#8217;re applied to the corresponding upstream alert as-is.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see <a href="https://github.com/projectsyn/component-loki/blob/master/class/defaults.yml">class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Holds the values for the helm chart.</p>
+</div>
+<div class="paragraph">
+<p>The defaults are close to the upstream defaults, with HA enabled, and the bucket secret added.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">name: example-loki
+namespace:
+  name: example-loki
+  create: true
+  metadata:
+    labels:
+      example.com/organization: example
+
+secrets:
+  mimir-bucket-secret:
+    stringData:
+      S3_ACCESS_KEY_ID: "?{vaultkv:${cluster:tenant}/${cluster:name}/example-loki/s3_access_key}"
+      S3_SECRET_ACCESS_KEY: "?{vaultkv:${cluster:tenant}/${cluster:name}/example-loki/s3_secret_key}"
+      S3_ENDPOINT: objects.s3.example.com</code></pre>
 </div>
 </div>
 </div>
