@@ -6,7 +6,7 @@ authors = ["VSHN AG <info@vshn.ch>"]
 license = "BSD-3-Clause"
 
 [tool.poetry.dependencies]
-python = ">=3.9, <3.13"
+python = ">=3.13, <3.14"
 cookiecutter = "2.6.0"
 PyYAML = "6.0.2"
 PyGithub = "2.4.0"
