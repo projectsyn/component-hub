@@ -55,7 +55,7 @@ class Context:
     default=("commodore", "commodore-component", "commodore-package", "syn", "projectsyn"),
     multiple=True,
 )
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments,too-many-positional-arguments
 def component_hub(ctx, github_token, root, slug, ignore_list, project_syn_orgs, ignore_topics):
     cfg = Config(
         github_token=github_token,
