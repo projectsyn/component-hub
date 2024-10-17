@@ -19,7 +19,7 @@
     {
         "matchManagers": ["poetry"],
         "matchPackageNames": ["python"],
-        "rangeStrategy": "widen"
+        "enabled": false
     }
   ]
 }
