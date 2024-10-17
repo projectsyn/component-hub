@@ -15,6 +15,11 @@
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
+    },
+    {
+        "matchManagers": ["poetry"],
+        "matchPackageNames": ["python"],
+        "rangeStrategy": "replace"
     }
   ]
 }
