@@ -17,7 +17,7 @@ class Template(Enum):
 
 
 class Config:
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments,too-many-positional-arguments
     def __init__(
         self,
         github_token: str,
