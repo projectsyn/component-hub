@@ -166,6 +166,9 @@
 <loc>https://hub.syn.tools/sitemap-loki.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-machine-api-provider-cloudscale.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-machineset-egress-cidr-operator.xml</loc>
 </sitemap>
 <sitemap>
