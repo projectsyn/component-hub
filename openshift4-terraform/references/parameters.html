@@ -1304,6 +1304,50 @@ The variables are merged with the defaults, unless overridden.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_additional_outputs"><a class="anchor" href="#_additional_outputs"></a><code>additional_outputs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_outputs:
+  my_output: '\${module.cluster.my_output}'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional outputs that are passed to the Terraform module.
+The outputs are merged with the defaults, defaults can&#8217;t be overridden.
+The keys are then name of the output, the value should contain a reference to a output variable from the Terraform module.
+Additional escaping might be needed since Terraform variables use the same syntax as reclass; see the example above.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
