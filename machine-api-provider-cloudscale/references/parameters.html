@@ -1093,11 +1093,187 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-machine-api-provider-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The images to use for this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of secrets to create.
+The key is the name of the secret, the value is merged into the created secret.
+Namespace is automatically set to the namespace of the component.
+Commodore secret references should be passed as <code>stringData</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-machine-api-provider-cloudscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Resource requests and limits for the containers deployed by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">BadThingsHappening:
+  enabled: true
+  rule:
+    annotations:
+      description: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+      message: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+      runbook_url: https://hub.syn.tools/machine-api-provider-cloudscale/runbooks/BadThingsHappening.html
+    expr: |
+      bad_thing_happening == 1
+    for: 10m
+    labels:
+      severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>alerts</code> defines the alerts to be installed.
+The dictionary key is used as the name of the alert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">secrets:
+  cloudscale-rw-token:
+    stringData:
+      token: XXXX
+  cloudscale-user-data:
+    stringData:
+      ignitionHost: api-int.cluster-1.appuio.cloud
+      ignitionCA: |
+        -----BEGIN CERTIFICATE-----
+        XXXXXXX
+        -----END CERTIFICATE-----
+      userData: |
+        {
+          ignition: {
+            version: '3.1.0',
+            config: {
+              merge: [ {
+                source: 'https://%s:22623/config/%s' % [ context.data.ignitionHost, std.get(context.data, 'ignitionConfigName', 'worker') ],
+              } ],
+            },
+            security: {
+              tls: {
+                certificateAuthorities: [ {
+                  source: 'data:text/plain;charset=utf-8;base64,%s' % [ std.base64(context.data.ignitionCA) ],
+                } ],
+              },
+            },
+          },
+          systemd: {
+            units: [ {
+              name: 'cloudscale-hostkeys.service',
+              enabled: true,
+              contents: "[Unit]\nDescription=Print SSH Public Keys to tty\nAfter=sshd-keygen.target\n\n[Install]\nWantedBy=multi-user.target\n\n[Service]\nType=oneshot\nStandardOutput=tty\nTTYPath=/dev/ttyS0\nExecStart=/bin/sh -c \"echo '-----BEGIN SSH HOST KEY KEYS-----'; cat /etc/ssh/ssh_host_*key.pub; echo '-----END SSH HOST KEY KEYS-----'\"",
+            } ],
+          },
+          storage: {
+            files: [ {
+              filesystem: 'root',
+              path: '/etc/hostname',
+              mode: 420,
+              contents: {
+                source: 'data:,%s' % context.machine.metadata.name,
+              },
+            } ],
+          },
+        }</code></pre>
 </div>
 </div>
 </div>
