@@ -2132,6 +2132,90 @@ See the documentation for <a href="http://localhost:2020/cilium/references/param
 <div class="paragraph">
 <p>The script expects the ConfigMap to have a key matching each node name on which egress dummy interfaces should be configured.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machinesets"><a class="anchor" href="#_machinesets"></a><code>machineSets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineSets:
+  worker:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: c-cluster-1
+    spec:
+      deletePolicy: Oldest
+      replicas: 3
+      selector:
+        matchLabels:
+          machine.openshift.io/cluster-api-cluster: c-cluster-1
+          machine.openshift.io/cluster-api-machineset: worker
+      template:
+        metadata:
+          labels:
+            machine.openshift.io/cluster-api-cluster: c-cluster-1
+            machine.openshift.io/cluster-api-machine-role: app
+            machine.openshift.io/cluster-api-machine-type: app
+            machine.openshift.io/cluster-api-machineset: worker
+        spec:
+          lifecycleHooks: {}
+          metadata:
+            labels:
+              node-role.kubernetes.io/app: ""
+              node-role.kubernetes.io/worker: ""
+          providerSpec:
+            value:
+              antiAffinityKey: worker
+              baseDomain: c-cluster-1.vshnmanaged.net
+              flavor: plus-16-4
+              image: custom:rhcos-4.16
+              interfaces:
+                - addresses:
+                    - subnetUUID: 1971d4c3-0065-41fc-82f4-c26cf2fe4f9a
+                  type: Private
+              rootVolumeSizeGB: 100
+              tokenSecret:
+                name: cloudscale-rw-token
+              userDataSecret:
+                name: cloudscale-user-data
+              zone: lpg1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of machine sets to create on the cluster.
+The resulting <code>MachineSet</code> object will have the key as the name and the value is merged into the resource.</p>
+</div>
+<div class="paragraph">
+<p>The MachineSet will will have the namespace from <code>machine_api_namespace</code> applied.</p>
+</div>
 <div class="sect2">
 <h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
 <div class="listingblock">
