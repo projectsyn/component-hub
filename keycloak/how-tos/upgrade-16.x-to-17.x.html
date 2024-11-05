@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Setup a TLS certificate for Keycloak :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/keycloak-tls.html">
-    <link rel="prev" href="db-tls.html">
-    <link rel="next" href="configure-ingress.html">
+    <title>Upgrade from v16 to v17 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/keycloak/how-tos/upgrade-16.x-to-17.x.html">
+    <link rel="prev" href="upgrade-15.x-to-16.x.html">
+    <link rel="next" href="openshift-4.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -120,7 +120,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="db-tls.html">Encrypt database connection</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="keycloak-tls.html">Setup a TLS certificate for Keycloak</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -180,7 +180,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-15.x-to-16.x.html">Upgrade 15.x to 16.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-16.x-to-17.x.html">Upgrade 16.x to 17.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1165,112 +1165,83 @@
   <ul>
     <li><a href="../index.html">keycloak</a></li>
     <li>How-to guides</li>
-    <li><a href="keycloak-tls.html">Setup a TLS certificate for Keycloak</a></li>
+    <li><a href="upgrade-16.x-to-17.x.html">Upgrade 16.x to 17.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/keycloak-tls.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-keycloak/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-16.x-to-17.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Setup a TLS certificate for Keycloak</h1>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Use service serving certificates on OCP4</div>
+<h1 class="page">Upgrade from v16 to v17</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>On OpenShift 4, use the "openshift" TLS provider instead, to get a certificate that works with the OpenShift router, is valid for 2 years and will be autorenewed:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  keycloak:
-    tls:
-      provider: openshift</code></pre>
+<p>This guide describes the steps to perform an upgrade of the component from version v16 to v17.</p>
 </div>
 </div>
-</td>
-</tr>
-</table>
 </div>
-<div class="paragraph">
-<p>This guide provides an example how to setup a TLS certificate for Keycloak.</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>Requirements</p>
-</div>
+<div class="sect1">
+<h2 id="_changes"><a class="anchor" href="#_changes"></a>Changes</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>commodore</code></p>
+<p>The component requires Kubernetes v1.25 or newer.</p>
 </li>
 <li>
-<p><code>kubectl</code></p>
-</li>
-<li>
-<p><code>openssl</code></p>
-</li>
-<li>
-<p><code>vault</code></p>
+<p>Keycloak version is v24.0.5 by default.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_parameter_changes"><a class="anchor" href="#_parameter_changes"></a>Parameter changes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>None</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When upgrading the component, the following actions are required if the built-in database is used:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Prepare certificate files</p>
-<div class="listingblock">
-<div class="title">Self-signed certificates</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Adjust the lifetime as necessary
-lifetime=3650
-openssl req -x509 -newkey rsa:4096 -nodes -keyout keycloak.key -out keycloak.crt -days ${lifetime} -subj '/CN=keycloak'</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">CA issued certificates</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Save the cert and key in these temporary files
-editor keycloak.key
-editor keycloak.crt</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Store certificate in Vault</p>
+<p>Do a backup of the built-in database.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">instance=keycloak
-parent="clusters/kv/${TENANT_ID}/${CLUSTER_ID}"
+namespace=syn-${instance}
 
-# Use the 'patch' subcommand to add to existing secret
-vault kv patch "${parent}/${instance}" keycloak-cert=@keycloak.crt keycloak-cert-key=@keycloak.key</code></pre>
+kubectl -n "${namespace}" exec -ti keycloak-postgresql-0 -c postgresql -- sh -c 'PGDATABASE="$POSTGRES_DATABASE" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --clean' &gt; keycloak-postgresql-$(date +%F-%H-%M-%S).sql</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Remove temporary files</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rm keycloak.{key,crt}</code></pre>
-</div>
-</div>
+<p>Apply the parameter changes.</p>
+</li>
+<li>
+<p>Compile and push the cluster catalog.</p>
 </li>
 </ol>
 </div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="db-tls.html">Encrypt database connection</a></span>
-  <span class="next"><a href="configure-ingress.html">Configure Keycloak ingress</a></span>
+  <span class="prev"><a href="upgrade-15.x-to-16.x.html">Upgrade 15.x to 16.x</a></span>
+  <span class="next"><a href="openshift-4.html">Install on OpenShift 4</a></span>
 </nav>
 </article>
   </div>
@@ -1281,7 +1252,7 @@ vault kv patch "${parent}/${instance}" keycloak-cert=@keycloak.crt keycloak-cert
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/keycloak-tls.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/keycloak/how-tos/upgrade-16.x-to-17.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
