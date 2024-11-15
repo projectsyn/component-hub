@@ -1690,7 +1690,7 @@ The default is a reference to a secret within Vault.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_known_to_fail"><a class="anchor" href="#_known_to_fail"></a><code>known_to_fail</code></h2>
+<h2 id="_ignored"><a class="anchor" href="#_ignored"></a><code>ignored</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1709,19 +1709,9 @@ default
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- '.+mutators'
-- '.+reviews'
-- '.+validators'
-- 'bindings'
-- 'deploymentconfigrollbacks'
-- 'imagesignatures'
-- 'imagestreamimages'
-- 'imagestreamimports'
-- 'imagestreammappings'
-- 'mutations'
-- 'projectrequests'
-- 'useridentitymappings'
-- 'validations'</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ignored:
+  # OpenShift fucked up and shows the list api as enabled in the API-Discovery
+  - projectrequests.project.openshift.io</code></pre>
 </div>
 </div>
 </td>
@@ -1729,7 +1719,22 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Resource types which are known to produce errors when doing <code>kubectl get &lt;resource&gt;</code>.</p>
+<p>Resource types which will not be backed up.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is usually no longer necessary to ignore resources with no <code>list</code> verb.
+The discovery automatically filters them out.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1751,35 +1756,35 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- 'configmaps'
-- 'daemonsets'
-- 'deployments'
-- 'endpoints'
-- 'horizontalpodautoscalers'
-- 'ingresses'
-- 'jobs'
-- 'limitranges'
-- 'namespaces'
-- 'nodes'
-- 'persistentvolumeclaims'
-- 'persistentvolumes'
-- 'replicasets'
-- 'resourcequotas'
-- 'roles'
-- 'secrets'
-- 'serviceaccounts'
-- 'services'
-- 'statefulsets'</code></pre>
-</div>
-</div>
+<p><code>[]</code></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Resource types which must exist on any Kubernetes cluster.</p>
+<p>Resource types which must exist on any Kubernetes cluster.
+Used to sanity-check the backup process.</p>
+</div>
+<div class="paragraph">
+<p>They must be fully qualified resource types <code>&lt;resource&gt;.&lt;group&gt;</code>, e.g. <code>deployments.apps</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As of <a href="https://github.com/k8up-io/k8up/releases/tag/v2.11.1">k8up v2.11.1</a> the errors from backup commands are ignored (<a href="https://github.com/k8up-io/k8up/issues/910">issue</a>).</p>
+</div>
+<div class="paragraph">
+<p>This means that if a resource type listed in <code>must_exist</code> is not found, the backup will be created but it will be empty.
+For this reason, and because we trust the discovery process of the new dumper, we set the default value to an empty list and recommend to not use this feature until the issue is resolved.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
