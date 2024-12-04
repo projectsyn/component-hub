@@ -1337,28 +1337,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">prometheusK8s:
-  remoteWrite: []
-  _remoteWrite: {}
-  externalLabels:
-    cluster_id: ${cluster:name}
-    tenant_id: ${cluster:tenant}
-  retention: 8d
-  volumeClaimTemplate:
-    spec:
-      resources:
-        requests:
-          storage: 50Gi
-alertmanagerMain:
-  volumeClaimTemplate:
-    spec:
-      resources:
-        requests:
-          storage: 2Gi</code></pre>
-</div>
-</div>
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
@@ -1416,8 +1395,12 @@ alertmanagerMain:
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemeterClient</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Adapter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Adapter (for OpenShift 4.15 and older)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>k8sPrometheusAdapter</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics Server (for OpenShift 4.16 and newer)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricsServer</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Querier</p></td>
