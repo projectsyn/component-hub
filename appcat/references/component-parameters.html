@@ -1836,6 +1836,106 @@ reference
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_clustermanagementsystem"><a class="anchor" href="#_clustermanagementsystem"></a><code>clusterManagementSystem</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Specifies if the setup runs in converged mode or in split mode.</p>
+</div>
+<div class="sect2">
+<h3 id="_controlplanecluster"><a class="anchor" href="#_controlplanecluster"></a><code>controlPlaneCluster</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>true</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configures the cluster to be a control plane.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_servicecluster"><a class="anchor" href="#_servicecluster"></a><code>serviceCluster</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>true</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configures the cluster to be a service cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_controlplanekubeconfig"><a class="anchor" href="#_controlplanekubeconfig"></a><code>controlPlaneKubeconfig</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>""</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configures the kubeconfig to use to connect back to the control plane cluster.
+The kubeconfig is only used if the configuration is not in converged mode.
+It has to be created beforehand with the proper RBAC.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../tutorials/install-exoscale.html">Install Exoscale Stack</a></span>
   <span class="next"><a href="slo-parameters.html">AppCat SLOs Parameters</a></span>
