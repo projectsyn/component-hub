@@ -1135,6 +1135,155 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_network_policies"><a class="anchor" href="#_network_policies"></a><code>network_policies</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This parameter configures network policies for ArgoCD.</p>
+</div>
+<div class="sect2">
+<h3 id="_network_policies_enabled"><a class="anchor" href="#_network_policies_enabled"></a><code>network_policies.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>true</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable NetworkPolicies that isolate ArgoCD from the rest of the cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_network_policies_allow_from_namespaces"><a class="anchor" href="#_network_policies_allow_from_namespaces"></a><code>network_policies.allow_from_namespaces</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>List(string)</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>`[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional namespaces which should be able to access ArgoCD.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring"><a class="anchor" href="#_monitoring"></a><code>monitoring</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section configures monitoring for ArgoCD.</p>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If monitoring should be enabled for this component.
+Requires the <a href="https://github.com/prometheus-operator/prometheus-operator">Prometheus Operator</a> to be installed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_dashboards"><a class="anchor" href="#_monitoring_dashboards"></a><code>monitoring.dashboards</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If dashboards should be enabled for this component.
+Requires the <a href="https://github.com/integr8ly/grafana-operator">Grafana Operator</a> to be installed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_prometheus_rule_labels"><a class="anchor" href="#_monitoring_prometheus_rule_labels"></a><code>monitoring.prometheus_rule_labels</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{"prometheus":"platform"}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Labels to set on the alert rule configuration.
+Can be used to ensure prometheus-operator picks up the <code>PrometheusRule</code> object by setting appropriate labels.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_resync_time"><a class="anchor" href="#_resync_time"></a><code>resync_time</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1164,6 +1313,349 @@ Lower values mean quicker sync but higher CPU usage and more Git traffic.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_log_format"><a class="anchor" href="#_log_format"></a><code>log_format</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: text</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter exposes the log format for the ArgoCD components.
+By default, all components are configured to use the log format given for key <code>default</code>.
+The log format can be customized for individual components by providing the desired log format in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_log_level"><a class="anchor" href="#_log_level"></a><code>log_level</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: info</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter exposes the log level for the ArgoCD components.
+By default, all components are configured with the log level given in key <code>default</code>.
+The log level can be customized for individual components by providing the desired level in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_override"><a class="anchor" href="#_override"></a><code>override</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Override specs of the ProjectSyn ArgoCD instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the container images used by this component.
+Each entry follows the <a href="https://syn.tools/syn/explanations/commodore-components/container-images.html">Commodore component best practices</a> for specifying container images.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instances"><a class="anchor" href="#_instances"></a><code>instances</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This section allows the definition of arbitrary <code>ArgoCD</code> instances, and associated <code>AppProject</code> resources.
+The keys of this parameter are parsed as namespaced names (<code>&lt;namespace&gt;/&lt;name&gt;</code>) and used as namespaces and names of the created resources.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Namespace management</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each <code>ArgoCD</code> instance must be deployed to its own namespace</p>
+</li>
+<li>
+<p>You MUST create the target namespace <em>manually</em> before deploying ArgoCD using this component</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Due to how Argo CD works, namespaces holding Argo CD instances cannot be created by other Argo CD instances.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  argocd:
+    instances:
+      some-namespace/some-argocd:
+        config:
+          spec:
+            sso:
+              provider: dex
+              dex:
+                openShiftOAuth: true
+          ...
+        projects:
+          some-project:
+            spec:
+              clusterResourceWhitelist: []
+              destinations:
+                - namespace: corp-*
+                  server: https://kubernetes.default.svc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_namespacename_config"><a class="anchor" href="#_instances_namespacename_config"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  applicationInstanceLabelKey: &lt;name&gt;.&lt;namespace&gt;/instance</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Plain configuration that will be merged verbatim into the created <code>ArgoCD</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://argocd-operator.readthedocs.io/en/latest/reference/argocd/">the <code>ArgoCD</code> reference of the Argo CD Operator</a> for available fields.</p>
+</div>
+<div class="paragraph">
+<p>To avoid common issues, some defaults are configured.
+They can be overwritten via the inventory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_namespacename_projects"><a class="anchor" href="#_instances_namespacename_projects"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.projects</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Arbitrary <code>AppProject</code> instances to be deployed on the cluster.</p>
+</div>
+<div class="paragraph">
+<p>The keys of this parameter are used as the generated resource&#8217;s <code>metadata.name</code>, while the parent `ArgoCD&#8217;s namespace will be inherited.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/projects/">the <code>AppProject</code> reference of Argo CD</a> for available fields.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_namespacename_projectdefaults"><a class="anchor" href="#_instances_namespacename_projectdefaults"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.projectDefaults</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Default values that will be applied for all <code>AppProjects</code> created for this instance.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the resource requests and limits for the different
+components. Keys correspond to different pods/containers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>application_controller</code></p>
+</li>
+<li>
+<p><code>redis</code></p>
+</li>
+<li>
+<p><code>repo_server</code></p>
+</li>
+<li>
+<p><code>repo_server_vault_agent</code> - for the <code>vault_agent</code> container in the <code>repo-server</code> pod</p>
+</li>
+<li>
+<p><code>server</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Users can remove configured requests and limits by setting any keys or subkeys in the dictionary to <code>null</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_ssh_known_hosts"><a class="anchor" href="#_ssh_known_hosts"></a><code>ssh_known_hosts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1174,6 +1666,14 @@ type
 </td>
 <td class="hdlist2">
 <p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
@@ -1249,333 +1749,6 @@ Those lists get concatenated.</p>
 </div>
 <div class="paragraph">
 <p>Check <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/#additional-tracking-methods-via-an-annotation">ArgoCD documentation</a> for more information.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_network_policies_enabled"><a class="anchor" href="#_network_policies_enabled"></a><code>network_policies.enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>true</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether to enable NetworkPolicies that isolate ArgoCD from the rest of the cluster.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_network_policies_allow_from_namespaces"><a class="anchor" href="#_network_policies_allow_from_namespaces"></a><code>network_policies.allow_from_namespaces</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>List(string)</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>[]</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional namespaces which should be able to access ArgoCD.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_override"><a class="anchor" href="#_override"></a><code>override</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Override specs of the ProjectSyn ArgoCD instance.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the container images used by this component.
-Each entry follows the <a href="https://syn.tools/syn/explanations/commodore-components/container-images.html">Commodore component best practices</a> for specifying container images.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_log_level"><a class="anchor" href="#_log_level"></a><code>log_level</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: info</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter exposes the log level for the ArgoCD components.
-By default, all components are configured with the log level given in key <code>default</code>.
-The log level can be customized for individual components by providing the desired level in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_log_format"><a class="anchor" href="#_log_format"></a><code>log_format</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">default: `text`</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter exposes the log format for the ArgoCD components.
-By default, all components are configured to use the log format given for key <code>default</code>.
-The log format can be customized for individual components by providing the desired log format in keys <code>server</code>, <code>application_controller</code> or <code>repo_server</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-defaults
-</td>
-<td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-argocd/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Dictionary containing the resource requests and limits for the different
-components. Keys correspond to different pods/containers:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>application_controller</code></p>
-</li>
-<li>
-<p><code>redis</code></p>
-</li>
-<li>
-<p><code>repo_server</code></p>
-</li>
-<li>
-<p><code>repo_server_vault_agent</code> - for the <code>vault_agent</code> container in the <code>repo-server</code> pod</p>
-</li>
-<li>
-<p><code>server</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Users can remove configured requests and limits by setting any keys or subkeys in the dictionary to <code>null</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If monitoring should be enabled for this component.
-Requires the <a href="https://github.com/prometheus-operator/prometheus-operator">Prometheus Operator</a> to be installed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_dashboards"><a class="anchor" href="#_monitoring_dashboards"></a><code>monitoring.dashboards</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If dashboards should be enabled for this component.
-Requires the <a href="https://github.com/integr8ly/grafana-operator">Grafana Operator</a> to be installed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_monitoring_prometheus_rule_labels"><a class="anchor" href="#_monitoring_prometheus_rule_labels"></a><code>monitoring.prometheus_rule_labels</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{"prometheus":"platform"}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Labels to set on the alert rule configuration.
-Can be used to ensure prometheus-operator picks up the <code>PrometheusRule</code> object by setting appropriate labels.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  argocd:
-    resync_seconds: 3
-    ssh_known_hosts: |
-      git.example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9EkPcVdsz/oVTI2VJkBlq8Mv/dg3rhcbgzAEKyiwUG
-    monitoring:
-      dashboards: true</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -1766,176 +1939,17 @@ defaults
 </div>
 </div>
 <div class="sect1">
-<h2 id="_instances"><a class="anchor" href="#_instances"></a><code>instances</code></h2>
+<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This section allows the definition of arbitrary <code>ArgoCD</code> instances, and associated <code>AppProject</code> resources.
-The keys of this parameter are parsed as namespaced names (<code>&lt;namespace&gt;/&lt;name&gt;</code>) and used as namespaces and names of the created resources.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="title">Namespace management</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Each <code>ArgoCD</code> instance must be deployed to its own namespace</p>
-</li>
-<li>
-<p>You MUST create the target namespace <em>manually</em> before deploying ArgoCD using this component</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Due to how Argo CD works, namespaces holding Argo CD instances cannot be created by other Argo CD instances.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   argocd:
-    instances:
-      some-namespace/some-argocd:
-        config:
-          spec:
-            sso:
-              provider: dex
-              dex:
-                openShiftOAuth: true
-          ...
-        projects:
-          some-project:
-            spec:
-              clusterResourceWhitelist: []
-              destinations:
-                - namespace: corp-*
-                  server: https://kubernetes.default.svc</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_instances_namespacename_config"><a class="anchor" href="#_instances_namespacename_config"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.config</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
-  applicationInstanceLabelKey: &lt;name&gt;.&lt;namespace&gt;/instance</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Plain configuration that will be merged verbatim into the created <code>ArgoCD</code> resource.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://argocd-operator.readthedocs.io/en/latest/reference/argocd/">the <code>ArgoCD</code> reference of the Argo CD Operator</a> for available fields.</p>
-</div>
-<div class="paragraph">
-<p>To avoid common issues, some defaults are configured.
-They can be overwritten via the inventory.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_instances_namespacename_projects"><a class="anchor" href="#_instances_namespacename_projects"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.projects</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Arbitrary <code>AppProject</code> instances to be deployed on the cluster.</p>
-</div>
-<div class="paragraph">
-<p>The keys of this parameter are used as the generated resource&#8217;s <code>metadata.name</code>, while the parent `ArgoCD&#8217;s namespace will be inherited.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/projects/">the <code>AppProject</code> reference of Argo CD</a> for available fields.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_instances_namespacename_projectdefaults"><a class="anchor" href="#_instances_namespacename_projectdefaults"></a><code>instances.&lt;namespace&gt;/&lt;name&gt;.projectDefaults</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Default values that will be applied for all <code>AppProjects</code> created for this instance.</p>
+    resync_seconds: 3
+    ssh_known_hosts: |
+      git.example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9EkPcVdsz/oVTI2VJkBlq8Mv/dg3rhcbgzAEKyiwUG
+    monitoring:
+      dashboards: true</code></pre>
 </div>
 </div>
 </div>
