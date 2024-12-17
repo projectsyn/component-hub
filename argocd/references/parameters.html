@@ -1409,6 +1409,49 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_http_credentials_secret_name"><a class="anchor" href="#_http_credentials_secret_name"></a><code>http_credentials_secret_name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>catalog-https-credentials</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the externally managed secret which holds the username and password for fetching the catalog repo over HTTPS in fields <code>username</code> and <code>password</code>.</p>
+</div>
+<div class="paragraph">
+<p>This parameter is only used when the cluster&#8217;s catalog repo URL starts with <code>https://</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Users must ensure that this secret is in place before this component is synced.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
