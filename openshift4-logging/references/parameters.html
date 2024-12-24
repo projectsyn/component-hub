@@ -121,6 +121,9 @@
     <a class="nav-link" href="../how-tos/upgrade-v3.x-v4.x.html">Upgrade from v3.x to v4.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-v4.x-v5.x.html">Upgrade from v4.x to v5.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/switch-to-lokistack.html">Switch to Lokistack</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -133,7 +136,7 @@
     <span class="nav-text">Alert runbooks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.html">SYN_ElasticsearchExpectNodeToReachDiskWatermark</a>
+    <a class="nav-link" href="#runbooks/SYN_ElasticsearchExpectNodeToReachDiskWatermark.adoc">SYN_ElasticsearchExpectNodeToReachDiskWatermark</a>
   </li>
 </ul>
   </li>
@@ -1193,22 +1196,21 @@ default
 If you specify the logging stack version through parameter <code>version</code>, you shouldn&#8217;t need to modify this parameter.</p>
 </div>
 <div class="paragraph">
-<p>In OpenShift 4.7, RedHat decoupled the logging stack version from the OpenShift version.
-The decoupled logging stack versions start at version 5.0.
-With version 5.1 of the logging stack, channels for specific minor versions were introduced.</p>
-</div>
-<div class="paragraph">
 <p>Ideally we would just default to the <code>stable</code> channel, as that channel will always be backed by a logging stack version compatible with the OpenShift cluster version by the OpenShift marketplace operator.
-However, since there&#8217;s potential for changes in configuration between logging stack versions which need to be managed through the component, we default to using the <code>stable-5.x</code> channel matching the version specified in parameter <code>version</code>.</p>
+However, since there&#8217;s potential for changes in configuration between logging stack versions which need to be managed through the component, we default to using the <code>stable-6.x</code> channel matching the version specified in parameter <code>version</code>.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/logging/cluster-logging-deploying.html#cluster-logging-deploy-cli_cluster-logging-deploying">OpenShift documentation</a> for details.</p>
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/logging-6.0/log6x-upgrading-to-6.html">OpenShift documentation</a> for details.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>`
+=== <code>release</code></p>
+</div>
 <div class="hdlist">
 <table>
 <tr>
@@ -1256,11 +1258,8 @@ Because of this, the component no longer automatically supports new versions of 
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ignore_alerts"><a class="anchor" href="#_ignore_alerts"></a><code>ignore_alerts</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_alerts_ignore"><a class="anchor" href="#_alerts_ignore"></a><code>alerts.ignore</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1286,10 +1285,8 @@ default
 The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_patch_alerts"><a class="anchor" href="#_patch_alerts"></a><code>patch_alerts</code></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_alerts_patch"><a class="anchor" href="#_alerts_patch"></a><code>alerts.patch</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1305,301 +1302,13 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patch_alerts:
-  FluentdQueueLengthIncreasing:
-    for: '12h'</code></pre>
-</div>
-</div>
+<p>{}</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The parameter patch_alerts allows users to customize upstream alerts.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_components_elasticsearch"><a class="anchor" href="#_components_elasticsearch"></a><code>components.elasticsearch</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
-  elasticsearch:
-    enabled: false
-    kibana_host: null
-    predict_elasticsearch_storage_alert:
-      enabled: true
-      lookback_range: 72h
-      predict_hours_from_now: 72
-      threshold: 85
-      for: 6h
-      severity: warning</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Configuration of the elasticsearch component.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Elasticsearch is deprecated.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_components_elasticsearch_kibana_host"><a class="anchor" href="#_components_elasticsearch_kibana_host"></a><code>components.elasticsearch.kibana_host</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<p><code>kibana.apps.cluster.syn.tools</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Host name of the Kibana route.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_components_elasticsearch_predict_elasticsearch_storage_alert"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert</code></h3>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">components:
-  elasticsearch:
-    predict_elasticsearch_storage_alert:
-      enabled: true
-      lookback_range: 72h
-      predict_hours_from_now: 72
-      threshold: 85
-      for: 6h
-      severity: warning</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Create an alert <code>SYN_ElasticsearchExpectNodeToReachDiskWatermark</code> if the storage allocated for Elasticsearch is predicted to reach the low storage watermark.</p>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_enabled"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_enabled"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.enabled</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Enable or disable this alert.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_lookback_range"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_lookback_range"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.lookback_range</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>prometheus duration</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>72h</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>How for to look back to calculate the prediction.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_predict_hours_from_now"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_predict_hours_from_now"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.predict_hours_from_now</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>72</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>How far in the future the prediction is calculated.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_threshold"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_threshold"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.threshold</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>number</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>85</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The threshold for the alert.
-Percentage of disk fill.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_for"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_for"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.for</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>prometheus duration</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>6h</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The alert is firing once the threshold has been reached for this long.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_components_elasticsearch_predict_elasticsearch_storage_alert_severity"><a class="anchor" href="#_components_elasticsearch_predict_elasticsearch_storage_alert_severity"></a><code>components.elasticsearch.predict_elasticsearch_storage_alert.severity</code></h4>
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>warning</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The severity of the fired alert.</p>
-</div>
+<p>The parameter <code>alerts.patch</code> allows users to customize upstream alerts.</p>
 </div>
 </div>
 </div>
@@ -1894,67 +1603,8 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/log_collection_forwarding/cluster-logging-collector.html#creating-logfilesmetricexporter_cluster-logging-collector">LogCollection Docs</a> for available specs.</p>
+<p>Exporter to collect metrics about container logs being produced in a kubernetes environment It publishes <code>log_logged_bytes_total</code> metric in prometheus.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_operatorresources"><a class="anchor" href="#_operatorresources"></a><code>operatorResources</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <code>defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the <code>.spec.config.resources</code> for OLM subscriptions maintained by this component.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_clusterlogging"><a class="anchor" href="#_clusterlogging"></a><code>clusterLogging</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the <code>.spec</code> for cluster logging.</p>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/cluster-logging-deploying.html#create-cluster-logging-cli_cluster-logging-deploying">OpenShift docs</a> for available parameters.</p>
 </div>
 </div>
 </div>
@@ -1985,92 +1635,7 @@ default
 <p>A dictionary holding the <code>.spec</code> for cluster log forwarding.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/log_collection_forwarding/log-forwarding.html">OpenShift docs</a> for available parameters.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_clusterlogforwarding"><a class="anchor" href="#_clusterlogforwarding"></a><code>clusterLogForwarding</code></h2>
-<div class="sectionbody">
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<code>clusterLogForwarding</code> is deprecated, please use <code>clusterLogForwarder</code>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespacelogforwarderenabled"><a class="anchor" href="#_namespacelogforwarderenabled"></a><code>namespaceLogForwarderEnabled</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>bool</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>false</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Enabling namespaced log forwarding requires redeploying the logging operator. See <a href="../how-tos/enable-multi-forwarder.html" class="page">How-To</a> for instructions.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_namespacelogforwarder"><a class="anchor" href="#_namespacelogforwarder"></a><code>namespaceLogForwarder</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dictionary</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>{}</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A dictionary holding the <code>.spec</code> for namespaced log forwarding.</p>
-</div>
-<div class="paragraph">
-<p>See in examples below for configuration.</p>
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/observability/logging/logging-6.1/log6x-clf-6.1.html">OpenShift docs</a> for available parameters.</p>
 </div>
 </div>
 </div>
@@ -2105,44 +1670,36 @@ The value must be a dict with a key <code>stringData</code> which is a dict of k
 </div>
 </div>
 <div class="sect1">
+<h2 id="_operatorresources"><a class="anchor" href="#_operatorresources"></a><code>operatorResources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see <code>defaults.yml</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the <code>.spec.config.resources</code> for OLM subscriptions maintained by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogging:
-  logStore:
-    retentionPolicy:
-      application:
-        maxAge: 15d
-    elasticsearch:
-      nodeCount: 5</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_use_namespaced_clusterlogforwarder"><a class="anchor" href="#_use_namespaced_clusterlogforwarder"></a>Use namespaced ClusterLogForwarder</h3>
-<div class="paragraph">
-<p>Example creates a <code>ClusterLogForwarder</code>, <code>ServiceAccount</code> and <code>RoleBinding</code> in namespace <code>my-namespace</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespaceLogForwarderEnabled: true
-namespaceLogForwarder:
-  my-namespace/my-forwarder:
-    outputs:
-      splunk-forwarder:
-        secret:
-          name: splunk-forwarder
-        type: fluentdForward
-        url: tls://splunk-forwarder:24224
-    pipelines:
-      application-logs:
-        inputRefs:
-          - application
-        outputRefs:
-          - splunk-forwarder</code></pre>
-</div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="_forward_logs_for_all_application_logs_to_third_party"><a class="anchor" href="#_forward_logs_for_all_application_logs_to_third_party"></a>Forward logs for all application logs to third-party</h3>
 <div class="listingblock">
@@ -2150,14 +1707,23 @@ namespaceLogForwarder:
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
   outputs:
     splunk-forwarder:
-      secret:
-        name: splunk-forwarder
-      type: fluentdForward
-      url: tls://splunk-forwarder:24224
+      type: splunk
+      splunk:
+        authentication:
+          token:
+            key: hecToken
+            secretName: splunk-forwarder
+        url: https://splunk-server:8088
   pipelines:
     application-logs:
       outputRefs:
-        - splunk-forwarder</code></pre>
+        - splunk-forwarder
+
+secrets:
+  splunk-forwarder:
+    type: Opaque
+    stringData:
+      hecToken: 'super-secret-token'</code></pre>
 </div>
 </div>
 </div>
@@ -2173,47 +1739,25 @@ namespaceLogForwarder:
           - my-namespace
   outputs:
     splunk-forwarder:
-      secret:
-        name: splunk-forwarder
-      type: fluentdForward
-      url: tls://splunk-forwarder:24224
+      type: splunk
+      splunk:
+        authentication:
+          token:
+            key: hecToken
+            secretName: splunk-forwarder
+        url: https://splunk-server:8088
   pipelines:
     my-apps:
       inputRefs:
         - my-apps
       outputRefs:
-        - splunk-forwarder</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enable_json_parsing_for_all_application_logs"><a class="anchor" href="#_enable_json_parsing_for_all_application_logs"></a>Enable JSON parsing for all application logs</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
-  pipelines:
-    application-logs:
-      parse: json</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enable_json_parsing_for_certain_namespaces"><a class="anchor" href="#_enable_json_parsing_for_certain_namespaces"></a>Enable JSON parsing for certain namespaces</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">clusterLogForwarder:
-  inputs:
-    my-apps:
-      application:
-        namespaces:
-          - my-namespace
-  pipelines:
-    my-apps:
-      inputRefs:
-        - my-apps
-      outputRefs:
-        - default
-      parse: json</code></pre>
+        - splunk-forwarder
+
+secrets:
+  splunk-forwarder:
+    type: Opaque
+    stringData:
+      hecToken: 'super-secret-token'</code></pre>
 </div>
 </div>
 </div>
