@@ -1503,6 +1503,84 @@ This behavior is caused by a security feature in the OpenShift ingress controlle
 </div>
 </div>
 <div class="sect1">
+<h2 id="_notifications"><a class="anchor" href="#_notifications"></a><code>notifications</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>notifications</code> is deployed onto the cluster as a <code>ConsoleNotification</code> resource.
+Entries with <code>null</code> values are skipped.
+This allows users to remove notifications which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>ConsoleNotification</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary values correspond to the <code>.spec</code> of the <code>ConsoleNotification</code>.
+See the <a href="https://docs.openshift.com/container-platform/latest/rest_api/console_apis/consolenotification-console-openshift-io-v1.html">OpenShift docs</a> for available parameters.</p>
+</div>
+<div class="paragraph">
+<p>This component will by default use <code>.location: BannerTop</code>, <code>.color: '#1abc9c'</code> and <code>.backgroundColor: ' #d1d61c'</code> unless otherwise configured.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upgrade_notification"><a class="anchor" href="#_upgrade_notification"></a><code>upgrade_notification</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enabled: false
+notification: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When upgrade notifications are enabled, this component will create an ArgoCD sync hook and an upgradejob hook which will dynamically create (and remove) a <code>ConsoleNotification</code> informing users about the next upcoming minor OCP upgrade.
+It is based on the upgrade controller&#8217;s channel overlay and the next possible maintenance dates.</p>
+</div>
+<div class="paragraph">
+<p>The values for the <code>upgrade_notification.notification</code> dictionary are the the same as for <code>notifications</code> above.
+Additionally the following variables can be used in the notification text: <code>OVERLAY_DATE</code>, <code>OVERLAY_CHANNEL</code>, <code>OVERLAY_VERSION</code>, <code>OVERLAY_VERSION_MINOR</code> and <code>NEXT_MAINTENANCE</code>, see also the example below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example_custom_hostname_in_clusters_app_domain"><a class="anchor" href="#_example_custom_hostname_in_clusters_app_domain"></a>Example: Custom hostname in cluster&#8217;s app domain</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1625,6 +1703,38 @@ This is required so that cert-manager can request the Let&#8217;s Encrypt certif
 <td>Provide a single base64-encoded logo and the key needs to have the correct filename extension</td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_console_notification"><a class="anchor" href="#_example_console_notification"></a>Example: Console notification</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  notifications:
+    appuio-documentation:
+      text: Please visit our documentation for more information
+      location: BannerBottom
+      color: '#1abc9c'
+      backgroundColor: ' #d1d61c'
+      link:
+        href: https://docs.appuio.cloud
+        text: APPUiO documentation</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_upgrade_notification"><a class="anchor" href="#_example_upgrade_notification"></a>Example: Upgrade notification</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  upgrade_notification:
+    enabled: true
+    notification:
+      text: 'Cluster will be upgraded to OpenShift $OVERLAY_VERSION in the maintenance window at $NEXT_MAINTENANCE'
+      link:
+        href: https://kb.vshn.ch/oc4/references/release_notes.html
+        text: release notes</code></pre>
+</div>
 </div>
 </div>
 </div>
