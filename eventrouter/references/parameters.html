@@ -1085,6 +1085,55 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_image"><a class="anchor" href="#_image"></a><code>image</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">eventrouter:
+  registry: "ghcr.io"
+  image: "projectsyn/component-eventrouter"
+  tag: v0.3</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The images to use for the eventrouter pods.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>eventrouter</code> image is mirrored from the upstream image <code>gcr.io/heptio-images/eventrouter:v0.3</code> as Heptio is long gone and the Google Container Registry (gcr) is to be shut down in March 2025.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
 <div class="sectionbody">
 <div class="hdlist">

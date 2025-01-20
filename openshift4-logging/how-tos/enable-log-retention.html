@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from v4.x to v5.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/upgrade-v4.x-v5.x.html">
-    <link rel="prev" href="upgrade-v3.x-v4.x.html">
-    <link rel="next" href="switch-to-lokistack.html">
+    <title>Enable Log Retention :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-logging/how-tos/enable-log-retention.html">
+    <link rel="prev" href="switch-to-lokistack.html">
+    <link rel="next" href="enable-multi-forwarder.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -120,13 +120,13 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-v3.x-v4.x.html">Upgrade from v3.x to v4.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-v4.x-v5.x.html">Upgrade from v4.x to v5.x</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="switch-to-lokistack.html">Switch to Lokistack</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="enable-log-retention.html">Enable Log Retention</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1085,44 +1085,76 @@
   <ul>
     <li><a href="../index.html">OpenShift4 Logging</a></li>
     <li>How-Tos</li>
-    <li><a href="upgrade-v4.x-v5.x.html">Upgrade from v4.x to v5.x</a></li>
+    <li><a href="enable-log-retention.html">Enable Log Retention</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v4.x-v5.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-logging/edit/master/docs/modules/ROOT/pages/how-tos/enable-log-retention.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from v4.x to v5.x</h1>
+<h1 class="page">Enable Log Retention</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The parameter <code>clusterLogForwarding</code> is deprecated.
-Backward compatibility for <code>clusterLogForwarding</code> has been removed.</p>
+<p>Loki uses S3 for storage, log retention is handled by S3 lifecycle policies.
+For S3 backends that do not support lifecycle policies, you can use Lokis compactor to configure log retention.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_s3_lifecycle_policies"><a class="anchor" href="#_s3_lifecycle_policies"></a>S3 Lifecycle Policies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Get connection details for the <code>log-storage</code> bucket:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=&lt;cluster-id&gt;
+export AWS_ACCESS_KEY_ID=$(kubectl --as cluster-admin get secret -n openshift-logging loki-logstore -o jsonpath='{.data.access_key_id}' | base64 -d)
+export AWS_SECRET_ACCESS_KEY=$(kubectl --as cluster-admin get secret -n openshift-logging loki-logstore -o jsonpath='{.data.access_key_secret}' | base64 -d)
+export AWS_ENDPOINT=$(kubectl --as cluster-admin get secret -n openshift-logging loki-logstore -o jsonpath='{.data.endpoint}' | base64 -d)
+export AWS_BUCKET=$(kubectl --as cluster-admin get secret -n openshift-logging loki-logstore -o jsonpath='{.data.bucketnames}' | base64 -d)
+
+mc config host add $CLUSTER_ID $AWS_ENDPOINT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Several parameters in <code>clusterLogForwarder</code> have changed.
-See <a href="../references/parameters.html#_examples" class="page">Examples</a> and <a href="https://docs.openshift.com/container-platform/latest/observability/logging/logging-6.0/log6x-clf.html#structure-of-the-clusterlogforwarder">Structure of the ClusterLogForwarder</a> for reference.</p>
+<p>Configure S3 lifecycle policies for the <code>log-storage</code> bucket:</p>
 </div>
-<div class="paragraph">
-<p>The parameter <code>clusterLogging</code> is deprecated and has been removed.
-Migrate collector configuration to <code>clusterLogForwarder.collector</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mc ilm rule add --expire-days 30 $CLUSTER_ID/$AWS_BUCKET</code></pre>
 </div>
-<div class="paragraph">
-<p>The parameter <code>namespaceLogForwarderEnabled</code> is deprecated and has been removed.
-Multi LogForwarder is enabled by default, see <a href="#how-tos/enable-multi-logforwarder.adoc" class="page unresolved">How-To</a> for migration if it was not enabled.</p>
 </div>
-<div class="paragraph">
-<p>The parameter <code>namespaceLogForwarder</code> is deprecated and has been removed.
-If you are using Multi LogForwarder with ProjectSyn, migrate them to <code>adhoc-configuration</code>.</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_lokis_compactor"><a class="anchor" href="#_lokis_compactor"></a>Lokis Compactor</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The parameters <code>ignore_alerts</code> and <code>patch_alerts</code> are deprecated.
-The component is backwards compatible, but moving the parameters to <code>alerts.ignore</code> and <code>alerts.patch</code> is highly encouraged.</p>
+<p>Set the retention period for the <code>log-storage</code> bucket:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_logging:
+    component:
+      lokistack:
+        spec:
+          limits:
+            global:
+              retention:
+                days: 30</code></pre>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-v3.x-v4.x.html">Upgrade from v3.x to v4.x</a></span>
-  <span class="next"><a href="switch-to-lokistack.html">Switch to Lokistack</a></span>
+  <span class="prev"><a href="switch-to-lokistack.html">Switch to Lokistack</a></span>
+  <span class="next"><a href="enable-multi-forwarder.html">Enable Multi LogForwarder</a></span>
 </nav>
 </article>
   </div>
@@ -1133,7 +1165,7 @@ The component is backwards compatible, but moving the parameters to <code>alerts
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/upgrade-v4.x-v5.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-logging/how-tos/enable-log-retention.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
