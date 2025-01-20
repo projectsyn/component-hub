@@ -1448,7 +1448,7 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
-  size: 1x.extra-small
+  size: 1x.pico
   storage:
     schemas:
       - version: v13
@@ -1458,25 +1458,8 @@ default
       name: loki-logstore
   storageClassName: ''
   tenants:
-    mode: openshift-logging
-  limits:
-    global:
-      ingestion:
-        ingestionBurstSize: 9 <i class="conum" data-value="1"></i><b>(1)</b>
-        ingestionRate: 5 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+    mode: openshift-logging</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>value in MiB (per push event)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>value in MiB/s</td>
-</tr>
-</table>
 </div>
 </td>
 </tr>
