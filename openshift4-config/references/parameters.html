@@ -1281,6 +1281,80 @@ default
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_motd"><a class="anchor" href="#_motd"></a><code>motd</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure OpenShift&#8217;s message of the day which is displayed in the terminal when using <code>oc login</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_motd_messages"><a class="anchor" href="#_motd_messages"></a><code>motd.messages</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of messages to be displayed in the message of the day.
+Entries with <code>null</code> values are skipped.
+This allows users to remove notifications which were configured higher up in the hierarchy.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_motd_include_console_notifications"><a class="anchor" href="#_motd_include_console_notifications"></a><code>motd.include_console_notifications</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to include the console notifications from <a href="https://github.com/appuio/component-openshift4-console/blob/master/docs/modules/ROOT/pages/references/parameters.adoc#notifications">component-openshift4-console</a> in the message of the day.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/migrate-v1.html">Migrate from v0.x to v1.x</a></span>
 </nav>
