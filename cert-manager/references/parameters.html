@@ -1124,7 +1124,7 @@ Additionally, if component <code>prometheus</code> is installed on the cluster, 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1133,7 +1133,7 @@ Additionally, if component <code>prometheus</code> is installed on the cluster, 
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>object</p>
 </td>
 </tr>
 <tr>
@@ -1141,30 +1141,25 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-cert-manager/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">charts:
+  cert_manager:
+    source: https://charts.jetstack.io
+    version: v1.16.2</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The Kubernetes version to provide to <code>helm template</code> when rendering the Helm chart.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Set this parameter to <code>${dynamic_facts:kubernetesVersion:major}.${dynamic_facts:kubernetesVersion.minor}</code> to use the cluster&#8217;s reported Kubernetes version when rendering the Helm chart.
-</td>
-</tr>
-</table>
+<p>Specifies the Helm charts sources and versions for certificate-related components.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_chartscert_manager"><a class="anchor" href="#_chartscert_manager"></a><code>charts:cert-manager</code></h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1173,7 +1168,7 @@ Set this parameter to <code>${dynamic_facts:kubernetesVersion:major}.${dynamic_f
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>object</p>
 </td>
 </tr>
 <tr>
@@ -1181,13 +1176,104 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>see <code>defaults.yml</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">images:
+  cert_manager:
+    registry: quay.io
+    repository: jetstack/cert-manager-controller
+  cert_webhook:
+    registry: quay.io
+    repository: jetstack/cert-manager-webhook
+  cert_cainjector:
+    registry: quay.io
+    repository: jetstack/cert-manager-cainjector
+  cert_acmesolver:
+    registry: quay.io
+    repository: jetstack/cert-manager-acmesolver
+  cert_startupapi:
+    registry: quay.io
+    repository: jetstack/cert-manager-startupapicheck
+  kubectl:
+    registry: quay.io
+    repository: appuio/oc
+    tag: 'v4.16'</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The version of the Helm chart to use.</p>
+<p>Image registry configurations for components.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_component"><a class="anchor" href="#_component"></a><code>component</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuration options for certificate-related components.</p>
+</div>
+<div class="sect2">
+<h3 id="_component_cert_manager"><a class="anchor" href="#_component_cert_manager"></a><code>component.cert_manager</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">component:
+  cert_manager:
+    httpProxy: '' <i class="conum" data-value="1"></i><b>(1)</b>
+    httpsProxy: ''
+    noProxy: ''
+    certificateOwnerRef: false <i class="conum" data-value="2"></i><b>(2)</b>
+    recursiveNameservers: '1.1.1.1:53' <i class="conum" data-value="3"></i><b>(3)</b>
+    recursiveNameserversOnly: true <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Proxy configuration for isolated environments.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Ensures secrets will be automatically removed when the certificate resource is deleted.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Recursive nameservers to use for validating DNS01 challenges.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Ensures that only the configured nameservers are used to validate DNS01 challenges.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration options for cert-manager.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check">cert-manager documentation</a> for nameserver config.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1216,146 +1302,6 @@ default
 </div>
 <div class="paragraph">
 <p>The email address Let&#8217;s Encrypt will use to contact you.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dns01_recursive_nameservers"><a class="anchor" href="#_dns01_recursive_nameservers"></a><code>dns01-recursive-nameservers</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>1.1.1.1:53</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Recursive nameservers to use for validating DNS01 challenges.
-See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check">cert-manager documentation</a> for more details.</p>
-</div>
-<div class="paragraph">
-<p>This parameter is injected into parameter <code>helm_values</code> as an extra argument to cert-manager (<code>helm_values.extraArgs</code>).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>We additionally also set <code>--dns01-recursive-nameservers-only</code> as an argument to cert-manager.
-This ensures that only the nameservers configured in this parameter are used to validate DNS01 challenges.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_http_proxy"><a class="anchor" href="#_http_proxy"></a><code>http_proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The value of <code>http_proxy</code> is passed to cert-manager in environment variable <code>HTTP_PROXY</code>.</p>
-</div>
-<div class="paragraph">
-<p>This parameter is injected into parameter <code>helm_values</code> in field <code>extraEnv</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_https_proxy"><a class="anchor" href="#_https_proxy"></a><code>https_proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The value of <code>https_proxy</code> is passed to cert-manager in environment variable <code>HTTPS_PROXY</code>.</p>
-</div>
-<div class="paragraph">
-<p>This parameter is injected into parameter <code>helm_values</code> in field <code>extraEnv</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_no_proxy"><a class="anchor" href="#_no_proxy"></a><code>no_proxy</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>``</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The value of <code>no_proxy</code> is passed to cert-manager in environment variable <code>NO_PROXY</code>.</p>
-</div>
-<div class="paragraph">
-<p>This parameter is injected into parameter <code>helm_values</code> in field <code>extraEnv</code>.</p>
 </div>
 </div>
 </div>
@@ -1612,7 +1558,7 @@ The only flexibility is that cert-manager will present a DNS01 challenge for the
 </div>
 </div>
 <div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1621,52 +1567,70 @@ The only flexibility is that cert-manager will present a DNS01 challenge for the
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>object</p>
 </td>
 </tr>
 <tr>
 <td class="hdlist1">
-value
+default
 </td>
 <td class="hdlist2">
-<p><a href="https://github.com/projectsyn/component-cert-manager/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
+  cert_manager:
+    requests:
+      cpu: 50m
+      memory: 512Mi
+  cert_webhook:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  cert_cainjector:
+    requests:
+      cpu: 50m
+      memory: 512Mi</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The Helm values which the component uses to render the cert-manager Helm chart.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://github.com/jetstack/cert-manager/blob/v1.5.5/deploy/charts/cert-manager/values.yaml">the cert-manager Helm chart</a> for all possible configurations.</p>
+<p>Resource requests and limits for the components containers.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_helmvalues"><a class="anchor" href="#_helmvalues"></a><code>helmValues</code></h2>
 <div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">solvers:
-  nginx_http01:
-    http01:
-      ingress:
-        podTemplate:
-          metadata:
-            labels:
-              app: "solver"
-  dns01:
-    acmeDNS:
-      accountSecretRef:
-        name: acmedns
-          key: acmedns.json
-        host: auth.example.com
-
-secrets:
-  acmedns:
-    stringData:
-      acmedns.json: ?{vaultkv:${cluster:tenant}/${cluster:name}/acmedns}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">helmValues:
+  cert_manager: {}</code></pre>
 </div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Override configurations for individual components.</p>
 </div>
 </div>
 </div>
