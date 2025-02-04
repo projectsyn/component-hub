@@ -1086,7 +1086,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The component provides support to register a client on an acme-dns instance through parameter <a href="../references/parameters.html#_acme_dns_api" class="page"><code>acme_dns_api</code></a>.</p>
+<p>The component provides support to register a client on an acme-dns instance through parameter <a href="../references/parameters.html#acmeClients" class="page"><code>acmeClients</code></a>.</p>
 </div>
 <div class="paragraph">
 <p>This page explains how the self-registration mechanism works in detail.
@@ -1099,11 +1099,11 @@ The mechanism consists of two parts: registration and checking.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To register a client, the component creates a Kubernetes <code>Job</code> in the cert-manager namespace (component parameter <code>namespace</code>).
-The Job runs a shell script which registers a new client on the configured acme-dns instance (parameter <code>acme_dns_api.endpoint</code>).
-If parameters <code>amce_dns_api.username</code> and <code>acme_dns_api.password</code> are provided, the job registers a new client using HTTP basic authentication.</p>
+The Job runs a shell script which registers a new client on the configured acme-dns instance (parameter <code>acmeClients.&lt;CLIENT_NAME&gt;.api.endpoint</code>).
+If parameters <code>acmeClients.&lt;CLIENT_NAME&gt;.api.username</code> and <code>acmeClients.&lt;CLIENT_NAME&gt;.api.password</code> are provided, the job registers a new client using HTTP basic authentication.</p>
 </div>
 <div class="paragraph">
-<p>If registration is successful, the Job updates the secret <code>acme-dns-client</code> to contain a key <code>acmedns.json</code> holding the JSON returned by the acme-dns <code>/register</code> endpoint in the following form:</p>
+<p>If registration is successful, the Job updates the secret <code>acme-dns-&lt;CLIENT_NAME&gt;-client</code> to contain a key <code>acmedns.json</code> holding the JSON returned by the acme-dns <code>/register</code> endpoint in the following form:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1129,14 +1129,14 @@ If parameters <code>amce_dns_api.username</code> and <code>acme_dns_api.password
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The component uses the entries in parameter <code>acme_dns_api.fqdns</code> as keys in the JSON object.
+<td>The component uses the entries in parameter <code>acmeClients.&lt;CLIENT_NAME&gt;.fqdns</code> as keys in the JSON object.
 The value for each key is the JSON that the call to the acme-dns <code>/register</code> endpoint returns.</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>Each key in the object corresponds to a domain for which cert-manager will use the acme-dns instance to solve DNS01 challenges.
-The secret <code>acme-dns-client</code> can then be used to configure a DNS01 solver on cert-manager <code>Issuer</code> and <code>ClusterIssuer</code> resources.</p>
+The secret <code>acme-dns-&lt;CLIENT_NAME&gt;-client</code> can then be used to configure a DNS01 solver on cert-manager <code>Issuer</code> and <code>ClusterIssuer</code> resources.</p>
 </div>
 </div>
 </div>
@@ -1148,7 +1148,7 @@ The secret <code>acme-dns-client</code> can then be used to configure a DNS01 so
 The component randomizes the schedule for the cronjob to have the check run between midnight and 2 AM.</p>
 </div>
 <div class="paragraph">
-<p>The check is currently implemented as a shell script which tries to update a record on the acme-dns instance using the credentials in secret <code>acme-dns-client</code>.
+<p>The check is currently implemented as a shell script which tries to update a record on the acme-dns instance using the credentials in secret <code>acme-dns-&lt;CLIENT_NAME&gt;-client</code>.
 The update of the TXT record is implemented as a curl call to the acme-dns <code>/update</code> endpoint.
 If the curl call fails, the script triggers a reregistration of the client.</p>
 </div>

@@ -1138,26 +1138,32 @@ Add the following configuration to your cluster or global configuration.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   cert_manager:
-    acme_dns_api:
-      endpoint: https://acme-dns-api.example.com <i class="conum" data-value="1"></i><b>(1)</b>
-      username: acme-dns <i class="conum" data-value="2"></i><b>(2)</b>
-      password: ?{vaultkv:${cluster:tenant}/${cluster:name}/cert-manager/acme-dns-password} <i class="conum" data-value="2"></i><b>(2)</b>
-      fqdns: <i class="conum" data-value="3"></i><b>(3)</b>
-        - cluster.example.com</code></pre>
+    acmeClients:
+      client-name: <i class="conum" data-value="1"></i><b>(1)</b>
+        api:
+          endpoint: https://acme-dns-api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
+          username: acme-dns <i class="conum" data-value="3"></i><b>(3)</b>
+          password: ?{vaultkv:${cluster:tenant}/${cluster:name}/cert-manager/acme-dns-password} <i class="conum" data-value="3"></i><b>(3)</b>
+        fqdns: <i class="conum" data-value="4"></i><b>(4)</b>
+          - cluster.example.com</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The HTTP API of the acme-dns instance</td>
+<td>An arbitrary name</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The HTTP basic auth username and password for the acme-dns instance (optional)</td>
+<td>The HTTP API of the acme-dns instance</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The HTTP basic auth username and password for the acme-dns instance (optional)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>The list of FQDNs that you want to use acme-dns challenges for.
 Note that the entries must match FQDNs for which you want to use acme-dns challenges exactly.
 With this configuration, cert-manager will only present DNS01 challenges for certificates with dnsNames <code>cluster.example.com</code> or <code>*.cluster.example.com</code>.
@@ -1166,7 +1172,7 @@ In particular, cert-manager won&#8217;t present DNS01 challenges for any subdoma
 </table>
 </div>
 <div class="paragraph">
-<p>This configuration creates a secret <code>acme-dns-client</code> with the acme-dns client configuration in key <code>acmedns.json</code> in the cert-manager namespace.</p>
+<p>This configuration creates a secret <code>acme-dns-client-name-client</code> with the acme-dns client configuration in key <code>acmedns.json</code> in the cert-manager namespace.</p>
 </div>
 </li>
 <li>
@@ -1181,7 +1187,7 @@ In particular, cert-manager won&#8217;t present DNS01 challenges for any subdoma
         acmeDNS:
           host: https://acme-dns-api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
           accountSecretRef: <i class="conum" data-value="3"></i><b>(3)</b>
-            name: acme-dns-client
+            name: acme-dns-client-name-client <i class="conum" data-value="4"></i><b>(4)</b>
             key: acmedns.json</code></pre>
 </div>
 </div>
@@ -1201,6 +1207,10 @@ This should match parameter <code>acme_dns_api.endpoint</code>.</td>
 <td>The account secret for the acme-dns instance.
 Use the values shown here to use the client secret which is created by the configuration from the previous step.</td>
 </tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Generated name from the previous step</td>
+</tr>
 </table>
 </div>
 </li>
@@ -1212,7 +1222,7 @@ Use the values shown here to use the client secret which is created by the confi
 <div class="listingblock">
 <div class="title">Extract CNAME target from the acme-dns-client secret</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl -n syn-cert-manager get secret acme-dns-client \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl -n syn-cert-manager get secret acme-dns-client-name-client \
     -ojsonpath='{.data.acmedns\.json}' | \
     base64 -d | \
     jq -r '[.[]][0].fulldomain'

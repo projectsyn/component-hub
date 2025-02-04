@@ -1278,6 +1278,58 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_acmeclients"><a class="anchor" href="#_acmeclients"></a><code>acmeClients</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for ACME DNS clients.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">acmeClients:
+  vshn-default: <i class="conum" data-value="1"></i><b>(1)</b>
+    api:
+      endpoint: https://acme-dns-api.example.com
+      username: vshn-default-username
+      password: vshn-default-password
+    fqdns:
+      - 'api.${cluster:name}.example.com'
+      - '*.apps.${cluster:name}.example.com'</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name of the ACME client, referenced in <code>clusterIssuers.acmeClientRefs</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_letsencrypt_email"><a class="anchor" href="#_letsencrypt_email"></a><code>letsencrypt_email</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
