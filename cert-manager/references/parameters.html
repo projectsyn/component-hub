@@ -1194,6 +1194,9 @@ default
   cert_startupapi:
     registry: quay.io
     repository: jetstack/cert-manager-startupapicheck
+  exoscale_webhook:
+    registry: docker.io
+    repository: exoscale/cert-manager-webhook-exoscale
   kubectl:
     registry: quay.io
     repository: appuio/oc
@@ -1273,6 +1276,59 @@ default
 </div>
 <div class="paragraph">
 <p>See the <a href="https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check">cert-manager documentation</a> for nameserver config.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_component_exoscale_webhook"><a class="anchor" href="#_component_exoscale_webhook"></a><code>component.exoscale_webhook</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">component:
+  exoscale_webhook:
+    enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
+    accessKey: false <i class="conum" data-value="2"></i><b>(2)</b>
+    secretKey: '1.1.1.1:53' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable the Exoscale webhook.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Exoscale API user access key.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Exoscale API user secret key.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration options for exoscale-webhook.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/exoscale/cert-manager-webhook-exoscale/tree/master?tab=readme-ov-file#cert-manager-webhook-for-exoscale">Exoscale webhook documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -1641,7 +1697,11 @@ default
   cert_cainjector:
     requests:
       cpu: 50m
-      memory: 512Mi</code></pre>
+      memory: 512Mi
+  exoscale_webhook:
+    requests:
+      cpu: 50m
+      memory: 64Mi</code></pre>
 </div>
 </div>
 </td>
@@ -1674,7 +1734,8 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">helmValues:
-  cert_manager: {}</code></pre>
+  cert_manager: {}
+  exoscale_webhook: {}</code></pre>
 </div>
 </div>
 </td>
