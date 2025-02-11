@@ -1201,6 +1201,57 @@ Otherwise some policies might not be applied correctly.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_ciliumclusterid"><a class="anchor" href="#_ciliumclusterid"></a><code>ciliumClusterID</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>''</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the component isolates namespaces with the same name from each other in a Cilium cluster mesh.
+The default behavior if the parameter is empty is to allow connectivity between namespaces with the same name across clusters.</p>
+</div>
+<div class="paragraph">
+<p>If this behavior isn&#8217;t desired, this parameter can be set to the cluster&#8217;s Cilium cluster ID (which is configured in parameter <code>cilium.cilium_helm_values.cluster.name</code> when using cluster mesh).
+When the parameter isn&#8217;t empty, the component will adjust the <code>allow-from-same-namespace</code> policy with the following snippet:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+ ingress:
+ - from:
+   - podSelector:
+       matchLabels:
+         io.cilium.k8s.policy.cluster: &lt;ciliumClusterID&gt; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>&lt;ciliumClusterID&gt;</code> is replaced with the string provided in this parameter</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
