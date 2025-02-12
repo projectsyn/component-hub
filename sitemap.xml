@@ -277,9 +277,6 @@
 <loc>https://hub.syn.tools/sitemap-prometheus-pushgateway.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-rancher-monitoring.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-rbac.xml</loc>
 </sitemap>
 <sitemap>
