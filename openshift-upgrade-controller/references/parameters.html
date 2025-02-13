@@ -1411,6 +1411,58 @@ An empty selector (<code>jobSelector: {}</code>) matches all objects. A null sel
 </div>
 </div>
 <div class="sect1">
+<h2 id="_node_force_drains"><a class="anchor" href="#_node_force_drains"></a>node_force_drains</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">node_force_drains:
+  node-role-app:
+    spec:
+      nodeDrainGracePeriod: 1m
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/app: ""
+      podForceDeleteGracePeriod: 2m</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter is used to configure the <code>NodeForceDrain</code> objects.
+The dictionary key is used as the name of the <code>NodeForceDrain</code> object.
+The value is the configuration of the <code>NodeForceDrain</code> object.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://github.com/appuio/openshift-upgrade-controller" class="bare">github.com/appuio/openshift-upgrade-controller</a> for the manifest definition.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_upgrade_silence"><a class="anchor" href="#_upgrade_silence"></a><code>upgrade_silence</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
