@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Migrate from component openshift4-cloudscale :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/migrate-from-openshift4-cloudscale.html">
-    <link rel="prev" href="upgrade-exoscale-to-v8.html">
-    <link rel="next" href="../references/parameters.html">
+    <title>Upgrade Exoscale clusters to component version v8 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/upgrade-exoscale-to-v8.html">
+    <link rel="prev" href="upgrade-exoscale-to-v7.html">
+    <link rel="next" href="migrate-from-openshift4-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -120,10 +120,10 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-exoscale-to-v8.html">Upgrade Exoscale clusters to component version v8</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a>
   </li>
 </ul>
@@ -1071,164 +1071,94 @@
   <ul>
     <li><a href="../index.html">openshift4-terraform</a></li>
     <li>How-to guides</li>
-    <li><a href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></li>
+    <li><a href="upgrade-exoscale-to-v8.html">Upgrade Exoscale clusters to component version v8</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/migrate-from-openshift4-cloudscale.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-exoscale-to-v8.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Migrate from component <code>openshift4-cloudscale</code></h1>
+<h1 class="page">Upgrade Exoscale clusters to component version v8</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This component supports both the Terraform module for OpenShift 4 on Exoscale and cloudscale.ch.
-Previously there was a dedicated component <code>openshift4-cloudscale</code> for driving the Terraform module for OpenShift 4 on cloudscale.ch.
-That component is deprecated in favor of this component.</p>
-</div>
-<div class="paragraph">
-<p>This how-to provides a guide for migrating from component <code>openshift4-cloudscale</code> to <code>openshift4-terraform</code>.</p>
-</div>
-<div class="paragraph">
-<p>It&#8217;s highly recommended that you first perform the component migration and then follow the guide to <a href="upgrade-cloudscale-v1-v2.html" class="page">upgrade the cloudscale.ch Terraform module from v1 to v2</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You need to be able to execute the following CLI tools locally:</p>
+<p>When upgrading to component version v8 for Exoscale clusters, the following breaking change requires manual changes in the Project Syn config of existing clusters:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>yq</code> <a href="https://github.com/mikefarah/yq">yq YAML processor</a> (Version 4 or newer)</p>
-</li>
-<li>
-<p><code>commodore</code></p>
-</li>
-<li>
-<p><code>git</code></p>
+<p><a href="https://github.com/appuio/terraform-openshift4-exoscale/pull/98">Use instance pools for infra and worker node groups</a></p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We recommend applying the config changes outlined in this guide <strong>before</strong> upgrading to component version v8
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+We will publish a guide to migrate existing clusters to use instance pools in a future version of this component.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_prepare_inputs"><a class="anchor" href="#_prepare_inputs"></a>Prepare inputs</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make a note of the Project Syn ID of the cluster which you want to migrate</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CLUSTER_ID=c-the-cluster-1234 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
+<p>Get a clone of the tenant repo of the clusters that you want to upgrade to component version v8.</p>
+</li>
+<li>
+<p>Make sure component <code>openshift4-terraform</code> is updated to at least v7.6.0 so the variable <code>use_instancepools</code> exists</p>
+</li>
+<li>
+<p>Set <code>parameters.openshift4_terraform.variables.use_instancepools</code> to <code>false</code> for existing clusters.</p>
+<div class="admonitionblock tip">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Replace with the ID of the cluster to migrate</td>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you&#8217;re not planning to switch to instance pools for future clusters, you can set the variable for the whole tenant in <code>common.yml</code>.
+</td>
 </tr>
 </table>
 </div>
 </li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_migrate_component_config"><a class="anchor" href="#_migrate_component_config"></a>Migrate component config</h3>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Make cluster catalog available locally</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Extract tenant ID from commodore working directory</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export TENANT_ID=$(yq e '.parameters.cluster.tenant' inventory/classes/params/cluster.yml)</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Update cluster config to use component <code>openshift4-terraform</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Change to tenant config repo
-pushd "inventory/classes/${TENANT_ID}"
-
-# Remove component openshift4-cloudscale and add component openshift4-terraform
-yq eval -i '.applications = (.applications[] |
-  select(. != "openshift4-cloudscale") | [[.]][]) + (["openshift4-terraform"])' \
-  "${CLUSTER_ID}.yml"
-
-# Move parameters from openshift4_cloudscale to openshift4_terraform
-yq eval -i '.parameters.openshift4_terraform = .parameters.openshift4_cloudscale |
-  del(.parameters.openshift4_cloudscale) |
-  .parameters.openshift4_terraform.terraform_variables =
-    .parameters.openshift4_terraform.variables |
-  del(.parameters.openshift4_terraform.variables)' "${CLUSTER_ID}.yml"</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Inspect changes and commit them if they&#8217;re ok</p>
-<div class="listingblock">
-<div class="title">Commit changes</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git commit -av
-git push origin master</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Switch back to Commodore working directory</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">popd</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Update GitLab CI configuration</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Change location of <code>gitlab-ci.yml</code> in <span class="menuseq"><b class="menu">Settings</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CI/CD</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">General pipelines</b></span> to <code>manifests/openshift4-terraform/gitlab-ci.yml</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Compile and push new catalog</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID} --push -i</code></pre>
-</div>
-</div>
+<p>Commit the changes</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>Now you&#8217;re ready to upgrade the component to v8 without changes to existing clusters.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-exoscale-to-v8.html">Upgrade Exoscale clusters to component version v8</a></span>
-  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="prev"><a href="upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a></span>
+  <span class="next"><a href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></span>
 </nav>
 </article>
   </div>
@@ -1239,7 +1169,7 @@ git push origin master</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/migrate-from-openshift4-cloudscale.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/upgrade-exoscale-to-v8.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
