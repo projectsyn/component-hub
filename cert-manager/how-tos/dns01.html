@@ -1173,14 +1173,11 @@ In particular, cert-manager won&#8217;t present DNS01 challenges for any subdoma
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   cert_manager:
-    solvers:
-      nginx_http01: null <i class="conum" data-value="1"></i><b>(1)</b>
-      dns01:
-        acmeDNS:
-          host: https://acme-dns-api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
-          accountSecretRef: <i class="conum" data-value="3"></i><b>(3)</b>
-            name: acme-dns-client-name-client <i class="conum" data-value="4"></i><b>(4)</b>
-            key: acmedns.json</code></pre>
+    clusterIssuers:
+      letsencrypt-production:
+        ~solverRefs: [] <i class="conum" data-value="1"></i><b>(1)</b>
+        acmeClientRefs: <i class="conum" data-value="2"></i><b>(2)</b>
+          - client-name</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1191,17 +1188,7 @@ In particular, cert-manager won&#8217;t present DNS01 challenges for any subdoma
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The HTTP API of the acme-dns instance.
-This should match parameter <code>acme_dns_api.endpoint</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The account secret for the acme-dns instance.
-Use the values shown here to use the client secret which is created by the configuration from the previous step.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Generated name from the previous step</td>
+<td>Reference the acme-dns client from the previous step</td>
 </tr>
 </table>
 </div>
@@ -1214,7 +1201,7 @@ Use the values shown here to use the client secret which is created by the confi
 <div class="listingblock">
 <div class="title">Extract CNAME target from the acme-dns-client secret</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl -n syn-cert-manager get secret acme-dns-client-name-client \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl -n syn-cert-manager get secret client-name-client \
     -ojsonpath='{.data.acmedns\.json}' | \
     base64 -d | \
     jq -r '[.[]][0].fulldomain'

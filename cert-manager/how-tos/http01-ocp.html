@@ -1090,14 +1090,17 @@ In order to make provision Let&#8217;s Encrypt certificates with the HTTP01 solv
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   cert_manager:
     solvers:
-      nginx_http01: null <i class="conum" data-value="1"></i><b>(1)</b>
       haproxy_http01:
         http01:
           ingress:
             ingressTemplate:
               metadata:
                 annotations:
-                  "route.openshift.io/termination": "edge"</code></pre>
+                  "route.openshift.io/termination": "edge"
+    clusterIssuers:
+      letsencrypt-production:
+        ~solverRefs: <i class="conum" data-value="1"></i><b>(1)</b>
+          - haproxy_http01</code></pre>
 </div>
 </div>
 <div class="colist arabic">
