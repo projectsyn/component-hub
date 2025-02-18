@@ -1873,6 +1873,60 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_autoscaling_custommetrics_enabled"><a class="anchor" href="#_autoscaling_custommetrics_enabled"></a><code>autoscaling.customMetrics.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When enabled, create PrometheusRules to generate metrics for certain autoscaling parameters:
+<code>component_openshift4_nodes_machineset_replicas_max</code> contains the <code>maxReplicas</code> value for each machine set.
+<code>component_openshift4_nodes_machineset_replicas_min</code> contains the <code>minReplicas</code> value for each machine set.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_custommetrics_extralabels"><a class="anchor" href="#_autoscaling_custommetrics_extralabels"></a><code>autoscaling.customMetrics.extraLabels</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional label-value pairs to add to the autoscaling metrics.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_example_configuration"><a class="anchor" href="#_example_configuration"></a>Example configuration</h3>
 <div class="paragraph">
 <p>This configuration assumes that a <code>MachineSet</code> named <code>app</code> is configured through either <code>nodePools</code> or <code>machineSets</code>.</p>
