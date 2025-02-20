@@ -1663,6 +1663,57 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_upgrade_silence_handle_delayed_worker_pools"><a class="anchor" href="#_upgrade_silence_handle_delayed_worker_pools"></a><code>upgrade_silence.handle_delayed_worker_pools</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to create separate silences for the initial maintenance and the delayed maintenance of one or more MachineConfigPools.</p>
+</div>
+<div class="paragraph">
+<p>If set to true, the upgrade silence <code>UpgradeJobHook</code> is executed for events <code>UpgradeComplete</code> (when the upgrade is complete except for delayed MachineConfigPools) and <code>MachineConfigPoolUnpause</code> (when the delayed MachineConfigPool maintenance starts) in addition to the <code>Start</code> and <code>Finish</code> events.</p>
+</div>
+<div class="paragraph">
+<p>When the hook script runs for the <code>UpgradeComplete</code> event it expires the silence after <code>upgrade_silence.silence_after_finish_minutes</code>.
+When the hook script runs for the <code>MachineConfigPoolUnpause</code> event it creates a silence which ends after <code>upgrade_silence.silence_timeout_hours</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Start</code> and <code>Finish</code> logic remains unchanged, the <code>Finish</code> run will expire the silence created by the run for <code>MachineConfigPoolUnpause</code> when the <code>handle_delayed_worker_pools</code> parameter is <code>true</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Currently, the upgrade-controller doesn&#8217;t have an event for <code>MachineConfigPoolComplete</code>.
+Enabling this parameter may produce undesired silences for configurations which have different delays for multiple delayed MachineConfigPools.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_upgrade_silence_additional_job_configuration"><a class="anchor" href="#_upgrade_silence_additional_job_configuration"></a><code>upgrade_silence.additional_job_configuration</code></h3>
 <div class="hdlist">
 <table>
