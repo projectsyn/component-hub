@@ -103,6 +103,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../explanations/machine-config-pool.html">Machine Config Pools</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../explanations/resource_management.html">Resource Management</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -2512,6 +2515,128 @@ See the documentation for <a href="http://localhost:2020/cilium/references/param
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacityalerts"><a class="anchor" href="#_capacityalerts"></a><code>capacityAlerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to enable and configure alerts for node capacity management.
+The capacity alerts are disabled by default and can be enabled by setting the key <code>capacityAlerts.enabled</code> to <code>true</code>.
+Predictive alerts are disabled by default and can be enabled individually as shown below by setting <code>ExpectClusterCpuUsageHigh.enabled</code> to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary will be transformed into a <code>PrometheusRule</code> object by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component provides 10 alerts that are grouped in four groups.
+You can disable or modify each of these alert rules individually.
+The fields in these rules will be added to the final <code>PrometheusRule</code>, with the exception of <code>expr</code>.
+The <code>expr</code> field contains fields which can be used to tune the default alert rule.
+Alternatively, the default rule can be completely overwritten by setting the <code>expr.raw</code> field (see example below).
+See <a href="../explanations/resource_management.html" class="page">Resource Management</a> for an explanation for every alert rule.</p>
+</div>
+<div class="paragraph">
+<p>Nodes are grouped by machineSet if machineSets are in use on the cluster.
+If machineSets are not in use, nodes are grouped by node role instead.
+The component automatically determines whether to group by machineSets or node roles.</p>
+</div>
+<div class="paragraph">
+<p>When grouping by node role, it is possible to further group the nodes by additional node labels by specifying <code>capacityAlerts.groupByNodeLabels</code>.
+When grouping by machineSets, there is no equivalent setting.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  groupByNodeLabels: [] <i class="conum" data-value="2"></i><b>(2)</b>
+  monitorNodeRoles:
+   - app <i class="conum" data-value="3"></i><b>(3)</b>
+  groups:
+    PodCapacity:
+      rules:
+        TooManyPods:
+          annotations:
+            message: 'The number of pods is too damn high' <i class="conum" data-value="4"></i><b>(4)</b>
+          for: 3h <i class="conum" data-value="5"></i><b>(5)</b>
+        ExpectTooManyPods:
+          expr: <i class="conum" data-value="6"></i><b>(6)</b>
+            range: '2d'
+            predict: '5*24*60*60'
+
+    ResourceRequests:
+      rules:
+        TooMuchMemoryRequested:
+          enabled: true
+          expr:
+            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="7"></i><b>(7)</b>
+    CpuCapacity:
+      rules:
+        ClusterCpuUsageHigh:
+          enabled: false <i class="conum" data-value="8"></i><b>(8)</b>
+        ExpectClusterCpuUsageHigh:
+          enabled: false <i class="conum" data-value="8"></i><b>(8)</b>
+    UnusedCapacity:
+      rules:
+        ClusterHasUnusedNodes:
+          enabled: false <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enables capacity alerts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>List of node labels (as they show up in the <code>kube_node_labels</code> metric) by which alerts are grouped (only available if machineSets are not in use)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>List of node roles to monitor. This is used only if machineSets are not in use. If machineSets are used, the parameter <code>monitorMachineSets</code> is used instead.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Changes the alert message for the pod capacity alert</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Only alerts for pod capacity if it fires for 3 hours</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Change the pod count prediction to look at the last two days and predict the value in five days</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Disables both CPU capacity alert rules</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Disables alert if the cluster has unused nodes.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

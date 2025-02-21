@@ -1344,6 +1344,18 @@ default
 <div class="paragraph">
 <p>Whether to include the console notifications from <a href="https://github.com/appuio/component-openshift4-console/blob/master/docs/modules/ROOT/pages/references/parameters.adoc#notifications">component-openshift4-console</a> in the message of the day.</p>
 </div>
+<div class="paragraph">
+<p>The component will include each console notification&#8217;s <code>spec.text</code> and <code>spec.link</code> contents in the following form:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">&lt;spec.text&gt;
+&lt;spec.link.text&gt;: &lt;spec.link.href&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For console notifications which don&#8217;t provide <code>spec.link</code>, the second line will be omitted.</p>
+</div>
 </div>
 </div>
 </div>
