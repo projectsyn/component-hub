@@ -181,9 +181,6 @@
 <loc>https://hub.syn.tools/sitemap-minio.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-namespace.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-networkpolicy.xml</loc>
 </sitemap>
 <sitemap>
