@@ -1721,7 +1721,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_autoscaling_ignoredownscalingsync"><a class="anchor" href="#_autoscaling_ignoredownscalingsync"></a><code>autoscaling.ignoreDownScalingSync</code></h3>
+<h3 id="_autoscaling_ignoredownscalingsync"><a class="anchor" href="#_autoscaling_ignoredownscalingsync"></a><code>autoscaling.ignoreDownscalingSync</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1962,6 +1962,110 @@ default
 </div>
 <div class="paragraph">
 <p>Additional label-value pairs to add to the autoscaling metrics.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_enabled"><a class="anchor" href="#_autoscaling_schedule_enabled"></a><code>autoscaling.schedule.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable scheduled downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_enableexpression"><a class="anchor" href="#_autoscaling_schedule_enableexpression"></a><code>autoscaling.schedule.enableExpression</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>0 22 * * 2</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cron expression to enable downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_disableexpression"><a class="anchor" href="#_autoscaling_schedule_disableexpression"></a><code>autoscaling.schedule.disableExpression</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>0 1 * * 3</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cron expression to disable downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_timezone"><a class="anchor" href="#_autoscaling_schedule_timezone"></a><code>autoscaling.schedule.timeZone</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>Europe/Zurich</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The time zone to use for scheduled downscaling.</p>
 </div>
 </div>
 <div class="sect2">
