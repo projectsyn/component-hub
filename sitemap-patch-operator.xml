@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://hub.syn.tools/patch-operator/how-tos/external-certificates.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/patch-operator/how-tos/migrate-from-resource-locker.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/patch-operator/index.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/patch-operator/references/lib-patch-operator.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/patch-operator/references/parameters.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/patch-operator/runbooks/PatchReconcileErrors.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/patch-operator/runbooks/PatchReconcileSlow.html</loc>
+<lastmod>2025-03-07T11:18:30.287Z</lastmod>
+</url>
+</urlset>
