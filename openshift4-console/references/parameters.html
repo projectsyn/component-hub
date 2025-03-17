@@ -1136,7 +1136,7 @@ Annotations can be removed by setting the value to <code>null</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Major: '4'
-Minor: '13'</code></pre>
+Minor: '17'</code></pre>
 </div>
 </div>
 </dd>
@@ -1274,6 +1274,7 @@ default
 <div class="paragraph">
 <p>The component will inject a dynamic set of plugins into the configuration based on the reported OpenShift version in parameter <code>openshift_version</code>.
 For OpenShift 4.14 and newer, the component always adds plugin <code>monitoring-plugin</code>.
+For OpenShift 4.17 and newer, the component always adds plugin <code>networking-console-plugin</code>.
 Additionally, the component will remove duplicated entries from the list of configured plugins.</p>
 </div>
 <div class="admonitionblock note">
