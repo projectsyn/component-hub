@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/references/parameters.html">
-    <link rel="prev" href="../how-tos/migrate-from-openshift4-cloudscale.html">
+    <title>Upgrade Exoscale clusters to component version v9 :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-terraform/how-tos/upgrade-exoscale-to-v9.html">
+    <link rel="prev" href="upgrade-exoscale-to-v8.html">
+    <link rel="next" href="migrate-from-openshift4-cloudscale.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,34 +100,34 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/use-cloudscale.html">Use cloudscale.ch</a>
+    <a class="nav-link" href="use-cloudscale.html">Use cloudscale.ch</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/use-exoscale.html">Use Exoscale</a>
+    <a class="nav-link" href="use-exoscale.html">Use Exoscale</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-cloudscale-v1-v2.html">Upgrade cloudscale.ch from v1 to v2</a>
+    <a class="nav-link" href="upgrade-cloudscale-v1-v2.html">Upgrade cloudscale.ch from v1 to v2</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-cloudscale-v2-v3.html">Upgrade cloudscale.ch from v2 to v3</a>
+    <a class="nav-link" href="upgrade-cloudscale-v2-v3.html">Upgrade cloudscale.ch from v2 to v3</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-exoscale-v3-v4.html">Upgrade Exoscale clusters from component version v3 to v4</a>
+    <a class="nav-link" href="upgrade-exoscale-v3-v4.html">Upgrade Exoscale clusters from component version v3 to v4</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-exoscale-v4-v5.html">Upgrade Exoscale clusters from component version v4 to v5</a>
+    <a class="nav-link" href="upgrade-exoscale-v4-v5.html">Upgrade Exoscale clusters from component version v4 to v5</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a>
+    <a class="nav-link" href="upgrade-exoscale-to-v7.html">Upgrade Exoscale clusters to component version v7</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-exoscale-to-v8.html">Upgrade Exoscale clusters to component version v8</a>
+    <a class="nav-link" href="upgrade-exoscale-to-v8.html">Upgrade Exoscale clusters to component version v8</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-exoscale-to-v9.html">Upgrade Exoscale clusters to component version v9</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-exoscale-to-v9.html">Upgrade Exoscale clusters to component version v9</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a>
+    <a class="nav-link" href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a>
   </li>
 </ul>
   </li>
@@ -134,8 +135,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -1080,321 +1081,92 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">openshift4-terraform</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-to guides</li>
+    <li><a href="upgrade-exoscale-to-v9.html">Upgrade Exoscale clusters to component version v9</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-terraform/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-exoscale-to-v9.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Upgrade Exoscale clusters to component version v9</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>openshift4_terraform</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_provider"><a class="anchor" href="#_provider"></a><code>provider</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>enum</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-required
-</td>
-<td class="hdlist2">
-<p>Yes</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-values
-</td>
-<td class="hdlist2">
-<p><code>cloudscale</code>, <code>exoscale</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>${facts:cloud}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This variable is used to select the Terraform module and a suitable default configuration for the specified cloud provider.
-The supported providers are:</p>
+<p>When upgrading to component version v9 for Exoscale clusters, the following breaking change may require manual changes in the Project Syn config of existing clusters:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://cloudscale.ch">Cloudscale.ch</a>&#8201;&#8212;&#8201;<a href="https://github.com/appuio/terraform-openshift4-cloudscale">Terraform module</a></p>
-</li>
-<li>
-<p><a href="https://exoscale.com">Exoscale</a>&#8201;&#8212;&#8201;<a href="https://github.com/appuio/terraform-openshift4-exoscale">Terraform module</a></p>
+<p><a href="https://github.com/appuio/terraform-openshift4-exoscale/pull/105">Switch infra nodes to non-instancepool by default</a></p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_gitlab_ci_tags"><a class="anchor" href="#_gitlab_ci_tags"></a><code>gitlab_ci.tags</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock important">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
 </td>
-<td class="hdlist2">
-<p>array</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
+<td class="content">
+The config changes outlined in this guide must be applied at the same time as the upgrade to component version v9.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The GitLab CI Runner tags to apply to the GitLab jobs.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_gitlab_ci_git"><a class="anchor" href="#_gitlab_ci_git"></a><code>gitlab_ci.git</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
+<div class="admonitionblock tip">
 <table>
 <tr>
-<td class="hdlist1">
-type
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
 </td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
+<td class="content">
+We will publish a guide to migrate existing clusters to use instance pools in a future version of this component.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Git user information for the CI pipeline.
-If not overridden, the default GitLab CI user information is used for commits made by the CI pipeline.</p>
-</div>
-<div class="paragraph">
-<p>Valid keys for the dict are <code>username</code> and <code>email</code>.
-If present, these keys are configured as <code>GIT_AUTHOR_NAME</code> and <code>GIT_AUTHOR_EMAIL</code> for the CI pipeline respectively.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_images_terraform_image"><a class="anchor" href="#_images_terraform_image"></a><code>images.terraform.image</code></h2>
+<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/appuio/component-openshift4-terraform/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This is the image repository that&#8217;s used in the generated GitLab CI configuration for automated pipelines.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_images_terraform_tag"><a class="anchor" href="#_images_terraform_tag"></a><code>images.terraform.tag</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/appuio/component-openshift4-terraform/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This is the corresponding image tag for <code>images.terraform.image</code></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_terraform_variables"><a class="anchor" href="#_terraform_variables"></a><code>terraform_variables</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>see <code>class/defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Terraform input variables for the selected Terraform module (see parameter <code>provider</code>).
-They&#8217;re passed to the module without any further processing.
-The variables are merged with the defaults, unless overridden.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_additional_outputs"><a class="anchor" href="#_additional_outputs"></a><code>additional_outputs</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>object</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-example
-</td>
-<td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_outputs:
-  my_output: '\${module.cluster.my_output}'</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional outputs that are passed to the Terraform module.
-The outputs are merged with the defaults, defaults can&#8217;t be overridden.
-The keys are then name of the output, the value should contain a reference to a output variable from the Terraform module.
-Additional escaping might be needed since Terraform variables use the same syntax as reclass; see the example above.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <a href="https://github.com/appuio/component-openshift4-terraform/blob/master/class/defaults.yml"><code>class/defaults.yml</code>, key <code>_tf_module_version</code></a></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The git revision of the selected Terraform module.
-See the documentation for <a href="#_provider">parameter <code>provider</code></a> for supported providers.
-By default, parameter <code>provider</code> is used to look up the version for the Terraform module in internal parameter <code>_tf_module_version</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>See examples in the how-to pages:</p>
-</div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><a href="../how-tos/use-cloudscale.html" class="page">cloudscale.ch example</a></p>
+<p>Get a clone of the tenant repo of the clusters that you want to upgrade to component version v9.</p>
 </li>
 <li>
-<p><a href="../how-tos/use-exoscale.html" class="page">Exoscale example</a></p>
+<p>Make sure component <code>openshift4-terraform</code> is updated to at least v9.0.0 so the variable <code>infra_use_instancepool</code> exists</p>
 </li>
-</ul>
+<li>
+<p>Set <code>parameters.openshift4_terraform.variables.infra_use_instancepool</code> to <code>true</code> for existing clusters which have been setup with instancepools for the worker and infra nodes.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The variable <code>infra_use_instancepool</code> has no effect for clusters which set variabl <code>use_instancepools</code> to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Commit the changes</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></span>
+  <span class="prev"><a href="upgrade-exoscale-to-v8.html">Upgrade Exoscale clusters to component version v8</a></span>
+  <span class="next"><a href="migrate-from-openshift4-cloudscale.html">Migrate from component <code>openshift4-cloudscale</code></a></span>
 </nav>
 </article>
   </div>
@@ -1405,7 +1177,7 @@ By default, parameter <code>provider</code> is used to look up the version for t
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-terraform/how-tos/upgrade-exoscale-to-v9.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
