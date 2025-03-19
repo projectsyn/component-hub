@@ -1104,6 +1104,22 @@ default
 <div class="paragraph">
 <p>The namespace in which to deploy this component.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component deploys a configmap called <code>cluster-info</code> in this namespace.
+The configmap contains some Project Syn metadata associated with the cluster.
+All authenticated users (group <code>system:authenticated</code>) can read this configmap.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
