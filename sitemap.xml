@@ -97,6 +97,9 @@
 <loc>https://hub.syn.tools/sitemap-espejo.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-espejote.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-etcd.xml</loc>
 </sitemap>
 <sitemap>
