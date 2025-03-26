@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Upgrade from 3.x to 4.x :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-3.x-to-4.x.html">
-    <link rel="prev" href="upgrade-2.x-to-3.x.html">
-    <link rel="next" href="upgrade-4.x-to-5.x.html">
+    <title>Upgrade from 10.x to 11.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-10.x-to-11.x.html">
+    <link rel="prev" href="upgrade-9.x-to-10.x.html">
+    <link rel="next" href="#cluster-default-ingress-class.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -105,7 +105,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -126,7 +126,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1094,30 +1094,21 @@
   <ul>
     <li><a href="../index.html">ingress-nginx</a></li>
     <li>How-to guides</li>
-    <li><a href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a></li>
+    <li><a href="upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-3.x-to-4.x.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-10.x-to-11.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Upgrade from 3.x to 4.x</h1>
+<h1 class="page">Upgrade from 10.x to 11.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide describes the steps to perform an upgrade of the component from version 3.x to 4.x.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The component version 4.x uses the image registry source of <code>registry.k8s.io</code> instead of <code>k8s.gcr.io</code>.
-There are no other changes.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version 10.x to 11.x.</p>
 </div>
 </div>
 </div>
@@ -1125,35 +1116,13 @@ There are no other changes.</p>
 <h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you have restricted the external cluster communication, please change and verify the ability to pull from <code>registry.k8s.io</code>.
-Allowance on <code>k8s.gcr.io</code> can be removed depending on other components pulling from there.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_why"><a class="anchor" href="#_why"></a>Why</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>k8s.gcr.io</code> is deprecated in favor of <code>registry.k8s.io</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://groups.google.com/a/kubernetes.io/g/dev/c/DYZYNQ_A6_c?pli=1">Please drive traffic to registry.k8s.io (instead of k8s.gcr.io)</a></p>
-</li>
-<li>
-<p><a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-release/3000-artifact-distribution">KEP 3000: Image Promotion and Distribution Policy</a></p>
-</li>
-<li>
-<p><a href="https://github.com/kubernetes/kubernetes/pull/109938">Move from k8s.gcr.io to registry.k8s.io #109938</a></p>
-</li>
-</ul>
+<p>No steps required if the Kubernetes version is equal or higher than v1.26.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a></span>
-  <span class="next"><a href="upgrade-4.x-to-5.x.html">Upgrade 4.x to 5.x</a></span>
+  <span class="prev"><a href="upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a></span>
+  <span class="next"><a href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a></span>
 </nav>
 </article>
   </div>
@@ -1164,7 +1133,7 @@ Allowance on <code>k8s.gcr.io</code> can be removed depending on other component
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-3.x-to-4.x.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-10.x-to-11.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
