@@ -1085,11 +1085,525 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_manifests_version"><a class="anchor" href="#_manifests_version"></a><code>manifests_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${espejote:images:espejote:tag}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Git reference to the controller deployment manifests.
+The default is the tag of the controller image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/espejote/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The images to use for this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources"><a class="anchor" href="#_resources"></a><code>resources`</code></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dictionary</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p>See <a href="https://github.com/projectsyn/espejote/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The resources of the deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jsonnetlibraries"><a class="anchor" href="#_jsonnetlibraries"></a><code>jsonnetLibraries</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">jsonnetLibraries:
+  my-lib: <i class="conum" data-value="1"></i><b>(1)</b>
+    metadata: ... <i class="conum" data-value="2"></i><b>(2)</b>
+    spec: ... <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the jsonnet library.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The metadata of the jsonnet library (optional).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The spec of the jsonnet library (required).</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The jsonnet libraries to deploy.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Only shared libraries, i.e. libraries in the component&#8217;s namespace, are supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_managedresources"><a class="anchor" href="#_managedresources"></a><code>managedResources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The managed resources to deploy.</p>
+</div>
+<div class="paragraph">
+<p>The keys are parsed as namespaced names <code>&lt;namespace&gt;/&lt;name&gt;</code> and used as names and namespaces of the managed resource.
+If no namespace is provided the managed resource is created in the fallback namespace provided in the <code>namespace</code> parameter.</p>
+</div>
+<div class="sect2">
+<h3 id="_managedresources_name_metadata_managedresources_name_spec"><a class="anchor" href="#_managedresources_name_metadata_managedresources_name_spec"></a><code>managedResources.&lt;name&gt;.metadata</code> / <code>managedResources.&lt;name&gt;.spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">managedResources:
+  my-namespace/copy-configmap: <i class="conum" data-value="1"></i><b>(1)</b>
+    metadata: ... <i class="conum" data-value="2"></i><b>(2)</b>
+    spec: ... <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The key is parsed as a namespaced managed resource <code>&lt;namespace&gt;/&lt;name&gt;</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The metadata of the managed resource (optional).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The spec of the managed resource (required).</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The metadata and spec of the managed resource.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will automatically create the service account for the managed resource.
+If no service account is provided in the spec, the component will create a new one with the same name as the managed resource.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will automatically create roles and cluster roles (and their bindings) to read the resources defined in the <code>triggers</code> and <code>context</code> keys of the managed resource.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_managedresources_name_clusterrules_managedresources_name_rules"><a class="anchor" href="#_managedresources_name_clusterrules_managedresources_name_rules"></a><code>managedResources.&lt;name&gt;.clusterRules</code> / <code>managedResources.&lt;name&gt;.rules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">managedResources:
+  my-namespace/copy-configmap:
+    _rules:
+      configmap: <i class="conum" data-value="1"></i><b>(1)</b>
+        apiGroups:
+          - ""
+        resources:
+          - configmap
+        verbs:
+          - list
+          - get
+          - create
+          - ~delete <i class="conum" data-value="2"></i><b>(2)</b>
+    _clusterRules:
+      namespace:
+        apiGroups:
+          - ""
+        resources:
+          - namespace
+        verbs:
+          - list
+    metadata: ...
+    spec: ...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This key is ignored by the component, but can be used in the hierarchy to edit existing rules.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The verbs and resources prefixed with a tilde <code>~</code> are removed from the resulting rule, even if they&#8217;re configured higher up in the configuration hierarchy.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The keys of the <code>rules</code> and <code>clusterRules</code> dicts are ignored by the component, but can be used in the hierarchy to edit existing rules.
+The component looks for keys <code>apiGroups</code>, <code>resources</code> and <code>verbs</code> in each value of the <code>rules</code> and <code>clusterRules</code> dicts.
+Each value is transformed into an entry of the role&#8217;s <code>rules</code> list.
+The component expects that the values of fields <code>apiGroups</code>, <code>resources</code> and <code>verbs</code> are lists, and removes entries prefixed with a tilde (<code>~</code>) from the final value used for the entry in the role&#8217;s <code>rules</code> list.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will create a role and a role binding for the given service account from the <code>rules</code> key,
+and a cluster role and a cluster role binding for the given service account from the <code>clusterRules</code> key.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_managedresources_name_clusterroles_managedresources_name_roles"><a class="anchor" href="#_managedresources_name_clusterroles_managedresources_name_roles"></a><code>managedResources.&lt;name&gt;.clusterRoles</code> / <code>managedResources.&lt;name&gt;.roles</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">managedResources:
+  my-namespace/copy-configmap:
+    _clusterRoles:
+      - cluster-admin <i class="conum" data-value="1"></i><b>(1)</b>
+    _roles:
+      - my-role <i class="conum" data-value="2"></i><b>(2)</b>
+    metadata: ...
+    spec: ...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of an existing cluster role.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The name of an existing role in the given namespace.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>clusterRoles</code> and <code>roles</code> keys have the same behavior, one creates role bindings for the given roles and the other creates role bindings for the given cluster roles.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alerts:
+  BadThingsHappening:
+    enabled: true
+    rule:
+      annotations:
+        description: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+        message: Bad things have been happening on {{$labels.node}} for more than 10 minutes.
+        runbook_url: https://hub.syn.tools/openshift-upgrade-controller/runbooks/BadThingsHappening.html
+      expr: |
+        bad_thing_happening == 1
+      for: 10m
+      labels:
+        severity: warning</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>alerts</code> defines the alerts to be installed.
+The dictionary key is used as the name of the alert.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_name_enabled"><a class="anchor" href="#_alerts_name_enabled"></a><code>alerts.&lt;name&gt;.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines whether to install the alert.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_name_rule"><a class="anchor" href="#_alerts_name_rule"></a><code>alerts.&lt;name&gt;.rule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Holds the configuration of the alert rule.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">Prometheus Alerting Rules</a> for details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">managedResources:
+  my-namespace/inject-configmap:
+    metadata:
+      annotations:
+        description: |
+          Adds a config map called test to any namespace with the label "managedresource-sample.espejote.io/inject-cm".
+
+          If the reconcile was triggered by a trigger as defined in `triggers` it only renders the required config map.
+          If the trigger is unknown or the managed resource itself was changed all config maps are rendered and applied.
+    spec:
+      serviceAccountRef:
+        name: espejote-inject-configmap
+      triggers:
+      - name: namespace
+        watchResource:
+          apiVersion: v1
+          kind: Namespace
+          labelSelector:
+            matchExpressions:
+            - key: managedresource-sample.espejote.io/inject-cm
+              operator: Exists
+      context:
+      - name: namespaces
+        resource:
+          apiVersion: v1
+          kind: Namespace
+          labelSelector:
+            matchExpressions:
+            - key: managedresource-sample.espejote.io/inject-cm
+              operator: Exists
+      template: |
+        local esp = import "espejote.libsonnet";
+        local samplelib = import "jsonnetlibrary-sample/sample.libsonnet";
+        local namespaces = esp.context().namespaces;
+
+        local cmForNs = function(ns) {
+          apiVersion: 'v1',
+          kind: 'ConfigMap',
+          metadata: {
+            name: 'test',
+            namespace: ns.metadata.name,
+          },
+          data: {
+            sample: samplelib.Sample,
+            nsLabel: std.get(ns.metadata.labels, "managedresource-sample.espejote.io/inject-cm"),
+          },
+        };
+
+        if esp.triggerName() == "namespace" then [
+          cmForNs(esp.triggerData().resource),
+        ] else [
+          cmForNs(ns) for ns in namespaces
+        ]</code></pre>
 </div>
 </div>
 </div>
