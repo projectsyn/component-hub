@@ -1087,6 +1087,40 @@ There is no way to override values which were set on a lower precedence location
 </div>
 </div>
 <div class="sect1">
+<h2 id="_openshiftversion"><a class="anchor" href="#_openshiftversion"></a><code>openshiftVersion</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Major: '4'
+Minor: '16'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The OpenShift version of the cluster on which the component is installed.
+We expect that most users will set this parameter to <code>${dynamic_facts:openshiftVersion}</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_availabilityzones"><a class="anchor" href="#_availabilityzones"></a><code>availabilityZones</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1721,6 +1755,51 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_autoscaling_addautoscalerargs"><a class="anchor" href="#_autoscaling_addautoscalerargs"></a><code>autoscaling.addAutoscalerArgs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">addAutoscalerArgs:
+  - --daemonset-eviction-for-occupied-nodes=false
+  - --skip-nodes-with-local-storage=false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Patches the <code>default</code> cluster autoscaler pod with the provided arguments.</p>
+</div>
+<div class="paragraph">
+<p>Those arguments can&#8217;t be set in the <code>ClusterAutoscaler</code> resource itself.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--daemonset-eviction-for-occupied-nodes=false</code>: Disables eviction of DaemonSet pods to prevent CSI drivers and other required infrastructure pods from being evicted.</p>
+</li>
+<li>
+<p><code>--skip-nodes-with-local-storage=false</code>: Allows removing nodes with pods that use <code>emptyDir</code> volumes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_autoscaling_ignoredownscalingsync"><a class="anchor" href="#_autoscaling_ignoredownscalingsync"></a><code>autoscaling.ignoreDownscalingSync</code></h3>
 <div class="hdlist">
 <table>
@@ -2293,6 +2372,14 @@ The resulting <code>MachineConfig</code> objects will have the keys, prefixed wi
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs:
   worker-chrony-custom:
     metadata:
+      annotations:
+        openshift4-nodes.syn.tools/node-disruption-policies: |- <i class="conum" data-value="1"></i><b>(1)</b>
+          {
+            "files": [{
+              "path": "/etc/chrony.conf",
+              "actions": [{"type":"Restart","restart":{"serviceName":"chronyd.service"}}]
+            }]
+          }
       labels:
         machineconfiguration.openshift.io/role: worker
     spec:
@@ -2318,6 +2405,15 @@ The resulting <code>MachineConfig</code> objects will have the keys, prefixed wi
                   leapsectz right/UTC
                   logdir /var/log/chrony</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure the machine config operator to only restart the <code>chronyd</code> service instead of draining and rebooting the node when this <code>MachineConfig</code> is applied.
+See section <a href="#_nodedisruptionpolicies"><code>nodeDisruptionPolicies</code></a> for a full explanation of how the component supports configuring node disruption policies via annotations on <code>MachineConfig</code> resources.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The resulting machine config for this example looks as follows:</p>
@@ -2658,6 +2754,223 @@ See the documentation for <a href="http://localhost:2020/cilium/references/param
 </div>
 </div>
 <div class="sect1">
+<h2 id="_nodedisruptionpolicies"><a class="anchor" href="#_nodedisruptionpolicies"></a><code>nodeDisruptionPolicies</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-nodes/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows configuring "static" <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/machine_configuration/machine-config-node-disruption_machine-configs-configure">node disruption policies</a>.
+Node disruption policies allow customizing the actions that are executed when a <code>MachineConfig</code> change is applied.
+By default the machine config operator (MCO) will reboot nodes when a <code>MachineConfig</code> changes a file or a systemd unit.
+With node disruption policies, which are configured in the global <code>machineconfigurations.operator.openshift.io/cluster</code> resource, you can customize the MCO behavior when a file or systemd unit is changed.</p>
+</div>
+<div class="paragraph">
+<p>The node disruption policies are configured via field <code>spec.nodeDisruptionPolicy</code> in the <code>machineconfiguration.operator.openshift.io/cluster</code> resource.
+That object has fields <code>files</code>, <code>units</code> and <code>sshkey</code>.
+Field <code>files</code> is a list.
+Each entry of <code>files</code> has fields <code>path</code> and <code>actions</code>.
+The list is indexable by field <code>path</code> of the entries.
+Field <code>units</code> is a list.
+Each entry of <code>units</code> has fields <code>name</code> and <code>actions</code>.
+The list is indexable by field <code>name</code> of the entries.
+Field <code>sshkey</code> is an object with field <code>actions</code>.
+Field <code>actions</code> defines the actions to take when the policy matches a change.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When applying policy actions, the longest prefix wins: if there are policies for both <code>/usr/local</code> and <code>/usr/local/bin</code> the policy for <code>/usr/local/bin</code> is applied for <code>/usr/local/bin/script.sh</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Consult <code>kubectl explain machineconfiguration.operator.openshift.io.spec.nodeDisruptionPolicy</code> for a more comprehensive explanation of each field.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Actions are executed in the order that they appear in field <code>actions</code>.
+Currently, the following actions are supported:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>Reboot</code></dt>
+<dd>
+<p>Drains and reboots the node (the default action).
+Must occur alone.</p>
+</dd>
+<dt class="hdlist1"><code>None</code></dt>
+<dd>
+<p>Does nothing.
+Must occur alone.</p>
+</dd>
+<dt class="hdlist1"><code>Drain</code></dt>
+<dd>
+<p>Cordons, drains and uncordons the node.</p>
+</dd>
+<dt class="hdlist1"><code>Reload</code></dt>
+<dd>
+<p>Reloads a systemd service.</p>
+</dd>
+<dt class="hdlist1"><code>Restart</code></dt>
+<dd>
+<p>Restarts a systemd service.</p>
+</dd>
+<dt class="hdlist1"><code>DaemonReload</code></dt>
+<dd>
+<p>Executes <code>systemd daemon-reload</code> to discover new or changed systemd configuration, such as a new systemd unit.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The component expects parameter fields <code>files</code> and <code>units</code> to be dictionaries and treats the keys as values for field <code>path</code> and <code>name</code> for the <code>files</code> and <code>units</code> lists in the <code>MachineConfiguration</code> resource respectively.
+The values of each entry in <code>files</code> and <code>units</code> are used verbatim.
+The content of parameter field <code>sshkey_actions</code> is used verbatim as the contents of <code>sshkey.actions</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component has some validation and will reject obviously invalid configurations, such as a list of actions which contains <code>Reboot</code> or <code>None</code> together with other actions.</p>
+</div>
+<div class="paragraph">
+<p>The component deploys an Espejote <code>ManagedResource</code> which collects node disruption policies from annotation <code>openshift4-nodes.syn.tools/node-disruption-policies</code> from all <code>MachineConfig</code> resources (except the <code>rendered-*</code> resources) and merges those values (which are expected to be string-encoded JSON) with the statically configured policies provided in this parameter.
+The contents of this parameter are deployed on the cluster in an Espejote <code>JsonnetLibrary</code> object.</p>
+</div>
+<div class="paragraph">
+<p>The contents of each annotation are expected to be string-encoded JSON which contains a valid node disruption policy snippet.
+The expected top-level fields of the annotation contents are <code>files</code>, <code>units</code> or <code>sshkey</code>.
+The <code>ManagedResource</code> uses the same validation logic as the component to reject obviously invalid configurations provided via annotations.</p>
+</div>
+<div class="paragraph">
+<p>Since there can only be one policy per file <code>path</code> and per systemd unit, the <code>ManagedResource</code> will collect each list of <code>actions</code> for a given path or unit and select the "most disruptive" list of actions.</p>
+</div>
+<div class="paragraph">
+<p><code>Reboot</code> is treated as the most disruptive action and has precedence over all other lists of actions.
+<code>None</code> is treated as the least disruptive action and all other lists of actions have precedence over <code>None</code>.
+Other lists of actions are merged together, since we can&#8217;t sensibly define an order of precedence for two lists of actions that are composed from the actions other than <code>None</code> or <code>Reboot</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Node disruption policies generally won&#8217;t have an effect during OpenShift upgrades.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We can&#8217;t guarantee that node disruption policies configured through <code>MachineConfig</code> annotations will still be in effect when the changes triggered by the deletion of the <code>MachineConfig</code> are rolled out.
+Therefore, we strongly recommend to configure node disruption policies that are intended to prevent machine reboots through the component parameter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We don&#8217;t recommend configuring node disruption policies which restart systemd services which themselves are deployed via <code>MachineConfig</code> objects.
+Such a node disruption policy will cause nodes to become degraded if the <code>MachineConfig</code> resource which deploys the service is removed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="paragraph">
+<p>The following configuration can be used to ensure that managing files in <code>/usr/local/bin</code> is fully non-disruptive, as long as no other configurations override this config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeDisruptionPolicies:
+  files:
+    "/usr/local/bin":
+      actions:
+        - None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following annotations contents can be provided on a <code>MachineConfig</code> which configures a custom <code>/etc/chrony.conf</code> to just restart the chrony service instead of rebooting the node:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs: <i class="conum" data-value="1"></i><b>(1)</b>
+  worker-custom-chrony: <i class="conum" data-value="1"></i><b>(1)</b>
+    metadata:
+      annotations:
+        openshift4-nodes.syn.tools/node-disruption-policies: |- <i class="conum" data-value="2"></i><b>(2)</b>
+          {
+            "files": [{
+              "path": "/etc/chrony.conf",
+              "actions": [{"type":"Restart","restart":{"serviceName":"chronyd.service"}}]
+            }]
+          }
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec: { ... }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We give the example via component parameter <code>machineConfigs</code>.
+See section <a href="#_machineconfigs"><code>machineConfigs</code></a> for a full example <code>MachineConfig</code> which deploys a custom <code>/etc/chrony.conf</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>See the <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/machine_configuration/machine-config-node-disruption_machine-configs-configure#machine-config-node-disruption-config_machine-configs-configure">upstream documentation</a> for the full set of options.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_capacityalerts"><a class="anchor" href="#_capacityalerts"></a><code>capacityAlerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -2780,7 +3093,7 @@ When grouping by machineSets, there is no equivalent setting.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
+<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">

@@ -1071,6 +1071,10 @@
 <p>Currently, this component can manage the global cluster pull secret as described in the <a href="https://docs.openshift.com/container-platform/latest/openshift_images/managing_images/using-image-pull-secrets.html#images-update-global-pull-secret_using-image-pull-secret">OpenShift documentation</a>.</p>
 </div>
 <div class="paragraph">
+<p>Additionally, the component deploys custom <code>ClusterRole</code> resources which are aggregated to the <code>cluster-reader</code> cluster role.
+Currently, the component aggregates <code>get/list/watch</code> permissions for all <code>operator.openshift.io</code> resources to the <code>cluster-reader</code> role.</p>
+</div>
+<div class="paragraph">
 <p>See the <a href="references/parameters.html" class="page">parameters</a> reference for further details.</p>
 </div>
 <nav class="pagination">
