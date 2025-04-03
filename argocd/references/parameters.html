@@ -1839,17 +1839,25 @@ defaults
 </div>
 <div class="sect2">
 <h3 id="_operator_namespace"><a class="anchor" href="#_operator_namespace"></a><code>operator.namespace</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
 <p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
 <p><code>syn-argocd-operator</code></p>
-</dd>
-</dl>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The namespace in which to deploy the argocd operator</p>
@@ -1857,35 +1865,293 @@ defaults
 </div>
 <div class="sect2">
 <h3 id="_operator_cluster_scope_namespaces"><a class="anchor" href="#_operator_cluster_scope_namespaces"></a><code>operator.cluster_scope_namespaces</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
 <p>array</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
 <p><code>["${argocd:namespace}"]</code></p>
-</dd>
-</dl>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>List of namespaces in which argocd is allowed to be installed at the cluster scope.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_operator_controller_cluster_role_selectors"><a class="anchor" href="#_operator_controller_cluster_role_selectors"></a><code>operator.controller_cluster_role_selectors</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component has optional support to configure the operator&#8217;s <a href="https://argocd-operator.readthedocs.io/en/latest/usage/custom_roles/">custom roles</a> feature.
+When this parameter contains one or more entries, the component deploys a cluster role which uses the value of each parameter entry as an entry for <code>aggregationRule.clusterRoleSelectors</code>.
+The cluster role is named <code>syn:argocd-application-controller:custom</code>.
+Additionally, the component configures environment variable <code>CONTROLLER_CUSTOM_ROLE=syn:argocd-application-controller:custom</code> on the operator container when the parameter isn&#8217;t empty.</p>
+</div>
+<div class="paragraph">
+<p>When the aggregating cluster role is deployed, the component also deploys a cluster role called <code>syn:argocd-application-controller:required</code> which is aggregated to the <code>syn:argocd-application-controller:custom</code> role.</p>
+</div>
+<div class="paragraph">
+<p>The <code>syn:argocd-application-controller:required</code> role grants the ArgoCD application controller a number of permissions that are required for it to work.
+See the definition of the role in <a href="https://github.com/projectsyn/component-argocd/blob/master/component/rbac.jsonnet">component/rbac.jsonnet</a> for the rules that are required.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend setting <code>resource.respectRBAC=strict</code> via <code>spec.extraConfig</code> on namespace-scoped ArgoCD instances if you want to use custom roles.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t set <code>resource.respectRBAC</code>, you&#8217;ll need to create a cluster role which grants the application controller read access to all resources in the cluster in order to ensure that the application controller can create the K8s API cache.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argocd-application-controller-api-cache
+  labels:
+    syn.tools/aggregate-to-argocd-application-controller: "true" <i class="conum" data-value="1"></i><b>(1)</b>
+rules:
+- apiGroups: ['*']
+  resources: ['*']
+  verbs: ['get', 'list', 'watch']</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The example assumes that you&#8217;ve configured <code>syn.tools/aggregate-to-argocd-application-controller="true"</code> as the label selector for the application controller aggregating cluster role.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ArgoCD may fail to update the argocd-operator deployment if you remove this config parameter after having used it.
+If you get an error like the one shown below, you need to edit the argocd-operator deployment by hand to remove the <code>CONTROLLER_CLUSTER_ROLE</code> environment variable after you remove this config parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Failed to compare desired state to live state: failed to calculate diff: error calculating server side diff: serverSideDiff error: error removing non config mutations for resource Deployment/syn-argocd-operator-controller-manager: error reverting webhook removed fields in predicted live resource: .spec.template.spec.containers: element 0: associative list with keys has an element that omits key field "name" (and doesn't have default value)</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_server_cluster_role_selectors"><a class="anchor" href="#_operator_server_cluster_role_selectors"></a><code>operator.server_cluster_role_selectors</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component has optional support to configure the operator&#8217;s <a href="https://argocd-operator.readthedocs.io/en/latest/usage/custom_roles/">custom roles</a> feature.
+When this parameter contains one or more entries, the component deploys a cluster role which uses the value of each parameter entry as an entry for <code>aggregationRule.clusterRoleSelectors</code>.
+The cluster role is named <code>syn:argocd-server:custom</code>.
+Additionally, the component configures environment variable <code>SERVER_CUSTOM_ROLE=syn:argocd-server:custom</code> on the operator container when the parameter isn&#8217;t empty.</p>
+</div>
+<div class="paragraph">
+<p>When the aggregating cluster role is deployed, the component also deploys a cluster role called <code>syn:argocd-server:required</code> which is aggregated to the <code>syn:argocd-server:custom</code> role.</p>
+</div>
+<div class="paragraph">
+<p>The <code>syn:argocd-server:required</code> role grants the ArgoCD server a number of permissions that are required for it to work.
+See the definition of the role in <a href="https://github.com/projectsyn/component-argocd/blob/master/component/rbac.jsonnet">component/rbac.jsonnet</a> for the rules that are required.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ArgoCD may fail to update the argocd-operator deployment if you remove this config parameter after having used it.
+If you get an error like the one shown below, you need to edit the argocd-operator deployment by hand to remove the <code>SERVER_CLUSTER_ROLE</code> environment variable after you remove this config parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Failed to compare desired state to live state: failed to calculate diff: error calculating server side diff: serverSideDiff error: error removing non config mutations for resource Deployment/syn-argocd-operator-controller-manager: error reverting webhook removed fields in predicted live resource: .spec.template.spec.containers: element 0: associative list with keys has an element that omits key field "name" (and doesn't have default value)</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operator_env"><a class="anchor" href="#_operator_env"></a><code>operator.env</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Entries in this dictionary are configured as environment variables for the argocd operator container.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The environment variable <code>ARGOCD_CLUSTER_CONFIG_NAMESPACES</code> can&#8217;t be set through this parameter.</p>
+</div>
+<div class="paragraph">
+<p>This variable is configured through component parameter <code>operator.cluster_scope_namespaces</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When parameter <code>operator.controller_cluster_role_match_labels</code> isn&#8217;t empty, setting <code>CONTROLLER_CUSTOM_ROLE</code> through this parameter has no effect.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When parameter <code>operator.server_cluster_role_match_labels</code> isn&#8217;t empty, setting <code>SERVER_CUSTOM_ROLE</code> through this parameter has no effect.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ArgoCD may fail to update the argocd-operator deployment after you remove an entry from this config parameter.
+If you get an error like the one shown below, you need to edit the argocd-operator deployment by hand and delete the environment variable(s) which you&#8217;ve removed from this parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>Failed to compare desired state to live state: failed to calculate diff: error calculating server side diff: serverSideDiff error: error removing non config mutations for resource Deployment/syn-argocd-operator-controller-manager: error reverting webhook removed fields in predicted live resource: .spec.template.spec.containers: element 0: associative list with keys has an element that omits key field "name" (and doesn't have default value)</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_operator_migrate"><a class="anchor" href="#_operator_migrate"></a><code>operator.migrate</code></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">type</dt>
-<dd>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
 <p>string</p>
-</dd>
-<dt class="hdlist1">default</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
 <p><code>false</code></p>
-</dd>
-</dl>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Whether to migrate from v5 or earlier. If you are upgrading from v5, set this to <code>true</code> on the first catalog compilation.</p>
