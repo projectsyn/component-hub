@@ -1927,6 +1927,51 @@ Additionally, the component will deploy one or more DaemonSets (depending on the
 </div>
 </div>
 <div class="sect2">
+<h3 id="_egress_gateway_shadow_ranges_daemonset_node_selector"><a class="anchor" href="#_egress_gateway_shadow_ranges_daemonset_node_selector"></a><code>egress_gateway.shadow_ranges_daemonset_node_selector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be set when the DaemonSet that mounts the shadow ranges ConfigMap (see parameter <code>generate_shadow_ranges_configmap</code>) should run on a larger set of nodes than the ones indicated by each <code>egress_ip_ranges</code> entry&#8217;s <code>node_selector</code>.</p>
+</div>
+<div class="paragraph">
+<p>The contents of this parameter are used as-is for the DaemonSet&#8217;s <code>spec.template.spec.nodeSelector</code>.</p>
+</div>
+<div class="paragraph">
+<p>An example configuration where this parameter is useful is when only a subset of nodes in an OpenShift machine config pool are designated egress nodes with an associated shadow range.
+In this case, we must ensure that all nodes in the machine config pool can read the shadow ranges ConfigMap, but at the same time we must ensure that policies generated via <code>egress_ip_ranges.&lt;group&gt;.namespace_egress_ips</code> only select the nodes that have a shadow range assigned.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When setting this parameter, it&#8217;s the user&#8217;s responsibility to ensure that the provided DaemonSet node selector selects all nodes that are designated egress nodes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_egress_gateway_egress_ip_ranges"><a class="anchor" href="#_egress_gateway_egress_ip_ranges"></a><code>egress_gateway.egress_ip_ranges</code></h3>
 <div class="hdlist">
 <table>
