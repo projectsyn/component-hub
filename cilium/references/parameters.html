@@ -116,6 +116,15 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/CiliumClustermeshRemoteClusterNotReady.html">CiliumClustermeshRemoteClusterNotReady</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -2628,6 +2637,113 @@ The keys of the object are not used by the component and are only present to all
 <p>Make sure to check the upstream documentation for the version of Cilium that you&#8217;re running.
 The LoadBalancer IP address management (LB IPAM) feature is under active development and sometimes has significant changes between Cilium minor versions.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure alerts for Cilium.
+The component expects that an externally-managed Prometheus stack is running on the target cluster.
+For OpenShift 4, the component makes use of the component libraries provided by <a href="https://github.com/appuio/component-openshift4-monitoring.git">component <code>openshift4-monitoring</code></a>.
+On other distributions, the component expects that a component library <code>prom.libsonnet</code> is available, for example via <a href="https://github.com/projectsyn/component-prometheus.git">component <code>prometheus</code></a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_ignorenames"><a class="anchor" href="#_alerts_ignorenames"></a><code>alerts.ignoreNames</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Alerts which shouldn&#8217;t be deployed.
+The list supports removal of entries by prefixing them with <code>~</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_patches"><a class="anchor" href="#_alerts_patches"></a><code>alerts.patches</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Patches for alerts managed by the component.
+The component expects that keys in this object match the name of an alert managed through the component.
+The value of each entry is expected to be a valid partial Prometheus rule definition.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_additionalrules"><a class="anchor" href="#_alerts_additionalrules"></a><code>alerts.additionalRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional Prometheus recording and alerting rules.
+The component expects that keys of this object are prefixed with either <code>alert:</code> or <code>record:</code> and will use these prefixes to create alerting or recording rules.
+The component will take the suffix of the key as the alerting or recording rule name and will set field <code>alert</code> or <code>record</code> of the rule to the suffix.
+The value of each entry will be used as the base Prometheus rule in which the <code>alert</code> or <code>record</code> field will be injected.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Parameters <code>alerts.ignoreNames</code> and <code>alerts.patches</code> are also applied to alerts defined through this parameter.
 </td>
 </tr>
 </table>
