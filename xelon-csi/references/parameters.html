@@ -1172,21 +1172,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">XELON_API_URL: https://vdc.xelon.ch/api/service/
-XELON_API_CLIENT_ID:
-  valueFrom:
-    secretKeyRef:
-      name: xelon-csi
-      key: client-id
-XELON_API_TOKEN:
-  valueFrom:
-    secretKeyRef:
-      name: xelon-csi
-      key: api-token</code></pre>
-</div>
-</div>
+<p>{}</p>
 </td>
 </tr>
 </table>
@@ -1202,38 +1188,6 @@ Any other values are first converted into strings and added to the container&#82
 </div>
 <div class="paragraph">
 <p>The component will always add the key of the parameter entry as <code>name: KEY</code>.</p>
-</div>
-<div class="paragraph">
-<p>The default configuration will result in the following <code>env</code> array for the container:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">env:
-  - name: XELON_API_URL <i class="conum" data-value="1"></i><b>(1)</b>
-    value: https://vdc.xelon.ch/api/service/
-  - name: XELON_API_CLIENT_ID <i class="conum" data-value="2"></i><b>(2)</b>
-    valueFrom:
-      secretKeyRef:
-        name: xelon-csi
-        key: client-id
-  - name: XELON_API_TOKEN <i class="conum" data-value="2"></i><b>(2)</b>
-    valueFrom:
-      secretKeyRef:
-        name: xelon-csi
-        key: api-token</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The provided string value is used as the value for field <code>value</code> of the entry in the <code>env</code> array.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The provided object value is used as-is for the entry in the <code>env</code> array.</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -1328,9 +1282,19 @@ default
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">xelon-csi:
   stringData:
-    api-token: ?{vaultkv:${cluster:tenant}/${cluster:name}/xelon/csi-driver/api-token}
-    client-id: ?{vaultkv:${cluster:tenant}/${cluster:name}/xelon/csi-driver/client-id}</code></pre>
+    baseUrl: https://vdc.xelon.ch/api/service/
+    token: ?{vaultkv:${cluster:tenant}/${cluster:name}/xelon/csi-driver/api-token}
+    clientId: ?{vaultkv:${cluster:tenant}/${cluster:name}/xelon/csi-driver/client-id}
+    cloudId: '' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>cloudId</code> field specifies the Xelon location (ZH: <code>1</code>, AG: <code>6</code>).</td>
+</tr>
+</table>
 </div>
 </td>
 </tr>
