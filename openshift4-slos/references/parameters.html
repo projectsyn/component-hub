@@ -1227,6 +1227,55 @@ type
 <p>The configuration option of all default SLOs for the APPUiO Managed OpenShift product.</p>
 </div>
 <div class="sect2">
+<h3 id="_slos_customer_facing_beta_ingress"><a class="anchor" href="#_slos_customer_facing_beta_ingress"></a><code>slos.customer-facing-beta.ingress</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">customer-facing-beta:
+  ingress:
+    enabled: true
+    objective: 99.9</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for a customer-facing ingress SLO.
+This SLO is currently in beta to gather real world data.</p>
+</div>
+<div class="paragraph">
+<p>The SLO can be disabled by setting <code>enabled</code> to false.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Look at <a href="../runbooks/customer_facing_beta.html#ingress" class="page">the runbook</a> for an explanation of this SLO.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_slos_storage_csi_operations"><a class="anchor" href="#_slos_storage_csi_operations"></a><code>slos.storage.csi-operations</code></h3>
 <div class="hdlist">
 <table>

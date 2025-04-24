@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>yawol Architecture :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/yawol-controller/references/architecture.html">
+    <title>[BETA] Customer Facing SLO :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/runbooks/customer_facing_beta.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,12 +79,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="yawol-controller" data-version="master">
+<div class="nav-container" data-component="openshift4-slos" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">yawol-controller</a></h3>
+    <h3 class="title"><a href="../index.html">openshift4-slos</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -92,7 +92,31 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">SLO Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ingress.html">Ingress SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="kubernetes_api.html">Kubernetes API SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="network.html">Network SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="workload-schedulability.html">Workload SLOs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="storage.html">Storage SLOs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/improving-slos.html">Improving SLOs</a>
   </li>
 </ul>
   </li>
@@ -101,7 +125,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">yawol-controller</span>
+    <span class="title">openshift4-slos</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -777,11 +801,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">openshift4-slos</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../openshift4-slos/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1025,11 +1049,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">yawol-controller</a>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1044,83 +1068,54 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">yawol-controller</a></li>
-    <li><a href="architecture.html">yawol Architecture</a></li>
+    <li><a href="../index.html">openshift4-slos</a></li>
+    <li><a href="customer_facing_beta.html">[BETA] Customer Facing SLO</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-yawol-controller/edit/master/docs/modules/ROOT/pages/references/architecture.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/runbooks/customer_facing_beta.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">yawol Architecture</h1>
-<div class="quoteblock abstract">
-<blockquote>
-This page gives a brief overview over the architecture of yawol.
-</blockquote>
+<h1 class="page">[BETA] Customer Facing SLO</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A customer facing, beta SLO for gathering real world data.
+This measurement is set to become the agreed SLA for Managed OpenShift customers.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ingress"><a class="anchor" href="#ingress"></a>Cluster Ingress</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This SLI is a combination of the <a href="#ingress.adoc#canary" class="page unresolved">Ingress Canary</a> and OpenShift Ingress HAProxy metrics.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/stackitcloud/yawol">yawol</a> consists of two main components:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A Kubernetes controller which interacts with OpenStack to provision lightweight VMs to route traffic from floating IPs into the cluster.</p>
-</li>
-<li>
-<p>An alpine Linux-based VM image which</p>
-<div class="ulist">
-<ul>
-<li>
-<p>runs a custom binary (<code>yawollet</code>) that fetches information from the cluster hosting the controller</p>
-</li>
-<li>
-<p>runs envoy to route traffic from the floating IP into the cluster</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-<div class="literalblock kroki-error">
-<div class="title">yawol networking diagram</div>
-<div class="content">
-<pre>                             |
-                             |floating IP
-                             v
-                    /--------*--------\
- dmz network        |                 |
---------------------| yawollet / envoy|------------------------
-cluster network     |                 |
-                    \--------*--------/
-                             |internal IP
-                             |
-              +--------------+--------------+
-              |              |              |
-              v              v              v
-       /------------\ /------------\ /------------\
-       | cluster VM | | cluster VM | | cluster VM | ...
-       \------------/ \------------/ \------------/</pre>
-</div>
+<p>Every three minutes without a successful canary request and without a successful request to customer ingress backends is counted to the error budget.</p>
 </div>
 <div class="paragraph">
-<p>The yawol-cloud-controller creates a <code>LoadBalancer</code>, <code>LoadBalancerSet</code> and <code>LoadBalancerMachine</code> custom resource for each LoadBalancer service.</p>
+<p>See <a href="#ingress.adoc" class="page unresolved">ingress.adoc</a> for all debugging information.</p>
 </div>
-<div class="paragraph">
-<p>The yawol-controller reconciles the custom resources, and provisions a floating IP, security group and yawollet instance for each service of <code>type: LoadBalancer</code> in the cluster.
-Additionally, the controller provisions a ServiceAccount and rolebindings for each yawollet so that the yawollet can access the cluster API to watch for updates to the service for which it was provisioned.</p>
 </div>
-<div class="paragraph">
-<p>The yawol-controller reconciles the <code>LoadBalancer</code> resource to manage the floating IP and security group for the service.
-Additionally, the yawol-controller creates a <code>LoadBalancerSet</code> associated with the <code>LoadBalancer</code> resource.
-The controller then creates a <code>LoadBalancerMachine</code> resource associated with the <code>LoadBalancerSet</code>.
-Finally, the <code>LoadBalancerMachine</code> resource is reconciled to provision a yawollet VM in OpenStack.</p>
-</div>
-<div class="paragraph">
-<p>Once the VM is running, the yawollet accesses the cluster (authenticating through the ServiceAccount that was provisioned) to update its own status in the <code>LoadBalancerMachine</code> custom resource.
-Additionally, the yawollet sets up a watch for the <code>LoadBalancer</code> custom resource which it is associated so that it can update the Envoy config on the VM when the <code>LoadBalancer</code> resource changes.</p>
 </div>
 </article>
   </div>
@@ -1131,7 +1126,7 @@ Additionally, the yawollet sets up a watch for the <code>LoadBalancer</code> cus
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/yawol-controller/references/architecture.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/runbooks/customer_facing_beta.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
