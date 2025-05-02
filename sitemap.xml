@@ -232,6 +232,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-nodes.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-olm.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-operators.xml</loc>
 </sitemap>
 <sitemap>
