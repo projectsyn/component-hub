@@ -1188,19 +1188,31 @@ type
 </td>
 <td class="hdlist2">
 <p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">jsonnetLibraries:
   my-lib: <i class="conum" data-value="1"></i><b>(1)</b>
     metadata: ... <i class="conum" data-value="2"></i><b>(2)</b>
-    spec: ... <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+    spec:
+      data:
+        foo.libsonnet: "{}" <i class="conum" data-value="3"></i><b>(3)</b>
+  myns/my-lib: {} <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The name of the jsonnet library.</td>
+<td>The name of the jsonnet library.
+Can be a namespaced name <code>&lt;namespace&gt;/&lt;name&gt;</code>.
+If not namespaced, the library is created as a shared library for all managed resources to use.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -1208,30 +1220,25 @@ type
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The spec of the jsonnet library (required).</td>
+<td>The library data.
+The import path of the library is <code>[lib/]&lt;JsonnetLibrary name&gt;/&lt;key in .spec.data&gt;</code>.
+The <code>lib/</code> prefix is added if the library is shared.</td>
 </tr>
-</table>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The jsonnet libraries to deploy.</p>
-</div>
-<div class="admonitionblock note">
-<table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Only shared libraries, i.e. libraries in the component&#8217;s namespace, are supported.</p>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Namespaced library.
+Only available to the managed resources in the same namespace.
+Imported with <code>&lt;name&gt;/&lt;key&gt;</code> without the <code>lib/</code> prefix.</td>
+</tr>
+</table>
 </div>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The jsonnet libraries to deploy.
+Can be shared, if set without namespace prefix or namespaced if the key contains a namespace prefix.</p>
 </div>
 </div>
 </div>
@@ -1338,6 +1345,22 @@ If no service account is provided in the spec, the component will create a new o
 <div class="paragraph">
 <p>The component will automatically create roles and cluster roles (and their bindings) to read the resources defined in the <code>triggers</code> and <code>context</code> keys of the managed resource.</p>
 </div>
+<div class="paragraph">
+<p>The library guesses the resource name and scope from the kind.
+Those parameters can&#8217;t be guessed reliably without access to the cluster API.
+The guess can be overridden with the <code>_namespaced: bool</code> and <code>_resource: string</code> settings.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">triggers:
+- name: irregular-resource
+  watchResource:
+    _resource: sheep
+    _namespaced: true
+    apiVersion: cattle.farmersdelight.io/v1
+    kind: Sheep</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
@@ -1346,7 +1369,7 @@ If no service account is provided in the spec, the component will create a new o
 </div>
 </div>
 <div class="sect1">
-<h2 id="_managedresources_name_clusterrules_managedresources_name_rules"><a class="anchor" href="#_managedresources_name_clusterrules_managedresources_name_rules"></a><code>managedResources.&lt;name&gt;.clusterRules</code> / <code>managedResources.&lt;name&gt;.rules</code></h2>
+<h2 id="_managedresources_name_roles_managedresources_name_clusterroles"><a class="anchor" href="#_managedresources_name_roles_managedresources_name_clusterroles"></a><code>managedResources.&lt;name&gt;._roles</code> / <code>managedResources.&lt;name&gt;._clusterRoles</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1367,25 +1390,32 @@ example
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">managedResources:
   my-namespace/copy-configmap:
-    _rules:
-      configmap: <i class="conum" data-value="1"></i><b>(1)</b>
-        apiGroups:
-          - ""
-        resources:
-          - configmap
-        verbs:
-          - list
-          - get
-          - create
-          - ~delete <i class="conum" data-value="2"></i><b>(2)</b>
-    _clusterRules:
-      namespace:
-        apiGroups:
-          - ""
-        resources:
-          - namespace
-        verbs:
-          - list
+    _roles:
+      configmaps: <i class="conum" data-value="1"></i><b>(1)</b>
+        rules:
+        - apiGroups:
+            - ""
+          resources:
+            - configmaps
+          verbs:
+            - list
+            - get
+            - create
+            - ~delete <i class="conum" data-value="2"></i><b>(2)</b>
+      otherns/configmaps: <i class="conum" data-value="3"></i><b>(3)</b>
+        rules:
+        - apiGroups: [""]
+          resources: [configmaps]
+          verbs: [delete]
+    _clusterRoles:
+      namespaces:
+        rules:
+        - apiGroups:
+            - ""
+          resources:
+            - namespaces
+          verbs:
+            - list
     metadata: ...
     spec: ...</code></pre>
 </div>
@@ -1394,41 +1424,33 @@ example
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>This key is ignored by the component, but can be used in the hierarchy to edit existing rules.</td>
+<td>The name of the role or cluster role.
+Can be a namespaced name <code>&lt;namespace&gt;/&lt;name&gt;</code> or <code>&lt;name&gt;</code>.
+The name part is used as the name of the role or cluster role.
+If no namespace is given, the role is created in the same namespace as the managed resource.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>The verbs and resources prefixed with a tilde <code>~</code> are removed from the resulting rule, even if they&#8217;re configured higher up in the configuration hierarchy.</td>
 </tr>
-</table>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The keys of the <code>rules</code> and <code>clusterRules</code> dicts are ignored by the component, but can be used in the hierarchy to edit existing rules.
-The component looks for keys <code>apiGroups</code>, <code>resources</code> and <code>verbs</code> in each value of the <code>rules</code> and <code>clusterRules</code> dicts.
-Each value is transformed into an entry of the role&#8217;s <code>rules</code> list.
-The component expects that the values of fields <code>apiGroups</code>, <code>resources</code> and <code>verbs</code> are lists, and removes entries prefixed with a tilde (<code>~</code>) from the final value used for the entry in the role&#8217;s <code>rules</code> list.</p>
-</div>
-<div class="admonitionblock note">
-<table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The component will create a role and a role binding for the given service account from the <code>rules</code> key,
-and a cluster role and a cluster role binding for the given service account from the <code>clusterRules</code> key.</p>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>A role with name and namespace.</td>
+</tr>
+</table>
 </div>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The keys of the <code>_roles</code> and <code>_clusterRoles</code> are the names of the roles and cluster roles to create.
+The names are prefixed with the namespace and the name of the managed resource to prevent name collisions.
+The values are the manifests of the roles and cluster roles.
+A role binding or cluster role binding is automatically created for the roles and cluster roles with the service account of the managed resource.</p>
 </div>
 <div class="sect2">
-<h3 id="_managedresources_name_clusterroles_managedresources_name_roles"><a class="anchor" href="#_managedresources_name_clusterroles_managedresources_name_roles"></a><code>managedResources.&lt;name&gt;.clusterRoles</code> / <code>managedResources.&lt;name&gt;.roles</code></h3>
+<h3 id="_managedresources_name_clusterrolebindings_managedresources_name_rolebindings"><a class="anchor" href="#_managedresources_name_clusterrolebindings_managedresources_name_rolebindings"></a><code>managedResources.&lt;name&gt;._clusterRoleBindings</code> / <code>managedResources.&lt;name&gt;._roleBindings</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1448,9 +1470,9 @@ example
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">managedResources:
   my-namespace/copy-configmap:
-    _clusterRoles:
+    _clusterRoleBindings:
       - cluster-admin <i class="conum" data-value="1"></i><b>(1)</b>
-    _roles:
+    _roleBindings:
       - my-role <i class="conum" data-value="2"></i><b>(2)</b>
     metadata: ...
     spec: ...</code></pre>
@@ -1473,7 +1495,7 @@ example
 </table>
 </div>
 <div class="paragraph">
-<p>The <code>clusterRoles</code> and <code>roles</code> keys have the same behavior, one creates role bindings for the given roles and the other creates role bindings for the given cluster roles.</p>
+<p>The <code>_clusterRoleBindings</code> and <code>_roleBindings</code> keys have the same behavior, one creates role bindings for the given roles and the other creates role bindings for the given cluster roles.</p>
 </div>
 </div>
 </div>
