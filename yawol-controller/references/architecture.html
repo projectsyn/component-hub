@@ -906,14 +906,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../signalilo/index.html">signalilo</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../signalilo/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -1092,11 +1084,26 @@ This page gives a brief overview over the architecture of yawol.
 </li>
 </ol>
 </div>
-<div class="imageblock kroki">
+<div class="literalblock kroki-error">
+<div class="title">yawol networking diagram</div>
 <div class="content">
-<img src="../_images/diag-ab782fb26749b45d9c0f99fa7c2ce89ebe0c3c1d.svg" alt="yawol networking diagram">
+<pre>                             |
+                             |floating IP
+                             v
+                    /--------*--------\
+ dmz network        |                 |
+--------------------| yawollet / envoy|------------------------
+cluster network     |                 |
+                    \--------*--------/
+                             |internal IP
+                             |
+              +--------------+--------------+
+              |              |              |
+              v              v              v
+       /------------\ /------------\ /------------\
+       | cluster VM | | cluster VM | | cluster VM | ...
+       \------------/ \------------/ \------------/</pre>
 </div>
-<div class="title">Figure 1. yawol networking diagram</div>
 </div>
 <div class="paragraph">
 <p>The yawol-cloud-controller creates a <code>LoadBalancer</code>, <code>LoadBalancerSet</code> and <code>LoadBalancerMachine</code> custom resource for each LoadBalancer service.</p>

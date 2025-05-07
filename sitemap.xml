@@ -301,9 +301,6 @@
 <loc>https://hub.syn.tools/sitemap-secrets.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hub.syn.tools/sitemap-signalilo.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://hub.syn.tools/sitemap-sigstore-policy-controller.xml</loc>
 </sitemap>
 <sitemap>
