@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parameters :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/references/parameters.html">
-    <link rel="prev" href="../how-tos/enable-chroot.html">
+    <title>Upgrade from 11.x to 12.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/ingress-nginx/how-tos/upgrade-11.x-to-12.x.html">
+    <link rel="prev" href="upgrade-10.x-to-11.x.html">
+    <link rel="next" href="#cluster-default-ingress-class.adoc">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,49 +100,49 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+    <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
+    <a class="nav-link" href="upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
+    <a class="nav-link" href="upgrade-3.x-to-4.x.html">Upgrade 3.x to 4.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-4.x-to-5.x.html">Upgrade 4.x to 5.x</a>
+    <a class="nav-link" href="upgrade-4.x-to-5.x.html">Upgrade 4.x to 5.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-5.x-to-6.x.html">Upgrade 5.x to 6.x</a>
+    <a class="nav-link" href="upgrade-5.x-to-6.x.html">Upgrade 5.x to 6.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a>
+    <a class="nav-link" href="upgrade-6.x-to-7.x.html">Upgrade 6.x to 7.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
+    <a class="nav-link" href="upgrade-7.x-to-8.x.html">Upgrade 7.x to 8.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a>
+    <a class="nav-link" href="upgrade-8.x-to-9.x.html">Upgrade 8.x to 9.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a>
+    <a class="nav-link" href="upgrade-9.x-to-10.x.html">Upgrade 9.x to 10.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a>
+    <a class="nav-link" href="upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/aws.html">AWS - Amazon Web Services Load Balancers</a>
+    <a class="nav-link" href="aws.html">AWS - Amazon Web Services Load Balancers</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/logformat.html">NGINX upstream log format as JSON</a>
+    <a class="nav-link" href="logformat.html">NGINX upstream log format as JSON</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/enable-chroot.html">Enable chrooted NGINX process</a>
+    <a class="nav-link" href="enable-chroot.html">Enable chrooted NGINX process</a>
   </li>
 </ul>
   </li>
@@ -149,8 +150,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Technical reference</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -1103,274 +1104,45 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">ingress-nginx</a></li>
-    <li>Technical reference</li>
-    <li><a href="parameters.html">Parameters</a></li>
+    <li>How-to guides</li>
+    <li><a href="upgrade-11.x-to-12.x.html">Upgrade 11.x to 12.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-ingress-nginx/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-11.x-to-12.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Parameters</h1>
+<h1 class="page">Upgrade from 11.x to 12.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The parent key for all of the following parameters is <code>ingress_nginx</code>.</p>
+<p>This guide describes the steps to perform an upgrade of the component from version 11.x to 12.x.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>syn-ingress-nginx</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The namespace in which to deploy this component.</p>
+<p>This release removes support for Kubernetes v1.26 and 1.27
+This release adds support for Kubernetes v1.30.0 and v1.31.0</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_release_name"><a class="anchor" href="#_release_name"></a><code>release_name</code></h2>
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
 <div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>ingress-nginx</code></p>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>The name ingress-nginx is deployed.
-Usually there is just one deployment and therefore no change is required.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The kubernetes version to be used.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_chroot"><a class="anchor" href="#_chroot"></a><code>chroot</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>false</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Whether to enable the chrooted web proxy server.
-Please see the <a href="../how-tos/enable-chroot.html" class="page">chroot how-to</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_pod_security_admission"><a class="anchor" href="#_pod_security_admission"></a><code>pod_security_admission</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">pod_security_admission:
-  enabled: false <i class="conum" data-value="1"></i><b>(1)</b>
-  enforce: privileged <i class="conum" data-value="2"></i><b>(2)</b>
-  audit: privileged <i class="conum" data-value="3"></i><b>(3)</b>
-  warn: privileged <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Whether to set any Pod Security Admission labels</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Which Pod Security Standard to enforce in the created namespace</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Which Pod Security Standard to audit in the created namespace</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Which Pod Security Standard to warn on in the created namespace</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The Pod Security Admission configuration.</p>
-</div>
-<div class="paragraph">
-<p>Pod Security Admission can be enabled or disabled and the standard to use for enforce, warn, and audit can be configured.
-You can remove any of the labels by setting the respective field to an empty string or <code>null</code>.</p>
-</div>
-<div class="paragraph">
-<p>Please consult the <a href="https://kubernetes.io/docs/concepts/security/pod-security-admission/">upstream documentation</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-We default to enforce the <code>privileged</code> standard.
-As of writing this the helm chart sets <code>allowPrivilegeEscalation: true</code>, which is only allowed for privileged workloads.
-However, this is most likely not needed and if the upstream chart changes this default should be reevaluated.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_charts_ingress_nginx"><a class="anchor" href="#_charts_ingress_nginx"></a><code>charts.ingress-nginx</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p>See <code>class/defaults.yml</code></p>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>All helm_values are passed to the helm chart.
-This allows to configure all <a href="https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml">ingress-nginx helm chart values</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  ingress_nginx:
-    helm_values:
-      controller:
-        config:
-          hsts: 'false'</code></pre>
-</div>
+<p>No steps required if the Kubernetes version is equal or higher than v1.28.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/enable-chroot.html">Enable chrooted NGINX process</a></span>
+  <span class="prev"><a href="upgrade-10.x-to-11.x.html">Upgrade 10.x to 11.x</a></span>
+  <span class="next"><a href="#cluster-default-ingress-class.adoc">Cluster Default IngressClass</a></span>
 </nav>
 </article>
   </div>
@@ -1381,7 +1153,7 @@ This allows to configure all <a href="https://github.com/kubernetes/ingress-ngin
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/references/parameters.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/ingress-nginx/how-tos/upgrade-11.x-to-12.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
