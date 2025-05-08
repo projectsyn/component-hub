@@ -1302,6 +1302,81 @@ default
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_etcdcustomziation"><a class="anchor" href="#_etcdcustomziation"></a><code>etcdCustomziation</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows customizing the cluster&#8217;s etcd.
+The implementation uses <a href="https://github.com/vshn/espejote">Espejote</a> to reconcile our customizations for the <code>etcd.operator.openshift.io/cluster</code> resource.</p>
+</div>
+<div class="sect2">
+<h3 id="_etcdcustomization_enabled"><a class="anchor" href="#_etcdcustomization_enabled"></a><code>etcdCustomization.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy the Espejote managed resource on the cluster.
+If this parameter is set to <code>false</code>, changing the contents of <code>etcd.spec</code> has no effect.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_etcdcustomization_spec"><a class="anchor" href="#_etcdcustomization_spec"></a><code>etcdCustomization.spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-config/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A partial <code>spec</code> for the OpenShift 4 <code>Etcd</code> custom resource.
+See the <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/operator_apis/etcd-operator-openshift-io-v1#spec-11">upstream API documentation</a> for available fields.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../how-tos/migrate-v1.html">Migrate from v0.x to v1.x</a></span>
 </nav>
