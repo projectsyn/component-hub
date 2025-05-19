@@ -1165,6 +1165,86 @@ Most probably the one of the cloud region.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_preferredregistryroute"><a class="anchor" href="#_preferredregistryroute"></a><code>preferredRegistryRoute</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to set a preferred external registry hostname.
+This may be useful to select a preferred registry route when setting multiple routes via component parameter <code>config.routes</code>.</p>
+</div>
+<div class="paragraph">
+<p>The content of this parameter is injected into the cluster&#8217;s <code>image.config.openshift.io/cluster</code> resource in field <code>spec.externalRegistryHostnames</code>.</p>
+</div>
+<div class="paragraph">
+<p>See component parameter <code>imageConfigSpec</code> for more details on how the <code>image.config.openshift.io/cluster</code> resource can be customized through this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_imageconfigspec"><a class="anchor" href="#_imageconfigspec"></a><code>imageConfigSpec</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to add arbitrary configurations in the cluster&#8217;s <code>image.config.openshift.io/cluster</code> object.
+The parameter is applied as a partial config via <a href="https://github.com/vshn/espejote">Espejote</a>.
+It&#8217;s the user&#8217;s responsibility to provide a well-formed partial config.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/images/image-configuration#images-configuration-parameters_image-configuration">upstream documentation</a> for available parameters.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+setting component parameter <code>preferredRegistryRoute</code> will override field <code>externalRegistryHostnames</code> provided through this parameter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_routes"><a class="anchor" href="#_routes"></a><code>routes</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1200,7 +1280,7 @@ If key <code>secretName</code> isn&#8217;t provided for an entry, the router&#82
 </div>
 </div>
 <div class="sect1">
-<h2 id="_preferredregistryroute"><a class="anchor" href="#_preferredregistryroute"></a><code>preferredRegistryRoute</code></h2>
+<h2 id="_preferredregistryroute_2"><a class="anchor" href="#_preferredregistryroute_2"></a><code>preferredRegistryRoute</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
