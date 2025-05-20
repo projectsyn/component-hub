@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Install vcluster on OpenShift :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/vcluster/tutorials/installation-openshift.html">
-    <link rel="prev" href="../how-tos/upgrade-1.x-to-2.x.html">
-    <link rel="next" href="../how-tos/oidc.html">
+    <title>Upgrade from 1.x to 2.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/vcluster/how-tos/upgrade-1.x-to-2.x.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../tutorials/installation-openshift.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,14 +99,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="installation-openshift.html">Installation On OpenShift</a>
+    <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/oidc.html">Setup OIDC Integration</a>
+    <a class="nav-link" href="../tutorials/installation-openshift.html">Installation On OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="oidc.html">Setup OIDC Integration</a>
   </li>
 </ul>
   </li>
@@ -1069,183 +1069,206 @@
   <ul>
     <li><a href="../index.html">vcluster</a></li>
     <li>How-to guides</li>
-    <li><a href="installation-openshift.html">Installation On OpenShift</a></li>
+    <li><a href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vcluster/edit/master/docs/modules/ROOT/pages/tutorials/installation-openshift.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-vcluster/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-1.x-to-2.x.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Install vcluster on OpenShift</h1>
+<h1 class="page">Upgrade from 1.x to 2.x</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page guides through the installation process of vcluster on OpenShift and sets up authentication with OIDC using Keycloak.</p>
+<p>Version 2.x brings a lot of changes and an upgrade is currently not officially supported and not tested.</p>
 </div>
 <div class="paragraph">
-<p>At the end of this tutorial we will have:</p>
+<p>This guide describes the steps to perform an upgrade of component from version 1.x to 2.x.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>a vcluster instance running on OpenShift</p>
-</li>
-<li>
-<p>vcluster&#8217;s Kubernetes API exposed with an Ingress</p>
-</li>
-<li>
-<p>Let&#8217;s Encrypt certificates provisioned by <code>cert-manager</code></p>
-</li>
-<li>
-<p>OIDC authentication</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Understanding how to configure and compile cluster catalogs</p>
-</li>
-<li>
-<p>Admin access to existing Keycloak instances</p>
-</li>
-<li>
-<p><code>kubectl</code></p>
-</li>
-<li>
-<p><code>base64</code></p>
-</li>
-<li>
-<p><code>jq</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_deploy_vcluster_and_ingress"><a class="anchor" href="#_deploy_vcluster_and_ingress"></a>Deploy vcluster and Ingress</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Configure catalog</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  vcluster:
-    k3s:
-      additional_args:
-        - --kube-apiserver-arg=oidc-issuer-url=https://keycloak.example.com/auth/realms/realm <i class="conum" data-value="1"></i><b>(1)</b>
-        - --kube-apiserver-arg=oidc-client-id=client-id <i class="conum" data-value="2"></i><b>(2)</b>
-        - --kube-apiserver-arg=oidc-username-claim=preferred_username
-        - --kube-apiserver-arg=oidc-groups-claim=groups
-    ingress:
-      host: vcluster.example.com
-      annotations:
-        route.openshift.io/termination: reencrypt <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The Keycloak URL and realm</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The client ID in Keycloak</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Needed to communicate with the encrypted vcluster endpoint</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Compile and push cluster catalog</p>
-<div class="admonitionblock note">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This will create 2 OpenShift Route objects; one for the Ingress and one for the Let&#8217;s Encrypt HTTP01 verification.</p>
+<p>Before upgrading to version 2.x, please ensure you have a backup of the vcluster (backingStore PVC).
+As of this writing the upgrade has not been tested and is only theoretical.</p>
+</div>
+<div class="paragraph">
+<p>There are a lot of breaking changes between the two versions. So tread carefully.</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-</li>
-<li>
-<p>Create DNS record for custom Ingress host and point to the cluster&#8217;s Router.</p>
-</li>
-<li>
-<p>Wait until Let&#8217;s Encrypt has provisioned a valid certificate and only 1 Route exists for the same Ingress.</p>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can inspect the certificate provisioning with <code>kubecl get certificate,order</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configure_keycloak"><a class="anchor" href="#_configure_keycloak"></a>Configure Keycloak</h2>
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Add Role to client</p>
 <div class="paragraph">
-<p>In the client settings, select the "Roles" tab.
-Click "Add Role" button and enter the role name "Admin" with a description and hit save.</p>
+<p>The component version 1.x did not use any helm chart instead the manifests where created in the component and haven&#8217;t been updated.
+Vcluster has evolved a lot since than and a lot of things have changed.</p>
 </div>
-</li>
-<li>
-<p>Configure Mapper to include Roles in <code>groups</code> token</p>
 <div class="paragraph">
-<p>In the client settings, select the "Mappers" tab.
-Click "Create" button and configure the following settings before saving:</p>
+<p>The new version 2.x makes use of the official helm chart to deploy the vcluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_guide"><a class="anchor" href="#_step_by_step_guide"></a>Step-by-step guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some parameters have been removed or renamed. You will have to remap those before upgrading:</p>
+</div>
+<div class="sect2">
+<h3 id="_dropped_parameters"><a class="anchor" href="#_dropped_parameters"></a>Dropped parameters</h3>
+<div class="sect3">
+<h4 id="_host_service_cidr"><a class="anchor" href="#_host_service_cidr"></a><code>host_service_cidr</code></h4>
+<div class="paragraph">
+<p>This parameter is obsolete and is now internally handled by vcluster</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_syncer_additional_args"><a class="anchor" href="#_syncer_additional_args"></a><code>syncer.additional_args</code></h4>
+<div class="paragraph">
+<p>This parameter has been dropped, as it doesn&#8217;t exist anymore upstream. Please consult the <a href="https://github.com/loft-sh/vcluster/blob/main/chart/values.yaml">values file</a> of the official helm chart to configure various settings that were previously done using `additional_args</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ocp_route_host"><a class="anchor" href="#_ocp_route_host"></a><code>ocp_route.host</code></h4>
+<div class="paragraph">
+<p>This parameter is not used anymore. The route will automatically be patched if the <code>ingress.host</code> is set and the cluster is running on Openshift</p>
+</div>
+<div class="sect4">
+<h5 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h5>
+<div class="sect5">
+<h6 id="_image_override"><a class="anchor" href="#_image_override"></a>Image override</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">syncer:
+  additional_args:
+    - --override-hosts-container-image=dockerhub.vshn.net/library/alpine:3.13.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This image override is now set as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Name = groups
-Mapper Type = User Client Role
-Client ID = &lt;the-client-id&gt;
-Token Claim Name = "groups"
-Claim JSON Type = String</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">helm_values:
+  sync:
+    toHost:
+      pods:
+        rewriteHosts:
+          initContainer:
+            image: dockerhub.vshn.net/library/alpine:3.20</code></pre>
 </div>
 </div>
-</li>
-</ol>
+</div>
+<div class="sect5">
+<h6 id="_service_mappings"><a class="anchor" href="#_service_mappings"></a>Service mappings</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">syncer:
+  additional_args:
+    - --map-host-service=my-host-namespace/my-host-service=my-virtual-namespace/my-virtual-service
+    - --map-virtual-service=my-virtual-namespace/my-virtual-service/bar=my-host-service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is now done like using <code>replicateServices</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">helm_values:
+  replicateServices:
+    fromHost:
+    - from: my-host-namespace/my-host-service
+      to: my-virtual-namespace/my-virtual-service
+
+
+    toHost:
+    - from: my-virtual-namespace/my-virtual-service
+      to: my-host-service</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changed_parameters"><a class="anchor" href="#_changed_parameters"></a>Changed parameters</h3>
+<div class="sect3">
+<h4 id="_storage_persistence"><a class="anchor" href="#_storage_persistence"></a><code>storage.persistence</code></h4>
+<div class="paragraph">
+<p>This changed from true to auto to let vcluster decide the proper persistence setting automatically (eg. disable persistence when using dedicated etcd)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resources_k3s"><a class="anchor" href="#_resources_k3s"></a><code>resources.k3s</code></h4>
+<div class="paragraph">
+<p>This container is now an init container and not a regular container. Therefore the resources have been adjusted accordingly and now match the upstream helm chart values.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_resources_syncer"><a class="anchor" href="#_resources_syncer"></a><code>resources.syncer</code></h4>
+<div class="paragraph">
+<p>The resources on this container have been increased to match the recommended default values from the upstream chart.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_additional_manifests"><a class="anchor" href="#_additional_manifests"></a><code>additional_manifests</code></h4>
+<div class="paragraph">
+<p>This parameter has changed form a dict to a string, as the upstream field changed.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_parameters"><a class="anchor" href="#_new_parameters"></a>New parameters</h3>
+<div class="sect3">
+<h4 id="_backing_store"><a class="anchor" href="#_backing_store"></a><code>backing_store</code></h4>
+<div class="paragraph">
+<p>This new parameter allows to configure the backingStore for the vcluster. Here you can for example configure the vcluster to use etcd instead of the default embedded database (sqlite).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h4>
+<div class="paragraph">
+<p>The raw default values of the component. See the <a href="https://github.com/loft-sh/vcluster/blob/main/chart/values.yaml">value file</a> of the offical helm chart for all options.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_procedure"><a class="anchor" href="#_procedure"></a>Procedure</h3>
+<div class="paragraph">
+<p>[WARNING] This procedure has not been tested yet. Please tread very carefully.</p>
+</div>
+<div class="paragraph">
+<p>Once you have updated all parameters compile the catalog and verify thoroughly the diff. Most notably check the statefulset and the configured volumeClaim. It&#8217;s important that the volumeClaimName is identical to the old version to ensure that the same volume is used.</p>
+</div>
+<div class="paragraph">
+<p>Due to the many changes in the statefulset you won&#8217;t be able to apply the changes in the statefulset. You will have to first delete the statefulset and then have it reapplied by argocd:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n ${NS} delete statefulset ${INSTANCE_NAME} --cascade=orphan</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the statefulset has been recreated check the logs of the vcluster pod to ensure everything is working as expected.</p>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a></span>
-  <span class="next"><a href="../how-tos/oidc.html">Setup OIDC Integration</a></span>
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../tutorials/installation-openshift.html">Installation On OpenShift</a></span>
 </nav>
 </article>
   </div>
@@ -1256,7 +1279,7 @@ Claim JSON Type = String</code></pre>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vcluster/tutorials/installation-openshift.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/vcluster/how-tos/upgrade-1.x-to-2.x.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>

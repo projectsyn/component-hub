@@ -100,6 +100,9 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../tutorials/installation-openshift.html">Installation On OpenShift</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
@@ -1163,7 +1166,7 @@ Claim JSON Type = String</code></pre>
         - --kube-apiserver-arg=oidc-client-id=$YOUR_CLIENT_ID <i class="conum" data-value="2"></i><b>(2)</b>
         - --kube-apiserver-arg=oidc-username-claim=preferred_username
         - --kube-apiserver-arg=oidc-groups-claim=groups
-    additional_manifests: <i class="conum" data-value="3"></i><b>(3)</b>
+    additional_manifests: |- <i class="conum" data-value="3"></i><b>(3)</b>
       cluster-admin:
         kind: ClusterRoleBinding
         apiVersion: rbac.authorization.k8s.io/v1

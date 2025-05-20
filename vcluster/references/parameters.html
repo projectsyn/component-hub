@@ -99,6 +99,9 @@
     <span class="nav-text">How-to guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../tutorials/installation-openshift.html">Installation On OpenShift</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1160,50 +1163,6 @@ example
 </div>
 </div>
 <div class="sect1">
-<h2 id="_host_service_cidr"><a class="anchor" href="#_host_service_cidr"></a><code>host_service_cidr</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The host cluster&#8217;s service CIDR. Must be set.</p>
-</div>
-<div class="paragraph">
-<p>You can find out a host cluster&#8217;s service CIDR by deploying a service with an invalid ClusterIP (such as 1.1.1.1).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl create svc clusterip check-service-cidr --clusterip=1.1.1.1 --tcp=5678:5678</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The error message shows the host cluster&#8217;s service CIDR:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code>The Service "check-service-cidr" is invalid: spec.clusterIPs: Invalid value: []string{"1.1.1.1"}.... The range of valid IPs is 10.96.0.0/12.</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1223,20 +1182,6 @@ type
 </div>
 <div class="paragraph">
 <p>The <code>kubectl</code> image is used to create OCP routes. The <code>kubectl</code> and <code>jq</code> binaries are required in this image.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The deprecated parameter <code>repository</code> is still supported for backwards compatibility.
-Use <code>registry</code> instead.
-<code>repository</code> overrides the <code>registry</code> parameter if both are set.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -1270,10 +1215,10 @@ example
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k3s:
   additional_args:
-    - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
-    - --kube-apiserver-arg=oidc-client-id=local
-    - --kube-apiserver-arg=oidc-username-claim=email
-    - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
+  - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
+  - --kube-apiserver-arg=oidc-client-id=local
+  - --kube-apiserver-arg=oidc-username-claim=email
+  - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
 </div>
 </div>
 </td>
@@ -1286,7 +1231,7 @@ example
 </div>
 </div>
 <div class="sect1">
-<h2 id="_syncer_additional_args"><a class="anchor" href="#_syncer_additional_args"></a><code>syncer.additional_args</code></h2>
+<h2 id="_backing_store"><a class="anchor" href="#_backing_store"></a><code>backing_store</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1295,105 +1240,13 @@ example
 type
 </td>
 <td class="hdlist2">
-<p>list</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>[]</code></p>
+<p>dictionary</p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Additional arguments for vcluster syncer.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storage_persistence"><a class="anchor" href="#_storage_persistence"></a><code>storage.persistence</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>boolean</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>true</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Persistence controls whether vcluster resources are persisted between deployments.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storage_size"><a class="anchor" href="#_storage_size"></a><code>storage.size</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>5Gi</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The size of the persistent volume claim.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_storage_class_name"><a class="anchor" href="#_storage_class_name"></a><code>storage.class_name</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>null</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>StorageClass</code> used for the persistent volume claim.</p>
+<p>Configuration for the backing store. If nothing configured it uses embedded database (sqlite). For configuration options see <a href="https://www.vcluster.com/docs/vcluster/configure/vcluster-yaml/control-plane/components/backing-store/">the offical documentation</a></p>
 </div>
 </div>
 </div>
@@ -1420,16 +1273,17 @@ default
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
   k3s:
     requests:
+      cpu: 40m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
+  syncer:
+    requests:
       cpu: 200m
       memory: 256Mi
     limits:
-      memory: 2Gi
-  syncer:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      memory: 1Gi</code></pre>
+      memory: 2Gi</code></pre>
 </div>
 </div>
 </td>
@@ -1528,34 +1382,6 @@ example
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ingress_labels"><a class="anchor" href="#_ingress_labels"></a><code>ingress.labels</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>dict</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>{}</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Additional labels for the ingress object.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_ocp_route_host"><a class="anchor" href="#_ocp_route_host"></a><code>ocp_route.host</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1627,6 +1453,90 @@ example
 </div>
 </div>
 <div class="sect1">
+<h2 id="_storage_persistence"><a class="anchor" href="#_storage_persistence"></a><code>storage.persistence</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool or string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>auto</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Persistence controls whether vcluster resources are persisted between deployments. Defaults to auto, where vcluster will automatically determine based on the chosen distro and backing_store.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage_size"><a class="anchor" href="#_storage_size"></a><code>storage.size</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>5Gi</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The size of the persistent volume claim.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage_class_name"><a class="anchor" href="#_storage_class_name"></a><code>storage.class_name</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>StorageClass</code> used for the persistent volume claim.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_additional_manifests"><a class="anchor" href="#_additional_manifests"></a><code>additional_manifests</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1636,7 +1546,7 @@ example
 type
 </td>
 <td class="hdlist2">
-<p>dict</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1644,7 +1554,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>{}</code></p>
+<p><code>""</code></p>
 </td>
 </tr>
 <tr>
@@ -1654,7 +1564,7 @@ example
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_manifests:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">additional_manifests: |-
   cluster-admin:
     kind: ClusterRoleBinding
     apiVersion: rbac.authorization.k8s.io/v1
@@ -1679,21 +1589,42 @@ example
 </div>
 </div>
 <div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can override the default helm values here. The default configuration comes with k3s as well as ingress enabled. See defaults.yaml for the exact configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">host_service_cidr: 172.30.0.0/16
-storage:
-  persistence: false
-ingress:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ingress:
   host: testcluster.local
 k3s:
   additional_args:
     - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
     - --kube-apiserver-arg=oidc-client-id=local
     - --kube-apiserver-arg=oidc-username-claim=email
-    - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
+    - --kube-apiserver-arg=oidc-groups-claim=groups
+backing_store:
+  etcd:
+    deploy:
+      enabled: true</code></pre>
 </div>
 </div>
 </div>
