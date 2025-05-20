@@ -1121,7 +1121,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_openshift_version"><a class="anchor" href="#_openshift_version"></a><code>openshift_version</code></h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1130,7 +1130,7 @@ default
 type
 </td>
 <td class="hdlist2">
-<p>string</p>
+<p>dictionary</p>
 </td>
 </tr>
 <tr>
@@ -1138,13 +1138,13 @@ type
 default
 </td>
 <td class="hdlist2">
-<p><code>4.9</code></p>
+<p>See <a href="https://github.com/projectsyn/espejote/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The OpenShift version used to set the corresesponding image tag for the KeepalivedGroup(s).</p>
+<p>The images to use for this component.</p>
 </div>
 </div>
 </div>
@@ -1194,7 +1194,6 @@ default
     keepalived_groups:
       group_1:
         spec:
-          image: registry.redhat.io/openshift4/ose-keepalived-ipfailover
           interface: ens3
           nodeSelector:
             node-role.kubernetes.io/loadbalancer: ""
@@ -1203,7 +1202,7 @@ default
             - 2
       group_2:
         spec:
-          image: registry.redhat.io/openshift4/ose-keepalived-ipfailover
+          image: registry.redhat.io/openshift4/ose-keepalived-ipfailover-rhel9:latest
           interface: ens4
           nodeSelector:
             node-role.kubernetes.io/nodeport: ""

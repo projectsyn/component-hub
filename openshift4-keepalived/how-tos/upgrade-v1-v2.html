@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ingress SLOs :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-slos/runbooks/ingress.html">
-    <link rel="prev" href="../references/parameters.html">
-    <link rel="next" href="kubernetes_api.html">
+    <title>Upgrade component-openshift4-keepalived from v1.x to v2.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-keepalived/how-tos/upgrade-v1-v2.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -81,12 +79,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="openshift4-slos" data-version="master">
+<div class="nav-container" data-component="openshift4-keepalived" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">openshift4-slos</a></h3>
+    <h3 class="title"><a href="../index.html">openshift4-keepalived</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -96,30 +94,6 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">SLO Runbooks</span>
-<ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="ingress.html">Ingress SLOs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes_api.html">Kubernetes API SLOs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="network.html">Network SLOs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="workload-schedulability.html">Workload SLOs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="storage.html">Storage SLOs</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../explanations/improving-slos.html">Improving SLOs</a>
-  </li>
 </ul>
   </li>
 </ul>
@@ -127,7 +101,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">openshift4-slos</span>
+    <span class="title">openshift4-keepalived</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -755,11 +729,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">openshift4-keepalived</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../openshift4-keepalived/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -803,11 +777,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">openshift4-slos</a>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1070,334 +1044,63 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">openshift4-slos</a></li>
-    <li>SLO Runbooks</li>
-    <li><a href="ingress.html">Ingress SLOs</a></li>
+    <li><a href="../index.html">openshift4-keepalived</a></li>
+    <li><a href="upgrade-v1-v2.html">Upgrade <code>component-openshift4-keepalived</code> from <code>v1.x</code> to <code>v2.x</code></a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-slos/edit/master/docs/modules/ROOT/pages/runbooks/ingress.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-keepalived/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v1-v2.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Ingress SLOs</h1>
+<h1 class="page">Upgrade <code>component-openshift4-keepalived</code> from <code>v1.x</code> to <code>v2.x</code></h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
+<div class="paragraph">
+<p>Version 2.x changes how the image used for keepalived is specified.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_migration_steps"><a class="anchor" href="#_migration_steps"></a>Migration steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you use the component with the default configuration, you don&#8217;t need to do anything.</p>
+</div>
+<div class="paragraph">
+<p>If you are using an the <code>openshift_version</code> parameter, you need to change the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_keepalived:
+  images:
+    keepalived:
+      tag: v4.18 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
-Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
-</div>
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The tag is the version of the keepalived image to use, replacing the parameter <code>openshift_version</code>.</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="canary"><a class="anchor" href="#canary"></a>Cluster Ingress Canary</h2>
+<h2 id="_explanation_of_configuration_changes"><a class="anchor" href="#_explanation_of_configuration_changes"></a>Explanation of configuration changes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h3>
+<h3 id="_legacy_openshift_version"><a class="anchor" href="#_legacy_openshift_version"></a>legacy <code>openshift_version</code></h3>
 <div class="paragraph">
-<p>This SLI measures the percentage of failed probes to an ingress canary application.
-If this SLI results in an alert, it means the cluster ingress controller is unable to handle some of or all of the incoming HTTP requests.</p>
-</div>
-<div class="paragraph">
-<p>The diagram below visualizes the ingress canary probe architecture.</p>
-</div>
-<div class="literalblock kroki-error">
-<div class="content">
-<pre>                           +---------------------------------+
-                           | infra 1                         |
-                           |  /-------\         /-------\    |
-                    /--------&gt;|       |         |       |    |
-                  /-|--------&gt;|Ingress|---+----&gt;|Canary |    |
-                  | |      |  |       |   |     |       |    |
-   +---------+    | |      |  \-------/   |     \-------/    |
-   | lb 1    |    | |      |              |                  |
-   |         |    | |      +--------------|------------------+
-   |         |    | |                     |
-/-&gt;|         | ---+ |      +--------------|------------------+
-|  |         |    | |      | infra 2      |                  |
-|  |         |    | |      |  /-------\   |     /-------\    |
-|  +---------+    \-|--------&gt;|       |   |     |       |    |
-|                   +--------&gt;|Ingress|---+----&gt;|Canary |    |
-|                   |      |  |       |   |     |       |    |
-|  +---------+      |      |  \-------/   |     \-------/    |
-|  | lb 2    |      |      |              |                  |
-|  |         |      |      +--------------|------------------+
-|  |         |      |                     |
-+-&gt;|         |------/      +------------+ | +----------------+
-\-------------------\      | master     | | | worker         |
-   |         |      |      | /--------\ | | |   /-------\    |
-   +---------+      |      | |        | | | |   |       |    |
-                    \---=----|Operator| | \----&gt;|Canary |    |
-                           | |        | |   |   |       |    |
-                           | \--------/ |   |   \-------/    |
-                           |            |   |                |
-                           +------------+   +----------------+</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>There is a simple canary target running on every worker and infrastructure node.
-Every minute the ingress operator sends a probe to the external address of the canary target.
-This means it will send a request to the public floating IP of the load balancers, which will forward the request to one of the ingress controller running on the infrastructure nodes, which will then forward the request to one of the canary targets.</p>
-</div>
-<div class="paragraph">
-<p>Any of these steps might fail and lead to a failed canary probe.</p>
-</div>
-<div class="paragraph">
-<p>There are two types of alerts that fire if we expect to miss the configured objective.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A ticket alert means that the error rate is slightly higher than the objective.
-If we don&#8217;t intervene at some point after receiving this alert, we can expect to miss the objective.
-However no immediate, urgent action is necessary.
-A ticket alert should have a label <code>severity: warning</code>.</p>
-</li>
-<li>
-<p>A page alert means that the error rate is significantly higher than the objective.
-Immediate action is necessary to not miss the objective.
-A page alert should have a label <code>severity: critical</code> and should page on-call.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h3>
-<div class="paragraph">
-<p>Probe failures can have multiple reasons and the impact of this alert might vary.
-There are generally four possible causes for this failure:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Load Balancer Failure</strong>: There might be an issue with the load balancer VMs or its floating IP.
-This can include issues with inbound or outbound connections.</p>
-</li>
-<li>
-<p><strong>Overlay Network Failure</strong>: There might be an issue with the overlay network.
-In this case you probably see a lot of other issues.</p>
-</li>
-<li>
-<p><strong>Ingress Controller Failure</strong>: The ingress controller might have failed.</p>
-</li>
-<li>
-<p><strong>Canary Target Failure</strong>: The issue might also just be that the canary targets aren&#8217;t available.
-In this case this isn&#8217;t really an issue with the cluster ingress.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Given that the cluster was able to send this alert, a complete outage of the load balancers or the overlay network is unlikely.
-Here are a few first steps you can do to narrow down the issue.</p>
-</div>
-<div class="paragraph">
-<p>First try to reproduce that you can&#8217;t reach the canary endpoint yourself.
-Open the canary URL from your browser, the URL should be present as an annotation on the alert.</p>
-</div>
-<div class="paragraph">
-<p>If this works reliably, the issue is most likely outbound network traffic or a miss-configured ingress operator.
-Check the ingress operator logs and try to reproduce the issue by making an http request form the operator pod.</p>
-</div>
-<div class="paragraph">
-<p>If it works, but unreliably this is most likely an issue with the load balancers or ingress controller.
-One plausible cause would be if one of them ran into a connection limit.
-Check the logs of both the ingress controller and HAproxy on the load balancers.</p>
-</div>
-<div class="paragraph">
-<p>Next, if you reproduced the canary endpoint issue, try to connect to another exposed route.
-A good first start is to try to connect to the OpenShift console.
-If you&#8217;re able to open it, this isn&#8217;t a complete outage.
-It might just be that the canary targets are unavailable.
-There should be a daemonset running in namespace <code>openshift-ingress-canary</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the cluster ingress is down, the standard way to authenticate to OpenShift won&#8217;t work either.
-Get the admin kubeconfig from the password manager.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If you are unable to connect to any exposed routes, try to connect to the cluster using <code>kubectl</code>.
-If this doesn&#8217;t work either, this is most likely an issue with the load balancer VMs.
-Connect to the VMs using SSH and check if they&#8217;re able to reach the cluster nodes.
-Then check if HAproxy is running and check its logs.
-Also check if the floating IP was assigned correctly and that keepalived is working.</p>
-</div>
-<div class="paragraph">
-<p>If you&#8217;re able to connect to the cluster, but no route is accessible, check if the ingress controller is running.
-If it does check its logs for any error.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-We don&#8217;t have a lot of experience with this alert yet.
-If you had to debug this alert, please consider adding any insight, tips, or code snippets you gained to this runbook.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h3>
-<div class="paragraph">
-<p>If this alert isn&#8217;t actionable, noisy, or was raised too late you may want to tune the SLO.</p>
-</div>
-<div class="paragraph">
-<p>You have the option tune the SLO through the component parameters.
-You can modify the objective, disable the page or ticket alert, or completely disable the SLO.</p>
-</div>
-<div class="paragraph">
-<p>The example below will set the SLO set the objective to 99.25% and disable the page alert.
-This means this SLO won&#8217;t alert on-call anymore.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">slos:
-  ingress:
-    canary:
-      objective: 99.25
-      alerting:
-        page_alert:
-          enabled: false</code></pre>
-</div>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Disabling the SLO or changing the objective will also impact the SLO dashboard and SLA reporting.
-Only disable SLOs if they&#8217;re not relevant, not if the alerts are noisy.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you adjust the objective please be aware how this will impact alerting.</p>
-</div>
-<div class="paragraph">
-<p>The ingress operator unconditionally sends one probe per minute.
-This means with the default SLO of <code>99.75%</code>, if 11 probes fail in a day, we will emit a ticket alert and if 3 probes fail in an hour we will emit a page alert.</p>
-</div>
-<div class="paragraph">
-<p>If you adjust the objective, these number will change and increasing the SLO might result in unactionable alerts.
-You can consult the table below, how changing the objective impacts alerting.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">SLO</th>
-<th class="tableblock halign-center valign-top">Failures per hour until page</th>
-<th class="tableblock halign-center valign-top">Failures per day until ticket</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.9%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">5</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.8%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">9</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>99.75%</strong></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>3</strong></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>11</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.7%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">13</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.6%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">18</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.5%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">5</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">22</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.4%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">6</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">26</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.3%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">7</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">31</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.2%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">7</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">35</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99.1%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">8</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">39</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">99%</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">9</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">44</p></td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</table>
+<p>The parameter <code>openshift_version</code> has been replaced by the <code>images.keepalived.tag</code> parameter.</p>
 </div>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
-  <span class="next"><a href="kubernetes_api.html">Kubernetes API SLOs</a></span>
-</nav>
 </article>
   </div>
 </main>
@@ -1407,7 +1110,7 @@ You can consult the table below, how changing the objective impacts alerting.</p
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-slos/runbooks/ingress.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-keepalived/how-tos/upgrade-v1-v2.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
