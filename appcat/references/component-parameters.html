@@ -1944,6 +1944,113 @@ It has to be created beforehand with the proper RBAC.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_deploymentmanagementsystem"><a class="anchor" href="#_deploymentmanagementsystem"></a><code>deploymentManagementSystem</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Controls aspects of the deployment via comp-function revisions.</p>
+</div>
+<div class="sect2">
+<h3 id="_hotfix"><a class="anchor" href="#_hotfix"></a><code>hotfix</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines if all instances should instantly be switched over to the new release or not. This will generate a job that will run the rollout.</p>
+</div>
+<div class="paragraph">
+<p>Set to <code>true</code> to trigger the rollout hotfix. The hotfix job will only be created once for each component release.</p>
+</div>
+<div class="paragraph">
+<p>If this is set to <code>false</code>, then each instance will switch over to the latest release during its own maintenance window.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>true</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Specifies if the deployment managment system should be enabled or not. If it&#8217;s disabled all changes will be rolled out immediately.</p>
+</div>
+<div class="paragraph">
+<p>If it&#8217;s enabled then all rollouts will happen during each instance&#8217;s maintenance window.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additionalfunctionbranches"><a class="anchor" href="#_additionalfunctionbranches"></a><code>additionalFunctionBranches</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>array</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Specify additional function branches that should be deployed. Mostly used to test various versions at the same time on the lab.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../tutorials/install-exoscale.html">Install Exoscale Stack</a></span>
   <span class="next"><a href="slo-parameters.html">AppCat SLOs Parameters</a></span>
