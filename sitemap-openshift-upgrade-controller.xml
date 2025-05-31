@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://hub.syn.tools/openshift-upgrade-controller/how-tos/upgradejobhooks.html</loc>
-<lastmod>2025-05-31T17:20:10.953Z</lastmod>
+<lastmod>2025-05-31T18:29:22.181Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/openshift-upgrade-controller/index.html</loc>
-<lastmod>2025-05-31T17:20:10.953Z</lastmod>
+<lastmod>2025-05-31T18:29:22.181Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/openshift-upgrade-controller/references/parameters.html</loc>
-<lastmod>2025-05-31T17:20:10.953Z</lastmod>
+<lastmod>2025-05-31T18:29:22.181Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/openshift-upgrade-controller/runbooks/NodeDrainStuck.html</loc>
-<lastmod>2025-05-31T17:20:10.953Z</lastmod>
+<lastmod>2025-05-31T18:29:22.181Z</lastmod>
 </url>
 <url>
 <loc>https://hub.syn.tools/openshift-upgrade-controller/runbooks/PausedMachineConfigPool.html</loc>
-<lastmod>2025-05-31T17:20:10.953Z</lastmod>
+<lastmod>2025-05-31T18:29:22.181Z</lastmod>
 </url>
 </urlset>
