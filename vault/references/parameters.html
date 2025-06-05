@@ -1231,6 +1231,27 @@ default
 <div class="paragraph">
 <p>Whether to create an ingess object.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On OpenShift, the Helm chart doesn&#8217;t support creating an Ingress.</p>
+</div>
+<div class="paragraph">
+<p>However, on VSHN Managed OpenShift, we need an Ingress anyway to take advantage of cert-manager integration and similar.
+Because of that, the component itself generates an <code>Ingress</code> when deploying the component on OpenShift.</p>
+</div>
+<div class="paragraph">
+<p>If you prefer using the Helm chart&#8217;s generated <code>Route</code> on OpenShift, set <code>ingress.enabled=false</code> and configure the <code>Route</code> via parameter <code>helm_values</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
