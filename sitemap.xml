@@ -109,6 +109,9 @@
 <loc>https://hub.syn.tools/sitemap-exporter-filterproxy.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-external-secrets-operator.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-fleetlock.xml</loc>
 </sitemap>
 <sitemap>
