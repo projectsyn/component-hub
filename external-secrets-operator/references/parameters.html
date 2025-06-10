@@ -1101,12 +1101,165 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-external-secrets-operator/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
 </div>
+<div class="paragraph">
+<p>The container image to use for the external-secrets operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-external-secrets-operator/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm chart to use for the external-secrets operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-external-secrets-operator/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Helm values for the external-secrets operator Helm chart.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component automatically sets <code>global.compatibility.openshift.adaptSecurityContext=force</code> when it&#8217;s rendered for an OpenShift cluster.</p>
+</div>
+<div class="paragraph">
+<p>The component checks whether it&#8217;s rendered for an OpenShift cluster by checking if <code>facts.distribution</code> is set to <code>openshift4</code> or <code>oke</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secret_stores"><a class="anchor" href="#_secret_stores"></a><code>secret_stores</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is rendered as an external-secrets [<code>SecretStore</code>].
+The key can be just a name, or <code>&lt;namespace&gt;/&lt;name&gt;</code>.
+If the key is just a name, the resulting <code>SecretStore</code> is deployed in the namespace in which the operator is deployed.
+The component sets <code>metadata.name</code> and <code>metadata.namespace</code> based on the object key.
+The value is used as is and setting <code>metadata.name</code> or <code>metadata.namespace</code> overrides the values parsed from the object key.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cluster_secret_stores"><a class="anchor" href="#_cluster_secret_stores"></a><code>cluster_secret_stores</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is rendered as an external-secrets [<code>ClusterSecretStore</code>].
+The key is used as <code>metadata.name</code> of the resulting resource.
+The value is used as is.</p>
 </div>
 </div>
 </div>
