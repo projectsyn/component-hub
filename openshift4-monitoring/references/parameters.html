@@ -1745,8 +1745,27 @@ default
 <div class="paragraph">
 <p>The auto-discovery routes alerts to the configured teams based on their namespaces and the top-level <code>syn.teams[*].instances</code> and <code>syn.owner</code> parameters.
 Auto-discovery first creates a list of Commodore component instances by parsing the <code>applications</code> array using the same rules as Commodore itself (see also the <a href="https://syn.tools/commodore/reference/architecture.html#_component_instantiation">Commodore component instantiation documentation</a>).
-For each discovered instance, the component then renders the instance parameters, and reads the cmoponent&#8217;s namespace from field <code>namespace</code> or <code>namespace.name</code> in the rendered parameters.
+For each discovered instance, the component then reads the component&#8217;s namespace from field <code>namespace</code> or <code>namespace.name</code> in the rendered parameters of this component.
 Finally, routing rules are generated to route alerts from the discovered namespaces to the associated component instance&#8217;s owning team.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Without special handling, the namespace discovery would discover namespace <code>openshift4-monitoring</code> for component instances that use <code>namespace: ${_instance}</code>.
+This is the case because we read the instance&#8217;s namespace from the rendered parameters for component openshift4-monitoring and therefore <code>${_instance}</code> resolves to <code>openshift4-monitoring</code>.</p>
+</div>
+<div class="paragraph">
+<p>To address this case, the component has override logic in the namespace discovery for component instances which use <code>${_instance}</code> in their namespace definition.
+The override logic replaces all occurrences of <code>openshift4-monitoring</code> in the discovered namespace with the instance name for instances other than <code>openshift4-monitoring</code>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="title"><code>syn</code> Team Example</div>
