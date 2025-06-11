@@ -1142,8 +1142,9 @@ Here is an example to add Vault access to all people in an LDAP group.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
-  auth:
-    - type: ldap
+  auth_:
+    ldap:
+      type: ldap
       description: LDAP auth
       options:
         listing_visibility: "unauth"
@@ -1158,8 +1159,8 @@ Here is an example to add Vault access to all people in an LDAP group.</p>
       groups:
         vault-root:
           policies: cluster-root
-  policies:
-    - name: cluster-root
+  policies_:
+    cluster-root:
       rules: |
         path "clusters/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
@@ -1167,8 +1168,26 @@ Here is an example to add Vault access to all people in an LDAP group.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Under the hood, this component uses <code>bank-vaults</code> to configure vault.
+<p>Under the hood, this component uses <code>bank-vaults</code> to configure Vault.
 <a href="https://banzaicloud.com/docs/bank-vaults/external-configuration/">This reference</a> provides more details on how to configure policies and authentication methods.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component provides some helper keys (as shown with <code>auth_</code> and <code>policies_</code>) which allow users to provide the configuration as objects.
+These helper keys are transformed into the corresponding bank-vaults configuration parameter (<code>auth</code> and <code>policies</code>) by transforming each key-value pair into a list entry.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="../references/parameters.html#_config" class="page">parameters reference</a> for more details on the helper keys.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1197,8 +1216,9 @@ The following configuration creates two Vault instances named <code>vault-prod</
 parameters:
   vault_prod:
     config:
-      auth:
-        - type: ldap
+      auth_:
+        ldap:
+          type: ldap
           description: LDAP auth
           options:
             listing_visibility: "unauth"
@@ -1213,8 +1233,8 @@ parameters:
           groups:
             vault-root:
               policies: cluster-root
-      policies:
-        - name: cluster-root
+      policies_:
+        cluster-root:
           rules: |
             path "clusters/*" {
               capabilities = ["create", "read", "update", "delete", "list"]
@@ -1334,6 +1354,69 @@ Choose the created OIDC client as the <code>Client ID</code> and set the <code>T
 </div>
 <div class="sect2">
 <h3 id="_configure_vault"><a class="anchor" href="#_configure_vault"></a>Configure Vault</h3>
+<div class="sect3">
+<h4 id="_via_project_syn"><a class="anchor" href="#_via_project_syn"></a>Via Project Syn</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Store the client secret of the OIDC client in the Project Syn Vault for the cluster.</p>
+</li>
+<li>
+<p>Add the following configuration to your component config</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth_:
+  oidc:
+    type: oidc
+    description: OIDC authentication
+    options:
+      listing_visibility: unauth
+    config:
+      default_role: default
+      namespace_in_state: true
+      oidc_client_id: &lt;CLIENT_ID&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+      oidc_client_secret: ?{vaultkv:${cluster:tenant}/${cluster:name}/vault/${_instance}/oidc/client_secret} <i class="conum" data-value="2"></i><b>(2)</b>
+      oidc_discovery_url: https://keycloak.example.com/auth/realms/example-realm <i class="conum" data-value="3"></i><b>(3)</b>
+    roles:
+      default:
+        allowed_redirect_uris: <i class="conum" data-value="4"></i><b>(4)</b>
+          - https://${vault:ingress:host}/ui/vault/auth/oidc/oidc/callback
+          - https://${vault:ingress:host}/oidc/callback
+          - http://localhost:8250/oidc/callback
+        bound_claims_type: string
+        groups_claim: groups
+        policies: ["default"]
+        role_type: oidc
+        user_claim: sub</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Client ID of the client that you configured in the previous section</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A secret reference to the Client secret in the Project Syn Vault.
+Adjust this to the secret where you stored the client secret in the previous step.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Adjust this to <code>https://${KEYCLOAK_URL}/auth/realms/${REALM}</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>If necessary, update this parameter to match the redirect URIs that you configured in the Keycloak client</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_manual_configuration"><a class="anchor" href="#_manual_configuration"></a>Manual configuration</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1376,6 +1459,7 @@ The group should be of <code>Type: external</code> and add the <code>syn-root</c
 </div>
 <div class="paragraph">
 <p>When logging in with an OIDC user you should now be able to see the <code>cluster/kv</code> secret engine.</p>
+</div>
 </div>
 </div>
 </div>

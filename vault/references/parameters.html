@@ -1625,54 +1625,99 @@ type
 default
 </td>
 <td class="hdlist2">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">policies:
-  - name: backup
-    rules: |
-      path "sys/storage/raft/snapshot" {
-        capabilities = ["read"]
-      }
-secrets:
-  - type: kv
-    path: clusters/kv
-    description: General secrets for clusters
-    options:
-      version: 2
-auth:
-  - type: kubernetes
-    roles:
-      - name: backup
-        bound_service_account_names: '${vault:name}-backup'
-        bound_service_account_namespaces: ${vault:namespace}
-        policies: backup
-        ttl: 1h</code></pre>
-</div>
-</div>
+<p><a href="https://github.com/projectsyn/component-vault/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The configuration for vault.
-The default configuration adds a general key-value secret store and a default backup user.
-If this backup user isn&#8217;t present, backups using k8up won&#8217;t succeed.
-This configuration may directly contain secret references (see example below) as it will be stored in a secret.</p>
+<p>The configuration for Vault.
+The configuration is applied with <a href="https://bank-vaults.dev/">bank-vaults</a>.</p>
 </div>
 <div class="paragraph">
-<p>Example LDAP configuration:</p>
+<p>The component takes the provided config and uses it as a bank-vaults configuration.</p>
 </div>
+<div class="paragraph">
+<p>Additionally to passing through the configuration, the component also allows users to provide configuration in keys suffixed with <code>_</code> for bank-vaults config keys which expect lists.</p>
+</div>
+<div class="paragraph">
+<p>In contrast to the raw bank-vaults config, the component expects that the suffixed keys contain objects, and the component transforms the contents into a list.
+The suffixed keys themselves don&#8217;t appear in the resulting bank-vaults configuration.</p>
+</div>
+<div class="paragraph">
+<p>If the object value is set to <code>null</code>, the entry isn&#8217;t emitted in the resulting list.</p>
+</div>
+<div class="paragraph">
+<p>For each config section, the object keys are used as a particular field for the list entry:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Config section</th>
+<th class="tableblock halign-left valign-top">Object key field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>audit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>auth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>plugins</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>plugin_name</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>policies</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secrets</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startupSecrets</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The object value can set the object key field, but the actual object key takes precedence.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For sections whose entries support field <code>roles</code>, the field <code>roles</code> of entries provided through the config key suffixed with <code>_</code> is also expected to be an object and transformed to a list.
+For field <code>roles</code>, the object keys are used as field <code>name</code> in the resulting list entries.</p>
+</div>
+<div class="paragraph">
+<p>The default configuration enables K8s authentication, adds a general key-value secret store with path <code>clusters/kv</code> and sets up a policy and a K8s authentication role for the K8up backup.
+If K8s authentication, or the backup role or policy are removed, the backups configured through parameter <code>backup</code> won&#8217;t work correctly.</p>
+</div>
+<div class="paragraph">
+<p>This configuration may directly contain secret references (see example below) as it will be stored in a secret.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_ldap_configuration"><a class="anchor" href="#_example_ldap_configuration"></a>Example LDAP configuration</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth:
-  - type: kubernetes
-    roles:
-      - name: backup
-        bound_service_account_names: vault-backup
-        bound_service_account_namespaces: vault
-        policies: backup
-        ttl: 1h
-  - type: ldap
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth_:
+  ldap:
+    type: ldap
     description: LDAP auth
     options:
       listing_visibility: "unauth"
@@ -1687,6 +1732,91 @@ This configuration may directly contain secret references (see example below) as
     groups:
       Vault root:
         policies: vault-root</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This snippet is transformed into the following bank-vaults snippet</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth:
+  - path: ldap
+    type: ldap
+    description: LDAP auth
+    options:
+      listing_visibility: "unauth"
+    config:
+      url: ldaps://ldap.todo.com:636
+      binddn: "uid=vault-service,ou=Users,dc=todo,dc=com"
+      bindpass: ?{vaultkv:${cluster:tenant}/${cluster:name}/vault/ldap/password}
+      userattr: uid
+      userdn: "ou=vault,ou=Service Access,ou=Views,dc=todo,dc=com"
+      groupdn: "ou=Groups,dc=todo,dc=com"
+      groupattr: cn
+    groups:
+      Vault root:
+        policies: vault-root</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_oidc_configuration"><a class="anchor" href="#_example_oidc_configuration"></a>Example OIDC configuration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth_:
+  oidc:
+    type: oidc
+    description: OIDC authentication
+    options:
+      listing_visibility: unauth
+    config:
+      default_role: default
+      namespace_in_state: true
+      oidc_client_id: &lt;CLIENT_ID&gt;
+      oidc_client_secret: ?{vaultkv:${cluster:tenant}/${cluster:name}/vault/${_instance}/oidc/client_secret}
+      oidc_discovery_url: https://keycloak.example.com/auth/realms/example-realm
+    roles:
+      default:
+        allowed_redirect_uris:
+          - https://${vault:ingress:host}/ui/vault/auth/oidc/oidc/callback
+          - https://${vault:ingress:host}/oidc/callback
+          - http://localhost:8250/oidc/callback
+        bound_claims_type: string
+        groups_claim: groups
+        policies: ["default"]
+        role_type: oidc
+        user_claim: sub</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This snippet is transformed into the following bank-vaults snippet</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">auth:
+  - path: oidc
+    type: oidc
+    description: OIDC authentication
+    options:
+      listing_visibility: unauth
+    config:
+      default_role: default
+      namespace_in_state: true
+      oidc_client_id: &lt;CLIENT_ID&gt;
+      oidc_client_secret: ?{vaultkv:${cluster:tenant}/${cluster:name}/vault/${_instance}/oidc/client_secret}
+      oidc_discovery_url: https://keycloak.example.com/auth/realms/example-realm
+    roles:
+      - name: default
+        allowed_redirect_uris:
+          - https://${vault:ingress:host}/ui/vault/auth/oidc/oidc/callback
+          - https://${vault:ingress:host}/oidc/callback
+          - http://localhost:8250/oidc/callback
+        bound_claims_type: string
+        groups_claim: groups
+        policies: ["default"]
+        role_type: oidc
+        user_claim: sub</code></pre>
+</div>
 </div>
 </div>
 </div>

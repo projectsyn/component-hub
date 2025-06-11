@@ -1096,15 +1096,7 @@ For that we add an authentication method for the Kubernetes cluster Lieutenant i
 <div class="sect3">
 <h4 id="_vault_on_the_same_kubernetes_cluster"><a class="anchor" href="#_vault_on_the_same_kubernetes_cluster"></a>Vault on the same Kubernetes cluster</h4>
 <div class="paragraph">
-<p>If Vault runs on the same Kubernetes cluster as Lieutenant, the authentication method configuration is very simple.
-Simply add the following to your component configuration.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
-  auth:
-    - type: kubernetes</code></pre>
-</div>
+<p>If Vault runs on the same Kubernetes cluster as Lieutenant, the authentication method configuration is already done.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1115,9 +1107,9 @@ Simply add the following to your component configuration.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
-  auth:
-    - type: kubernetes
-      path: lieutenant <i class="conum" data-value="1"></i><b>(1)</b>
+  auth_:
+    lieutenant: <i class="conum" data-value="1"></i><b>(1)</b>
+      type: kubernetes
       config:
         kubernetes_host: https://api.example.com <i class="conum" data-value="2"></i><b>(2)</b>
         disable_local_ca_jwt: true
@@ -1132,7 +1124,8 @@ Simply add the following to your component configuration.</p>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>We recommend to change the authentication method mount path as the default <code>kubernetes</code> path should be reserved for the local cluster</td>
+<td>We recommend to change the authentication method mount path as the default <code>kubernetes</code> path should be reserved for the local cluster
+As documented in the <a href="../references/parameters.html#_config" class="page">parameters reference</a> the key is used as field <code>path</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -1157,28 +1150,27 @@ This is also necessary if the certificate is publicly trusted, due to a limitati
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">config:
-  auth:
-    - type: kubernetes
-      ...
-      roles:
-        - name: syn-cluster <i class="conum" data-value="1"></i><b>(1)</b>
+  auth_:
+    lieutenant: <i class="conum" data-value="1"></i><b>(1)</b>
+      roles: <i class="conum" data-value="2"></i><b>(2)</b>
+        syn-cluster: <i class="conum" data-value="4"></i><b>(4)</b>
           bound_service_account_names: "*"
           bound_service_account_namespaces: lieutenant-prod
           policies: syn-cluster
           ttl: 1h
-        - name: lieutenant-operator <i class="conum" data-value="2"></i><b>(2)</b>
+        lieutenant-operator: <i class="conum" data-value="5"></i><b>(5)</b>
           bound_service_account_names: lieutenant-operator
           bound_service_account_namespaces: lieutenant-prod
           policies: lieutenant-operator
           ttl: 1h
 
-  policies:
-    - name: syn-cluster <i class="conum" data-value="1"></i><b>(1)</b>
+  policies_: <i class="conum" data-value="3"></i><b>(3)</b>
+    syn-cluster: <i class="conum" data-value="4"></i><b>(4)</b>
       rules: |
         path "clusters/kv/data/+/{{identity.entity.aliases.auth_kubernetes_5b636428.metadata.service_account_name}}/*" {
           capabilities = ["read"]
         }
-    - name: lieutenant-operator <i class="conum" data-value="2"></i><b>(2)</b>
+    lieutenant-operator: <i class="conum" data-value="5"></i><b>(5)</b>
       rules: |
         path "clusters/kv/data/*" {
           capabilities = ["read", "create", "update", "delete"]
@@ -1195,10 +1187,25 @@ This is also necessary if the certificate is publicly trusted, due to a limitati
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>syn-cluster</code> policy allows each cluster to reveal its own secrets.</td>
+<td>This snippet assumes that we&#8217;re configuring access for an external Vault instance.
+If you&#8217;re running Vault and Lieutenant on the same cluster, change this key to <code>kubernetes</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>When using the component&#8217;s <code>auth_</code> helper key, we can define roles as an object.
+This is transformed into a list with the keys as values for field <code>name</code> of each entry.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>We define the policies using the component&#8217;s <code>policies_</code> helper key.
+The object keys are used as values for field <code>name</code> of each resulting list entry.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The <code>syn-cluster</code> policy allows each cluster to reveal its own secrets.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
 <td>The <code>lieutenant-operator</code> policy allows the <code>lieutenant-operator</code> to read and write all secrets.</td>
 </tr>
 </table>
