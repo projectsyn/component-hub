@@ -1093,7 +1093,9 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">noDefaults: network-policies.syn.tools/no-defaults
-purgeDefaults: network-policies.syn.tools/purge-defaults</code></pre>
+baseDefaults: network-policies.syn.tools/base-defaults
+purgeDefaults: network-policies.syn.tools/purge-defaults
+purgeNonBase: network-policies.syn.tools/purge-non-base</code></pre>
 </div>
 </div>
 </td>
@@ -1102,6 +1104,56 @@ purgeDefaults: network-policies.syn.tools/purge-defaults</code></pre>
 </div>
 <div class="paragraph">
 <p>Name of the labels to be used in other components.</p>
+</div>
+<div class="paragraph">
+<p>By default every namespace will get policies required for the OpenShift platform and a policy to allow intra-namespace communication.
+By default, two sets of policies are created in every namespace:
+- <code>base</code> policies, which are required for the OpenShift platform to function correctly.
+- <code>default</code> policies, which allow pods in the same namespace to communicate with each other.
+The default policies can be modified with the labels defined in this parameter.</p>
+</div>
+<div class="sect2">
+<h3 id="_nodefaults_label"><a class="anchor" href="#_nodefaults_label"></a><code>noDefaults</code> label</h3>
+<div class="paragraph">
+<p>Policies will no longer be managed.
+The already created policies will stay in place and can be modified by the user or other components.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_basedefaults_label"><a class="anchor" href="#_basedefaults_label"></a><code>baseDefaults</code> label</h3>
+<div class="paragraph">
+<p>Only policies required for the OpenShift platform will be created.
+The intra-namespace policy will no longer be managed by this component and can be modified by the user or other components.</p>
+</div>
+<div class="paragraph">
+<p>There&#8217;s no guarantee that pods will be able to communicate with each other even if they are in the same namespace once the intra-namespace policies is modified or removed by the user.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_purgedefaults_label"><a class="anchor" href="#_purgedefaults_label"></a><code>purgeDefaults</code> label</h3>
+<div class="paragraph">
+<p>All managed policies will be purged from the namespace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_purgenonbase_label"><a class="anchor" href="#_purgenonbase_label"></a><code>purgeNonBase</code> label</h3>
+<div class="paragraph">
+<p>All managed policies except the platform required policies will be purged from the namespace.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>purge*</code> labels should always be acompanied by their respective <code>noDefaults</code> or <code>baseDefaults</code> label.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
