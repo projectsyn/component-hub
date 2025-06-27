@@ -2641,9 +2641,12 @@ default
 <div class="paragraph">
 <p>Whether to enable the BGP control plane feature in Cilium.</p>
 </div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/">upstream BGP control plane documentation</a> for details on the architecture and the individual custom resources mentioned in this section.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_bgp_peerings"><a class="anchor" href="#_bgp_peerings"></a><code>bgp.peerings</code></h3>
+<h3 id="_bgp_cluster_configs"><a class="anchor" href="#_bgp_cluster_configs"></a><code>bgp.cluster_configs</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -2665,23 +2668,253 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>This parameter allows users to configure <code>CiliumBGPPeeringPolicy</code> resources.
-This resource is used to configure peers for the BGP control plane.</p>
+<p>This parameter allows users to configure <code>CiliumBGPClusterConfig</code> resources.</p>
 </div>
 <div class="paragraph">
-<p>The component expects the contents of this parameter to be key value pairs where the value is another object with field <code>virtualRouters</code> and optional fields <code>nodeSelector</code> and <code>spec</code>.
-The component generates a <code>CiliumBGPPeeringPolicy</code> for each entry in the parameter.
-The key of the entry is used as the name of the resulting resource.
-The values of fields <code>virtualRouters</code> and <code>nodeSelector</code> are processed and used as the base values for fields <code>spec.virtualRouters</code> and <code>spec.nodeSelector</code> in the resulting resource.
-The value of field <code>spec</code> is merged into <code>spec</code> of the resource.</p>
+<p>The <code>CiliumBGPClusterConfig</code> resource defines the global BGP configuration and holds the list of peers.
+The resources references one or more <code>CiliumBGPPeerConfig</code> resources (see parameter <code>bgp.peer_configs</code>) which define the details of each peering connection.</p>
 </div>
 <div class="paragraph">
-<p>Field <code>virtualRouters</code> in the parameter entry value is expected to be an object.
-The key of each entry in this field is expected to be a peer address (in CIDR notation, such as <code>192.0.2.2/32</code>) and the value of each entry is expected to be a valid entry for <code>spec.virtualRouters</code>.
-The key is written into field <code>peerAddress</code> of the value to construct the final entry for <code>spec.virtualRouters</code>.</p>
+<p>The component creates one <code>CiliumBGPClusterConfig</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://docs.cilium.io/en/stable/network/bgp-control-plane/#ciliumbgppeeringpolicy-crd">upstream documentation</a> for the full set of supported fields.</p>
+<p>The component supports fields <code>bgpInstances</code>, <code>nodeSelector</code>, <code>metadata</code> and <code>spec</code> in the parameter values.
+Fields <code>metadata</code> and <code>spec</code> are added to the resulting <code>CiliumBGPClusterConfig</code> as is.
+Field <code>nodeSelector</code> is used as the value for <code>spec.nodeSelector</code>.
+Field <code>bgpInstances</code> is expected to be an object and is transformed into entries for <code>spec.bgpInstances</code> of the custom resource.
+The keys of the <code>bgpInstances</code> field are used for field <code>name</code> of the entries for <code>spec.bgpInstances</code>.
+The field <code>peers</code> of each value of the <code>bgpInstances</code> field is expected to be an object and is transformed into a list.
+Again, the keys of field <code>peers</code> are used as values for <code>field</code> name for the resulting <code>peers</code> entries.
+Field <code>spec</code> is merged over the partial object generated from fields <code>nodeSelector</code> and <code>bgpInstances</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component validates that <code>CiliumBGPClusterConfig</code> resources only reference <code>CiliumBGPPeerConfig</code> resources which are defined in parameter <code>bgp.peer_configs</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/#bgp-cluster-configuration">upstream documentation</a> for all available configuration options.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_7"><a class="anchor" href="#_example_7"></a>Example</h4>
+<div class="paragraph">
+<p>The following component parameters snippet is transformed into the <code>CiliumBGPClusterConfig</code> shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">component parameters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bgp:
+  cluster_configs:
+    lb-services:
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: ''
+      bgpInstances:
+        lbs:
+          localASN: 64512
+          peers:
+            peer1:
+              peerAddress: 192.0.2.2
+              peerASN: 64512
+              peerConfigRef:
+                name: lb-services
+            peer2:
+              peerAddress: 192.0.2.3
+              peerASN: 64512
+              peerConfigRef:
+                name: lb-services</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">CiliumBGPClusterConfig</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPClusterConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    name: lb-services
+  name: lb-services
+spec:
+  bgpInstances:
+    - localASN: 64512
+      name: lbs
+      peers:
+        - name: peer1
+          peerASN: 64512
+          peerAddress: 192.0.2.2
+          peerConfigRef:
+            name: lb-services
+        - name: peer2
+          peerASN: 64512
+          peerAddress: 192.0.2.3
+          peerConfigRef:
+            name: lb-services
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/infra: ''</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_peer_configs"><a class="anchor" href="#_bgp_peer_configs"></a><code>bgp.peer_configs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPPeerConfig</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CiliumBGPPeerConfig</code> resource defines a set of BGP peering connection details.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPPeerConfig</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.
+The component supports fields <code>families</code>, <code>metadata</code> and <code>spec</code> for each entry.
+Fields <code>metadata</code> and <code>spec</code> are added to the resulting <code>CiliumBGPPeerConfig</code> as is.
+Field <code>families</code> is expected to be an object and its values are used as is for field <code>spec.families</code>.
+Field <code>spec</code> is merged over the partial object created from field <code>families</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component validates that <code>CiliumBGPPeerConfig</code> resources only reference BGP auth secret <code>Secret</code> resources which are defined in parameter <code>bgp.auth_secrets</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/#bgp-peer-configuration">upstream documentation</a> for details.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_8"><a class="anchor" href="#_example_8"></a>Example</h4>
+<div class="listingblock">
+<div class="title">component parameters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bgp:
+  peer_configs:
+    lb-services:
+      spec:
+        gracefulRestart:
+          enabled: true
+          restartTimeSeconds: 30
+      families:
+        unicast-v4:
+          afi: ipv4
+          safi: unicast
+          advertisements:
+            matchLabels:
+              cilium.syn.tools/advertise: bgp</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">CiliumBGPPeerConfig</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeerConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    name: lb-services
+  name: lb-services
+spec:
+  families:
+    - advertisements:
+        matchLabels:
+          cilium.syn.tools/advertise: bgp
+      afi: ipv4
+      safi: unicast
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 30</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_auth_secrets"><a class="anchor" href="#_bgp_auth_secrets"></a><code>bgp.auth_secrets</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>Secret</code> resources to use as BGP auth secrets.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>Secret</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.
+The component expects that each value in this parameter is a valid partial <code>Secret</code> resource.
+The component validates that each secret has field <code>password</code>, which is required by the BGP control plane for auth secrets.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/#md5-password">upstream documentation</a> for details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_node_config_overrides"><a class="anchor" href="#_bgp_node_config_overrides"></a><code>bgp.node_config_overrides</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPNodeConfigOverride</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CiliumBGPNodeConfigOverride</code> resource can be used to inject per-node customizations into the generated <code>CiliumBGPNodeConfig</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPNodeConfigOverride</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.
+The component expects that each value in this parameter is a valid partial <code>CiliumBGPNodeConfigOverride</code> resource and doesn&#8217;t apply any processing.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/#bgp-configuration-override">upstream documentation</a> for details.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2690,13 +2923,106 @@ The key is written into field <code>peerAddress</code> of the value to construct
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Make sure to check the upstream documentation for the version of Cilium that you&#8217;re running.
-The BGP control plane feature is relatively new and sometimes has significant changes between Cilium minor versions.</p>
-</div>
+The resource name must match the Kubernetes node name of the node for which the configuration is intended.
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_advertisements"><a class="anchor" href="#_bgp_advertisements"></a><code>bgp.advertisements</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPAdvertisement</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPAdvertisement</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.</p>
+</div>
+<div class="paragraph">
+<p>The component supports fields <code>metadata</code> and <code>advertisements</code> for each entry of this parameter.
+Field <code>metadata</code> is added to the resulting resource as is.
+Field <code>advertisements</code> is expected to be an object, and the values of the object are used for field <code>spec.advertisements</code> in the resulting resource without further processing.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/#bgp-advertisements">upstream documentation</a> for details.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The resource name must match the Kubernetes node name of the node for which the configuration is intended.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_9"><a class="anchor" href="#_example_9"></a>Example</h4>
+<div class="listingblock">
+<div class="title">component parameters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bgp:
+  advertisements:
+    lb-services:
+      metadata:
+        labels:
+          cilium.syn.tools/advertise: bgp
+      advertisements:
+        lb-ips:
+          advertisementType: Service
+          service:
+            addresses:
+              - LoadBalancerIP
+          selector:
+            matchLabels:
+              syn.tools/load-balancer-class: cilium</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">CiliumBGPAdvertisement</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    cilium.syn.tools/advertise: bgp
+    name: lb-services
+  name: lb-services
+spec:
+  advertisements:
+    - advertisementType: Service
+      selector:
+        matchLabels:
+          syn.tools/load-balancer-class: cilium
+      service:
+        addresses:
+          - LoadBalancerIP</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2726,7 +3052,7 @@ default
 This resource is used to configure IP pools which Cilium can use to allocate IPs for services with <code>type=LoadBalancer</code>.</p>
 </div>
 <div class="paragraph">
-<p>The component expects the contents of this parametr to be key value pairs where the value is another object with field <code>blocks</code>, and optional fields <code>serviceSelector</code> and <code>spec</code>.
+<p>The component expects the contents of this parameter to be key value pairs where the value is another object with field <code>blocks</code>, and optional fields <code>serviceSelector</code> and <code>spec</code>.
 The component generates a <code>CiliumLoadBalancerIPPool</code> for each entry in the parameter.
 The key of the entry is used as the name of the resulting resource.
 The values of fields <code>blocks</code> and <code>serviceSelector</code> are processed and used as the base values for fields <code>spec.blocks</code> (or <code>spec.cidrs</code> in Cilium &#8656; 1.14) and <code>spec.serviceSelector</code>.
@@ -2865,7 +3191,7 @@ Parameters <code>alerts.ignoreNames</code> and <code>alerts.patches</code> are a
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_7"><a class="anchor" href="#_example_7"></a>Example</h2>
+<h2 id="_example_10"><a class="anchor" href="#_example_10"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
