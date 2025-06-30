@@ -118,6 +118,9 @@
     <a class="nav-link" href="../how-tos/opsgenie.html">OpsGenie integration</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/operator-rules.html">Operator Managed PrometheusRules</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
   </li>
 </ul>
@@ -1228,36 +1231,6 @@ The contents of this parameter aren&#8217;t applied to components <code>nodeExpo
 </div>
 </div>
 <div class="sect1">
-<h2 id="_upstreamrules_networkplugin"><a class="anchor" href="#_upstreamrules_networkplugin"></a><code>upstreamRules.networkPlugin</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>openshift-sdn</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Choose either <code>openshift-sdn</code> or <code>ovn-kubernetes</code> depending on the installed network plugin.
-If a custom network plugin is used, set any other string as the value for this parameter.
-This ensures neither openshift-sdn nor OVN-Kubernetes monitoring rules are deployed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_enablealertmanagerisolationnetworkpolicy"><a class="anchor" href="#_enablealertmanagerisolationnetworkpolicy"></a><code>enableAlertmanagerIsolationNetworkPolicy</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1817,6 +1790,34 @@ For example if an alert should go to a different team than the namespace suggest
 </div>
 </div>
 <div class="sect1">
+<h2 id="_operatorrulenamespaces"><a class="anchor" href="#_operatorrulenamespaces"></a><code>operatorRuleNamespaces</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional namespaces to manage operator managed PrometheusRules.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -2114,10 +2115,6 @@ Allows configuring custom annotations for individual alerts.</p>
 <dd>
 <p>dict</p>
 </dd>
-<dt class="hdlist1">keys</dt>
-<dd>
-<p>potential values of parameter <code>manifests_versions</code> and <code>*</code></p>
-</dd>
 <dt class="hdlist1">default</dt>
 <dd>
 <p>See <a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on GitHub</a></p>
@@ -2126,13 +2123,7 @@ Allows configuring custom annotations for individual alerts.</p>
 </div>
 <div class="paragraph">
 <p>The parameter <code>patchRules</code> allows users to customize upstream alerts.
-The component expects that top-level keys in the parameter correspond to values of parameter <code>manifests_versions</code>.
-Additionally, the component supports special top-level key <code>*</code>.</p>
-</div>
-<div class="paragraph">
-<p>Alert patches which are defined under top-level key <code>*</code> are applied regardless of the OpenShift 4 version specified in parameter <code>manifest_versions</code>.
-Additionally, the component applies all patches under the key which matches the value of parameter <code>manifest_versions</code>.
-If an alert is patched in both top-level key <code>*</code> and the top-level key matching parameter <code>manifest_versions</code>, the patches are merged together, with the version-specific patch overriding the generic patch.</p>
+The component expects that top-level keys in the parameter correspond to the name of the alert.</p>
 </div>
 <div class="paragraph">
 <p>The component expects alert names as keys and any alert configuration as values in each top-level key.
@@ -2144,13 +2135,11 @@ See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configu
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
-  '*':
-    PrometheusRemoteWriteBehind:
-      annotations:
-        runbook_url: https://example.com/runbooks/PrometheusRemoteWriteBehind.html
-  release-4.16:
-    SystemMemoryExceedsReservation:
-      for: 30m</code></pre>
+  PrometheusRemoteWriteBehind:
+    annotations:
+      runbook_url: https://example.com/runbooks/PrometheusRemoteWriteBehind.html
+  SystemMemoryExceedsReservation:
+    for: 30m</code></pre>
 </div>
 </div>
 </div>

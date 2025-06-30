@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>prom.libsonnet API reference :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/references/prom.html">
-    <link rel="prev" href="alert-patching.html">
-    <link rel="next" href="../how-tos/opsgenie.html">
+    <title>Operator Managed PrometheusRules :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/how-tos/operator-rules.html">
+    <link rel="prev" href="opsgenie.html">
+    <link rel="next" href="migrate/v0.1-v1.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -100,13 +100,13 @@
     <span class="nav-text">Reference</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
+    <a class="nav-link" href="../references/alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="prom.html"><code>prom.libsonnet</code> API reference</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/prom.html"><code>prom.libsonnet</code> API reference</a>
   </li>
 </ul>
   </li>
@@ -115,13 +115,13 @@
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/opsgenie.html">OpsGenie integration</a>
+    <a class="nav-link" href="opsgenie.html">OpsGenie integration</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="operator-rules.html">Operator Managed PrometheusRules</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/operator-rules.html">Operator Managed PrometheusRules</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../how-tos/migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
+    <a class="nav-link" href="migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
   </li>
 </ul>
   </li>
@@ -1118,253 +1118,262 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OpenShift4 Monitoring</a></li>
-    <li>Reference</li>
-    <li><a href="prom.html"><code>prom.libsonnet</code> API reference</a></li>
+    <li>How-Tos</li>
+    <li><a href="operator-rules.html">Operator Managed PrometheusRules</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/references/prom.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/how-tos/operator-rules.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page"><code>prom.libsonnet</code> API reference</h1>
+<h1 class="page">Operator Managed PrometheusRules</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The component provides library <code>openshift4-monitoring-prom.libsonnet</code>, which is also available as <code>prom.libsonnet</code>.
-This library provides some helper functions which allow users to more easily create prometheus-operator custom resources.</p>
+<p>This how-to describes how to manage PrometheusRules that are deployed by an operator.
+Using Espejote&#8217;s ManagedResources, we can copy, filter and patch the PrometheusRules on-the-fly inside the cluster.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
+<h2 id="_what_does_component_openshift4_monitoring_provide"><a class="anchor" href="#_what_does_component_openshift4_monitoring_provide"></a>What does component-openshift4-monitoring provide?</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This component provides a JsonnetLibrary (from Espejote) which:
+* contains a global configuration for managing the PrometheusRules
+* contains a jsonnet function for filtering and patching the PrometheusRules</p>
+</div>
+<div class="paragraph">
+<p>This way you only need a minimal template in your ManagedResource to parse the rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_global_configuration"><a class="anchor" href="#_global_configuration"></a>Global configuration</h3>
+<div class="paragraph">
+<p>The global configuration contains the following fields:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-jsonnet hljs" data-lang="jsonnet">local kap = import 'lib/kapitan.libjsonnet';
-
-local inv = kap.inventory();
-local params = inv.parameters.&lt;component_name&gt;;
-
-local prom = import 'lib/prom.libsonnet'; <i class="conum" data-value="1"></i><b>(1)</b>
-
-local rules = params.rules; <i class="conum" data-value="2"></i><b>(2)</b>
-
-{
-  service_monitor: prom.ServiceMonitor('my-service-monitor') {
-    spec+: {
-     // ...
-    },
-  }, <i class="conum" data-value="3"></i><b>(3)</b>
-  additional_rules: prom.generateRules('my-alert-rules', rules), <i class="conum" data-value="4"></i><b>(4)</b>
-};</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_monitoring:
+  alerts:
+    ignoreGroups: [] <i class="conum" data-value="1"></i><b>(1)</b>
+    ignoreNames: [] <i class="conum" data-value="2"></i><b>(2)</b>
+    ignoreWarnings: [] <i class="conum" data-value="3"></i><b>(3)</b>
+    customAnnotations: {} <i class="conum" data-value="4"></i><b>(4)</b>
+    patchRules: [] <i class="conum" data-value="5"></i><b>(5)</b>
+    includeNamespaces: [] <i class="conum" data-value="6"></i><b>(6)</b>
+    excludeNamespaces: [] <i class="conum" data-value="7"></i><b>(7)</b>
+    teamLabel: "" <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Import the library.
-By using the aliased name, you can make your component compatible with any monitoring component which provides an <code>alert-patching.libsonnet</code> library alias.</td>
+<td>A list of rule groups to ignore</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Extract alert rules from the component parameters.
-Alternatively, you can define patches directly in Jsonnet.</td>
+<td>A list of rule names to ignore</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The library provides basic wrappers to generate prometheus-operator custom resources.
-These functions are implemented through <code>kube._Object()</code> internally.</td>
+<td>A list of rule names to ignore that have severity warning</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td><code>generateRules()</code> is modelled after <code>com.generateResources()</code> and can be used to transform additional alerting and recording rules defined in the hierarchy into a valid <code>PrometheusRule</code> manifest.</td>
+<td>A map of custom annotations to add to the rules</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>A map of rules with their patches</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>A list of namespaces to include in namespace-selectors, modifies the expression <code>namespace=~"(openshift-.<strong>|kube-.</strong>|default)"</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>A list of namespaces to exclude from namespace-selectors, modifies the expression <code>namespace=~"(openshift-.<strong>|kube-.</strong>|default)"</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>The team label to add to the rules</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_prometheusrulename"><a class="anchor" href="#_prometheusrulename"></a><code>PrometheusRule(name)</code></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Helper to create PrometheusRule objects.</p>
-</div>
-<div class="sect2">
-<h3 id="_arguments"><a class="anchor" href="#_arguments"></a>Arguments</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>name</code></dt>
-<dd>
-<p>The name of the resulting <code>PrometheusRule</code> object.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_return_value"><a class="anchor" href="#_return_value"></a>Return value</h3>
-<div class="paragraph">
-<p>An empty <code>PrometheusRule</code> object.</p>
-</div>
-</div>
-</div>
 </div>
 <div class="sect1">
-<h2 id="_prometheusname"><a class="anchor" href="#_prometheusname"></a><code>Prometheus(name)</code></h2>
+<h2 id="_how_to_use_in_your_component"><a class="anchor" href="#_how_to_use_in_your_component"></a>How to use in your component</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Helper to create <code>Prometheus</code> objects.</p>
+<p>To use this in your component, you need to:
+* provide a component-specific configuration, which will be merged into the global configuration
+* create a minimal template for your ManagedResource
+* the necessary RBAC for the ManagedResource</p>
 </div>
 <div class="sect2">
-<h3 id="_arguments_2"><a class="anchor" href="#_arguments_2"></a>Arguments</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>name</code></dt>
-<dd>
-<p>The name of the resulting <code>Prometheus</code> object.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_return_value_2"><a class="anchor" href="#_return_value_2"></a>Return value</h3>
+<h3 id="_component_specific_configuration"><a class="anchor" href="#_component_specific_configuration"></a>Component-specific configuration</h3>
 <div class="paragraph">
-<p>An empty Prometheus object.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_alertmanagername"><a class="anchor" href="#_alertmanagername"></a><code>AlertManager(name)</code></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Helper to create <code>AlertManager</code> objects.</p>
-</div>
-<div class="sect2">
-<h3 id="_arguments_3"><a class="anchor" href="#_arguments_3"></a>Arguments</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>name</code></dt>
-<dd>
-<p>The name of the resulting <code>AlertManager</code> object.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_return_value_3"><a class="anchor" href="#_return_value_3"></a>Return value</h3>
-<div class="paragraph">
-<p>An empty <code>AlertManager</code> object.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generaterulesname_rules"><a class="anchor" href="#_generaterulesname_rules"></a><code>generateRules(name, rules)</code></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This function takes an object defining a set of rule groups.
-Each key-value pair in the object represents the name of a rule group and the list of rules for the group.
-The function expects that each value is another object where each key-value pair represents an alerting or recording rule.</p>
-</div>
-<div class="paragraph">
-<p>Alerting and recording rules are distinguished through the specific format of the keys in these objects.
-All alerting rules must be prefixed with <code>alert:</code>
-All recording rules must be prefixed with <code>record:</code>
-The component will extract the first colon-delimited part of the key and inject key-value pair <code>[part0]: parts</code> into the provided value.</p>
-</div>
-<div class="paragraph">
-<p>Note that the function will pass each rule through <a href="alert-patching.html#patchRule" class="page">the alert-patching <code>patchRule()</code> function</a> with <code>patches={}</code> and <code>patch_name=false</code>.</p>
-</div>
-<div class="sect2">
-<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
-<div class="paragraph">
-<p>Let&#8217;s take the following input value for <code>rules</code>:</p>
+<p>Create a JsonnetLibrary in your component, with the following format:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">rules:
-  my-group:
-    "record:foo:sum":
-      expr: sum(foo)
-    "alert:FooAlert"
-      expr: foo:sum &lt; 10
-      for: 10m
-      annotations:
-        summary: Less than 10 Foos for 10 minutes
-      labels:
-        severity: warning</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The library will generate the <code>PrometheusRule</code> shown below with call <code>generateRules('my-rules', rules)</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: espejote.io/v1alpha1
+kind: JsonnetLibrary
 metadata:
-  name: my-rules
+  labels:
+    app.kubernetes.io/name: openshift4-monitoring-rules
+  name: openshift4-monitoring-rules <i class="conum" data-value="1"></i><b>(1)</b>
+  namespace: &lt;YOUR_NAMESPACE&gt; <i class="conum" data-value="2"></i><b>(2)</b>
 spec:
-  groups:
-    - name: my-group
-      rules:
-        - expr: sum(foo)
-          record: foo:sum
-        - alert: FooAlert
-          annotations:
-            summary: Less than 10 Foos for 10 minutes
-          expr: foo:sum &lt; 10
-          for: 10m
-          labels:
-            severity: warning
-            syn: "true" <i class="conum" data-value="1"></i><b>(1)</b>
-            syn_component: foocomponent <i class="conum" data-value="2"></i><b>(2)</b>
-            syn_team: footeam <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+  data:
+    config.json: |-
+      {
+          "ignoreGroups": [],
+          "ignoreNames": [],
+          "ignoreWarnings": [],
+          "customAnnotations": {},
+          "patchRules": {},
+          "teamLabel": ""
+      }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Alerting rules are patched to match the default configuration for component <code>openshift4-monitoring</code>.</td>
+<td>The name of the JsonnetLibrary, can be anything but for ease of use with the components helper library use this name.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>If Project Syn multi-team configuration is present, label <code>syn_team</code> is added based on the component instance calling the <code>generateRules()</code> function.</td>
+<td>The namespace where the ManagedResource will be deployed, usually the same as the component.</td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_arguments_4"><a class="anchor" href="#_arguments_4"></a>Arguments</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>name</code></dt>
-<dd>
-<p>The name of the resulting <code>PrometheusRule</code> object</p>
-</dd>
-<dt class="hdlist1"><code>rules</code></dt>
-<dd>
-<p>An object representing a set of rule groups.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_return_value_4"><a class="anchor" href="#_return_value_4"></a>Return value</h3>
 <div class="paragraph">
-<p>A single <code>PrometheusRule</code> object containing all non-empty groups based on parameter <code>groups</code>.</p>
+<p>Above configuration will be merged with the global configuration in the rendering function.
+The component-specific configuration can be empty.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minimal_template_for_the_managedresource"><a class="anchor" href="#_minimal_template_for_the_managedresource"></a>Minimal template for the ManagedResource</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This component provides a library for generating the ManagedResource and all RBAC rules needed.
+<a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/lib/openshift4-monitoring-operator-rules.libsonnet">see openshift4-monitoring-operator-rules.libsonnet</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Create a minimal template for your ManagedResource, with the following format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: espejote.io/v1alpha1
+kind: ManagedResource
+metadata:
+  name: &lt;YOUR_NAME&gt;
+  namespace: &lt;YOUR_NAMESPACE&gt;
+spec:
+  serviceAccountRef:
+    name: openshift4-monitoring-rules
+  context:
+    - name: op_rules
+      resource:
+        apiVersion: monitoring.coreos.com/v1
+        kind: PrometheusRule
+        labelSelector:
+          matchExpressions:
+            - key: espejote.io/created-by
+              operator: DoesNotExist <i class="conum" data-value="1"></i><b>(1)</b>
+            - key: espejote.io/ignore
+              operator: DoesNotExist <i class="conum" data-value="2"></i><b>(2)</b>
+        namespace: &lt;YOUR_NAMESPACE&gt;
+  triggers:
+    - name: op_rules
+      watchContextResource:
+        name: op_rules
+    - name: generated_rules
+      watchResource:
+        apiVersion: monitoring.coreos.com/v1
+        kind: PrometheusRule
+        labelSelector:
+          matchExpressions:
+            - key: espejote.io/created-by
+              operator: In
+              values:
+                - openshift4-monitoring-rules
+        namespace: &lt;YOUR_NAMESPACE&gt;
+  template: |
+    local esp = import 'espejote.libsonnet';
+
+    local renderer = import 'lib/openshift4-monitoring-rules/renderer_v1.libsonnet'; <i class="conum" data-value="3"></i><b>(3)</b>
+    local configGlobal = import 'lib/openshift4-monitoring-rules/config_v1.json'; <i class="conum" data-value="4"></i><b>(4)</b>
+    local configComponent = import 'openshift4-monitoring-rules/config.json';
+
+    local opRules = esp.context().op_rules;
+    local inDelete(obj) = std.get(obj.metadata, 'deletionTimestamp', '') != '';
+
+    if std.member([ 'op_rules', 'generated_rules' ], esp.triggerName()) then (
+      // if the trigger is 'op_rules' or 'generated_rules', render single op_rule
+      local trigger = esp.triggerData();
+      local or = if esp.triggerName() == 'op_rules' then
+        trigger.resource
+      else
+        local cand = std.filter(function(r) r.metadata.name == trigger.resource.metadata.ownerReferences[0].name, opRules);
+        if std.length(cand) &gt; 0 then cand[0];
+
+      if or != null &amp;&amp; !inDelete(or) then [
+        renderer.process(or, configGlobal, configComponent)
+      ]
+    )
+    else [
+      // if the trigger is not 'op_rules' or 'generated_rules', render all op_rules
+      renderer.process(or, configGlobal, configComponent),
+      for or in opRules
+      if !inDelete(or)
+    ]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ignore PrometheusRules that are created by this ManagedResource</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Ignore PrometheusRules that have the espejote.io/ignore label</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The renderer is versioned, currently v1 is available</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The global configuration is versioned, currently v1 is available</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
-  <span class="next"><a href="../how-tos/opsgenie.html">OpsGenie integration</a></span>
+  <span class="prev"><a href="opsgenie.html">OpsGenie integration</a></span>
+  <span class="next"><a href="migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a></span>
 </nav>
 </article>
   </div>
@@ -1375,7 +1384,7 @@ spec:
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/references/prom.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/how-tos/operator-rules.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
