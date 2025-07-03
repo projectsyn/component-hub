@@ -7,6 +7,9 @@
 <loc>https://hub.syn.tools/sitemap-adhoc-configurations.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-airlock-microgateway.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-alerts-exporter.xml</loc>
 </sitemap>
 <sitemap>
