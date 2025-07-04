@@ -6,6 +6,7 @@
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/airlock-microgateway/references/parameters.html">
     <link rel="prev" href="../index.html">
+    <link rel="next" href="../how-tos/grafana-dashboard.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +95,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/grafana-dashboard.html">Grafana Dashboards</a>
   </li>
 </ul>
   </li>
@@ -1360,6 +1364,24 @@ type
 <p>Configuration for Gateway Classes.</p>
 </div>
 <div class="sect2">
+<h3 id="_gateway_classes_name_parametersref"><a class="anchor" href="#_gateway_classes_name_parametersref"></a><code>gateway_classes.&lt;name&gt;.parametersRef</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A reference to a Gateway Parameters object, defined in <code>gateway_parameters</code>.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
 <div class="listingblock">
 <div class="content">
@@ -1372,7 +1394,59 @@ type
           group: microgateway.airlock.com
           kind: GatewayParameters
           name: gatewayparameter-mgw-poc
-          namespace: airlock-gateway</code></pre>
+          namespace: airlock-gateway
+
+    my-other-gateway-class:
+      parametersRef: airlock
+
+  gateway_parameters:
+    airlock: ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gateway_parameters"><a class="anchor" href="#_gateway_parameters"></a><code>gateway_parameters</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for Gateway Parameters.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">airlock_microgateway:
+  gateway_parameters:
+    airlock:
+      spec:
+        defaults:
+          downstream:
+            remoteIP:
+              xff:
+                numTrustedHops: 1
+        kubernetes:
+          deployment:
+            automountServiceAccountToken: false
+            engineContainer: {}
+            placement: {}
+            replicas: 1
+          service:
+            type: ClusterIP
+        logging:
+          level: info</code></pre>
 </div>
 </div>
 </div>
@@ -1629,7 +1703,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h2>
+<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -1693,6 +1767,7 @@ default
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../how-tos/grafana-dashboard.html">Grafana Dashboards</a></span>
 </nav>
 </article>
   </div>

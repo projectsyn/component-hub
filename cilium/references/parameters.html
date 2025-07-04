@@ -2885,6 +2885,13 @@ The component expects that each value in this parameter is a valid partial <code
 The component validates that each secret has field <code>password</code>, which is required by the BGP control plane for auth secrets.</p>
 </div>
 <div class="paragraph">
+<p>By default, the component configures Cilium to look for BGP auth secrets in namespace <code>cilium</code>.
+The namespace can be changed by setting Helm value <code>bgpControlPlane.secretsNamespace.name</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component sets <code>metadata.namespace</code> to the configured <code>bgpControlPlane.secretsNamspace.name</code> for secrets defined through this parameter.</p>
+</div>
+<div class="paragraph">
 <p>See the <a href="https://docs.cilium.io/en/v1.16/network/bgp-control-plane/bgp-control-plane-v2/#md5-password">upstream documentation</a> for details.</p>
 </div>
 </div>
