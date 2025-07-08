@@ -1987,7 +1987,7 @@ type
 type
 </td>
 <td class="hdlist2">
-<p>bool</p>
+<p>string</p>
 </td>
 </tr>
 <tr>
@@ -1995,7 +1995,7 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>false</p>
+<p>""</p>
 </td>
 </tr>
 </table>
@@ -2004,10 +2004,17 @@ default
 <p>Defines if all instances should instantly be switched over to the new release or not. This will generate a job that will run the rollout.</p>
 </div>
 <div class="paragraph">
-<p>Set to <code>true</code> to trigger the rollout hotfix. The hotfix job will only be created once for each component release.</p>
+<p>The string should be the exact version of the component and the AppCat version to be deployed.</p>
 </div>
 <div class="paragraph">
-<p>If this is set to <code>false</code>, then each instance will switch over to the latest release during its own maintenance window.</p>
+<p>For example:</p>
+</div>
+<div class="paragraph">
+<p>Component: v1.2.3
+AppCat: v4.5.6</p>
+</div>
+<div class="paragraph">
+<p>Then the string should be: v.1.2.3-v4.5.6</p>
 </div>
 </div>
 <div class="sect2">
