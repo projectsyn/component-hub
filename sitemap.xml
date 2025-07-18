@@ -208,6 +208,9 @@
 <loc>https://hub.syn.tools/sitemap-openshift4-authentication.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-openshift4-compliance.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift4-config.xml</loc>
 </sitemap>
 <sitemap>
