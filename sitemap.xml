@@ -55,6 +55,9 @@
 <loc>https://hub.syn.tools/sitemap-cloudscale-cloud-controller-manager.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-cloudscale-loadbalancer-controller.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cluster-autoscaler.xml</loc>
 </sitemap>
 <sitemap>
