@@ -1287,6 +1287,70 @@ The value is used as is.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_ecr_authorization_tokens"><a class="anchor" href="#_ecr_authorization_tokens"></a><code>ecr_authorization_tokens</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is rendered as an external-secrets [<code>ECRAuthorizationToken</code>].
+The key can be just a name, or <code>&lt;namespace&gt;/&lt;name&gt;</code>.
+If the key is just a name, the resulting <code>ECRAuthorizationToken</code> is deployed in the namespace in which the operator is deployed.
+The component sets <code>metadata.name</code> and <code>metadata.namespace</code> based on the object key.
+The value is used as is and setting <code>metadata.name</code> or <code>metadata.namespace</code> overrides the values parsed from the object key.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_external_secrets"><a class="anchor" href="#_external_secrets"></a><code>external_secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is rendered as an external-secrets [<code>ExternalSecret</code>].
+The key can be just a name, or <code>&lt;namespace&gt;/&lt;name&gt;</code>.
+If the key is just a name, the resulting <code>ExternalSecret</code> is deployed in the namespace in which the operator is deployed.
+The component sets <code>metadata.name</code> and <code>metadata.namespace</code> based on the object key.
+The value is used as is and setting <code>metadata.name</code> or <code>metadata.namespace</code> overrides the values parsed from the object key.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
 </nav>
