@@ -74,7 +74,7 @@ jobs:
     needs: generate
     steps:
       - name: Download Antora Site configuration
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: antora-site-configuration
 
@@ -98,7 +98,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Download Antora Site
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: antora-site
 
