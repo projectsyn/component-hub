@@ -37,6 +37,9 @@
 <loc>https://hub.syn.tools/sitemap-backup-k8up.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-blackbox-exporter.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-cert-exoscale.xml</loc>
 </sitemap>
 <sitemap>
