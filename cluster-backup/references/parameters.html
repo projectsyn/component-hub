@@ -1837,6 +1837,34 @@ For this reason, and because we trust the discovery process of the new dumper, w
 </div>
 </div>
 <div class="sect1">
+<h2 id="_tls_options"><a class="anchor" href="#_tls_options"></a>tls_options</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Set TLS options for accessig the backend.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
@@ -1845,7 +1873,12 @@ For this reason, and because we trust the discovery process of the new dumper, w
   cluster_backup:
     images:
       object_dumper:
-        tag: v…</code></pre>
+        tag: v…
+    tls_options:
+      caCert: |
+        -----BEGIN CERTIFICATE-----
+        MY AWESOME CA
+        -----END CERTIFICATE-----</code></pre>
 </div>
 </div>
 </div>
