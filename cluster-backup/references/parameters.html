@@ -1837,7 +1837,7 @@ For this reason, and because we trust the discovery process of the new dumper, w
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tls_options"><a class="anchor" href="#_tls_options"></a>tls_options</h2>
+<h2 id="_customca"><a class="anchor" href="#_customca"></a>customCA</h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1860,7 +1860,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>Set TLS options for accessig the backend.</p>
+<p>Configure a custom CA for connecting to the backend.</p>
 </div>
 </div>
 </div>
@@ -1874,11 +1874,10 @@ default
     images:
       object_dumper:
         tag: v…
-    tls_options:
-      caCert: |
-        -----BEGIN CERTIFICATE-----
-        MY AWESOME CA
-        -----END CERTIFICATE-----</code></pre>
+    customCA: |
+      -----BEGIN CERTIFICATE-----
+      MY AWESOME CA
+      -----END CERTIFICATE-----</code></pre>
 </div>
 </div>
 </div>
