@@ -1257,6 +1257,74 @@ Please make sure that you store the <code>auth</code> value as base64 in Vault.<
 </div>
 </div>
 <div class="sect1">
+<h2 id="_cabundle"><a class="anchor" href="#_cabundle"></a><code>caBundle</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>null</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">caBundle: | <i class="conum" data-value="1"></i><b>(1)</b>
+  -----BEGIN CERTIFICATE-----
+  MY AWESOME CA
+  -----END CERTIFICATE-----</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Custom CA deployed as ConfigMap <code>syn-ca-bundle</code>.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows to deploy a ConfigMap in the <code>openshift-config</code> namespace.
+The ConfigMap contains the configured CA in the key <code>ca-bundle.crt</code>, to be used by other components.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This ConfigMap isn&#8217;t used by OpenShift components.
+OpenShift uses a separate config map called <code>user-ca-bundle</code> in namespace <code>openshift-config</code> to extend the system wide trusted CA bundle.
+See parameter <code>trustedCA</code> in component <a href="https://hub.syn.tools/openshift4-proxy/references/parameters.html#_trustedca">openshift4-proxy</a> for details on how to deploy additional trusted CA certificates for the system-wide trusted CA bundle.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_motd"><a class="anchor" href="#_motd"></a><code>motd</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
