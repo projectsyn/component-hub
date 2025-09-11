@@ -1259,6 +1259,16 @@ export HIERADATA_REPO_TOKEN=$(echo "${HIERADATA_REPO_SECRET}" | jq -r '.token')<
 </div>
 </li>
 <li>
+<p>Fetch the cluster cloudscale API token from Vault</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cloudscale_token=$(vault kv get \
+  -format=json "clusters/kv/${TENANT_ID}/${CLUSTER_ID}/cloudscale")
+export CLOUDSCALE_TOKEN=$(echo $cloudscale_token | jq -r '.data.data.token')</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Set the floaty API key Terraform variable from Vault</p>
 <div class="listingblock">
 <div class="content">
