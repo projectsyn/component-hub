@@ -1644,6 +1644,69 @@ Unless <code>role</code> is set to <code>master</code>, the <code>worker</code> 
 </div>
 </div>
 <div class="sect2">
+<h3 id="_portsecurity"><a class="anchor" href="#_portsecurity"></a><code>portSecurity</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><em>unset</em></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to selectively configure port security for networks that are attached to the node group in the <code>defaultSpecs.openstack</code> config.
+This parameter has no effect for networks which are defined directly through the node group&#8217;s <code>spec</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>If this parameter isn&#8217;t given the OpenStack platform&#8217;s default value is used.</p>
+</div>
+<div class="paragraph">
+<p>When port security is disabled, nodes in the group are fully accessible in each network they&#8217;re attached to.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This parameter is only supported on OpenStack.
+Other infrastructures don&#8217;t provide the same port security concept.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On OpenStack platforms which enable security groups (and port security) by default, this parameter must be set to <code>false</code> on node groups whose nodes are matched by one or more <code>CiliumL2AnnouncementPolicy</code> resources.
+This is necessary because the OpenStack platform won&#8217;t forward ARP replies for arbitrary IPs that are sent by nodes in the node group when port security is active.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h3>
 <div class="hdlist">
 <table>
