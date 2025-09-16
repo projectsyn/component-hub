@@ -1420,6 +1420,77 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_patchdualstack"><a class="anchor" href="#_patchdualstack"></a><code>patchDualStack</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_patchdualstack_enabled"><a class="anchor" href="#_patchdualstack_enabled"></a><code>patchDualStack.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When this parameter is set to true, the component deploys an Espejote <code>Admission</code> mutating webhook which intercepts newly created router pods and sets environment variable <code>ROUTER_IP_V4_V6_MODE</code> to <code>v4v6</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_patchdualstack_objectselector"><a class="anchor" href="#_patchdualstack_objectselector"></a><code>patchDualStack.objectSelector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/appuio/component-openshift4-ingress/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The value of this parameter is used as is for the Espejote <code>Admission&#8217;s `webhookConfiguration.objectSelector</code> field.
+By default, the component configures the webhook to select all router pods.
+Users can override this parameter to only select a subset of router pods.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
