@@ -1469,6 +1469,81 @@ type
 </div>
 </div>
 <div class="sect1">
+<h2 id="_gateways"><a class="anchor" href="#_gateways"></a><code>gateways</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to define <code>Gateway</code> resources to deploy.
+The component currently doesn&#8217;t validate that the value of <code>spec.gatewayClassName</code> is a gateway class that&#8217;s managed through parameter <code>gateway_classes</code>.</p>
+</div>
+<div class="paragraph">
+<p>Airlock Microgateway also supports referencing a <code>GatewayParameters</code> resource directly in <code>spec.infrastructure.parametersRef</code>.
+If both <code>spec.gatewayClassName</code> and <code>spec.infrastructure.parametersRef</code> are provided, the instance is configured with the parameters referenced in <code>spec.infrastructure.parametersRef</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://gateway-api.sigs.k8s.io/reference/spec/#gateway">Gateway API</a> and <a href="https://docs.airlock.com/microgateway/latest/index/1726159368159.html#Configuration_examples_of_K8s_Gateway_API_CRs">Airlock Microgateway</a> documentation for a full reference of supported configuration options for <code>Gateway</code> resources.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When component <code>cilium</code> is installed in the cluster, the component also creates a <code>CiliumNetworkPolicy</code> which allows traffic from identity <code>world</code> for each managed <code>Gateway</code> resource.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 7173a80 (Create <code>CiliumNetworkPolicy</code> when Cilium is installed)
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">airlock_microgateway:
+  gateways:
+    airlock/gateway-1:
+      spec:
+        gatewayClassName: airlock-microgateway
+        listeners:
+          - allowedRoutes:
+              namespaces:
+                from: All
+            name: http
+            port: 80
+            protocol: HTTP
+
+  gateway_parameters:
+    airlock/gatewayparams: { ... }
+
+  gateway_classes:
+    airlock-microgateway:
+      parametersRef: "airlock/gatewayparams"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1719,7 +1794,7 @@ default
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
+<h2 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
