@@ -1527,6 +1527,25 @@ This won&#8217;t have an immediate effect since we&#8217;ve disabled Puppet on t
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Review this MR very carefully.
+The MR <strong>must</strong> remove the router floating IP in <code>profile_openshift4_gateway::floating_addresses</code>, if it was previously present.
+Additionally the MR will remove the router backends.</p>
+</div>
+<div class="paragraph">
+<p>Please be aware that in some setups, such as clusters which have the router exposed on internal IPs, the router backends may still be required after migrating the public ingress to a cloudscale LB instance.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
 <p>Switch back to Commodore working directory</p>
