@@ -1373,6 +1373,82 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_sli_reporting_prometheus_url"><a class="anchor" href="#_sli_reporting_prometheus_url"></a><code>sli_reporting.prometheus.url</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>""</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p>"http://prometheus-operated.monitoring.svc.cluster.local:9090"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL of the Prometheus instance to query for SLI data.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sli_reporting_prometheus_headers"><a class="anchor" href="#_sli_reporting_prometheus_headers"></a><code>sli_reporting.prometheus.headers</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">X-Scope-OrgID: appuio-managed-openshift-metrics</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional HTTP headers to be sent to the SLI Prometheus instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_network_policies_target_namespaces"><a class="anchor" href="#_network_policies_target_namespaces"></a><code>network_policies.target_namespaces</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
