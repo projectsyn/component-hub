@@ -1370,6 +1370,146 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_airlock_xopenshift"><a class="anchor" href="#_airlock_xopenshift"></a><code>airlock_xopenshift</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for deploying patched Gateway API CRDs on OpenShift.
+This parameter allows us to deploy copies of upstream Gateway API CRDs in API group <code>x-openshift.microgateway.airlock.com</code>.
+This allows us&#8201;&#8212;&#8201;by leveraging Airlock Mircogateway&#8217;s support for CRDs in that API group&#8201;&#8212;&#8201;to deploy additional Gateway API CRDs on OpenShift without creating conflicts with the ingress-operator-managed Gateway API CRDs that are deployed on OpenShift &gt;= 4.19.</p>
+</div>
+<div class="paragraph">
+<p>This parameter only has an effect for <code>install_method=olm</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy any patched Gateway API CRDs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_version_2"><a class="anchor" href="#_version_2"></a><code>version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>v1.3.0</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The upstream Gateway API version of the CRDs that we want to patch.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel"><a class="anchor" href="#_channel"></a><code>channel</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>experimental</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The upstream Gateway API channel for the CRDs to patch.
+Supported values are <code>standard</code> or <code>experimental</code>.
+Component compilation will error when another value is provided.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_crds"><a class="anchor" href="#_crds"></a><code>crds</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{"backendtlspolicies":"BACKEND_TLS_POLICY"}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The list of CRD names for which the component will deploy a copy of the CRD in API group <code>x-openshift.microgateway.airlock.com</code>.
+The keys are expected to be CRD base names, such as <code>backendtlspolicies</code>.
+The component will always download the full <code>&lt;channel&gt;-install.yaml</code> from the specified Gateway API release but will only create copies of CRDs whose base name matches a key with a non-null value in this parameter.</p>
+</div>
+<div class="paragraph">
+<p>The values are expected to be the identifying segment for the OLM operator environment variable which switches the CRD from API group <code>gateway.networking.k8s.io</code> to <code>x-openshift.microgateway.airlock.com</code>.
+For example, value <code>BACKEND_TLS_POLICY</code> results in environment variable <code>GATEWAY_API_BACKEND_TLS_POLICY_API_GROUP=x-openshift.microgateway.airlock.com</code> to be set for the OLM operator.</p>
+</div>
+<div class="paragraph">
+<p>Users can remove entries in this parameter by setting an entry to <code>null</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_gateway_classes"><a class="anchor" href="#_gateway_classes"></a><code>gateway_classes</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1614,7 +1754,7 @@ type
 <p>Configuration for OLM (Operator Lifecycle Manager) installation.</p>
 </div>
 <div class="sect2">
-<h3 id="_version_2"><a class="anchor" href="#_version_2"></a><code>version</code></h3>
+<h3 id="_version_3"><a class="anchor" href="#_version_3"></a><code>version</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1640,7 +1780,7 @@ default
 </div>
 </div>
 <div class="sect2">
-<h3 id="_channel"><a class="anchor" href="#_channel"></a><code>channel</code></h3>
+<h3 id="_channel_2"><a class="anchor" href="#_channel_2"></a><code>channel</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1747,7 +1887,7 @@ type
 <p>Configuration for the Microgateway chart.</p>
 </div>
 <div class="sect3">
-<h4 id="_version_3"><a class="anchor" href="#_version_3"></a><code>version</code></h4>
+<h4 id="_version_4"><a class="anchor" href="#_version_4"></a><code>version</code></h4>
 <div class="hdlist">
 <table>
 <tr>
