@@ -99,6 +99,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/grafana-dashboard.html">Grafana Dashboards</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/gateway-listener-manager.html">Manage Gateway Listeners through HTTPRoutes</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -1280,6 +1283,291 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_gateway_listener_manager"><a class="anchor" href="#_gateway_listener_manager"></a><code>gateway_listener_manager</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Gateway Listener Manager.
+Gateway Listener Manager allows merging multiple gateway listeners, based on <code>HTTPRoutes</code> into a single gateway.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../how-tos/gateway-listener-manager.html" class="page">Manage Gateway Listeners through HTTPRoutes</a> for more details.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable the Gateway Listener Manager.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_listener_annotation"><a class="anchor" href="#_create_listener_annotation"></a><code>create_listener_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/create-gateway-https-listener</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to create an HTTPS listener automatically.
+Must be set to <code>ANNOTATION: "true"</code> in the resource annotations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tls_secret_name_annotation"><a class="anchor" href="#_tls_secret_name_annotation"></a><code>tls_secret_name_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/tls-secret-name</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the name of the TLS secret to use for HTTPS listeners.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_httproute_certificate_manager"><a class="anchor" href="#_httproute_certificate_manager"></a><code>httproute_certificate_manager</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the HTTPRoute Certificate Manager.
+HTTPRoute Certificate Manager allows automatic management of TLS certificates for <code>HTTPRoute</code> resources using cert-manager.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../how-tos/gateway-listener-manager.html" class="page">Manage Gateway Listeners through HTTPRoutes</a> for more details.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable the HTTPRoute Certificate Manager.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tls_secret_name_annotation_2"><a class="anchor" href="#_tls_secret_name_annotation_2"></a><code>tls_secret_name_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${airlock_microgateway:gateway_listener_manager:tls_secret_name_annotation}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the name of the TLS secret to create the certificate in.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_certificate_annotation"><a class="anchor" href="#_create_certificate_annotation"></a><code>create_certificate_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/create-certificate</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to create a certificate automatically.
+Must be set to <code>ANNOTATION: "true"</code> in the resource annotations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gateway_default_cluster_issuer_annotation"><a class="anchor" href="#_gateway_default_cluster_issuer_annotation"></a><code>gateway_default_cluster_issuer_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/gateway-default-cluster-issuer</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on parent <code>Gateway</code> resources to specify the default cluster issuer for certificates.
+If the resource has no <code>issuer_annotation</code> or <code>cluster_issuer_annotation</code>, this cluster issuer will be used.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cluster_issuer_annotation"><a class="anchor" href="#_cluster_issuer_annotation"></a><code>cluster_issuer_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/cluster-issuer</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the cluster issuer for certificates.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_issuer_annotation"><a class="anchor" href="#_issuer_annotation"></a><code>issuer_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/issuer</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the issuer for certificates.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_gateway_api"><a class="anchor" href="#_gateway_api"></a><code>gateway_api</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
@@ -1298,7 +1586,7 @@ type
 <p>Configuration for Kubernetes Gateway API integration.</p>
 </div>
 <div class="sect2">
-<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<h3 id="_enabled_3"><a class="anchor" href="#_enabled_3"></a><code>enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
@@ -1401,7 +1689,7 @@ This allows us&#8201;&#8212;&#8201;by leveraging Airlock Mircogateway&#8217;s su
 <p>This parameter only has an effect for <code>install_method=olm</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
+<h3 id="_enabled_4"><a class="anchor" href="#_enabled_4"></a><code>enabled</code></h3>
 <div class="hdlist">
 <table>
 <tr>
