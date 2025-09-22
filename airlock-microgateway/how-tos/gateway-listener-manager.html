@@ -1349,10 +1349,19 @@ kubectl annotate httproute -n $NAMESPACE $ROUTE_NAME airlock-microgateway.appuio
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_check_error_events_on_the_httproute"><a class="anchor" href="#_check_error_events_on_the_httproute"></a>Check error events on the HTTPRoute</h3>
-<div class="listingblock">
-<div class="content">
-<pre>`kubectl describe` might not show all events, so we recommend using `kubectl get events` with a field selector.</pre>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>kubectl describe</code> might not show all events, so we recommend using <code>kubectl get events</code> with a field selector.</p>
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
