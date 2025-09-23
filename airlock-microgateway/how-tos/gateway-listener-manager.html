@@ -1422,7 +1422,7 @@ kubectl get referencegrants -n $NAMESPACE -ojson |\
 <h3 id="_force_reconciliation_if_in_error_backoff"><a class="anchor" href="#_force_reconciliation_if_in_error_backoff"></a>Force reconciliation if in error backoff</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE annotate httproute fortune-go "reconcile=$(date)" --overwrite</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n $NAMESPACE annotate httproute $ROUTE_NAME "reconcile=$(date)" --overwrite</code></pre>
 </div>
 </div>
 <div class="paragraph">
