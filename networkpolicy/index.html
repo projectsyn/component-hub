@@ -95,6 +95,15 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="references/parameters.html">Parameters</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/isolate-namespaces-clustermesh.html">Isolate namespaces in a Cilium cluster mesh</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="how-tos/using-customizing-policies.html">Using and customizing policies</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -1134,7 +1143,8 @@ The latter is needed for ingress and monitoring to work.</p>
 </div>
 <div class="paragraph">
 <p>An Espejote ManagedResource is used to create the policies.
-The ManagedResource is configured to ignore namespaces having the label <code>network-policies.syn.tools/no-defaults</code> (the value doesn&#8217;t matter).</p>
+The ManagedResource is configured to ignore namespaces having the label <code>network-policies.syn.tools/no-defaults</code> (the value doesn&#8217;t matter).
+Namespaces can also be ignored by listing them in the <code>ignoredNamespaces</code> parameter.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -1148,29 +1158,8 @@ The ManagedResource is configured to ignore namespaces having the label <code>ne
 Changes from other sources will be overwritten.
 If changes to the default policies are required, add the ignore label and create them on your own.</p>
 </div>
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>This component also allows to exclude a set of namespaces.
-Those namespaces will receive the <code>network-policies.syn.tools/no-defaults=true</code> and <code>network-policies.syn.tools/purge-defaults=true</code> labels.</p>
-</div>
-<div class="paragraph">
-<p>The label <code>network-policies.syn.tools/purge-defaults=true</code> results in the active removal of those default policies.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Removing the NetworkPolicies from namespaces labeled <code>network-policies.syn.tools/purge-defaults=true</code> is done by name.
-The names removed are <code>allow-from-same-namespace</code> and <code>allow-from-other-namespaces</code>.
-If similar rules are created in those namespaces, they must have different names.
-Otherwise, they will be removed.</p>
+<p>If you&#8217;d rather customize the policies applied by this component, see the <a href="how-tos/using-customizing-policies.html" class="page">Using and customizing policies</a>.</p>
 </div>
 </td>
 </tr>

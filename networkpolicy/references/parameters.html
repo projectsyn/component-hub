@@ -6,6 +6,7 @@
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/networkpolicy/references/parameters.html">
     <link rel="prev" href="../index.html">
+    <link rel="next" href="../how-tos/upgrade-v1.x-v2.x.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +95,15 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/isolate-namespaces-clustermesh.html">Isolate namespaces in a Cilium cluster mesh</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/using-customizing-policies.html">Using and customizing policies</a>
   </li>
 </ul>
   </li>
@@ -1149,7 +1159,11 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">noDefaults: network-policies.syn.tools/no-defaults
+policySetPrefix: set.network-policies.syn.tools/
+## Deprecated
+# Use `base` policy set instead. e.g. `set.network-policies.syn.tools/base: ""`
 baseDefaults: network-policies.syn.tools/base-defaults
+## Deprecated and unused. Here for backwards compatibility as some components still include this label
 purgeDefaults: network-policies.syn.tools/purge-defaults
 purgeNonBase: network-policies.syn.tools/purge-non-base</code></pre>
 </div>
@@ -1162,40 +1176,30 @@ purgeNonBase: network-policies.syn.tools/purge-non-base</code></pre>
 <p>Name of the labels to be used in other components.</p>
 </div>
 <div class="paragraph">
-<p>By default every namespace will get policies required for the OpenShift platform and a policy to allow intra-namespace communication.
-By default, two sets of policies are created in every namespace:
-- <code>base</code> policies, which are required for the OpenShift platform to function correctly.
+<p>By default, two sets of policies are created in every namespace:
+- <code>base</code> policies, which are required for the platform to function correctly.
 - <code>default</code> policies, which allow pods in the same namespace to communicate with each other.
 The default policies can be modified with the labels defined in this parameter.</p>
 </div>
 <div class="sect2">
+<h3 id="_policysetprefix_label_prefix"><a class="anchor" href="#_policysetprefix_label_prefix"></a><code>policySetPrefix</code> label prefix</h3>
+<div class="paragraph">
+<p>Custom policy sets can be applied to a namespace by adding a label with this prefix and the name of the policy set as suffix.
+For example, to apply the <code>ingress</code> policy set, add the label <code>set.network-policies.syn.tools/ingress: ""</code> to the namespace.
+The label value is ignored and can be an empty string.</p>
+</div>
+<div class="paragraph">
+<p>As soon as any policy set label is applied to a namespace, the <code>default</code> policy set is removed unless it is explicitly added again using the corresponding label.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_nodefaults_label"><a class="anchor" href="#_nodefaults_label"></a><code>noDefaults</code> label</h3>
 <div class="paragraph">
-<p>Policies will no longer be managed.
-The already created policies will stay in place and can be modified by the user or other components.</p>
+<p>Policies will no longer be managed and existing policies managed by this component will be removed in namespaces with this label.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_basedefaults_label"><a class="anchor" href="#_basedefaults_label"></a><code>baseDefaults</code> label</h3>
-<div class="paragraph">
-<p>Only policies required for the OpenShift platform will be created.
-The intra-namespace policy will no longer be managed by this component and can be modified by the user or other components.</p>
-</div>
-<div class="paragraph">
-<p>There&#8217;s no guarantee that pods will be able to communicate with each other even if they are in the same namespace once the intra-namespace policies is modified or removed by the user.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_purgedefaults_label"><a class="anchor" href="#_purgedefaults_label"></a><code>purgeDefaults</code> label</h3>
-<div class="paragraph">
-<p>All managed policies will be purged from the namespace.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_purgenonbase_label"><a class="anchor" href="#_purgenonbase_label"></a><code>purgeNonBase</code> label</h3>
-<div class="paragraph">
-<p>All managed policies except the platform required policies will be purged from the namespace.</p>
-</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1204,17 +1208,29 @@ The intra-namespace policy will no longer be managed by this component and can b
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>purge*</code> labels should always be acompanied by their respective <code>noDefaults</code> or <code>baseDefaults</code> label.</p>
+<p>This label is deprecated.
+Use the <code>set.network-policies.syn.tools/base: ""</code> label instead.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Only policies required for the OpenShift platform will be created.
+The intra-namespace policy will be removed and the pods in the namespace will be isolated from each other.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_purgedefaults_and_purgenonbase_labels"><a class="anchor" href="#_purgedefaults_and_purgenonbase_labels"></a><code>purgeDefaults</code> and <code>purgeNonBase</code> labels</h3>
+<div class="paragraph">
+<p>Unused and have no effect.
+Purging of policies is the default behavior and can&#8217;t be disabled.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_allownamespacelabels"><a class="anchor" href="#_allownamespacelabels"></a><code>allowNamespaceLabels</code></h2>
+<h2 id="_basepolicy_allownamespacelabels"><a class="anchor" href="#_basepolicy_allownamespacelabels"></a><code>basePolicy.allowNamespaceLabels</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1223,7 +1239,7 @@ The intra-namespace policy will no longer be managed by this component and can b
 type
 </td>
 <td class="hdlist2">
-<p>list of tuples</p>
+<p>dictionary[string](list of tuples|tuples|null)</p>
 </td>
 </tr>
 <tr>
@@ -1231,28 +1247,41 @@ type
 default
 </td>
 <td class="hdlist2">
-<p>empty list</p>
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">allowNamespaceLabels:
+  mylabel:
+    - test.example.net/test-group: group1
+    - test.example.net/test-group: group2
+  myOtherLabel:
+    test.example.net/ingress-group: "group1"
+    test.example.net/ingress-group: "group2"
+  myThirdLabel: null</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A list of labels matching namespaces to allow traffic from.
+<p>The key is for easier merging in commodore and has no semantic meaning.
+The value is either a list of tuples, a single tuple or <code>null</code>.
+The values are a list of labels matching namespaces to allow traffic from.
 Each list item can contain several key value pairs.
 They result in an <code>AND</code> condition.
 Individual list items will result in an <code>OR</code> condition.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">allowNamespaceLabels:
-  - my-label-a: true
-    my-label-b: true
-  - my-label-c: true</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p>In the above example, traffic will be allowed if a namespaces has the label <code>my-label-a=true</code> AND <code>my-label-b=true</code>.
-Traffic will also be allowed if a namespace is labeled <code>my-label-c</code>.</p>
+<p>In the above example, traffic will be allowed if a namespaces has the label <code>test.example.net/test-group=group1</code> OR <code>test.example.net/test-group=group2</code>.
+Traffic will also be allowed if a namespace has the label <code>test.example.net/ingress-group=group1</code> AND <code>test.example.net/ingress-group=group2</code>.</p>
 </div>
 </div>
 </div>
@@ -1287,101 +1316,7 @@ Entries in the list can be removed by adding the entry prefixed with a <code>~</
 </div>
 </div>
 <div class="sect1">
-<h2 id="_networkplugin"><a class="anchor" href="#_networkplugin"></a><code>networkPlugin</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>''</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The network plugin installed on the cluster.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This needs to be set when using the Cilium network plugin.
-Otherwise some policies might not be applied correctly.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ciliumclusterid"><a class="anchor" href="#_ciliumclusterid"></a><code>ciliumClusterID</code></h2>
-<div class="sectionbody">
-<div class="hdlist">
-<table>
-<tr>
-<td class="hdlist1">
-type
-</td>
-<td class="hdlist2">
-<p>string</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-default
-</td>
-<td class="hdlist2">
-<p><code>''</code></p>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>This parameter controls whether the component isolates namespaces with the same name from each other in a Cilium cluster mesh.
-The default behavior if the parameter is empty is to allow connectivity between namespaces with the same name across clusters.</p>
-</div>
-<div class="paragraph">
-<p>If this behavior isn&#8217;t desired, this parameter can be set to the cluster&#8217;s Cilium cluster ID (which is configured in parameter <code>cilium.cilium_helm_values.cluster.name</code> when using cluster mesh).
-When the parameter isn&#8217;t empty, the component will adjust the <code>allow-from-same-namespace</code> policy with the following snippet:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
- ingress:
- - from:
-   - podSelector:
-       matchLabels:
-         io.cilium.k8s.policy.cluster: &lt;ciliumClusterID&gt; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>&lt;ciliumClusterID&gt;</code> is replaced with the string provided in this parameter</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_allowfromnodelabels"><a class="anchor" href="#_allowfromnodelabels"></a><code>allowFromNodeLabels</code></h2>
+<h2 id="_basepolicy_cniplugins_cilium_allowfromnodelabels"><a class="anchor" href="#_basepolicy_cniplugins_cilium_allowfromnodelabels"></a><code>basePolicy.cniPlugins.cilium.allowFromNodeLabels</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1468,14 +1403,96 @@ This ensures that the Kubernetes health checks work as expected regardless of th
 </div>
 </div>
 <div class="sect1">
+<h2 id="_policies"><a class="anchor" href="#_policies"></a><code>policies</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Define additional NetworkPolicies or CiliumNetworkPolicies to be used by policy sets.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure to use the prefix <code>cilium/</code> when defining CiliumNetworkPolicies.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Also see <a href="../how-tos/using-customizing-policies.html" class="page">Using and customizing policies</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_policysets"><a class="anchor" href="#_policysets"></a><code>policySets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Define policy sets that can be selected by the label <code>network-policies.syn.tools/policy-sets</code>.
+A policy set is an array of policy names defined in <code>policies</code>.
+Names can be removed from the default policy sets by prefixing them with a <code>~</code>.
+A policy can be part of multiple policy sets, even if those policy sets are applied to the same namespace.</p>
+</div>
+<div class="paragraph">
+<p>Also see <a href="../how-tos/using-customizing-policies.html" class="page">Using and customizing policies</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Allow traffic from ingress and monitoring
-allowNamespaceLabels:
-  - network.openshift.io/policy-group: monitoring
-  - network.openshift.io/policy-group: ingress
+basePolicy:
+  allowNamespaceLabels:
+    monitoring:
+      - network.openshift.io/policy-group: monitoring
+    ingress:
+      - network.openshift.io/policy-group: ingress
 # Do not create the default policies in the OpenShift namespaces.
 ignoredNamespaces:
   - openshift
@@ -1488,6 +1505,7 @@ ignoredNamespaces:
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../how-tos/upgrade-v1.x-v2.x.html">Upgrade from v1.x to v2.x</a></span>
 </nav>
 </article>
   </div>
