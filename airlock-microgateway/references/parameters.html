@@ -1987,6 +1987,93 @@ When component <code>cilium</code> is installed in the cluster, the component al
 </div>
 </div>
 <div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to disable or patch alerts managed by the component.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component currently expects that an <code>openshift4-monitoring</code>-style alert patching library is available for the target cluster&#8217;s distribution&#8217;s monitoring stack.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts_ignorenames"><a class="anchor" href="#_alerts_ignorenames"></a><code>alerts.ignoreNames</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users can add alert names which they want to disable in this list.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_patches"><a class="anchor" href="#_alerts_patches"></a><code>alerts.patches</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users can customize alerts through this parameter.
+The component looks for alert names it knows in this parameter, and applies the provided value, if any, over the default alert configuration.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
