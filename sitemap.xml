@@ -211,6 +211,9 @@
 <loc>https://hub.syn.tools/sitemap-nfs-subdir-external-provisioner.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-nvidia-gpu-operator.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-openshift-upgrade-controller.xml</loc>
 </sitemap>
 <sitemap>
