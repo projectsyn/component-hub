@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Migrating from component-managed per-namespace egress IP to self service for namespace egress IPs :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/cilium/how-tos/migrate-to-self-service-namespace-egress-ips.html">
-    <link rel="prev" href="upgrade-cilium-enterprise.html">
-    <link rel="next" href="openshift4/upgrade-cilium-oss-to-cilium-enterprise.html">
+    <title>CiliumKVStoreMeshRemoteClusterNotReady :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/cilium/runbooks/CiliumKVStoreMeshRemoteClusterNotReady.html">
+    <link rel="prev" href="CiliumClustermeshRemoteClusterNotReady.html">
+    <link rel="next" href="CiliumBpfMapPressureHigh.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -103,17 +103,17 @@
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="upgrade-cilium-enterprise.html">Upgrade Cilium Enterprise</a>
+    <a class="nav-link" href="../how-tos/upgrade-cilium-enterprise.html">Upgrade Cilium Enterprise</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="migrate-to-self-service-namespace-egress-ips.html">Migrate to self service for namespace egress IPs</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/migrate-to-self-service-namespace-egress-ips.html">Migrate to self service for namespace egress IPs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">OpenShift 4</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="openshift4/upgrade-cilium-oss-to-cilium-enterprise.html">Upgrade Cilium OSS to Cilium Enterprise</a>
+    <a class="nav-link" href="../how-tos/openshift4/upgrade-cilium-oss-to-cilium-enterprise.html">Upgrade Cilium OSS to Cilium Enterprise</a>
   </li>
 </ul>
   </li>
@@ -128,10 +128,10 @@
     <span class="nav-text">Cluster mesh</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/CiliumClustermeshRemoteClusterNotReady.html">CiliumClustermeshRemoteClusterNotReady</a>
+    <a class="nav-link" href="CiliumClustermeshRemoteClusterNotReady.html">CiliumClustermeshRemoteClusterNotReady</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/CiliumKVStoreMeshRemoteClusterNotReady.html">CiliumKVStoreMeshRemoteClusterNotReady</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="CiliumKVStoreMeshRemoteClusterNotReady.html">CiliumKVStoreMeshRemoteClusterNotReady</a>
   </li>
 </ul>
   </li>
@@ -140,13 +140,13 @@
     <span class="nav-text">eBPF</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/CiliumBpfMapPressureHigh.html">CiliumBpfMapPressureHigh</a>
+    <a class="nav-link" href="CiliumBpfMapPressureHigh.html">CiliumBpfMapPressureHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/CiliumBpfMapPressureExtremelyHigh.html">CiliumBpfMapPressureExtremelyHigh</a>
+    <a class="nav-link" href="CiliumBpfMapPressureExtremelyHigh.html">CiliumBpfMapPressureExtremelyHigh</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../runbooks/CiliumBpfOperationErrorRateHigh.html">CiliumBpfOperationErrorRateHigh</a>
+    <a class="nav-link" href="CiliumBpfOperationErrorRateHigh.html">CiliumBpfOperationErrorRateHigh</a>
   </li>
 </ul>
   </li>
@@ -1173,202 +1173,232 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Cilium</a></li>
-    <li>How-Tos</li>
-    <li><a href="migrate-to-self-service-namespace-egress-ips.html">Migrate to self service for namespace egress IPs</a></li>
+    <li>Runbooks</li>
+    <li>Cluster mesh</li>
+    <li><a href="CiliumKVStoreMeshRemoteClusterNotReady.html">CiliumKVStoreMeshRemoteClusterNotReady</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cilium/edit/master/docs/modules/ROOT/pages/how-tos/migrate-to-self-service-namespace-egress-ips.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cilium/edit/master/docs/modules/ROOT/pages/runbooks/CiliumKVStoreMeshRemoteClusterNotReady.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Migrating from component-managed per-namespace egress IP to self service for namespace egress IPs</h1>
-<div class="sect1">
-<h2 id="_starting_situation"><a class="anchor" href="#_starting_situation"></a>Starting situation</h2>
+<h1 class="page">CiliumKVStoreMeshRemoteClusterNotReady</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>You have a cluster which uses the component&#8217;s support for per-namespace egress IPs (parameter <code>egress_gateway.egress_ip_ranges.&lt;range&gt;.namespace_egress_ips</code>).</p>
-</li>
-<li>
-<p>You want to switch the cluster to enable the customer to configure namespace egress IPs via namespace annotation.</p>
-</li>
-<li>
-<p><a href="https://github.com/vshn/espejote">Espejote</a> is installed on the cluster via <a href="https://github.com/projectsyn/component-espejote">component-espejote</a>.</p>
-</li>
-<li>
-<p>The cluster is already using component-cilium v1.13.0 or newer</p>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Make sure to update the cluster to component-cilium v1.13.0 or newer before applying the steps in this how-to to ensure that the egress policies aren&#8217;t deleted during the migration.
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-</li>
-</ul>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Cluster-admin access to the cluster</p>
-</li>
-<li>
-<p>Local Commodore setup</p>
-</li>
-<li>
-<p><code>yq</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>This alert fires if a remote cluster&#8217;s KVStore is not reachable from the local cluster for 10 minutes or longer.
+This usually indicates one of the following two:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h2>
-<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Switch to a temporary working directory</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">WDIR=$(mktemp -d)
-pushd $WDIR</code></pre>
-</div>
-</div>
+<p>There are network issues preventing cluster mesh connectivity</p>
 </li>
 <li>
-<p>Compile the cluster which you want to update</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLUSTER_ID=c-cluster-id-1234 <i class="conum" data-value="1"></i><b>(1)</b>
-commodore catalog compile ${CLUSTER_ID}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The Project Syn ID of the cluster</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Make sure you have access to the cluster</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export KUBECONFIG=/path/to/cluster.kubeconfig
-kubectl cluster-info</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Update the cluster config to use the self service mechanism for namespace egress IPs</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TENANT_ID=$(yq .parameters.cluster.tenant inventory/classes/params/cluster.yml)
-pushd inventory/classes/${TENANT_ID}
-
-yq -i ".parameters.cilium.egress_gateway.self_service_namespace_ips = true" ${CLUSTER_ID}.yml
-yq -i ".parameters.cilium.egress_gateway.egress_ip_ranges[] |= del(.namespace_egress_ips)" ${CLUSTER_ID}.yml
-
-git commit -am "Enable per-namespace self-service egress IPs on ${CLUSTER_ID}"
-git push
-
-popd</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Compile and push the cluster catalog</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">commodore catalog compile ${CLUSTER_ID} --push -i</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Add the <code>cilium.syn.tools/egress-ip</code> annotation to all namespaces which have a policy</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This step assumes that the only <code>IsovalentEgressGatewayPolicy</code> resources on the cluster are per-namespace egress IP policies managed by the Commodore component.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get isovalentegressgatewaypolicy -l argocd.argoproj.io/instance=cilium -oyaml | \
-  yq '.items[] |
-    "kubectl --as=cluster-admin annotate namespace \(.metadata.name) cilium.syn.tools/egress-ip="
-    + .metadata.annotations["cilium.syn.tools/egress-ip"]
-  ' | \
-  bash <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>If you want to verify the commands that are generated, remove the <code>| bash</code> for the first run.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Verify that the Espejote <code>ManagedResource</code> has been deployed</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n cilium get managedresource</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Remove the <code>argocd.argoproj.io/instance</code> label from the egress policies to bring the <code>cilium</code> ArgoCD app back in sync</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This step assumes that the only <code>IsovalentEgressGatewayPolicy</code> resources on the cluster are per-namespace egress IP policies managed by the Commodore component.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin label isovalentegressgatewaypolicy -l argocd.argoproj.io/instance=cilium argocd.argoproj.io/instance-</code></pre>
-</div>
-</div>
+<p>The remote cluster has misconfigured network policies which prevent access to its KVStore</p>
 </li>
 </ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Depending on the network configuration, there may be static routes on each node for the remote cluster&#8217;s cluster mesh API server.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The steps in this section assume that your current Kubernetes context points to the source cluster.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This section assumes that you&#8217;re running cluster mesh with the cluster mesh API server enabled.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cilium</code> CLI, install from <a href="https://github.com/cilium/cilium-cli"><span class="icon"><i class="fa fa-github"></i></span> cilium/cilium-cli</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_identifying_the_root_cause"><a class="anchor" href="#_identifying_the_root_cause"></a>Identifying the root cause</h3>
+<div class="paragraph">
+<p>First, check the source cluster&#8217;s overall cluster mesh status</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cilium -n cilium clustermesh status --as=cluster-admin <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>--as=cluster-admin</code> is required on VSHN Managed OpenShift, may need to be left out on other clusters.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_investigating_cluster_mesh_api"><a class="anchor" href="#_investigating_cluster_mesh_api"></a>Investigating cluster mesh API</h3>
+<div class="paragraph">
+<p>The cluster mesh API runs in the <code>cilium</code> namespace as deployment <code>clustermesh-apiserver</code>.
+Check that the pod runs and check the logs for errors with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n cilium get pods -l app.kubernetes.io/name=clustermesh-apiserver
+kubectl -n cilium logs deploy/clustermesh-apiserver --all-containers</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checking_kvstoremesh_status"><a class="anchor" href="#_checking_kvstoremesh_status"></a>Checking KVStoreMesh status</h3>
+<div class="paragraph">
+<p>You can check the KVStoreMesh connection to the remote cluster mesh API server in the <code>clustermesh-apiserver</code> deployment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n cilium --as=cluster-admin exec -it deploy/clustermesh-apiserver -c kvstoremesh -- \
+   clustermesh-apiserver kvstoremesh-dbg status <i class="conum" data-value="1"></i><b>(1)</b>
+
+kubectl exec -it -n cilium --as=cluster-admin deploy/clustermesh-apiserver -c kvstoremesh -- \
+  clustermesh-apiserver kvstoremesh-dbg troubleshoot <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Show a connection summary of the KVStoreMesh</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Show connection details of the KVStoreMesh</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checking_node_routing_tables_and_connectivity"><a class="anchor" href="#_checking_node_routing_tables_and_connectivity"></a>Checking node routing tables and connectivity</h3>
+<div class="paragraph">
+<p>For setups which use static routes to make the nodes of the clusters participating in the cluster mesh reachable from each other, you can check the routing tables on the host and verify connectivity with <code>ping</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">OpenShift 4</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NODE=&lt;node name of affected node&gt;
+REMOTE_NODE=&lt;ip of a node in the remote cluster&gt;
+oc -n syn-debug-nodes debug node/${NODE} --as=cluster-admin -- chroot /host ip r
+oc -n syn-debug-nodes debug node/${NODE} --as=cluster-admin -- chroot /host ping -c4 ${REMOTE_NODE}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Other K8s</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DEBUG_IMAGE=ghcr.io/digitalocean-packages/doks-debug:latest <i class="conum" data-value="1"></i><b>(1)</b>
+NODE=&lt;node name of affected node&gt;
+REMOTE_NODE=&lt;ip of a node in the remote cluster&gt;
+kubectl debug node/${NODE} -it --image=${DEBUG_IMAGE} -- ip r
+kubectl debug node/${NODE} -it --image=${DEBUG_IMAGE} -- ping -c4 ${REMOTE_NODE} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We&#8217;re using the DigitalOcean <code>doks-debug</code> image, which comes with a bunch of common tools installed.
+See <a href="https://github.com/digitalocean/doks-debug"><span class="icon"><i class="fa fa-github"></i></span> digitalocean/doks-debug</a> for details.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This command hasn&#8217;t been tested yet, it&#8217;s possible that your cluster configuration will not allow <code>ping</code> in node debug containers.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upstream_documentation"><a class="anchor" href="#_upstream_documentation"></a><span class="icon"><i class="fa fa-book"></i></span> Upstream documentation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.cilium.io/en/latest/network/clustermesh/intro/">Cilium OSS&#8201;&#8212;&#8201; Cluster Mesh documetation</a></p>
+</li>
+<li>
+<p><a href="https://docs.isovalent.com/configuration-guide/cluster-mesh/troubleshooting.html">Cilium OSS&#8201;&#8212;&#8201; Cluster Mesh Troubleshooting</a></p>
+</li>
+<li>
+<p><a href="https://docs.cilium.io/en/stable/operations/troubleshooting/#troubleshooting-clustermesh">Cilium OSS&#8201;&#8212;&#8201;Troubleshooting Cluster Mesh</a></p>
+</li>
+<li>
+<p><a href="https://docs.isovalent.com/configuration-guide/cluster-mesh/operating.html">Cilium Enterprise&#8201;&#8212;&#8201;Operating Cluster Mesh</a></p>
+</li>
+<li>
+<p><a href="https://docs.isovalent.com/configuration-guide/cluster-mesh/troubleshooting.html">Cilium Enterprise&#8201;&#8212;&#8201;Troubleshooting Cluster Mesh</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="upgrade-cilium-enterprise.html">Upgrade Cilium Enterprise</a></span>
-  <span class="next"><a href="openshift4/upgrade-cilium-oss-to-cilium-enterprise.html">Upgrade Cilium OSS to Cilium Enterprise</a></span>
+  <span class="prev"><a href="CiliumClustermeshRemoteClusterNotReady.html">CiliumClustermeshRemoteClusterNotReady</a></span>
+  <span class="next"><a href="CiliumBpfMapPressureHigh.html">CiliumBpfMapPressureHigh</a></span>
 </nav>
 </article>
   </div>
@@ -1379,7 +1409,7 @@ This step assumes that the only <code>IsovalentEgressGatewayPolicy</code> resour
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cilium/how-tos/migrate-to-self-service-namespace-egress-ips.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cilium/runbooks/CiliumKVStoreMeshRemoteClusterNotReady.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
