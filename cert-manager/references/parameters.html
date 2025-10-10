@@ -1809,6 +1809,21 @@ default
 <div class="paragraph">
 <p>Override configurations for individual components.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will patch the cert-manager pod template with an annotation whose value is the hash of the contents of <code>helmValues.cert_manager.config</code>.
+This ensures that the cert-manager pod is restarted every time the config is changed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <nav class="pagination">
