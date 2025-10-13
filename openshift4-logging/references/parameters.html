@@ -1693,6 +1693,40 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_components_consoleplugin"><a class="anchor" href="#_components_consoleplugin"></a><code>components.consolePlugin</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">logsLimit: 50
+timeout: '30s'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure <code>timeout</code> and <code>logsLimit</code> of the logging UIPlugin.
+See <code>kubectl explain uiplugins.spec.logging</code> for details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_clusterlogforwarder"><a class="anchor" href="#_clusterlogforwarder"></a><code>clusterLogForwarder</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
