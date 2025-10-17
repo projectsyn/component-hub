@@ -102,6 +102,9 @@
     <a class="nav-link" href="../how-tos/upgrade-1.x-to-2.x.html">Upgrade 1.x to 2.x</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-2.x-to-3.x.html">Upgrade 2.x to 3.x</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../tutorials/installation-openshift.html">Installation On OpenShift</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -1250,7 +1253,7 @@ type
 </div>
 </div>
 <div class="sect1">
-<h2 id="_k3s_additional_args"><a class="anchor" href="#_k3s_additional_args"></a><code>k3s.additional_args</code></h2>
+<h2 id="_k8s_additional_apiserver_args"><a class="anchor" href="#_k8s_additional_apiserver_args"></a><code>k8s.additional_apiserver_args</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
 <table>
@@ -1277,12 +1280,12 @@ example
 <td class="hdlist2">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k3s:
-  additional_args:
-  - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
-  - --kube-apiserver-arg=oidc-client-id=local
-  - --kube-apiserver-arg=oidc-username-claim=email
-  - --kube-apiserver-arg=oidc-groups-claim=groups</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k8s:
+  additional_apiserver_args:
+  - --oidc-issuer-url=https://id.local/auth/realms/local
+  - --oidc-client-id=local
+  - --oidc-username-claim=email
+  - --oidc-groups-claim=groups</code></pre>
 </div>
 </div>
 </td>
@@ -1290,7 +1293,91 @@ example
 </table>
 </div>
 <div class="paragraph">
-<p>Additional arguments for the k3s cluster.</p>
+<p>Additional arguments for the k8s apiserver.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8s_additional_controllermanager_args"><a class="anchor" href="#_k8s_additional_controllermanager_args"></a><code>k8s.additional_controllermanager_args</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k8s:
+  additional_controllermanager_args:
+  - --arg1=foobar</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional arguments for the k8s controllerManager.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_k8s_additional_scheduler_args"><a class="anchor" href="#_k8s_additional_scheduler_args"></a><code>k8s.additional_scheduler_args</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">k8s:
+  additional_scheduler_args:
+  - --arg1=foobar</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional arguments for the k8s scheduler.</p>
 </div>
 </div>
 </div>
@@ -1335,7 +1422,7 @@ default
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">resources:
-  k3s:
+  k8s:
     requests:
       cpu: 40m
       memory: 64Mi
@@ -1355,7 +1442,7 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The resource requests and limits for the k3s and syncer containers.</p>
+<p>The resource requests and limits for the k8s and syncer containers.</p>
 </div>
 </div>
 </div>
@@ -1668,7 +1755,7 @@ type
 </table>
 </div>
 <div class="paragraph">
-<p>You can override the default helm values here. The default configuration comes with k3s as well as ingress enabled. See defaults.yaml for the exact configuration.</p>
+<p>You can override the default helm values here. The default configuration comes with k8s as well as ingress enabled. See defaults.yaml for the exact configuration.</p>
 </div>
 </div>
 </div>
@@ -1679,12 +1766,12 @@ type
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ingress:
   host: testcluster.local
-k3s:
-  additional_args:
-    - --kube-apiserver-arg=oidc-issuer-url=https://id.local/auth/realms/local
-    - --kube-apiserver-arg=oidc-client-id=local
-    - --kube-apiserver-arg=oidc-username-claim=email
-    - --kube-apiserver-arg=oidc-groups-claim=groups
+k8s:
+  additional_apiserver_args:
+    - --oidc-issuer-url=https://id.local/auth/realms/local
+    - --oidc-client-id=local
+    - --oidc-username-claim=email
+    - --oidc-groups-claim=groups
 backing_store:
   etcd:
     deploy:
