@@ -2204,6 +2204,149 @@ default
 </div>
 </div>
 <div class="sect2">
+<h3 id="_upgrade_strategy"><a class="anchor" href="#_upgrade_strategy"></a><code>upgrade_strategy</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_strategy:
+  manual_upgrade: false
+  upgrade_job_hook: true
+  upgrade_job_selector: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the OLM upgrade strategy.</p>
+</div>
+<div class="sect3">
+<h4 id="_manual_upgrade"><a class="anchor" href="#_manual_upgrade"></a><code>manual_upgrade</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable manual upgrade approval for OLM installations.
+When set to <code>true</code>, the OLM subscription will use <code>installPlanApproval: Manual</code>, requiring manual approval for operator upgrades.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_upgrade_job_hook"><a class="anchor" href="#_upgrade_job_hook"></a><code>upgrade_job_hook</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the <code>openshift-upgrade-controller</code> application is present, this will create an <code>UpgradeJobHook</code> that automatically approves install plans during cluster upgrades.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>UpgradeJobHook`compares the creation timestamps of the last `InstallPlan</code> and the <code>UpgradeJob</code> it&#8217;s running for.
+Only the newest install plan which is older than the <code>UpgradeJob</code> for which the hook is running will be approved.
+This ensures that upgrades to the operator are done in sync with the general upgrade schedule of the cluster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_upgrade_job_selector"><a class="anchor" href="#_upgrade_job_selector"></a><code>upgrade_job_selector</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_strategy:
+  upgrade_job_selector:
+    matchLabels:
+      appuio-managed-upgrade: 'true'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selects which <code>UpgradeJob</code> objects the hook applies to.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h3>
 <div class="hdlist">
 <table>
