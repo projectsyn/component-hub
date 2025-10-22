@@ -1292,6 +1292,24 @@ default
 <div class="paragraph">
 <p>See the <a href="https://docs.openshift.com/container-platform/latest/web_console/customizing-the-web-console.html">OpenShift docs</a> for available parameters.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will inject various configurations based on other parameters.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, on OpenShift 4.19 and newer, the component automatically configures the console&#8217;s "Developer" view state based on the cluster&#8217;s distribution.
+The "Developer" view is disabled for OKE clusters and enabled for other clusters.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="_config_managementstate"><a class="anchor" href="#_config_managementstate"></a><code>config.managementState</code></h3>
 <div class="hdlist">
@@ -1465,6 +1483,21 @@ default
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This parameter is deprecated on OpenShift 4.19 and newer.
+Use <code>custom_logos</code> and <code>custom_favicon</code> instead.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Add a custom logo to the console.
 Takes a single key with the filename and the value is the base64 encoded logo.
@@ -1486,13 +1519,169 @@ The filename needs to have a filename extension which matches the image format.<
 </table>
 </div>
 <div class="paragraph">
-<p>By default, OCP won&#8217;t serve a favicon if a custom logo is configured for the console.
+<p>By default, OpenShift won&#8217;t serve a favicon if a custom logo is configured for the console.
 This is an intentional design decision as documented in this <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1844883#c1">bug report</a>.</p>
 </div>
 <div class="paragraph">
 <p>The component tries to ensure that a favicon is served even if a custom logo is configured.
 However, because the current workaround for the missing favicon requires an additional custom route for the console hostname, it can only be implemented for configurations which use a custom console hostname.
 Otherwise, the component is unable to correctly configure <code>spec.hostname</code> for the console.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_logos"><a class="anchor" href="#_custom_logos"></a><code>custom_logos</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-console/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure custom logos for the console.
+This parameter only has an effect on OpenShift 4.19 and newer.
+For older versions of OpenShift, use parameter <code>custom_logo</code>.</p>
+</div>
+<div class="paragraph">
+<p>OpenShift 4.19 introduces a new console look with a dark and light theme.
+The new custom logo mechanism allows configuring separate logos for each theme.
+The component supports keys <code>dark</code> and <code>light</code> to specify logos for the dark and light theme respectively.
+The component additionally supports specifying a single logo for all themes in key <code>'*'</code>.
+If there&#8217;s no logo for a theme, the console will show the default logo for that theme.</p>
+</div>
+<div class="paragraph">
+<p>Each logo can be a file in any common image format, including GIF, JPG, PNG, or SVG, and is constrained to a max-height of 60px.</p>
+</div>
+<div class="paragraph">
+<p>The component looks for fields <code>type</code> and <code>data</code> in each entry of the parameter.
+Field <code>type</code> is expected to be a valid file extension in all lower case matching the image data provided in field <code>data</code>.
+Field data is the logo image data, in plain text for SVG and base64 encoded for all other formats.</p>
+</div>
+<div class="paragraph">
+<p>The component will render all the logos in a single ConfigMap.
+The component will dynamically add logos to fields <code>data</code> (for SVG) and <code>binaryData</code> (for other formats) in the ConfigMap.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the component will configure an entry in <code>spec.customization.logos</code> in the <code>console.operator.openshift.io</code> custom resource to actually configure the custom logos.</p>
+</div>
+<div class="sect2">
+<h3 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h3>
+<div class="listingblock">
+<div class="title">Separate logo per theme</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom_logos:
+  dark:
+    type: svg
+    data: |
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#fff" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;
+  light:
+    type: svg
+    data: |
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#000" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Same logo for all themes</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom_logos:
+  '*':
+    type: svg
+    data: |
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#f00" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Different file types</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom_logos:
+  dark:
+    type: svg
+    data: | <i class="conum" data-value="1"></i><b>(1)</b>
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#fff" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;
+  light:
+    type: png
+    data: iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABHNCSVQICAgIfAhkiAAAA5dJREFUaIHtmk1vTUEYx39HgkTYtMTOQtVL2WiKoF5W1IpGmrTpUlLxMUTDF6B8AKp8gWqxkHbtLUQixZbqQlVvScjf4pxK89y59869Z+Zei/NPZjE39zz/35Mz85w5MwcKFSpUqFChQq1SEjO4YDNwAjgJHAB2A9tIfwf4AXwB5oA3wDNgJoHlmFxBJUgE5wQPBSsC1dlWBBOCPkW+IbklGBC8biDJSu2V4GKr8yqToFPwJGCitk0LdrU6TwAEw4KlKrBzgluCIcFBQZtgfdbast+GBGOCD1XifBcMtTLRRHC9AtxvwT3B0QZiHhOMZzFcsUebPrczsNsVgB4prcZ5PfZkQ9nlMdbUpAU3HBDLgksRvEYEJYfftdBelQCGHeafBd0RPXsE8w7fwVieq8adjgL1RbAnqjH/hrhNelHQEdPUPnqWY95Zh3+PY3hPxTIbcAyp4HPWg2PEwdEf2iRR+QpqOqhJfTyThuVl0KqtdG1sn7O5Hz05ePY5ntN9IQ0emuB3gwVvnOm+YbofKvBmlb/11LWCiiHBccNUEmwKEdgO57mmrnIqcyWCj4btTK3r1nnEPmX6UwmoMcxwyhhs4Txd6zqfhPeb/qwnUzM0Y/qWtUw+Cdtq/M4bJ74sS/4nh2DBzJO23EEDSbDVsH0NEfSXCbo+AGsQCTYatp+1rvEZ0lYtr9B55JPwD9PfEgOkQVmWpVoX+CS8YPo7vHHiy7JY1jL5JPze9Pd648RXl+lb1jL5JPzG9E9448RXr+lb1vql9ARgbSX88B8tLT/Vu7T0Cex6eTgWgDkvV69j9yX/y0MW/IEJfi9I4HxME4ZpPGRwO6x/qwkbd1V4uhwbAGdDGiSC5//RFs9Tw/IieF0RXDQmEowENfHjuOLguBDLzB59lAQ9Uczc/ocdBXQypuEupad4aw3nmzGfBXtVvhH/TbAztvGQY0jNCw5F9DziSFaCgVieFmDUYb4iuBzB64pjGEtwNbRXNYhE6ZGlhZDgsWBfAI8uRzVebTdD5FEvUFLhTq8+p8eVbqV6Py6ymL3ZouJPhdjNu7MVIAcdhWxt+yi4o/SYtVvQLtiQtfbst+HsP3ZtvLYtNm3O1pKgQzBVBTZvm4xejRuRoF/pwVaoRF8Izrc6r6rK5mGf0rMf16cKtVopm/9n65n/vor96eEm0pf0U6Sb5LuB7ZR/evgeeEv66eFsAqWYXIUKFSpUqFCh1ugvn+zZeVm8jdkAAAAASUVORK5CYII= <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>SVG needs to be configured as plain text</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>All other formats, such as PNG need to be configured base64 encoded</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_favicon"><a class="anchor" href="#_custom_favicon"></a><code>custom_favicon</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Starting with OpenShift 4.19, users can configure custom favicons for the console.
+This parameter has no effect on OpenShift versions before 4.19.</p>
+</div>
+<div class="paragraph">
+<p>OpenShift 4.19 supports specifying separate favicons for the dark and light themes, but the component currently only supports configuring a single favicon for both themes.</p>
+</div>
+<div class="paragraph">
+<p>The component looks for fields <code>type</code> and <code>data</code> in the parameter.
+Field <code>type</code> is expected to be a valid file extension in all lower case matching the image data provided in field <code>data</code>.
+Field data is the favicon data, in plain text for SVG and base64 encoded for all other formats.</p>
+</div>
+<div class="paragraph">
+<p>The component will write the favicon into a ConfigMap and configure an entry in <code>spec.customization.logos</code> in the <code>console.operator.openshift.io</code> custom resource  to enable the custom favicon for the console.</p>
 </div>
 </div>
 </div>
