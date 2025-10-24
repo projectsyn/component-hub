@@ -1157,6 +1157,172 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_manifestversion"><a class="anchor" href="#_manifestversion"></a><code>manifestVersion</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-csi-exoscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Exoscale CSI driver manifest version to deploy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kustomizeinput"><a class="anchor" href="#_kustomizeinput"></a><code>kustomizeInput</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional input for Kustomize.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-csi-exoscale/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The container images to use for the CSI driver.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_apisecret"><a class="anchor" href="#_apisecret"></a><code>apiSecret</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">accessKey: ?{vaultkv:${cluster:tenant}/${cluster:name}/exoscale/csi_driver/access_key}
+secretKey: ?{vaultkv:${cluster:tenant}/${cluster:name}/exoscale/csi_driver/secret_key}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Exoscale credentials for the CSI driver.
+The CSI driver requires the following Exoscale IAM role.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "default-service-strategy": "deny",
+  "services": {
+    "compute": {
+      "type": "rules",
+      "rules": [
+        {
+          "expression": "operation in ['list-zones', 'get-block-storage-volume', 'list-block-storage-volumes', 'create-block-storage-volume', 'delete-block-storage-volume', 'attach-block-storage-volume-to-instance', 'detach-block-storage-volume', 'update-block-storage-volume-labels', 'resize-block-storage-volume', 'get-block-storage-snapshot', 'list-block-storage-snapshots', 'create-block-storage-snapshot', 'delete-block-storage-snapshot']",
+          "action": "allow"
+        }
+      ]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_drivertolerations"><a class="anchor" href="#_drivertolerations"></a><code>driverTolerations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Tolerations to configure for the CSI driver daemonset.
+The component will use the contents of this parameter as <code>spec.template.spec.tolerations</code> of the CSI driver daemonset.
+The component doesn&#8217;t validate the contents of this parameter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
