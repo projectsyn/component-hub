@@ -1686,6 +1686,38 @@ Field data is the favicon data, in plain text for SVG and base64 encoded for all
 </div>
 </div>
 <div class="sect1">
+<h2 id="_capabilities"><a class="anchor" href="#_capabilities"></a><code>capabilities</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[See <code>class/defaults.yml</code>]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to enable or disable OpenShift console capabilities.
+OpenShift 4.19 supports two capabilities: <code>LightspeedButton</code> and <code>GettingStartedBanner</code>.
+The parameter has no effect on OpenShift 4.18 and older.
+The component enables the "Getting Started" banner by default and disables the Lightspeed button by default.
+The component skips entries in this parameter which aren&#8217;t defined as available capabilities for the OpenShift version specified in parameter <code>openshift_version</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
 <div class="sectionbody">
 <div class="hdlist">
