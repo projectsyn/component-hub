@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Deploying Prometheus instances :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/prometheus/how-tos/prometheus.html">
-    <link rel="prev" href="../references/addon-vcluster.html">
-    <link rel="next" href="setup-keycloak.html">
+    <title>Addon: vcluster :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/prometheus/references/addon-vcluster.html">
+    <link rel="prev" href="addon-additional-rules.html">
+    <link rel="next" href="../how-tos/prometheus.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,7 +94,7 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+    <a class="nav-link" href="parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -103,16 +103,16 @@
     <span class="nav-text">Addons</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/addon-oauth2-proxy.html">OAuth2 Proxy</a>
+    <a class="nav-link" href="addon-oauth2-proxy.html">OAuth2 Proxy</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/addon-disable-alerts.html">Disable Alerts</a>
+    <a class="nav-link" href="addon-disable-alerts.html">Disable Alerts</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/addon-additional-rules.html">Additional Rules</a>
+    <a class="nav-link" href="addon-additional-rules.html">Additional Rules</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../references/addon-vcluster.html">vcluster</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="addon-vcluster.html">vcluster</a>
   </li>
 </ul>
   </li>
@@ -120,14 +120,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">How-Tos</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="prometheus.html">Deploy Prometheus</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/prometheus.html">Deploy Prometheus</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="setup-keycloak.html">Setup with Keycloak</a>
+    <a class="nav-link" href="../how-tos/setup-keycloak.html">Setup with Keycloak</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="cluster-monitoring.html">Monitor other Commodore Components</a>
+    <a class="nav-link" href="../how-tos/cluster-monitoring.html">Monitor other Commodore Components</a>
   </li>
 </ul>
   </li>
@@ -1144,224 +1144,124 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">prometheus</a></li>
-    <li>How-Tos</li>
-    <li><a href="prometheus.html">Deploy Prometheus</a></li>
+    <li>Addons</li>
+    <li><a href="addon-vcluster.html">vcluster</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/how-tos/prometheus.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-prometheus/edit/master/docs/modules/ROOT/pages/references/addon-vcluster.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Deploying Prometheus instances</h1>
+<h1 class="page">Addon: vcluster</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This component uses <a href="https://github.com/prometheus-operator/kube-prometheus">kube-prometheus</a> to deploy the <a href="https://github.com/prometheus-operator/prometheus-operator">Prometheus Operator</a>.
-It uses the Operator to deploy Prometheus and related components.
-Out of the box the component will only deploy the Prometheus Operator and its CRDs.</p>
+<p>Adding the <code>vcluster</code> addon will disable kubelet monitoring for vcluster deployments where the kubelet is not available.</p>
 </div>
 <div class="paragraph">
-<p>This how-to will walk you through deploying and configuring one or more Prometheus instances using the Prometheus Operator and this component.</p>
+<p>On vclusters, the kubelet runs in the parent cluster and is not exposed to the vcluster.
+This addon prevents false alerts and failed scrape jobs by disabling the kubelet ServiceMonitor and filtering out kubelet-related alert rules.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_single_prometheus_deployment"><a class="anchor" href="#_single_prometheus_deployment"></a>Single Prometheus Deployment</h2>
+<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following configuration will deploy a Prometheus Operator into the default namespace <code>syn-prometheus-operator</code> and a Prometheus instance into the namespace <code>monitoring-infra</code>.</p>
+<p>To enable this addon, add it to your instance configuration:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
   prometheus:
-    namespaces:
-      monitoring-infra: {} <i class="conum" data-value="1"></i><b>(1)</b>
+    addons:
+      - vcluster
     instances:
-      infra:
-        common:
-          namespace: monitoring-infra
+      my-vcluster:
         prometheus:
-          enabled: true <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+          enabled: true
+        nodeExporter:
+          enabled: false
+        kubernetesControlPlane:
+          enabled: true</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Creates a new namespace called <code>monitoring-infra</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Deploys a Prometheus instance in the new namespace</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_configuration_and_overrides"><a class="anchor" href="#_configuration_and_overrides"></a>Configuration and Overrides</h3>
-<div class="paragraph">
-<p>You can further configure this instance through the <code>config</code> and <code>overrides</code> keys.</p>
-</div>
-<div class="paragraph">
-<p>The <code>config</code> key allows you to set the <code>values</code> map of the <code>kube-prometheus</code> library.
-This allows you to do most of the configuration, such as setting the number of replicas or enabling the Thanos sidecar.
-The available <code>config</code> parameters and their defaults can be found in the <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/components/prometheus.libsonnet">kube-prometheus library</a>.
-The easiest way to find the allowed parameters is to look at the local <code>defaults</code> variable.</p>
-</div>
-<div class="paragraph">
-<p>If updating the <code>kube-prometheus</code> library arguments through the <code>config</code> key isn&#8217;t enough, you also have the option to override any of the generated manifest using the <code>overrides</code> key.
-The provided object will be merged with the output of the <code>kube-prometheus</code> library.
-You can again look at the <a href="https://github.com/prometheus-operator/kube-prometheus/blob/main/jsonnet/kube-prometheus/components/prometheus.libsonnet">kube-prometheus library</a>, to see what&#8217;s generated and how it can be patched.</p>
-</div>
-<div class="admonitionblock warning">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Overriding manifests can lead to invalid configurations in other components.
+The vcluster addon requires no additional configuration. Simply adding it to the <code>addons</code> list is sufficient.
 </td>
 </tr>
 </table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  prometheus:
-    namespaces:
-      monitoring-infra: {}
-    instances:
-      infra:
-        common:
-          namespace: monitoring-infra
-        prometheus:
-          enabled: true
-          config:
-            replicas: 1 <i class="conum" data-value="1"></i><b>(1)</b>
-          overrides:
-            clusterRole: <i class="conum" data-value="2"></i><b>(2)</b>
-              rules:
-              - apiGroups: ['']
-                resources: ['pods']
-                verbs: ['get']</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Deploy Prometheus with only a single replica</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Give the Prometheus instance special privileges to get all pods</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>INFO: This approach of <code>config</code> and <code>overrides</code> is used in the same way for all components, not just for Prometheus instances.</p>
-</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_multiple_prometheus_deployments"><a class="anchor" href="#_multiple_prometheus_deployments"></a>Multiple Prometheus Deployments</h2>
+<h2 id="_what_it_disables"><a class="anchor" href="#_what_it_disables"></a>What it disables</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This component isn&#8217;t multi-instance capable.
-That means it isn&#8217;t possible to instantiate this component.
-This feature was left out as it&#8217;s rarely advisable to deploy multiple Prometheus operators on the same cluster.</p>
+<p>The addon disables the following kubelet-related monitoring:</p>
 </div>
-<div class="paragraph">
-<p>It&#8217;s however still possible to deploy multiple Prometheus instances through this component.
-The component will deploy a single Prometheus operator and one Prometheus instance for each entry in <code>instances</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ServiceMonitor</strong>: <code>serviceMonitorKubelet</code> - Prevents attempts to scrape kubelet metrics</p>
+</li>
+<li>
+<p><strong>Alert Groups</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>kubernetes-system-kubelet</code> - System-level kubelet and node alerts (KubeletDown, KubeletTooManyPods, KubeNodeNotReady, etc.)</p>
+</li>
+<li>
+<p><code>kubelet.rules</code> - Kubelet recording rules (metric aggregations that depend on kubelet metrics)</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>For example the following configuration will deploy an additional Prometheus instance called <code>apps</code> in namespace <code>monitoring-apps</code>.
-It also has a single replica but no additional cluster permissions.</p>
+</li>
+<li>
+<p><strong>All rules using kubelet metrics</strong>: Any recording rule or alert that queries <code>job="kubelet"</code> is automatically filtered out, including:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Recording rules for container CPU and memory metrics from the kubelet&#8217;s cadvisor endpoint</p>
+</li>
+<li>
+<p>Alerts that depend on kubelet-specific metrics (e.g., <code>KubePersistentVolumeFillingUp</code>, <code>KubePersistentVolumeInodesFillingUp</code>)</p>
+</li>
+</ul>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  prometheus:
-    namespaces:
-      monitoring-infra: {}
-      monitoring-apps: {}
-    instances:
-      infra:
-        common:
-          namespace: monitoring-infra
-        prometheus:
-          enabled: true
-          config:
-            replicas: 1
-          overrides:
-            clusterRole:
-              rules:
-              - apiGroups: ['']
-                resources: ['pods']
-                verbs: ['get']
-      apps:
-        common:
-          namespace: monitoring-apps
-        prometheus:
-          enabled: true
-          config:
-            replicas: 1</code></pre>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_base_configuration"><a class="anchor" href="#_base_configuration"></a>Base Configuration</h3>
-<div class="paragraph">
-<p>With this approach we can deploy an arbitrary number of Prometheus instances, but configuring them can become tedious.
-Most of the time all Prometheus instances on a cluster share a common configuration base.</p>
 </div>
-<div class="paragraph">
-<p>For this we can use the <code>base</code> key.
-The base configuration is shared by all instances.
-It can be overridden by the instance-specific configuration.</p>
-</div>
-<div class="paragraph">
-<p>With this we can for example simplify the previous configuration by moving enabling Prometheus and setting the number of replicas to the base configuration.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
-  prometheus:
-    namespaces:
-      monitoring-infra: {}
-      monitoring-apps: {}
-    base:
-      prometheus:
-        enabled: true
-        config:
-          replicas: 1
-    instances:
-      infra:
-        common:
-          namespace: monitoring-infra
-        prometheus:
-          overrides:
-            clusterRole:
-              rules:
-              - apiGroups: ['']
-                resources: ['pods']
-                verbs: ['get']
-      apps:
-        common:
-          namespace: monitoring-apps</code></pre>
-</div>
-</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="addon-disable-alerts.html" class="page">Disable Alerts</a> - For disabling individual alert rules</p>
+</li>
+<li>
+<p><a href="https://www.vcluster.com/">vcluster documentation</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../references/addon-vcluster.html">vcluster</a></span>
-  <span class="next"><a href="setup-keycloak.html">Setup with Keycloak</a></span>
+  <span class="prev"><a href="addon-additional-rules.html">Additional Rules</a></span>
+  <span class="next"><a href="../how-tos/prometheus.html">Deploy Prometheus</a></span>
 </nav>
 </article>
   </div>
@@ -1372,7 +1272,7 @@ It can be overridden by the instance-specific configuration.</p>
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/how-tos/prometheus.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/prometheus/references/addon-vcluster.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
