@@ -1165,11 +1165,305 @@ default
 </div>
 </div>
 <div class="sect1">
+<h2 id="_channel"><a class="anchor" href="#_channel"></a><code>channel</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>stable</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Channel of the operator subscription to use.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operatorresources_splunk"><a class="anchor" href="#_operatorresources_splunk"></a><code>operatorResources.splunk</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>see <code>defaults.yml</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the <code>.spec.config.resources</code> for OLM subscriptions maintained by this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instances"><a class="anchor" href="#_instances"></a><code>instances</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    my-namespace/my-instance: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary defining namespaced Splunk resources.</p>
+</div>
+<div class="sect2">
+<h3 id="_instances_standalone"><a class="anchor" href="#_instances_standalone"></a><code>instances.{}.standalone</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    my-namespace/my-instance:
+        standalone:
+          serviceAccount: my-serviceaccount</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Defines the spec of a Splunk <code>Standalone</code> resource. See <a href="https://splunk.github.io/splunk-operator/Examples.html#using-default-settings">Splunk Operator Documentation</a> for more details.</p>
+</div>
+<div class="paragraph">
+<p>Also creates the RoleBinding and ServiceAccount for the <code>Standalone</code> resource.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_appconfigs"><a class="anchor" href="#_instances_appconfigs"></a><code>instances.{}.appConfigs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    my-namespace/my-instance:
+      appConfigs:
+        test1:
+          my-app1.tgz: ... <i class="conum" data-value="1"></i><b>(1)</b>
+          my-app2.tgz: ...
+        test2:
+          other-app.tgz: ...
+      standalone:
+        defaults: |
+          splunk:
+            apps_location:
+              - /mnt/test1/my-app1.tgz <i class="conum" data-value="2"></i><b>(2)</b>
+              - /mnt/test1/my-app2.tgz
+              - /mnt/test2/other-app.tgz</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A Base64 encoded app configuration.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The configured appConfigs will be mounted as volumes in <code>/mnt</code>.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creates <code>Secrets</code> containing the Base64 encoded apps and mounts them as volumes in Splunks <code>Standalone</code> resource.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_createnamespace"><a class="anchor" href="#_instances_createnamespace"></a><code>instances.{}.createNamespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    my-namespace/my-instance:
+      createNamespace: true</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creates the <code>Namespace</code> for the Splunk instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instances_url"><a class="anchor" href="#_instances_url"></a><code>instances.{}.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>``</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    my-namespace/my-instance:
+      url: my-forwarder.example.com</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creates an <code>Ingress</code> for the <code>Standalone</code> instance.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">namespace: example-namespace</code></pre>
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    test1/heavyforwarder:
+      appConfigs:
+        test1:
+          my-app.tgz: "BINARY_DATA"
+      standalone:
+        serviceAccount: splunk-forwarder
+        defaults: |
+          splunk:
+            role: splunk_heavy_forwarder
+            admin_user: splunk-admin
+            password: supersecret
+            apps_location:
+              - /mnt/test1/my-app.tgz
+            hec:
+              enable: true
+            s2s:
+              enable: false
+            ssl:
+              enable: false</code></pre>
 </div>
 </div>
 </div>
