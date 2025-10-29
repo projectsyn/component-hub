@@ -1388,6 +1388,48 @@ example
 </div>
 </div>
 <div class="sect2">
+<h3 id="_instances_allowfrom"><a class="anchor" href="#_instances_allowfrom"></a><code>instances.{}.allowFrom</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>splunk_operator:
+  instances:
+    my-namespace/my-instance:
+      allowFrom:
+        - openshift-logging</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creates a <code>NetworkPolicy</code> allowing ingress from listed namespaces.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_instances_url"><a class="anchor" href="#_instances_url"></a><code>instances.{}.url</code></h3>
 <div class="hdlist">
 <table>
