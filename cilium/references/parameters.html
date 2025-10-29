@@ -3309,6 +3309,75 @@ Parameters <code>alerts.ignoreNames</code> and <code>alerts.patches</code> are a
 </div>
 </div>
 <div class="sect1">
+<h2 id="_hubble_access"><a class="anchor" href="#_hubble_access"></a><code>hubble_access</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure Hubble access.
+Currently the only Hubble access mode that can be configured through this section is port-forward RBAC.</p>
+</div>
+<div class="sect2">
+<h3 id="_hubble_access_port_forward_users"><a class="anchor" href="#_hubble_access_port_forward_users"></a><code>hubble_access.port_forward_users</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is transformed into an entry in <code>subjects</code> of the Hubble port-forward <code>RoleBinding</code>.
+The component uses each key in this parameter as an user name for the resulting entry in <code>subjects</code>.
+Entries are expected to have value <code>{}</code> or <code>null</code>.
+Entries with value <code>null</code> are skipped.
+Other entry values are treated as errors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hubble_access_port_forward_groups"><a class="anchor" href="#_hubble_access_port_forward_groups"></a><code>hubble_access.port_forward_groups</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is transformed into an entry in <code>subjects</code> of the Hubble port-forward <code>RoleBinding</code>.
+The component uses each key in this parameter as a group name for the resulting entry in <code>subjects</code>.
+Entries are expected to have value <code>{}</code> or <code>null</code>.
+Entries with value <code>null</code> are skipped.
+Other entry values are treated as errors.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_example_10"><a class="anchor" href="#_example_10"></a>Example</h2>
 <div class="sectionbody">
 <div class="listingblock">
