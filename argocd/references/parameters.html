@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parameters :: Commodore Hub</title>
     <link rel="canonical" href="https://hub.syn.tools/argocd/references/parameters.html">
-    <link rel="prev" href="../how-tos/upgrade-v7-v8.html">
+    <link rel="prev" href="../how-tos/upgrade-v8-v9.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -106,6 +106,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../how-tos/upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-v8-v9.html">Upgrade <code>component-argocd</code> from <code>v8.x</code> to <code>v9.x</code></a>
   </li>
 </ul>
   </li>
@@ -1520,7 +1523,23 @@ default
 </table>
 </div>
 <div class="paragraph">
-<p>The name of the externally managed secret which holds the username and password for fetching the catalog repo over HTTPS in fields <code>username</code> and <code>password</code>.</p>
+<p>The name of the externally managed secret which holds the username and password for fetching the catalog repo over HTTPS.</p>
+</div>
+<div class="paragraph">
+<p>The secret must be labeled with <code>argocd.argoproj.io/secret-type=repo-creds</code>.
+The secret must have the credentials in fields <code>username</code> and <code>password</code> and must have the catalog repo HTTPS URL (or a prefix thereof) in field <code>url</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>url</code> field must contain the catalog URL (or prefix) including the leading <code>https://</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>This parameter is only used when the cluster&#8217;s catalog repo URL starts with <code>https://</code>.</p>
@@ -1532,7 +1551,7 @@ default
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Users must ensure that this secret is in place before this component is synced.
+Users must ensure that this secret is correctly configured and present before this component is synced.
 </td>
 </tr>
 </table>
@@ -2352,7 +2371,7 @@ defaults
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../how-tos/upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a></span>
+  <span class="prev"><a href="../how-tos/upgrade-v8-v9.html">Upgrade <code>component-argocd</code> from <code>v8.x</code> to <code>v9.x</code></a></span>
 </nav>
 </article>
   </div>

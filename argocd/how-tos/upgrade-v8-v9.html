@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>yawol Architecture :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/yawol-controller/references/architecture.html">
+    <title>Upgrade component-argocd from v8.x to v9.x :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/argocd/how-tos/upgrade-v8-v9.html">
+    <link rel="prev" href="upgrade-v7-v8.html">
+    <link rel="next" href="../references/parameters.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,20 +81,44 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="yawol-controller" data-version="master">
+<div class="nav-container" data-component="argocd" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">yawol-controller</a></h3>
+    <h3 class="title"><a href="../index.html">Argo CD</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Home</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-tos</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="upgrade-v3-v4.html">Upgrade from <code>v3.x</code> to <code>v4.x</code></a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="upgrade-v5-v6.html">Upgrade from <code>v5.5.x</code> to <code>v6.x</code></a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="upgrade-v8-v9.html">Upgrade <code>component-argocd</code> from <code>v8.x</code> to <code>v9.x</code></a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">References</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
   </li>
 </ul>
   </li>
@@ -101,7 +127,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">yawol-controller</span>
+    <span class="title">Argo CD</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -193,11 +219,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../argocd/index.html">Argo CD</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">Argo CD</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../argocd/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1089,11 +1115,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">yawol-controller</a>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1108,84 +1134,65 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">yawol-controller</a></li>
-    <li><a href="architecture.html">yawol Architecture</a></li>
+    <li><a href="../index.html">Argo CD</a></li>
+    <li>How-tos</li>
+    <li><a href="upgrade-v8-v9.html">Upgrade <code>component-argocd</code> from <code>v8.x</code> to <code>v9.x</code></a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-yawol-controller/edit/master/docs/modules/ROOT/pages/references/architecture.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-argocd/edit/master/docs/modules/ROOT/pages/how-tos/upgrade-v8-v9.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">yawol Architecture</h1>
-<div class="quoteblock abstract">
-<blockquote>
-This page gives a brief overview over the architecture of yawol.
-</blockquote>
+<h1 class="page">Upgrade <code>component-argocd</code> from <code>v8.x</code> to <code>v9.x</code></h1>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+On clusters which use SSH to fetch the cluster catalogs no manual actions are necessary.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/stackitcloud/yawol">yawol</a> consists of two main components:</p>
+<p>The component version <code>v9.x</code> defaults to ArgoCD v3 which only supports <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories" target="_blank" rel="noopener">declarative configuration of repositories</a>.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A Kubernetes controller which interacts with OpenStack to provision lightweight VMs to route traffic from floating IPs into the cluster.</p>
-</li>
-<li>
-<p>An alpine Linux-based VM image which</p>
-<div class="ulist">
-<ul>
-<li>
-<p>runs a custom binary (<code>yawollet</code>) that fetches information from the cluster hosting the controller</p>
-</li>
-<li>
-<p>runs envoy to route traffic from the floating IP into the cluster</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The switch to declarative repository configuration is a breaking change for clusters which use HTTPS cluster catalogs.</p>
 </div>
-</li>
-</ol>
+<div class="paragraph">
+<p>Operators of such clusters must update the HTTPS credentials secret to be picked up as a repo credentials secret by ArgoCD v3:</p>
 </div>
-<div class="literalblock kroki-error">
-<div class="title">yawol networking diagram</div>
+<div class="listingblock">
 <div class="content">
-<pre>                             |
-                             |floating IP
-                             v
-                    /--------*--------\
- dmz network        |                 |
---------------------| yawollet / envoy|------------------------
-cluster network     |                 |
-                    \--------*--------/
-                             |internal IP
-                             |
-              +--------------+--------------+
-              |              |              |
-              v              v              v
-       /------------\ /------------\ /------------\
-       | cluster VM | | cluster VM | | cluster VM | ...
-       \------------/ \------------/ \------------/</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SECRET_NAME=the-credentials-secret <i class="conum" data-value="1"></i><b>(1)</b>
+
+CATALOG_URL=$(kubectl -n syn get cm argocd-cm -oyaml | \
+  yq '.data.repositories|from_yaml|.[0].url')
+
+kubectl -n syn patch secret "$SECRET_NAME" --type=merge \
+  -p '{"stringData":{"url":"'"$CATALOG_URL"'"}}'
+kubectl -n syn label secret "$SECRET_NAME" \
+  argocd.argoproj.io/secret-type=repo-creds</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The yawol-cloud-controller creates a <code>LoadBalancer</code>, <code>LoadBalancerSet</code> and <code>LoadBalancerMachine</code> custom resource for each LoadBalancer service.</p>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Replace with the name of the secret</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p>The yawol-controller reconciles the custom resources, and provisions a floating IP, security group and yawollet instance for each service of <code>type: LoadBalancer</code> in the cluster.
-Additionally, the controller provisions a ServiceAccount and rolebindings for each yawollet so that the yawollet can access the cluster API to watch for updates to the service for which it was provisioned.</p>
-</div>
-<div class="paragraph">
-<p>The yawol-controller reconciles the <code>LoadBalancer</code> resource to manage the floating IP and security group for the service.
-Additionally, the yawol-controller creates a <code>LoadBalancerSet</code> associated with the <code>LoadBalancer</code> resource.
-The controller then creates a <code>LoadBalancerMachine</code> resource associated with the <code>LoadBalancerSet</code>.
-Finally, the <code>LoadBalancerMachine</code> resource is reconciled to provision a yawollet VM in OpenStack.</p>
-</div>
-<div class="paragraph">
-<p>Once the VM is running, the yawollet accesses the cluster (authenticating through the ServiceAccount that was provisioned) to update its own status in the <code>LoadBalancerMachine</code> custom resource.
-Additionally, the yawollet sets up a watch for the <code>LoadBalancer</code> custom resource which it is associated so that it can update the Envoy config on the VM when the <code>LoadBalancer</code> resource changes.</p>
-</div>
+<nav class="pagination">
+  <span class="prev"><a href="upgrade-v7-v8.html">Upgrade from <code>v7.x</code> to <code>v8.x</code></a></span>
+  <span class="next"><a href="../references/parameters.html">Parameters</a></span>
+</nav>
 </article>
   </div>
 </main>
@@ -1195,7 +1202,7 @@ Additionally, the yawollet sets up a watch for the <code>LoadBalancer</code> cus
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/yawol-controller/references/architecture.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/argocd/how-tos/upgrade-v8-v9.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
