@@ -1494,6 +1494,9 @@ default
 <p>This parameter is deprecated on OpenShift 4.19 and newer.
 Use <code>custom_logos</code> and <code>custom_favicon</code> instead.</p>
 </div>
+<div class="paragraph">
+<p>When <code>custom_logos</code> is set for OpenShift 4.19 and newer, any configuration in this parameter will be ignored.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -1556,6 +1559,18 @@ default
 <p>Configure custom logos for the console.
 This parameter only has an effect on OpenShift 4.19 and newer.
 For older versions of OpenShift, use parameter <code>custom_logo</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When setting this parameter on OpenShift 4.19 and newer, the component will ignore the contents of <code>custom_logo</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>OpenShift 4.19 introduces a new console look with a dark and light theme.
