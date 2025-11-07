@@ -3153,17 +3153,19 @@ When grouping by machineSets, there is no equivalent setting.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
   enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
   groupByNodeLabels: [] <i class="conum" data-value="2"></i><b>(2)</b>
-  monitorNodeRoles:
-   - app <i class="conum" data-value="3"></i><b>(3)</b>
+  monitorMachineSets:
+   - app.* <i class="conum" data-value="3"></i><b>(3)</b>
+  aggregateMachineSets:
+    app: app.* <i class="conum" data-value="4"></i><b>(4)</b>
   groups:
     PodCapacity:
       rules:
         TooManyPods:
           annotations:
-            message: 'The number of pods is too damn high' <i class="conum" data-value="4"></i><b>(4)</b>
-          for: 3h <i class="conum" data-value="5"></i><b>(5)</b>
+            message: 'The number of pods is too damn high' <i class="conum" data-value="5"></i><b>(5)</b>
+          for: 3h <i class="conum" data-value="6"></i><b>(6)</b>
         ExpectTooManyPods:
-          expr: <i class="conum" data-value="6"></i><b>(6)</b>
+          expr: <i class="conum" data-value="7"></i><b>(7)</b>
             range: '2d'
             predict: '5*24*60*60'
 
@@ -3172,17 +3174,17 @@ When grouping by machineSets, there is no equivalent setting.</p>
         TooMuchMemoryRequested:
           enabled: true
           expr:
-            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="7"></i><b>(7)</b>
+            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="8"></i><b>(8)</b>
     CpuCapacity:
       rules:
         ClusterCpuUsageHigh:
-          enabled: false <i class="conum" data-value="8"></i><b>(8)</b>
+          enabled: false <i class="conum" data-value="9"></i><b>(9)</b>
         ExpectClusterCpuUsageHigh:
-          enabled: false <i class="conum" data-value="8"></i><b>(8)</b>
+          enabled: false <i class="conum" data-value="9"></i><b>(9)</b>
     UnusedCapacity:
       rules:
         ClusterHasUnusedNodes:
-          enabled: false <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
+          enabled: false <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -3197,30 +3199,36 @@ When grouping by machineSets, there is no equivalent setting.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>List of node roles to monitor. This is used only if machineSets are not in use. If machineSets are used, the parameter <code>monitorMachineSets</code> is used instead.</td>
+<td>List of machinesets to monitor. This is used only if machineSets are in use. If machineSets are not used, the parameter <code>monitorNodeRoles</code> is used instead.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Changes the alert message for the pod capacity alert</td>
+<td>Dictionary of aggregated machine sets. The key is the name that should be given to the aggregated machine set. The value is a regular expression matching all machinesets that should be aggregated into this value.
+If multiple aggregations are provided, they must be disjoint.
+It is possible to use substitutions in the key, such as <code>'$1': (.+)-.+</code> - this would result in all machinesets being aggregated according to their name split at the first dash.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Only alerts for pod capacity if it fires for 3 hours</td>
+<td>Changes the alert message for the pod capacity alert</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Change the pod count prediction to look at the last two days and predict the value in five days</td>
+<td>Only alerts for pod capacity if it fires for 3 hours</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB</td>
+<td>Change the pod count prediction to look at the last two days and predict the value in five days</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>Disables both CPU capacity alert rules</td>
+<td>Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Disables both CPU capacity alert rules</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
 <td>Disables alert if the cluster has unused nodes.</td>
 </tr>
 </table>

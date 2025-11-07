@@ -2150,7 +2150,7 @@ default
 </div>
 <div class="paragraph">
 <p>Each entry in the parameter is intended to describe a group of dummy interfaces that can be used in <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) resources.
-The component expects that each value is an object with fields <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, and <code>shadow_ranges</code>.</p>
+The component expects that each value is an object with fields <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, <code>shadow_ranges</code>, and <code>destination_cidrs</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2172,6 +2172,28 @@ Field <code>shadow_ranges</code> is optional, see the section on <a href="#_shad
 </td>
 <td class="content">
 Field <code>namespace_egress_ips</code> is optional for use cases where only the shadow ranges mechanism is required.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>destination_cidrs</code> is optional.</p>
+</div>
+<div class="paragraph">
+<p>When the field is provided, and not an empty list or object, the component uses the contents to populate <code>destinationCIDRs</code> for the resulting egress policy.
+To support reusing the same input list for different purposes, the component removes list entries which are prefixed with <code>~</code> before configuring the policy.</p>
+</div>
+<div class="paragraph">
+<p>When this field is omitted or empty, the component generates egress policies with <code>destinationCIDRs: ['0.0.0.0/0']</code>.
+Such policies assign the egress IP to all traffic originating in the namespace.</p>
+</div>
 </td>
 </tr>
 </table>
