@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-acme-dns.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-adhoc-configurations.xml</loc>
 </sitemap>
 <sitemap>
@@ -11,6 +14,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-appcat.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-appcat-service-postgresql.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-appuio-cloud.xml</loc>
@@ -196,6 +202,9 @@
 <loc>https://hub.syn.tools/sitemap-networkpolicy.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://hub.syn.tools/sitemap-nextcloud.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://hub.syn.tools/sitemap-nfs-subdir-external-provisioner.xml</loc>
 </sitemap>
 <sitemap>
@@ -347,6 +356,9 @@
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vcluster.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://hub.syn.tools/sitemap-vcluster-provisioner.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hub.syn.tools/sitemap-vertical-pod-autoscaler.xml</loc>
