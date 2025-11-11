@@ -671,14 +671,6 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../package-monitoring/index.html">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
       <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
       <ul class="versions">
         <li class="version is-latest">
@@ -1181,37 +1173,9 @@ If this SLI results in an alert, it means the cluster ingress controller is unab
 <div class="paragraph">
 <p>The diagram below visualizes the ingress canary probe architecture.</p>
 </div>
-<div class="literalblock kroki-error">
+<div class="imageblock kroki">
 <div class="content">
-<pre>                           +---------------------------------+
-                           | infra 1                         |
-                           |  /-------\         /-------\    |
-                    /--------&gt;|       |         |       |    |
-                  /-|--------&gt;|Ingress|---+----&gt;|Canary |    |
-                  | |      |  |       |   |     |       |    |
-   +---------+    | |      |  \-------/   |     \-------/    |
-   | lb 1    |    | |      |              |                  |
-   |         |    | |      +--------------|------------------+
-   |         |    | |                     |
-/-&gt;|         | ---+ |      +--------------|------------------+
-|  |         |    | |      | infra 2      |                  |
-|  |         |    | |      |  /-------\   |     /-------\    |
-|  +---------+    \-|--------&gt;|       |   |     |       |    |
-|                   +--------&gt;|Ingress|---+----&gt;|Canary |    |
-|                   |      |  |       |   |     |       |    |
-|  +---------+      |      |  \-------/   |     \-------/    |
-|  | lb 2    |      |      |              |                  |
-|  |         |      |      +--------------|------------------+
-|  |         |      |                     |
-+-&gt;|         |------/      +------------+ | +----------------+
-\-------------------\      | master     | | | worker         |
-   |         |      |      | /--------\ | | |   /-------\    |
-   +---------+      |      | |        | | | |   |       |    |
-                    \---=----|Operator| | \----&gt;|Canary |    |
-                           | |        | |   |   |       |    |
-                           | \--------/ |   |   \-------/    |
-                           |            |   |                |
-                           +------------+   +----------------+</pre>
+<img src="../_images/diag-b6ba01f72986b9ebe2e3529e10be779735affbd5.svg" alt="Diagram">
 </div>
 </div>
 <div class="paragraph">
