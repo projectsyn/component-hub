@@ -2150,7 +2150,26 @@ default
 </div>
 <div class="paragraph">
 <p>Each entry in the parameter is intended to describe a group of dummy interfaces that can be used in <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) resources.
-The component expects that each value is an object with fields <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, <code>shadow_ranges</code>, <code>destination_cidrs</code>, and <code>bgp_policy_labels</code>.</p>
+The component expects that each value is an object with fields <code>egress_cidr</code>, <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, <code>shadow_ranges</code>, <code>destination_cidrs</code>, and <code>bgp_policy_labels</code>.
+Fields <code>egress_cidr</code> and <code>egress_range</code> are mutually exclusive.
+The component raises an error for entries which set neither or both.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When specifying egress ranges with <code>egress_cidr</code>, the component also respects fields <code>skip_first</code> and <code>skip_last</code>.
+These fields default to <code>false</code>.
+When field <code>skip_first</code> is set to <code>true</code>, the component omits the given CIDR&#8217;s network address from the egress range.
+When field <code>skip_last</code> is set to <code>true</code>, the component omits the given CIDR&#8217;s broadcast address from the egress range.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2198,6 +2217,23 @@ Such policies assign the egress IP to all traffic originating in the namespace.<
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Support for configuring BGP egress IPs through <code>egress_ip_ranges</code> is currently experimental.</p>
+</div>
+<div class="paragraph">
+<p>Policies which configure BGP egress IPs have an additional annotation <code>cilium.syn.tools/experimental-policy=true</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2206,11 +2242,15 @@ Such policies assign the egress IP to all traffic originating in the namespace.<
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Field <code>bgp_policy_labels</code> is optional.</p>
+<p>Field <code>bgp_policy_labels</code> is optional.
+The component&#8217;s support for configuring BGP egress IPs through <code>egress_ip_ranges</code> is currently experimental.</p>
 </div>
 <div class="paragraph">
 <p>When the field is provided, and not an empty object, the component adds the contents as entries in <code>metadata.labels</code> of the resulting policies.
-In this case, the component also configures the egress policies directly with the egress IP and <code>maxGatewayNodes: 1</code> in the <code>spec.egressGroups</code> entry.</p>
+In this case, the component configures the egress policies with <a href="https://docs.isovalent.com/v1.16/configuration-guide/networking/egress-gateway/introduction.html#requirements-for-egress-ip-and-ipam-feature">Cilium&#8217;s Egress Gateawy IPAM</a> and <code>maxGatewayNodes: 1</code> in the <code>spec.egressGroups</code> entry.</p>
+</div>
+<div class="paragraph">
+<p>Please note that policies which use EGW IPAM will ignore static routes on the active gateway node (as of Cilium 1.16.16 and Cilium 1.17.9).</p>
 </div>
 <div class="paragraph">
 <p>If the field is omitted or empty, the component configures the egress group with the interface name and doesn&#8217;t set <code>maxGatewayNodes</code>.</p>
