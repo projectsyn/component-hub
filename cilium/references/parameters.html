@@ -2150,7 +2150,7 @@ default
 </div>
 <div class="paragraph">
 <p>Each entry in the parameter is intended to describe a group of dummy interfaces that can be used in <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) resources.
-The component expects that each value is an object with fields <code>egress_cidr</code>, <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, <code>shadow_ranges</code>, <code>destination_cidrs</code>, and <code>bgp_policy_labels</code>.
+The component expects that each value is an object with fields <code>egress_cidr</code>, <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, <code>shadow_ranges</code>, <code>destination_cidrs</code>, <code>bgp_policy_labels</code>, <code>policy_labels</code>, and <code>egress_auto_interfaces</code>.
 Fields <code>egress_cidr</code> and <code>egress_range</code> are mutually exclusive.
 The component raises an error for entries which set neither or both.</p>
 </div>
@@ -2254,6 +2254,44 @@ In this case, the component configures the egress policies with <a href="https:/
 </div>
 <div class="paragraph">
 <p>If the field is omitted or empty, the component configures the egress group with the interface name and doesn&#8217;t set <code>maxGatewayNodes</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>policy_labels</code> is optional.</p>
+</div>
+<div class="paragraph">
+<p>The component adds all labels in <code>policy_labels</code> as labels on the generated egress policies.
+If you specify labels in this parameter and in <code>bgp_policy_labels</code> and you specify the same label key in both fields, the label value provided in <code>bgp_policy_labels</code> will win.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>egress_auto_interfaces</code> is optional.</p>
+</div>
+<div class="paragraph">
+<p>Setting the field to <code>true</code> raises an error for egress IP ranges which don&#8217;t have any shadow ranges configured or if the <code>openshift-nmstate</code> component isn&#8217;t present on the target cluster.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, the component will generate a <code>NodeNetworkConfigurationPolicy</code> to create an egress interface with the correct shadow IP on each node for which a shadow range is configured.</p>
 </div>
 </td>
 </tr>
