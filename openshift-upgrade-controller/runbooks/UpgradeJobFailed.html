@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>yawol Architecture :: Commodore Hub</title>
-    <link rel="canonical" href="https://hub.syn.tools/yawol-controller/references/architecture.html">
+    <title>UpgradeJobFailed :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift-upgrade-controller/runbooks/UpgradeJobFailed.html">
+    <link rel="prev" href="PausedMachineConfigPool.html">
+    <link rel="next" href="../how-tos/upgradejobhooks.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -79,12 +81,12 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="yawol-controller" data-version="master">
+<div class="nav-container" data-component="openshift-upgrade-controller" data-version="master">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">yawol-controller</a></h3>
+    <h3 class="title"><a href="../index.html">openshift-upgrade-controller</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -92,7 +94,31 @@
     <a class="nav-link" href="../index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="parameters.html">Parameters</a>
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="NodeDrainStuck.html">NodeDrainStuck</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="PausedMachineConfigPool.html">PausedMachineConfigPool</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="UpgradeJobFailed.html">UpgradeJobFailed</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/upgradejobhooks.html">UpgradeJobHook examples</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -101,7 +127,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">yawol-controller</span>
+    <span class="title">openshift-upgrade-controller</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -713,11 +739,11 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">openshift-upgrade-controller</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1089,11 +1115,11 @@
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="../index.html">yawol-controller</a>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="../index.html">master</a>
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
         </li>
       </ul>
     </li>
@@ -1108,84 +1134,154 @@
   <a href="../../hub/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">yawol-controller</a></li>
-    <li><a href="architecture.html">yawol Architecture</a></li>
+    <li><a href="../index.html">openshift-upgrade-controller</a></li>
+    <li>Runbooks</li>
+    <li><a href="UpgradeJobFailed.html">UpgradeJobFailed</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-yawol-controller/edit/master/docs/modules/ROOT/pages/references/architecture.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift-upgrade-controller/edit/master/docs/modules/ROOT/pages/runbooks/UpgradeJobFailed.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">yawol Architecture</h1>
-<div class="quoteblock abstract">
-<blockquote>
-This page gives a brief overview over the architecture of yawol.
-</blockquote>
+<h1 class="page">UpgradeJobFailed</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please consider opening a PR to improve this runbook if you gain new information about causes of the alert, or how to debug or resolve the alert.
+Click "Edit this Page" in the top right corner to create a PR directly on GitHub.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a><span class="icon"><i class="fa fa-glasses"></i></span> Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This alert fires when a upgrade job has failed.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/stackitcloud/yawol">yawol</a> consists of two main components:</p>
+<p>Machine config pools might still try to apply changes if not paused.
+If the automatic pause on fail is enabled the next maintenance might be blocked.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A Kubernetes controller which interacts with OpenStack to provision lightweight VMs to route traffic from floating IPs into the cluster.</p>
-</li>
-<li>
-<p>An alpine Linux-based VM image which</p>
-<div class="ulist">
-<ul>
-<li>
-<p>runs a custom binary (<code>yawollet</code>) that fetches information from the cluster hosting the controller</p>
-</li>
-<li>
-<p>runs envoy to route traffic from the floating IP into the cluster</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>To clear this alert delete the failed UpgradeJob after investigating the root cause.</p>
 </div>
-</li>
-</ol>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You might need to unpause the MachineConfigPools if they were automatically paused on upgrade job failure.</p>
 </div>
-<div class="literalblock kroki-error">
-<div class="title">yawol networking diagram</div>
+<div class="paragraph">
+<p>However, be aware that unpausing MachineConfigPools may trigger further node reboots.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_steps_for_debugging"><a class="anchor" href="#_steps_for_debugging"></a><span class="icon"><i class="fa fa-bug"></i></span> Steps for debugging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Check the reason given in the alert to understand why the upgrade job has failed.</p>
+</div>
+<div class="sect2">
+<h3 id="_check_for_stuck_nodes"><a class="anchor" href="#_check_for_stuck_nodes"></a><span class="icon"><i class="fa fa-search"></i></span> Check for stuck nodes</h3>
+<div class="paragraph">
+<p>This alert can indicate that a node is stuck in the reboot process during a maintenance.</p>
+</div>
+<div class="paragraph">
+<p>Check the <a href="#">[]</a> handbook for steps on how to debug a stuck node drain process.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_the_clusterversion_for_upgrade_errors"><a class="anchor" href="#_check_the_clusterversion_for_upgrade_errors"></a><span class="icon"><i class="fa fa-search"></i></span> Check the ClusterVersion for upgrade errors</h3>
+<div class="listingblock">
 <div class="content">
-<pre>                             |
-                             |floating IP
-                             v
-                    /--------*--------\
- dmz network        |                 |
---------------------| yawollet / envoy|------------------------
-cluster network     |                 |
-                    \--------*--------/
-                             |internal IP
-                             |
-              +--------------+--------------+
-              |              |              |
-              v              v              v
-       /------------\ /------------\ /------------\
-       | cluster VM | | cluster VM | | cluster VM | ...
-       \------------/ \------------/ \------------/</pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl get clusterversions version -ojson | jq '.status.conditions'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The yawol-cloud-controller creates a <code>LoadBalancer</code>, <code>LoadBalancerSet</code> and <code>LoadBalancerMachine</code> custom resource for each LoadBalancer service.</p>
+<p>Look for the <code>ReleaseAccepted</code>, <code>Failing</code>, and <code>Upgradeable</code> conditions for more details on the failure.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_the_upgrade_job_hook_jobs"><a class="anchor" href="#_check_the_upgrade_job_hook_jobs"></a><span class="icon"><i class="fa fa-search"></i></span> Check the upgrade job hook jobs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl -n appuio-openshift-upgrade-controller get jobs | grep -v Complete</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The yawol-controller reconciles the custom resources, and provisions a floating IP, security group and yawollet instance for each service of <code>type: LoadBalancer</code> in the cluster.
-Additionally, the controller provisions a ServiceAccount and rolebindings for each yawollet so that the yawollet can access the cluster API to watch for updates to the service for which it was provisioned.</p>
+<p>Look for any jobs that are not complete and check their logs for errors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pause_or_unpause_machine_config_pools"><a class="anchor" href="#_pause_or_unpause_machine_config_pools"></a><span class="icon"><i class="fa fa-wrench"></i></span> Pause or unpause Machine Config Pools</h3>
+<div class="paragraph">
+<p>If the upgrade job failure has left the Machine Config Pools in an unfinished state you might want to pause or unpause them manually.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># List unpaused MCPs
+kubectl get mcp -ojson | jq -r '.items[] | select(.spec.paused == false) | .metadata.name'
+# List paused MCPs
+kubectl get mcp -ojson | jq -r '.items[] | select(.spec.paused) | .metadata.name'</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The yawol-controller reconciles the <code>LoadBalancer</code> resource to manage the floating IP and security group for the service.
-Additionally, the yawol-controller creates a <code>LoadBalancerSet</code> associated with the <code>LoadBalancer</code> resource.
-The controller then creates a <code>LoadBalancerMachine</code> resource associated with the <code>LoadBalancerSet</code>.
-Finally, the <code>LoadBalancerMachine</code> resource is reconciled to provision a yawollet VM in OpenStack.</p>
+<p>To pause a Machine Config Pool:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">POOL=XXX
+kubectl --as=system:admin patch mcp $POOL -p '{"spec":{"paused":true}}' --type=merge</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Once the VM is running, the yawollet accesses the cluster (authenticating through the ServiceAccount that was provisioned) to update its own status in the <code>LoadBalancerMachine</code> custom resource.
-Additionally, the yawollet sets up a watch for the <code>LoadBalancer</code> custom resource which it is associated so that it can update the Envoy config on the VM when the <code>LoadBalancer</code> resource changes.</p>
+<p>To unpause a Machine Config Pool:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">POOL=XXX
+kubectl --as=system:admin patch mcp $POOL -p '{"spec":{"paused":false}}' --type=merge</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tune"><a class="anchor" href="#_tune"></a><span class="icon"><i class="fa fa-wrench"></i></span> Tune</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If this alert isn&#8217;t actionable, noisy, or was raised too early you may want to tune the time until the alert fires.
+You can do this by changing the <code>for</code> parameter in the <code>UpgradeJobFailed</code> alert configuration.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="PausedMachineConfigPool.html">PausedMachineConfigPool</a></span>
+  <span class="next"><a href="../how-tos/upgradejobhooks.html">UpgradeJobHook examples</a></span>
+</nav>
 </article>
   </div>
 </main>
@@ -1195,7 +1291,7 @@ Additionally, the yawollet sets up a watch for the <code>LoadBalancer</code> cus
 </footer>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
-<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/yawol-controller/references/architecture.html"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift-upgrade-controller/runbooks/UpgradeJobFailed.html"></script>
 <script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
