@@ -1271,7 +1271,7 @@ Add a section below if you&#8217;re debugging a map for which there&#8217;s no i
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NODE=&lt;node name of affected node&gt; <i class="conum" data-value="1"></i><b>(1)</b>
 AGENT_POD=$(kubectl -n cilium get pods --field-selector=spec.nodeName=$NODE \
   -l app.kubernetes.io/name=cilium-agent -oname)
-kubectl -n cilium exec -it $AGENT_POD --as=cluster-admin -- cilium-dbg policy selectors <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+kubectl -n cilium exec -it $AGENT_POD --as=system:admin -- cilium-dbg policy selectors <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1282,7 +1282,7 @@ kubectl -n cilium exec -it $AGENT_POD --as=cluster-admin -- cilium-dbg policy se
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>--as=cluster-admin</code> is required on VSHN managed clusters</td>
+<td><code>--as=system:admin</code> is required on VSHN managed clusters</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>

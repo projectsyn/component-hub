@@ -1240,8 +1240,8 @@ If this map fills up completely or if there&#8217;s a high error rate for operat
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NODE=&lt;node name of affected node&gt; <i class="conum" data-value="1"></i><b>(1)</b>
 AGENT_POD=$(kubectl -n cilium get pods --field-selector=spec.nodeName=$NODE \
   -l app.kubernetes.io/name=cilium-agent -oname)
-kubectl -n cilium exec -it $AGENT_POD --as=cluster-admin -- cilium status <i class="conum" data-value="2"></i><b>(2)</b>
-kubectl -n cilium exec -it $AGENT_POD --as=cluster-admin -- cilium status --verbose <i class="conum" data-value="3"></i><b>(3)</b>
+kubectl -n cilium exec -it $AGENT_POD --as=system:admin -- cilium status <i class="conum" data-value="2"></i><b>(2)</b>
+kubectl -n cilium exec -it $AGENT_POD --as=system:admin -- cilium status --verbose <i class="conum" data-value="3"></i><b>(3)</b>
 kubectl -n cilium logs $AGENT_POD --tail=50 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
@@ -1253,7 +1253,7 @@ kubectl -n cilium logs $AGENT_POD --tail=50 <i class="conum" data-value="4"></i>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>--as=cluster-admin</code> is required on VSHN managed clusters</td>
+<td><code>--as=system:admin</code> is required on VSHN managed clusters</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>

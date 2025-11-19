@@ -1323,7 +1323,7 @@ export TF_VAR_lb_cloudscale_api_secret=$(echo $floaty_key | jq -r '.data.data.ia
 <p>Disable ArgoCD auto sync</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json \
   -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
 </div>
 </div>
@@ -1357,10 +1357,10 @@ popd</code></pre>
 <p>Deploy cloudscale-loadbalancer-controller</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin apply -f catalog/manifests/cloudscale-loadbalancer-controller/00_namespace.yaml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin apply -f catalog/manifests/cloudscale-loadbalancer-controller/00_namespace.yaml
 kapitan refs --reveal --refs-path catalog/refs -f catalog/manifests/cloudscale-loadbalancer-controller/10_secrets.yaml | \
-  kubectl --as=cluster-admin apply -f -
-kubectl --as=cluster-admin apply -Rf catalog/manifests/cloudscale-loadbalancer-controller/10_kustomize
+  kubectl --as=system:admin apply -f -
+kubectl --as=system:admin apply -Rf catalog/manifests/cloudscale-loadbalancer-controller/10_kustomize
 kubectl -n appuio-cloudscale-loadbalancer-controller \
   wait --for condition=available \
   deploy cloudscale-loadbalancer-controller-controller-manager</code></pre>
@@ -1372,7 +1372,7 @@ kubectl -n appuio-cloudscale-loadbalancer-controller \
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq 'del(.spec.floatingIPAddresses)' catalog/manifests/cloudscale-loadbalancer-controller/20_loadbalancers.yaml | \
-  kubectl --as=cluster-admin apply -f -</code></pre>
+  kubectl --as=system:admin apply -f -</code></pre>
 </div>
 </div>
 </li>
@@ -1382,7 +1382,7 @@ kubectl -n appuio-cloudscale-loadbalancer-controller \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export LB_IP=""
 while [ "$LB_IP" == "" ]; do
-  export LB_IP=$(kubectl --as=cluster-admin -n appuio-cloudscale-loadbalancer-controller \
+  export LB_IP=$(kubectl --as=system:admin -n appuio-cloudscale-loadbalancer-controller \
     get loadbalancer ingress -oyaml | \
     yq '(.status.virtualIPAddresses[]|select(.address|contains("2a06")|not)|.address)//""')
   if [ "$LB_IP" == "" ]; then
@@ -1616,7 +1616,7 @@ popd</code></pre>
 <p>Enable ArgoCD sync</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json \
   -p '[{
     "op":"replace",
     "path":"/spec/syncPolicy",

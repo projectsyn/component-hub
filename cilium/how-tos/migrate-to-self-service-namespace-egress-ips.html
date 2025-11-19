@@ -1311,7 +1311,7 @@ This step assumes that the only <code>IsovalentEgressGatewayPolicy</code> resour
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get isovalentegressgatewaypolicy -l argocd.argoproj.io/instance=cilium -oyaml | \
   yq '.items[] |
-    "kubectl --as=cluster-admin annotate namespace \(.metadata.name) cilium.syn.tools/egress-ip="
+    "kubectl --as=system:admin annotate namespace \(.metadata.name) cilium.syn.tools/egress-ip="
     + .metadata.annotations["cilium.syn.tools/egress-ip"]
   ' | \
   bash <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
@@ -1350,7 +1350,7 @@ This step assumes that the only <code>IsovalentEgressGatewayPolicy</code> resour
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin label isovalentegressgatewaypolicy -l argocd.argoproj.io/instance=cilium argocd.argoproj.io/instance-</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin label isovalentegressgatewaypolicy -l argocd.argoproj.io/instance=cilium argocd.argoproj.io/instance-</code></pre>
 </div>
 </div>
 </li>

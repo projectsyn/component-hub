@@ -1213,7 +1213,7 @@ Use the following metric to do so.</p>
 <p>Login to the node and switch to the host namespace</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc debug node/&lt;nodename&gt; --as=cluster-admin -n syn-debug-nodes
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc debug node/&lt;nodename&gt; --as=system:admin -n syn-debug-nodes
 # Wait for pod to start
 chroot /host</code></pre>
 </div>

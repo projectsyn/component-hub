@@ -1185,9 +1185,9 @@ You can complete the following procedure to redeploy the Operator without deleti
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json \
   -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
-kubectl --as=cluster-admin -n syn patch apps openshift4-logging --type=json \
+kubectl --as=system:admin -n syn patch apps openshift4-logging --type=json \
   -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
 </div>
 </div>
@@ -1202,7 +1202,7 @@ kubectl --as=cluster-admin -n syn patch apps openshift4-logging --type=json \
 <p>Remove Subscription:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n openshift-logging delete sub cluster-logging</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n openshift-logging delete sub cluster-logging</code></pre>
 </div>
 </div>
 </li>
@@ -1210,7 +1210,7 @@ kubectl --as=cluster-admin -n syn patch apps openshift4-logging --type=json \
 <p>Remove OperatorGroup:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n openshift-logging delete og cluster-logging</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n openshift-logging delete og cluster-logging</code></pre>
 </div>
 </div>
 </li>
@@ -1218,7 +1218,7 @@ kubectl --as=cluster-admin -n syn patch apps openshift4-logging --type=json \
 <p>Remove ClusterServiceVersion:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n openshift-logging delete csv -l operators.coreos.com/cluster-logging.openshift-logging=</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n openshift-logging delete csv -l operators.coreos.com/cluster-logging.openshift-logging=</code></pre>
 </div>
 </div>
 </li>
@@ -1268,7 +1268,7 @@ Make sure ArgoCD is refreshed before enabling the sync again.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json \
   -p '[{
     "op":"replace",
     "path":"/spec/syncPolicy",

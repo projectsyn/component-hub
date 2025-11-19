@@ -1429,7 +1429,7 @@ Ensure the ArgoCD application is synced, in a healthy state, and the OSDs were r
 <p>Delete the Ceph-CSI driver configmap:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin delete cm -n syn-rook-ceph-operator rook-ceph-csi-config</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin delete cm -n syn-rook-ceph-operator rook-ceph-csi-config</code></pre>
 </div>
 </div>
 </li>
@@ -1437,7 +1437,7 @@ Ensure the ArgoCD application is synced, in a healthy state, and the OSDs were r
 <p>Restart the Rook-Ceph operator:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin delete pod -n syn-rook-ceph-operator -l app=rook-ceph-operator</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin delete pod -n syn-rook-ceph-operator -l app=rook-ceph-operator</code></pre>
 </div>
 </div>
 </li>
@@ -1445,8 +1445,8 @@ Ensure the ArgoCD application is synced, in a healthy state, and the OSDs were r
 <p>Delete the Ceph-CSI driver pods:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn-rook-ceph-operator delete pod -l app=csi-cephfsplugin
-kubectl --as=cluster-admin -n syn-rook-ceph-operator delete pod -l app=csi-rbdplugin</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn-rook-ceph-operator delete pod -l app=csi-cephfsplugin
+kubectl --as=system:admin -n syn-rook-ceph-operator delete pod -l app=csi-rbdplugin</code></pre>
 </div>
 </div>
 </li>
@@ -1475,8 +1475,8 @@ See the <a href="https://kb.vshn.ch/oc4/how-tos/force-reboot.html">APPUiO Manage
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin delete -n syn-rook-ceph-operator daemonsets.apps csi-cephfsplugin-holder-cluster
-kubectl --as=cluster-admin delete -n syn-rook-ceph-operator daemonsets.apps csi-rbdplugin-holder-cluster</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin delete -n syn-rook-ceph-operator daemonsets.apps csi-cephfsplugin-holder-cluster
+kubectl --as=system:admin delete -n syn-rook-ceph-operator daemonsets.apps csi-rbdplugin-holder-cluster</code></pre>
 </div>
 </div>
 </li>

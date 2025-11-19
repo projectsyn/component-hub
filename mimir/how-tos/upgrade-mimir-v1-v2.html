@@ -1320,8 +1320,8 @@ cd ../../..</code></pre>
 <p>Disable auto sync on the <code>root</code> and <code>mimir</code> apps in ArgoCD</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
-kubectl --as=cluster-admin -n syn patch apps $MIMIR_INSTANCE --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
+kubectl --as=system:admin -n syn patch apps $MIMIR_INSTANCE --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
 </div>
 </div>
 </li>
@@ -1329,7 +1329,7 @@ kubectl --as=cluster-admin -n syn patch apps $MIMIR_INSTANCE --type=json -p '[{"
 <p>Scale down the store-gateway pods</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl scale sts -l app.kubernetes.io/component=store-gateway -n$MIMIR_INSTANCE --replicas=0 --as cluster-admin</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl scale sts -l app.kubernetes.io/component=store-gateway -n$MIMIR_INSTANCE --replicas=0 --as=system:admin</code></pre>
 </div>
 </div>
 </li>
@@ -1357,7 +1357,7 @@ cd ../../..</code></pre>
 <p>Re-enable argocd sync</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {"automated":{"prune":true,"selfHeal":true}}}]'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {"automated":{"prune":true,"selfHeal":true}}}]'</code></pre>
 </div>
 </div>
 </li>
@@ -1398,8 +1398,8 @@ cd ../../..</code></pre>
 <p>Disable auto sync on the <code>root</code> and <code>mimir</code> apps in ArgoCD</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
-kubectl --as=cluster-admin -n syn patch apps $MIMIR_INSTANCE --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
+kubectl --as=system:admin -n syn patch apps $MIMIR_INSTANCE --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
 </div>
 </div>
 </li>
@@ -1407,8 +1407,8 @@ kubectl --as=cluster-admin -n syn patch apps $MIMIR_INSTANCE --type=json -p '[{"
 <p>Scale down the traffic to the ingesters</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl scale deploy -l app.kubernetes.io/component=nginx -n$MIMIR_INSTANCE --replicas=0 --as cluster-admin
-kubectl scale deploy -l app.kubernetes.io/component=gateway -n$MIMIR_INSTANCE --replicas=0 --as cluster-admin</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl scale deploy -l app.kubernetes.io/component=nginx -n$MIMIR_INSTANCE --replicas=0 --as=system:admin
+kubectl scale deploy -l app.kubernetes.io/component=gateway -n$MIMIR_INSTANCE --replicas=0 --as=system:admin</code></pre>
 </div>
 </div>
 </li>
@@ -1419,7 +1419,7 @@ kubectl scale deploy -l app.kubernetes.io/component=gateway -n$MIMIR_INSTANCE --
 <p>Next, scale down the old zone-unaware ingesters as well:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl scale sts -l app.kubernetes.io/component=ingester -n$MIMIR_INSTANCE --replicas=0 --as cluster-admin</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl scale sts -l app.kubernetes.io/component=ingester -n$MIMIR_INSTANCE --replicas=0 --as=system:admin</code></pre>
 </div>
 </div>
 </li>
@@ -1449,7 +1449,7 @@ cd ../../..</code></pre>
 <p>Re-enable argocd sync</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {"automated":{"prune":true,"selfHeal":true}}}]'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin -n syn patch apps root --type=json -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {"automated":{"prune":true,"selfHeal":true}}}]'</code></pre>
 </div>
 </div>
 </li>

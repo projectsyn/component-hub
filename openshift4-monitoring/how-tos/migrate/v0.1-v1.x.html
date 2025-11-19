@@ -1232,8 +1232,8 @@ While we give <code>oc</code> commands to manage the ArgoCD apps, you can also p
 <p>Setup port-forward to ArgoCD and login to ArgoCD with the CLI</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=cluster-admin -n syn port-forward svc/argocd-server 8080:80 &amp; sleep 1
-argocd login --plaintext --username=admin --password=$(oc --as=cluster-admin -n syn get secret steward -ojsonpath='{.data.token}' |base64 -d) localhost:8080</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=system:admin -n syn port-forward svc/argocd-server 8080:80 &amp; sleep 1
+argocd login --plaintext --username=admin --password=$(oc --as=system:admin -n syn get secret steward -ojsonpath='{.data.token}' |base64 -d) localhost:8080</code></pre>
 </div>
 </div>
 </li>
@@ -1253,9 +1253,9 @@ argocd app set --sync-option=none openshift4-monitoring</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=cluster-admin -n syn patch apps root --type=json \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=system:admin -n syn patch apps root --type=json \
   -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'
-oc --as=cluster-admin -n syn patch apps openshift4-monitoring --type=json \
+oc --as=system:admin -n syn patch apps openshift4-monitoring --type=json \
   -p '[{"op":"replace", "path":"/spec/syncPolicy", "value": {}}]'</code></pre>
 </div>
 </div>
@@ -1264,7 +1264,7 @@ oc --as=cluster-admin -n syn patch apps openshift4-monitoring --type=json \
 <p>Remove ArgoCD managed-by label from the <code>openshift-monitoring</code> namespace object</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=cluster-admin label ns openshift-monitoring argocd.argoproj.io/instance-</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=system:admin label ns openshift-monitoring argocd.argoproj.io/instance-</code></pre>
 </div>
 </div>
 </li>
@@ -1323,7 +1323,7 @@ You can trigger a hard refresh via the ArgoCD UI instead of using the ArgoCD CLI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=cluster-admin -n syn patch apps root --type=json \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc --as=system:admin -n syn patch apps root --type=json \
   -p '[{
     "op":"replace",
     "path":"/spec/syncPolicy",

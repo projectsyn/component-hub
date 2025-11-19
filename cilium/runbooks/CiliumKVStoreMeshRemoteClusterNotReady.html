@@ -1272,14 +1272,14 @@ This section assumes that you&#8217;re running cluster mesh with the cluster mes
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cilium -n cilium clustermesh status --as=cluster-admin <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cilium -n cilium clustermesh status --as=system:admin <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>--as=cluster-admin</code> is required on VSHN Managed OpenShift, may need to be left out on other clusters.</td>
+<td><code>--as=system:admin</code> is required on VSHN Managed OpenShift, may need to be left out on other clusters.</td>
 </tr>
 </table>
 </div>
@@ -1304,10 +1304,10 @@ kubectl -n cilium logs deploy/clustermesh-apiserver --all-containers</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n cilium --as=cluster-admin exec -it deploy/clustermesh-apiserver -c kvstoremesh -- \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n cilium --as=system:admin exec -it deploy/clustermesh-apiserver -c kvstoremesh -- \
    clustermesh-apiserver kvstoremesh-dbg status <i class="conum" data-value="1"></i><b>(1)</b>
 
-kubectl exec -it -n cilium --as=cluster-admin deploy/clustermesh-apiserver -c kvstoremesh -- \
+kubectl exec -it -n cilium --as=system:admin deploy/clustermesh-apiserver -c kvstoremesh -- \
   clustermesh-apiserver kvstoremesh-dbg troubleshoot <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
@@ -1334,8 +1334,8 @@ kubectl exec -it -n cilium --as=cluster-admin deploy/clustermesh-apiserver -c kv
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NODE=&lt;node name of affected node&gt;
 REMOTE_NODE=&lt;ip of a node in the remote cluster&gt;
-oc -n syn-debug-nodes debug node/${NODE} --as=cluster-admin -- chroot /host ip r
-oc -n syn-debug-nodes debug node/${NODE} --as=cluster-admin -- chroot /host ping -c4 ${REMOTE_NODE}</code></pre>
+oc -n syn-debug-nodes debug node/${NODE} --as=system:admin -- chroot /host ip r
+oc -n syn-debug-nodes debug node/${NODE} --as=system:admin -- chroot /host ping -c4 ${REMOTE_NODE}</code></pre>
 </div>
 </div>
 <div class="listingblock">

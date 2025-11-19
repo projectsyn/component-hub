@@ -1261,7 +1261,7 @@ If you had to debug this alert, please consider adding any insight, tips, or cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=cluster-admin describe nodes -l node-role.kubernetes.io/app=
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --as=system:admin describe nodes -l node-role.kubernetes.io/app=
 [...]
 Allocatable:
   cpu:                3500m

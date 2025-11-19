@@ -1189,7 +1189,7 @@ There is also a Docker image available at <a href="https://quay.io/repository/je
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cmctl upgrade migrate-api-version --as=cluster-admin</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cmctl upgrade migrate-api-version --as=system:admin</code></pre>
 </div>
 </div>
 </div>
@@ -1214,7 +1214,7 @@ There is also a Docker image available at <a href="https://quay.io/repository/je
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as=cluster-admin get apirequestcount -ojson | jq '
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as=system:admin get apirequestcount -ojson | jq '
     .items[] |
         select(
             (.metadata.name | in({

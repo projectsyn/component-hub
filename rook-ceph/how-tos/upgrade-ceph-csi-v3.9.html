@@ -1444,7 +1444,7 @@ If this command shows custom mount options for any volumes, you&#8217;ll want to
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">for pv in $(kubectl get pv -ojson |\
   jq -r '.items[] | select(.spec.storageClassName=="cephfs-fspool-cluster" and (.spec.mountOptions//[]) == ["discard"]) | .metadata.name');
 do
-  kubectl patch --as=cluster-admin pv $pv --type=json \
+  kubectl patch --as=system:admin pv $pv --type=json \
     -p '[{"op": "replace", "path": "/spec/mountOptions", "value": [] }]'
 done</code></pre>
 </div>
