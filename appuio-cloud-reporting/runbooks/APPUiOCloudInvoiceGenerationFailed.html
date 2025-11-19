@@ -1220,7 +1220,7 @@ Look out for connectivity issues (for example between the job and the ERP).</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">name="generate-invoices-manual-$($(command -v gdate || command -v date) +%s)"
-kubectl --as cluster-admin -n appuio-cloud-reporting create job --from=cronjob/generate-invoices "${name}"
+kubectl --as=system:admin -n appuio-cloud-reporting create job --from=cronjob/generate-invoices "${name}"
 kubectl -n appuio-cloud-reporting logs "job/${name}"</code></pre>
 </div>
 </div>

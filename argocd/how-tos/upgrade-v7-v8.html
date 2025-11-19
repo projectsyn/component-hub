@@ -1174,7 +1174,7 @@ If there are other unmanaged ArgoCD deployed, you need to enable the conversion 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as cluster-admin get argocds -A -ocustom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,API:.apiVersion'
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl --as=system:admin get argocds -A -ocustom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name,API:.apiVersion'
 NAMESPACE          NAME               API
 openshift-gitops   openshift-gitops   argoproj.io/v1beta1
 syn                syn-argocd         argoproj.io/v1beta1</code></pre>

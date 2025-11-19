@@ -1187,15 +1187,15 @@ This might leave gaps in the reported data and totals will be too low in the nex
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAMESPACE=appuio-cloud-reporting
 FAILED_JOB=job/XXXXXX-XXXXXX
 
-oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+oc --as=system:admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
   --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
   appuio-cloud-reporting migrate --show-pending
 
 # If pending migrations are shown
-oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+oc --as=system:admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
   --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
   appuio-cloud-reporting migrate
-oc --as=cluster-admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
+oc --as=system:admin -n "${NAMESPACE}" debug "${FAILED_JOB}" \
   --keep-init-containers=false --image=ghcr.io/appuio/appuio-cloud-reporting:latest -- \
   appuio-cloud-reporting migrate --seed</code></pre>
 </div>
@@ -1283,7 +1283,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then date_bin=gdate; fi
 
 echo $failed_timestamps \
   | xargs -I @ $date_bin --date @ +"%Y-%m-%dT%H:00:00Z" \
-  | xargs -n1 oc -n $NAMESPACE --as=cluster-admin debug job/$job_template -- appuio-cloud-reporting report --query-name=$query_name --begin</code></pre>
+  | xargs -n1 oc -n $NAMESPACE --as=system:admin debug job/$job_template -- appuio-cloud-reporting report --query-name=$query_name --begin</code></pre>
 </div>
 </div>
 </div>
