@@ -14,10 +14,10 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: 3.12
 
@@ -25,7 +25,7 @@ jobs:
         uses: Gr1N/setup-poetry@v9
 
       - name: Setup Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
@@ -62,7 +62,7 @@ jobs:
           git commit -m "First commit"
 
       - name: Upload generated site configuration
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: antora-site-configuration
           path: build/
@@ -74,7 +74,7 @@ jobs:
     needs: generate
     steps:
       - name: Download Antora Site configuration
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: antora-site-configuration
 
@@ -85,7 +85,7 @@ jobs:
         run: cd $PROJECT_SLUG; make html
 
       - name: Upload built Antora Site
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: antora-site
           path: component-hub
@@ -98,7 +98,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Download Antora Site
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: antora-site
 
