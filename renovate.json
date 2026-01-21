@@ -17,8 +17,7 @@
       "platformAutomerge": true
     },
     {
-        "matchManagers": ["poetry"],
-        "matchPackageNames": ["python"],
+        "matchPackageNames": ["containerbase/python-prebuild", "actions/python-versions"],
         "enabled": false
     }
   ]
