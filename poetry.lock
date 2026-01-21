@@ -1054,10 +1054,7 @@ files = [
 [package.dependencies]
 astroid = ">=3.3.8,<=3.4.0.dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
-dill = [
-    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
-    {version = ">=0.3.6", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
-]
+dill = {version = ">=0.3.7", markers = "python_version >= \"3.12\""}
 isort = ">=4.2.5,<5.13 || >5.13,<7"
 mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2"
@@ -1541,5 +1538,5 @@ zstd = ["backports-zstd (>=1.0.0)"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">=3.11, <3.14"
-content-hash = "2f2437383ddf7e7d33258791b94163aad7cdc18753d75605c31a0be54046cf82"
+python-versions = ">=3.14, <3.15"
+content-hash = "173e68a71c1b6447e7b188a8f64243d138be312a9a8eb6f9631335937fc2d839"
