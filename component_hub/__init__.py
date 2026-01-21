@@ -3,7 +3,7 @@ Component Hub. Build Commodore component documentation hub with Antora
 """
 
 from pathlib import Path
-from importlib_metadata import version
+from importlib.metadata import version
 
 __version__ = version("component-hub")
 __git_version__ = "0"
