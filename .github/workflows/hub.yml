@@ -109,3 +109,5 @@ jobs:
           folder: _public
           git-config-name: "Hub Action"
           git-config-email: "ahoy@syn.tools"
+          # Do not keep history on the gh-pages branch
+          single-commit: true
