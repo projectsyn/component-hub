@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Managing Machine Config Pools :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-nodes/explanations/machine-config-pool.html">
+    <link rel="prev" href="../references/parameters.html">
+    <link rel="next" href="resource_management.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="openshift4-nodes" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenShift 4 Nodes</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../references/parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanations</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="machine-config-pool.html">Machine Config Pools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="resource_management.html">Resource Management</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="priority_and_autoscaling.html">Pod Priority and Autoscaling</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenShift 4 Nodes</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenShift 4 Nodes</a></li>
+    <li>Explanations</li>
+    <li><a href="machine-config-pool.html">Machine Config Pools</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-nodes/edit/master/docs/modules/ROOT/pages/explanations/machine-config-pool.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Managing Machine Config Pools</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This component allows you to manage machine config pools and all related configuration, including <code>MachineConfigs</code>, <code>KubeletConfigs</code>, and <code>ContainerRuntimeConfigs</code>.
+If you wan to get a better understanding of machine config pools, please read the <a href="https://docs.openshift.com/container-platform/latest/post_installation_configuration/machine-configuration-tasks.html">upstream documentation</a> or <a href="https://www.redhat.com/en/blog/openshift-container-platform-4-how-does-machine-config-pool-work">this blog post from RedHat</a>.</p>
+</div>
+<div class="paragraph">
+<p>On this page we&#8217;ll provide some explanations and examples which demonstrate how to configure existing machine config pools and how to add new machine config pools.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_default_machine_config_pools"><a class="anchor" href="#_default_machine_config_pools"></a>Default Machine Config Pools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On a default APPUiO OpenShift 4 cluster there are five machine config pools.</p>
+</div>
+<div class="paragraph">
+<p>There are two that are always present and managed by OpenShift directly.
+These can&#8217;t be removed or modified through the component.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>master</strong> pool contains all master nodes.</p>
+</li>
+<li>
+<p>The <strong>worker</strong> pool contains all other nodes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On an APPUiO OpenShift 4 cluster the <strong>worker</strong> pool is further split into different sub-pools</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>app</strong> pool contains the actual <em>worker</em> nodes that are used to run the users applications.</p>
+</li>
+<li>
+<p>The <strong>infra</strong> pool contains the infra nodes that run OpenShift 4 workloads, such as Prometheus or Elasticsearch,</p>
+</li>
+<li>
+<p>The <strong>storage</strong> pool contains the Ceph cluster deployed by component rook ceph.
+These nodes aren&#8217;t always present, but the pool always exists.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Being a sub-pool of the worker pool means it will inherit all configuration of the worker pool, but it will still count as a separate pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_machine_config_pools"><a class="anchor" href="#_configuring_machine_config_pools"></a>Configuring Machine Config Pools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The component allows you to configure machine config pools and their related resources through the <code>machineConfigPools</code> parameter.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/machineconfigpool-machineconfiguration-openshift-io-v1.html"><code>MachineConfigPool</code> resource</a> itself can be managed through the <code>spec</code> parameter.
+The component provides sane defaults for machine config and node selectors, which you generally shouldn&#8217;t need to change.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This can&#8217;t be changed for the <em>master</em> or <em>worker</em> pool.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>There is one <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/kubeletconfig-machineconfiguration-openshift-io-v1.html"><code>KubeletConfig</code> resource</a> per machine config pool that can be managed through the <code>kubelet</code> parameter.
+The parameter contains the complete spec of the <code>KubeletConfig</code>.
+The <code>machineConfigPoolSelector</code> is set by the component and doesn&#8217;t need to be modified.</p>
+</li>
+<li>
+<p>There is also one <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/containerruntimeconfig-machineconfiguration-openshift-io-v1.html"><code>ContainerRuntimeConfig</code> resource</a> per machine config pool that can be managed through the <code>containerRuntime</code> parameter.
+The parameter contains the complete spec of the <code>ContainerRuntimeConfig</code>.
+The <code>machineConfigPoolSelector</code> is again set by the component and doesn&#8217;t need to be modified.</p>
+</li>
+<li>
+<p>An arbitrary number of <a href="https://docs.openshift.com/container-platform/latest/rest_api/machine_apis/machineconfig-machineconfiguration-openshift-io-v1.html"><code>MachineConfig</code> resources</a> can be managed through the <code>machineConfigs</code> parameter.
+The component handles selectors and labels so that these machine configs are assigned to the corresponding pool.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Changes that impact a nodes configuration, such as modifying kubelet config or container runtime config, will restart all nodes in the machine config pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Below you can see a few example configurations that should illustrate how you can manage existing machine config pools.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_modifying_app_pool"><a class="anchor" href="#_example_modifying_app_pool"></a>Example: Modifying App Pool</h3>
+<div class="paragraph">
+<p>Let&#8217;s assume that we&#8217;re running a large cluster with more than 10 large app nodes.
+Although there are enough resources available, we run into the pod limit and we&#8217;d need to add another node.
+At the same time maintenance is starting to take a long time, as each node is restarted sequentially.
+We decided to do two changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Increase the maximum number of pods per node to <code>200</code></p>
+</li>
+<li>
+<p>Allow OpenShift to restart two app nodes in parallel during upgrades</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This allow us to better utilize the available resources and reduces the maintenance time.
+We can achieve this with the following configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    app:
+      spec:
+        maxUnvailable: 2 <i class="conum" data-value="1"></i><b>(1)</b>
+      kubelet:
+        kubeletConfig:
+          maxPods: 200 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Allows OpenShift to reboot two app nodes at the same time</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Schedules up to <code>200</code> pods per node</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_configuring_master_nodes"><a class="anchor" href="#_example_configuring_master_nodes"></a>Example: Configuring Master Nodes</h3>
+<div class="paragraph">
+<p>The <strong>master</strong> and <strong>worker</strong> pools are managed by OpenShift and come with default configuration.
+This component doesn&#8217;t directly manage these <code>MachineConfigPool</code> resources, but we can still add additional machine configs.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say we want to configure chrony on the master nodes to use our own NTP server.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First encode the chrony configuration as base64</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cat &lt;&lt; EOF | base64
+    pool ntp.example.com iburst <i class="conum" data-value="1"></i><b>(1)</b>
+    driftfile /var/lib/chrony/drift
+    makestep 1.0 3
+    rtcsync
+    logdir /var/log/chrony
+EOF</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specify any valid, reachable time source, such as the one provided by your DHCP server</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Then add this to all master nodes using the following configuration</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    master:
+      machineConfigs:
+        chrony:
+          config:
+            ignition:
+              version: 3.2.0
+            storage:
+              files:
+              - contents: <i class="conum" data-value="1"></i><b>(1)</b>
+                  source: data:text/plain;charset=utf-8;base64,ICAgIHBvb2wgbnRwLmV4YW1wbGUuY29tIGlidXJzdCA8MT4KICAgIGRyaWZ0ZmlsZSAvdmFyL2xpYi9jaHJvbnkvZHJpZnQKICAgIG1ha2VzdGVwIDEuMCAzCiAgICBydGNzeW5jCiAgICBsb2dkaXIgL3Zhci9sb2cvY2hyb255Cg==
+                mode: 420
+                overwrite: true
+                path: /etc/chrony.conf</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Base64 encoded chrony configuration</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_new_machine_config_pools"><a class="anchor" href="#_adding_new_machine_config_pools"></a>Adding new Machine Config Pools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This component allows you to add an arbitrary number of machine config pools.
+All custom machine config pools will be sub-pools of the <em>worker</em> machine config pool.
+Therefore, they&#8217;ll all inherit all configuration of the <em>worker</em> pool.</p>
+</div>
+<div class="paragraph">
+<p>Currently the component doesn&#8217;t provide support for adding and labeling the nodes themselves.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_add_gpu_nodes"><a class="anchor" href="#_example_add_gpu_nodes"></a>Example: Add GPU Nodes</h3>
+<div class="paragraph">
+<p>We want to add special nodes that have access to to a GPU.
+We handle these nodes in a different machine config pool, as we anticipate that they&#8217;ll need different configuration.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let&#8217;s say we added two new worker nodes with GPUs.
+We currently need to manually label these two nodes to give them the correct role.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get nodes
+..
+gpu-32ac    Ready    worker       1h   v1.23.5+8471591
+gpu-e226    Ready    worker       1h   v1.23.5+8471591</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl label node gpu-32ac node-role.kubernetes.io/gpu=""
+kubectl label node gpu-e226 node-role.kubernetes.io/gpu=""</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get nodes
+..
+gpu-32ac    Ready    gpu,worker   1h   v1.23.5+8471591
+gpu-e226    Ready    gpu,worker   1h   v1.23.5+8471591</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>With the nodes labeled we can add another machine config pool with the following configuration</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    gpu: {}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After a few minutes you should see that the machine config pool has adopted the two nodes</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get machineconfigpools.machineconfiguration.openshift.io
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+...
+x-gpu    rendered-x-gpu-9b16524c1512d9327f940e736f322ef1    True      False      False      2              2                   2                     0                      20m</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A node can only belong to the worker pool and up to <strong>one</strong> other pool.
+Sub-pools for master nodes or adding a node to more than one sub-pool isn&#8217;t supported.</p>
+</div>
+<div class="paragraph">
+<p>If you add a node to more than one sub-pool it&#8217;ll be removed from all pools and won&#8217;t be managed by OpenShift.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You have the option to remove added machine config pools or even remove the three default pools <em>app</em>, <em>infra</em>, and <em>storage</em>.
+However, before doing so you need to make sure that <strong>no node is assigned</strong> to the to-be removed machine config pool.</p>
+</div>
+<div class="paragraph">
+<p>You can do this by removing the associated label or by modifying the node selector of the machine config pool before removing the pool.
+If you don&#8217;t do this, OpenShift will be confused and the nodes won&#8217;t be assigned to any machine config pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../references/parameters.html">Parameters</a></span>
+  <span class="next"><a href="resource_management.html">Resource Management</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-nodes/explanations/machine-config-pool.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

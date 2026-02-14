@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-console/references/parameters.html">
+    <link rel="prev" href="../index.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="openshift4-console" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenShift4 Console</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenShift4 Console</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-nodes/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenShift4 Console</a></li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-console/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>openshift4_console</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>openshift-console</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace where the console is deployed.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+It&#8217;s not recommended to change this parameter.
+Changing the parameter might break the components function.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace_annotations"><a class="anchor" href="#_namespace_annotations"></a><code>namespace_annotations</code></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dictionary</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift.io/node-selector: ''</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Annotations to add to the managed namespace.
+Annotations can be removed by setting the value to <code>null</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_openshift_version"><a class="anchor" href="#_openshift_version"></a><code>openshift_version</code></h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dictionary</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Major: '4'
+Minor: '17'</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The OpenShift major and minor version.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This parameter is intended to be populated from the <code>openshiftVersion</code> dynamic fact and replicates the fact&#8217;s structure.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_route"><a class="anchor" href="#_route"></a><code>route</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{"console": {}, "downloads": {}}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the configuration for the console and download routes.</p>
+</div>
+<div class="paragraph">
+<p>The component will look for keys <code>hostname</code> and <code>servingCertKeyPairSecret</code> in the values of keys <code>console</code> and <code>downloads</code>.
+The component expects that the value of <code>servingCertKeyPairSecret</code> is of the form <code>{"name": "&lt;secret_name&gt;"}</code> and refers to a secret in namespace <code>openshift-config</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>CRD defaults.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the <code>.spec</code> for the console config.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/web_console/customizing-the-web-console.html">OpenShift docs</a> for available parameters.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will inject various configurations based on other parameters.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, on OpenShift 4.19 and newer, the component automatically configures the console&#8217;s "Developer" view state based on the cluster&#8217;s distribution.
+The "Developer" view is disabled for OKE clusters and enabled for other clusters.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_config_managementstate"><a class="anchor" href="#_config_managementstate"></a><code>config.managementState</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>enum <code>Managed</code>, <code>Unmanaged</code>, <code>Removed</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>Managed</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Indicates whether and how the operator should manage the console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config_plugins"><a class="anchor" href="#_config_plugins"></a><code>config.plugins</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>dynamic, depending on the reported OpenShift version</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Add plugins to the console.</p>
+</div>
+<div class="paragraph">
+<p>The component will inject a dynamic set of plugins into the configuration based on the reported OpenShift version in parameter <code>openshift_version</code>.
+For OpenShift 4.14 and newer, the component always adds plugin <code>monitoring-plugin</code>.
+For OpenShift 4.17 and newer, the component always adds plugin <code>networking-console-plugin</code>.
+Additionally, the component will remove duplicated entries from the list of configured plugins.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The order of entries in the field isn&#8217;t guaranteed to be stable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config_route"><a class="anchor" href="#_config_route"></a><code>config.route</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary with <code>hostname</code> and <code>secret</code> keys</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>undefined</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Create a custom route to access the console.
+If the route is part of the default apps domain, no TLS cert needs to be specified since the default wildcard cert will be used.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This configuration parameter is deprecated starting with OpenShift 4.8, see the <a href="https://docs.openshift.com/container-platform/4.8/web_console/customizing-the-web-console.html#customizing-the-console-route_customizing-web-console">upstream documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>The component always configures the console route via the <code>ingress.config.openshift.io/cluster</code> object.</p>
+</div>
+<div class="paragraph">
+<p>If both this parameter and parameter <code>route</code> are present, parameter <code>route</code> has precedence over this parameter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_console_links"><a class="anchor" href="#_console_links"></a><code>console_links</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>console_links</code> is deployed onto the cluster as an <a href="https://docs.openshift.com/container-platform/4.9/web_console/customizing-the-web-console.html#creating-custom-links_customizing-web-console">OpenShift <code>ConsoleLink</code></a>.
+The value of the entry will be used as the <code>ConsoleLink</code> specification.
+Entries with <code>null</code> values are skipped.
+This allows users to remove links which were configured higher up in the hierarchy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_logo"><a class="anchor" href="#_custom_logo"></a><code>custom_logo</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This parameter is deprecated on OpenShift 4.19 and newer.
+Use <code>custom_logos</code> and <code>custom_favicon</code> instead.</p>
+</div>
+<div class="paragraph">
+<p>When <code>custom_logos</code> is set for OpenShift 4.19 and newer, any configuration in this parameter will be ignored.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Add a custom logo to the console.
+Takes a single key with the filename and the value is the base64 encoded logo.
+The logo can be a file in any common image format, including GIF, JPG, PNG, or SVG, and is constrained to a max-height of 60px
+The filename needs to have a filename extension which matches the image format.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For SVG logos the file must <strong>not</strong> be base64 encoded, but inserted directly as a string.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, OpenShift won&#8217;t serve a favicon if a custom logo is configured for the console.
+This is an intentional design decision as documented in this <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1844883#c1">bug report</a>.</p>
+</div>
+<div class="paragraph">
+<p>The component tries to ensure that a favicon is served even if a custom logo is configured.
+However, because the current workaround for the missing favicon requires an additional custom route for the console hostname, it can only be implemented for configurations which use a custom console hostname.
+Otherwise, the component is unable to correctly configure <code>spec.hostname</code> for the console.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_logos"><a class="anchor" href="#_custom_logos"></a><code>custom_logos</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-console/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configure custom logos for the console.
+This parameter only has an effect on OpenShift 4.19 and newer.
+For older versions of OpenShift, use parameter <code>custom_logo</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When setting this parameter on OpenShift 4.19 and newer, the component will ignore the contents of <code>custom_logo</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>OpenShift 4.19 introduces a new console look with a dark and light theme.
+The new custom logo mechanism allows configuring separate logos for each theme.
+The component supports keys <code>dark</code> and <code>light</code> to specify logos for the dark and light theme respectively.
+The component additionally supports specifying a single logo for all themes in key <code>'*'</code>.
+If there&#8217;s no logo for a theme, the console will show the default logo for that theme.</p>
+</div>
+<div class="paragraph">
+<p>Each logo can be a file in any common image format, including GIF, JPG, PNG, or SVG, and is constrained to a max-height of 60px.</p>
+</div>
+<div class="paragraph">
+<p>The component looks for fields <code>type</code> and <code>data</code> in each entry of the parameter.
+Field <code>type</code> is expected to be a valid file extension in all lower case matching the image data provided in field <code>data</code>.
+Field data is the logo image data, in plain text for SVG and base64 encoded for all other formats.</p>
+</div>
+<div class="paragraph">
+<p>The component will render all the logos in a single ConfigMap.
+The component will dynamically add logos to fields <code>data</code> (for SVG) and <code>binaryData</code> (for other formats) in the ConfigMap.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the component will configure an entry in <code>spec.customization.logos</code> in the <code>console.operator.openshift.io</code> custom resource to actually configure the custom logos.</p>
+</div>
+<div class="sect2">
+<h3 id="_examples"><a class="anchor" href="#_examples"></a>Examples</h3>
+<div class="listingblock">
+<div class="title">Separate logo per theme</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom_logos:
+  dark:
+    type: svg
+    data: |
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#fff" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;
+  light:
+    type: svg
+    data: |
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#000" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Same logo for all themes</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom_logos:
+  '*':
+    type: svg
+    data: |
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#f00" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Different file types</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">custom_logos:
+  dark:
+    type: svg
+    data: | <i class="conum" data-value="1"></i><b>(1)</b>
+      &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+      &lt;svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"&gt;
+      &lt;circle cx="30" cy="30" r="20" stroke="#fff" stroke-width="4" fill-opacity="0%"/&gt;
+      &lt;/svg&gt;
+  light:
+    type: png
+    data: iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABHNCSVQICAgIfAhkiAAAA5dJREFUaIHtmk1vTUEYx39HgkTYtMTOQtVL2WiKoF5W1IpGmrTpUlLxMUTDF6B8AKp8gWqxkHbtLUQixZbqQlVvScjf4pxK89y59869Z+Zei/NPZjE39zz/35Mz85w5MwcKFSpUqFChQq1SEjO4YDNwAjgJHAB2A9tIfwf4AXwB5oA3wDNgJoHlmFxBJUgE5wQPBSsC1dlWBBOCPkW+IbklGBC8biDJSu2V4GKr8yqToFPwJGCitk0LdrU6TwAEw4KlKrBzgluCIcFBQZtgfdbast+GBGOCD1XifBcMtTLRRHC9AtxvwT3B0QZiHhOMZzFcsUebPrczsNsVgB4prcZ5PfZkQ9nlMdbUpAU3HBDLgksRvEYEJYfftdBelQCGHeafBd0RPXsE8w7fwVieq8adjgL1RbAnqjH/hrhNelHQEdPUPnqWY95Zh3+PY3hPxTIbcAyp4HPWg2PEwdEf2iRR+QpqOqhJfTyThuVl0KqtdG1sn7O5Hz05ePY5ntN9IQ0emuB3gwVvnOm+YbofKvBmlb/11LWCiiHBccNUEmwKEdgO57mmrnIqcyWCj4btTK3r1nnEPmX6UwmoMcxwyhhs4Txd6zqfhPeb/qwnUzM0Y/qWtUw+Cdtq/M4bJ74sS/4nh2DBzJO23EEDSbDVsH0NEfSXCbo+AGsQCTYatp+1rvEZ0lYtr9B55JPwD9PfEgOkQVmWpVoX+CS8YPo7vHHiy7JY1jL5JPze9Pd648RXl+lb1jL5JPzG9E9448RXr+lb1vql9ARgbSX88B8tLT/Vu7T0Cex6eTgWgDkvV69j9yX/y0MW/IEJfi9I4HxME4ZpPGRwO6x/qwkbd1V4uhwbAGdDGiSC5//RFs9Tw/IieF0RXDQmEowENfHjuOLguBDLzB59lAQ9Uczc/ocdBXQypuEupad4aw3nmzGfBXtVvhH/TbAztvGQY0jNCw5F9DziSFaCgVieFmDUYb4iuBzB64pjGEtwNbRXNYhE6ZGlhZDgsWBfAI8uRzVebTdD5FEvUFLhTq8+p8eVbqV6Py6ymL3ZouJPhdjNu7MVIAcdhWxt+yi4o/SYtVvQLtiQtfbst+HsP3ZtvLYtNm3O1pKgQzBVBTZvm4xejRuRoF/pwVaoRF8Izrc6r6rK5mGf0rMf16cKtVopm/9n65n/vor96eEm0pf0U6Sb5LuB7ZR/evgeeEv66eFsAqWYXIUKFSpUqFCh1ugvn+zZeVm8jdkAAAAASUVORK5CYII= <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>SVG needs to be configured as plain text</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>All other formats, such as PNG need to be configured base64 encoded</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_favicon"><a class="anchor" href="#_custom_favicon"></a><code>custom_favicon</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Starting with OpenShift 4.19, users can configure custom favicons for the console.
+This parameter has no effect on OpenShift versions before 4.19.</p>
+</div>
+<div class="paragraph">
+<p>OpenShift 4.19 supports specifying separate favicons for the dark and light themes, but the component currently only supports configuring a single favicon for both themes.</p>
+</div>
+<div class="paragraph">
+<p>The component looks for fields <code>type</code> and <code>data</code> in the parameter.
+Field <code>type</code> is expected to be a valid file extension in all lower case matching the image data provided in field <code>data</code>.
+Field data is the favicon data, in plain text for SVG and base64 encoded for all other formats.</p>
+</div>
+<div class="paragraph">
+<p>The component will write the favicon into a ConfigMap and configure an entry in <code>spec.customization.logos</code> in the <code>console.operator.openshift.io</code> custom resource  to enable the custom favicon for the console.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capabilities"><a class="anchor" href="#_capabilities"></a><code>capabilities</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[See <code>class/defaults.yml</code>]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to enable or disable OpenShift console capabilities.
+OpenShift 4.19 supports two capabilities: <code>LightspeedButton</code> and <code>GettingStartedBanner</code>.
+The parameter has no effect on OpenShift 4.18 and older.
+The component enables the "Getting Started" banner by default and disables the Lightspeed button by default.
+The component skips entries in this parameter which aren&#8217;t defined as available capabilities for the OpenShift version specified in parameter <code>openshift_version</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>secrets</code> is deployed onto the cluster as a Kubernetes Secret with <code>type=kubernetes.io/tls</code>.
+Entries with <code>null</code> values are skipped.
+This allows users to remove secrets which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The component has basic validation to ensure the secret contents are a plausible Kubernetes TLS secret.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>Secret</code> resources.
+The dictionary values are directly merged into a <code>Secret</code> resource which only has <code>type=kubernetes.io/tls</code> set.
+The secrets are created in the namespace indicated by parameter <code>namespace</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cert_manager_certs"><a class="anchor" href="#_cert_manager_certs"></a><code>cert_manager_certs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>cert_manager_certs</code> is deployed onto the cluster as a cert-manager <code>Certificate</code> resource.
+Entries with <code>null</code> values are skipped.
+This allows users to remove certificates which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> and <code>spec.secretName</code> for the resulting <code>Certificate</code> resources.
+The dictionary values are then directly directly merged into the mostly empty <code>Certificate</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>OpenShift won&#8217;t admit the route for the HTTP01 solver pod unless the <code>Certificate</code> resources are deployed in the same namespace as the web console.
+This behavior is caused by a security feature in the OpenShift ingress controller operator to not allow malicious actors to abuse hostnames which are already in use in other namespaces.</p>
+</div>
+<div class="paragraph">
+<p>However, since OpenShift requires that custom TLS secrets for the OpenShift console are stored in namespace <code>openshift-config</code>, we deploy a script to clone the TLS secret created by cert-manager into namespace <code>openshift-config</code> for each <code>Certificate</code> resource.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notifications"><a class="anchor" href="#_notifications"></a><code>notifications</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry in parameter <code>notifications</code> is deployed onto the cluster as a <code>ConsoleNotification</code> resource.
+Entries with <code>null</code> values are skipped.
+This allows users to remove notifications which were configured higher up in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary keys are used as <code>metadata.name</code> for the resulting <code>ConsoleNotification</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary values correspond to the <code>.spec</code> of the <code>ConsoleNotification</code>.
+See the <a href="https://docs.openshift.com/container-platform/latest/rest_api/console_apis/consolenotification-console-openshift-io-v1.html">OpenShift docs</a> for available parameters.</p>
+</div>
+<div class="paragraph">
+<p>This component will by default use <code>.location: BannerTop</code>, <code>.color: '#1abc9c'</code> and <code>.backgroundColor: ' #d1d61c'</code> unless otherwise configured.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upgrade_notification"><a class="anchor" href="#_upgrade_notification"></a><code>upgrade_notification</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enabled: false
+notification: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When upgrade notifications are enabled, this component will create an Espejote ManagedResource which will dynamically create (and remove) a <code>ConsoleNotification</code> informing users about the next upcoming minor OCP upgrade.
+It is based on the upgrade controller&#8217;s channel overlay and the next possible maintenance dates.</p>
+</div>
+<div class="paragraph">
+<p>The values for the <code>upgrade_notification.notification</code> dictionary are the the same as for <code>notifications</code> above.
+Additionally the following variables can be used in the notification text: <code>$OVERLAY_DATE</code>, <code>$OVERLAY_CHANNEL</code>, <code>$OVERLAY_VERSION</code>, <code>$OVERLAY_VERSION_MINOR</code> and <code>$NEXT_MAINTENANCE</code>, see also the example below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_custom_hostname_in_clusters_app_domain"><a class="anchor" href="#_example_custom_hostname_in_clusters_app_domain"></a>Example: Custom hostname in cluster&#8217;s app domain</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  route:
+    console:
+      hostname: console.apps.example.com</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_custom_hostname_outside_clusters_app_domain"><a class="anchor" href="#_example_custom_hostname_outside_clusters_app_domain"></a>Example: Custom hostname outside cluster&#8217;s app domain</h3>
+<div class="paragraph">
+<p>In this case we need to specify a custom certificate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  route:
+    console:
+      hostname: console.cluster.example.com
+      servingCertKeyPairSecret:
+        name: console-cluster-example-com-tls <i class="conum" data-value="1"></i><b>(1)</b>
+  secrets:
+    console-cluster-example-com-tls:
+      stringData:
+        tls.crt: ?{vaultkv:${cluster:tenant}/${cluster:name}/openshift4-console/certificates/cert} <i class="conum" data-value="2"></i><b>(2)</b>
+        tls.key: ?{vaultkv:${cluster:tenant}/${cluster:name}/openshift4-console/certificates/key} <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A secret with keys <code>tls.crt</code> and <code>tls.key</code> with this name must exist in namespace <code>openshift-config</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Reference to the console hostname TLS certificate in Vault</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Reference to the console hostname TLS private key in Vault</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_custom_hostname_outside_clusters_app_domain_with_cert_manager_certificate"><a class="anchor" href="#_example_custom_hostname_outside_clusters_app_domain_with_cert_manager_certificate"></a>Example: Custom hostname outside cluster&#8217;s app domain with cert-manager certificate</h3>
+<div class="paragraph">
+<p>This configuration assumes that the DNS record for <code>console.cluster.example.com</code> points to the cluster&#8217;s application LBs, ideally as a CNAME to the cluster&#8217;s application domain.
+This is required so that cert-manager can request the Let&#8217;s Encrypt certificate using a HTTP01 challenge.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  route:
+    console:
+      hostname: console.cluster.example.com
+      servingCertKeyPairSecret:
+        name: console-cluster-example-com-tls <i class="conum" data-value="1"></i><b>(1)</b>
+  cert_manager_certs:
+    console-cluster-example-com-tls:
+      spec:
+        dnsNames:
+          - console.cluster.example.com
+        issuerRef:
+          name: letsencrypt-production
+          kind: ClusterIssuer</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_custom_links_and_logo_in_the_web_console"><a class="anchor" href="#_example_custom_links_and_logo_in_the_web_console"></a>Example: Custom links and logo in the web console</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  console_links:
+    homepage: <i class="conum" data-value="1"></i><b>(1)</b>
+      href: 'https://www.example.com/'
+      location: ApplicationMenu
+      text: Home
+      applicationMenu:
+        section: Company
+        # image that is 24x24 in size
+        imageURL: https://via.placeholder.com/24
+    user-docs: <i class="conum" data-value="2"></i><b>(2)</b>
+      href: 'https://docs.example.com/'
+      location: HelpMenu
+      text: User Documentation
+    project-link: <i class="conum" data-value="3"></i><b>(3)</b>
+      href: 'https://docs.example.com/organization/'
+      location: HelpMenu
+      text: User Documentation
+      namespaceDashboard:
+        matchExpressions:
+         - key: organization
+           operation: Exists
+  custom_logo:
+    logo.png: |- <i class="conum" data-value="4"></i><b>(4)</b>
+      &lt;base64-encoded_logo&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Adds a link to an overflow menu at the top of every page</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Adds a link to the help menu at the top of every page</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Adds a link to the dashboard of every namespace with a label <code>organization</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Provide a single base64-encoded logo and the key needs to have the correct filename extension</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_console_notification"><a class="anchor" href="#_example_console_notification"></a>Example: Console notification</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  notifications:
+    appuio-documentation:
+      text: Please visit our documentation for more information
+      location: BannerBottom
+      color: '#1abc9c'
+      backgroundColor: ' #d1d61c'
+      link:
+        href: https://docs.appuio.cloud
+        text: APPUiO documentation</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_upgrade_notification"><a class="anchor" href="#_example_upgrade_notification"></a>Example: Upgrade notification</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">openshift4_console:
+  upgrade_notification:
+    enabled: true
+    notification:
+      text: 'Cluster will be upgraded to OpenShift $OVERLAY_VERSION in the maintenance window at $NEXT_MAINTENANCE'
+      link:
+        href: https://kb.vshn.ch/oc4/references/release_notes.html
+        text: release notes</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-console/references/parameters.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

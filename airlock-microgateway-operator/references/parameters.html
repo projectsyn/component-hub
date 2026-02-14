@@ -1,0 +1,2589 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/airlock-microgateway-operator/references/parameters.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../how-tos/grafana-dashboard.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="airlock-microgateway-operator" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">airlock-microgateway-operator</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/grafana-dashboard.html">Grafana Dashboards</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/gateway-listener-manager.html">Manage Gateway Listeners through HTTPRoutes</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">airlock-microgateway-operator</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-nodes/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">airlock-microgateway-operator</a></li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-airlock-microgateway-operator/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>airlock_microgateway_operator</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>syn-airlock-microgateway</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace in which to deploy this component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_method"><a class="anchor" href="#_install_method"></a><code>install_method</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>helm</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<p><code>helm</code>, <code>olm</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The installation method for Airlock Microgateway.
+<code>olm</code> will create a subscription for the Airlock Microgateway from <a href="https://catalog.redhat.com/software/container-stacks/detail/67177f927cfedb209761e48f?gs=&amp;q=airlock&amp;rh-tabs-5gjs77yz5=rh-tab-3tk92bl2m#overview" class="bare">catalog.redhat.com/software/container-stacks/detail/67177f927cfedb209761e48f?gs=&amp;q=airlock&amp;rh-tabs-5gjs77yz5=rh-tab-3tk92bl2m#overview</a>.
+If you use this method, you may want to configure <code>olm</code>.
+Openshift is required for this to work.</p>
+</div>
+<div class="paragraph">
+<p><code>helm</code> will install airlock-microgateway from the official helm chart.
+If you use this method, you may want to configure <code>helm_values</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_license"><a class="anchor" href="#_license"></a><code>license</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>""</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The license key for Airlock Microgateway.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_policy"><a class="anchor" href="#_network_policy"></a><code>network_policy</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for network policies related to Airlock Microgateway.</p>
+</div>
+<div class="sect2">
+<h3 id="_namespace_selector"><a class="anchor" href="#_namespace_selector"></a><code>namespace_selector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selector for namespaces where the network policy should be applied.</p>
+</div>
+<div class="sect3">
+<h4 id="_matchlabels"><a class="anchor" href="#_matchlabels"></a><code>matchLabels</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>appuio.ch/waf: airlock</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Labels used to match namespaces for the network policy.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gateway_listener_manager"><a class="anchor" href="#_gateway_listener_manager"></a><code>gateway_listener_manager</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Gateway Listener Manager.
+Gateway Listener Manager allows merging multiple gateway listeners, based on <code>HTTPRoutes</code> into a single gateway.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../how-tos/gateway-listener-manager.html" class="page">Manage Gateway Listeners through HTTPRoutes</a> for more details.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable the Gateway Listener Manager.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_listener_annotation"><a class="anchor" href="#_create_listener_annotation"></a><code>create_listener_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/create-gateway-https-listener</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to create an HTTPS listener automatically.
+Must be set to <code>ANNOTATION: "true"</code> in the resource annotations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tls_secret_name_annotation"><a class="anchor" href="#_tls_secret_name_annotation"></a><code>tls_secret_name_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/tls-secret-name</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the name of the TLS secret to use for HTTPS listeners.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_httproute_certificate_manager"><a class="anchor" href="#_httproute_certificate_manager"></a><code>httproute_certificate_manager</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the HTTPRoute Certificate Manager.
+HTTPRoute Certificate Manager allows automatic management of TLS certificates for <code>HTTPRoute</code> resources using cert-manager.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../how-tos/gateway-listener-manager.html" class="page">Manage Gateway Listeners through HTTPRoutes</a> for more details.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled_2"><a class="anchor" href="#_enabled_2"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable the HTTPRoute Certificate Manager.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tls_secret_name_annotation_2"><a class="anchor" href="#_tls_secret_name_annotation_2"></a><code>tls_secret_name_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${airlock_microgateway:gateway_listener_manager:tls_secret_name_annotation}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the name of the TLS secret to create the certificate in.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_certificate_annotation"><a class="anchor" href="#_create_certificate_annotation"></a><code>create_certificate_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/create-certificate</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to create a certificate automatically.
+Must be set to <code>ANNOTATION: "true"</code> in the resource annotations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gateway_default_cluster_issuer_annotation"><a class="anchor" href="#_gateway_default_cluster_issuer_annotation"></a><code>gateway_default_cluster_issuer_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/gateway-default-cluster-issuer</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on parent <code>Gateway</code> resources to specify the default cluster issuer for certificates.
+If the resource has no <code>issuer_annotation</code> or <code>cluster_issuer_annotation</code>, this cluster issuer will be used.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cluster_issuer_annotation"><a class="anchor" href="#_cluster_issuer_annotation"></a><code>cluster_issuer_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/cluster-issuer</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the cluster issuer for certificates.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_issuer_annotation"><a class="anchor" href="#_issuer_annotation"></a><code>issuer_annotation</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>airlock-microgateway.appuio.io/issuer</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotation to use on <code>HTTPRoute</code> resources to specify the issuer for certificates.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gateway_api"><a class="anchor" href="#_gateway_api"></a><code>gateway_api</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for Kubernetes Gateway API integration.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled_3"><a class="anchor" href="#_enabled_3"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to install the upstream Kubernetes Gateway API.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_version"><a class="anchor" href="#_version"></a><code>version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>v1.2.1</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of Kubernetes Gateway API to install.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source"><a class="anchor" href="#_source"></a><code>source</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://github.com/kubernetes-sigs/gateway-api/releases/download/${airlock_microgateway:gateway_api:version}/standard-install.yaml" class="bare">github.com/kubernetes-sigs/gateway-api/releases/download/${airlock_microgateway:gateway_api:version}/standard-install.yaml</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The source URL for the Kubernetes Gateway API installation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_airlock_xopenshift"><a class="anchor" href="#_airlock_xopenshift"></a><code>airlock_xopenshift</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for deploying patched Gateway API CRDs on OpenShift.
+This parameter allows us to deploy copies of upstream Gateway API CRDs in API group <code>x-openshift.microgateway.airlock.com</code>.
+This allows us&#8201;&#8212;&#8201;by leveraging Airlock Mircogateway&#8217;s support for CRDs in that API group&#8201;&#8212;&#8201;to deploy additional Gateway API CRDs on OpenShift without creating conflicts with the ingress-operator-managed Gateway API CRDs that are deployed on OpenShift &gt;= 4.19.</p>
+</div>
+<div class="paragraph">
+<p>This parameter only has an effect for <code>install_method=olm</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled_4"><a class="anchor" href="#_enabled_4"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy any patched Gateway API CRDs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_version_2"><a class="anchor" href="#_version_2"></a><code>version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>v1.3.0</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The upstream Gateway API version of the CRDs that we want to patch.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel"><a class="anchor" href="#_channel"></a><code>channel</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>experimental</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The upstream Gateway API channel for the CRDs to patch.
+Supported values are <code>standard</code> or <code>experimental</code>.
+Component compilation will error when another value is provided.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_crds"><a class="anchor" href="#_crds"></a><code>crds</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{"backendtlspolicies":"BACKEND_TLS_POLICY"}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The list of CRD names for which the component will deploy a copy of the CRD in API group <code>x-openshift.microgateway.airlock.com</code>.
+The keys are expected to be CRD base names, such as <code>backendtlspolicies</code>.
+The component will always download the full <code>&lt;channel&gt;-install.yaml</code> from the specified Gateway API release but will only create copies of CRDs whose base name matches a key with a non-null value in this parameter.</p>
+</div>
+<div class="paragraph">
+<p>The values are expected to be the identifying segment for the OLM operator environment variable which switches the CRD from API group <code>gateway.networking.k8s.io</code> to <code>x-openshift.microgateway.airlock.com</code>.
+For example, value <code>BACKEND_TLS_POLICY</code> results in environment variable <code>GATEWAY_API_BACKEND_TLS_POLICY_API_GROUP=x-openshift.microgateway.airlock.com</code> to be set for the OLM operator.</p>
+</div>
+<div class="paragraph">
+<p>Users can remove entries in this parameter by setting an entry to <code>null</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gateway_classes"><a class="anchor" href="#_gateway_classes"></a><code>gateway_classes</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for Gateway Classes.</p>
+</div>
+<div class="sect2">
+<h3 id="_gateway_classes_name_parametersref"><a class="anchor" href="#_gateway_classes_name_parametersref"></a><code>gateway_classes.&lt;name&gt;.parametersRef</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A reference to a Gateway Parameters object, defined in <code>gateway_parameters</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">airlock_microgateway:
+  gateway_classes:
+    my-gateway-class:
+      spec:
+        controllerName: microgateway.airlock.com/gatewayclass-controller
+        parametersRef:
+          group: microgateway.airlock.com
+          kind: GatewayParameters
+          name: gatewayparameter-mgw-poc
+          namespace: airlock-gateway
+
+    my-other-gateway-class:
+      parametersRef: airlock
+
+  gateway_parameters:
+    airlock: ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gateway_parameters"><a class="anchor" href="#_gateway_parameters"></a><code>gateway_parameters</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for Gateway Parameters.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">airlock_microgateway:
+  gateway_parameters:
+    airlock:
+      spec:
+        defaults:
+          downstream:
+            remoteIP:
+              xff:
+                numTrustedHops: 1
+        kubernetes:
+          deployment:
+            automountServiceAccountToken: false
+            engineContainer: {}
+            placement: {}
+            replicas: 1
+          service:
+            type: ClusterIP
+        logging:
+          level: info</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gateways"><a class="anchor" href="#_gateways"></a><code>gateways</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to define <code>Gateway</code> resources to deploy.
+The component currently doesn&#8217;t validate that the value of <code>spec.gatewayClassName</code> is a gateway class that&#8217;s managed through parameter <code>gateway_classes</code>.</p>
+</div>
+<div class="paragraph">
+<p>Airlock Microgateway also supports referencing a <code>GatewayParameters</code> resource directly in <code>spec.infrastructure.parametersRef</code>.
+If both <code>spec.gatewayClassName</code> and <code>spec.infrastructure.parametersRef</code> are provided, the instance is configured with the parameters referenced in <code>spec.infrastructure.parametersRef</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://gateway-api.sigs.k8s.io/reference/spec/#gateway">Gateway API</a> and <a href="https://docs.airlock.com/microgateway/latest/index/1726159368159.html#Configuration_examples_of_K8s_Gateway_API_CRs">Airlock Microgateway</a> documentation for a full reference of supported configuration options for <code>Gateway</code> resources.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When component <code>cilium</code> is installed in the cluster, the component also creates a <code>CiliumNetworkPolicy</code> which allows traffic from identity <code>world</code> for each managed <code>Gateway</code> resource.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">airlock_microgateway_operator:
+  gateways:
+    airlock/gateway-1:
+      spec:
+        gatewayClassName: airlock-microgateway
+        listeners:
+          - allowedRoutes:
+              namespaces:
+                from: All
+            name: http
+            port: 80
+            protocol: HTTP
+
+  gateway_parameters:
+    airlock/gatewayparams: { ... }
+
+  gateway_classes:
+    airlock-microgateway:
+      parametersRef: "airlock/gatewayparams"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to disable or patch alerts managed by the component.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component currently expects that an <code>openshift4-monitoring</code>-style alert patching library is available for the target cluster&#8217;s distribution&#8217;s monitoring stack.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts_ignorenames"><a class="anchor" href="#_alerts_ignorenames"></a><code>alerts.ignoreNames</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users can add alert names which they want to disable in this list.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_patches"><a class="anchor" href="#_alerts_patches"></a><code>alerts.patches</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Users can customize alerts through this parameter.
+The component looks for alert names it knows in this parameter, and applies the provided value, if any, over the default alert configuration.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_helm_values"><a class="anchor" href="#_helm_values"></a><code>helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>operator:
+  gatewayAPI:
+    enabled: true
+    podMonitor:
+      create: true
+      labels:
+        release: "kube-prometheus-stack"
+  serviceMonitor:
+    create: true
+    labels:
+      release: "kube-prometheus-stack"
+dashboards:
+  create: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configuration values for the Helm chart installation. See the official Airlock documentation for more details: <a href="https://docs.airlock.com/microgateway/4.5/index/1726159368039.html" class="bare">docs.airlock.com/microgateway/4.5/index/1726159368039.html</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm"><a class="anchor" href="#_olm"></a><code>olm</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for OLM (Operator Lifecycle Manager) installation.</p>
+</div>
+<div class="sect2">
+<h3 id="_version_3"><a class="anchor" href="#_version_3"></a><code>version</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>stable</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the OLM operator to install.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel_2"><a class="anchor" href="#_channel_2"></a><code>channel</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${airlock_microgateway:olm:version}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The OLM channel to use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrade_strategy"><a class="anchor" href="#_upgrade_strategy"></a><code>upgrade_strategy</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_strategy:
+  manual_upgrade: false
+  upgrade_job_hook: true
+  upgrade_job_selector: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the OLM upgrade strategy.</p>
+</div>
+<div class="sect3">
+<h4 id="_manual_upgrade"><a class="anchor" href="#_manual_upgrade"></a><code>manual_upgrade</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable manual upgrade approval for OLM installations.
+When set to <code>true</code>, the OLM subscription will use <code>installPlanApproval: Manual</code>, requiring manual approval for operator upgrades.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_upgrade_job_hook"><a class="anchor" href="#_upgrade_job_hook"></a><code>upgrade_job_hook</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the <code>openshift-upgrade-controller</code> application is present, this will create an <code>UpgradeJobHook</code> that automatically approves install plans during cluster upgrades.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>UpgradeJobHook`compares the creation timestamps of the last `InstallPlan</code> and the <code>UpgradeJob</code> it&#8217;s running for.
+Only the newest install plan which is older than the <code>UpgradeJob</code> for which the hook is running will be approved.
+This ensures that upgrades to the operator are done in sync with the general upgrade schedule of the cluster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_upgrade_job_selector"><a class="anchor" href="#_upgrade_job_selector"></a><code>upgrade_job_selector</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">upgrade_strategy:
+  upgrade_job_selector:
+    matchLabels:
+      appuio-managed-upgrade: 'true'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selects which <code>UpgradeJob</code> objects the hook applies to.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the OLM operator.</p>
+</div>
+<div class="sect3">
+<h4 id="_create_pod_monitor"><a class="anchor" href="#_create_pod_monitor"></a><code>create_pod_monitor</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to create a PodMonitor for the OLM operator.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for Helm charts.</p>
+</div>
+<div class="sect2">
+<h3 id="_microgateway"><a class="anchor" href="#_microgateway"></a><code>microgateway</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration for the Microgateway chart.</p>
+</div>
+<div class="sect3">
+<h4 id="_version_4"><a class="anchor" href="#_version_4"></a><code>version</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>4.5.2</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version of the Microgateway chart to install.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_2"><a class="anchor" href="#_source_2"></a><code>source</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>oci://quay.io/airlockcharts/microgateway</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The source URL for the Microgateway chart.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  airlock_microgateway_operator:
+    namespace: syn-airlock-microgateway
+
+    install_method: helm
+
+    license: |
+      -----BEGIN LICENSE-----
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAA==
+      -----END LICENSE-----
+      -- Airlock Microgateway --
+      License Type                 Premium
+      ID                           aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      Owner                        OWNER
+      Trial                        true
+      Email                        foo@foo.bar
+      Environment                  Temporary
+      Valid Until                  2025-06-30
+      Requests per Month           10000000
+      Module Base                  on
+      Module Auth                  on
+      ---------------------
+
+    network_policy:
+      namespace_selector:
+        matchLabels:
+          'appuio.ch/waf': 'airlock'
+
+    gateway_api:
+      enabled: true
+      version: "v1.2.1"
+
+    charts:
+      microgateway:
+        version: "4.5.3"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../how-tos/grafana-dashboard.html">Grafana Dashboards</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/airlock-microgateway-operator/references/parameters.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

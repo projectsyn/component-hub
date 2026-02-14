@@ -1,0 +1,2759 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/rook-ceph/references/parameters.html">
+    <link rel="prev" href="../runbooks/CephDeviceFailureRelocationIncomplete.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rook-ceph" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Rook Ceph</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/quick-start.html">Quick start</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-to guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/openshift4.html">Configuring the component for OpenShift 4</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/setup-cluster.html">Setup a PVC-based Ceph cluster</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/scale-cluster.html">Scale a PVC-based Ceph cluster</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/configure-ceph.html">Configuring and tuning Ceph</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-ceph-csi-v3.9.html">Upgrading to Ceph-CSI v3.9.0</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-v7-v8.html">Upgrading to Component Version v8.0.0</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Alert runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/add_alert_runbook.html">Adding a new alert runbook</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Rook-Ceph operator</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/RookCephOperatorScaledDown.html">RookCephOperatorScaledDown</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph Cluster</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephDaemonCrash.html">CephDaemonCrash</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephHealthError.html">CephHealthError</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephHealthWarning.html">CephHealthWarning</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeDiskspaceWarning.html">CephNodeDiskspaceWarning</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeInconsistentMTU.html">CephNodeInconsistentMTU</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeNetworkBondDegraded.html">CephNodeNetworkBondDegraded</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeNetworkPacketDrops.html">CephNodeNetworkPacketDrops</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeNetworkPacketErrors.html">CephNodeNetworkPacketErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephNodeRootFilesystemFull.html">CephNodeRootFilesystemFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGBackfillAtRisk.html">CephPGBackfillAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGImbalance.html">CephPGImbalance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGNotDeepScrubbed.html">CephPGNotDeepScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGNotScrubbed.html">CephPGNotScrubbed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGRecoveryAtRisk.html">CephPGRecoveryAtRisk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGUnavailableBlockingIO.html">CephPGUnavailableBlockingIO</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGsDamaged.html">CephPGsDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGsHighPerOSD.html">CephPGsHighPerOSD</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGsInactive.html">CephPGsInactive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPGsUnclean.html">CephPGsUnclean</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephSlowOps.html">CephSlowOps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph pools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPoolBackfillFull.html">CephPoolBackfillFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPoolFull.html">CephPoolFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephPoolNearFull.html">CephPoolNearFull</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph MDS</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemFailureNoStandby.html">CephFilesystemFailureNoStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemInsufficientStandby.html">CephFilesystemInsufficientStandby</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemMDSRanksLow.html">CephFilesystemMDSRanksLow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemOffline.html">CephFilesystemOffline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemReadOnly.html">CephFilesystemReadOnly</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph MGR</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMgrModuleCrash.html">CephMgrModuleCrash</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMgrPrometheusModuleInactive.html">CephMgrPrometheusModuleInactive</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph MON</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMonDiskspaceCritical.html">CephMonDiskspaceCritical</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMonDiskspaceLow.html">CephMonDiskspaceLow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMonDown.html">CephMonDown</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephMonDownQuorumAtRisk.html">CephMonDownQuorumAtRisk</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph OSD</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDBackfillFull.html">CephOSDBackfillFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDDown.html">CephOSDDown</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDDownHigh.html">CephOSDDownHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDFlapping.html">CephOSDFlapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDFull.html">CephOSDFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDHostDown.html">CephOSDHostDown</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDInternalDiskSizeMismatch.html">CephOSDInternalDiskSizeMismatch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDNearFull.html">CephOSDNearFull</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDReadErrors.html">CephOSDReadErrors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDTimeoutsClusterNetwork.html">CephOSDTimeoutsClusterNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDTimeoutsPublicNetwork.html">CephOSDTimeoutsPublicNetwork</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephOSDTooManyRepairs.html">CephOSDTooManyRepairs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephObjectMissing.html">CephObjectMissing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CephFS</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemDamaged.html">CephFilesystemDamaged</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephFilesystemDegraded.html">CephFilesystemDegraded</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Ceph devices</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephDeviceFailurePredicted.html">CephDeviceFailurePredicted</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephDeviceFailurePredictionTooHigh.html">CephDeviceFailurePredictionTooHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Rook Ceph</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-nodes/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Rook Ceph</a></li>
+    <li>Technical reference</li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-rook-ceph/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>rook_ceph</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>syn-rook-ceph-operator</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace in which the Rook Ceph operator and the CSI drivers are deployed</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ceph_cluster"><a class="anchor" href="#_ceph_cluster"></a><code>ceph_cluster</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration of the Ceph cluster to deploy.
+See the following sections for individual parameters nested under this key.</p>
+</div>
+<div class="sect2">
+<h3 id="_name"><a class="anchor" href="#_name"></a><code>name</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>cluster</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the Ceph cluster object.
+Also used as part of the storageclass and volumesnapshotclass names.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_namespace_2"><a class="anchor" href="#_namespace_2"></a><code>namespace</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>syn-rook-ceph-${rook_ceph:ceph_cluster:name}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace in which the Ceph cluster is deployed.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component deploys the Ceph cluster in a different namespace than the operator and the CSI drivers.
+However, the component also supports deploying the operator, CSI drivers and Ceph cluster in the same namespace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_node_count"><a class="anchor" href="#_node_count"></a><code>node_count</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>integer</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>3</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of storage nodes (disks really) that the Ceph cluster should expect.</p>
+</div>
+<div class="paragraph">
+<p>The operator will deploy this many Ceph OSDs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_block_storage_class"><a class="anchor" href="#_block_storage_class"></a><code>block_storage_class</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>localblock</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The storage class to use for the block storage volumes backing the Ceph cluster.
+The storage class <strong>must</strong> support <code>volumeMode=Block</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_block_volume_size"><a class="anchor" href="#_block_volume_size"></a><code>block_volume_size</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p><a href="https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/quantity/#Quantity">K8s Quantity</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>1</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, the component expects that pre-provisioned block storage volumes are used.
+If you deploy the component on a cluster which dynamically provisions volumes for the storage class configured in <code>ceph_cluster.block_storage_class</code>, set this value to the desired size of the disk for a single node of your Ceph cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tune_fast_device_class"><a class="anchor" href="#_tune_fast_device_class"></a><code>tune_fast_device_class</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be set to <code>true</code> to tune the Ceph cluster OSD parameters for SSDs (or better).</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.9/ceph-cluster-crd.html#storage-class-device-sets">the Rook.io Ceph cluster CRD documentation</a> for a more detailed explanation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_osd_placement"><a class="anchor" href="#_osd_placement"></a><code>osd_placement</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Control placement of the OSD pods, empty by default.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.9/ceph-cluster-crd.html#storage-class-device-sets">Storage Class Device Sets</a> for a more detailed explanation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_osd_portable"><a class="anchor" href="#_osd_portable"></a><code>osd_portable</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Allows OSDs to move between nodes during failover (and initial setup).
+This requires a storage class that supports portability (such as the CSI-managed storageclasses on cloudscale.ch).</p>
+</div>
+<div class="paragraph">
+<p>If this is <code>false</code>, OSDs are assigned to a node permanently.
+This is the default configuration for the component.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s recommended to set this parameter to <code>true</code> when deploying the component on CSI-managed PersistentVolumes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config_override"><a class="anchor" href="#_config_override"></a><code>config_override</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">global:
+  mon_osd_full_ratio: '0.85'
+  mon_osd_backfillfull_ratio: '0.8'
+  mon_osd_nearfull_ratio: '0.75'
+  mon_data_avail_warn: '15'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional Ceph configurations which are rendered in <em>ini</em> style format by the component.
+Each key in the dict is translated into a section in the resulting <em>ini</em> style file containing the key&#8217;s value&#8201;&#8212;&#8201;which is expected to be a dict&#8201;&#8212;&#8201;as settings.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component doesn&#8217;t validate the resulting configuration.
+Please be aware that Ceph may fail to start if you provide an invalid configuration file.
+See the <a href="https://docs.ceph.com/en/latest/rados/configuration/ceph-conf/">Ceph documentation</a> for a list of valid configuration sections and options.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use strings to represent fractional values in <code>config_override</code>.
+Otherwise, the rendered values in the <em>ini</em> style file may suffer from floating point rounding issues.
+For example, if the fractional value <code>0.8</code> is given as a number in YAML, it would be rendered as <code>0.80000000000000004</code> in the resulting <em>ini</em> style file.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The default value is translated into the following <em>ini</em> style file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[global]
+mon_osd_full_ratio = 0.85
+mon_osd_backfillfull_ratio = 0.8
+mon_osd_nearfull_ratio = 0.75
+mon_data_avail_warn = 15</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The resulting <em>ini</em> style file is written to the ConfigMap <code>rook-config-override</code> in the Ceph cluster namespace.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rbd_enabled"><a class="anchor" href="#_rbd_enabled"></a><code>rbd_enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the RBD CSI driver, its associated volumesnapshotclass and any configured <code>CephBlockPool</code> resources and associated storageclasses are provisioned.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CephBlockPool</code> resources are defined and configured in parameter <a href="#_storage_pools_rbd"><code>storage_pools.rbd</code></a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cephfs_enabled"><a class="anchor" href="#_cephfs_enabled"></a><code>cephfs_enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the CephFS CSI driver, its associated volumesnapshotclass and any configured <code>CephFilesystem</code> resources and associated storageclasses are provisioned.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CephFilesystem</code> resources are defined and configured in parameter <a href="#_storage_pools_cephfs"><code>storage_pools.cephfs</code></a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring_enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls whether the component enables monitoring on the <code>CephCluster</code> resource and sets up Ceph alert rules.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storageclassdevicesets"><a class="anchor" href="#_storageclassdevicesets"></a><code>storageClassDeviceSets</code><a id="ceph_cluster_storageclass"></a></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>Names of <code>storageClassDeviceSet</code> resources</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>Spec of <code>storageClassDeviceSet</code> resources</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component adds a storage class device set to the cluster object for every entry.
+The key is used as the name of the storage class device set and the value is used as the specification with the <code>volumeClaimTemplates</code> key converted from a dictionary to a list.</p>
+</div>
+<div class="paragraph">
+<p>This means the following example configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storageClassDeviceSets:
+  foo:
+    count: 3
+    volumeClaimTemplates:
+      default:
+        spec:
+          storageClassName: localblock
+          volumeMode: Block
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 100Gi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Would be converted to the following specification</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storageClassDeviceSets:
+  - name: foo
+    count: 3
+    volumeClaimTemplates:
+      - spec:
+          storageClassName: localblock
+          volumeMode: Block
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 100Gi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.9/ceph-cluster-crd.html#storage-class-device-sets">Storage Class Device Sets</a> for a more detailed explanation on how to configure them.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The default storage class device set is called <code>cluster</code> and can also be configured through this parameter.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Storage class device sets added by <code>cephClusterSpec.storage.storageClassDeviceSets</code> can&#8217;t be modified through this parameter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage_pools_rbd"><a class="anchor" href="#_storage_pools_rbd"></a><code>storage_pools.rbd</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>Names of <code>CephBlockPool</code> resources</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>dicts with keys <code>config</code> and <code>mount_options</code>, <code>storage_class_config</code>, and <code>extra_storage_classes</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this parameter <code>CephBlockPool</code> resources are configured.
+The component creates one storageclass and volumesnapshotclass per block pool.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component will create additional storage classes if field <code>extra_storage_classes</code> is provided.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default the parameter holds the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storagepool:
+  config:
+    failureDomain: host
+    replicated:
+      size: 3
+      requireSafeReplicaSize: true
+  mount_options:
+    discard: true
+  storage_class_config:
+    parameters:
+      csi.storage.k8s.io/fstype: ext4
+    allowVolumeExpansion: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration results in</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>CephBlockPool</code> named <code>storagepool</code> which is configured with 3 replicas distributed on different hosts</p>
+</li>
+<li>
+<p>A storage class which creates PVs on this block pool, uses the <code>ext4</code> filesystem, supports volume expansion and configures PVs to be mounted with <code>-o discard</code>.</p>
+</li>
+<li>
+<p>A <code>VolumeSnapshotClass</code> associated with the storage class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.github.io/docs/rook/v1.14/CRDs/Block-Storage/ceph-block-pool-crd/">the Rook.io <code>CephBlockPool</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+</div>
+<div class="paragraph">
+<p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>The values in key <code>mount_options</code> are transformed into an array which is injected into the <code>StorageClass</code> resource in field <code>mountOptions</code>.
+Providing a key with value <code>true</code> in <code>mount_options</code> results in an array entry which just consists of the key.
+Providing a key with string value results in an array entry which consists of <code>key=value</code>.
+Providing a key with value <code>false</code> or <code>null</code> will result in the key not being added to the storage class&#8217;s mount options.</p>
+</div>
+<div class="paragraph">
+<p>See the filesystem documentation for the set of supported mount options.
+For example, see the list of supported mount options for <code>ext4</code> in the <a href="https://man7.org/linux/man-pages/man5/ext4.5.html#Mount_options_for_ext4">man page</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_storage_pools_rbd_poolname_extra_storage_classes"><a class="anchor" href="#_storage_pools_rbd_poolname_extra_storage_classes"></a><code>storage_pools.rbd.&lt;poolname&gt;.extra_storage_classes</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">storagepool:
+  extra_storage_classes:
+    small-files:
+      parameters:
+        csi.storage.k8s.io/fstype: ext4 <i class="conum" data-value="1"></i><b>(1)</b>
+        mkfsOptions: -m0 -Enodiscard,lazy_itable_init=1,lazy_journal_init=1 -i1024 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>When providing <code>mkfsOptions</code> it makes sense to explicitly specify the fstype, since mismatched fstype and mkfsOptions will likely result in errors.
+Note that provinding <code>fstype</code> isn&#8217;t strictly necessary, if the same fstype is set in <code>storage_pools.rbd.&lt;poolname&gt;.storage_class_config</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>-m0 -Enodiscard,lazy_itable_init=1,lazy_journal_init=1</code> are the default <code>mkfsOptions</code> for ext4 in ceph-csi.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional storage classes for an RBD blockpool.
+The component will generate a storage class for each key-value pair in the parameter.</p>
+</div>
+<div class="paragraph">
+<p>The key will be used as a suffix for the storage class name.
+The resulting storage class name will have the form <code>rbd-&lt;poolname&gt;-&lt;ceph cluster name&gt;-&lt;key&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component will use the configurations provided in <code>storage_pools.rbd.&lt;poolname&gt;.mount_options</code> and <code>storage_pools.rbd.&lt;poolname&gt;.storage_class_config</code> as the base for any storage classes defined here.
+The provided value will be merged into the base storage class definition.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage_pools_cephfs"><a class="anchor" href="#_storage_pools_cephfs"></a><code>storage_pools.cephfs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+keys
+</td>
+<td class="hdlist2">
+<p>Names of <code>CephFilesystem</code> resources</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+values
+</td>
+<td class="hdlist2">
+<p>dicts with keys <code>data_pools</code>, <code>mount_options</code>, <code>config</code> and <code>storage_class_config</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this parameter <code>CephFilesystem</code> resources are configured.
+The component creates exactly one storageclass and volumesnapshotclass per CephFS.</p>
+</div>
+<div class="paragraph">
+<p>By default the parameter holds the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">fspool:
+  data_pools:
+    pool0:
+      failureDomain: host
+      replicated:
+        size: 3
+        requireSafeReplicaSize: true
+      parameters:
+        compression_mode: none
+        target_size_ratio: '0.8'
+  config:
+    metadataPool:
+      replicated:
+        size: 3
+        requireSafeReplicaSize: true
+    parameters:
+      compression_mode: none
+      target_size_ratio: '0.2'
+    # dataPools rendered from data_pools in Jsonnet
+    preserveFilesystemOnDelete: true
+    metadataServer:
+      activeCount: 1
+      activeStandby: true
+      resources:
+        requests:
+          cpu: "1"
+          memory: 4Gi
+        limits:
+          cpu: "1"
+          memory: 4Gi
+      # metadata server placement done in Jsonnet but can be
+      # extended here
+    mirroring:
+      enabled: false
+  mount_options: {}
+  storage_class_config:
+    allowVolumeExpansion: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration creates</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>One <code>CephFilesystem</code> resource named <code>fspool</code>.
+This CephFS instance is configured to have 3 replicas both for the metadata pool and its single data pool.
+By default, the CephFS instance is configured to assume that metadata will consume roughly 20% and data roughly 80% of the storage cluster.</p>
+</li>
+<li>
+<p>A storage class which creates PVs on the CephFS instance and  supports volume expansion.</p>
+</li>
+<li>
+<p>A <code>VolumeSnapshotClass</code> associated with the storage class</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+CephFS doesn&#8217;t require mount option <code>discard</code>, and ceph-csi v3.9.0+ will fail to mount any CephFS volumes if the storage class is configured with mount option <code>discard</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The key <code>data_pools</code> is provided to avoid having to manage a list of data pools directly in the hierarchy.
+The values of each key in <code>data_pools</code> are placed in the resulting CephFS resource&#8217;s field <code>.spec.dataPools</code></p>
+</div>
+<div class="paragraph">
+<p>The contents of key <code>config</code> are used as the base value of the resulting resource&#8217;s <code>.spec</code> field.
+Note that data pools given in <code>config</code> in the hierarchy will be overwritten by the pools configured in <code>data_pools</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component creates a placement configuration for the metadata server (MDS) pods based on the values of parameters <code>tolerations</code> and <code>node_selector</code>.
+Users can override the default placement configuration by providing their own configuration in key <code>config.metadataServer.placement</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.8/ceph-filesystem-crd.html">the Rook.io <code>CephFilesystem</code> CRD documentation</a> for all possible configurations in key <code>config</code>.</p>
+</div>
+<div class="paragraph">
+<p>The values in key <code>storage_class_config</code> are merged into the <code>StorageClass</code> resource which is for the CephFS instance.</p>
+</div>
+<div class="paragraph">
+<p>The values in key <code>mount_options</code> are transformed into an array which is injected into the <code>StorageClass</code> resource in field <code>mountOptions</code>.
+Providing a key with value <code>true</code> in <code>mount_options</code> results in an array entry which just consists of the key.
+Providing a key with string value results in an array entry which consists of <code>key=value</code>.
+Providing a key with value <code>false</code> or <code>null</code> will result in the key not being added to the storage class&#8217;s mount options.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.ceph.com/en/latest/man/8/mount.ceph/#advanced"><code>mount.ceph</code> documentation</a> for all possible CephFS mount options.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configurations related to alerts.</p>
+</div>
+<div class="sect2">
+<h3 id="_ignorenames"><a class="anchor" href="#_ignorenames"></a><code>ignoreNames</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- CephPoolQuotaBytesNearExhaustion
+- CephPoolQuotaBytesCriticallyExhausted</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be used to disable alerts provided by Rook.io.
+The component supports removing entries in this parameter by providing the entry prefixed with <code>~</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component disables the CephPoolQuota alerts, since the default configuration doesn&#8217;t configure any pool quotas.</p>
+</div>
+<div class="paragraph">
+<p>However, if the quota alerts are wanted, they can be re-enabled by removing the alerts from the parameter by providing the following configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ignore_alerts:
+  - ~CephPoolQuotaBytesNearExhaustion
+  - ~CephPoolQuotaBytesCriticallyExhausted</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To allow transitioning to the new config structure, the component currently still respects ignored alerts in <code>ceph_cluster.ignore_alerts</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_patchrules"><a class="anchor" href="#_patchrules"></a><code>patchRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">CephClusterWarningState:
+  for: 15m
+CephOSDDiskNotResponding:
+  for: 5m</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to patch alerts provided by Rook.io.
+The keys in the parameter correspond to the field <code>alertname</code> of the alert to patch.
+The component expects valid partial Prometheus alert rule objects as values.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The provided values aren&#8217;t validated, they&#8217;re applied to the corresponding upstream alert as-is.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additionalrules"><a class="anchor" href="#_additionalrules"></a><code>additionalRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional alerting and recording rules.
+All rules defined in this parameter will be added to rule group <code>syn-rook-ceph-additional.rules</code>.</p>
+</div>
+<div class="paragraph">
+<p>For alerting rules, a runbook URL is injected if annotation <code>runbook_url</code> is not already set on the rule.
+The injected runbook URL is derived from the alert name using pattern <code>https://hub.syn.tools/rook-ceph/runbooks/{alertname}.html</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_node_selector"><a class="anchor" href="#_node_selector"></a><code>node_selector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">node-role.kubernetes.io/storage: ''</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The node selector (if applicable) for all the resources managed by the component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tolerations"><a class="anchor" href="#_tolerations"></a><code>tolerations</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- key: storagenode
+  operator: Exists</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The tolerations (if applicable) for all the resources managed by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component assumes that nodes on which the deployments should be scheduled may be tainted with <code>storagenode=True:NoSchedule</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a><code>images</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows selecting the Docker images to use for Rook.io, Ceph, and Ceph-CSI.
+Each image is specified using keys <code>registry</code>, <code>image</code> and <code>tag</code>.
+This structure allows easily injecting a registry mirror, if required.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>rook-ceph</code> container image versions older than <code>v1.8.0</code> aren&#8217;t supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts"><a class="anchor" href="#_charts"></a><code>charts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows selecting the Helm chart version for the <code>rook-ceph</code> operator.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>rook-ceph</code> Helm chart versions older than <code>v1.7.0</code> aren&#8217;t supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operator_helm_values"><a class="anchor" href="#_operator_helm_values"></a><code>operator_helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm values to use when rendering the rook-ceph operator Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>A few Helm values are configured based on other component parameters by default:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data in parameter <code>images</code> is used to set the <code>image.repository</code>, <code>image.tag</code>, <code>csi.cephcsi.repository</code>, and <code>csi.cephcsi.tag</code> Helm values</p>
+</li>
+<li>
+<p>The value of <code>node_selector</code> is used to set Helm value <code>nodeSelector</code></p>
+</li>
+<li>
+<p>The value of <code>tolerations</code> is used to set Helm value <code>tolerations</code></p>
+</li>
+<li>
+<p>The component ensures that <code>hostpathRequiresPrivileged</code> is enabled on OpenShift 4 regardless of the contents of the Helm value.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.9/helm-operator.html#configuration">the Rook.io docs</a> for a full list of Helm values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_toolbox"><a class="anchor" href="#_toolbox"></a><code>toolbox</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">enabled: true
+image: ${rook_ceph:images:rook}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration for the Rook-Ceph toolbox deployment.
+This deployment provides an in-cluster shell to observe and administrate the Ceph cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cephclusterspec"><a class="anchor" href="#_cephclusterspec"></a><code>cephClusterSpec</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="https://github.com/projectsyn/component-rook-ceph/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on Github</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The default configuration for the <code>CephCluster</code> resource.
+The value of this parameter is used as field <code>.spec</code> of the resulting resource.</p>
+</div>
+<div class="paragraph">
+<p>Selected configurations of the Ceph cluster are inherited from other component parameters.
+If you overwrite those configurations in this parameter, the values provided in the "source" parameters won&#8217;t have an effect.</p>
+</div>
+<div class="sect2">
+<h3 id="_inherited_configurations"><a class="anchor" href="#_inherited_configurations"></a>Inherited configurations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cephVersion.image</code> is constructed from the data in parameter <a href="#_images"><code>images</code></a>.</p>
+</li>
+<li>
+<p><code>placement.all.nodeAffinity</code> is built from parameter <a href="#_node_selector"><code>node_selector</code></a>.
+The component constructs the following value for the configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">requiredDuringSchedulingIgnoredDuringExecution:
+  nodeSelectorTerms:
+    - matchExpressions: <i class="conum" data-value="1"></i><b>(1)</b>
+        - key: NODE_SELECTOR_KEY
+          operator: Exists
+        ...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The component creates an entry in <code>matchExpressions</code> with <code>key</code> equal to the node selector key and <code>operator=Exists</code> for each key in parameter <a href="#_node_selector"><code>node_selector</code></a>.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>placement.all.tolerations</code> is set to the value of parameter <a href="#_tolerations"><code>tolerations</code></a>.</p>
+</li>
+<li>
+<p><code>storage.storageClassDeviceSets</code> based on values given in parameter <a href="#ceph_cluster_storageclass"><code>ceph_cluster.storageClassDeviceSets</code></a>.
+Users are encouraged to use the parameter <a href="#ceph_cluster_storageclass"><code>ceph_cluster.storageClassDeviceSets</code></a> to configure the Ceph cluster&#8217;s backing storage.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="https://rook.io/docs/rook/v1.9/ceph-cluster-crd.html#settings">the Rook.io <code>CephCluster</code> documentation</a> for a full list of configuration parameters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_configurations"><a class="anchor" href="#_example_configurations"></a>Example configurations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_configure_the_component_for_selinux_enabled_cluster_nodes"><a class="anchor" href="#_configure_the_component_for_selinux_enabled_cluster_nodes"></a>Configure the component for SElinux-enabled cluster nodes</h3>
+<div class="paragraph">
+<p>The component automatically configures the operator on OpenShift 4.
+However, on other Kubernetes distributions on nodes which use SElinux, users need to enable <code>hostpathRequiresPrivileged</code> in the operator&#8217;s helm values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  rook_ceph:
+    operator_helm_values:
+      hostpathRequiresPrivileged: true <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The operator needs to be informed that deployments which use <code>hostPath</code> volume mounts need to run with <code>privileged</code> security context.
+This setting is required on any cluster which uses SELinux on the nodes.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../runbooks/CephDeviceFailureRelocationIncomplete.html">CephDeviceFailureRelocationIncomplete</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/rook-ceph/references/parameters.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

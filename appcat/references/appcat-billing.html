@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AppCat Billing :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/appcat/references/appcat-billing.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="appcat" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">appcat</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/crossplane-secrets-non-provider.html">Manage secrets not coming from a provider</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/restore.html">How the Restore Process Works</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/add-to-openshift-catalog.html">Add a service to the OpenShift catalog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/exoscale-plans.html">Generate Exoscale plans</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/minio.html">Minio</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/install-cloudscale.html">Install Cloudscale Stack</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../tutorials/install-exoscale.html">Install Exoscale Stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Technical reference</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="component-parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="slo-parameters.html">AppCat SLOs Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="appcat-apiserver.html">AppCat API Server Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Provider Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-cloudscale.html">Provider Cloudscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-exoscale.html">Provider Exoscale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-kubernetes.html">Provider Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="provider-minio.html">Provider Minio</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Service Parameters</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="services-exoscale.html">Exoscale Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="services-vshn.html">VSHN Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="service-objectstorage.html">Objectstorage Service</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/billing.html">Add a new VSHN service to billing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/redisrestore.html">How-To Manual Redis Restore</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/manual-restore-mariadb.html">Manually Restore MariaDB instance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-postgresql.html">PostgreSQL by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-redis.html">Redis by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-minio.html">MinIO by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-mariadb.html">MariaDB by VSHN</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/vshn-generic.html">Generic alerts</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">appcat</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-nodes/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">appcat</a></li>
+    <li><a href="appcat-billing.html">AppCat Billing</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/vshn/component-appcat/edit/develop/docs/modules/ROOT/pages/references/appcat-billing.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">AppCat Billing</h1>
+<div class="sect1">
+<h2 id="_images_collector"><a class="anchor" href="#_images_collector"></a><code>images.collector</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/vshn/component-appcat/blob/master/component/class/defaults.yml">See class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Dictionary containing the container image used by this component.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>appcat.billing</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namespace"><a class="anchor" href="#_namespace"></a><code>namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${appcat:namespace}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace in which to deploy the cloud billing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tenantid"><a class="anchor" href="#_tenantid"></a><code>tenantID</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${cluster:tenant}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the tenant the cluster belongs to. Defaults to the <code>cluster:tenant</code> lieutenant fact.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clusterid"><a class="anchor" href="#_clusterid"></a><code>clusterID</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${cluster:name}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The name of the cluster. Defaults to the <code>cluster:name</code> lieutenant fact.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instanceuom"><a class="anchor" href="#_instanceuom"></a><code>instanceUOM</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>uom_uom_45_1e112771</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Unit of measurement for the instances.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enablemockorginfo"><a class="anchor" href="#_enablemockorginfo"></a><code>enableMockOrgInfo</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If a PrometheusRule with mock recording rules should be created. If enabled it will create two the following two metrics:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-prometheus hljs" data-lang="prometheus">appuio_control_organization_info{organization="awesomekorp", sales_order="ST10120"} 1
+appuio_control_organization_info'{organization="notvshn", sales_order="invalid"}  1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_salesorder"><a class="anchor" href="#_salesorder"></a><code>salesOrder</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>TBD</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The sales order to be used on that cluster (only relevant for APPUiO Managed)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vshn_enablecronjobs"><a class="anchor" href="#_vshn_enablecronjobs"></a><code>vshn.enableCronjobs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the billing cronjob for VSHN Appcat services should be enabled.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vshn_schedule"><a class="anchor" href="#_vshn_schedule"></a><code>vshn.schedule</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"30 * * * *"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The schedule used for the billing cronjob.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vshn_meteringrules"><a class="anchor" href="#_vshn_meteringrules"></a><code>vshn.meteringRules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If metering prometheus rules should be deployed. Used for alerting.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_uom"><a class="anchor" href="#_cloud_uom"></a><code>cloud.uom</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{GB: uom_uom_71_6f28fc21, GBDay: uom_uom_78_b847edc1, KReq: uom_uom_60_a83156c7, InstanceHour: uom_uom_45_1e112771}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Unit of measure map that translates the cloud serivce value to the odoo16 value
+Format: "cloud service value": "odoo16 value"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_exoscale_enabled"><a class="anchor" href="#_cloud_exoscale_enabled"></a><code>cloud.exoscale.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Set to true if you want to deploy the exosacle metrics collector components.</p>
+</div>
+<div class="sect2">
+<h3 id="_cloud_exoscale_objectstorage_enabled"><a class="anchor" href="#_cloud_exoscale_objectstorage_enabled"></a><code>cloud.exoscale.objectStorage.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable exoscale object storage collector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_exoscale_objectstorage_collectintervalhours"><a class="anchor" href="#_cloud_exoscale_objectstorage_collectintervalhours"></a><code>cloud.exoscale.objectStorage.collectIntervalHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>23</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The interval (in hours) that the collector collects billing metrics for Exoscale object storage service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_exoscale_objectstorage_billinghours"><a class="anchor" href="#_cloud_exoscale_objectstorage_billinghours"></a><code>cloud.exoscale.objectStorage.billingHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>6</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Only collect billing metrics after a certain hour of the day.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_exoscale_dbaas_enabled"><a class="anchor" href="#_cloud_exoscale_dbaas_enabled"></a><code>cloud.exoscale.dbaas.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable exoscale dbaas collector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_exoscale_dbaas_collectintervalminutes"><a class="anchor" href="#_cloud_exoscale_dbaas_collectintervalminutes"></a><code>cloud.exoscale.dbaas.collectIntervalMinutes</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>15</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The interval (in minutes) that the collector collects billing metrics for Exoscale DBaaS services.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_key"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_key"></a><code>cloud.secrets.exoscale.credentials.stringData.EXOSCALE_API_KEY</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Exoscale API key.</p>
+</div>
+<div class="paragraph">
+<p>You need to get the token from the <a href="https://portal.exoscale.com">Exoscale Console</a>.
+You need to select the correct account (token is limited to one account), choose "IAM" in the menu and generate a new key pair.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_secret"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_exoscale_api_secret"></a><code>cloud.secrets.exoscale.credentials.stringData.EXOSCALE_API_SECRET</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Exoscale API secret.</p>
+</div>
+<div class="paragraph">
+<p>Second part of the Exoscale API credentials.
+See EXOSCALE_API_KEY for instructions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_url"></a><code>cloud.secrets.exoscale.credentials.stringData.KUBERNETES_SERVER_URL</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes server URL.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_cloud_secrets_exoscale_credentials_stringdata_kubernetes_server_token"></a><code>cloud.secrets.exoscale.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The token to connect to a Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to the following managed resources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>buckets.exoscale.crossplane.io</code></p>
+</li>
+<li>
+<p><code>postgresqls.exoscale.crossplane.io</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_cloudscale_enabled"><a class="anchor" href="#_cloud_cloudscale_enabled"></a><code>cloud.cloudscale.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Set to true if you want to deploy the cloudscale metrics collector components.</p>
+</div>
+<div class="sect2">
+<h3 id="_cloud_cloudscale_objectstorage_enabled"><a class="anchor" href="#_cloud_cloudscale_objectstorage_enabled"></a><code>cloud.cloudscale.objectStorage.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable cloudscale object storage collector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_cloudscale_objectstorage_collectintervalhours"><a class="anchor" href="#_cloud_cloudscale_objectstorage_collectintervalhours"></a><code>cloud.cloudscale.objectStorage.collectIntervalHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>23</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The interval (in hours) that the collector collects billing metrics for Cloudscale object storage service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_cloudscale_objectstorage_billinghours"><a class="anchor" href="#_cloud_cloudscale_objectstorage_billinghours"></a><code>cloud.cloudscale.objectStorage.billingHours</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>6</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Only collect billing metrics after a certain hour of the day.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_cloudscale_objectstorage_days"><a class="anchor" href="#_cloud_cloudscale_objectstorage_days"></a><code>cloud.cloudscale.objectStorage.days</code></h3>
+<div class="dlist horizotanl">
+<dl>
+<dt>type</dt>
+<dd>
+<p>int</p>
+</dd>
+<dt>default</dt>
+<dd>
+<p>1</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>How many days ago to get the billing metrics from cloudscale. The returned metrics are always for one day.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_secrets_cloudscale_credentials_stringdata_cloudscale_api_token"><a class="anchor" href="#_cloud_secrets_cloudscale_credentials_stringdata_cloudscale_api_token"></a><code>cloud.secrets.cloudscale.credentials.stringData.CLOUDSCALE_API_TOKEN</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cloudscale API token.</p>
+</div>
+<div class="paragraph">
+<p>You need to get the token from the <a href="https://control.cloudscale.ch">Cloudscale Control Panel</a>.
+You need to select the correct Project (token is limited to one project), choose "API Tokens" in the menu and generate a new one.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_url"><a class="anchor" href="#_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_url"></a><code>cloud.secrets.cloudscale.credentials.stringData.KUBERNETES_SERVER_URL</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes server URL.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_token"><a class="anchor" href="#_cloud_secrets_cloudscale_credentials_stringdata_kubernetes_server_token"></a><code>cloud.secrets.cloudscale.credentials.stringData.KUBERNETES_SERVER_TOKEN</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Required.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The token to connect to a Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>buckets.cloudscale.crossplane.io</code> managed resource, and <code>get</code> and <code>list</code> permissions for namespaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring_enabled"><a class="anchor" href="#_monitoring_enabled"></a><code>monitoring.enabled</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>true</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable monitoring for the billing monitoirng</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/vshn/component-appcat/blob/master/component/class/defaults.yml">See class/defaults.yml</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of alerting rules to deploy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_policies_target_namespaces"><a class="anchor" href="#_network_policies_target_namespaces"></a><code>network_policies.target_namespaces</code>:</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of namespaces to which the billing tool should have access to.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prometheus"><a class="anchor" href="#_prometheus"></a><code>prometheus</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prometheus_url"><a class="anchor" href="#_prometheus_url"></a><code>prometheus.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="http://vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc:8080/prometheus" class="bare">vshn-appuio-mimir-query-frontend.vshn-appuio-mimir.svc:8080/prometheus</a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the prometheus instance that holds the <code>appuio_control_organization_info</code> to find the correct <code>salesOrder</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prometheus_org_id"><a class="anchor" href="#_prometheus_org_id"></a><code>prometheus.org_id</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"appuio-cloud-metering-c-appuio-cloudscale-lpg-2|appuio-cloud-metering-c-appuio-exoscale-ch-gva-2-0"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The (optional) organization id to use for the prometheus query (required for mimir)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_odoo"><a class="anchor" href="#_odoo"></a><code>odoo</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_odoo_url"><a class="anchor" href="#_odoo_url"></a><code>odoo.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"https://test.central.vshn.ch/api/v2/product_usage_report_POST"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the odoo endpoint used to send billing metrics to.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo_oauth_url"><a class="anchor" href="#_odoo_oauth_url"></a><code>odoo.oauth.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>"https://test.central.vshn.ch/api/v2/authentication/oauth2/token"</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the odoo oauth endpoint</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo_oauth_clientid"><a class="anchor" href="#_odoo_oauth_clientid"></a><code>odoo.oauth.clientID</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>clientID to connect to Odoo via oauth</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_odoo_oauth_clientsecret"><a class="anchor" href="#_odoo_oauth_clientsecret"></a><code>odoo.oauth.clientSecret</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>clientSecret to connect to Odoo via oauth</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloudapi"><a class="anchor" href="#_cloudapi"></a><code>cloudAPI</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cloudapi_url"><a class="anchor" href="#_cloudapi_url"></a><code>cloudAPI.url</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>URL to the APPUiO Control API cluster</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloudapi_token"><a class="anchor" href="#_cloudapi_token"></a><code>cloudAPI.token</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>vault reference</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The token to connect to the APPUiO Control API cluster.</p>
+</div>
+<div class="paragraph">
+<p>The Service Account connected to this token should have <code>get</code> and <code>list</code> permissions to <code>organizations.organization.appuio.io</code> managed resource.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/appcat/references/appcat-billing.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

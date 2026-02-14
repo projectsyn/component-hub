@@ -1,0 +1,3331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-nodes/references/parameters.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../explanations/machine-config-pool.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="openshift4-nodes" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenShift 4 Nodes</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../explanations/machine-config-pool.html">Machine Config Pools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../explanations/resource_management.html">Resource Management</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../explanations/priority_and_autoscaling.html">Pod Priority and Autoscaling</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenShift 4 Nodes</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenShift 4 Nodes</a></li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-nodes/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>openshift4_nodes</code>.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This component relies on deep merge of values from several parameters and hierarchy layers.
+This works pretty straightforward for scalar values and dictionaries.
+Values of arrays will be appended to each other.
+There is no way to override values which were set on a lower precedence location.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_openshiftversion"><a class="anchor" href="#_openshiftversion"></a><code>openshiftVersion</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Major: '4'
+Minor: '16'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The OpenShift version of the cluster on which the component is installed.
+We expect that most users will set this parameter to <code>${dynamic_facts:openshiftVersion}</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_availabilityzones"><a class="anchor" href="#_availabilityzones"></a><code>availabilityZones</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list of strings</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>[]</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of availability zone names.
+The list will be used when distributing MachineSets across zones (see <a href="#multiAZ">[multiAZ]</a>).
+The first item of this list will also be used to place a MachineSet without an explicit zone defined.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s suggested to define its values higher up the config hierarchy.
+Most probably the one of the cloud region.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is currently only supported on GCP.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_defaultspecs"><a class="anchor" href="#_defaultspecs"></a><code>defaultSpecs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Sensible defaults for a growing number of cloud providers.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default values applied to each <code>machinesets.machine.openshift.io</code> object created by this component.</p>
+</div>
+<div class="paragraph">
+<p>The top level keys are the names of cloud providers as reported by the cluster fact <code>${facts:cloud}</code>.
+The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_controlplanedefaultspecs"><a class="anchor" href="#_controlplanedefaultspecs"></a><code>controlPlaneDefaultSpecs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>Sensible defaults for a growing number of cloud providers.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default values applied to each <code>controlplanemachinesets.machine.openshift.io</code> object created by this component.</p>
+</div>
+<div class="paragraph">
+<p>The top level keys are the names of cloud providers as reported by the cluster fact <code>${facts:cloud}</code>.
+The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>controlplanemachinesets.machine.openshift.io</code> object.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_infrastructureid"><a class="anchor" href="#_infrastructureid"></a><code>infrastructureID</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>undefined</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This is the 12 character infrastructure ID given to a cluster by the OpenShift 4 installer.
+Use the following command to retrieve this from the cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/2">Get a clusters infrastructure ID as a fact</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is most likely to be configured on cluster level itself.
+Configuring this higher up in the hierarchy can result in unexpected behavior.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machine_api_namespace"><a class="anchor" href="#_machine_api_namespace"></a><code>machine_api_namespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>openshift-machine-api</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace where machine-api related objects should be created.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Namespaced resources without an explicit <code>.metadata.namespace</code> field will be deployed in this namespace as well.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nodeconfig"><a class="anchor" href="#_nodeconfig"></a><code>nodeConfig</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cgroupMode: v1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default values applied to the <code>node.config.openshift.io</code> object created by this component.</p>
+</div>
+<div class="paragraph">
+<p>You can switch between cgroup v1 and cgroup v2, as needed, by editing the node.config object.
+For more information, see <a href="https://docs.openshift.com/container-platform/latest/installing/install_config/enabling-cgroup-v2.html">Enabling Linux control group version 2</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nodegroups"><a class="anchor" href="#_nodegroups"></a><code>nodeGroups</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>empty</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of node groups to create on the cluster.
+It&#8217;s centered around the <code>MachineSet</code> CRD but also takes care of some additional aspects like zone distribution and auto scaling.</p>
+</div>
+<div class="paragraph">
+<p>The top level key is the name of each set of machines.
+Each set of machines has the values described below.</p>
+</div>
+<div class="paragraph">
+<p>If an entry has value <code>null</code>, no <code>MachineSet</code> is created for that entry.
+This allows users to remove entries in the hierarchy.</p>
+</div>
+<div class="sect2">
+<h3 id="_annotations"><a class="anchor" href="#_annotations"></a><code>annotations</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>{}</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The annotations to add to the MachineSet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instancetype"><a class="anchor" href="#_instancetype"></a><code>instanceType</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>null</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is currently only supported on GCP.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multiaz"><a class="anchor" href="#_multiaz"></a><code>multiAz</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>false</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A machine set will be placed in one single availability zone.
+If not specified otherwise, the first entry of <code>availabilityZones</code> will be used.
+When set to true, a MachineSet will be created for each zone listed in <code>availabilityZones</code>.
+The replicas of the generated MachineSets will be calculated.
+The <code>replicas</code> given will be divided by the cont of zones in <code>availabilityZones</code> rounded up.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/appuio/component-openshift4-nodes/issues/3">Effective replica count of multi zone machines can be higher than the requested one</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is currently only supported on GCP.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_replicas"><a class="anchor" href="#_replicas"></a><code>replicas</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>1</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The number of machines to create.
+When <code>multiAZ</code> is set to <code>true</code>, the number given here will be divided so that each of the created MachineSets will get a fraction of replicas but the total of created machines will match the one requested here.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="#multiAZ">[multiAZ]</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This value can also be set in <a href="#spec">[spec]</a>.
+If done so, the value in <a href="#spec">[spec]</a> will win.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_role"><a class="anchor" href="#_role"></a><code>role</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>worker</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The role of the created Nodes.
+The value will be added as the <code>node-role.kubernetes.io/&lt;role&gt;: ""</code> label to nodes.
+Unless <code>role</code> is set to <code>master</code>, the <code>worker</code> role label will always be added to inherit the base configuration for nodes.</p>
+</div>
+<div class="paragraph">
+<p>When <code>role</code> is set to <code>master</code>, the component will create a <code>ControlPlaneMachineSet</code> instead of a <code>MachineSet</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In order to add additional labels to the resulting Node object, use <code>spec.template.spec.metadata.labels</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_portsecurity"><a class="anchor" href="#_portsecurity"></a><code>portSecurity</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><em>unset</em></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to selectively configure port security for networks that are attached to the node group in the <code>defaultSpecs.openstack</code> config.
+This parameter has no effect for networks which are defined directly through the node group&#8217;s <code>spec</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>If this parameter isn&#8217;t given the OpenStack platform&#8217;s default value is used.</p>
+</div>
+<div class="paragraph">
+<p>When port security is disabled, nodes in the group are fully accessible in each network they&#8217;re attached to.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This parameter is only supported on OpenStack.
+Other infrastructures don&#8217;t provide the same port security concept.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On OpenStack platforms which enable security groups (and port security) by default, this parameter must be set to <code>false</code> on node groups whose nodes are matched by one or more <code>CiliumL2AnnouncementPolicy</code> resources.
+This is necessary because the OpenStack platform won&#8217;t forward ARP replies for arbitrary IPs that are sent by nodes in the node group when port security is active.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spec"><a class="anchor" href="#_spec"></a><code>spec</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <a href="#defaultSpec">[defaultSpec]</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This gives you the full control over the resulting <code>MachineSet</code> or <code>ControlPlaneMachineSet</code>.
+Values given here will be merged with precedence with the defaults configured in <a href="#defaultSpec">[defaultSpec]</a>.
+The values can be everything that&#8217;s accepted in the <code>spec</code> field of a <code>machinesets.machine.openshift.io</code> object.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machinesets"><a class="anchor" href="#_machinesets"></a><code>machineSets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineSets:
+  worker:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: c-cluster-1
+    spec:
+      deletePolicy: Oldest
+      replicas: 3
+      selector:
+        matchLabels:
+          machine.openshift.io/cluster-api-cluster: c-cluster-1
+          machine.openshift.io/cluster-api-machineset: worker
+      template:
+        metadata:
+          labels:
+            machine.openshift.io/cluster-api-cluster: c-cluster-1
+            machine.openshift.io/cluster-api-machine-role: app
+            machine.openshift.io/cluster-api-machine-type: app
+            machine.openshift.io/cluster-api-machineset: worker
+        spec:
+          lifecycleHooks: {}
+          metadata:
+            labels:
+              node-role.kubernetes.io/app: ""
+              node-role.kubernetes.io/worker: ""
+          providerSpec:
+            value:
+              antiAffinityKey: c-cluster-1_worker
+              baseDomain: c-cluster-1.vshnmanaged.net
+              flavor: plus-16-4
+              image: custom:rhcos-4.16
+              interfaces:
+                - addresses:
+                    - subnetUUID: 1971d4c3-0065-41fc-82f4-c26cf2fe4f9a
+                  type: Private
+              rootVolumeSizeGB: 100
+              tokenSecret:
+                name: cloudscale-rw-token
+              userDataSecret:
+                name: cloudscale-user-data
+              zone: lpg1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of machine sets to create on the cluster.
+The resulting <code>MachineSet</code> object will have the key as the name and the value is merged into the resource.</p>
+</div>
+<div class="paragraph">
+<p>The MachineSet will will have the namespace from <code>machine_api_namespace</code> applied.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_autoscaling"><a class="anchor" href="#_autoscaling"></a><code>autoscaling</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The fields in this parameter can be used to configure OpenShift&#8217;s cluster autoscaling.
+See the <a href="https://docs.openshift.com/container-platform/4.16/machine_management/applying-autoscaling.html">upstream documentation</a> for a detailed description.</p>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_enabled"><a class="anchor" href="#_autoscaling_enabled"></a><code>autoscaling.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to configure autoscaling for the cluster.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_addautoscalerargs"><a class="anchor" href="#_autoscaling_addautoscalerargs"></a><code>autoscaling.addAutoscalerArgs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">addAutoscalerArgs:
+  - --daemonset-eviction-for-occupied-nodes=false
+  - --skip-nodes-with-local-storage=false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Patches the <code>default</code> cluster autoscaler pod with the provided arguments.</p>
+</div>
+<div class="paragraph">
+<p>Those arguments can&#8217;t be set in the <code>ClusterAutoscaler</code> resource itself.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--daemonset-eviction-for-occupied-nodes=false</code>: Disables eviction of DaemonSet pods to prevent CSI drivers and other required infrastructure pods from being evicted.</p>
+</li>
+<li>
+<p><code>--skip-nodes-with-local-storage=false</code>: Allows removing nodes with pods that use <code>emptyDir</code> volumes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_ignoredownscalingsync"><a class="anchor" href="#_autoscaling_ignoredownscalingsync"></a><code>autoscaling.ignoreDownscalingSync</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If set to true, Argo CD will ignore synchronization of the <code>.spec.scaleDown.enable</code> field in the <code>ClusterAutoscaler</code> resource generated by this component.
+This is helpful if <code>.spec.scaleDown.enable</code> is controlled by another resource, otherwise Argo would override this value again.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_clusterautoscaler"><a class="anchor" href="#_autoscaling_clusterautoscaler"></a><code>autoscaling.clusterAutoscaler</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The value of this parameter is merged into the default <code>.spec</code> of the <code>ClusterAutoscaler</code> resource which is generated by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component deploys the following default <code>ClusterAutoscaler</code> <code>.spec</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  podPriorityThreshold: -10
+  resourceLimits:
+    maxNodesTotal: 24
+    cores:
+      min: 8
+      max: 128
+    memory:
+      min: 4
+      max: 256
+  logVerbosity: 1
+  scaleDown:
+    enabled: true
+    delayAfterAdd: 10m
+    delayAfterDelete: 5m
+    delayAfterFailure: 30s
+    unneededTime: 5m
+    utilizationThreshold: '0.4'
+  expanders: [ 'Random' ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See the upstream <a href="https://docs.openshift.com/container-platform/4.16/machine_management/applying-autoscaling.html#configuring-clusterautoscaler_applying-autoscaling">configuring the cluster autoscaler</a> documentation for details on each configuration option.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate the provided configuration.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The fields in the cluster autoscaler&#8217;s <code>spec.resourceLimits</code> must be configured to account for the non-autoscaled nodes in the cluster, such as control plane nodes, since they&#8217;ll also count against the overall cluster size.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_machineautoscalers"><a class="anchor" href="#_autoscaling_machineautoscalers"></a><code>autoscaling.machineAutoscalers</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each key value pair in this parameter is used to create a <code>MachineAutoscaler</code> resource in the namespace indicated by parameter <code>machine_api_namespace</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component expects that each key matches a <code>MachineSet</code> which is configured through one of the parameters <code>nodeGroups</code> or <code>machineSets</code>.
+The component will raise an error if it finds a key which doesn&#8217;t have a matching entry in <code>nodeGroups</code> or <code>machineSets</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component will configure ArgoCD to ignore changes to <code>spec.replicas</code> for each <code>MachineSet</code> resources targeted by a <code>MachineAutoscaler</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The value associated with each key is used as the base configuration for <code>.spec</code> of the resulting <code>MachineAutoscaler</code> resource.
+The component will always configure <code>.spec.scaleTargetRef.name</code> with the key to ensure the <code>MachineAutoscaler</code> resource targets the desired <code>MachineSet</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component will raise an error if a value doesn&#8217;t have the exact keys <code>minReplicas</code> and <code>maxReplicas</code></p>
+</div>
+<div class="paragraph">
+<p>See the upstream <a href="https://docs.openshift.com/container-platform/4.16/machine_management/applying-autoscaling.html#configuring-machineautoscaler_applying-autoscaling">configuring machine autoscalers</a> documentation for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_priorityexpanderconfig"><a class="anchor" href="#_autoscaling_priorityexpanderconfig"></a><code>autoscaling.priorityExpanderConfig</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If this parameter has any fields set, the component will generate a configmap <code>cluster-autoscaler-priority-expander</code> in the namespace indicated by parameter <code>machine_api_namespace</code>.</p>
+</div>
+<div class="paragraph">
+<p>When the parameter has any fields set, the component will default parameter <code>.spec.expanders</code> of the <code>ClusterAutoscaler</code> to <code>['Priority']</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component will render the provided dictionary as YAML and write it to <code>data.priorities</code> in the <code>cluster-autoscaler-priority-expander</code> configmap.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_custommetrics_enabled"><a class="anchor" href="#_autoscaling_custommetrics_enabled"></a><code>autoscaling.customMetrics.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When enabled, create PrometheusRules to generate metrics for certain autoscaling parameters:
+<code>component_openshift4_nodes_machineset_replicas_max</code> contains the <code>maxReplicas</code> value for each machine set.
+<code>component_openshift4_nodes_machineset_replicas_min</code> contains the <code>minReplicas</code> value for each machine set.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_custommetrics_extralabels"><a class="anchor" href="#_autoscaling_custommetrics_extralabels"></a><code>autoscaling.customMetrics.extraLabels</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional label-value pairs to add to the autoscaling metrics.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_enabled"><a class="anchor" href="#_autoscaling_schedule_enabled"></a><code>autoscaling.schedule.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable scheduled downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_enableexpression"><a class="anchor" href="#_autoscaling_schedule_enableexpression"></a><code>autoscaling.schedule.enableExpression</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>0 22 * * 2</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cron expression to enable downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_disableexpression"><a class="anchor" href="#_autoscaling_schedule_disableexpression"></a><code>autoscaling.schedule.disableExpression</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>0 1 * * 3</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cron expression to disable downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_autoscaling_schedule_timezone"><a class="anchor" href="#_autoscaling_schedule_timezone"></a><code>autoscaling.schedule.timeZone</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>Europe/Zurich</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The time zone to use for scheduled downscaling.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_configuration"><a class="anchor" href="#_example_configuration"></a>Example configuration</h3>
+<div class="paragraph">
+<p>This configuration assumes that a <code>MachineSet</code> named <code>app</code> is configured through either <code>nodePools</code> or <code>machineSets</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">autoscaling:
+  enabled: true
+  clusterAutoscaler:
+    logVerbosity: 4 <i class="conum" data-value="1"></i><b>(1)</b>
+  machineAutoscalers:
+    app:
+      minReplicas: 2
+      maxReplicas: 6</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable debug logging by setting <code>logVerbosity=4</code> if you need to troubleshoot the autoscaling behavior.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machineconfigpools"><a class="anchor" href="#_machineconfigpools"></a><code>machineConfigPools</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary of machine config pools to create on the cluster.
+The resulting <code>MachineConfigPool</code> object will have the key prefixed with <code>x-</code> as the name and the value is merged into the resource.</p>
+</div>
+<div class="paragraph">
+<p>Apart from the machine config pool, this dictionary can manage related resources through the following fields, that won&#8217;t be added to the <code>MachineConfigPool</code> object.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>kubelet</strong> field can contain the spec of a <code>KubeletConfig</code> resource.
+The machine config pool key will be used as the name and the <code>machineConfigPoolSelector</code> will be set automatically.</p>
+</li>
+<li>
+<p>The <strong>containerRuntime</strong> field can contain the spec of a <code>ContainerRuntimeConfig</code> resource.
+The machine config pool key will be used as the name and the <code>machineConfigPoolSelector</code> will be set automatically.</p>
+</li>
+<li>
+<p>The <strong>machineConfigs</strong> accepts a key-value dict where the values are the <code>spec</code> of <code>MachineConfig</code> resources.
+The resulting <code>MachineConfig</code> objects will have the keys, prefixed with <code>99x-</code> and the machine config pool key, as the name and the values are used as the <code>spec</code>.
+The objects will automatically be labeled so that the machine config pool will pick up the config.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default the component creates <code>app</code>, <code>infra</code>, and <code>storage</code> machine config pools, each of which extends the <code>worker</code> pool.
+Config pools can be removed by setting their dictionary value to <code>null</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  machineConfigPools:
+    master:
+      kubelet:
+        kubeletConfig:
+          maxPods: 60
+    app:
+      spec:
+        maxUnvailable: 3
+      kubelet: <i class="conum" data-value="1"></i><b>(1)</b>
+        kubeletConfig:
+          maxPods: 1337
+      containerRuntime: <i class="conum" data-value="2"></i><b>(2)</b>
+        containerRuntimeConfig:
+          pidsLimit: 1337
+      machineConfigs:
+        testfile: <i class="conum" data-value="3"></i><b>(3)</b>
+          config:
+            ignition:
+              version: 3.2.0
+            storage:
+              files:
+              - contents:
+                  source: data:,custom
+                filesystem: root
+                mode: 0644
+                path: /etc/customtest
+        testfile2: <i class="conum" data-value="4"></i><b>(4)</b>
+          config:
+            ignition:
+              version: 3.2.0
+            storage:
+              files:
+              - contents:
+                  source: data:,custom
+                filesystem: root
+                mode: 0644
+                path: /etc/customtest2</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Results in a <code>KubeletConfig</code> object called <code>app</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Results in a <code>ContainerRuntimeConfig</code> object called <code>app</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Results in a <code>MachineConfig</code> object called <code>99x-app-testfile</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Results in a <code>MachineConfig</code> object called <code>99x-app-testfile2</code></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Machine config pool names are prefixed with <code>x-</code> as in some cases configurations are applied ordered by their name and we want the config for <code>x-app</code> to be applied after the default worker config of the <code>worker</code> pool.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component doesn&#8217;t manage machine config pools <code>master</code> and <code>worker</code> as these are maintained directly by OpenShift.
+Any changes to these machine config pools will be ignored.</p>
+</div>
+<div class="paragraph">
+<p>You can however manage related resources for these pools through the extra fields <code>kubelet</code>, <code>containerRuntime</code>, and <code>machineConfigs</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_machineconfigs"><a class="anchor" href="#_machineconfigs"></a><code>machineConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/MachineConfig</code>.
+The resulting <code>MachineConfig</code> objects will have the keys, prefixed with <code>99x-</code>, as the name and the values are merged into the resource.</p>
+</div>
+<div class="paragraph">
+<p>Reference the <a href="https://docs.openshift.com/container-platform/4.11/post_installation_configuration/machine-configuration-tasks.html">upstream documentation</a> on how to use machine config objects.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs:
+  worker-ssh:
+    metadata:
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec:
+      config:
+        ignition:
+          version: 3.2.0
+        passwd:
+          users:
+            - name: core
+              sshAuthorizedKeys:
+                - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9BWBmqreqpn7cF9klFEeLrg/NWk3UAyvx7gj/cVFQn</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We add special support for defining file contents in the hierarchy with key <code>storage.files.X.source.inline</code> which isn&#8217;t part of the Ignition spec.</p>
+</div>
+<div class="listingblock">
+<div class="title">Inline file contents example (custom <code>chrony.conf</code>)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs:
+  worker-chrony-custom:
+    metadata:
+      annotations:
+        openshift4-nodes.syn.tools/node-disruption-policies: |- <i class="conum" data-value="1"></i><b>(1)</b>
+          {
+            "files": [{
+              "path": "/etc/chrony.conf",
+              "actions": [{"type":"Restart","restart":{"serviceName":"chronyd.service"}}]
+            }]
+          }
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec:
+      config:
+        ignition:
+          version: 3.2.0
+        storage:
+          files:
+            - path: /etc/chrony.conf
+              mode: 0644
+              overwrite: true
+              contents:
+                # The contents of `inline` get rendered as
+                # `source: 'data:text/plain;charset=utf-8;base64,&lt;inline|base64&gt;'`
+                inline: |
+                  # Use ch.pool.ntp.org
+                  pool ch.pool.ntp.org iburst
+                  # Rest is copied from the default config
+                  driftfile /var/lib/chrony/drift
+                  makestep 1.0 3
+                  rtcsync
+                  keyfile /etc/chrony.keys
+                  leapsectz right/UTC
+                  logdir /var/log/chrony</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure the machine config operator to only restart the <code>chronyd</code> service instead of draining and rebooting the node when this <code>MachineConfig</code> is applied.
+See section <a href="#_nodedisruptionpolicies"><code>nodeDisruptionPolicies</code></a> for a full explanation of how the component supports configuring node disruption policies via annotations on <code>MachineConfig</code> resources.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resulting machine config for this example looks as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  annotations: <i class="conum" data-value="1"></i><b>(1)</b>
+    inline-contents.machineconfig.syn.tools/etc-chrony.conf: '# Use ch.pool.ntp.org
+
+      pool ch.pool.ntp.org iburst
+
+      # Rest is copied from the default config
+
+      driftfile /var/lib/chrony/drift
+
+      makestep 1.0 3
+
+      rtcsync
+
+      keyfile /etc/chrony.keys
+
+      leapsectz right/UTC
+
+      logdir /var/log/chrony
+
+      '
+  labels:
+    app.kubernetes.io/component: openshift4-nodes
+    app.kubernetes.io/managed-by: commodore
+    app.kubernetes.io/name: openshift4-nodes
+    machineconfiguration.openshift.io/role: worker
+    name: 99x-worker-chrony-custom
+  name: 99x-worker-chrony-custom
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+        - contents:
+            source: data:text/plain;charset=utf-8;base64,IyBVc2UgY2gucG9vbC5udHAub3JnCnBvb2wgY2gucG9vbC5udHAub3JnIGlidXJzdAojIFJlc3QgaXMgY29waWVkIGZyb20gdGhlIGRlZmF1bHQgY29uZmlnCmRyaWZ0ZmlsZSAvdmFyL2xpYi9jaHJvbnkvZHJpZnQKbWFrZXN0ZXAgMS4wIDMKcnRjc3luYwprZXlmaWxlIC9ldGMvY2hyb255LmtleXMKbGVhcHNlY3R6IHJpZ2h0L1VUQwpsb2dkaXIgL3Zhci9sb2cvY2hyb255Cg== <i class="conum" data-value="2"></i><b>(2)</b>
+          mode: 420
+          overwrite: true
+          path: /etc/chrony.conf</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The original inline file contents are added as an annotation to the resulting machine config object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The actual entry in the files list in the Ignition config is encoded with base64 and added as a data scheme value (<code>data:text/plain;charset=utf-8;base64,&#8230;&#8203;</code>) in the <code>contents.source</code> field.
+See the <a href="https://coreos.github.io/ignition/configuration-v3_2/">Ignition spec</a> for more details on supported ways to specify file contents.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Keep in mind that machine config objects are evaluated in order of their name.
+This is also the reason why the machine config names are prefixed with <code>99x-</code> so that they&#8217;re evaluated after the default OpenShift machine configuration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_containerruntimeconfigs"><a class="anchor" href="#_containerruntimeconfigs"></a><code>containerRuntimeConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/ContainerRuntimeConfig</code>.
+The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>ContainerRuntimeConfig</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kubeletconfigs"><a class="anchor" href="#_kubeletconfigs"></a><code>kubeletConfigs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>See <code>class/defaults.yml</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter accepts a key-value dict where the values are of kind <code>machineconfiguration.openshift.io/v1/KubeletConfig</code>.
+The keys are resulting <code>metadata.name</code> and the values reflect the <code>.spec</code> field of <code>KubeletConfig</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Please refer to the upstream version of the relevant kubelet for the valid values of these fields.
+Invalid values of the kubelet configuration fields may render cluster nodes unusable.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component will print a warning if the configuration field <code>maxPods</code> is set to a value larger than 250.
+See <a href="https://github.com/kubernetes/kubelet/blob/master/config/v1beta1/types.go">supported configuration fields upstream</a> (choose matching release branch for versioned options)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See also: <a href="https://docs.openshift.com/container-platform/4.9/nodes/nodes/nodes-nodes-managing-max-pods.html">Managing the maximum number of pods per node</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_debugnamespace"><a class="anchor" href="#_debugnamespace"></a><code>debugNamespace</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>syn-debug-nodes</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The namespace to create for <code>oc debug node/&lt;nodename&gt;</code>.
+This namespace is annotated to ensure that debug pods can be scheduled on any nodes.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>oc debug node/&lt;nodename&gt; --to syn-debug-nodes</code> to create the debug pods in the namespace.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This component will take ownership of the namespace specified here.
+Please make sure you don&#8217;t specify a namespace which is already managed by other means.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_egressinterfaces"><a class="anchor" href="#_egressinterfaces"></a><code>egressInterfaces</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigPools: []
+nodeKubeconfig: /var/lib/kubelet/kubeconfig
+shadowRangeConfigMap:
+  namespace: cilium
+  name: eip-shadow-ranges</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This feature is intended to be used when configuring floating egress IPs with Cilium according to the design selected in <a href="https://kb.vshn.ch/oc4/explanations/decisions/cloudscale-cilium-egressip.html">Floating egress IPs with Cilium on cloudscale</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter will deploy a MachineConfig which configures a systemd service that sets up dummy interfaces for egress IPs on the nodes in each MachineConfigPool listed in field <code>machineConfigPools</code>.
+The component supports removal of MachineConfigPools by prefixing the pool with <code>~</code>.</p>
+</div>
+<div class="paragraph">
+<p>The systemd unit deployed by the script is configured to be executed after the node&#8217;s network is online but before the Kubelet starts.
+The systemd unit executes a script which reads the required egress interfaces and associated IPs from the configmap indicated in parameter <code>shadowRangeConfigMap</code>.</p>
+</div>
+<div class="paragraph">
+<p>The script uses the file indicated in field <code>nodeKubeconfig</code> to fetch the ConfigMap from the cluster.
+If the default value is used, the script will use the node&#8217;s Kubelet kubeconfig to access the cluster.
+To ensure the Kubelet can access the configmap, users should ensure that a pod which mounts the ConfigMap is running on the node.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The script will apply the following changes to the provided kubeconfig:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Occurrences of <code>api-int</code> will be replaced with <code>api</code> (once per line)</p>
+</li>
+<li>
+<p>Lines containing the string <code>certificate-authority-data</code> will be deleted</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is done to ensure that the script works correctly on IPI clusters which only provide the <code>api-int</code> DNS record via the in-cluster CoreDNS which isn&#8217;t running before the kubelet is started.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Component cilium can deploy a suitable ConfigMap and DaemonSets which ensure that the Kubelets on all nodes that need to create egress dummy interfaces can access the ConfigMap.
+See the documentation for <a href="http://localhost:2020/cilium/references/parameters.html#_egress_gateway_egress_ip_ranges">component-cilium&#8217;s support for egress IP ranges</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The script expects the ConfigMap to have a key matching each node name on which egress dummy interfaces should be configured.</p>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">data:
+  infra-foo: '{"egress_a": {"base": "198.51.100", "from": "32", "to": "63"}}'
+  infra-bar: '{"egress_a": {"base": "198.51.100", "from": "64", "to": "95"}}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the ConfigMap data shown above the script will configure the following dummy interfaces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>egress_a_0</code> - <code>egress_a_31</code> with IPs 198.51.100.32 - 195.51.100.63 on node infra-foo.</p>
+</li>
+<li>
+<p><code>egress_a_0</code> - <code>egress_a_31</code> with IPs 198.51.100.64 - 195.51.100.95 on node infra-bar.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nodedisruptionpolicies"><a class="anchor" href="#_nodedisruptionpolicies"></a><code>nodeDisruptionPolicies</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+defaults
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-nodes/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows configuring "static" <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/machine_configuration/machine-config-node-disruption_machine-configs-configure">node disruption policies</a>.
+Node disruption policies allow customizing the actions that are executed when a <code>MachineConfig</code> change is applied.
+By default the machine config operator (MCO) will reboot nodes when a <code>MachineConfig</code> changes a file or a systemd unit.
+With node disruption policies, which are configured in the global <code>machineconfigurations.operator.openshift.io/cluster</code> resource, you can customize the MCO behavior when a file or systemd unit is changed.</p>
+</div>
+<div class="paragraph">
+<p>The node disruption policies are configured via field <code>spec.nodeDisruptionPolicy</code> in the <code>machineconfiguration.operator.openshift.io/cluster</code> resource.
+That object has fields <code>files</code>, <code>units</code> and <code>sshkey</code>.
+Field <code>files</code> is a list.
+Each entry of <code>files</code> has fields <code>path</code> and <code>actions</code>.
+The list is indexable by field <code>path</code> of the entries.
+Field <code>units</code> is a list.
+Each entry of <code>units</code> has fields <code>name</code> and <code>actions</code>.
+The list is indexable by field <code>name</code> of the entries.
+Field <code>sshkey</code> is an object with field <code>actions</code>.
+Field <code>actions</code> defines the actions to take when the policy matches a change.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When applying policy actions, the longest prefix wins: if there are policies for both <code>/usr/local</code> and <code>/usr/local/bin</code> the policy for <code>/usr/local/bin</code> is applied for <code>/usr/local/bin/script.sh</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Consult <code>kubectl explain machineconfiguration.operator.openshift.io.spec.nodeDisruptionPolicy</code> for a more comprehensive explanation of each field.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Actions are executed in the order that they appear in field <code>actions</code>.
+Currently, the following actions are supported:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>Reboot</code></dt>
+<dd>
+<p>Drains and reboots the node (the default action).
+Must occur alone.</p>
+</dd>
+<dt class="hdlist1"><code>None</code></dt>
+<dd>
+<p>Does nothing.
+Must occur alone.</p>
+</dd>
+<dt class="hdlist1"><code>Drain</code></dt>
+<dd>
+<p>Cordons, drains and uncordons the node.</p>
+</dd>
+<dt class="hdlist1"><code>Reload</code></dt>
+<dd>
+<p>Reloads a systemd service.</p>
+</dd>
+<dt class="hdlist1"><code>Restart</code></dt>
+<dd>
+<p>Restarts a systemd service.</p>
+</dd>
+<dt class="hdlist1"><code>DaemonReload</code></dt>
+<dd>
+<p>Executes <code>systemd daemon-reload</code> to discover new or changed systemd configuration, such as a new systemd unit.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The component expects parameter fields <code>files</code> and <code>units</code> to be dictionaries and treats the keys as values for field <code>path</code> and <code>name</code> for the <code>files</code> and <code>units</code> lists in the <code>MachineConfiguration</code> resource respectively.
+The values of each entry in <code>files</code> and <code>units</code> are used verbatim.
+The content of parameter field <code>sshkey_actions</code> is used verbatim as the contents of <code>sshkey.actions</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component has some validation and will reject obviously invalid configurations, such as a list of actions which contains <code>Reboot</code> or <code>None</code> together with other actions.</p>
+</div>
+<div class="paragraph">
+<p>The component deploys an Espejote <code>ManagedResource</code> which collects node disruption policies from annotation <code>openshift4-nodes.syn.tools/node-disruption-policies</code> from all <code>MachineConfig</code> resources (except the <code>rendered-*</code> resources) and merges those values (which are expected to be string-encoded JSON) with the statically configured policies provided in this parameter.
+The contents of this parameter are deployed on the cluster in an Espejote <code>JsonnetLibrary</code> object.</p>
+</div>
+<div class="paragraph">
+<p>The contents of each annotation are expected to be string-encoded JSON which contains a valid node disruption policy snippet.
+The expected top-level fields of the annotation contents are <code>files</code>, <code>units</code> or <code>sshkey</code>.
+The <code>ManagedResource</code> uses the same validation logic as the component to reject obviously invalid configurations provided via annotations.</p>
+</div>
+<div class="paragraph">
+<p>Since there can only be one policy per file <code>path</code> and per systemd unit, the <code>ManagedResource</code> will collect each list of <code>actions</code> for a given path or unit and select the "most disruptive" list of actions.</p>
+</div>
+<div class="paragraph">
+<p><code>Reboot</code> is treated as the most disruptive action and has precedence over all other lists of actions.
+<code>None</code> is treated as the least disruptive action and all other lists of actions have precedence over <code>None</code>.
+Other lists of actions are merged together, since we can&#8217;t sensibly define an order of precedence for two lists of actions that are composed from the actions other than <code>None</code> or <code>Reboot</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Node disruption policies generally won&#8217;t have an effect during OpenShift upgrades.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We can&#8217;t guarantee that node disruption policies configured through <code>MachineConfig</code> annotations will still be in effect when the changes triggered by the deletion of the <code>MachineConfig</code> are rolled out.
+Therefore, we strongly recommend to configure node disruption policies that are intended to prevent machine reboots through the component parameter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We don&#8217;t recommend configuring node disruption policies which restart systemd services which themselves are deployed via <code>MachineConfig</code> objects.
+Such a node disruption policy will cause nodes to become degraded if the <code>MachineConfig</code> resource which deploys the service is removed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="paragraph">
+<p>The following configuration can be used to ensure that managing files in <code>/usr/local/bin</code> is fully non-disruptive, as long as no other configurations override this config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeDisruptionPolicies:
+  files:
+    "/usr/local/bin":
+      actions:
+        - None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following annotations contents can be provided on a <code>MachineConfig</code> which configures a custom <code>/etc/chrony.conf</code> to just restart the chrony service instead of rebooting the node:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">machineConfigs: <i class="conum" data-value="1"></i><b>(1)</b>
+  worker-custom-chrony: <i class="conum" data-value="1"></i><b>(1)</b>
+    metadata:
+      annotations:
+        openshift4-nodes.syn.tools/node-disruption-policies: |- <i class="conum" data-value="2"></i><b>(2)</b>
+          {
+            "files": [{
+              "path": "/etc/chrony.conf",
+              "actions": [{"type":"Restart","restart":{"serviceName":"chronyd.service"}}]
+            }]
+          }
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec: { ... }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We give the example via component parameter <code>machineConfigs</code>.
+See section <a href="#_machineconfigs"><code>machineConfigs</code></a> for a full example <code>MachineConfig</code> which deploys a custom <code>/etc/chrony.conf</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>See the <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/machine_configuration/machine-config-node-disruption_machine-configs-configure#machine-config-node-disruption-config_machine-configs-configure">upstream documentation</a> for the full set of options.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacityalerts"><a class="anchor" href="#_capacityalerts"></a><code>capacityAlerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to enable and configure alerts for node capacity management.
+The capacity alerts are disabled by default and can be enabled by setting the key <code>capacityAlerts.enabled</code> to <code>true</code>.
+Predictive alerts are disabled by default and can be enabled individually as shown below by setting <code>ExpectClusterCpuUsageHigh.enabled</code> to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary will be transformed into a <code>PrometheusRule</code> object by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component provides 10 alerts that are grouped in four groups.
+You can disable or modify each of these alert rules individually.
+The fields in these rules will be added to the final <code>PrometheusRule</code>, with the exception of <code>expr</code>.
+The <code>expr</code> field contains fields which can be used to tune the default alert rule.
+Alternatively, the default rule can be completely overwritten by setting the <code>expr.raw</code> field (see example below).
+See <a href="../explanations/resource_management.html" class="page">Resource Management</a> for an explanation for every alert rule.</p>
+</div>
+<div class="paragraph">
+<p>Nodes are grouped by machineSet if machineSets are in use on the cluster.
+If machineSets are not in use, nodes are grouped by node role instead.
+The component automatically determines whether to group by machineSets or node roles.</p>
+</div>
+<div class="paragraph">
+<p>When grouping by node role, it is possible to further group the nodes by additional node labels by specifying <code>capacityAlerts.groupByNodeLabels</code>.
+When grouping by machineSets, there is no equivalent setting.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  groupByNodeLabels: [] <i class="conum" data-value="2"></i><b>(2)</b>
+  monitorMachineSets:
+   - app.* <i class="conum" data-value="3"></i><b>(3)</b>
+  aggregateMachineSets:
+    app: app.* <i class="conum" data-value="4"></i><b>(4)</b>
+  groups:
+    PodCapacity:
+      rules:
+        TooManyPods:
+          annotations:
+            message: 'The number of pods is too damn high' <i class="conum" data-value="5"></i><b>(5)</b>
+          for: 3h <i class="conum" data-value="6"></i><b>(6)</b>
+        ExpectTooManyPods:
+          expr: <i class="conum" data-value="7"></i><b>(7)</b>
+            range: '2d'
+            predict: '5*24*60*60'
+
+    ResourceRequests:
+      rules:
+        TooMuchMemoryRequested:
+          enabled: true
+          expr:
+            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="8"></i><b>(8)</b>
+    CpuCapacity:
+      rules:
+        ClusterCpuUsageHigh:
+          enabled: false <i class="conum" data-value="9"></i><b>(9)</b>
+        ExpectClusterCpuUsageHigh:
+          enabled: false <i class="conum" data-value="9"></i><b>(9)</b>
+    UnusedCapacity:
+      rules:
+        ClusterHasUnusedNodes:
+          enabled: false <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enables capacity alerts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>List of node labels (as they show up in the <code>kube_node_labels</code> metric) by which alerts are grouped (only available if machineSets are not in use)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>List of machinesets to monitor. This is used only if machineSets are in use. If machineSets are not used, the parameter <code>monitorNodeRoles</code> is used instead.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Dictionary of aggregated machine sets. The key is the name that should be given to the aggregated machine set. The value is a regular expression matching all machinesets that should be aggregated into this value.
+If multiple aggregations are provided, they must be disjoint.
+It is possible to use substitutions in the key, such as <code>'$1': (.+)-.+</code> - this would result in all machinesets being aggregated according to their name split at the first dash.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Changes the alert message for the pod capacity alert</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Only alerts for pod capacity if it fires for 3 hours</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Change the pod count prediction to look at the last two days and predict the value in five days</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Disables both CPU capacity alert rules</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>Disables alert if the cluster has unused nodes.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">infrastructureID: c-mist-sg7hn
+
+nodeGroups:
+  infra:
+    instanceType: n1-standard-8
+    multiAz: true
+    replicas: 3
+  worker:
+    instanceType: n1-standard-8
+    replicas: 3
+    spec:
+      deletePolicy: Oldest
+      template:
+        spec:
+          metadata:
+            labels:
+              mylabel: myvalue
+
+availabilityZones:
+- europe-west6-a
+- europe-west6-b
+- europe-west6-c
+
+containerRuntimeConfigs:
+  workers:
+    machineConfigPoolSelector:
+      matchExpressions:
+        - key: pools.operator.machineconfiguration.openshift.io/worker
+          operator: Exists
+    containerRuntimeConfig:
+      pidsLimit: 2048
+kubeletConfigs:
+  workers:
+    machineConfigPoolSelector:
+      matchExpressions:
+        - key: pools.operator.machineconfiguration.openshift.io/worker
+          operator: Exists
+    kubeletConfig:
+      maxPods: 100
+      podPidsLimit: 2048</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../explanations/machine-config-pool.html">Machine Config Pools</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-nodes/references/parameters.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

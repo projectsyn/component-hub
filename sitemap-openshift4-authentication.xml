@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/how-tos/configure-oidc-provider.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/how-tos/configure-secrets.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/how-tos/group-memberships.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/how-tos/ldap-sync.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/how-tos/upgrade-v2-to-v3.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/index.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/references/deprecation-notice.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/openshift4-authentication/references/parameters.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+</urlset>

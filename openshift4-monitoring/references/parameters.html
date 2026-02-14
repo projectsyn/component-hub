@@ -1,0 +1,3069 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/openshift4-monitoring/references/parameters.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="alert-patching.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="openshift4-monitoring" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenShift4 Monitoring</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reference</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prom.html"><code>prom.libsonnet</code> API reference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/opsgenie.html">OpsGenie integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/operator-rules.html">Operator Managed PrometheusRules</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/migrate/v0.1-v1.x.html">Migration from component version v0.1.0 to v1.x</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Explanation</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../explanations/resource_management.html">Resource Management</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/podcapacity.html">Pod Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/resourcerequests.html">Resource Requests Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/memorycapacity.html">Memory Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/cpucapacity.html">CPU Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/unusedcapacity.html">Node Capacity Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/remotewrite.html">Prometheus RemoteWrite Alert</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../runbooks/tcp-memory-usage.html">NodeTcpMemoryUtilizationTooHigh Alert</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenShift4 Monitoring</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cilium/index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cilium/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-nodes/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenShift4 Monitoring</a></li>
+    <li>Reference</li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/appuio/component-openshift4-monitoring/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>openshift4_monitoring</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_manifests_version"><a class="anchor" href="#_manifests_version"></a><code>manifests_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>release-4.17</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Select which version of the upstream alerting (and recording) rules should be used by the component.
+This parameter must be changed to match the cluster&#8217;s OCP4 minor version.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend setting this parameter based on the reported OpenShift version which can be found in the cluster&#8217;s <a href="https://syn.tools/syn/SDDs/0027-dynamic-cluster-facts.html">dynamic facts</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">manifests_version: release-${dynamic_facts:openshiftVersion:Major}.${dynamic_facts:openshiftVersion:Minor}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_defaultconfig"><a class="anchor" href="#_defaultconfig"></a><code>defaultConfig</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">nodeSelector:
+  node-role.kubernetes.io/infra: ''</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the default configuration which should be applied to all components.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The contents of this parameter aren&#8217;t applied to components <code>nodeExporter</code> and <code>prometheusOperatorAdmissionWebhook</code> which don&#8217;t support field <code>nodeSelector</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enablealertmanagerisolationnetworkpolicy"><a class="anchor" href="#_enablealertmanagerisolationnetworkpolicy"></a><code>enableAlertmanagerIsolationNetworkPolicy</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Blocks all traffic to Alertmanager pods except the allowed API traffic.</p>
+</div>
+<div class="paragraph">
+<p>This works around an observed accidental clustering with user workload or custom Alertmanager clusters in other namespaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enableuserworkloadalertmanagerisolationnetworkpolicy"><a class="anchor" href="#_enableuserworkloadalertmanagerisolationnetworkpolicy"></a><code>enableUserWorkloadAlertmanagerIsolationNetworkPolicy</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Blocks all traffic to Alertmanager pods except the allowed API traffic.</p>
+</div>
+<div class="paragraph">
+<p>This works around an observed accidental clustering with system or custom Alertmanager clusters in other namespaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enableuserworkload"><a class="anchor" href="#_enableuserworkload"></a><code>enableUserWorkload</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A parameter to enable <a href="https://docs.openshift.com/container-platform/latest/monitoring/enabling-monitoring-for-user-defined-projects.html">monitoring for user-defined projects</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configs"><a class="anchor" href="#_configs"></a><code>configs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">monitoring components</a>.</p>
+</div>
+<div class="paragraph">
+<p>The component will remove empty fields (<code>null</code>, and empty lists or objects) from the provided configuration.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/monitoring/cluster_monitoring/configuring-the-monitoring-stack.html">OpenShift docs</a> for available parameters.</p>
+</div>
+<div class="paragraph">
+<p>This table shows the monitoring components you can configure and the keys used to specify the components:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator admission webhook</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperatorAdmissionWebhook</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusK8s</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alertmanager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanagerMain</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kube-state-metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kubeStateMetrics</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">openshift-state-metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshiftStateMetrics</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Telemeter Client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemeterClient</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>metricsServer</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Querier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thanosQuerier</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node exporter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nodeExporter</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Console monitoring plugin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>monitoringPlugin</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_configs_prometheusk8s_remotewrite"><a class="anchor" href="#_configs_prometheusk8s_remotewrite"></a><code>configs.prometheusK8s._remoteWrite</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">_remoteWrite:
+  example:
+    url: https://prometheus.example.com/api/v1/write
+    headers:
+      "X-Scope-OrgID": example
+    writeRelabelConfigs:
+      - action: keep
+        sourceLabels: ['syn']
+        regex: '.+'
+      - action: keep
+        timeseries:
+          - foo_metric_one
+          - foo_metric_two
+    basicAuth:
+      username:
+        name: remote-write
+        key: username
+      password:
+        name: remote-write
+        key: password</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the remote write configurations for the Prometheus component.
+The key is the name of the configuration, the value is the content of the configuration.</p>
+</div>
+<div class="paragraph">
+<p>The remote write configuration will be appended to the <code>configs.prometheusK8s.remoteWrite</code> parameter for backwards compatibility.</p>
+</div>
+<div class="paragraph">
+<p>In this configuration only, <code>writeRelabelConfigs</code> entries can hold an entry for <code>timeseries</code> containing a list of strings representing individual Prometheus timeseries.
+These will be translated into a <code>regex</code> entry, with a regular expression matching any one of the listed timeseries.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configsuserworkload"><a class="anchor" href="#_configsuserworkload"></a><code>configsUserWorkload</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertmanager:
+  enabled: true
+  enableAlertmanagerConfig: true
+  volumeClaimTemplate: ${openshift4_monitoring:configs:alertmanagerMain:volumeClaimTemplate}
+prometheusOperator: {}
+prometheus:
+  retention: 8d
+  volumeClaimTemplate: ${openshift4_monitoring:configs:prometheusK8s:volumeClaimTemplate}
+thanosRuler: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the configurations for the <a href="https://docs.openshift.com/container-platform/latest/monitoring/configuring-the-monitoring-stack.html#configuring-the-monitoring-stack_configuring-the-monitoring-stack">user workload monitoring components</a>.</p>
+</div>
+<div class="paragraph">
+<p>By default, we configure the user workload monitoring Prometheus and Alertmanager to inherit the <code>volumeClaimTemplate</code> specifications from the cluster-monitoring config.
+This allows users to configure the default storageclass and volume size of both monitoring stacks through the cluster-monitoring config.</p>
+</div>
+<div class="paragraph">
+<p>This table shows the monitoring components you can configure and the keys used to specify the components:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alertmanager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alertmanager</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only on OpenShift 4.11 and newer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheusOperator</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheus</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Thanos Ruler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thanosRuler</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_configsuserworkload_prometheus_remotewrite"><a class="anchor" href="#_configsuserworkload_prometheus_remotewrite"></a><code>configsUserWorkload.prometheus._remoteWrite</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">_remoteWrite:
+  example:
+    url: https://prometheus.example.com/api/v1/write
+    headers:
+      "X-Scope-OrgID": customer
+    writeRelabelConfigs:
+      - sourceLabels: ['customer']
+        regex: '.+'
+        action: keep
+    basicAuth:
+      username:
+        name: remote-write-customer
+        key: username
+      password:
+        name: remote-write-customer
+        key: password</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the remote write configurations for the Prometheus component of the user workload monitoring stack.
+The key is the name of the configuration, the value is the content of the configuration.</p>
+</div>
+<div class="paragraph">
+<p>The remote write configuration will be appended to the <code>configsUserWorkload.prometheus.remoteWrite</code> parameter for backwards compatibility.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alertmanagerconfig"><a class="anchor" href="#_alertmanagerconfig"></a><code>alertManagerConfig</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">route:
+  group_wait: 0s
+  group_interval: 5s
+  repeat_interval: 10m
+inhibit_rules:
+  # Don't send warning or info if a critical is already firing
+  - target_match_re:
+      severity: warning|info
+    source_match:
+      severity: critical
+    equal:
+      - namespace
+      - alertname
+  # Don't send info if a warning is already firing
+  - target_match_re:
+      severity: info
+    source_match:
+      severity: warning
+    equal:
+      - namespace
+      - alertname</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dictionary holding the configuration for the AlertManager.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.openshift.com/container-platform/latest/monitoring/managing-alerts.html#applying-custom-alertmanager-configuration_managing-alerts">OpenShift docs</a> for available parameters.</p>
+</div>
+<div class="paragraph">
+<p>The component will silently drop any fields in the provided config which are empty.
+The component treats <code>null</code> as empty for scalar fields.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alertmanagerautodiscovery"><a class="anchor" href="#_alertmanagerautodiscovery"></a><code>alertManagerAutoDiscovery</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertManagerAutoDiscovery:
+  enabled: true
+  debug_config_map: false
+  team_receiver_format: team_default_%s
+  additional_alert_matchers: []
+  prepend_routes: []
+  append_routes: []</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>alertManagerAutoDiscovery</code> holds the configuration for the Alertmanager auto-discovery feature.</p>
+</div>
+<div class="paragraph">
+<p>The auto-discovery routes alerts to the configured teams based on their namespaces and the top-level <code>syn.teams[*].instances</code> and <code>syn.owner</code> parameters.
+Auto-discovery first creates a list of Commodore component instances by parsing the <code>applications</code> array using the same rules as Commodore itself (see also the <a href="https://syn.tools/commodore/reference/architecture.html#_component_instantiation">Commodore component instantiation documentation</a>).
+For each discovered instance, the component then reads the component&#8217;s namespace from field <code>namespace</code> or <code>namespace.name</code> in the rendered parameters of this component.
+Finally, routing rules are generated to route alerts from the discovered namespaces to the associated component instance&#8217;s owning team.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Without special handling, the namespace discovery would discover namespace <code>openshift4-monitoring</code> for component instances that use <code>namespace: ${_instance}</code>.
+This is the case because we read the instance&#8217;s namespace from the rendered parameters for component openshift4-monitoring and therefore <code>${_instance}</code> resolves to <code>openshift4-monitoring</code>.</p>
+</div>
+<div class="paragraph">
+<p>To address this case, the component has override logic in the namespace discovery for component instances which use <code>${_instance}</code> in their namespace definition.
+The override logic replaces all occurrences of <code>openshift4-monitoring</code> in the discovered namespace with the instance name for instances other than <code>openshift4-monitoring</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title"><code>syn</code> Team Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">syn:
+  owner: daring-donkeys
+  teams:
+    electric-elephants:
+      instances: [postgres]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The auto-discovery feature is enabled by default.
+A ConfigMap can be enabled with <code>debug_config_map</code> to debug the auto-discovery feature.</p>
+</div>
+<div class="paragraph">
+<p>The configuration is merged with the <code>alertManagerConfig</code> parameter.
+Route receivers are generated for each team based on the <code>team_receiver_format</code> parameter.
+The routes are ordered as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>alertManagerAutoDiscovery.prepend_routes + generated routes + alertManagerAutoDiscovery.append_routes + alertManagerConfig.routes + route all to syn.owner</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>additional_alert_matchers</code> is a list of additional alert matchers to add to the generated routes.
+This can be used to handle special cases where the auto-discovery feature does not work as expected.
+For example if an alert should go to a different team than the namespace suggests based on a label.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">alertManagerAutoDiscovery:
+  additional_alert_matchers:
+    - 'syn_team = ""'
+# becomes
+- continue: true
+  matchers:
+    - syn_team = ""
+    - namespace =~ "my-ns"
+  receiver: team_default_lovable-lizards
+- continue: false
+  matchers:
+    - syn_team = ""
+    - namespace =~ "my-ns"
+  receiver: __component_openshift4_monitoring_null</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operatorrulenamespaces"><a class="anchor" href="#_operatorrulenamespaces"></a><code>operatorRuleNamespaces</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional namespaces to manage operator managed PrometheusRules.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dictionary</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration parameters related to influence the resulting alert rules.</p>
+</div>
+<div class="sect2">
+<h3 id="_includenamespaces"><a class="anchor" href="#_includenamespaces"></a><code>includeNamespaces</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of namespace patterns to use for alerts which have <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in the upstream rule.
+The component generates a regex pattern from the list by concatenating all elements into a large OR-regex.
+To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from this parameter and parameter <code>excludeNamespaces</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component processes the list with <code>com.renderArray()</code> to allow users to drop entries in the hierarchy.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate that the list entries are valid regex patterns.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example"><a class="anchor" href="#_example"></a>Example</h4>
+<div class="paragraph">
+<p>We assume that the input config has patterns <code>default</code> and <code>syn.*</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">includeNamespaces:
+  - default
+  - syn.*</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component will generate namespace selector <code>namespace=~"(default|syn.*)"</code> from this input configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_excludenamespaces"><a class="anchor" href="#_excludenamespaces"></a><code>excludeNamespaces</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of namespace patterns to exclude for alerts which have <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in the upstream rule.
+The component generates a regex pattern from the list by concatenating all elements into a large OR-regex.
+To inject the custom regex, the component searches for the exact string <code>namespace=~"(openshift-.*|kube-.*|default)"</code> in field <code>expr</code> of each alert rule and replaces it with the regex generated from this parameter and parameter <code>includeNamespaces</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component processes the list with <code>com.renderArray()</code> to allow users to drop entries in the hierarchy.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t validate that the list entries are valid regex patterns.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h4>
+<div class="paragraph">
+<p>We assume that the input config has patterns <code>default</code> and <code>openshift.<strong></code> and <code>syn.</strong></code> for <code>includeNamespaces</code> and <code>openshift-adp</code> for <code>excludeNamespaces</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">includeNamespaces:
+  - default
+  - openshift.*
+  - syn.*
+excludeNamespaces:
+  - openshift-adp</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component will generate namespace selector <code>namespace=<sub>"(default|openshift.<strong>|syn.</strong>)",namespace!</sub>"(openshift-adp)"</code> from this input configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignorenames"><a class="anchor" href="#_ignorenames"></a><code>ignoreNames</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of alert rule names to be dropped.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This parameter is taken into account in the <code>filterRules</code> and <code>filterPatchRules</code> library functions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignorewarnings"><a class="anchor" href="#_ignorewarnings"></a><code>ignoreWarnings</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of alert rule names for which to drop alerts with label <code>severity: warning</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In contrast to <code>ignoreNames</code>, this parameter is not taken into account in the <code>filterRules</code> and <code>filterPatchRules</code> library functions.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignoregroups"><a class="anchor" href="#_ignoregroups"></a><code>ignoreGroups</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>List of complete alert rule groups to drop.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This parameter is not taken into account for <code>filterRules</code> and <code>filterPatchRules</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_customannotations"><a class="anchor" href="#_customannotations"></a><code>customAnnotations</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Maps alert names to sets of custom annotations.
+Allows configuring custom annotations for individual alerts.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">customAnnotations:
+  Watchdog:
+    runbook_url: https://www.google.com/?q=Watchdog</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_patchrules"><a class="anchor" href="#_patchrules"></a><code>patchRules</code></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">type</dt>
+<dd>
+<p>dict</p>
+</dd>
+<dt class="hdlist1">default</dt>
+<dd>
+<p>See <a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml"><code>class/defaults.yml</code> on GitHub</a></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The parameter <code>patchRules</code> allows users to customize upstream alerts.
+The component expects that top-level keys in the parameter correspond to the name of the alert.</p>
+</div>
+<div class="paragraph">
+<p>The component expects alert names as keys and any alert configuration as values in each top-level key.
+See the Prometheus <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting rules documentation</a> for extended documentation on configuring alerting rules.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">patchRules:
+  PrometheusRemoteWriteBehind:
+    annotations:
+      runbook_url: https://example.com/runbooks/PrometheusRemoteWriteBehind.html
+  SystemMemoryExceedsReservation:
+    for: 30m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignoreuserworkload"><a class="anchor" href="#_ignoreuserworkload"></a><code>ignoreUserWorkload</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A list of alerting rules for which the component should patch the <code>expr</code> and <code>annotations.description</code> fields to ensure they don&#8217;t alert for the user workload monitoring stack.</p>
+</div>
+<div class="paragraph">
+<p>By default, we don&#8217;t turn off any alerts for the user workload monitoring stack.</p>
+</div>
+<div class="paragraph">
+<p>The parameter supports removing entries by providing the entry to remove prefixed with <code>~</code>.
+The parameter can be completely cleared with the following config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  openshift4_monitoring:
+    alerts:
+      ~ignoreUserWorkload: []</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_silence"><a class="anchor" href="#_silence"></a><code>silence</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Parameters to configure the silence CronJob.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_silence_silences"><a class="anchor" href="#_silence_silences"></a><code>silence.silences</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">"Silence non syn alerts":
+  matchers:
+    - name: alertname
+      value: ".+"
+      isRegex: true
+    - name: syn
+      value: ""
+      isRegex: false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Contains the list of silences to be applied.
+The key is used as the comment of the silence and the value is a dictionary which is passed to Alertmanager.</p>
+</div>
+<div class="paragraph">
+<p>Silences removed from the hierarchy stay active in Alertmanager for up to 24h until they expire.</p>
+</div>
+<div class="paragraph">
+<p>Silences all non-SYN alerts by default.</p>
+</div>
+<div class="sect2">
+<h3 id="_schedule"><a class="anchor" href="#_schedule"></a><code>schedule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>'0 */4 * * *'</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Schedule of the CronJob in cron syntax.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_serviceaccountname"><a class="anchor" href="#_serviceaccountname"></a><code>serviceAccountName</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>prometheus-k8s</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Name of the service account used when running the silence job.
+The service account must have permission to access the Alertmanager service through its oAuth proxy.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_servingcertscabundlename"><a class="anchor" href="#_servingcertscabundlename"></a><code>servingCertsCABundleName</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>serving-certs-ca-bundle</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Name of the config map containing the CA bundle of the Alertmanager service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jobhistorylimit"><a class="anchor" href="#_jobhistorylimit"></a><code>jobHistoryLimit</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Parameters to configure the numbers of silence job objects to keep.</p>
+</div>
+<div class="sect3">
+<h4 id="_failed"><a class="anchor" href="#_failed"></a><code>failed</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>3</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Number of failed jobs to keep.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_successful"><a class="anchor" href="#_successful"></a><code>successful</code></h4>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>number</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p>3</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Number of successful jobs to keep.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capacityalerts"><a class="anchor" href="#_capacityalerts"></a><code>capacityAlerts</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to enable and configure alerts for capacity management.
+The capacity alerts are enabled by default and can be disabled completely by setting the key <code>capacityAlerts.enabled</code> to <code>false</code>.
+Predictive alerts are disabled by default and can be enabled individually as shown below by setting <code>ExpectClusterCpuUsageHigh.enabled</code> to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary will be transformed into a <code>PrometheusRule</code> object by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component provides 10 alerts that are grouped in four groups.
+You can disable or modify each of these alert rules individually.
+The fields in these rules will be added to the final <code>PrometheusRule</code>, with the exception of <code>expr</code>.
+The <code>expr</code> field contains fields which can be used to tune the default alert rule.
+Alternatively the default rule can be completely overwritten by setting the <code>expr.raw</code> field (see example below).
+See <a href="../explanations/resource_management.html" class="page">Resource Management</a> for an explanation for every alert rule.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">capacityAlerts:
+  enabled: true <i class="conum" data-value="1"></i><b>(1)</b>
+  groupByNodeLabels: [] <i class="conum" data-value="2"></i><b>(2)</b>
+  groups:
+    PodCapacity:
+      rules:
+        TooManyPods:
+          annotations:
+            message: 'The number of pods is too damn high' <i class="conum" data-value="3"></i><b>(3)</b>
+          for: 3h <i class="conum" data-value="4"></i><b>(4)</b>
+        ExpectTooManyPods:
+          expr: <i class="conum" data-value="5"></i><b>(5)</b>
+            range: '2d'
+            predict: '5*24*60*60'
+
+    ResourceRequests:
+      rules:
+        TooMuchMemoryRequested:
+          enabled: true
+          expr:
+            raw: sum(kube_pod_resource_request{resource="memory"}) &gt; 9000*1024*1024*1024 <i class="conum" data-value="6"></i><b>(6)</b>
+    CpuCapacity:
+      rules:
+        ClusterCpuUsageHigh:
+          enabled: false <i class="conum" data-value="7"></i><b>(7)</b>
+        ExpectClusterCpuUsageHigh:
+          enabled: false <i class="conum" data-value="7"></i><b>(7)</b>
+    UnusedCapacity:
+      rules:
+        ClusterHasUnusedNodes:
+          enabled: false <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enables capacity alerts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>List of node labels (as they show up in the <code>kube_node_labels</code> metric) by which alerts are grouped</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Changes the alert message for the pod capacity alert</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Only alerts for pod capacity if it fires for 3 hours</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Change the pod count prediction to look at the last two days and predict the value in five days</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Completely overrides the default alert rule and alerts if the total memory request is over 9000 GB</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Disables both CPU capacity alert rules</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Disables alert if the cluster has unused nodes.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rules"><a class="anchor" href="#_rules"></a><code>rules</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional Prometheus rules to deploy on the cluster.</p>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in the dictionary is transformed into a <code>PrometheusRule</code> object by the component.</p>
+</div>
+<div class="paragraph">
+<p>The component expects that values are dicts themselves and expects that keys in those dicts are prefixed with <code>record:</code> or <code>alert:</code> to indicate whether the rule is a recording or alerting rule.
+The component will transform the keys into fields in the resulting rule by taking the prefix as the field name and the rest of the key as the field value.
+For example, key <code>"record:sum:some:metric:5m"</code> would be transformed into <code>record: sum:some:metric:5m</code> which should define a recording rule with name <code>sum:some:metric:5m</code>.
+This field is then merged into the provided value which should be a valid rule definition.</p>
+</div>
+<div class="paragraph">
+<p>See the Prometheus docs for supported configurations for <a href="https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/">recording</a> and <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting</a> rules.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">rules:
+  generic-rules:
+    "alert:ContainerOOMKilled":
+      annotations:
+        message: A container ({{$labels.container}}) in pod {{ $labels.namespace }}/{{ $labels.pod }} was OOM killed
+      expr: |
+        kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+      labels:
+        source: https://git.vshn.net/swisscompks/syn-tenant-repo/-/blob/master/common.yml
+        severity: devnull</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">defaultConfig:
+  nodeSelector:
+    node-role.kubernetes.io/infra: ''
+configs:
+  prometheusK8s:
+    volumeClaimTemplate:
+      spec:
+        resources:
+          requests:
+            storage: 100Gi
+alerts:
+  ignoreNames:
+    - KubeAPIErrorsHigh
+    - KubeClientErrors</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_secrets"><a class="anchor" href="#_secrets"></a><code>secrets</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict of secrets to create in the namespace.
+The key is the name of the secret, the value is the content of the secret.
+The value must be a dict with a key <code>stringData</code> which is a dict of key/value pairs to add to the secret.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remotewritedefaults"><a class="anchor" href="#_remotewritedefaults"></a><code>remoteWriteDefaults</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">remoteWriteDefaults:
+  cluster: {}
+  userWorkload: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">remoteWriteDefaults:
+  cluster:
+    queueConfig:
+      maxShards: 80
+  userWorkload:
+    queueConfig:
+      maxShards: 20</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict of default remote write configurations for the Prometheus component.
+Those values are merged into each remote write configuration in <code>configs.prometheusK8s.remoteWrite</code> and <code>configsUserWorkload.prometheus.remoteWrite</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cronjobs"><a class="anchor" href="#_cronjobs"></a><code>cronjobs</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A dict of arbitrary cronjobs to create in the <code>openshift-monitoring</code> namespace.
+The key is the name of the cronjob and the values are its configuration options as shown below.</p>
+</div>
+<div class="sect2">
+<h3 id="_schedule_2"><a class="anchor" href="#_schedule_2"></a><code>schedule</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Schedule of the CronJob in cron syntax.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_script"><a class="anchor" href="#_script"></a><code>script</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The script to execute as part of the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image"><a class="anchor" href="#_image"></a><code>image</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>images.oc</code> from <a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml"><code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image_image"><a class="anchor" href="#_image_image"></a><code>image.image</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The image used by the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image_tag"><a class="anchor" href="#_image_tag"></a><code>image.tag</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The image tag used by the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config"><a class="anchor" href="#_config"></a><code>config</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Any additional custom configuration for the cronjob.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">cronjobs:
+  my-cronjob:
+    schedule: "1 * * * *"
+    image:
+      image: quay.io/appuio/oc
+      tag: v4.13
+    script: |
+      #!/bin/sh
+      echo "this is an example"
+    config:
+      spec:
+        failedJobsHistoryLimit: 1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customnodeexporter"><a class="anchor" href="#_customnodeexporter"></a><code>customNodeExporter</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This parameter allows users to deploy an additional node-exporter DaemonSet.
+We provide this option, since OpenShift&#8217;s cluster-monitoring stack currently doesn&#8217;t allow users to customize the bundled node-exporter DaemonSet.</p>
+</div>
+<div class="paragraph">
+<p>Currently, the parameter is tailored to allow users to run an additional node-exporter which enables collectors that aren&#8217;t enabled in the default node exporter.</p>
+</div>
+<div class="paragraph">
+<p>The configuration is rendered by using the same Jsonnet that&#8217;s used by the OpenShift cluster-monitoring stack to generate the default node-exporter DaemonSet.
+The component further customizes the resulting manifests to ensure that there&#8217;s no conflicts between the default node-exporter and the additional node-exporter.</p>
+</div>
+<div class="paragraph">
+<p>The additional node-exporter is deployed in the namespace indicated by parameter <code>namespace</code>.
+By default this is namespace <code>openshift-monitoring</code>.
+The component also deploys a <code>ServiceMonitor</code> which ensures that the additional node-exporter is scraped by the cluster-monitoring stack&#8217;s Prometheus.</p>
+</div>
+<div class="paragraph">
+<p>Users can configure arbitrary recording and alerting rules which use metrics scraped from the additional node-exporter via parameter <code>rules</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabled"><a class="anchor" href="#_enabled"></a><code>enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to deploy the additional node-exporter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_collectors"><a class="anchor" href="#_collectors"></a><code>collectors</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>["network_route"]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Which collectors to enable in the additional node-exporter.
+By default, all collectors are disabled.
+Users can remove entries from this list by providing an existing entry prefixed with <code>~</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_args"><a class="anchor" href="#_args"></a><code>args</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additional command line arguments to pass to the additional node-exporter.
+Please note that specifying <code>--[no-]collector.&lt;name&gt;</code> here will break the DaemonSet, since <code>node-exporter</code> doesn&#8217;t support specifying these flags multiple times.
+Users should use parameter <code>customNodeExporter.collectors</code> to enable collectors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metricrelabelings"><a class="anchor" href="#_metricrelabelings"></a><code>metricRelabelings</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/appuio/component-openshift4-monitoring/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to specify the content of field <code>metricRelabelings</code> of the <code>ServiceMonitor</code> which is created for the additional node-exporter.
+By default, the component drops all metrics except <code>node_network_route*</code> metrics for host devices prefixed with <code>ens</code>.
+Since this component only applies to OpenShift 4, we know that any node&#8217;s host interfaces will use device names that are prefixed with <code>ens</code>.</p>
+</div>
+<div class="paragraph">
+<p>Users are encouraged to extend or overwrite this parameter to ensure all the metrics they&#8217;re interested in are actually scraped by Prometheus.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="alert-patching.html"><code>alert-patching.libsonnet</code> API reference</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/openshift4-monitoring/references/parameters.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

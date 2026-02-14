@@ -1,0 +1,3944 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Parameters :: Commodore Hub</title>
+    <link rel="canonical" href="https://hub.syn.tools/cilium/references/parameters.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="../how-tos/upgrade-cilium-enterprise.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54393406-10"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-54393406-10')</script>
+    <script>var uiRootPath = '../../_'</script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/7105834.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/_/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_/img/favicon-16x16.png">
+<link rel="mask-icon" href="/_/img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <div class="syn_logo"></div>
+        <a href="https://hub.syn.tools">Commodore Hub
+          </a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://syn.tools/commodore/">Commodore</a>
+            <a class="navbar-item" href="https://hub.syn.tools/" target="_blank" >Commodore Components Hub</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-api/">Lieutenant API</a>
+            <a class="navbar-item" href="https://syn.tools/lieutenant-operator/">Lieutenant Operator</a>
+            <a class="navbar-item" href="https://syn.tools/steward/">Steward</a>
+            <a class="navbar-item" href="https://k8up.io/" target="_blank">K8up</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            <div class="vshn-unified-logo"></div>
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" target="_blank" href="https://www.vshn.ch/">Main website</a>
+            <a class="navbar-item" target="_blank" href="https://handbook.vshn.ch/">Handbook</a>
+            <a class="navbar-item" target="_blank" href="https://kb.vshn.ch/">Knowledge Base</a>
+            <a class="navbar-item" target="_blank" href="https://products.docs.vshn.ch/">Products</a>
+            <a class="navbar-item" target="_blank" href="https://legal.docs.vshn.ch/">Legal</a>
+            <a class="navbar-item" target="_blank" href="https://control.docs.vshn.ch/">Portal Help</a>
+            <a class="navbar-item" target="_blank" href="https://docs.appuio.ch/">APPUiO Documentation</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-item" href="https://github.com/projectsyn/" target="_blank"><i
+              class="fa fa-github" style="font-size: 30px;"></i>&nbsp;
+            GitHub</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cilium" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Cilium</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="parameters.html">Parameters</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">How-Tos</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/upgrade-cilium-enterprise.html">Upgrade Cilium Enterprise</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../how-tos/migrate-to-self-service-namespace-egress-ips.html">Migrate to self service for namespace egress IPs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">OpenShift 4</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../how-tos/openshift4/upgrade-cilium-oss-to-cilium-enterprise.html">Upgrade Cilium OSS to Cilium Enterprise</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Runbooks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Cilium pods</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#runbooks/CiliumAgentUnexpectedCOunt.adoc">runbooks/CiliumAgentUnexpectedCOunt.adoc</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Cluster mesh</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CiliumClustermeshRemoteClusterNotReady.html">CiliumClustermeshRemoteClusterNotReady</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CiliumKVStoreMeshRemoteClusterNotReady.html">CiliumKVStoreMeshRemoteClusterNotReady</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">eBPF</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CiliumBpfMapPressureHigh.html">CiliumBpfMapPressureHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CiliumBpfMapPressureExtremelyHigh.html">CiliumBpfMapPressureExtremelyHigh</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../runbooks/CiliumBpfOperationErrorRateHigh.html">CiliumBpfOperationErrorRateHigh</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Cilium</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../acme-dns/index.html">acme-dns</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../acme-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../adhoc-configurations/index.html">adhoc-configurations</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../adhoc-configurations/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../airlock-microgateway-operator/index.html">airlock-microgateway-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../airlock-microgateway-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../alerts-exporter/index.html">alerts-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../alerts-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../driver-amdgpu/index.html">AMD GPU Driver</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../driver-amdgpu/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat/index.html">appcat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appcat-service-postgresql/index.html">appcat-service-postgresql</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appcat-service-postgresql/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../control-api/index.html">APPUiO Control API</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../control-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud/index.html">appuio-cloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-cloud-reporting/index.html">appuio-cloud-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-cloud-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../appuio-reporting/index.html">appuio-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../appuio-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../argocd/index.html">Argo CD</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../argocd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-cloudwatch-metrics/index.html">aws-cloudwatch-metrics</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-cloudwatch-metrics/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../aws-load-balancer-controller/index.html">aws-load-balancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../aws-load-balancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../backup-k8up/index.html">backup-k8up</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../backup-k8up/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../blackbox-exporter/index.html">blackbox-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../blackbox-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-exporter/index.html">cert-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cert-manager/index.html">cert-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cert-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../index.html">Cilium</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloud-portal/index.html">cloud-portal</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloud-portal/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-cloud-controller-manager/index.html">cloudscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cloudscale-loadbalancer-controller/index.html">cloudscale-loadbalancer-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cloudscale-loadbalancer-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-backup/index.html">Cluster Backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cluster-autoscaler/index.html">cluster-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cluster-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cm-hetznercloud/index.html">CM Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cm-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cockroach-operator/index.html">CockroachDB Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cockroach-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../hub/index.html">Commodore Hub</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../hub/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-compliance/index.html">Compliance Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-compliance/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../coredns/index.html">CoreDNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../coredns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../cortex-tenant-ns-label/index.html">cortex-tenant-ns-label</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../cortex-tenant-ns-label/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../crossplane/index.html">crossplane</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../crossplane/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-driver-smb/index.html">CSI driver SMB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-driver-smb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-exoscale/index.html">CSI Exoscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-exoscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-hetznercloud/index.html">CSI Hetznercloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-hetznercloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../csi-cloudscale/index.html">csi-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../csi-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../emergency-credentials-controller/index.html">emergency-credentials-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../emergency-credentials-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejo/index.html">espejo</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejo/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../espejote/index.html">Espejote</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../espejote/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../etcd/index.html">etcd</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../etcd/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../eventrouter/index.html">eventrouter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../eventrouter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exoscale-cloud-controller-manager/index.html">exoscale-cloud-controller-manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exoscale-cloud-controller-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../exporter-filterproxy/index.html">exporter-filterproxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../exporter-filterproxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../external-secrets-operator/index.html">external-secrets-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../external-secrets-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fleetlock/index.html">Fleetlock</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fleetlock/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../floodgate/index.html">floodgate</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../floodgate/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentbit/index.html">fluentbit</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentbit/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../fluentd-forwarder/main/index.html">Fluentd Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../fluentd-forwarder/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../gitlab-runner/main/index.html">gitlab-runner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../gitlab-runner/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../grafana-helm/index.html">grafana-helm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../grafana-helm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../group-sync-operator/index.html">Group Sync Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../group-sync-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../home-assistant/index.html">Home Assistant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../home-assistant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../ingress-nginx/index.html">ingress-nginx</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../ingress-nginx/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../json-exporter/index.html">json-exporter</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../json-exporter/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak/index.html">keycloak</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../keycloak-attribute-sync-controller/index.html">Keycloak Attribute Sync Controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../keycloak-attribute-sync-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metrics-server/index.html">Kubernetes Metrics Server</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metrics-server/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-manager/index.html">KubeVirt Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-manager/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kubevirt-operator/index.html">KubeVirt Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kubevirt-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../kyverno/index.html">kyverno</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kyverno/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant/index.html">Lieutenant</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../lieutenant-keycloak-idp-controller/index.html">lieutenant-keycloak-idp-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../lieutenant-keycloak-idp-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../loki/index.html">loki</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../loki/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machine-api-provider-cloudscale/index.html">machine-api-provider-cloudscale</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machine-api-provider-cloudscale/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../machineset-egress-cidr-operator/index.html">machineset-egress-cidr-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../machineset-egress-cidr-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../namespaces/index.html">Managed Namespaces</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../namespaces/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../managed-manifests/index.html">managed-manifests</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../managed-manifests/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../metallb/index.html">MetalLB</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../metallb/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../mimir/index.html">mimir</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../mimir/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../minio/index.html">minio</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../minio/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../package-monitoring/index.html">monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../package-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../networkpolicy/index.html">NetworkPolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../networkpolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nextcloud/index.html">Nextcloud</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nextcloud/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nfs-subdir-external-provisioner/index.html">nfs-subdir-external-provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nfs-subdir-external-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../nvidia-gpu-operator/index.html">nvidia-gpu-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../nvidia-gpu-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openbao/index.html">openbao</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openbao/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-authentication/index.html">OpenShift 4 Authentication</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-authentication/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-ingress/index.html">Openshift 4 Ingress</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-ingress/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-nodes/index.html">OpenShift 4 Nodes</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-nodes/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-registry/index.html">OpenShift 4 Registry</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-registry/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift-upgrade-controller/index.html">openshift-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-console/index.html">OpenShift4 Console</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-console/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-dns/index.html">Openshift4 DNS</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-dns/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-logging/index.html">OpenShift4 Logging</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-logging/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-monitoring/index.html">OpenShift4 Monitoring</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-monitoring/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-scheduling/index.html">OpenShift4 Scheduler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-scheduling/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-api/index.html">openshift4-api</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-api/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-config/index.html">openshift4-config</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-config/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-keepalived/index.html">openshift4-keepalived</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-keepalived/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-local-storage/index.html">openshift4-local-storage</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-local-storage/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-operators/index.html">openshift4-operators</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-operators/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-proxy/index.html">openshift4-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-service-mesh/index.html">openshift4-service-mesh</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-service-mesh/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-slos/index.html">openshift4-slos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-slos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-terraform/index.html">openshift4-terraform</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-terraform/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-olm/index.html">Operator Lifecycle Manager</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-olm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../paralus/index.html">paralus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../paralus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../podsecuritypolicy/index.html">podsecuritypolicy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../podsecuritypolicy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prom-label-proxy/index.html">prom-label-proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prom-label-proxy/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus/index.html">prometheus</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../prometheus-pushgateway/index.html">Prometheus Pushgateway</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../prometheus-pushgateway/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rbac/index.html">rbac</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rbac/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../registry-cache/index.html">registry-cache</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../registry-cache/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rook-ceph/index.html">Rook Ceph</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rook-ceph/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rotating-bucket-backup/index.html">rotating-bucket-backup</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rotating-bucket-backup/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../openshift4-s3-forwarder/index.html">S3 Forwarder</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../openshift4-s3-forwarder/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secret-generator/index.html">secret-generator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secret-generator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../secrets/index.html">Secrets</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../secrets/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../sigstore-policy-controller/index.html">sigstore-policy-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../sigstore-policy-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../splunk-operator/index.html">Splunk Operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../splunk-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../stackgres-operator/index.html">stackgres-operator</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../stackgres-operator/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../statefulset-resize-controller/index.html">statefulset-resize-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../statefulset-resize-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../steward/index.html">Steward</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../steward/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storage-local-static/index.html">storage-local-static</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storage-local-static/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../storageclass/index.html">StorageClass</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../storageclass/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../system-upgrade-controller/index.html">system-upgrade-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../system-upgrade-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../thanos/index.html">Thanos</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../thanos/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../topolvm/index.html">topolvm</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../topolvm/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../traefik/index.html">Traefik Proxy</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../traefik/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vault/index.html">vault</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vault/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster/index.html">vcluster</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vcluster-provisioner/index.html">vCluster Provisioner</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vcluster-provisioner/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vertical-pod-autoscaler/index.html">vertical-pod-autoscaler</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vertical-pod-autoscaler/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../vshn-sli-reporting/index.html">vshn-sli-reporting</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../vshn-sli-reporting/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../xelon-csi/index.html">xelon-csi</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../xelon-csi/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../yawol-controller/index.html">yawol-controller</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../yawol-controller/index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../hub/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Cilium</a></li>
+    <li><a href="parameters.html">Parameters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/projectsyn/component-cilium/edit/master/docs/modules/ROOT/pages/references/parameters.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Parameters</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Component version v3.x supports installing and managing Cilium v1.16 and newer.</p>
+</div>
+<div class="paragraph">
+<p>See component version v2.x for older Cilium versions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The parent key for all of the following parameters is <code>cilium</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The namespace is <code>cilium</code> and currently non configurable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_method"><a class="anchor" href="#_install_method"></a><code>install_method</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>helm</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<p><code>helm</code>, <code>olm</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The installation method for Cilium.
+<code>olm</code> uses the <a href="https://docs.openshift.com/container-platform/4.9/operators/understanding/olm/olm-understanding-olm.html">Openshift Operator Lifecycle Manager</a>.
+OLM installation is required for OpenShift clusters.
+The Cilium OLM is a thin wrapper around Helm, because of this the Helm values are used for OLM configuration too.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Supported Combinations</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Helm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OLM</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Opensource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⛔️</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t support the opensource OLM installation anymore, since the newest available opensource OLM tarball is for Cilium 1.15.1.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release"><a class="anchor" href="#_release"></a><code>release</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>opensource</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+possible values
+</td>
+<td class="hdlist2">
+<p><code>opensource</code>, <code>enterprise</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Two version of Cilium exist.
+The open-source version and the enterprise version.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../how-tos/openshift4/upgrade-cilium-oss-to-cilium-enterprise.html" class="page">Upgrade Cilium OSS to Cilium Enterprise (OpenShift 4)</a> for upgrading from the OSS version to the enterprise version.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kubernetes_version"><a class="anchor" href="#_kubernetes_version"></a><code>kubernetes_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Kubernetes version to provide to <code>helm template</code> when rendering the Helm chart.
+This parameter has no effect when <code>install_method</code> is set to <code>olm</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Set this parameter to <code>${dynamic_facts:kubernetesVersion:major}.${dynamic_facts:kubernetesVersion.minor}</code> to use the cluster&#8217;s reported Kubernetes version when rendering the Helm chart.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_source"><a class="anchor" href="#_charts_cilium_source"></a><code>charts.cilium.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code><a href="https://helm.cilium.io" class="bare">helm.cilium.io</a></code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Helm repository from which to download the <code>cilium</code> Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_version"><a class="anchor" href="#_charts_cilium_version"></a><code>charts.cilium.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version to use for the <code>cilium</code> Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_enterprise_source"><a class="anchor" href="#_charts_cilium_enterprise_source"></a><code>charts.cilium-enterprise.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>&lt;CILIUM-ENTERPRISE-CHART-REPO-URL&gt;</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The chart repository URL of the <code>cilium-enterprise</code> Helm chart.
+Users must provide the chart repository URL themselves in their Project Syn global or tenant configuration.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The component default is an invalid string (<code>&lt;CILIUM-ENTERPRISE-CHART-REPO-URL&gt;</code>) instead of <code>~</code> to make the Kapitan error message somewhat useful when the user hasn&#8217;t reconfigured the chart repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  cilium:
+    charts:
+      cilium-enterprise:
+        source: https://cilium-ee-charts.example.org</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_charts_cilium_enterprise_version"><a class="anchor" href="#_charts_cilium_enterprise_version"></a><code>charts.cilium-enterprise.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The version to use for the <code>cilium-enterprise</code> Helm chart.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_source"><a class="anchor" href="#_olm_source"></a><code>olm.source</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">opensource: https://github.com/cilium/cilium-olm/archive/master.tar.gz
+enterprise: &lt;CILIUM-ENTERPRISE-OLM-MANIFESTS-TARGZ-URL&gt;</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The source for the OLM manifests.
+The component selects the <code>opensource</code> or <code>enterprise</code> field based on the value of component parameter <code>release</code>.
+The component doesn&#8217;t provide the URL of the Isovalent Networking for Kubernetes (previously "Cilium Enterprise") OLM manifests <code>.tar.gz</code> archive.
+Users must provide the URL themselves in their Project Syn configuration hierarchy.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The component default is an invalid string (<code>&lt;CILIUM-ENTERPRISE-OLM-MANIFESTS-TARGZ-URL&gt;</code>) instead of <code>~</code> to make the Kapitan error message somewhat useful when the user hasn&#8217;t reconfigured the chart repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  cilium:
+    olm:
+      source:
+        enterprise: https://cilium-ee.example.com/downloads/v${cilium:olm:version}/cilium-ee-${cilium:olm:full_version}.tar.gz <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The example configuration uses Reclass references to construct URL parts containing the desired version.
+The component explicitly provides separate parameters for the OLM minor version and patchlevel.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_version"><a class="anchor" href="#_olm_version"></a><code>olm.version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>1.10</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The minor version of the OLM release to download.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_patchlevel"><a class="anchor" href="#_olm_patchlevel"></a><code>olm.patchlevel</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+example
+</td>
+<td class="hdlist2">
+<p><code>4</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The patch level of the OLM release to download.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_full_version"><a class="anchor" href="#_olm_full_version"></a><code>olm.full_version</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>${cilium:olm:version}.${cilium:olm:patchlevel}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The complete version of the OLM release to download.
+By default, the component constructs the value for this parameter from parameters <code>version</code> and <code>patchlevel</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_resources"><a class="anchor" href="#_olm_resources"></a><code>olm.resources</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The resource requests and limits for the Cilium OLM Deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_log_level"><a class="anchor" href="#_olm_log_level"></a><code>olm.log_level</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>info</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/uber-go/zap">Zap</a> log level for the OLM operator.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This parameter has no effect when <code>olm.upgrade_strategy.generate_subscription=true</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_migrate_to_clife"><a class="anchor" href="#_olm_migrate_to_clife"></a><code>olm.migrate_to_clife</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether the component deploys an ArgoCD <code>PreSync</code> hook job which automates the migration from the old Cilium EE OLM operator (for Cilium &#8656; 1.16) to the new CLife controller manager (for Cilium &gt;= 1.17).</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend disabling this feature once all clusters in a Project Syn fleet are migrated to CLife.</p>
+</div>
+<div class="paragraph">
+<p>Disabling this feature makes ArgoCD syncs faster and less complex.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_olm_generate_subscription"><a class="anchor" href="#_olm_generate_subscription"></a><code>olm.generate_subscription</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When this parameter is set to true, the component deploys the OLM subscription provided by the upstream OLM tarball.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It&#8217;s not recommended to enable this feature before upgrading to Cilium 1.17 and migrating the new CLife OLM controller.</p>
+</div>
+<div class="paragraph">
+<p>The automatic migration procedure from Cilium EE OLM to CLife that&#8217;s provided by the component (see parameter <code>olm.migrate_to_clife</code>) doesn&#8217;t work correctly when <code>generate_subscription=true</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_olm_generate_olm_deployment"><a class="anchor" href="#_olm_generate_olm_deployment"></a><code>olm.generate_olm_deployment</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter has no effect unless <code>olm.generate_subscription=true</code>.
+When this is set to true, the OLM manager deployment is rendered while <code>olm.generate_subscription=true</code>.
+By default, this is set to <code>false</code>, since we don&#8217;t want ArgoCD and OLM fighting over the OLM deployment after cluster bootstrapping.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This must be set to <code>true</code> when this component is used to render the initial Cilium manifests which are copied into the openshift-installer&#8217;s bootstrap manifests directory.
+Otherwise, initial cluster bootstrapping will fail because Cilium won&#8217;t get deployed during bootstrapping.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For VSHN Managed OpenShift, the install instructions and guided setup automatically set this parameter as necessary.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_olm_upgrade_strategy"><a class="anchor" href="#_olm_upgrade_strategy"></a><code>olm.upgrade_strategy</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">install_plan_approval: Manual
+upgrade_job_hook: true
+upgrade_job_selector: {}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter controls how the component configures the Cilium OLM subscription, if <code>olm.generate_subscription=true</code>.
+See the documentation for individual fields below.</p>
+</div>
+<div class="sect2">
+<h3 id="_olm_upgrade_strategy_install_plan_approval"><a class="anchor" href="#_olm_upgrade_strategy_install_plan_approval"></a><code>olm.upgrade_strategy.install_plan_approval</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>string</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>Manual</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+allowed
+</td>
+<td class="hdlist2">
+<p><code>Automatic</code>, <code>Manual</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to customize whether OLM install plans are approved automatically or not.
+By default, the component configures <code>Manual</code> approval to avoid Cilium restarts at arbitrary times when a new patch release is available.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component raises an error if a value other than <code>Automatic</code> or <code>Manual</code> is provided in this parameter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_olm_upgrade_strategy_upgrade_job_hook"><a class="anchor" href="#_olm_upgrade_strategy_upgrade_job_hook"></a><code>olm.upgrade_strategy.upgrade_job_hook</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>true</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When <code>olm.generate_subscription=true</code>, <code>olm.upgrade_strategy.install_plan_approval=Manual</code>, and this parameter is set to true, the component will attempt to deploy an <a href="https://github.com/appuio/openshift-upgrade-controller/">openshift-upgrade-controller</a> <code>UpgradeJobHook</code> which approves the latest pending install plan that was created before the active <code>UpgradeJob</code> was created.
+This effectively implements Cilium patch upgrades as part of scheduled OpenShift maintenance windows.</p>
+</div>
+<div class="paragraph">
+<p>The component will raise an error if this is set to true on a cluster where the OpenShift upgrade controller isn&#8217;t deployed via Project Syn.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_olm_upgrade_strategy_upgrade_job_selector"><a class="anchor" href="#_olm_upgrade_strategy_upgrade_job_selector"></a><code>olm.upgrade_strategy.upgrade_job_selector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to customize for which <code>UpgradeJob</code> resources the <code>UpgradeJobHook</code> is applied.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cilium_helm_values"><a class="anchor" href="#_cilium_helm_values"></a><code>cilium_helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration values of the underlying Cilium helm chart.
+See <a href="https://docs.cilium.io/en/v1.17/helm-reference/">Opensource Cilium documentation</a> for supported values.</p>
+</div>
+<div class="paragraph">
+<p>The component will pre-process certain Helm values to allow users to more gracefully upgrade to newer Cilium versions which remove deprecated Helm values.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On OpenShift 4, the component will deploy an Espejote <code>ManagedResource</code> which controls whether OpenShift deploys kube-proxy based on the value of <code>cilium_helm_values.kubeProxyReplacement</code>.
+If the <code>kubeProxyReplacement</code> Helm value is set to <code>true</code> or <code>strict</code> the component will configure OpenShift to not deploy kube-proxy.
+Otherwise, the component will configure OpenShift to deploy kube-proxy.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will render custom resource API versions based on the value of Helm value <code>image.tag</code> if it&#8217;s present.</p>
+</div>
+<div class="paragraph">
+<p>The component will also use that version to make other version-dependent decisions, such as whether to enable the dedicated Envoy daemonset by default.</p>
+</div>
+<div class="paragraph">
+<p>This feature has been introduced to allow downgrading to Cilium 1.16 on OpenShift without having to migrate back to the deprecated <code>cilium-ee-olm</code> OLM operator.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hubble_enterprise_helm_values"><a class="anchor" href="#_hubble_enterprise_helm_values"></a><code>hubble_enterprise_helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component currently doesn&#8217;t support this parameter for Cilium &gt;= 1.17</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration values for the Hubble Enterprise helm chart.
+See the <a href="https://docs.isovalent.com/operations-guide">Isovalent Networking for Kubernetes documentation</a> for supported values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hubble_ui_helm_values"><a class="anchor" href="#_hubble_ui_helm_values"></a><code>hubble_ui_helm_values</code></h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/projectsyn/component-cilium/blob/master/class/defaults.yml">See <code>class/defaults.yml</code></a></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component currently doesn&#8217;t support this parameter for Cilium &gt;= 1.17</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration values for the Hubble UI helm chart.
+See the <a href="https://docs.isovalent.com/operations-guide">Isovalent Networking for Kubernetes documentation</a> for supported values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_egress_gateway"><a class="anchor" href="#_egress_gateway"></a><code>egress_gateway</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure the <a href="https://docs.cilium.io/en/stable/network/egress-gateway/egress-gateway/">Cilium EgressGatewayPolicy</a> feature.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When deploying Cilium OSS, the component will generate <code>CiliumEgressGatewayPolicy</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>When deploying Isovalent Networking for Kubernetes (Cilium EE), the component will generate <code>IsovalentEgressGatewayPolicy</code> resources.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The current implementation (and therefore examples shown here) has only been tested with Isovalent Networking for Kubernetes.
+Please refer to the <a href="https://docs.cilium.io/en/stable/network/egress-gateway/#example-policy">example policy in the upstream documentation</a> for Cilium OSS.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_enabled"><a class="anchor" href="#_egress_gateway_enabled"></a><code>egress_gateway.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to set all the configurations necessary to enable the egress gateway policy feature through a single parameter.</p>
+</div>
+<div class="paragraph">
+<p>The parameter sets the following Helm values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">egressGateway:
+  enabled: true
+bpf:
+  masquerade: true</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+BPF masquerading can&#8217;t be disabled when the egress gateway feature is enabled.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For Isovalent Networking for Kubernetes, the component uses Helm value <code>egressGateway.enabled</code> for Helm value <code>enterprise.egressGatewayHA.enabled</code> by default.
+It&#8217;s possible to override this by explicitly setting <code>egressGateway.enabled=false</code> and <code>enterprise.egressGatewayHA.enabled=true</code> in the component&#8217;s <code>cilium_helm_values</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_policies"><a class="anchor" href="#_egress_gateway_policies"></a><code>egress_gateway.policies</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy <code>CiliumEgressGatewayPolicy</code> resources.
+When deploying Isovalent Networking for Kubernetes, the parameter will generate <code>IsovalentEgressGatewayPolicy</code> resources instead.</p>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in the parameter is converted to a <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) resource.
+Entries can be removed by setting the value to <code>null</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_3"><a class="anchor" href="#_example_3"></a>Example</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The examples are written for Isovalent Networking for Kubernetes&#8217;s <code>IsovalentEgressGatewayPolicy</code> resources.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">egress_gateway:
+  policies:
+    all-example:
+      metadata:
+        annotations:
+          syn.tools/description: |
+            Route all egress traffic from example-namespace through
+            203.0.113.100.
+      spec:
+        destinationCIDRs:
+          - 0.0.0.0/0
+        egressGroups:
+          - nodeSelector:
+              matchLabels:
+                node-role.kubernetes.io/infra: ""
+            egressIP: 203.0.113.100
+        selectors:
+          - podSelector:
+              matchLabels:
+                io.kubernetes.pod.namespace: example-namespace
+    removed: null</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The component configuration shown above is rendered as follows by the component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: isovalent.com/v1
+kind: IsovalentEgressGatewayPolicy
+metadata:
+  annotations:
+    syn.tools/description: |
+      Route all egress traffic from example-namespace through
+      203.0.113.100.
+  labels:
+    name: all-example-namespace
+  name: all-example-namespace
+spec:
+  destinationCIDRs:
+    - 0.0.0.0/0
+  egressGroups:
+    - egressIP: 203.0.113.100
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: ''
+  selectors:
+    - podSelector:
+        matchLabels:
+          io.kubernetes.pod.namespace: example-namespace</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_generate_shadow_ranges_configmap"><a class="anchor" href="#_egress_gateway_generate_shadow_ranges_configmap"></a><code>egress_gateway.generate_shadow_ranges_configmap</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When this parameter is set to true, the component will deploy a ConfigMap which is suitable for the systemd unit which creates dummy interfaces managed by component openshift4-nodes.
+Additionally, the component will deploy one or more DaemonSets (depending on the contents of <code>egress_gateway.egress_ip_ranges</code>) to ensure the Kubelets on all nodes where egress interfaces need to be created can access the ConfigMap.</p>
+</div>
+<div class="paragraph">
+<p>See also the documentation for <a href="https://hub.syn.tools/openshift4-nodes/references/parameters.html#_egressinterfaces">parameter <code>egressInterfaces</code> in openshift4-nodes</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_shadow_ranges_daemonset_node_selector"><a class="anchor" href="#_egress_gateway_shadow_ranges_daemonset_node_selector"></a><code>egress_gateway.shadow_ranges_daemonset_node_selector</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter can be set when the DaemonSet that mounts the shadow ranges ConfigMap (see parameter <code>generate_shadow_ranges_configmap</code>) should run on a larger set of nodes than the ones indicated by each <code>egress_ip_ranges</code> entry&#8217;s <code>node_selector</code>.</p>
+</div>
+<div class="paragraph">
+<p>The contents of this parameter are used as-is for the DaemonSet&#8217;s <code>spec.template.spec.nodeSelector</code>.</p>
+</div>
+<div class="paragraph">
+<p>An example configuration where this parameter is useful is when only a subset of nodes in an OpenShift machine config pool are designated egress nodes with an associated shadow range.
+In this case, we must ensure that all nodes in the machine config pool can read the shadow ranges ConfigMap, but at the same time we must ensure that policies generated via <code>egress_ip_ranges.&lt;group&gt;.namespace_egress_ips</code> only select the nodes that have a shadow range assigned.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When setting this parameter, it&#8217;s the user&#8217;s responsibility to ensure that the provided DaemonSet node selector selects all nodes that are designated egress nodes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_self_service_namespace_ips"><a class="anchor" href="#_egress_gateway_self_service_namespace_ips"></a><code>egress_gateway.self_service_namespace_ips</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If this parameter is set to true, the component deploys an <a href="https://github.com/vshn/espejote">Espejote</a> managed resource which enables users to configure egress IPs for namespaces by adding annotating namespaces with <code>cilium.syn.tools/egress-ip=&lt;desired egress IP&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The managed resource dynamically creates, updates and deletes <code>IsovalentEgressGatewayPolicy</code> resources based on the presence, contents or absence of the <code>cilium.syn.tools/egress-ip</code> annotation.
+Additionally, the managed resource updates the policy resources if the static configuration (which is inherited from the component&#8217;s <code>egress_ip_ranges</code> parameters`) changes.
+The managed resource uses the same logic to generate <code>IsovalentEgressGatewayPolicy</code> resources which the component uses for parameter <code>egress_gateway.egress_ip_ranges.namespace_egress_ips</code>.
+See <a href="#_policy_generation">Policy generation</a> for details on how the base policy generation works.</p>
+</div>
+<div class="paragraph">
+<p>In contrast to the component, the managed resource does a reverse lookup of the egress range based on the egress IP that&#8217;s requested via the annotation.
+If this reverse lookup returns no range or multiple ranges, the managed resource doesn&#8217;t create a policy but instead only updates annotation <code>cilium.syn.tools/egress-ip-status</code> with an error message indicating the error that was encountered.</p>
+</div>
+<div class="paragraph">
+<p>The managed resource sets an owner reference pointing to the <code>Namespace</code> on the policy so that the policy is deleted when the namespace is deleted.
+Additionally, the managed resource deletes the policy when the user removes the <code>cilium.syn.tool/egress-ip</code> annotation.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you want to switch a cluster which currently has namespace egress IPs managed by the component to the self-service approach, you can follow the <a href="../how-tos/migrate-to-self-service-namespace-egress-ips.html" class="page">how-to</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_egress_gateway_egress_ip_ranges"><a class="anchor" href="#_egress_gateway_egress_ip_ranges"></a><code>egress_gateway.egress_ip_ranges</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) resources which assign a single egress IP to a namespace according to the design selected in <a href="https://kb.vshn.ch/oc4/explanations/decisions/cloudscale-cilium-egressip.html">Floating egress IPs with Cilium on cloudscale</a>.</p>
+</div>
+<div class="paragraph">
+<p>Each entry in the parameter is intended to describe a group of dummy interfaces that can be used in <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) resources.
+The component expects that each value is an object with fields <code>egress_cidr</code>, <code>egress_range</code>, <code>node_selector</code>, <code>namespace_egress_ips</code>, <code>shadow_ranges</code>, <code>destination_cidrs</code>, <code>bgp_policy_labels</code>, <code>policy_labels</code>, and <code>egress_auto_interfaces</code>.
+Fields <code>egress_cidr</code> and <code>egress_range</code> are mutually exclusive.
+The component raises an error for entries which set neither or both.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When specifying egress ranges with <code>egress_cidr</code>, the component also respects fields <code>skip_first</code> and <code>skip_last</code>.
+These fields default to <code>false</code>.
+When field <code>skip_first</code> is set to <code>true</code>, the component omits the given CIDR&#8217;s network address from the egress range.
+When field <code>skip_last</code> is set to <code>true</code>, the component omits the given CIDR&#8217;s broadcast address from the egress range.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Field <code>shadow_ranges</code> is optional, see the section on <a href="#_shadow_ranges">shadow ranges</a> for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Field <code>namespace_egress_ips</code> is optional for use cases where only the shadow ranges mechanism is required.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>destination_cidrs</code> is optional.</p>
+</div>
+<div class="paragraph">
+<p>When the field is provided, and not an empty list or object, the component uses the contents to populate <code>destinationCIDRs</code> for the resulting egress policy.
+To support reusing the same input list for different purposes, the component removes list entries which are prefixed with <code>~</code> before configuring the policy.</p>
+</div>
+<div class="paragraph">
+<p>When this field is omitted or empty, the component generates egress policies with <code>destinationCIDRs: ['0.0.0.0/0']</code>.
+Such policies assign the egress IP to all traffic originating in the namespace.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Support for configuring BGP egress IPs through <code>egress_ip_ranges</code> is currently experimental.</p>
+</div>
+<div class="paragraph">
+<p>Policies which configure BGP egress IPs have an additional annotation <code>cilium.syn.tools/experimental-policy=true</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>bgp_policy_labels</code> is optional.
+The component&#8217;s support for configuring BGP egress IPs through <code>egress_ip_ranges</code> is currently experimental.
+Announcing egress IPs via BGP is only supported in Isovalent Networking for Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>When the field is provided, and not an empty object, the component adds the contents as entries in <code>metadata.labels</code> of the resulting policies.
+In this case, the component configures the egress policies with <a href="https://docs.isovalent.com/v1.17/configuration-guide/networking/egress-gateway/introduction.html#requirements-for-egress-ip-and-ipam-feature">Cilium&#8217;s Egress Gateawy IPAM</a> and <code>maxGatewayNodes: 1</code> in the <code>spec.egressGroups</code> entry.</p>
+</div>
+<div class="paragraph">
+<p>Please note that policies which use EGW IPAM will ignore static routes on the active gateway node (as of Cilium 1.16.16 and Cilium 1.17.9).</p>
+</div>
+<div class="paragraph">
+<p>If the field is omitted or empty, the component configures the egress group with the interface name and doesn&#8217;t set <code>maxGatewayNodes</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>policy_labels</code> is optional.</p>
+</div>
+<div class="paragraph">
+<p>The component adds all labels in <code>policy_labels</code> as labels on the generated egress policies.
+If you specify labels in this parameter and in <code>bgp_policy_labels</code> and you specify the same label key in both fields, the label value provided in <code>bgp_policy_labels</code> will win.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Field <code>egress_auto_interfaces</code> is optional.</p>
+</div>
+<div class="paragraph">
+<p>Setting the field to <code>true</code> raises an error for egress IP ranges which don&#8217;t have any shadow ranges configured or if the <code>openshift-nmstate</code> component isn&#8217;t present on the target cluster.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, the component will generate a <code>NodeNetworkConfigurationPolicy</code> to create an egress interface with the correct shadow IP on each node for which a shadow range is configured.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h4>
+<div class="paragraph">
+<p>The component expects that the key for each entry matches the prefix of the dummy interface names that are assigned the shadow IPs which map to the egress IP range defined in <code>egress_range</code>.
+To expand, the component expects that each node matching the selector in <code>node_selector</code> has a dummy interfaces which is named <code>&lt;prefix&gt;_&lt;i&gt;</code> for \$i \in [0, n)\$ where \$n\$ is the number of IPs contained in the specified egress range.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the component expects that the network environment of the cluster ensures that all traffic which originates from the IPs assigned to the dummy interfaces on each node is mapped to the IPs in the range given in <code>egress_range</code>.
+The details of the mapping are left to the operator of the cluster&#8217;s network environment, but the component expects that traffic that originates from the IPs assigned to the same dummy interface on different nodes is mapped to a single egress IP.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend that cluster operators allocate a shadow egress IP range of the same size as the egress IP range specified in field <code>egress_range</code> for each node that matches the node selector defined in <code>node_selector</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, a cluster operator could select shadow IP CIDRs <code>192.0.2.32/27</code>, <code>192.0.2.64/27</code> and <code>192.0.2.96/27</code> for an egress IP CIDR of <code>192.0.2.0/27</code> if 3 nodes in the cluster match the node selector.</p>
+</div>
+<div class="paragraph">
+<p>In this case, the operator would need to ensure that traffic originating from each shadow IP CIDR is mapped to the egress CIDR. One option to realize this mapping are iptables <code>NETMAP</code> rules on the cluster&#8217;s default gateway:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">iptables -t nat -A POSTROUTING -j NETMAP -s 192.0.2.32/27 --to 192.0.2.0/27 -p all
+iptables -t nat -A POSTROUTING -j NETMAP -s 192.0.2.64/27 --to 192.0.2.0/27 -p all
+iptables -t nat -A POSTROUTING -j NETMAP -s 192.0.2.96/27 --to 192.0.2.0/27 -p all</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This approach assumes that the default gateway has suitable routes to ensure that traffic to <code>192.0.2.0/25</code> is routed to the nodes matching the node selector.
+The easiest option to do so is to define a link-local route for <code>192.0.2.0/25</code> on the network interface of the default gateway which is attached to the L2 network of the cluster nodes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_policy_generation"><a class="anchor" href="#_policy_generation"></a>Policy generation</h4>
+<div class="paragraph">
+<p>The component will generate one <code>CiliumEgressGatewayPolicy</code> (or <code>IsovalentEgressGatewayPolicy</code>) for each key-value pair in field <code>namespace_egress_ips</code> for each egress range.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The compilation will abort with an error if the same namespace appears in multiple egress range definitions.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component doesn&#8217;t enforce that different egress ranges are non-overlapping.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component expects that keys in field <code>namespace_egress_ips</code> are namespace names.
+Additionally, the component expects that values in that field are IPs in the defined egress IP range.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The component allows users to assign the same egress IP to multiple namespaces.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The component expects that the value of <code>egress_range</code> has format <code>192.0.2.32-192.0.2.63</code>.
+If the range isn&#8217;t given in the expected format or if the component detects that the given range is empty (for example if the first IP is larger than the last IP) compilation is aborted with an error.
+Additionally, the component also aborts compilation with an error if an egress IP that&#8217;s assigned to a namespace is outside the specified egress range.</p>
+</div>
+<div class="paragraph">
+<p>Finally, entries in <code>egress_ip_ranges</code> and <code>namespace_egress_ips</code> can be removed by setting the value to <code>null</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Currently, the policies generated by the component have ArgoCD sync option <code>Prune=false</code> to simplify migrating to the self-service model.</p>
+</div>
+<div class="paragraph">
+<p>In the future, the component policy generation may utilize the self-service implementation to generate the policies.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_shadow_ranges"><a class="anchor" href="#_shadow_ranges"></a>Shadow ranges</h4>
+<div class="paragraph">
+<p>The component optionally deploys a ConfigMap which contains a map from node names to egress shadow IP ranges.
+This ConfigMap is only deployed when parameter <code>egress_gateway.generate_shadow_ranges_configmap</code> is set to <code>true</code>.
+If the shadow ranges ConfigMap is enabled, the component will check that each shadow range is the same size as the egress IP range it&#8217;s associated with.
+If there are any mismatches compilation aborts with an error.</p>
+</div>
+<div class="paragraph">
+<p>If that parameter is set to true, the component will extract the node names and associated shadow IP ranges from field <code>shadow_ranges</code> in each entry of <code>egress_ip_ranges</code>.
+Ranges which don&#8217;t define this field (or where it&#8217;s set to <code>null</code>) are skipped.</p>
+</div>
+<div class="paragraph">
+<p>This ConfigMap is intended to be consumed by a component running on the node (such as the systemd unit deployed by openshift4-nodes, see the documentation for <a href="https://hub.syn.tools/openshift4-nodes/references/parameters.html#_egressinterfaces">parameter <code>egressInterfaces</code> in openshift4-nodes</a>.</p>
+</div>
+<div class="paragraph">
+<p>To ensure the Kubelet Kubeconfig on the nodes can be used to access this ConfigMap, the component also deploys a DaemonSet which mounts the ConfigMap for each unique node selector in all egress IP ranges.
+The DaemonSet pods establish a link between the node and the ConfigMap which is required in order for the Kubernetes Node authorization mode to allow the Kubelet to access the ConfigMap.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_4"><a class="anchor" href="#_example_4"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">egress_ip_ranges:
+  egress_a:
+    egress_range: '192.0.2.32 - 192.0.2.63'
+    node_selector:
+      node-role.kubernetes.io/infra: ''
+    namespace_egress_ips:
+      foo: 192.0.2.32
+      bar: 192.0.2.61
+    shadow_ranges:
+      infra-foo: 198.51.100.32 - 198.51.100.63
+      infra-bar: 198.51.100.64 - 198.51.100.95</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The configuration shown above results in the two <code>IsovalentEgressGatewayPolicy</code> resources shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: isovalent.com/v1
+kind: IsovalentEgressGatewayPolicy
+metadata:
+  annotations: <i class="conum" data-value="1"></i><b>(1)</b>
+    cilium.syn.tools/description: Generated policy to assign egress IP 192.0.2.61
+      in egress range "egress_a" (192.0.2.32 - 192.0.2.63) to namespace bar.
+    cilium.syn.tools/egress-ip: 192.0.2.61
+    cilium.syn.tools/egress-range: 192.0.2.32 - 192.0.2.63
+    cilium.syn.tools/interface-prefix: egress_a
+    cilium.syn.tools/source-namespace: bar
+  labels:
+    name: bar
+  name: bar <i class="conum" data-value="2"></i><b>(2)</b>
+spec:
+  destinationCIDRs:
+    - 0.0.0.0/0 <i class="conum" data-value="3"></i><b>(3)</b>
+  egressGroups:
+    - interface: egress_a_29 <i class="conum" data-value="4"></i><b>(4)</b>
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: '' <i class="conum" data-value="5"></i><b>(5)</b>
+  selectors:
+    - podSelector:
+        matchLabels:
+          io.kubernetes.pod.namespace: bar <i class="conum" data-value="6"></i><b>(6)</b>
+---
+apiVersion: isovalent.com/v1
+kind: IsovalentEgressGatewayPolicy
+metadata:
+  annotations: <i class="conum" data-value="1"></i><b>(1)</b>
+    cilium.syn.tools/description: Generated policy to assign egress IP 192.0.2.32
+      in egress range "egress_a" (192.0.2.32 - 192.0.2.63) to namespace foo.
+    cilium.syn.tools/egress-ip: 192.0.2.32
+    cilium.syn.tools/egress-range: 192.0.2.32 - 192.0.2.63
+    cilium.syn.tools/interface-prefix: egress_a
+    cilium.syn.tools/source-namespace: foo
+  labels:
+    name: foo
+  name: foo <i class="conum" data-value="2"></i><b>(2)</b>
+spec:
+  destinationCIDRs:
+    - 0.0.0.0/0 <i class="conum" data-value="3"></i><b>(3)</b>
+  egressGroups:
+    - interface: egress_a_0 <i class="conum" data-value="4"></i><b>(4)</b>
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: '' <i class="conum" data-value="5"></i><b>(5)</b>
+  selectors:
+    - podSelector:
+        matchLabels:
+          io.kubernetes.pod.namespace: foo <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The component adds a number of annotations that contain the input data that was used to generate the policy.
+Additionally, the component adds an annotation that gives a human-readable description of the policy.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The namespace name is used as the name for the <code>IsovalentEgressGatewayPolicy</code> resource.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The policy always masquerades all traffic from the namespace with the defined egress IP.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The policy uses the key in <code>egress_ip_ranges</code> and the offset of the selected egress IP into the range to generate the name of the dummy interface that&#8217;s expected to be assigned the shadow IPs that map to the egress IP.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The policy uses the node selector that&#8217;s defined in the parameter.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>The policy always matches all traffic originating in the specified namespace.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additionally, if parameter <code>egress_gateway.generate_shadow_ranges_configmap</code> is set to <code>true</code>, the <code>ConfigMap</code> and <code>DaemonSet</code> shown below are created.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eip-shadow-ranges
+data: <i class="conum" data-value="1"></i><b>(1)</b>
+  infra-foo: '{"egress_a":{"base":"198.51.100","from":"32","to":"63"}}'
+  infra-bar: '{"egress_a":{"base":"198.51.100","from":"64","to":"95"}}'
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    cilium.syn.tools/description: Daemonset which ensures that the Kubelet on the
+      nodes where the pods are scheduled can access configmap eip-shadow-ranges in
+      namespace cilium.
+  name: eip-shadow-ranges-e70e8
+spec:
+  selector:
+    matchLabels:
+      name: eip-shadow-ranges-e70e8
+  template:
+    metadata:
+      labels:
+        name: eip-shadow-ranges-e70e8
+    spec:
+      containers:
+        - command:
+            - /bin/sh
+            - -c
+            - 'trap : TERM INT; sleep infinity &amp; wait'
+          image: docker.io/bitnami/kubectl:1.29.4@sha256:f3cee231ead7d61434b7f418b6d10e1b43ff0d33dca43b341bcf3088fcaaa769
+          imagePullPolicy: IfNotPresent
+          name: sleep
+          volumeMounts: <i class="conum" data-value="2"></i><b>(2)</b>
+            - mountPath: /data/eip-shadow-ranges
+              name: shadow-ranges
+      nodeSelector:
+        node-role.kubernetes.io/infra: '' <i class="conum" data-value="3"></i><b>(3)</b>
+      volumes: <i class="conum" data-value="2"></i><b>(2)</b>
+        - configMap:
+            name: eip-shadow-ranges
+          name: shadow-ranges</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The contents of the ConfigMap are generated in the format that the systemd unit managed by component <code>openshift4-nodes</code> expects.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The DaemonSet mounts the <code>eip-shadow-ranges</code> ConfigMap as a volume.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The DaemonSet is scheduled using the same node selector that&#8217;s used for the <code>IsovalentEgressGatewayPolicy</code> resources</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_l2_announcements"><a class="anchor" href="#_l2_announcements"></a><code>l2_announcements</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure the <a href="https://docs.cilium.io/en/stable/network/l2-announcements/#l2-announcements">Cilium L2 Announcements / L2 Aware LB</a> feature.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The current implementation (and therefore examples shown here) has only been tested with Isovalent Networking for Kubernetes.
+Please refer to the <a href="https://docs.cilium.io/en/stable/network/egress-gateway/#example-policy">example policy in the upstream documentation</a> for Cilium OSS.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_l2_announcements_enabled"><a class="anchor" href="#_l2_announcements_enabled"></a><code>l2_announcements.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>boolean</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to set all the configurations necessary to enable the l2 announcement policy feature.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is important to adjust the client rate limit when using this feature, due to increased API usage.
+See <a href="https://docs.cilium.io/en/latest/network/l2-announcements/#sizing-client-rate-limit">Sizing client rate limit</a> for sizing guidelines.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kube Proxy replacement mode must be enabled.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_5"><a class="anchor" href="#_example_5"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">l2_announcements:
+  enabled: true
+cilium_helm_values:
+  kubeProxyReplacement: true
+  k8sServiceHost: api-int.${openshift:baseDomain}
+  k8sServicePort: "6443"
+  k8sClientRateLimit:
+    qps: 35 <i class="conum" data-value="1"></i><b>(1)</b>
+    burst: 45 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Setting the base QPS rate.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The burst QPS should be slightly higher.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_l2_announcements_policies"><a class="anchor" href="#_l2_announcements_policies"></a><code>l2_announcements.policies</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to deploy <code>CiliumL2AnnouncementPolicy</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>Each key-value pair in the parameter is converted to a <code>CiliumL2AnnouncementPolicy</code> resource.
+Entries can be removed by setting the value to <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://docs.cilium.io/en/latest/network/l2-announcements/#policies">the upstream documentation</a> for further explanation.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_6"><a class="anchor" href="#_example_6"></a>Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">l2_announcements:
+  policies:
+    color_blue:
+      spec:
+        serviceSelector:
+          matchLabels:
+            color: blue
+        nodeSelector:
+          matchExpressions:
+            - key: node-role.kubernetes.io/control-plane
+              operator: DoesNotExist
+        interfaces:
+        - ^ens[0-9]+
+        externalIPs: true
+        loadBalancerIPs: true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_l2_announcements_loadbalancer_ip_pools"><a class="anchor" href="#_l2_announcements_loadbalancer_ip_pools"></a><code>l2_announcements.loadbalancer_ip_pools</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See <a href="#_bgp_loadbalancer_ip_pools">BGP LB IP Pool configuration</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bgp"><a class="anchor" href="#_bgp"></a><code>bgp</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure the <a href="https://docs.cilium.io/en/stable/network/bgp-control-plane/">Cilium BGP control plane</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_bgp_enabled"><a class="anchor" href="#_bgp_enabled"></a><code>bgp.enabled</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable the BGP control plane feature in Cilium.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.17/network/bgp-control-plane/bgp-control-plane-v2/">upstream BGP control plane documentation</a> for details on the architecture and the individual custom resources mentioned in this section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_enterprise"><a class="anchor" href="#_bgp_enterprise"></a><code>bgp.enterprise</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>bool</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>false</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Whether to enable the enterprise BGP control plane feature in Cilium.
+This parameter has no effect if the component is used to deploy non-enterprise Cilium.</p>
+</div>
+<div class="paragraph">
+<p>When this parameter is set to <code>true</code>, the component will copy the contents of Helm value <code>bgpControlPlane</code> to Helm value <code>enterprise.bgpControlPlane</code>.
+Additionally, the component will override Helm value <code>bgpControlPlane.enabled</code> to <code>false</code>, since Cilium doesn&#8217;t support having both control planes enabled simultaneously.
+This mechanism allows users to switch between the non-enterprise and enterprise BGP control plane without having to manually move Helm values.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.isovalent.com/configuration-guide/networking/bgp/index.html">Enterprise documentation</a> for details on the enterprise BGP control plane.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The component will automatically deploy <code>IsovalentBGP*</code> resources instead of <code>CiliumBGP*</code> resources for the following parameters when the enterprise control plane is enabled.</p>
+</div>
+<div class="paragraph">
+<p>The <code>IsovalentBGP*</code> resources are structurally equivalent to the <code>CiliumBGP*</code> resources, but support the additional enterprise features, such as egress IP announcements.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_cluster_configs"><a class="anchor" href="#_bgp_cluster_configs"></a><code>bgp.cluster_configs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPClusterConfig</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CiliumBGPClusterConfig</code> resource defines the global BGP configuration and holds the list of peers.
+The resources references one or more <code>CiliumBGPPeerConfig</code> resources (see parameter <code>bgp.peer_configs</code>) which define the details of each peering connection.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPClusterConfig</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.</p>
+</div>
+<div class="paragraph">
+<p>The component supports fields <code>bgpInstances</code>, <code>nodeSelector</code>, <code>metadata</code> and <code>spec</code> in the parameter values.
+Fields <code>metadata</code> and <code>spec</code> are added to the resulting <code>CiliumBGPClusterConfig</code> as is.
+Field <code>nodeSelector</code> is used as the value for <code>spec.nodeSelector</code>.
+Field <code>bgpInstances</code> is expected to be an object and is transformed into entries for <code>spec.bgpInstances</code> of the custom resource.
+The keys of the <code>bgpInstances</code> field are used for field <code>name</code> of the entries for <code>spec.bgpInstances</code>.
+The field <code>peers</code> of each value of the <code>bgpInstances</code> field is expected to be an object and is transformed into a list.
+Again, the keys of field <code>peers</code> are used as values for <code>field</code> name for the resulting <code>peers</code> entries.
+Field <code>spec</code> is merged over the partial object generated from fields <code>nodeSelector</code> and <code>bgpInstances</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component validates that <code>CiliumBGPClusterConfig</code> resources only reference <code>CiliumBGPPeerConfig</code> resources which are defined in parameter <code>bgp.peer_configs</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.17/network/bgp-control-plane/bgp-control-plane-v2/#bgp-cluster-configuration">upstream documentation</a> for all available configuration options.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_7"><a class="anchor" href="#_example_7"></a>Example</h4>
+<div class="paragraph">
+<p>The following component parameters snippet is transformed into the <code>CiliumBGPClusterConfig</code> shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">component parameters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bgp:
+  cluster_configs:
+    lb-services:
+      nodeSelector:
+        matchLabels:
+          node-role.kubernetes.io/infra: ''
+      bgpInstances:
+        lbs:
+          localASN: 64512
+          peers:
+            peer1:
+              peerAddress: 192.0.2.2
+              peerASN: 64512
+              peerConfigRef:
+                name: lb-services
+            peer2:
+              peerAddress: 192.0.2.3
+              peerASN: 64512
+              peerConfigRef:
+                name: lb-services</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">CiliumBGPClusterConfig</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPClusterConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    name: lb-services
+  name: lb-services
+spec:
+  bgpInstances:
+    - localASN: 64512
+      name: lbs
+      peers:
+        - name: peer1
+          peerASN: 64512
+          peerAddress: 192.0.2.2
+          peerConfigRef:
+            name: lb-services
+        - name: peer2
+          peerASN: 64512
+          peerAddress: 192.0.2.3
+          peerConfigRef:
+            name: lb-services
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/infra: ''</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_peer_configs"><a class="anchor" href="#_bgp_peer_configs"></a><code>bgp.peer_configs</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPPeerConfig</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CiliumBGPPeerConfig</code> resource defines a set of BGP peering connection details.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPPeerConfig</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.
+The component supports fields <code>families</code>, <code>metadata</code> and <code>spec</code> for each entry.
+Fields <code>metadata</code> and <code>spec</code> are added to the resulting <code>CiliumBGPPeerConfig</code> as is.
+Field <code>families</code> is expected to be an object and its values are used as is for field <code>spec.families</code>.
+Field <code>spec</code> is merged over the partial object created from field <code>families</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component validates that <code>CiliumBGPPeerConfig</code> resources only reference BGP auth secret <code>Secret</code> resources which are defined in parameter <code>bgp.auth_secrets</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.17/network/bgp-control-plane/bgp-control-plane-v2/#bgp-peer-configuration">upstream documentation</a> for details.</p>
+</div>
+<div class="sect3">
+<h4 id="_example_8"><a class="anchor" href="#_example_8"></a>Example</h4>
+<div class="listingblock">
+<div class="title">component parameters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bgp:
+  peer_configs:
+    lb-services:
+      spec:
+        gracefulRestart:
+          enabled: true
+          restartTimeSeconds: 30
+      families:
+        unicast-v4:
+          afi: ipv4
+          safi: unicast
+          advertisements:
+            matchLabels:
+              cilium.syn.tools/advertise: bgp</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">CiliumBGPPeerConfig</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeerConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    name: lb-services
+  name: lb-services
+spec:
+  families:
+    - advertisements:
+        matchLabels:
+          cilium.syn.tools/advertise: bgp
+      afi: ipv4
+      safi: unicast
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 30</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_auth_secrets"><a class="anchor" href="#_bgp_auth_secrets"></a><code>bgp.auth_secrets</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>Secret</code> resources to use as BGP auth secrets.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>Secret</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.
+The component expects that each value in this parameter is a valid partial <code>Secret</code> resource.
+The component validates that each secret has field <code>password</code>, which is required by the BGP control plane for auth secrets.</p>
+</div>
+<div class="paragraph">
+<p>By default, the component configures Cilium to look for BGP auth secrets in namespace <code>cilium</code>.
+The namespace can be changed by setting Helm value <code>bgpControlPlane.secretsNamespace.name</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component sets <code>metadata.namespace</code> to the configured <code>bgpControlPlane.secretsNamspace.name</code> for secrets defined through this parameter.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.17/network/bgp-control-plane/bgp-control-plane-v2/#md5-password">upstream documentation</a> for details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_node_config_overrides"><a class="anchor" href="#_bgp_node_config_overrides"></a><code>bgp.node_config_overrides</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPNodeConfigOverride</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CiliumBGPNodeConfigOverride</code> resource can be used to inject per-node customizations into the generated <code>CiliumBGPNodeConfig</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPNodeConfigOverride</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.
+The component expects that each value in this parameter is a valid partial <code>CiliumBGPNodeConfigOverride</code> resource and doesn&#8217;t apply any processing.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.17/network/bgp-control-plane/bgp-control-plane-v2/#bgp-configuration-override">upstream documentation</a> for details.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The resource name must match the Kubernetes node name of the node for which the configuration is intended.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_advertisements"><a class="anchor" href="#_bgp_advertisements"></a><code>bgp.advertisements</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumBGPAdvertisement</code> resources.</p>
+</div>
+<div class="paragraph">
+<p>The component creates one <code>CiliumBGPAdvertisement</code> for each entry in this parameter.
+The key is used as <code>metadata.name</code> of the resulting object.</p>
+</div>
+<div class="paragraph">
+<p>The component supports fields <code>metadata</code> and <code>advertisements</code> for each entry of this parameter.
+Field <code>metadata</code> is added to the resulting resource as is.
+Field <code>advertisements</code> is expected to be an object, and the values of the object are used for field <code>spec.advertisements</code> in the resulting resource without further processing.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/v1.17/network/bgp-control-plane/bgp-control-plane-v2/#bgp-advertisements">upstream documentation</a> for details.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The resource name must match the Kubernetes node name of the node for which the configuration is intended.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_9"><a class="anchor" href="#_example_9"></a>Example</h4>
+<div class="listingblock">
+<div class="title">component parameters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bgp:
+  advertisements:
+    lb-services:
+      metadata:
+        labels:
+          cilium.syn.tools/advertise: bgp
+      advertisements:
+        lb-ips:
+          advertisementType: Service
+          service:
+            addresses:
+              - LoadBalancerIP
+          selector:
+            matchLabels:
+              syn.tools/load-balancer-class: cilium</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">CiliumBGPAdvertisement</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    cilium.syn.tools/advertise: bgp
+    name: lb-services
+  name: lb-services
+spec:
+  advertisements:
+    - advertisementType: Service
+      selector:
+        matchLabels:
+          syn.tools/load-balancer-class: cilium
+      service:
+        addresses:
+          - LoadBalancerIP</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bgp_loadbalancer_ip_pools"><a class="anchor" href="#_bgp_loadbalancer_ip_pools"></a><code>bgp.loadbalancer_ip_pools</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>object</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure <code>CiliumLoadBalancerIPPool</code> resources.
+This resource is used to configure IP pools which Cilium can use to allocate IPs for services with <code>type=LoadBalancer</code>.</p>
+</div>
+<div class="paragraph">
+<p>The component expects the contents of this parameter to be key value pairs where the value is another object with field <code>blocks</code>, and optional fields <code>serviceSelector</code> and <code>spec</code>.
+The component generates a <code>CiliumLoadBalancerIPPool</code> for each entry in the parameter.
+The key of the entry is used as the name of the resulting resource.
+The values of fields <code>blocks</code> and <code>serviceSelector</code> are processed and used as the base values for fields <code>spec.blocks</code> (or <code>spec.cidrs</code> in Cilium &#8656; 1.14) and <code>spec.serviceSelector</code>.
+The value of field <code>spec</code> is merged into <code>spec</code> of the resource.</p>
+</div>
+<div class="paragraph">
+<p>The component expects field <code>blocks</code> to be an object whose values are suitable entries for <code>spec.blocks</code> (or <code>spec.cidrs</code>) of the resulting resource.
+The keys of the object are not used by the component and are only present to allow users to make IP pool configurations more reusable.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://docs.cilium.io/en/stable/network/lb-ipam/">upstream documentation</a> for the full set of supported fields.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure to check the upstream documentation for the version of Cilium that you&#8217;re running.
+The LoadBalancer IP address management (LB IPAM) feature is under active development and sometimes has significant changes between Cilium minor versions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alerts"><a class="anchor" href="#_alerts"></a><code>alerts</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure alerts for Cilium.
+The component expects that an externally-managed Prometheus stack is running on the target cluster.
+For OpenShift 4, the component makes use of the component libraries provided by <a href="https://github.com/appuio/component-openshift4-monitoring.git">component <code>openshift4-monitoring</code></a>.
+On other distributions, the component expects that a component library <code>prom.libsonnet</code> is available, for example via <a href="https://github.com/projectsyn/component-prometheus.git">component <code>prometheus</code></a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_alerts_ignorenames"><a class="anchor" href="#_alerts_ignorenames"></a><code>alerts.ignoreNames</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>list</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>[]</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Alerts which shouldn&#8217;t be deployed.
+The list supports removal of entries by prefixing them with <code>~</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_patches"><a class="anchor" href="#_alerts_patches"></a><code>alerts.patches</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Patches for alerts managed by the component.
+The component expects that keys in this object match the name of an alert managed through the component.
+The value of each entry is expected to be a valid partial Prometheus rule definition.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts_additionalrules"><a class="anchor" href="#_alerts_additionalrules"></a><code>alerts.additionalRules</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This parameter allows users to configure additional Prometheus recording and alerting rules.
+The component expects that keys of this object are prefixed with either <code>alert:</code> or <code>record:</code> and will use these prefixes to create alerting or recording rules.
+The component will take the suffix of the key as the alerting or recording rule name and will set field <code>alert</code> or <code>record</code> of the rule to the suffix.
+The value of each entry will be used as the base Prometheus rule in which the <code>alert</code> or <code>record</code> field will be injected.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Parameters <code>alerts.ignoreNames</code> and <code>alerts.patches</code> are also applied to alerts defined through this parameter.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hubble_access"><a class="anchor" href="#_hubble_access"></a><code>hubble_access</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section allows users to configure Hubble access.
+Currently the only Hubble access mode that can be configured through this section is port-forward RBAC.</p>
+</div>
+<div class="sect2">
+<h3 id="_hubble_access_port_forward_users"><a class="anchor" href="#_hubble_access_port_forward_users"></a><code>hubble_access.port_forward_users</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is transformed into an entry in <code>subjects</code> of the Hubble port-forward <code>RoleBinding</code>.
+The component uses each key in this parameter as an user name for the resulting entry in <code>subjects</code>.
+Entries are expected to have value <code>{}</code> or <code>null</code>.
+Entries with value <code>null</code> are skipped.
+Other entry values are treated as errors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hubble_access_port_forward_groups"><a class="anchor" href="#_hubble_access_port_forward_groups"></a><code>hubble_access.port_forward_groups</code></h3>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+type
+</td>
+<td class="hdlist2">
+<p>dict</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+default
+</td>
+<td class="hdlist2">
+<p><code>{}</code></p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each entry of this parameter is transformed into an entry in <code>subjects</code> of the Hubble port-forward <code>RoleBinding</code>.
+The component uses each key in this parameter as a group name for the resulting entry in <code>subjects</code>.
+Entries are expected to have value <code>{}</code> or <code>null</code>.
+Entries with value <code>null</code> are skipped.
+Other entry values are treated as errors.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_10"><a class="anchor" href="#_example_10"></a>Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">release_name: cilium
+
+install_method: helm
+release: opensource
+
+cilium_helm_values:
+  prometheus:
+    serviceMonitor:
+      enabled: false</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Home</a></span>
+  <span class="next"><a href="../how-tos/upgrade-cilium-enterprise.html">Upgrade Cilium Enterprise</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © VSHN 2021 – All Rights Reserved. <a href="https://vshn.ch/en/privacy-policy/">Privacy Policy</a>, <a href="https://vshn.ch/en/imprint/">Imprint</a>, and <a href="https://vshn.ch/en/contact/">Contact</a>.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js" id="search-script" data-base-path="../.." data-page-path="/cilium/references/parameters.html"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+  </body>
+</html>

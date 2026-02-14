@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://hub.syn.tools/appuio-cloud-reporting/index.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appuio-cloud-reporting/references/parameters.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudInvoiceGenerationFailed.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudReportingDatabaseBackfillingFailed.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudReportingDatabaseTenantMappingFailed.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/appuio-cloud-reporting/runbooks/APPUiOCloudReportingMissingData.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+</urlset>

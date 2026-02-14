@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://hub.syn.tools/cert-manager/explanations/acme-dns-self-registration.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/how-tos/dns01.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/how-tos/http01-ocp.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/how-tos/upgrade-v1-v2.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/how-tos/upgrade-v2-v3.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/how-tos/upgrade-v3-v4.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/index.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+<url>
+<loc>https://hub.syn.tools/cert-manager/references/parameters.html</loc>
+<lastmod>2026-02-14T19:28:36.898Z</lastmod>
+</url>
+</urlset>
