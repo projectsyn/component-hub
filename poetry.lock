@@ -638,13 +638,13 @@ profile = ["gprof2dot (>=2022.7.29)"]
 
 [[package]]
 name = "flake8"
-version = "7.4.0"
+version = "7.4.1"
 description = "the modular source code checker: pep8 pyflakes and co"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "flake8-7.4.0-py2.py3-none-any.whl", hash = "sha256:7c8d371b6d1a2d0c1f9cdf9f865c91f16f880e6cf7b1da0fcfaba31006532f38"},
-    {file = "flake8-7.4.0.tar.gz", hash = "sha256:d3e0beb3d152209b4dc50fa5e3132844bf4ee4ff994cec87d6913d06b8eb5afc"},
+    {file = "flake8-7.4.1-py2.py3-none-any.whl", hash = "sha256:78480274a6d7289d9cb8eafeda241fac57d4ea687d26e32dfdca37b72cdeddad"},
+    {file = "flake8-7.4.1.tar.gz", hash = "sha256:84ea5afcaf344487b0ea5baaebb8100f4cfaebc01f755998f75876664029f587"},
 ]
 
 [package.dependencies]
@@ -1905,4 +1905,4 @@ zstd = ["backports-zstd (>=1.0.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11, <3.14"
-content-hash = "65aa2defc06cf97294e4fd6fe28f7f096d89490c2958853fd3eb251bb24a0591"
+content-hash = "b6a39655d6b0ffdc411a51ec8740b5b85c6e90b082721c554a7dddf9f92c53da"
