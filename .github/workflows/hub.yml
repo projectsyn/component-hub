@@ -92,9 +92,7 @@ jobs:
           # renovate: datasource=npm depName=pagefind
           PAGEFIND_VERSION: 1.5.2
         run: |
-          docker run --rm --volume "${PWD}/${PROJECT_SLUG}":/antora --workdir /antora \
-            ghcr.io/vshn/antora:3.1.2.2 \
-            npx --yes "pagefind@${PAGEFIND_VERSION}" --site _public
+          npx --yes "pagefind@${PAGEFIND_VERSION}" --site "${PROJECT_SLUG}/_public"
           test -f "${PROJECT_SLUG}/_public/pagefind/pagefind.js"
 
       - name: Upload built Antora Site
