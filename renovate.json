@@ -19,6 +19,37 @@
     {
         "matchPackageNames": ["containerbase/python-prebuild", "actions/python-versions"],
         "enabled": false
+    },
+    {
+      "description": "Patch releases of the UI bundle merge once the hub build passes. Minor and major releases change how every page looks, and a green build says nothing about appearance, so a person reviews them.",
+      "matchDepNames": ["vshn/antora-ui"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "matchDepNames": ["vshn/antora-ui"],
+      "matchUpdateTypes": ["minor", "major"],
+      "automerge": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Track the Antora UI bundle in the playbook template that renders hub.syn.tools. No built-in manager reads a URL inside a YAML value (vshn/antora-ui#204).",
+      "fileMatch": ["^component_hub/templates/playbook\\.yml$"],
+      "matchStrings": [
+        "https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)/ui-bundle(-[a-z0-9]+)?\\.zip"
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "description": "Track versions annotated with a renovate: comment in workflows, such as the Pagefind version in hub.yml.",
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+[A-Z_]+_VERSION: (?<currentValue>\\S+)"
+      ]
     }
   ]
 }

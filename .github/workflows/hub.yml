@@ -80,9 +80,20 @@ jobs:
 
       - name: Build Antora Site
         env:
-          antora_cmd: '$(docker_cmd) run $(docker_opts) --volume "$${PWD}":/antora --env DOCSEARCH_ENABLED=true --env DOCSEARCH_ENGINE=lunr ghcr.io/vshn/antora:3.1.2.2'
-          antora_opts: "--cache-dir=.cache/antora --generator antora-site-generator-lunr"
+          antora_cmd: '$(docker_cmd) run $(docker_opts) --volume "$${PWD}":/antora ghcr.io/vshn/antora:3.1.2.2'
+          antora_opts: "--cache-dir=.cache/antora"
         run: cd $PROJECT_SLUG; make html
+
+      # Search runs in the reader's browser from a Pagefind index next to the
+      # pages, which a static host like GitHub Pages can serve. The UI bundle
+      # marks what gets indexed (vshn/antora-ui#177).
+      - name: Build search index
+        env:
+          # renovate: datasource=npm depName=pagefind
+          PAGEFIND_VERSION: 1.5.2
+        run: |
+          npx --yes "pagefind@${PAGEFIND_VERSION}" --site "${PROJECT_SLUG}/_public"
+          test -f "${PROJECT_SLUG}/_public/pagefind/pagefind.js"
 
       - name: Upload built Antora Site
         uses: actions/upload-artifact@v6
